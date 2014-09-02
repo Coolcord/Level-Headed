@@ -34,6 +34,7 @@ QString Binary_Manipulator::Hex_Digit_To_Binary_String(int hexDigit) {
             binary += "0";
         }
     }
+    return binary;
 }
 
 QBitArray Binary_Manipulator::Hex_To_BitArray(int hex) {

@@ -1,9 +1,12 @@
 #include "Item_Writer.h"
 #include <assert.h>
 
-Item_Writer::Item_Writer(QByteArray *buffer) {
+Item_Writer::Item_Writer(QByteArray *buffer, QByteArray *header) {
     assert(buffer);
+    assert(header);
+    assert(header->size() == 2);
     this->buffer = buffer;
+    this->header = header;
     this->bufferSize = this->buffer->size();
     this->currentPage = 0;
     this->currentX = 0;

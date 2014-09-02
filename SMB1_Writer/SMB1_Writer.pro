@@ -26,7 +26,8 @@ HEADERS += SMB1_Writer.h \
     Brick.h \
     Level_Offset.h \
     Background.h \
-    ROM_Checksum.h
+    ROM_Checksum.h \
+    Level_Compliment.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

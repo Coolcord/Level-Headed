@@ -5,7 +5,7 @@
 
 class Item_Writer {
 public:
-    Item_Writer(QByteArray *buffer);
+    Item_Writer(QByteArray *buffer, QByteArray *header);
     int Get_Current_Page();
     int Get_Current_X();
     int Get_Current_Y();
@@ -17,6 +17,7 @@ protected:
     int How_Many_Bytes_Left();
 
     QByteArray *buffer;
+    QByteArray *header;
     int bufferSize;
     int currentPage;
     int currentX;

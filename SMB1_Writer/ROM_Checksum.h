@@ -13,14 +13,14 @@ namespace ROM_Checksum {
     const static QString TRACK =  "7815F5BD6568AE3E2FB428CEA510415FE688971A40AF2E9D354E37AC0D3B98E74F53A8F9BD9A7FBF1785A3B785EF447B5D770F3DE77D21E4B063FC7B5D7DA5EF";
     const static QString DUCKE =  "01F8DAC3E8281C93A758355D0FC9618ED5239B224650BE9241F04CB8231EB3D07D8F6D59CBF3AC24D1D55CB008D7F71F8F76B6630D3DF739265EC4B477D49670";
     const static QString TETRIS = "0E198DF9E0D5863F865838EAFF7090596DA548D95CE9CDA8BFBBAF0DC3E6591104140924C1107464CCEE547DA82301E615F1E7B33FB38CE3705B64B5531060D8";
-    const static bool Is_ROM_DEFAULT(const QString &hash) {
+    static bool Is_ROM_DEFAULT(const QString &hash) {
         QList<QString> list;
-        list.append(ROM_Checksum::USA0);
-        list.append(ROM_Checksum::USA1);
-        list.append(ROM_Checksum::EUROPE);
-        list.append(ROM_Checksum::DUCK);
-        list.append(ROM_Checksum::DUCKE);
-        list.append(ROM_Checksum::TETRIS);
+        list.append(USA0);
+        list.append(USA1);
+        list.append(EUROPE);
+        list.append(DUCK);
+        list.append(DUCKE);
+        list.append(TETRIS);
         return list.contains(hash);
     }
 }

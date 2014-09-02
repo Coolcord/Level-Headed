@@ -1,7 +1,7 @@
 #ifndef SMB1_WRITER_H
 #define SMB1_WRITER_H
 
-#include "Level_Offsets.h"
+#include "Level_Offset.h"
 #include <QString>
 #include <QFile>
 #include <QByteArray>
