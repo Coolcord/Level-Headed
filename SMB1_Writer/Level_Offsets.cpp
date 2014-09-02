@@ -1,10 +1,10 @@
-#include "Level_Offsets.h"
-#include "ROM_Checksums.h"
+#include "Level_Offset.h"
+#include "ROM_Checksum.h"
 #include <QCryptographicHash>
 #include <QList>
 #include <assert.h>
 
-Level_Offsets::Level_Offsets(QFile *file) {
+Level_Offset::Level_Offset(QFile *file) {
     assert(file);
     if (!file->isOpen()) {
         throw "File is not open";
@@ -16,7 +16,7 @@ Level_Offsets::Level_Offsets(QFile *file) {
     }
 }
 
-ROM_Type Level_Offsets::Determine_ROM_Type() {
+ROM_Type Level_Offset::Determine_ROM_Type() {
     if (!this->Check_ROM_Header()) return INVALID; //bad header
     if (this->file->size() > (1048576)) return INVALID; //ROM is too big
     QByteArray buffer = this->file->readAll();
@@ -24,13 +24,13 @@ ROM_Type Level_Offsets::Determine_ROM_Type() {
 
     //Verify if the ROM is a supported version via checksum
     QString hash = QString(QCryptographicHash::hash(buffer, QCryptographicHash::Sha512));
-    if (hash == ROM_Checksums::FDS) return FDS;
-    else if (hash == ROM_Checksums::TRACK) return TRACK;
-    else if (ROM_Checksums::Is_ROM_DEFAULT(hash)) return DEFAULT;
+    if (hash == ROM_Checksum::FDS) return FDS;
+    else if (hash == ROM_Checksum::TRACK) return TRACK;
+    else if (ROM_Checksum::Is_ROM_DEFAULT(hash)) return DEFAULT;
     else return INVALID;
 }
 
-bool Level_Offsets::Check_ROM_Header() {
+bool Level_Offset::Check_ROM_Header() {
     if (!this->file->seek(0)) return false;
     QByteArray buffer;
     if (!this->file->read(buffer.data(), 4) != 4) return false;
@@ -41,7 +41,7 @@ bool Level_Offsets::Check_ROM_Header() {
     return this->Check_FDS_ROM_Header(&buffer);
 }
 
-bool Level_Offsets::Check_NES_ROM_Header(QByteArray *buffer) {
+bool Level_Offset::Check_NES_ROM_Header(QByteArray *buffer) {
     assert(buffer);
 
     //Make sure the first 4 bytes of the header are valid: "NES"
@@ -51,7 +51,7 @@ bool Level_Offsets::Check_NES_ROM_Header(QByteArray *buffer) {
     return buffer->at(3) == 0x1A;
 }
 
-bool Level_Offsets::Check_FDS_ROM_Header(QByteArray *buffer) {
+bool Level_Offset::Check_FDS_ROM_Header(QByteArray *buffer) {
     assert(buffer);
 
     //Make sure the first 4 bytes of the header are valid: "FDS"
@@ -61,7 +61,7 @@ bool Level_Offsets::Check_FDS_ROM_Header(QByteArray *buffer) {
     return buffer->at(3) == 0x1A;
 }
 
-int Level_Offsets::Get_Level_Object_Offset(Level level) {
+int Level_Offset::Get_Level_Object_Offset(Level level) {
     switch (level) {
     case WORLD_1_LEVEL_1:   return this->Fix_Offset(0x26A0);
     case WORLD_1_LEVEL_2:   return this->Fix_Offset(0x2C47);
@@ -108,7 +108,7 @@ int Level_Offsets::Get_Level_Object_Offset(Level level) {
     return BAD_OFFSET;
 }
 
-int Level_Offsets::Get_Level_Enemy_Offset(Level level) {
+int Level_Offset::Get_Level_Enemy_Offset(Level level) {
     switch (level) {
     case WORLD_1_LEVEL_1:   return this->Fix_Offset(0x1F11);
     case WORLD_1_LEVEL_2:   return this->Fix_Offset(0x20E8);
@@ -155,7 +155,7 @@ int Level_Offsets::Get_Level_Enemy_Offset(Level level) {
     return BAD_OFFSET;
 }
 
-int Level_Offsets::Fix_Offset(int offset) {
+int Level_Offset::Fix_Offset(int offset) {
     switch (this->romType) {
     case DEFAULT: return offset; //nothing to do
     case FDS: return offset + 0x2155; //increment for Famicom

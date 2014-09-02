@@ -17,13 +17,16 @@ SOURCES += SMB1_Writer.cpp \
     Object_Writer.cpp
 
 HEADERS += SMB1_Writer.h \
-    Level_Offsets.h \
-    ROM_Checksums.h \
     ROM_Type.h \
     Item_Writer.h \
     Level.h \
     Binary_Manipulator.h \
-    Object_Writer.h
+    Object_Writer.h \
+    Scenery.h \
+    Brick.h \
+    Level_Offset.h \
+    Background.h \
+    ROM_Checksum.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

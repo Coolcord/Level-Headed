@@ -1,10 +1,10 @@
-#ifndef ROM_CHECKSUMS_H
-#define ROM_CHECKSUMS_H
+#ifndef ROM_CHECKSUM_H
+#define ROM_CHECKSUM_H
 
 #include <QString>
 #include <QList>
 
-namespace ROM_Checksums {
+namespace ROM_Checksum {
     const static QString USA0 =   "C2EB66533F2BFEC61F15793884777B1C711AEBD74533CD33BD5774112A0381234583B9AA05588225282FD3071A42A7A4DA27BDE485D21FC0B45B2B2CA2D5461F";
     const static QString USA1 =   "C254479DF875E6F88F015563271624641433B15DE8242DE99EB883A745D09136C81663CA86613F02188E191B9C86F032D7C2080D4AA470B1CD9DB3695F811914";
     const static QString EUROPE = "5683F4ABBF4B2F66403E063594D02183B252BDFB3E6662829EB008C00EAAF0E80671E8745AA067B9A5F46F20E91F2615AE1B67FF1E86D034FE7088677736E5B3";
@@ -15,14 +15,14 @@ namespace ROM_Checksums {
     const static QString TETRIS = "0E198DF9E0D5863F865838EAFF7090596DA548D95CE9CDA8BFBBAF0DC3E6591104140924C1107464CCEE547DA82301E615F1E7B33FB38CE3705B64B5531060D8";
     const static bool Is_ROM_DEFAULT(const QString &hash) {
         QList<QString> list;
-        list.append(ROM_Checksums::USA0);
-        list.append(ROM_Checksums::USA1);
-        list.append(ROM_Checksums::EUROPE);
-        list.append(ROM_Checksums::DUCK);
-        list.append(ROM_Checksums::DUCKE);
-        list.append(ROM_Checksums::TETRIS);
+        list.append(ROM_Checksum::USA0);
+        list.append(ROM_Checksum::USA1);
+        list.append(ROM_Checksum::EUROPE);
+        list.append(ROM_Checksum::DUCK);
+        list.append(ROM_Checksum::DUCKE);
+        list.append(ROM_Checksum::TETRIS);
         return list.contains(hash);
     }
 }
 
-#endif // ROM_CHECKSUMS_H
+#endif // ROM_CHECKSUM_H

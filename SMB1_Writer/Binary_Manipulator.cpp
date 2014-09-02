@@ -150,3 +150,7 @@ void Binary_Manipulator::Write_Byte_To_BitArray(QBitArray &bits, int start, int 
         bits.setBit(i, hexBits.testBit(j));
     }
 }
+
+bool Binary_Manipulator::Is_Valid_Hex_Digit(int hexDigit) {
+    return (hexDigit >= 0x0 && hexDigit <= 0xF);
+}

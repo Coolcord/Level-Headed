@@ -1,5 +1,5 @@
-#ifndef LEVEL_OFFSETS_H
-#define LEVEL_OFFSETS_H
+#ifndef LEVEL_OFFSET_H
+#define LEVEL_OFFSET_H
 
 #include "ROM_Type.h"
 #include "Level.h"
@@ -8,9 +8,9 @@
 
 const static int BAD_OFFSET = -1;
 
-class Level_Offsets {
+class Level_Offset {
 public:
-    Level_Offsets(QFile *file);
+    Level_Offset(QFile *file);
     int Get_Level_Object_Offset(Level level);
     int Get_Level_Enemy_Offset(Level level);
 
@@ -26,4 +26,4 @@ private:
     ROM_Type romType;
 };
 
-#endif // LEVEL_OFFSETS_H
+#endif // LEVEL_OFFSET_H

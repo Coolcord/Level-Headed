@@ -18,6 +18,7 @@ namespace Binary_Manipulator {
     void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit);
     void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit, unsigned int hexStart, unsigned int hexEnd);
     void Write_Byte_To_BitArray(QBitArray &bits, int start, int hex);
+    bool Is_Valid_Hex_Digit(int hexDigit);
 }
 
 #endif // BINARY_MANIPULATOR_H
