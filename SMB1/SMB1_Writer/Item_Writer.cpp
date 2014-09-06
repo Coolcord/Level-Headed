@@ -27,6 +27,20 @@ int Item_Writer::Get_Current_Y() {
     return this->currentY;
 }
 
+bool Item_Writer::Is_Safe_To_Write_Item() {
+    return (this->How_Many_Bytes_Left() >= 2);
+}
+
+bool Item_Writer::Write_Item(int x, int y, int itemByte) {
+    if (!this->Is_Safe_To_Write_Item()) return false;
+    if (!this->Write_Coordinates(x, y)) return false;
+    if (this->pageFlag) {
+        itemByte += 128; //set the page flag
+        assert(itemByte <= 0xFF);
+    }
+    return this->Write_Byte_To_Buffer(itemByte);
+}
+
 bool Item_Writer::Write_Coordinates(int x, int y) {
     if (y < 0x0 || y > 0xF) return false; //make sure the y is valid
 

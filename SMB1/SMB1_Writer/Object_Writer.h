@@ -9,6 +9,8 @@
 class Object_Writer : public Item_Writer
 {
 public:
+    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) {}
+
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);
@@ -56,7 +58,6 @@ public:
     bool Nothing(int x);
 
 private:
-    bool Is_Safe_To_Write_Object();
     bool Write_Object(int x, int y, int objectByte);
     bool Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit);
 };

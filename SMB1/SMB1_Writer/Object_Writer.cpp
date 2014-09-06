@@ -2,18 +2,8 @@
 #include "Header_Writer.h"
 #include <assert.h>
 
-bool Object_Writer::Is_Safe_To_Write_Object() {
-    return (this->How_Many_Bytes_Left() >= 2);
-}
-
 bool Object_Writer::Write_Object(int x, int y, int objectByte) {
-    if (!this->Is_Safe_To_Write_Object()) return false;
-    if (!this->Write_Coordinates(x, y)) return false;
-    if (this->pageFlag) {
-        objectByte += 128; //set the page flag
-        assert(objectByte <= 0xFF);
-    }
-    return this->Write_Byte_To_Buffer(objectByte);
+    return this->Write_Item(x, y, objectByte);
 }
 
 bool Object_Writer::Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit) {
@@ -150,7 +140,7 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     return false;
 }
 
-bool Object_Writer::Page_Skip(int x, int amount) {
+bool Object_Writer::Page_Skip(int x, int amount = 1) {
     if (amount >= 0x00 && amount <= 0x0F) return this->Write_Object(x, 0xD, 0x0, amount);
     else if (amount >= 0x10 && amount <= 0x1F) return this->Write_Object(x, 0xD, 0x1, amount);
     else if (amount >= 0x20 && amount <= 0x2F) return this->Write_Object(x, 0xD, 0x2, amount);

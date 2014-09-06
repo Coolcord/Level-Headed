@@ -15,6 +15,8 @@ public:
 
 
 protected:
+    bool Is_Safe_To_Write_Item();
+    bool Write_Item(int x, int y, int itemByte);
     bool Write_Byte_To_Buffer(int byte);
     int How_Many_Bytes_Left();
 
