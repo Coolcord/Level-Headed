@@ -11,7 +11,7 @@ public:
     int Get_Current_Page();
     int Get_Current_X();
     int Get_Current_Y();
-    bool Write_Coordinates(int x, int y);
+    bool Write_Coordinates(int x, int y, bool handlePageFlag = true);
 
 
 protected:

@@ -35,19 +35,20 @@ bool Item_Writer::Write_Item(int x, int y, int itemByte) {
     if (!this->Is_Safe_To_Write_Item()) return false;
     if (!this->Write_Coordinates(x, y)) return false;
     if (this->pageFlag) {
-        itemByte += 128; //set the page flag
+        this->pageFlag = false;
+        itemByte += 128; //set the page flag in the byte
         assert(itemByte <= 0xFF);
     }
     return this->Write_Byte_To_Buffer(itemByte);
 }
 
-bool Item_Writer::Write_Coordinates(int x, int y) {
+bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     if (y < 0x0 || y > 0xF) return false; //make sure the y is valid
 
     //Handle the x coordinate
     int tmpX = this->currentX + x;
     bool tmpPageFlag = this->pageFlag;
-    if (tmpX > 0xF) { //set the page flag if necessary
+    if (handlePageFlag && tmpX > 0xF) { //set the page flag if necessary
         if (tmpPageFlag) return false;
         tmpPageFlag = true;
         tmpX -= 0x10;
@@ -57,7 +58,7 @@ bool Item_Writer::Write_Coordinates(int x, int y) {
     //Set the member variables
     this->currentX = tmpX;
     this->currentY = y;
-    this->pageFlag = tmpPageFlag;
+    if (handlePageFlag) this->pageFlag = tmpPageFlag;
 
     //TODO: Find a way to write this to the buffer
     QBitArray positionBits(8, false);
