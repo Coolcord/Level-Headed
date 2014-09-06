@@ -1,12 +1,12 @@
 #include "Item_Writer.h"
+#include "Header_Writer.h"
 #include <assert.h>
 
-Item_Writer::Item_Writer(QByteArray *buffer, QByteArray *header) {
+Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter) {
     assert(buffer);
-    assert(header);
-    assert(header->size() == 2);
+    assert(headerWriter);
     this->buffer = buffer;
-    this->header = header;
+    this->headerWriter = headerWriter;
     this->bufferSize = this->buffer->size();
     this->currentPage = 0;
     this->currentX = 0;
@@ -55,7 +55,7 @@ bool Item_Writer::Write_Coordinates(int x, int y) {
 
 bool Item_Writer::Write_Byte_To_Buffer(int byte) {
     if (this->currentByte >= this->bufferSize) return false; //no more space!
-    this->buffer[this->currentByte] = QString(byte).toUtf8().data(); //write the byte
+    this->buffer->data()[this->currentByte] = static_cast<char>(byte); //write the byte
     ++this->currentByte;
     return true;
 }

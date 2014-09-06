@@ -3,9 +3,11 @@
 
 #include "Binary_Manipulator.h"
 
+class Header_Writer;
+
 class Item_Writer {
 public:
-    Item_Writer(QByteArray *buffer, QByteArray *header);
+    Item_Writer(QByteArray *buffer, Header_Writer *headerWriter);
     int Get_Current_Page();
     int Get_Current_X();
     int Get_Current_Y();
@@ -17,7 +19,7 @@ protected:
     int How_Many_Bytes_Left();
 
     QByteArray *buffer;
-    QByteArray *header;
+    Header_Writer *headerWriter;
     int bufferSize;
     int currentPage;
     int currentX;

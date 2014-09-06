@@ -1,4 +1,5 @@
 #include "Object_Writer.h"
+#include "Header_Writer.h"
 #include <assert.h>
 
 bool Object_Writer::Is_Safe_To_Write_Object() {
@@ -73,11 +74,23 @@ bool Object_Writer::Trampoline(int x, int y) {
 }
 
 bool Object_Writer::Cannon(int x, int y, int height) {
-
+    if (height > 16 || height < 1) return false;
+    Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
+    if (levelCompliment == BULLET_BILL_TURRETS) {
+        return this->Write_Object(x, y, 0x1, height);
+    } else {
+        return false;
+    }
 }
 
 bool Object_Writer::Island(int x, int y, int length) {
-
+    if (length > 16 || length < 1) return false;
+    Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
+    if (levelCompliment != BULLET_BILL_TURRETS) {
+        return this->Write_Object(x, y, 0x1, length);
+    } else {
+        return false;
+    }
 }
 
 bool Object_Writer::Horizontal_Bricks(int x, int y, int length) {
@@ -195,7 +208,7 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick brick, Scenery scenery
     int secondHexDigit = 0x0;
     switch (scenery) {
     case NO_SCENERY:    firstHexDigit = 0x0; break;
-    case CLOUDS:        firstHexDigit = 0x1; break;
+    case ONLY_CLOUDS:   firstHexDigit = 0x1; break;
     case MOUNTAINS:     firstHexDigit = 0x2; break;
     case FENCES:        firstHexDigit = 0x3; break;
     default:            return false;
@@ -223,15 +236,16 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick brick, Scenery scenery
 }
 
 bool Object_Writer::Change_Background(int x, Background background) {
-    int property = 0;
+    int property = 0x0;
     switch (background) {
-    case BLANK_BACKGROUND:  property = 0; break;
-    case IN_WATER:          property = 1; break;
-    case CASTLE_WALL:       property = 2; break;
-    case OVER_WATER:        property = 3; break;
-    case SNOW:              property = 4; break;
-    case NIGHT_AND_SNOW:    property = 5; break;
-    case NIGHT_AND_FREEZE:  property = 6; break;
+    case BLANK_BACKGROUND:  property = 0x0; break;
+    case IN_WATER:          property = 0x1; break;
+    case CASTLE_WALL:       property = 0x2; break;
+    case OVER_WATER:        property = 0x3; break;
+    case NIGHT:             property = 0x4; break;
+    case SNOW:              property = 0x5; break;
+    case NIGHT_AND_SNOW:    property = 0x6; break;
+    case NIGHT_AND_FREEZE:  property = 0x7; break;
     default:                return false;
     }
     return this->Write_Object(x, 0xE, 0x4, property);

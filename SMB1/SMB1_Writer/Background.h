@@ -6,6 +6,7 @@ enum Background {
     IN_WATER,
     CASTLE_WALL,
     OVER_WATER,
+    NIGHT,
     SNOW,
     NIGHT_AND_SNOW,
     NIGHT_AND_FREEZE

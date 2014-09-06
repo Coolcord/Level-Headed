@@ -14,7 +14,8 @@ SOURCES += SMB1_Writer.cpp \
     Level_Offsets.cpp \
     Item_Writer.cpp \
     Binary_Manipulator.cpp \
-    Object_Writer.cpp
+    Object_Writer.cpp \
+    Header_Writer.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -27,7 +28,9 @@ HEADERS += SMB1_Writer.h \
     Level_Offset.h \
     Background.h \
     ROM_Checksum.h \
-    Level_Compliment.h
+    Level_Compliment.h \
+    Header_Writer.h \
+    Level_Type.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

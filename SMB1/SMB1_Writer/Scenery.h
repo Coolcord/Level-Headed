@@ -3,7 +3,7 @@
 
 enum Scenery {
     NO_SCENERY,
-    CLOUDS,
+    ONLY_CLOUDS,
     MOUNTAINS,
     FENCES
 };

@@ -1,0 +1,11 @@
+#ifndef STARTING_POSITION_H
+#define STARTING_POSITION_H
+
+enum Level_Type {
+    OVERWORLD,
+    UNDERGROUND,
+    UNDERWATER,
+    CASTLE
+};
+
+#endif // STARTING_POSITION_H
