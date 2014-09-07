@@ -2,6 +2,7 @@
 #define LEVEL_POINTERS_WRITER_H
 
 #include "Binary_Manipulator.h"
+#include "../Common SMB1 Files/Level_Attribute.h"
 #include <QFile>
 
 class Level_Offset;

@@ -33,7 +33,7 @@ bool Header_Writer::Get_Autowalk() {
     return bits.testBit(2); //get the bit
 }
 
-Level_Type Header_Writer::Get_Starting_Position(){
+Level_Attribute Header_Writer::Get_Starting_Position(){
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
     QBitArray bits(2);
@@ -170,7 +170,7 @@ void Header_Writer::Set_Autowalk(bool value) {
     this->buffer->data()[0] = static_cast<char>(byte);
 }
 
-bool Header_Writer::Set_Starting_Position(Level_Type value) {
+bool Header_Writer::Set_Starting_Position(Level_Attribute value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {

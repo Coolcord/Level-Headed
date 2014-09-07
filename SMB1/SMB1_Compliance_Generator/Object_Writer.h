@@ -9,7 +9,7 @@
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) {}
+    Object_Writer(QFile *file) : Item_Writer(file) {}
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
@@ -56,10 +56,6 @@ public:
     bool Tall_Reverse_L_Pipe(int x, int yPlacement);
     bool Pipe_Wall(int x);
     bool Nothing(int x);
-
-private:
-    bool Write_Object(int x, int y, int objectByte);
-    bool Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit);
 };
 
 #endif // OBJECT_WRITER_H

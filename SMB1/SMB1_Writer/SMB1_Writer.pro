@@ -26,15 +26,18 @@ HEADERS += SMB1_Writer.h \
     Binary_Manipulator.h \
     Object_Writer.h \
     Scenery.h \
-    Brick.h \
     Level_Offset.h \
     Background.h \
     ROM_Checksum.h \
     Level_Compliment.h \
     Header_Writer.h \
-    Level_Type.h \
     Enemy_Writer.h \
-    Level_Pointers_Writer.h
+    Level_Pointers_Writer.h \
+    ../Common SMB1 Files/Level_Attribute.h \
+    ../Common SMB1 Files/Level_Compliment.h \
+    ../Common SMB1 Files/Background.h \
+    ../Common SMB1 Files/Brick.h \
+    ../Common SMB1 Files/Scenery.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
