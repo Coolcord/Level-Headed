@@ -13,6 +13,7 @@ public:
     Level_Offset(QFile *file);
     int Get_Level_Object_Offset(Level level);
     int Get_Level_Enemy_Offset(Level level);
+    int Fix_Offset(int offset);
 
 
 private:
@@ -20,7 +21,6 @@ private:
     bool Check_NES_ROM_Header(QByteArray *buffer);
     bool Check_FDS_ROM_Header(QByteArray *buffer);
     ROM_Type Determine_ROM_Type();
-    int Fix_Offset(int offset);
 
     QFile *file;
     ROM_Type romType;

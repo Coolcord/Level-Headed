@@ -2,10 +2,10 @@
 #define STARTING_POSITION_H
 
 enum Level_Type {
-    OVERWORLD,
-    UNDERGROUND,
-    UNDERWATER,
-    CASTLE
+    OVERWORLD = 0,
+    UNDERGROUND = 1,
+    UNDERWATER = 2,
+    CASTLE = 3
 };
 
 #endif // STARTING_POSITION_H
