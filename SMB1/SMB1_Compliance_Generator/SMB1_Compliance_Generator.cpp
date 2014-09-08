@@ -12,6 +12,5 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
     if (!this->file->open(QFile::ReadWrite | QFile::Truncate)) {
         throw "Unable to get read/write permissions";
     }
-
-
+    this->stream = new QTextStream(this->file);
 }

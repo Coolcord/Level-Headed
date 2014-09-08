@@ -4,6 +4,7 @@
 #include "Level_Type.h"
 #include <QString>
 #include <QFile>
+#include <QTextStream>
 
 class SMB1_Compliance_Generator
 {
@@ -14,6 +15,7 @@ public:
 
 private:
     QFile *file;
+    QTextStream *stream;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_H

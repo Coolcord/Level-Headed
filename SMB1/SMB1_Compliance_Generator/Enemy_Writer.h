@@ -6,7 +6,7 @@
 class Enemy_Writer : public Item_Writer
 {
 public:
-    Enemy_Writer(QFile *file) : Item_Writer(file) {}
+    Enemy_Writer(QTextStream *stream) : Item_Writer(stream) {}
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
     bool Red_Koopa(int x, int y, bool onlyHardMode = false);

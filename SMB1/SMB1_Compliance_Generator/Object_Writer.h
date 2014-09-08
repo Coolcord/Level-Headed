@@ -4,12 +4,13 @@
 #include "../Common SMB1 Files/Background.h"
 #include "../Common SMB1 Files/Brick.h"
 #include "../Common SMB1 Files/Scenery.h"
+#include "../Common SMB1 Files/Object_Item_String.h"
 #include "Item_Writer.h"
 
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QFile *file) : Item_Writer(file) {}
+    Object_Writer(QTextStream *stream) : Item_Writer(stream) {}
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
@@ -56,6 +57,12 @@ public:
     bool Tall_Reverse_L_Pipe(int x, int yPlacement);
     bool Pipe_Wall(int x);
     bool Nothing(int x);
+
+private:
+    bool Write_Object(int x, const QString &object);
+    bool Write_Object(int x, const QString &object, const QString &parameters);
+    bool Write_Object(int x, int y, const QString &object);
+    bool Write_Object(int x, int y, const QString &object, const QString &parameters);
 };
 
 #endif // OBJECT_WRITER_H
