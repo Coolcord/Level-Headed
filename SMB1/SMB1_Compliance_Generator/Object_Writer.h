@@ -38,6 +38,8 @@ public:
     bool Page_Skip(int x, int amount);
     bool Reverse_L_Pipe(int x);
     bool Flagpole(int x);
+    bool Castle(int x);
+    bool Big_Castle(int x);
     bool Axe(int x);
     bool Axe_Rope(int x);
     bool Bowser_Bridge(int x);

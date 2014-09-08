@@ -161,6 +161,14 @@ bool Object_Writer::Flagpole(int x) {
     return this->Write_Object(x, Object_Item::STRING_FLAGPOLE);
 }
 
+bool Object_Writer::Castle(int x) {
+    return this->Write_Object(x, Object_Item::STRING_CASTLE);
+}
+
+bool Object_Writer::Big_Castle(int x) {
+    return this->Write_Object(x, Object_Item::STRING_BIG_CASTLE);
+}
+
 bool Object_Writer::Axe(int x) {
     return this->Write_Object(x, Object_Item::STRING_AXE);
 }

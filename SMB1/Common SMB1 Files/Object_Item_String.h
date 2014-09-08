@@ -33,6 +33,8 @@ namespace Object_Item {
     const static QString STRING_PAGE_SKIP = "Page_Skip";
     const static QString STRING_REVERSE_L_PIPE = "Reverse_L_Pipe";
     const static QString STRING_FLAGPOLE = "Flagpole";
+    const static QString STRING_CASTLE = "Castle";
+    const static QString STRING_BIG_CASTLE = "Big_Castle";
     const static QString STRING_AXE = "Axe";
     const static QString STRING_AXE_ROPE = "Axe_Rope";
     const static QString STRING_BOWSER_BRIDGE = "Bowser_Bridge";

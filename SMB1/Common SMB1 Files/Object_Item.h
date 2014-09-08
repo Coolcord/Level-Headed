@@ -32,6 +32,8 @@ namespace Object_Item {
         PAGE_SKIP,
         REVERSE_L_PIPE,
         FLAGPOLE,
+        CASTLE,
+        BIG_CASTLE,
         AXE,
         AXE_ROPE,
         BOWSER_BRIDGE,
