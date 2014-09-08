@@ -193,49 +193,49 @@ bool Object_Writer::Loop_Command(int x) {
     return this->Write_Object(x, 0xD, 0x4B);
 }
 
-bool Object_Writer::Change_Brick_And_Scenery(int x, Brick brick, Scenery scenery) {
+bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery) {
     int firstHexDigit = 0x0;
     int secondHexDigit = 0x0;
     switch (scenery) {
-    case NO_SCENERY:    firstHexDigit = 0x0; break;
-    case ONLY_CLOUDS:   firstHexDigit = 0x1; break;
-    case MOUNTAINS:     firstHexDigit = 0x2; break;
-    case FENCES:        firstHexDigit = 0x3; break;
+    case Scenery::NO_SCENERY:    firstHexDigit = 0x0; break;
+    case Scenery::ONLY_CLOUDS:   firstHexDigit = 0x1; break;
+    case Scenery::MOUNTAINS:     firstHexDigit = 0x2; break;
+    case Scenery::FENCES:        firstHexDigit = 0x3; break;
     default:            return false;
     }
     switch (brick) {
-    case NO_BRICKS:                         secondHexDigit = 0x0; break;
-    case SURFACE:                           secondHexDigit = 0x1; break;
-    case SURFACE_AND_CEILING:               secondHexDigit = 0x2; break;
-    case SURFACE_AND_CEILING_3:             secondHexDigit = 0x3; break;
-    case SURFACE_AND_CEILING_4:             secondHexDigit = 0x4; break;
-    case SURFACE_AND_CEILING_8:             secondHexDigit = 0x5; break;
-    case SURFACE_4_AND_CEILING:             secondHexDigit = 0x6; break;
-    case SURFACE_4_AND_CEILING_3:           secondHexDigit = 0x7; break;
-    case SURFACE_4_AND_CEILING_4:           secondHexDigit = 0x8; break;
-    case SURFACE_5_AND_CEILING:             secondHexDigit = 0x9; break;
-    case CEILING:                           secondHexDigit = 0xA; break;
-    case SURFACE_5_AND_CEILING_4:           secondHexDigit = 0xB; break;
-    case SURFACE_8_AND_CEILING:             secondHexDigit = 0xC; break;
-    case SURFACE_AND_CEILING_AND_MIDDLE_5:  secondHexDigit = 0xD; break;
-    case SURFACE_AND_CEILING_AND_MIDDLE_4:  secondHexDigit = 0xE; break;
-    case ALL:                               secondHexDigit = 0xF; break;
+    case Brick::NO_BRICKS:                         secondHexDigit = 0x0; break;
+    case Brick::SURFACE:                           secondHexDigit = 0x1; break;
+    case Brick::SURFACE_AND_CEILING:               secondHexDigit = 0x2; break;
+    case Brick::SURFACE_AND_CEILING_3:             secondHexDigit = 0x3; break;
+    case Brick::SURFACE_AND_CEILING_4:             secondHexDigit = 0x4; break;
+    case Brick::SURFACE_AND_CEILING_8:             secondHexDigit = 0x5; break;
+    case Brick::SURFACE_4_AND_CEILING:             secondHexDigit = 0x6; break;
+    case Brick::SURFACE_4_AND_CEILING_3:           secondHexDigit = 0x7; break;
+    case Brick::SURFACE_4_AND_CEILING_4:           secondHexDigit = 0x8; break;
+    case Brick::SURFACE_5_AND_CEILING:             secondHexDigit = 0x9; break;
+    case Brick::CEILING:                           secondHexDigit = 0xA; break;
+    case Brick::SURFACE_5_AND_CEILING_4:           secondHexDigit = 0xB; break;
+    case Brick::SURFACE_8_AND_CEILING:             secondHexDigit = 0xC; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:  secondHexDigit = 0xD; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:  secondHexDigit = 0xE; break;
+    case Brick::ALL:                               secondHexDigit = 0xF; break;
     default:                                return false;
     }
     return this->Write_Object(x, 0xE, firstHexDigit, secondHexDigit);
 }
 
-bool Object_Writer::Change_Background(int x, Background background) {
+bool Object_Writer::Change_Background(int x, Background::Background background) {
     int property = 0x0;
     switch (background) {
-    case BLANK_BACKGROUND:  property = 0x0; break;
-    case IN_WATER:          property = 0x1; break;
-    case CASTLE_WALL:       property = 0x2; break;
-    case OVER_WATER:        property = 0x3; break;
-    case NIGHT:             property = 0x4; break;
-    case SNOW:              property = 0x5; break;
-    case NIGHT_AND_SNOW:    property = 0x6; break;
-    case NIGHT_AND_FREEZE:  property = 0x7; break;
+    case Background::BLANK_BACKGROUND:  property = 0x0; break;
+    case Background::IN_WATER:          property = 0x1; break;
+    case Background::CASTLE_WALL:       property = 0x2; break;
+    case Background::OVER_WATER:        property = 0x3; break;
+    case Background::NIGHT:             property = 0x4; break;
+    case Background::SNOW:              property = 0x5; break;
+    case Background::NIGHT_AND_SNOW:    property = 0x6; break;
+    case Background::NIGHT_AND_FREEZE:  property = 0x7; break;
     default:                return false;
     }
     return this->Write_Object(x, 0xE, 0x4, property);

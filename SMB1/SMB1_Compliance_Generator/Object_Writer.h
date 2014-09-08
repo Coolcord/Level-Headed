@@ -4,7 +4,6 @@
 #include "../Common SMB1 Files/Background.h"
 #include "../Common SMB1 Files/Brick.h"
 #include "../Common SMB1 Files/Scenery.h"
-#include "../Common SMB1 Files/Object_Item_String.h"
 #include "Item_Writer.h"
 
 class Object_Writer : public Item_Writer
@@ -48,8 +47,8 @@ public:
     bool Bullet_Bill_Spawner(int x);
     bool Cancel_Spawner(int x);
     bool Loop_Command(int x);
-    bool Change_Brick_And_Scenery(int x, Brick brick, Scenery scenery);
-    bool Change_Background(int x, Background background);
+    bool Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery);
+    bool Change_Background(int x, Background::Background background);
     bool Lift_Rope(int x);
     bool Balance_Lift_Rope(int x, int length);
     bool Steps(int x, int width);

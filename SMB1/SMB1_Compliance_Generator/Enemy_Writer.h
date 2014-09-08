@@ -2,6 +2,7 @@
 #define ENEMY_WRITER_H
 
 #include "Item_Writer.h"
+#include <QString>
 
 class Enemy_Writer : public Item_Writer
 {
@@ -41,6 +42,12 @@ public:
     bool Page_Change(int x, int page);
     bool Nothing(int x);
 
+private:
+    bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy);
+    bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters);
+    bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy);
+    bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters);
+    QString Get_Difficulty_String(bool onlyHardMode);
 };
 
 #endif // ENEMY_WRITER_H

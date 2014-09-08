@@ -36,6 +36,9 @@ namespace Enemy_Item {
     const static QString STRING_KOOPA_GROUP = "Koopa_Group";
     const static QString STRING_PAGE_CHANGE = "Page_Change";
     const static QString STRING_NOTHING = "Nothing";
+
+    const static QString STRING_NORMAL = "Normal";
+    const static QString STRING_HARD = "Hard";
 }
 
 #endif // ENEMY_ITEM_STRING_H

@@ -52,7 +52,7 @@ Level_Attribute Header_Writer::Get_Starting_Position(){
     }
 }
 
-Background Header_Writer::Get_Background() {
+Background::Background Header_Writer::Get_Background() {
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
     QBitArray bits(3);
@@ -63,15 +63,15 @@ Background Header_Writer::Get_Background() {
     //Determine what the data is
     int data = Binary_Manipulator::BitArray_To_Hex(bits);
     switch (data) {
-    case 0x0:   return BLANK_BACKGROUND;
-    case 0x1:   return IN_WATER;
-    case 0x2:   return CASTLE_WALL;
-    case 0x3:   return OVER_WATER;
-    case 0x4:   return NIGHT;
-    case 0x5:   return SNOW;
-    case 0x6:   return NIGHT_AND_SNOW;
-    case 0x7:   return NIGHT_AND_FREEZE;
-    default:    assert(false); return BLANK_BACKGROUND;
+    case 0x0:   return Background::BLANK_BACKGROUND;
+    case 0x1:   return Background::IN_WATER;
+    case 0x2:   return Background::CASTLE_WALL;
+    case 0x3:   return Background::OVER_WATER;
+    case 0x4:   return Background::NIGHT;
+    case 0x5:   return Background::SNOW;
+    case 0x6:   return Background::NIGHT_AND_SNOW;
+    case 0x7:   return Background::NIGHT_AND_FREEZE;
+    default:    assert(false); return Background::BLANK_BACKGROUND;
     }
 }
 
@@ -94,7 +94,7 @@ Level_Compliment Header_Writer::Get_Level_Compliment() {
     }
 }
 
-Scenery Header_Writer::Get_Scenery() {
+Scenery::Scenery Header_Writer::Get_Scenery() {
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
     QBitArray bits(2);
@@ -105,15 +105,15 @@ Scenery Header_Writer::Get_Scenery() {
     //Determine what the data is
     int data = Binary_Manipulator::BitArray_To_Hex(bits);
     switch (data) {
-    case 0x0:   return NO_SCENERY;
-    case 0x1:   return ONLY_CLOUDS;
-    case 0x2:   return MOUNTAINS;
-    case 0x3:   return FENCES;
-    default:    assert(false); return NO_SCENERY;
+    case 0x0:   return Scenery::NO_SCENERY;
+    case 0x1:   return Scenery::ONLY_CLOUDS;
+    case 0x2:   return Scenery::MOUNTAINS;
+    case 0x3:   return Scenery::FENCES;
+    default:    assert(false); return Scenery::NO_SCENERY;
     }
 }
 
-Brick Header_Writer::Get_Brick() {
+Brick::Brick Header_Writer::Get_Brick() {
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
     QBitArray bits(4);
@@ -124,23 +124,23 @@ Brick Header_Writer::Get_Brick() {
     //Determine what the data is
     int data = Binary_Manipulator::BitArray_To_Hex(bits);
     switch (data) {
-    case 0x0:   return NO_BRICKS;
-    case 0x1:   return SURFACE;
-    case 0x2:   return SURFACE_AND_CEILING;
-    case 0x3:   return SURFACE_AND_CEILING_3;
-    case 0x4:   return SURFACE_4_AND_CEILING_4;
-    case 0x5:   return SURFACE_AND_CEILING_8;
-    case 0x6:   return SURFACE_4_AND_CEILING;
-    case 0x7:   return SURFACE_4_AND_CEILING_3;
-    case 0x8:   return SURFACE_4_AND_CEILING_4;
-    case 0x9:   return SURFACE_5_AND_CEILING;
-    case 0xA:   return CEILING;
-    case 0xB:   return SURFACE_5_AND_CEILING_4;
-    case 0xC:   return SURFACE_8_AND_CEILING;
-    case 0xD:   return SURFACE_AND_CEILING_AND_MIDDLE_5;
-    case 0xE:   return SURFACE_AND_CEILING_AND_MIDDLE_4;
-    case 0xF:   return ALL;
-    default:    assert(false); return NO_BRICKS;
+    case 0x0:   return Brick::NO_BRICKS;
+    case 0x1:   return Brick::SURFACE;
+    case 0x2:   return Brick::SURFACE_AND_CEILING;
+    case 0x3:   return Brick::SURFACE_AND_CEILING_3;
+    case 0x4:   return Brick::SURFACE_4_AND_CEILING_4;
+    case 0x5:   return Brick::SURFACE_AND_CEILING_8;
+    case 0x6:   return Brick::SURFACE_4_AND_CEILING;
+    case 0x7:   return Brick::SURFACE_4_AND_CEILING_3;
+    case 0x8:   return Brick::SURFACE_4_AND_CEILING_4;
+    case 0x9:   return Brick::SURFACE_5_AND_CEILING;
+    case 0xA:   return Brick::CEILING;
+    case 0xB:   return Brick::SURFACE_5_AND_CEILING_4;
+    case 0xC:   return Brick::SURFACE_8_AND_CEILING;
+    case 0xD:   return Brick::SURFACE_AND_CEILING_AND_MIDDLE_5;
+    case 0xE:   return Brick::SURFACE_AND_CEILING_AND_MIDDLE_4;
+    case 0xF:   return Brick::ALL;
+    default:    assert(false); return Brick::NO_BRICKS;
     }
 }
 
@@ -189,18 +189,18 @@ bool Header_Writer::Set_Starting_Position(Level_Attribute value) {
     return true;
 }
 
-bool Header_Writer::Set_Background(Background value) {
+bool Header_Writer::Set_Background(Background::Background value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case BLANK_BACKGROUND:  hexDigit = 0x0; break;
-    case IN_WATER:          hexDigit = 0x1; break;
-    case CASTLE_WALL:       hexDigit = 0x2; break;
-    case OVER_WATER:        hexDigit = 0x3; break;
-    case NIGHT:             hexDigit = 0x4; break;
-    case SNOW:              hexDigit = 0x5; break;
-    case NIGHT_AND_SNOW:    hexDigit = 0x6; break;
-    case NIGHT_AND_FREEZE:  hexDigit = 0x7; break;
+    case Background::BLANK_BACKGROUND:  hexDigit = 0x0; break;
+    case Background::IN_WATER:          hexDigit = 0x1; break;
+    case Background::CASTLE_WALL:       hexDigit = 0x2; break;
+    case Background::OVER_WATER:        hexDigit = 0x3; break;
+    case Background::NIGHT:             hexDigit = 0x4; break;
+    case Background::SNOW:              hexDigit = 0x5; break;
+    case Background::NIGHT_AND_SNOW:    hexDigit = 0x6; break;
+    case Background::NIGHT_AND_FREEZE:  hexDigit = 0x7; break;
     default:                return false;
     }
 
@@ -231,14 +231,14 @@ bool Header_Writer::Set_Level_Compliment(Level_Compliment value) {
     return true;
 }
 
-bool Header_Writer::Set_Scenery(Scenery value) {
+bool Header_Writer::Set_Scenery(Scenery::Scenery value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case NO_SCENERY:    hexDigit = 0x0; break;
-    case ONLY_CLOUDS:   hexDigit = 0x1; break;
-    case MOUNTAINS:     hexDigit = 0x2; break;
-    case FENCES:        hexDigit = 0x3; break;
+    case Scenery::NO_SCENERY:    hexDigit = 0x0; break;
+    case Scenery::ONLY_CLOUDS:   hexDigit = 0x1; break;
+    case Scenery::MOUNTAINS:     hexDigit = 0x2; break;
+    case Scenery::FENCES:        hexDigit = 0x3; break;
     default:            return false;
     }
 
@@ -250,26 +250,26 @@ bool Header_Writer::Set_Scenery(Scenery value) {
     return true;
 }
 
-bool Header_Writer::Set_Brick(Brick value) {
+bool Header_Writer::Set_Brick(Brick::Brick value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case NO_BRICKS:                         hexDigit = 0x0; break;
-    case SURFACE:                           hexDigit = 0x1; break;
-    case SURFACE_AND_CEILING:               hexDigit = 0x2; break;
-    case SURFACE_AND_CEILING_3:             hexDigit = 0x3; break;
-    case SURFACE_AND_CEILING_4:             hexDigit = 0x4; break;
-    case SURFACE_AND_CEILING_8:             hexDigit = 0x5; break;
-    case SURFACE_4_AND_CEILING:             hexDigit = 0x6; break;
-    case SURFACE_4_AND_CEILING_3:           hexDigit = 0x7; break;
-    case SURFACE_4_AND_CEILING_4:           hexDigit = 0x8; break;
-    case SURFACE_5_AND_CEILING:             hexDigit = 0x9; break;
-    case CEILING:                           hexDigit = 0xA; break;
-    case SURFACE_5_AND_CEILING_4:           hexDigit = 0xB; break;
-    case SURFACE_8_AND_CEILING:             hexDigit = 0xC; break;
-    case SURFACE_AND_CEILING_AND_MIDDLE_5:  hexDigit = 0xD; break;
-    case SURFACE_AND_CEILING_AND_MIDDLE_4:  hexDigit = 0xE; break;
-    case ALL:                               hexDigit = 0xF; break;
+    case Brick::NO_BRICKS:                         hexDigit = 0x0; break;
+    case Brick::SURFACE:                           hexDigit = 0x1; break;
+    case Brick::SURFACE_AND_CEILING:               hexDigit = 0x2; break;
+    case Brick::SURFACE_AND_CEILING_3:             hexDigit = 0x3; break;
+    case Brick::SURFACE_AND_CEILING_4:             hexDigit = 0x4; break;
+    case Brick::SURFACE_AND_CEILING_8:             hexDigit = 0x5; break;
+    case Brick::SURFACE_4_AND_CEILING:             hexDigit = 0x6; break;
+    case Brick::SURFACE_4_AND_CEILING_3:           hexDigit = 0x7; break;
+    case Brick::SURFACE_4_AND_CEILING_4:           hexDigit = 0x8; break;
+    case Brick::SURFACE_5_AND_CEILING:             hexDigit = 0x9; break;
+    case Brick::CEILING:                           hexDigit = 0xA; break;
+    case Brick::SURFACE_5_AND_CEILING_4:           hexDigit = 0xB; break;
+    case Brick::SURFACE_8_AND_CEILING:             hexDigit = 0xC; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:  hexDigit = 0xD; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:  hexDigit = 0xE; break;
+    case Brick::ALL:                               hexDigit = 0xF; break;
     default:                                return false;
     }
 

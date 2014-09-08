@@ -24,7 +24,9 @@ namespace Object_Item {
     const static QString STRING_VERTICAL_BRICKS = "Vertical_Bricks";
     const static QString STRING_VERTICAL_BLOCKS = "Vertical_Blocks";
     const static QString STRING_PIPE = "Pipe";
+	const static QString STRING_ENTERABLE_PIPE = "Enterable_Pipe";
     const static QString STRING_HOLE = "Hole";
+	const static QString STRING_HOLE_WITH_WATER = "Hole_With_Water";
     const static QString STRING_BALANCE_ROPE = "Balance_Rope";
     const static QString STRING_BRIDGE = "Bridge";
     const static QString STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS = "Horizontal_Question_Blocks_With_Coins";
@@ -35,6 +37,7 @@ namespace Object_Item {
     const static QString STRING_AXE_ROPE = "Axe_Rope";
     const static QString STRING_BOWSER_BRIDGE = "Bowser_Bridge";
     const static QString STRING_SCROLL_STOP = "Scroll_Stop";
+	const static QString STRING_SCROLL_STOP_WARP_ZONE = "Scroll_Stop_Warp_Zone";
     const static QString STRING_FLYING_CHEEP_CHEEP_SPAWNER = "Flying_Cheep_Cheep_Spawner";
     const static QString STRING_SWIMMING_CHEEP_CHEEP_SPAWNER = "Swimming_Cheep_Cheep_Spawner";
     const static QString STRING_BULLET_BILL_SPAWNER = "Bullet_Bill_Spawner";
