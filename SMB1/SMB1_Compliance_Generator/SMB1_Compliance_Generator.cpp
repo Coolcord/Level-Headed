@@ -1,16 +1,27 @@
 #include "SMB1_Compliance_Generator.h"
+#include "Standard_Overworld_Generator.h"
 #include <assert.h>
 
 SMB1_Compliance_Generator::SMB1_Compliance_Generator()
 {
 }
 
-bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numObjects, int numEnemies, Level_Type type) {
+bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type) {
     //Create a new file for writing
-    this->file = new QFile(fileName);
-    assert(this->file);
-    if (!this->file->open(QFile::ReadWrite | QFile::Truncate)) {
+    QFile file(fileName+".lvl");
+    if (!file.open(QFile::ReadWrite | QFile::Truncate)) {
         throw "Unable to get read/write permissions";
     }
-    this->stream = new QTextStream(this->file);
+
+    //Determine which level generator to use
+    switch (type) {
+    case Level_Type::STANDARD_OVERWORLD:    return this->Generate_Standard_Overworld_Level(&file, numObjectBytes, numEnemyBytes);
+    case Level_Type::ISLAND:                return false; //TODO: Implement this...
+    default:                    return false;
+    }
+}
+
+bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {
+    Standard_Overworld_Generator levelGenerator(file, numObjectBytes, numEnemyBytes);
+    return levelGenerator.Generate_Level();
 }

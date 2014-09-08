@@ -2,25 +2,21 @@
 #include "../Common SMB1 Files/Enemy_Item_String.h"
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
-    return this->Write_Item(ENEMY, QString(enemy+" "+QString(x)+" "+this->Get_Difficulty_String(onlyHardMode)));
+    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)));
 }
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
-    return this->Write_Item(ENEMY, QString(enemy+" "+QString(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
+    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
     if (y > 0xD) return false;
-    return this->Write_Item(ENEMY, QString(enemy+" "+QString(x)+" "+QString(y)+" "+this->Get_Difficulty_String(onlyHardMode)));
+    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)));
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
     if (y > 0xD) return false;
-    return this->Write_Item(ENEMY, QString(enemy+" "+QString(x)+" "+QString(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
+    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
 }
 
 QString Enemy_Writer::Get_Difficulty_String(bool onlyHardMode) {
@@ -190,7 +186,7 @@ bool Enemy_Writer::Toad(int x, bool onlyHardMode) {
 bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6 || y == 0xA) {
         if (num == 2 || num == 3) {
-            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GOOMBA_GROUP, QString(num));
+            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GOOMBA_GROUP, QString::number(num));
         } else {
             return false;
         }
@@ -202,7 +198,7 @@ bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
 bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6 || y == 0xA) {
         if (num == 2 || num == 3) {
-            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_KOOPA_GROUP, QString(num));
+            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_KOOPA_GROUP, QString::number(num));
         } else {
             return false;
         }
@@ -213,7 +209,7 @@ bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
 
 bool Enemy_Writer::Page_Change(int x, int page) {
     if (page < 0x0 || page > 0xFF) return false;
-    return this->Write_Item(ENEMY, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString(x)+" "+QString(page)));
+    return this->Write_Item(ENEMY, x, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(x)+" "+QString::number(page)));
 }
 
 bool Enemy_Writer::Nothing(int x) {

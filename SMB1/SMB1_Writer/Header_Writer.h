@@ -16,18 +16,18 @@ public:
     //Getters
     int Get_Time();
     bool Get_Autowalk();
-    Level_Attribute Get_Starting_Position();
+    Level_Attribute::Level_Attribute Get_Starting_Position();
     Background::Background Get_Background();
-    Level_Compliment Get_Level_Compliment();
+    Level_Compliment::Level_Compliment Get_Level_Compliment();
     Scenery::Scenery Get_Scenery();
     Brick::Brick Get_Brick();
 
     //Setters
     bool Set_Time(int value);
     void Set_Autowalk(bool value);
-    bool Set_Starting_Position(Level_Attribute value);
+    bool Set_Starting_Position(Level_Attribute::Level_Attribute value);
     bool Set_Background(Background::Background value);
-    bool Set_Level_Compliment(Level_Compliment value);
+    bool Set_Level_Compliment(Level_Compliment::Level_Compliment value);
     bool Set_Scenery(Scenery::Scenery value);
     bool Set_Brick(Brick::Brick value);
 

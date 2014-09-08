@@ -14,10 +14,11 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Object_Writer.cpp \
     Enemy_Writer.cpp \
     Header_Writer.cpp \
-    Item_Writer.cpp
+    Item_Writer.cpp \
+    Level_Generator.cpp \
+    Standard_Overworld_Generator.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
-    Level_Type.h \
     Object_Writer.h \
     Enemy_Writer.h \
     Header_Writer.h \
@@ -30,7 +31,14 @@ HEADERS += SMB1_Compliance_Generator.h \
     ../Common SMB1 Files/Enemy_Item.h \
     ../Common SMB1 Files/Enemy_Item_String.h \
     ../Common SMB1 Files/Object_Item.h \
-    ../Common SMB1 Files/Object_Item_String.h
+    ../Common SMB1 Files/Object_Item_String.h \
+    ../Common SMB1 Files/Level_Compliment.h \
+    ../Common SMB1 Files/Level_Type.h \
+    ../Common SMB1 Files/Level_Type_String.h \
+    ../Common SMB1 Files/Level_Compliment_String.h \
+    ../Common SMB1 Files/Level_Attribute_String.h \
+    Level_Generator.h \
+    Standard_Overworld_Generator.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

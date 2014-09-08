@@ -33,7 +33,7 @@ bool Header_Writer::Get_Autowalk() {
     return bits.testBit(2); //get the bit
 }
 
-Level_Attribute Header_Writer::Get_Starting_Position(){
+Level_Attribute::Level_Attribute Header_Writer::Get_Starting_Position(){
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
     QBitArray bits(2);
@@ -44,11 +44,11 @@ Level_Attribute Header_Writer::Get_Starting_Position(){
     //Determine what the data is
     int data = Binary_Manipulator::BitArray_To_Hex(bits);
     switch (data) {
-    case 0x0:   return UNDERWATER;
-    case 0x1:   return UNDERGROUND;
-    case 0x2:   return OVERWORLD;
-    case 0x3:   return CASTLE;
-    default:    assert(false); return OVERWORLD;
+    case 0x0:   return Level_Attribute::UNDERWATER;
+    case 0x1:   return Level_Attribute::UNDERGROUND;
+    case 0x2:   return Level_Attribute::OVERWORLD;
+    case 0x3:   return Level_Attribute::CASTLE;
+    default:    assert(false); return Level_Attribute::OVERWORLD;
     }
 }
 
@@ -75,7 +75,7 @@ Background::Background Header_Writer::Get_Background() {
     }
 }
 
-Level_Compliment Header_Writer::Get_Level_Compliment() {
+Level_Compliment::Level_Compliment Header_Writer::Get_Level_Compliment() {
     //Get the bits
     QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
     QBitArray bits(2);
@@ -86,11 +86,11 @@ Level_Compliment Header_Writer::Get_Level_Compliment() {
     //Determine what the data is
     int data = Binary_Manipulator::BitArray_To_Hex(bits);
     switch (data) {
-    case 0x0:   return TREES;
-    case 0x1:   return MUSHROOMS;
-    case 0x2:   return BULLET_BILL_TURRETS;
-    case 0x3:   return CLOUDS;
-    default:    assert(false); return TREES;
+    case 0x0:   return Level_Compliment::TREES;
+    case 0x1:   return Level_Compliment::MUSHROOMS;
+    case 0x2:   return Level_Compliment::BULLET_BILL_TURRETS;
+    case 0x3:   return Level_Compliment::CLOUDS;
+    default:    assert(false); return Level_Compliment::TREES;
     }
 }
 
@@ -170,14 +170,14 @@ void Header_Writer::Set_Autowalk(bool value) {
     this->buffer->data()[0] = static_cast<char>(byte);
 }
 
-bool Header_Writer::Set_Starting_Position(Level_Attribute value) {
+bool Header_Writer::Set_Starting_Position(Level_Attribute::Level_Attribute value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case OVERWORLD:     hexDigit = 0x2; break;
-    case UNDERGROUND:   hexDigit = 0x1; break;
-    case UNDERWATER:    hexDigit = 0x0; break;
-    case CASTLE:        hexDigit = 0x3; break;
+    case Level_Attribute::OVERWORLD:     hexDigit = 0x2; break;
+    case Level_Attribute::UNDERGROUND:   hexDigit = 0x1; break;
+    case Level_Attribute::UNDERWATER:    hexDigit = 0x0; break;
+    case Level_Attribute::CASTLE:        hexDigit = 0x3; break;
     default:            return false;
     }
 
@@ -212,15 +212,15 @@ bool Header_Writer::Set_Background(Background::Background value) {
     return true;
 }
 
-bool Header_Writer::Set_Level_Compliment(Level_Compliment value) {
+bool Header_Writer::Set_Level_Compliment(Level_Compliment::Level_Compliment value) {
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case TREES:                 hexDigit = 0x0; break;
-    case MUSHROOMS:             hexDigit = 0x1; break;
-    case BULLET_BILL_TURRETS:   hexDigit = 0x2; break;
-    case CLOUDS:                hexDigit = 0x3; break;
-    default:                    return false;
+    case Level_Compliment::TREES:               hexDigit = 0x0; break;
+    case Level_Compliment::MUSHROOMS:           hexDigit = 0x1; break;
+    case Level_Compliment::BULLET_BILL_TURRETS: hexDigit = 0x2; break;
+    case Level_Compliment::CLOUDS:              hexDigit = 0x3; break;
+    default:                                    return false;
     }
 
     //Write the data

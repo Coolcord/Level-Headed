@@ -5,23 +5,21 @@
 #include "../Common SMB1 Files/Scenery_String.h"
 
 bool Object_Writer::Write_Object(int x, const QString &object) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
-    return this->Write_Item(OBJECT, QString(object+" "+QString(x)));
+    return this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)));
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, const QString &parameters) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
-    return this->Write_Item(OBJECT, QString(object+" "+QString(x)+" "+parameters));
+    return this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+parameters));
 }
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object) {
-    if (!this->Are_Coordinates_Valid(x, y)) return false;
-    return this->Write_Item(OBJECT, QString(object+" "+QString(x)+" "+QString(y)));
+    if (!this->Is_Coordinate_Valid(y)) return false;
+    return this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)));
 }
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object, const QString &parameters) {
-    if (!this->Are_Coordinates_Valid(x, y)) return false;
-    return this->Write_Item(OBJECT, QString(object+" "+QString(x)+" "+QString(y)+" "+parameters));
+    if (!this->Is_Coordinate_Valid(y)) return false;
+    return this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)+" "+parameters));
 }
 
 bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
@@ -74,54 +72,54 @@ bool Object_Writer::Trampoline(int x, int y) {
 
 bool Object_Writer::Cannon(int x, int y, int height) {
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_CANNON, QString(height));
+    return this->Write_Object(x, y, Object_Item::STRING_CANNON, QString::number(height));
 }
 
 bool Object_Writer::Island(int x, int y, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_ISLAND, QString(length));
+    return this->Write_Object(x, y, Object_Item::STRING_ISLAND, QString::number(length));
 }
 
 bool Object_Writer::Horizontal_Bricks(int x, int y, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BRICKS, QString(length));
+    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BRICKS, QString::number(length));
 }
 
 bool Object_Writer::Horizontal_Blocks(int x, int y, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BLOCKS, QString(length));
+    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BLOCKS, QString::number(length));
 }
 
 bool Object_Writer::Horizontal_Coins(int x, int y, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_COINS, QString(length));
+    return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_COINS, QString::number(length));
 }
 
 bool Object_Writer::Vertical_Bricks(int x, int y, int height) {
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BRICKS, QString(height));
+    return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BRICKS, QString::number(height));
 }
 
 bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString(height));
+    return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString::number(height));
 }
 
 bool Object_Writer::Pipe(int x, int y, int height, bool enterable) {
     if (height < 1 || height > 16) return false;
     if (enterable) {
-        return this->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString(height));
+        return this->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString::number(height));
     } else {
-        return this->Write_Object(x, y, Object_Item::STRING_PIPE, QString(height));
+        return this->Write_Object(x, y, Object_Item::STRING_PIPE, QString::number(height));
     }
 }
 
 bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
     if (length < 1 || length > 16) return false;
     if (filledWithWater) {
-        return this->Write_Object(x, Object_Item::STRING_HOLE_WITH_WATER, QString(length));
+        return this->Write_Object(x, Object_Item::STRING_HOLE_WITH_WATER, QString::number(length));
     } else {
-        return this->Write_Object(x, Object_Item::STRING_HOLE, QString(length));
+        return this->Write_Object(x, Object_Item::STRING_HOLE, QString::number(length));
     }
 }
 
@@ -133,7 +131,7 @@ bool Object_Writer::Balance_Rope(int x, int length) {
 bool Object_Writer::Bridge(int x, int yPlacement, int length) {
     if (length < 1 || length > 16) return false;
     if (yPlacement == 0x7 || yPlacement == 0x8 || yPlacement == 0xA) {
-        return this->Write_Object(x, yPlacement, Object_Item::STRING_BRIDGE, QString(length));
+        return this->Write_Object(x, yPlacement, Object_Item::STRING_BRIDGE, QString::number(length));
     } else {
         return false;
     }
@@ -142,7 +140,7 @@ bool Object_Writer::Bridge(int x, int yPlacement, int length) {
 bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length) {
     if (length < 1 || length > 16) return false;
     if (yPlacement == 0x3 || yPlacement == 0x7) {
-        return this->Write_Object(x, yPlacement, Object_Item::STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, QString(length));
+        return this->Write_Object(x, yPlacement, Object_Item::STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, QString::number(length));
     } else {
         return false;
     }
@@ -150,7 +148,7 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
 
 bool Object_Writer::Page_Skip(int x, int amount) {
     if (amount < 0x00 || amount > 0x3F) return false;
-    return this->Write_Object(x, Object_Item::STRING_PAGE_SKIP, QString(amount));
+    return this->Write_Object(x, Object_Item::STRING_PAGE_SKIP, QString::number(amount));
 }
 
 bool Object_Writer::Reverse_L_Pipe(int x) {
@@ -263,12 +261,12 @@ bool Object_Writer::Lift_Rope(int x) {
 
 bool Object_Writer::Balance_Lift_Rope(int x, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_ROPE, QString(length));
+    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_ROPE, QString::number(length));
 }
 
 bool Object_Writer::Steps(int x, int width) {
     if (width < 1 || width > 8) return false;
-    return this->Write_Object(x, Object_Item::STRING_STEPS, QString(width));
+    return this->Write_Object(x, Object_Item::STRING_STEPS, QString::number(width));
 }
 
 bool Object_Writer::End_Steps(int x) {
