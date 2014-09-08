@@ -9,7 +9,7 @@
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QTextStream *stream) : Item_Writer(stream) {}
+    Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {}
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
