@@ -32,7 +32,11 @@ QString Enemy_Writer::Get_Difficulty_String(bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
-
+    if (moving) {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GREEN_KOOPA, Enemy_Item::STRING_MOVING);
+    } else {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GREEN_KOOPA, Enemy_Item::STRING_STOPPED);
+    }
 }
 
 bool Enemy_Writer::Red_Koopa(int x, int y, bool onlyHardMode) {
@@ -60,7 +64,15 @@ bool Enemy_Writer::Bullet_Bill(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Green_Paratroopa(int x, int y, bool moving, bool leaping, bool onlyHardMode) {
-
+    if (!moving) {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GREEN_PARATROOPA, Enemy_Item::STRING_STOPPED);
+    } else {
+        if (leaping) {
+            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GREEN_PARATROOPA, Enemy_Item::STRING_LEAPING);
+        } else {
+            return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_GREEN_PARATROOPA, Enemy_Item::STRING_FLYING);
+        }
+    }
 }
 
 bool Enemy_Writer::Red_Paratroopa(int x, int y, bool onlyHardMode) {
@@ -96,7 +108,11 @@ bool Enemy_Writer::Bowser_Fire_Spawner(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Cheep_Cheep_Spawner(int x, int y, bool leaping, bool onlyHardMode) {
-    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER);
+    if (leaping) {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_LEAPING);
+    } else {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_FLYING);
+    }
 }
 
 bool Enemy_Writer::Bullet_Bill_Spawner(int x, int y, bool onlyHardMode) {
@@ -104,7 +120,19 @@ bool Enemy_Writer::Bullet_Bill_Spawner(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {
-
+    QString property = "";
+    if (clockwise) {
+        property = Enemy_Item::STRING_CLOCKWISE;
+    } else {
+        property = Enemy_Item::STRING_COUNTER_CLOCKWISE;
+    }
+    property += " ";
+    if (fast) {
+        property += Enemy_Item::STRING_FAST;
+    } else {
+        property += Enemy_Item::STRING_SLOW;
+    }
+    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_FIRE_BAR, property);
 }
 
 bool Enemy_Writer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
@@ -112,7 +140,11 @@ bool Enemy_Writer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
-
+    if (vertical) {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LIFT, Enemy_Item::STRING_VERTICAL);
+    } else {
+        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LIFT, Enemy_Item::STRING_HORIZONTAL);
+    }
 }
 
 bool Enemy_Writer::Falling_Lift(int x, int y, bool onlyHardMode) {
@@ -128,7 +160,19 @@ bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
-
+    QString property = "";
+    if (up) {
+        property = Enemy_Item::STRING_VERTICAL;
+    } else {
+        property = Enemy_Item::STRING_HORIZONTAL;
+    }
+    property += " ";
+    if (small) {
+        property += Enemy_Item::STRING_SMALL;
+    } else {
+        property += Enemy_Item::STRING_LARGE;
+    }
+    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LIFT_SPAWNER, property);
 }
 
 bool Enemy_Writer::Bowser(int x, bool onlyHardMode) {

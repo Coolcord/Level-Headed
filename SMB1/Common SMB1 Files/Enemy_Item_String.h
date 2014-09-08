@@ -4,6 +4,7 @@
 #include <QString>
 
 namespace Enemy_Item {
+    //Enemies
     const static QString STRING_GREEN_KOOPA = "Green_Koopa";
     const static QString STRING_RED_KOOPA = "Red_Koopa";
     const static QString STRING_BUZZY_BEETLE = "Buzzy_Beetle";
@@ -37,8 +38,31 @@ namespace Enemy_Item {
     const static QString STRING_PAGE_CHANGE = "Page_Change";
     const static QString STRING_NOTHING = "Nothing";
 
+    //Difficulty
     const static QString STRING_NORMAL = "Normal";
     const static QString STRING_HARD = "Hard";
+
+    //Firebar Spin Direction
+    const static QString STRING_CLOCKWISE = "Clockwise";
+    const static QString STRING_COUNTER_CLOCKWISE = "Counter_Clockwise";
+
+    //Firebar Speed
+    const static QString STRING_FAST = "Fast";
+    const static QString STRING_SLOW = "Slow";
+
+    //Movement Direction
+    const static QString STRING_VERTICAL = "Vertical";
+    const static QString STRING_HORIZONTAL = "Horizontal";
+
+    //Movement Style
+    const static QString STRING_MOVING = "Moving";
+    const static QString STRING_STOPPED = "Stopped";
+    const static QString STRING_LEAPING = "Leaping";
+    const static QString STRING_FLYING = "Flying";
+
+    //Size
+    const static QString STRING_SMALL = "Small";
+    const static QString STRING_LARGE = "Large";
 }
 
 #endif // ENEMY_ITEM_STRING_H
