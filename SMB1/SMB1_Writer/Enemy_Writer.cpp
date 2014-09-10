@@ -214,6 +214,13 @@ bool Enemy_Writer::Page_Change(int x, int page) {
     return this->Write_Byte_To_Buffer(page);
 }
 
+bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
+    if (this->How_Many_Bytes_Left() < 3) return false;
+    if (!this->Write_Coordinates(x, 0xE)) return false;
+    if (!this->Write_Byte_To_Buffer(room)) return false;
+    return this->Write_Byte_To_Buffer(page);
+}
+
 bool Enemy_Writer::Nothing(int x) {
     return this->Write_Enemy(x, 0xD, 0x23, false);
 }

@@ -140,11 +140,11 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     return false;
 }
 
-bool Object_Writer::Page_Skip(int x, int amount = 1) {
-    if (amount >= 0x00 && amount <= 0x0F) return this->Write_Object(x, 0xD, 0x0, amount);
-    else if (amount >= 0x10 && amount <= 0x1F) return this->Write_Object(x, 0xD, 0x1, amount);
-    else if (amount >= 0x20 && amount <= 0x2F) return this->Write_Object(x, 0xD, 0x2, amount);
-    else if (amount >= 0x30 && amount <= 0x3F) return this->Write_Object(x, 0xD, 0x3, amount);
+bool Object_Writer::Page_Skip(int page) {
+    if (page >= 0x00 && page <= 0x0F) return this->Write_Object(0x0, 0xD, 0x0, page);
+    else if (page >= 0x10 && page <= 0x1F) return this->Write_Object(0x0, 0xD, 0x1, page);
+    else if (page >= 0x20 && page <= 0x2F) return this->Write_Object(0x0, 0xD, 0x2, page);
+    else if (page >= 0x30 && page <= 0x3F) return this->Write_Object(0x0, 0xD, 0x3, page);
     return false;
 }
 

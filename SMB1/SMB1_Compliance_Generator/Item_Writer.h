@@ -16,6 +16,7 @@ public:
 protected:
     bool Write_Item(Item_Type type, int x, const QString &item, bool decrementBytes = true);
     bool Is_Coordinate_Valid(int coordinate);
+    bool Is_Byte_Valid(int byte);
     bool Is_Safe_To_Write_Item(int numBytes = 2);
     QTextStream *stream;
     int numBytesLeft;

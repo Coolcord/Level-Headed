@@ -9,14 +9,13 @@
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) { }
+    Object_Writer(QTextStream *stream, int numBytesLeft);
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_1up(int x, int y);
     bool Brick_With_Mushroom(int x, int y);
-    bool Brick_With_Vine(int x, int y);
     bool Brick_With_Star(int x, int y);
     bool Brick_With_10_Coins(int x, int y);
     bool Brick_With_1up(int x, int y);
@@ -30,7 +29,7 @@ public:
     bool Horizontal_Coins(int x, int y, int length);
     bool Vertical_Bricks(int x, int y, int height);
     bool Vertical_Blocks(int x, int y, int height);
-    bool Pipe(int x, int y, int height, bool enterable);
+    bool Pipe(int x, int y, int height);
     bool Hole(int x, int length, bool filledWithWater);
     bool Balance_Rope(int x, int length);
     bool Bridge(int x, int yPlacement, int length);
@@ -55,15 +54,24 @@ public:
     bool Balance_Lift_Rope(int x, int length);
     bool Steps(int x, int width);
     bool End_Steps(int x);
-    bool Tall_Reverse_L_Pipe(int x, int yPlacement);
     bool Pipe_Wall(int x);
-    bool Nothing(int x);
+    bool Nothing();
+
 
 private:
     bool Write_Object(int x, const QString &object);
     bool Write_Object(int x, const QString &object, const QString &parameters);
     bool Write_Object(int x, int y, const QString &object);
     bool Write_Object(int x, int y, const QString &object, const QString &parameters);
+    void Handle_Zones(int x);
+
+    const static int MAX_COIN_BLOCK_ZONE = 24;
+    const static int MAX_POWERUP_ZONE = 56;
+
+    int coinBlockZone;
+    int powerupZone;
+
+    friend class Pipe_Pointer_Writer;
 };
 
 #endif // OBJECT_WRITER_H

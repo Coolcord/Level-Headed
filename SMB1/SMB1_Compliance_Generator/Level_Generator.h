@@ -7,6 +7,7 @@
 #include "Header_Writer.h"
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
+#include "Pipe_Pointer_Writer.h"
 #include <QFile>
 #include <QTextStream>
 
@@ -22,6 +23,7 @@ protected:
     Header_Writer *header;
     Object_Writer *object;
     Enemy_Writer *enemy;
+    Pipe_Pointer_Writer *pipe_pointer;
 };
 
 #endif // LEVEL_GENERATOR_H
