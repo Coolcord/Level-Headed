@@ -207,9 +207,21 @@ bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Page_Change(int x, int page) {
-    if (page < 0x0 || page > 0xFF) return false;
-    return this->Write_Item(ENEMY, x, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(x)+" "+QString::number(page)));
+bool Enemy_Writer::Page_Skip(int page) {
+    if (page < 0x00 || page > 0xFF) return false;
+    int tmpX = this->currentX;
+    int tmpPage = this->currentPage;
+    int tmpLevelLength = this->levelLength;
+    if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+    if (this->Write_Item(ENEMY, 0x0, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
+        return true; //page skip successful
+    } else {
+        //Restore previous stats
+        this->currentX = tmpX;
+        this->currentPage = tmpPage;
+        this->levelLength = tmpLevelLength;
+        return false;
+    }
 }
 
 bool Enemy_Writer::Nothing(int x) {

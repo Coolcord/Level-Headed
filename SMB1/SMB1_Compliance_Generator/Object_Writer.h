@@ -34,7 +34,7 @@ public:
     bool Balance_Rope(int x, int length);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
-    bool Page_Skip(int x, int amount);
+    bool Page_Skip(int amount);
     bool Reverse_L_Pipe(int x);
     bool Flagpole(int x);
     bool Castle(int x);

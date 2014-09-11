@@ -218,9 +218,21 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     }
 }
 
-bool Object_Writer::Page_Skip(int x, int amount) {
-    if (amount < 0x00 || amount > 0x3F) return false;
-    return this->Write_Object(x, Object_Item::STRING_PAGE_SKIP, QString::number(amount));
+bool Object_Writer::Page_Skip(int page) {
+    if (page < 0x00 || page > 0x3F) return false;
+    int tmpX = this->currentX;
+    int tmpPage = this->currentPage;
+    int tmpLevelLength = this->levelLength;
+    if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+    if (this->Write_Object(0x0, Object_Item::STRING_PAGE_SKIP, QString::number(page))) {
+        return true; //page skip successful
+    } else {
+        //Restore previous stats
+        this->currentX = tmpX;
+        this->currentPage = tmpPage;
+        this->levelLength = tmpLevelLength;
+        return false;
+    }
 }
 
 bool Object_Writer::Reverse_L_Pipe(int x) {

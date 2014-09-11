@@ -17,7 +17,9 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Item_Writer.cpp \
     Level_Generator.cpp \
     Standard_Overworld_Generator.cpp \
-    Pipe_Pointer_Writer.cpp
+    Pipe_Pointer_Writer.cpp \
+    Simple_Object_Spawner.cpp \
+    Spawner.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -40,7 +42,9 @@ HEADERS += SMB1_Compliance_Generator.h \
     ../Common SMB1 Files/Level_Attribute_String.h \
     Level_Generator.h \
     Standard_Overworld_Generator.h \
-    Pipe_Pointer_Writer.h
+    Pipe_Pointer_Writer.h \
+    Simple_Object_Spawner.h \
+    Spawner.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

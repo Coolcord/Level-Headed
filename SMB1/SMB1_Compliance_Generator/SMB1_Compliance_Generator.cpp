@@ -1,9 +1,13 @@
 #include "SMB1_Compliance_Generator.h"
 #include "Standard_Overworld_Generator.h"
 #include <assert.h>
+#include <QTime>
 
 SMB1_Compliance_Generator::SMB1_Compliance_Generator()
 {
+    //Seed the random number generator
+    QTime midnight(0, 0, 0);
+    qsrand(midnight.secsTo(QTime::currentTime()));
 }
 
 bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type) {
