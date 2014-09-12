@@ -14,7 +14,6 @@ public:
 private:
     Object_Writer *object;
 
-    /*
     const static int PROBABILITY_HORIZONTAL_BRICKS =                          100;
     const static int PROBABILITY_HORIZONTAL_BLOCKS =                          100;
     const static int PROBABILITY_HORIZONTAL_COINS =                           100;
@@ -30,8 +29,8 @@ private:
     const static int PROBABILITY_BRICK_WITH_STAR =                             10;
     const static int PROBABILITY_BRICK_WITH_1UP =                               4;
     const static int PROBABILITY_HIDDEN_BLOCK_WITH_1UP =                        1;
-    const static int TOTAL_SIMPLE_ITEMS =                                      15;
-    */
+    const static int PROBABILITY_COMMON =                                      8;
+    const static int PROBABILITY_TOTAL =                                      15;
 };
 
 #endif // SIMPLE_OBJECT_SPAWNER_H
