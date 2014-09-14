@@ -8,11 +8,12 @@ Level_Generator::Level_Generator(QFile *file, int numObjectBytes, int numEnemyBy
     this->stream = new QTextStream(file);
     this->object = new Object_Writer(this->stream, numObjectBytes);
     this->enemy = new Enemy_Writer(this->stream, numEnemyBytes);
-    this->pipe_pointer = new Pipe_Pointer_Writer(this->object, this->enemy);
+    this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
+    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
 }
 
 Level_Generator::~Level_Generator() {
-    delete this->pipe_pointer;
+    delete this->pipePointer;
     delete this->header;
     delete this->object;
     delete this->enemy;
