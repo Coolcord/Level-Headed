@@ -1,8 +1,9 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include "Plugin_Handler.h"
 #include <QDialog>
+
+class Plugin_Handler;
 
 namespace Ui {
 class Main_Window;
@@ -15,7 +16,9 @@ class Main_Window : public QDialog
 public:
     explicit Main_Window(QWidget *parent = 0);
     ~Main_Window();
-    Plugin_Handler *pluginHandler;
+    bool Create_Directories();
+    bool Populate_Writers();
+    bool Populate_Generators();
 
 private slots:
     void Disable_All();
@@ -26,6 +29,7 @@ private slots:
 
 private:
     Ui::Main_Window *ui;
+    Plugin_Handler *pluginHandler;
 };
 
 #endif // MAIN_WINDOW_H
