@@ -1,4 +1,5 @@
 #include "Spawner.h"
+#include "Physics.h"
 #include <assert.h>
 #include <QTime>
 
@@ -13,3 +14,8 @@ int Spawner::Get_Random_X() {
     }
 }
 
+int Spawner::Get_Random_X(int min) {
+    int x = this->Get_Random_X();
+    if (x < min) x = min; //make sure x is valid
+    return x;
+}

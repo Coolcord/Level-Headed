@@ -44,7 +44,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Standard_Overworld_Generator.h \
     Pipe_Pointer_Writer.h \
     Simple_Object_Spawner.h \
-    Spawner.h
+    Spawner.h \
+    Physics.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

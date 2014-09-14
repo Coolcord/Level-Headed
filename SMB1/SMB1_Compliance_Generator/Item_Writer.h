@@ -12,6 +12,7 @@ public:
     int Get_Num_Bytes_Left();
     int Get_Num_Items();
     int Get_Level_Length();
+    int Get_Current_Y();
 
 protected:
     bool Write_Item(Item_Type type, int x, const QString &item);
@@ -24,6 +25,7 @@ protected:
     int numItems;
     int levelLength;
     int currentX;
+    int currentY;
     int currentPage;
 };
 

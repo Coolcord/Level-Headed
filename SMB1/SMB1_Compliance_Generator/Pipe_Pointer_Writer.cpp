@@ -3,6 +3,7 @@
 #include "Object_Writer.h"
 #include "../Common SMB1 Files/Enemy_Item_String.h"
 #include "../Common SMB1 Files/Object_Item_String.h"
+#include "Physics.h"
 #include <assert.h>
 #include <QString>
 
@@ -29,24 +30,24 @@ bool Pipe_Pointer_Writer::Enterable_Pipe(int x, int y, int height, int room, int
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (height < 1 || height > 16) return false;
     if (!this->Pipe_Pointer(x, room, page)) return false;
-    return this->object->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString::number(height));
+    return this->object->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString::number(height), Physics::PIPE_LENGTH);
 }
 
 bool Pipe_Pointer_Writer::Tall_Reverse_L_Pipe(int x, int yPlacement, int room, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (yPlacement < 0x1 || yPlacement > 0xA) return false;
     if (!this->Pipe_Pointer(x, room, page)) return false;
-    return this->object->Write_Object(x, yPlacement, Object_Item::STRING_TALL_REVERSE_L_PIPE);
+    return this->object->Write_Object(x, yPlacement, Object_Item::STRING_TALL_REVERSE_L_PIPE, Physics::TALL_PIPE_LENGTH);
 }
 
 bool Pipe_Pointer_Writer::Underwater_Sideways_Pipe(int x, int y, int room, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (!this->Pipe_Pointer(x, room, page)) return false;
-    return this->object->Write_Object(x, y, Object_Item::STRING_UNDERWATER_SIDEWAYS_PIPE);
+    return this->object->Write_Object(x, y, Object_Item::STRING_UNDERWATER_SIDEWAYS_PIPE, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Pipe_Pointer_Writer::Brick_With_Vine(int x, int y, int room, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (!this->Pipe_Pointer(x, room, page)) return false;
-    return this->object->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_VINE);
+    return this->object->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_VINE, Physics::MIN_OBJECT_LENGTH);
 }

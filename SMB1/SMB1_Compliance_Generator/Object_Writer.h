@@ -10,6 +10,7 @@ class Object_Writer : public Item_Writer
 {
 public:
     Object_Writer(QTextStream *stream, int numBytesLeft);
+    int Get_Last_Object_Length();
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
@@ -60,14 +61,17 @@ public:
 
 private:
     bool Write_Object(int x, const QString &object);
+    bool Write_Object(int x, const QString &object, int length);
     bool Write_Object(int x, const QString &object, const QString &parameters);
-    bool Write_Object(int x, int y, const QString &object);
-    bool Write_Object(int x, int y, const QString &object, const QString &parameters);
+    bool Write_Object(int x, const QString &object, const QString &parameters, int length);
+    bool Write_Object(int x, int y, const QString &object, int length);
+    bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length);
     void Handle_Zones(int x);
 
     const static int MAX_COIN_BLOCK_ZONE = 24;
     const static int MAX_POWERUP_ZONE = 56;
 
+    int lastObjectLength;
     int coinBlockZone;
     int powerupZone;
 

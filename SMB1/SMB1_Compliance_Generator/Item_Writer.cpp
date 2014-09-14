@@ -11,6 +11,7 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
     this->numBytesLeft = numBytesLeft;
     this->currentPage = 1;
     this->currentX = 0;
+    this->currentY = 0;
 }
 
 int Item_Writer::Get_Num_Bytes_Left() {
@@ -23,6 +24,10 @@ int Item_Writer::Get_Num_Items() {
 
 int Item_Writer::Get_Level_Length() {
     return this->levelLength;
+}
+
+int Item_Writer::Get_Current_Y() {
+    return this->currentY;
 }
 
 bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {

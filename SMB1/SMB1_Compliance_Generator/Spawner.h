@@ -5,10 +5,10 @@ class Spawner
 {
 public:
     Spawner() {}
+
+protected:
     int Get_Random_X();
-
-private:
-
+    int Get_Random_X(int min);
 };
 
 #endif // SPAWNER_H

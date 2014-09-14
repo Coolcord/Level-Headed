@@ -11,12 +11,22 @@ bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy, c
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy) {
     if (y > 0xD) return false;
-    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)));
+    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->currentY = y;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters) {
     if (y > 0xD) return false;
-    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
+    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->currentY = y;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 QString Enemy_Writer::Get_Difficulty_String(bool onlyHardMode) {
