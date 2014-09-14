@@ -61,3 +61,10 @@ void Plugin_Handler::Show_Read_Write_Error() {
                          " does not have proper read/write permissions. Cannot continue!",
                           Common_Strings::OK);
 }
+
+bool Plugin_Handler::Get_Plugins() {
+    //QDir dir(QApplication::applicationDirPath());
+    //if (!dir.cd(Common_Strings::GENERATORS)) return false;
+
+    return false;
+}

@@ -8,9 +8,12 @@ class Plugin_Handler
 public:
     Plugin_Handler();
     bool Create_Directories();
-    void Show_Read_Write_Error();
+    bool Get_Plugins();
+
 
 private:
+    void Show_Read_Write_Error();
+
     QWidget *parent;
 };
 
