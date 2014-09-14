@@ -9,10 +9,11 @@ namespace Common_Strings {
     const static QString GENERATORS = "Generators";
     const static QString INTERPRETERS = "Interpreters";
     const static QString WRITERS = "Writers";
-    const static QString INTERPRETER_SPLIT = "_TO_";
+    const static QString INTERPRETER_SPLIT = "_To_";
     const static QString GENERATOR_SPLIT = "_Generator";
     const static QString WRITER_SPLIT = "_Writer";
     const static QString OK = "OK";
+    const static QString SELECT_A_PLUGIN = "-- Select a Plugin --";
 }
 
 #endif // COMMON_STRINGS_H

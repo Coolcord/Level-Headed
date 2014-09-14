@@ -59,7 +59,6 @@ bool Plugin_Handler::Create_Directories() {
 }
 
 QStringList Plugin_Handler::Get_Writer_Plugins() {
-
     //Get all of the available plugins
     QStringList writerList = this->Get_Plugins_From_Folder(Common_Strings::WRITERS);
     if (writerList.empty()) return QStringList();
@@ -81,13 +80,44 @@ QStringList Plugin_Handler::Get_Writer_Plugins() {
     //Determine which writer plugins are valid
     QStringList validPlugins;
     foreach (QString interpreter, interpreterList) {
+        interpreter.chop(interpreter.size()-interpreter.lastIndexOf('.'));
         QStringList names = interpreter.split(Common_Strings::INTERPRETER_SPLIT);
         QString generator = names.at(0);
         QString writer = names.at(1);
         if (generators.contains(generator) && writers.contains(writer)
             && !writers[writer]) {
-            validPlugins.append(writer);
+            validPlugins.append(writer.replace("_", " "));
             writers[writer] = true; //writer added
+        }
+    }
+
+    return validPlugins;
+}
+
+QStringList Plugin_Handler::Get_Generator_Plugins(const QString &writerPlugin) {
+    //Get all of the available plugins
+    QStringList generatorList = this->Get_Plugins_From_Folder(Common_Strings::GENERATORS);
+    if (generatorList.empty()) return QStringList();
+    QStringList interpreterList = this->Get_Plugins_From_Folder(Common_Strings::INTERPRETERS);
+    if (interpreterList.empty()) return QStringList();
+
+    //Get all of the possible Generator Plugins
+    QMap<QString, bool> generators;
+    foreach (QString generator, generatorList) {
+        generators.insert(generator.split(Common_Strings::GENERATOR_SPLIT).first(), false);
+    }
+
+    //Determine which writer plugins are valid
+    QStringList validPlugins;
+    foreach (QString interpreter, interpreterList) {
+        interpreter.chop(interpreter.size()-interpreter.lastIndexOf('.'));
+        QStringList names = interpreter.split(Common_Strings::INTERPRETER_SPLIT);
+        QString generator = names.at(0);
+        QString writer = names.at(1);
+        if (writerPlugin == writer && generators.contains(generator)
+            && !generators[generator]) {
+            validPlugins.append(generator.replace("_", " "));
+            generators[generator] = true; //generator added
         }
     }
 

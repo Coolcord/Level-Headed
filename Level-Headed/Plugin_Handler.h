@@ -12,6 +12,7 @@ public:
     Plugin_Handler(Main_Window *window);
     bool Create_Directories();
     QStringList Get_Writer_Plugins();
+    QStringList Get_Generator_Plugins(const QString &writerPlugin);
 
 
 private:
