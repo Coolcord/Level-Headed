@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES +=\
         Main_Window.cpp \
-    Main.cpp
+    Main.cpp \
+    Plugin_Handler.cpp
 
-HEADERS  += Main_Window.h
+HEADERS  += Main_Window.h \
+    Plugin_Handler.h \
+    Common_Strings.h
 
 FORMS    += Main_Window.ui
 
 RC_FILE = Level-Headed.rc
+
