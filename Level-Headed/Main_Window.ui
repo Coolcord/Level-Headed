@@ -28,11 +28,9 @@
      </item>
      <item>
       <widget class="QComboBox" name="comboBaseGame">
-       <item>
-        <property name="text">
-         <string>-- Select A Plugin --</string>
-        </property>
-       </item>
+       <property name="currentText">
+        <string/>
+       </property>
       </widget>
      </item>
     </layout>
@@ -73,11 +71,6 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>-- Select A Plugin --</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>

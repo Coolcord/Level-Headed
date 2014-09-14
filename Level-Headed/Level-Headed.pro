@@ -19,3 +19,5 @@ SOURCES +=\
 HEADERS  += Main_Window.h
 
 FORMS    += Main_Window.ui
+
+RC_FILE = Level-Headed.rc
