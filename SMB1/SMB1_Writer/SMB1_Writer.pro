@@ -8,7 +8,7 @@ QT       -= gui
 
 TARGET = SMB1_Writer
 TEMPLATE = lib
-CONFIG += staticlib c++11
+CONFIG += plugin c++11
 
 SOURCES += SMB1_Writer.cpp \
     Level_Offsets.cpp \
@@ -38,6 +38,8 @@ HEADERS += SMB1_Writer.h \
     ../Common SMB1 Files/Background.h \
     ../Common SMB1 Files/Brick.h \
     ../Common SMB1 Files/Scenery.h
+OTHER_FILES += SMB1_Writer.json
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

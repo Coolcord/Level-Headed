@@ -2,11 +2,16 @@
 #define SMB1_WRITER_H
 
 #include "Level_Offset.h"
+#include <QObject>
+#include <QtPlugin>
 #include <QString>
 #include <QFile>
 #include <QByteArray>
 
-class SMB1_Writer {
+class SMB1_Writer : public QObject {
+    Q_PLUGIN_METADATA(IID  "SMB1_Writer" FILE "SMB1_Writer.json")
+    Q_INTERFACES(SMB1_Writer)
+
 public:
     SMB1_Writer(QString romLocation);
     ~SMB1_Writer();
@@ -29,5 +34,7 @@ private:
     QByteArray *objectsBuffer;
     QByteArray *enemiesBuffer;
 };
+
+Q_DECLARE_INTERFACE(SMB1_Writer, "SMB1_Writer")
 
 #endif // SMB1_WRITER_H

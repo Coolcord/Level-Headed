@@ -8,7 +8,7 @@ QT       -= gui
 
 TARGET = SMB1_Compliance_Generator
 TEMPLATE = lib
-CONFIG += staticlib c++11
+CONFIG += plugin c++11
 
 SOURCES += SMB1_Compliance_Generator.cpp \
     Object_Writer.cpp \
@@ -46,6 +46,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Simple_Object_Spawner.h \
     Spawner.h \
     Physics.h
+OTHER_FILES += SMB1_Compliance_Generator.json
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

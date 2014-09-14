@@ -19,7 +19,8 @@ SOURCES +=\
 
 HEADERS  += Main_Window.h \
     Plugin_Handler.h \
-    Common_Strings.h
+    Common_Strings.h \
+    Interpreter_Interface.h
 
 FORMS    += Main_Window.ui
 
