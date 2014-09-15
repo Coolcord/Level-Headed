@@ -13,9 +13,12 @@ CONFIG += plugin
 SOURCES += SMB1_Compliance_To_SMB1.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
-    ../../Level-Headed/Interpreter_Interface.h
+    ../../Level-Headed/Interpreter_Interface.h \
+    ../../Level-Headed/Common_Strings.h \
+    ../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h \
+    ../SMB1_Writer/SMB1_Writer_Interface.h
 
-OTHER_FILES += SMB1_Compliance_To_SMB1.json
+OTHER_FILES +=
 
 unix {
     target.path = /usr/lib

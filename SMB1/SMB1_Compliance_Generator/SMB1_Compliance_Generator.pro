@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT       += core gui
 
 TARGET = SMB1_Compliance_Generator
 TEMPLATE = lib
@@ -45,8 +45,9 @@ HEADERS += SMB1_Compliance_Generator.h \
     Pipe_Pointer_Writer.h \
     Simple_Object_Spawner.h \
     Spawner.h \
-    Physics.h
-OTHER_FILES += SMB1_Compliance_Generator.json
+    Physics.h \
+    SMB1_Compliance_Generator_Interface.h
+OTHER_FILES +=
 
 unix {
     target.path = /usr/lib

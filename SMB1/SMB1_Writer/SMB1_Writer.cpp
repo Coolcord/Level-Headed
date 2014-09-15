@@ -1,14 +1,7 @@
 #include "SMB1_Writer.h"
 #include <assert.h>
 
-SMB1_Writer::SMB1_Writer(QString romLocation) {
-    //Open the ROM file
-    this->file = new QFile(romLocation);
-    assert(file);
-    if (!this->file->open(QFile::ReadWrite)) {
-        throw "Unable to get read/write permissions";
-    }
-
+SMB1_Writer::SMB1_Writer() {
     //Set class variables
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
@@ -17,7 +10,7 @@ SMB1_Writer::SMB1_Writer(QString romLocation) {
     this->enemyOffset = BAD_OFFSET;
 }
 
-SMB1_Writer::~SMB1_Writer() {
+void SMB1_Writer::Shutdown() {
     if (this->Are_Buffers_Allocated()) {
         if (!this->Write_Level()) { //try to flush the buffers
             this->Deallocate_Buffers(); //deallocate memory manually
@@ -28,7 +21,22 @@ SMB1_Writer::~SMB1_Writer() {
     delete this->file;
 }
 
+bool SMB1_Writer::Load_ROM(const QString &romLocation) {
+    //Open the ROM file
+    this->file = new QFile(romLocation);
+    if (!this->file) return false;
+    if (!this->file->open(QFile::ReadWrite)) {
+        delete this->file;
+        this->file = NULL;
+        return false;
+    } else {
+        return true;
+    }
+}
+
 bool SMB1_Writer::New_Level(const int objectOffset, const int enemyOffset) {
+    if (!this->file) return false; //the ROM needs to be loaded first
+
     //Make sure that the buffers are empty
     if (this->Are_Buffers_Allocated()) return false;
 
@@ -42,6 +50,8 @@ bool SMB1_Writer::New_Level(const int objectOffset, const int enemyOffset) {
 }
 
 bool SMB1_Writer::Write_Level() {
+    if (!this->file) return false; //the ROM needs to be loaded first
+
     //Make sure the offsets have been set
     if (this->objectOffset == BAD_OFFSET) return false;
     if (this->enemyOffset == BAD_OFFSET) return false;
@@ -61,12 +71,14 @@ bool SMB1_Writer::Write_Level() {
 }
 
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
+    assert(this->file);
     if (buffer == NULL) return false;
     if (!this->file->seek(offset)) return false;
     return this->file->write(buffer->data(), buffer->length()) == buffer->length();
 }
 
 bool SMB1_Writer::Read_Level_Header() {
+    assert(this->file);
     if (!this->Are_Buffers_Allocated()) return false;
     if (!this->file->seek(objectOffset-2)) return false;
     if (this->file->read(this->headerBuffer->data(), 2) != 2) return false;
@@ -75,6 +87,7 @@ bool SMB1_Writer::Read_Level_Header() {
 }
 
 bool SMB1_Writer::Read_Objects() {
+    assert(this->file);
     if (!this->Are_Buffers_Allocated()) return false;
     if (!this->file->seek(this->objectOffset)) return false;
 
@@ -90,6 +103,7 @@ bool SMB1_Writer::Read_Objects() {
 }
 
 bool SMB1_Writer::Read_Enemies() {
+    assert(this->file);
     if (!this->Are_Buffers_Allocated()) return false;
     if (this->enemyOffset == 0) return true; //nothing to read
     if (!this->file->seek(this->enemyOffset)) return false;

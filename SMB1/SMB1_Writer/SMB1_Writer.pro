@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT       += core gui
 
 TARGET = SMB1_Writer
 TEMPLATE = lib
@@ -37,8 +37,9 @@ HEADERS += SMB1_Writer.h \
     ../Common SMB1 Files/Level_Compliment.h \
     ../Common SMB1 Files/Background.h \
     ../Common SMB1 Files/Brick.h \
-    ../Common SMB1 Files/Scenery.h
-OTHER_FILES += SMB1_Writer.json
+    ../Common SMB1 Files/Scenery.h \
+    SMB1_Writer_Interface.h
+OTHER_FILES +=
 
 unix {
     target.path = /usr/lib

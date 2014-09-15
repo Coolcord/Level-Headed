@@ -26,3 +26,5 @@ FORMS    += Main_Window.ui
 
 RC_FILE = Level-Headed.rc
 
+OTHER_FILES +=
+

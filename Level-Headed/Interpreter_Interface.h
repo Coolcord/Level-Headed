@@ -7,6 +7,7 @@
 
 class Interpreter_Interface : public QObject {
 public:
+    virtual void Set_Application_Directory(const QString &location)=0;
     virtual bool Run()=0;
     virtual bool Configure_Generator()=0;
     virtual bool Configure_Writer()=0;

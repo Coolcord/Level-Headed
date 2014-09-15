@@ -38,6 +38,7 @@ void Main_Window::Disable_All() {
     this->ui->btnGenerateGame->setEnabled(false);
     delete this->interpreter;
     this->interpreter = NULL;
+    this->ui->comboBaseGame->setCurrentIndex(0);
 }
 
 void Main_Window::Enable_Generator() {
@@ -141,10 +142,11 @@ void Main_Window::on_btnGenerateGame_clicked(){
 bool Main_Window::Load_Interpreter(const QString &fileLocation) {
     QPluginLoader loader(fileLocation);
     QObject *validPlugin = loader.instance();
-    if(validPlugin) {
-        this->interpreter = qobject_cast<Interpreter_Interface*>(validPlugin);
-    }
-    return this->interpreter;
+    if (!validPlugin) return false;
+    this->interpreter = qobject_cast<Interpreter_Interface*>(validPlugin);
+    if (!this->interpreter) return false;
+    this->interpreter->Set_Application_Directory(QApplication::applicationDirPath());
+    return true;
 }
 
 void Main_Window::Show_Unable_To_Load_Plugin_Error() {

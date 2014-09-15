@@ -1,5 +1,6 @@
 #include "Main_Window.h"
 #include "Plugin_Handler.h"
+#include "Interpreter_Interface.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
