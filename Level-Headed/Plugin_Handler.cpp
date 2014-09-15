@@ -124,6 +124,14 @@ QStringList Plugin_Handler::Get_Generator_Plugins(const QString &writerPlugin) {
     return validPlugins;
 }
 
+QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString generatorPlugin){
+    if (writerPlugin == NULL || generatorPlugin == NULL || writerPlugin.isEmpty() || generatorPlugin.isEmpty()) {
+        return QString(); //invalid arguments
+    }
+    return generatorPlugin.replace(" ", "_") + Common_Strings::INTERPRETER_SPLIT
+            + writerPlugin.replace(" ", "_") + Common_Strings::PLUGIN_EXTENSION;
+}
+
 void Plugin_Handler::Show_Read_Write_Error() {
     QMessageBox::critical(this->widget, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
                          " does not have proper read/write permissions. Cannot continue!",
@@ -133,11 +141,7 @@ void Plugin_Handler::Show_Read_Write_Error() {
 QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
     //Only Windows uses .dll files
     QStringList filters;
-    #ifdef Q_OS_WIN32
-    filters.append("*.dll");
-    #else
-    filters.append("*.so"); //Unix uses .so files
-    #endif
+    filters.append("*" + Common_Strings::PLUGIN_EXTENSION);
 
     //Get all of the available plugins in the directory
     QDir dir(QApplication::applicationDirPath());
@@ -161,3 +165,5 @@ QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
     }
     return pluginList;
 }
+
+

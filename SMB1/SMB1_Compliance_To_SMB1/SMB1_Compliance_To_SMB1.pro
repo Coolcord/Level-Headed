@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT       += core gui
 
 TARGET = SMB1_Compliance_To_SMB1
 TEMPLATE = lib

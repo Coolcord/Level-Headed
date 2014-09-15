@@ -13,6 +13,7 @@ public:
     bool Create_Directories();
     QStringList Get_Writer_Plugins();
     QStringList Get_Generator_Plugins(const QString &writerPlugin);
+    QString Get_Interpreter_Name(QString writerPlugin, QString generatorPlugin);
 
 
 private:

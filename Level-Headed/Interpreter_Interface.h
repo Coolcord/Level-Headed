@@ -7,9 +7,9 @@
 
 class Interpreter_Interface : public QObject {
 public:
-    bool Run();
-    bool Configure_Generator();
-    bool Configure_Writer();
+    virtual bool Run()=0;
+    virtual bool Configure_Generator()=0;
+    virtual bool Configure_Writer()=0;
 };
 
 Q_DECLARE_INTERFACE(Interpreter_Interface, "Interpreter_Interface")

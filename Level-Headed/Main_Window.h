@@ -2,8 +2,10 @@
 #define MAIN_WINDOW_H
 
 #include <QDialog>
+#include <QString>
 
 class Plugin_Handler;
+class Interpreter_Interface;
 
 namespace Ui {
 class Main_Window;
@@ -29,9 +31,19 @@ private slots:
 
     void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
 
+    void on_btnConfigureBaseGame_clicked();
+
+    void on_btnConfigureLevelGenerator_clicked();
+
+    void on_btnGenerateGame_clicked();
+
 private:
+    bool Load_Interpreter(const QString &fileLocation);
+    void Show_Unable_To_Load_Plugin_Error();
+
     Ui::Main_Window *ui;
     Plugin_Handler *pluginHandler;
+    Interpreter_Interface *interpreter;
 };
 
 #endif // MAIN_WINDOW_H
