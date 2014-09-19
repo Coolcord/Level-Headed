@@ -13,8 +13,13 @@ public:
     ~SMB1_Compliance_Parser();
 
 private:
+    void Populate_Objects_Map();
+    void Populate_Enemy_Map();
+    void Populate_Enemy_Properties_Map();
+
     QMap<QString, Object_Item::Object_Item> *objects;
     QMap<QString, Enemy_Item::Enemy_Item> *enemies;
+    QMap<QString, Enemy_Item::Enemy_Item> *enemyProperties;
 };
 
 #endif // SMB1_COMPLIANCE_PARSER_H

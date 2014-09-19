@@ -38,6 +38,7 @@ namespace Object_Item {
         AXE_ROPE,
         BOWSER_BRIDGE,
         SCROLL_STOP,
+        SCROLL_STOP_WARP_ZONE,
         FLYING_CHEEP_CHEEP_SPAWNER,
         SWIMMING_CHEEP_CHEEP_SPAWNER,
         BULLET_BILL_SPAWNER,
