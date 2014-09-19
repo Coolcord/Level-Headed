@@ -1,82 +1,67 @@
 #include "Binary_Manipulator.h"
 
-QString Binary_Manipulator::Hex_To_Binary_String(int hex) {
-    //Make sure the byte passed in is valid
-    if (hex > 0xFF) throw "Value cannot be greater than 0xFF";
-    else if (hex < 0x00) throw "Value cannot be less than 0x00";
-
+QString Binary_Manipulator::Hex_To_Binary_String(unsigned char hex) {
+    int value = static_cast<int>(hex);
     QString binary = "";
     for (int i = 128; i >= 1; i /= 2) {
-        hex -= i;
-        if (hex >= 0) {
+        value -= i;
+        if (value >= 0) {
             binary += "1";
         } else {
-            hex += i;
+            value += i;
             binary += "0";
         }
     }
     return binary;
 }
 
-QString Binary_Manipulator::Hex_Digit_To_Binary_String(int hexDigit) {
-    //Make sure the byte passed in is valid
-    if (hexDigit < 0x0 || hexDigit > 0xF) {
-        throw "A value between 0x0 and 0xF is expected";
-    }
-
+QString Binary_Manipulator::Hex_Digit_To_Binary_String(unsigned char hexDigit) {
+    int value = static_cast<int>(hexDigit);
     QString binary = "";
     for (int i = 8; i >= 1; i /= 2) {
-        hexDigit -= i;
-        if (hexDigit >= 0) {
+        value -= i;
+        if (value >= 0) {
             binary += "1";
         } else {
-            hexDigit += i;
+            value += i;
             binary += "0";
         }
     }
     return binary;
 }
 
-QBitArray Binary_Manipulator::Hex_To_BitArray(int hex) {
-    //Make sure the byte passed in is valid
-    if (hex < 0x0 || hex > 0xFF) {
-        throw "A value between 0x00 and 0xFF is expected";
-    }
+QBitArray Binary_Manipulator::Hex_To_BitArray(unsigned char hex) {
+    int value = static_cast<int>(hex);
     QBitArray bits(8, false);
-
     for (int i = 128, j = 0; i >= 1; i /= 2, ++j) {
-        hex -= i;
-        if (hex >= 0) {
+        value -= i;
+        if (value >= 0) {
             bits.setBit(j, true);
         } else {
-            hex += i;
+            value += i;
             bits.setBit(j, false);
         }
     }
     return bits;
 }
 
-QBitArray Binary_Manipulator::Hex_Digit_To_BitArray(int hexDigit) {
-    //Make sure the byte passed in is valid
-    if (hexDigit < 0x0 || hexDigit > 0xF) {
-        throw "A value between 0x0 and 0xF is expected";
-    }
+QBitArray Binary_Manipulator::Hex_Digit_To_BitArray(unsigned char hexDigit) {
+    int value = static_cast<int>(hexDigit);
     QBitArray bits(4, false);
-
     for (int i = 8, j = 0; i >= 1; i /= 2, ++j) {
-        hexDigit -= i;
-        if (hexDigit >= 0) {
+        value -= i;
+        if (value >= 0) {
             bits.setBit(j, true);
         } else {
-            hexDigit += i;
+            value += i;
             bits.setBit(j, false);
         }
     }
     return bits;
 }
 
-int Binary_Manipulator::Binary_String_To_Hex(const QString &binary) {
-    int value = 0;
+unsigned char Binary_Manipulator::Binary_String_To_Hex(const QString &binary) {
+    unsigned char value = 0;
     for (int i = binary.length() - 1, j = 1; i >= 0; --i) {
         if (binary[i] != '0') value += j;
         j *= 2;
@@ -84,11 +69,11 @@ int Binary_Manipulator::Binary_String_To_Hex(const QString &binary) {
     return value;
 }
 
-int Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits, int start, int end) {
+unsigned char Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits, int start, int end) {
     if (end >= bits.size()) {
         throw "End cannot be greater than the bit vector size!";
     }
-    int value = 0;
+    unsigned char value = 0;
     for (int i = end, j = 1; i >= start; --i) {
         if (bits.testBit(i)) value += j;
         j *= 2;
@@ -96,7 +81,7 @@ int Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits, int start, int en
     return value;
 }
 
-int Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits) {
+unsigned char Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits) {
     return BitArray_To_Hex(bits, 0, (bits.size() - 1));
 }
 
@@ -152,6 +137,16 @@ void Binary_Manipulator::Write_Byte_To_BitArray(QBitArray &bits, int start, int 
     }
 }
 
-bool Binary_Manipulator::Is_Valid_Hex_Digit(int hexDigit) {
-    return (hexDigit >= 0x0 && hexDigit <= 0xF);
+bool Binary_Manipulator::Is_Valid_Hex_Digit(unsigned char hexDigit) {
+    return (hexDigit <= 0xF);
+}
+
+unsigned char Binary_Manipulator::Get_First_Digit_From_Hex(unsigned char hex) {
+    QBitArray bits = Hex_To_BitArray(hex);
+    return BitArray_To_Hex(bits, 0, 3);
+}
+
+unsigned char Binary_Manipulator::Get_Second_Digit_From_Hex(unsigned char hex) {
+    QBitArray bits = Hex_To_BitArray(hex);
+    return BitArray_To_Hex(bits, 4, 7);
 }

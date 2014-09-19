@@ -2,7 +2,7 @@
 #define LEVEL_OFFSET_H
 
 #include "ROM_Type.h"
-#include "Level.h"
+#include "../Common SMB1 Files/Level.h"
 #include <QFile>
 #include <QByteArray>
 
@@ -11,8 +11,8 @@ const static int BAD_OFFSET = -1;
 class Level_Offset {
 public:
     Level_Offset(QFile *file);
-    int Get_Level_Object_Offset(Level level);
-    int Get_Level_Enemy_Offset(Level level);
+    int Get_Level_Object_Offset(Level::Level level);
+    int Get_Level_Enemy_Offset(Level::Level level);
     int Fix_Offset(int offset);
 
 

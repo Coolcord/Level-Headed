@@ -1,4 +1,5 @@
 #include "Item_Writer.h"
+#include "Physics.h"
 #include <assert.h>
 
 Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
@@ -11,7 +12,7 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
     this->numBytesLeft = numBytesLeft;
     this->currentPage = 1;
     this->currentX = 0;
-    this->currentY = 0;
+    this->currentY = Physics::GROUND_Y;
 }
 
 int Item_Writer::Get_Num_Bytes_Left() {
@@ -31,8 +32,10 @@ int Item_Writer::Get_Current_Y() {
 }
 
 bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
-    if (!this->Is_Coordinate_Valid(x)) return false;
-    if (!this->Is_Safe_To_Write_Item()) return false;
+    if (!this->Is_Coordinate_Valid(x))
+        return false;
+    if (!this->Is_Safe_To_Write_Item())
+        return false;
     QString line = "";
     switch (type) {
     case OBJECT:        line += "O: "; break;
@@ -56,7 +59,7 @@ bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
 }
 
 bool Item_Writer::Is_Coordinate_Valid(int coordinate) {
-    return (coordinate >= 0x0 && coordinate <= 0xF);
+    return (coordinate >= 0x0 && coordinate <= 0x10);
 }
 
 bool Item_Writer::Is_Byte_Valid(int byte) {

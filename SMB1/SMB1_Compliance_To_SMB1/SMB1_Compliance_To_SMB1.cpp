@@ -1,5 +1,6 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../Common SMB1 Files/Level_Type.h"
 #include <QPluginLoader>
 #include <QFile>
 #include <QDebug>
@@ -15,9 +16,27 @@ void SMB1_Compliance_To_SMB1::Set_Application_Directory(const QString &location)
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
+    qDebug() << "Phase 1";
     if (this->applicationLocation.isEmpty()) return false;
-    qDebug() << this->Load_Plugins();
+    qDebug() << "Phase 2";
+    if (!this->Load_Plugins()) return false;
 
+    qDebug() << "Loading a ROM...";
+    if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Level-Headed Test Files/Super Mario Bros..nes")) return false;
+    qDebug() << "Allocating buffers for a new level...";
+    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) return false;
+
+    qDebug() << "Attempting to generate a new level...";
+
+    //Generate the level
+    QString fileName = this->applicationLocation + "/Level_1_1.lvl";
+    if (!this->generatorPlugin->Generate_Level(fileName, this->writerPlugin->Get_Num_Object_Bytes(),
+                                               this->writerPlugin->Get_Num_Enemy_Bytes(), Level_Type::STANDARD_OVERWORLD)) {
+        qDebug() << "Looks like the generator blew up";
+        return false;
+    }
+
+    qDebug() << "Done!";
 
     //Unload plugins
     delete this->generatorPlugin;

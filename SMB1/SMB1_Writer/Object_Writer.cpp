@@ -11,7 +11,7 @@ bool Object_Writer::Write_Object(int x, int y, int firstObjectHexDigit, int seco
     if (!Binary_Manipulator::Is_Valid_Hex_Digit(secondObjectHexDigit)) return false;
     QBitArray objectBits(8, false);
     Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 0, firstObjectHexDigit); //write the object
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 0, secondObjectHexDigit); //write the properties
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 4, secondObjectHexDigit); //write the properties
     return this->Write_Object(x, y, Binary_Manipulator::BitArray_To_Hex(objectBits));
 }
 
@@ -109,7 +109,8 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
 }
 
 bool Object_Writer::Pipe(int x, int y, int height, bool enterable = false) {
-    if (height > 9 || height < 2) return false;
+    if (height > 8 || height < 2) return false;
+    --height;
     if (enterable) height += 8; //set the bit
     return this->Write_Object(x, y, 0x7, height);
 }

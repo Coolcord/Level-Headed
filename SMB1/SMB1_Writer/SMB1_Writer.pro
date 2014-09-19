@@ -22,7 +22,6 @@ SOURCES += SMB1_Writer.cpp \
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
     Item_Writer.h \
-    Level.h \
     Binary_Manipulator.h \
     Object_Writer.h \
     Scenery.h \
@@ -38,7 +37,8 @@ HEADERS += SMB1_Writer.h \
     ../Common SMB1 Files/Background.h \
     ../Common SMB1 Files/Brick.h \
     ../Common SMB1 Files/Scenery.h \
-    SMB1_Writer_Interface.h
+    SMB1_Writer_Interface.h \
+    ../Common SMB1 Files/Level.h
 OTHER_FILES +=
 
 unix {

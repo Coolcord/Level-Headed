@@ -1,4 +1,9 @@
 #include "SMB1_Writer.h"
+#include "Level_Offset.h"
+#include "Object_Writer.h"
+#include "Enemy_Writer.h"
+#include "Header_Writer.h"
+#include "Binary_Manipulator.h"
 #include <assert.h>
 
 SMB1_Writer::SMB1_Writer() {
@@ -6,8 +11,14 @@ SMB1_Writer::SMB1_Writer() {
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
     this->enemiesBuffer = NULL;
+    this->levelOffset = NULL;
+    this->objectWriter = NULL;
+    this->enemyWriter = NULL;
+    this->headerWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
+    this->numObjectBytes = 0;
+    this->numEnemyBytes = 0;
 }
 
 void SMB1_Writer::Shutdown() {
@@ -19,9 +30,11 @@ void SMB1_Writer::Shutdown() {
     assert(!this->Are_Buffers_Allocated()); //make sure memory leaks never happen
     this->file->close();
     delete this->file;
+    delete this->levelOffset;
 }
 
 bool SMB1_Writer::Load_ROM(const QString &romLocation) {
+
     //Open the ROM file
     this->file = new QFile(romLocation);
     if (!this->file) return false;
@@ -29,23 +42,37 @@ bool SMB1_Writer::Load_ROM(const QString &romLocation) {
         delete this->file;
         this->file = NULL;
         return false;
-    } else {
-        return true;
     }
+
+    //Read the ROM and make sure it's valid
+    try {
+        this->levelOffset = new Level_Offset(this->file);
+    } catch (...) {
+        this->Shutdown();
+        return false;
+    }
+    return true;
 }
 
-bool SMB1_Writer::New_Level(const int objectOffset, const int enemyOffset) {
+bool SMB1_Writer::New_Level(Level::Level level) {
     if (!this->file) return false; //the ROM needs to be loaded first
 
     //Make sure that the buffers are empty
     if (this->Are_Buffers_Allocated()) return false;
 
     //Allocate Memory
-    this->objectOffset = objectOffset;
-    this->enemyOffset = enemyOffset;
+    this->objectOffset = this->levelOffset->Get_Level_Object_Offset(level);
+    this->enemyOffset = this->levelOffset->Get_Level_Enemy_Offset(level);
     this->headerBuffer = new QByteArray();
     this->objectsBuffer = new QByteArray();
     this->enemiesBuffer = new QByteArray();
+
+    //Read the Level
+    if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {
+        this->Deallocate_Buffers();
+        return false;
+    }
+
     return true;
 }
 
@@ -70,6 +97,26 @@ bool SMB1_Writer::Write_Level() {
     return true;
 }
 
+int SMB1_Writer::Get_Num_Object_Bytes() {
+    return this->numObjectBytes;
+}
+
+int SMB1_Writer::Get_Num_Enemy_Bytes() {
+    return this->numEnemyBytes;
+}
+
+Object_Writer *SMB1_Writer::Get_Object_Writer() {
+    return this->objectWriter;
+}
+
+Enemy_Writer *SMB1_Writer::Get_Enemy_Writer() {
+    return this->enemyWriter;
+}
+
+Header_Writer *SMB1_Writer::Get_Header_Writer() {
+    return this->headerWriter;
+}
+
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
     assert(this->file);
     if (buffer == NULL) return false;
@@ -81,42 +128,64 @@ bool SMB1_Writer::Read_Level_Header() {
     assert(this->file);
     if (!this->Are_Buffers_Allocated()) return false;
     if (!this->file->seek(objectOffset-2)) return false;
-    if (this->file->read(this->headerBuffer->data(), 2) != 2) return false;
+    QByteArray buffer(2, ' ');
+    if (this->file->read(buffer.data(), 2) != 2) return false;
+    this->headerBuffer->clear();
+    this->headerBuffer->append(buffer);
     assert(this->headerBuffer->size() == 2);
+    this->headerWriter = new Header_Writer(this->headerBuffer);
     return true;
 }
 
 bool SMB1_Writer::Read_Objects() {
     assert(this->file);
+    assert(this->headerBuffer);
+    assert(this->headerWriter);
+    assert(!this->objectWriter);
     if (!this->Are_Buffers_Allocated()) return false;
     if (!this->file->seek(this->objectOffset)) return false;
 
-    QByteArray buffer;
+    QByteArray buffer(2, ' ');
+    this->numObjectBytes = 0;
     qint64 ret = this->file->read(buffer.data(), 2);
     while (ret == 2 && buffer.data() != NULL
            && static_cast<unsigned char>(buffer.data()[0]) != 0xFD) {
         this->objectsBuffer->append(buffer);
+        this->numObjectBytes += 2;
         ret = this->file->read(buffer.data(), 2);
     }
 
+    this->objectWriter = new Object_Writer(this->objectsBuffer, this->headerWriter);
     return true;
 }
 
 bool SMB1_Writer::Read_Enemies() {
     assert(this->file);
+    assert(this->headerBuffer);
+    assert(this->headerWriter);
+    assert(!this->enemyWriter);
     if (!this->Are_Buffers_Allocated()) return false;
     if (this->enemyOffset == 0) return true; //nothing to read
     if (!this->file->seek(this->enemyOffset)) return false;
 
-    QByteArray buffer;
-    qint64 ret = this->file->read(buffer.data(), 2);
-    while (ret == 2 && buffer.data() != NULL
-           && static_cast<unsigned char>(buffer.data()[0]) != 0xFF) {
-        this->enemiesBuffer->append(buffer);
-        //TODO: Handle Pipe pointers here by checking if the second nibble of the first byte is 0xE
-        ret = this->file->read(buffer.data(), 2);
+    //Read the enemies from the level
+    this->numEnemyBytes = 0;
+    for (QByteArray coordinate = this->file->peek(1); !coordinate.isEmpty() &&
+         static_cast<unsigned char>(coordinate.data()[0]) != 0xFF; coordinate = this->file->peek(1)) {
+        if (Binary_Manipulator::Get_Second_Digit_From_Hex(static_cast<unsigned char>(coordinate[0])) == 0xE) { //pipe pointer
+            QByteArray buffer(3, ' ');
+            if (this->file->read(buffer.data(), 3) != 3) return false; //something went wrong...
+            this->enemiesBuffer->append(buffer);
+            this->numEnemyBytes += 3;
+        } else { //typical enemy
+            QByteArray buffer(2, ' ');
+            if (this->file->read(buffer.data(), 2) != 2) return false; //something went wrong...
+            this->enemiesBuffer->append(buffer);
+            this->numEnemyBytes += 2;
+        }
     }
 
+    this->enemyWriter = new Enemy_Writer(this->enemiesBuffer, this->headerWriter);
     return true;
 }
 
@@ -129,9 +198,17 @@ void SMB1_Writer::Deallocate_Buffers() {
     delete this->headerBuffer;
     delete this->objectsBuffer;
     delete this->enemiesBuffer;
+    delete this->objectWriter;
+    delete this->enemyWriter;
+    delete this->headerWriter;
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
     this->enemiesBuffer = NULL;
+    this->objectWriter = NULL;
+    this->enemyWriter = NULL;
+    this->headerWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
+    this->numEnemyBytes = 0;
+    this->numObjectBytes = 0;
 }

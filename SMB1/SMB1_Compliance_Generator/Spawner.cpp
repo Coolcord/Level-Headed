@@ -16,6 +16,7 @@ int Spawner::Get_Random_X() {
 
 int Spawner::Get_Random_X(int min) {
     int x = this->Get_Random_X();
-    if (x < min) x = min; //make sure x is valid
+    x += min;
+    if (x > 0x10) x = 0x10;
     return x;
 }

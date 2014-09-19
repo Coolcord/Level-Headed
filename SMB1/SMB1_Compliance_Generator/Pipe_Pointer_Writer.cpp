@@ -23,6 +23,7 @@ bool Pipe_Pointer_Writer::Pipe_Pointer(int x, int room, int page) {
     if (this->enemy->Get_Num_Bytes_Left() < 3) return false;
     if (!this->enemy->Is_Byte_Valid(room) || !this->enemy->Is_Byte_Valid(page)) return false;
     if (!this->enemy->Is_Coordinate_Valid(x)) return false;
+    --this->enemy->numBytesLeft;
     return this->enemy->Write_Item(PIPE_POINTER, x, QString(Enemy_Item::STRING_PIPE_POINTER+" "+QString::number(room)+" "+QString::number(page)));
 }
 

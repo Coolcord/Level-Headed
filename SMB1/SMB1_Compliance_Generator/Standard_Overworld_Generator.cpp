@@ -1,9 +1,10 @@
 #include "Standard_Overworld_Generator.h"
+#include <assert.h>
 
 bool Standard_Overworld_Generator::Generate_Level() {
 
     while (this->object->Get_Num_Bytes_Left() > 0) {
-        this->simpleObjectSpawner->Spawn_Simple_Object();
+        assert(this->simpleObjectSpawner->Spawn_Simple_Object());
     }
 
     //Write the header last
