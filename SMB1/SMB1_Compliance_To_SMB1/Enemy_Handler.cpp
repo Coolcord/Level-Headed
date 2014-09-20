@@ -220,15 +220,50 @@ bool Enemy_Handler::Bullet_Bill_Spawner(const QString &line) {
 }
 
 bool Enemy_Handler::Fire_Bar(const QString &line) {
+    QStringList elements = line.split(' ');
+    if (elements.size() != 7) return false;
+    int x = 0; int y = 0;
+    bool clockwise = false; bool fast = false; bool onlyHardMode = false;
+    if (!this->Parse_Num(elements.at(2), x)) return false;
+    if (!this->Parse_Num(elements.at(3), y)) return false;
+    if (!this->Parse_Difficulty(elements.at(6), onlyHardMode)) return false;
 
+    //Parse the movement direction
+    if (elements.at(4) == Enemy_Item::STRING_CLOCKWISE) clockwise = true;
+    else if (elements.at(4) == Enemy_Item::STRING_COUNTER_CLOCKWISE) clockwise = false;
+    else return false; //invalid direction
+
+    //Parse the speed
+    if (elements.at(5) == Enemy_Item::STRING_SLOW) fast = false;
+    else if (elements.at(5) == Enemy_Item::STRING_FAST) fast = true;
+    else return false; //invalid speed
+
+    return this->writerPlugin->Enemy_Fire_Bar(x, y, clockwise, fast, onlyHardMode);
 }
 
 bool Enemy_Handler::Large_Fire_Bar(const QString &line) {
-
+    QStringList elements = line.split(' ');
+    if (elements.size() != 5) return false;
+    int x = 0; int y = 0; bool onlyHardMode = false;
+    if (!this->Parse_Num(elements.at(2), x)) return false;
+    if (!this->Parse_Num(elements.at(3), y)) return false;
+    if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
+    return this->writerPlugin->Enemy_Large_Fire_Bar(x, y, onlyHardMode);
 }
 
 bool Enemy_Handler::Lift(const QString &line) {
+    QStringList elements = line.split(' ');
+    if (elements.size() != 6) return false;
+    int x = 0; int y = 0; bool vertical = false; bool onlyHardMode = false;
+    if (!this->Parse_Num(elements.at(2), x)) return false;
+    if (!this->Parse_Num(elements.at(3), y)) return false;
+    if (!this->Parse_Difficulty(elements.at(5), onlyHardMode)) return false;
 
+    //Parse the movement type
+    if (elements.at(4) == Enemy_Item::STRING_VERTICAL) vertical = true;
+    else if (elements.at(4) == Enemy_Item::STRING_HORIZONTAL) vertical = false;
+    else return false; //invalid movement type
+    return this->writerPlugin->Enemy_Lift(x, y, vertical, onlyHardMode);
 }
 
 bool Enemy_Handler::Falling_Lift(const QString &line) {

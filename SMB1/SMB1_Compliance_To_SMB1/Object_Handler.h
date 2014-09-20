@@ -2,11 +2,16 @@
 #define OBJECT_HANDLER_H
 
 #include "Item_Handler.h"
+#include "../Common SMB1 Files/Background.h"
+#include "../Common SMB1 Files/Brick.h"
+#include "../Common SMB1 Files/Scenery.h"
+#include <QMap>
 
 class Object_Handler : public Item_Handler
 {
 public:
-    Object_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {}
+    Object_Handler(SMB1_Writer_Interface *writerPlugin);
+    ~Object_Handler();
 
     bool Question_Block_With_Mushroom(const QString &line);
     bool Question_Block_With_Coin(const QString &line);
@@ -57,6 +62,13 @@ public:
     bool Nothing(const QString &line);
 
 private:
+    void Populate_Scenery_Map();
+    void Populate_Brick_Map();
+    void Populate_Background_Map();
+
+    QMap<QString, Scenery::Scenery> *sceneries;
+    QMap<QString, Brick::Brick> *bricks;
+    QMap<QString, Background::Background> *backgrounds;
     SMB1_Writer_Interface *writerPlugin;
 };
 

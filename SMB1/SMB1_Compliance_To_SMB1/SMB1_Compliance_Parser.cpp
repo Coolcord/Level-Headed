@@ -1,7 +1,5 @@
 #include "SMB1_Compliance_Parser.h"
-#include "../Common SMB1 Files/Object_Item.h"
 #include "../Common SMB1 Files/Object_Item_String.h"
-#include "../Common SMB1 Files/Enemy_Item.h"
 #include "../Common SMB1 Files/Enemy_Item_String.h"
 #include "../Common SMB1 Files/Level_Type.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
@@ -16,7 +14,7 @@ SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlug
 
     //Build the map for the Objects
     this->objects = new QMap<QString, Object_Item::Object_Item>();
-    this->Populate_Objects_Map();
+    this->Populate_Object_Map();
 
     //Build the map for the Enemies
     this->enemies = new QMap<QString, Enemy_Item::Enemy_Item>();
@@ -34,7 +32,7 @@ SMB1_Compliance_Parser::~SMB1_Compliance_Parser() {
     delete this->enemyHandler;
 }
 
-void SMB1_Compliance_Parser::Populate_Objects_Map() {
+void SMB1_Compliance_Parser::Populate_Object_Map() {
     this->objects->clear();
     this->objects->insert(Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Object_Item::QUESTION_BLOCK_WITH_MUSHROOM);
     this->objects->insert(Object_Item::STRING_QUESTION_BLOCK_WITH_COIN, Object_Item::QUESTION_BLOCK_WITH_COIN);

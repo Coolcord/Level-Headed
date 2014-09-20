@@ -19,9 +19,8 @@ public:
     bool Parse_Level(QString fileLocation);
 
 private:
-    void Populate_Objects_Map();
+    void Populate_Object_Map();
     void Populate_Enemy_Map();
-    void Populate_Enemy_Properties_Map();
     bool Parse_Header(QFile *file);
     bool Parse_Items(QFile *file);
     bool Parse_Object(const QString &line);
