@@ -17,7 +17,8 @@ SOURCES += SMB1_Writer.cpp \
     Object_Writer.cpp \
     Header_Writer.cpp \
     Enemy_Writer.cpp \
-    Level_Pointers_Writer.cpp
+    Level_Pointers_Writer.cpp \
+    SMB1_Writer_Accessors.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \

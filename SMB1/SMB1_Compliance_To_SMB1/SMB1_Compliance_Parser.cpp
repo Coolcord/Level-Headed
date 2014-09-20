@@ -135,7 +135,11 @@ bool SMB1_Compliance_Parser::Parse_Level(QString fileLocation) {
     //Parse the Header
     if (!this->Parse_Header(&file)) return false;
 
+    //Parse all of the Objects
+    if (!this->Parse_Items(&file)) return false;
 
+    //Make sure everything was parsed
+    if (!file.atEnd()) return false;
 
     return true;
 }
@@ -150,6 +154,13 @@ bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
         //TODO: Parse the header
 
     } while (line != Level_Type::STRING_BREAK && !file->atEnd());
+
+    return true;
+}
+
+bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
+    assert(file);
+    QByteArray line;
 
     //Read the Objects and Enemies
     do {
@@ -168,9 +179,9 @@ bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
 }
 
 bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
-    QStringList lines = line.split(' ');
-    if (lines.size() < 2) return false; //line is invalid
-    QString object = lines.at(1);
+    QStringList elements = line.split(' ');
+    if (elements.size() < 2) return false; //line is invalid
+    QString object = elements.at(1);
     QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(object);
     if (iter == this->objects->end()) return false; //not found
     switch (iter.value()) {
@@ -277,9 +288,9 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
 }
 
 bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line) {
-    QStringList lines = line.split(' ');
-    if (lines.size() < 2) return false; //line is invalid
-    QString enemy = lines.at(1);
+    QStringList elements = line.split(' ');
+    if (elements.size() < 2) return false; //line is invalid
+    QString enemy = elements.at(1);
     QMap<QString, Enemy_Item::Enemy_Item>::iterator iter = this->enemies->find(enemy);
     if (iter == this->enemies->end()) return false; //not found
     switch (iter.value()) {

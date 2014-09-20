@@ -30,8 +30,8 @@ public:
     bool Horizontal_Coins(int x, int y, int length);
     bool Vertical_Bricks(int x, int y, int height);
     bool Vertical_Blocks(int x, int y, int height);
-    bool Pipe(int x, int y, int height, bool enterable);
-    bool Hole(int x, int length, bool filledWithWater);
+    bool Pipe(int x, int y, int height, bool enterable = false);
+    bool Hole(int x, int length, bool filledWithWater = false);
     bool Balance_Rope(int x, int length);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
@@ -43,7 +43,7 @@ public:
     bool Axe(int x);
     bool Axe_Rope(int x);
     bool Bowser_Bridge(int x);
-    bool Scroll_Stop(int x, bool warpZone);
+    bool Scroll_Stop(int x, bool warpZone = false);
     bool Flying_Cheep_Cheep_Spawner(int x);
     bool Swimming_Cheep_Cheep_Spawner(int x);
     bool Bullet_Bill_Spawner(int x);

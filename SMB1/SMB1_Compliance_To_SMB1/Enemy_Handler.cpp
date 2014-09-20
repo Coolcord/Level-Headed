@@ -1,10 +1,4 @@
 #include "Enemy_Handler.h"
-#include <assert.h>
-
-Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *writerPlugin) {
-    assert(writerPlugin);
-    this->writerPlugin = writerPlugin;
-}
 
 bool Enemy_Handler::Green_Koopa(const QString &line) {
 

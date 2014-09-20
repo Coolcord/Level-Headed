@@ -1,13 +1,13 @@
 #include "Object_Handler.h"
-#include <assert.h>
-
-Object_Handler::Object_Handler(SMB1_Writer_Interface *writerPlugin) {
-    assert(writerPlugin);
-    this->writerPlugin = writerPlugin;
-}
+#include <QStringList>
 
 bool Object_Handler::Question_Block_With_Mushroom(const QString &line) {
-
+    QStringList elements = line.split(' ');
+    if (elements.size() != 4) return false;
+    bool valid = false;
+    int x = elements.at(2).toInt(&valid);
+    int y = elements.at(3).toInt(&valid);
+    return this->writerPlugin->Object_Question_Block_With_Mushroom(x, y);
 }
 
 bool Object_Handler::Question_Block_With_Coin(const QString &line) {

@@ -105,18 +105,6 @@ int SMB1_Writer::Get_Num_Enemy_Bytes() {
     return this->numEnemyBytes;
 }
 
-Object_Writer *SMB1_Writer::Get_Object_Writer() {
-    return this->objectWriter;
-}
-
-Enemy_Writer *SMB1_Writer::Get_Enemy_Writer() {
-    return this->enemyWriter;
-}
-
-Header_Writer *SMB1_Writer::Get_Header_Writer() {
-    return this->headerWriter;
-}
-
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
     assert(this->file);
     if (buffer == NULL) return false;

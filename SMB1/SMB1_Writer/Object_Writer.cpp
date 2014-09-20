@@ -108,14 +108,14 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     return this->Write_Object(x, y, 0x6, height-1);
 }
 
-bool Object_Writer::Pipe(int x, int y, int height, bool enterable = false) {
+bool Object_Writer::Pipe(int x, int y, int height, bool enterable) {
     if (height > 8 || height < 2) return false;
     --height;
     if (enterable) height += 8; //set the bit
     return this->Write_Object(x, y, 0x7, height);
 }
 
-bool Object_Writer::Hole(int x, int length, bool filledWithWater = false) {
+bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
     if (length > 16 || length < 1) return false;
     if (filledWithWater) return this->Write_Object(x, 0xC, 0x5, length-1);
     else return this->Write_Object(x, 0xC, 0x0, length-1);

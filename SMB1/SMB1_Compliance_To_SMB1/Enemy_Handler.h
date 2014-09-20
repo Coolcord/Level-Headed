@@ -1,13 +1,12 @@
 #ifndef ENEMY_HANDLER_H
 #define ENEMY_HANDLER_H
 
-#include "../SMB1_Writer/SMB1_Writer_Interface.h"
-#include <QString>
+#include "Item_Handler.h"
 
-class Enemy_Handler
+class Enemy_Handler : public Item_Handler
 {
 public:
-    Enemy_Handler(SMB1_Writer_Interface *writerPlugin);
+    Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {}
 
     bool Green_Koopa(const QString &line);
     bool Red_Koopa(const QString &line);

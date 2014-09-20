@@ -23,6 +23,7 @@ private:
     void Populate_Enemy_Map();
     void Populate_Enemy_Properties_Map();
     bool Parse_Header(QFile *file);
+    bool Parse_Items(QFile *file);
     bool Parse_Object(const QString &line);
     bool Parse_Enemy(const QString &line);
 

@@ -1,13 +1,12 @@
 #ifndef OBJECT_HANDLER_H
 #define OBJECT_HANDLER_H
 
-#include "../SMB1_Writer/SMB1_Writer_Interface.h"
-#include <QString>
+#include "Item_Handler.h"
 
-class Object_Handler
+class Object_Handler : public Item_Handler
 {
 public:
-    Object_Handler(SMB1_Writer_Interface *writerPlugin);
+    Object_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {}
 
     bool Question_Block_With_Mushroom(const QString &line);
     bool Question_Block_With_Coin(const QString &line);

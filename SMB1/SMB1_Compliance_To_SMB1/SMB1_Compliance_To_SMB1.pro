@@ -13,7 +13,8 @@ CONFIG += plugin
 SOURCES += SMB1_Compliance_To_SMB1.cpp \
     SMB1_Compliance_Parser.cpp \
     Enemy_Handler.cpp \
-    Object_Handler.cpp
+    Object_Handler.cpp \
+    Item_Handler.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -22,7 +23,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     ../SMB1_Writer/SMB1_Writer_Interface.h \
     SMB1_Compliance_Parser.h \
     Enemy_Handler.h \
-    Object_Handler.h
+    Object_Handler.h \
+    Item_Handler.h
 
 OTHER_FILES +=
 
