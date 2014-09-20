@@ -21,7 +21,6 @@ public:
     bool Brick_With_Star(int x, int y);
     bool Brick_With_10_Coins(int x, int y);
     bool Brick_With_1up(int x, int y);
-    bool Underwater_Sideways_Pipe(int x, int y);
     bool Used_Block(int x, int y);
     bool Trampoline(int x, int y);
     bool Cannon(int x, int y, int height);
@@ -36,7 +35,7 @@ public:
     bool Balance_Rope(int x, int length);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
-    bool Page_Skip(int amount);
+    bool Page_Change(int amount);
     bool Reverse_L_Pipe(int x);
     bool Flagpole(int x);
     bool Castle(int x);

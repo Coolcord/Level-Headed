@@ -14,7 +14,7 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
     //Create a new file for writing
     QFile file(fileName);
     if (!file.open(QFile::ReadWrite | QFile::Truncate)) {
-        throw "Unable to get read/write permissions";
+        return false;
     }
 
     //Determine which level generator to use

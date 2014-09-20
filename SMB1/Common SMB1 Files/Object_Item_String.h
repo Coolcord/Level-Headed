@@ -30,7 +30,7 @@ namespace Object_Item {
     const static QString STRING_BALANCE_ROPE = "Balance_Rope";
     const static QString STRING_BRIDGE = "Bridge";
     const static QString STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS = "Horizontal_Question_Blocks_With_Coins";
-    const static QString STRING_PAGE_SKIP = "Page_Skip";
+    const static QString STRING_PAGE_CHANGE = "Page_Change";
     const static QString STRING_REVERSE_L_PIPE = "Reverse_L_Pipe";
     const static QString STRING_FLAGPOLE = "Flagpole";
     const static QString STRING_CASTLE = "Castle";

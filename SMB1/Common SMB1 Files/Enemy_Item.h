@@ -30,6 +30,7 @@ namespace Enemy_Item {
         LIFT_SPAWNER,
         BOWSER,
         WARP_ZONE,
+        PIPE_POINTER,
         TOAD,
         GOOMBA_GROUP,
         KOOPA_GROUP,

@@ -29,7 +29,7 @@ namespace Object_Item {
         BALANCE_ROPE,
         BRIDGE,
         HORIZONTAL_QUESTION_BLOCKS_WITH_COINS,
-        PAGE_SKIP,
+        PAGE_CHANGE,
         REVERSE_L_PIPE,
         FLAGPOLE,
         CASTLE,

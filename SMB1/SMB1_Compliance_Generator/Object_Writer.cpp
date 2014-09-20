@@ -252,7 +252,7 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     }
 }
 
-bool Object_Writer::Page_Skip(int page) {
+bool Object_Writer::Page_Change(int page) {
     if (page < 0x00 || page > 0x3F) return false;
     int tmpX = this->currentX;
     int tmpPage = this->currentPage;

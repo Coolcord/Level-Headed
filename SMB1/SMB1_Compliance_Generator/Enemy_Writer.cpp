@@ -217,7 +217,7 @@ bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Page_Skip(int page) {
+bool Enemy_Writer::Page_Change(int page) {
     if (page < 0x00 || page > 0xFF) return false;
     int tmpX = this->currentX;
     int tmpPage = this->currentPage;

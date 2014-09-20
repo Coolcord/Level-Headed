@@ -39,7 +39,7 @@ public:
     bool Toad(int x, bool onlyHardMode = false);
     bool Goomba_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
-    bool Page_Skip(int page);
+    bool Page_Change(int page);
     bool Nothing(int x);
 
 private:
