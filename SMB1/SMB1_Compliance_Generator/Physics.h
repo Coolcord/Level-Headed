@@ -13,8 +13,13 @@ namespace Physics {
     const static int MIN_OBJECT_LENGTH = 1;
     const static int MIN_STEPS_SIZE = 2;
     const static int MAX_STEPS_SIZE = 8;
+    const static int MIN_PIPE_Y = 0x9;
+    const static int MAX_PIPE_Y = 0x3;
+    const static int CASTLE_LENGTH = 5;
+    const static int BOWSER_BRIDGE_LENGTH = 13;
     const static int PIPE_LENGTH = 2;
-    const static int TALL_PIPE_LENGTH = 4;
+    const static int END_STAIRS_LENGTH = 9;
+    const static int REVERSE_L_PIPE_LENGTH = 4;
 }
 
 #endif // PHYSICS_H

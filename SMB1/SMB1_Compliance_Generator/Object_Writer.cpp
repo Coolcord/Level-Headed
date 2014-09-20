@@ -269,20 +269,16 @@ bool Object_Writer::Page_Change(int page) {
     }
 }
 
-bool Object_Writer::Reverse_L_Pipe(int x) {
-    return this->Write_Object(x, Object_Item::STRING_REVERSE_L_PIPE);
-}
-
 bool Object_Writer::Flagpole(int x) {
     return this->Write_Object(x, Object_Item::STRING_FLAGPOLE, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Writer::Castle(int x) {
-    return this->Write_Object(x, Object_Item::STRING_CASTLE);
+    return this->Write_Object(x, Object_Item::STRING_CASTLE, Physics::CASTLE_LENGTH);
 }
 
 bool Object_Writer::Big_Castle(int x) {
-    return this->Write_Object(x, Object_Item::STRING_BIG_CASTLE);
+    return this->Write_Object(x, Object_Item::STRING_BIG_CASTLE, Physics::CASTLE_LENGTH);
 }
 
 bool Object_Writer::Axe(int x) {
@@ -294,7 +290,7 @@ bool Object_Writer::Axe_Rope(int x) {
 }
 
 bool Object_Writer::Bowser_Bridge(int x) {
-    return this->Write_Object(x, Object_Item::STRING_BOWSER_BRIDGE);
+    return this->Write_Object(x, Object_Item::STRING_BOWSER_BRIDGE, Physics::BOWSER_BRIDGE_LENGTH);
 }
 
 bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
@@ -374,25 +370,25 @@ bool Object_Writer::Change_Background(int x, Background::Background background) 
 }
 
 bool Object_Writer::Lift_Rope(int x) {
-    return this->Write_Object(x, Object_Item::STRING_LIFT_ROPE);
+    return this->Write_Object(x, Object_Item::STRING_LIFT_ROPE, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Writer::Balance_Lift_Rope(int x, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_ROPE, QString::number(length));
+    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_ROPE, QString::number(length), Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Writer::Steps(int x, int width) {
     if (width < 1 || width > 8) return false;
-    return this->Write_Object(x, Object_Item::STRING_STEPS, QString::number(width));
+    return this->Write_Object(x, Object_Item::STRING_STEPS, QString::number(width), width);
 }
 
 bool Object_Writer::End_Steps(int x) {
-    return this->Write_Object(x, Object_Item::STRING_END_STEPS);
+    return this->Write_Object(x, Object_Item::STRING_END_STEPS, Physics::END_STAIRS_LENGTH);
 }
 
 bool Object_Writer::Pipe_Wall(int x) {
-    return this->Write_Object(x, Object_Item::STRING_PIPE_WALL);
+    return this->Write_Object(x, Object_Item::STRING_PIPE_WALL, Physics::PIPE_LENGTH);
 }
 
 bool Object_Writer::Nothing() {

@@ -11,6 +11,16 @@ bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
     return this->Write_Item(x, y, enemyByte);
 }
 
+bool Enemy_Writer::Fill_Buffer() {
+    while (this->Is_Safe_To_Write_Item()) {
+        if (!this->Nothing(0)) return false;
+    }
+    if (this->How_Many_Bytes_Left() == 1) {
+        if (!this->Write_Byte_To_Buffer(0xFF)) return false; //fill the buffer with the terminator byte
+    }
+    return true;
+}
+
 bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
     if (moving) {
         return this->Write_Enemy(x, y, 0x00, onlyHardMode);

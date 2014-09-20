@@ -12,8 +12,8 @@ public:
     bool Spawn_Simple_Object();
 
 private:
-    int Get_Random_Y();
-    int Get_Random_Pipe_Y();
+    int Get_Random_Y(int x);
+    int Get_Random_Pipe_Y(int x);
     int Get_Random_Length();
     int Get_Random_Hole_Length();
     int Get_Random_Steps_Size();

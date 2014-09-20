@@ -10,6 +10,7 @@ class Object_Writer : public Item_Writer
 {
 public:
     Object_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) {}
+    bool Fill_Buffer();
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);

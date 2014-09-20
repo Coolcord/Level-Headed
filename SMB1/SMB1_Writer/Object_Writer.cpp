@@ -15,6 +15,13 @@ bool Object_Writer::Write_Object(int x, int y, int firstObjectHexDigit, int seco
     return this->Write_Object(x, y, Binary_Manipulator::BitArray_To_Hex(objectBits));
 }
 
+bool Object_Writer::Fill_Buffer() {
+    while (this->Is_Safe_To_Write_Item()) {
+        if (!this->Nothing(0)) return false;
+    }
+    return true;
+}
+
 bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
     return this->Write_Object(x, y, 0x00);
 }

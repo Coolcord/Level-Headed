@@ -69,24 +69,10 @@ bool SMB1_Writer::New_Level(Level::Level level) {
     this->enemiesBuffer = new QByteArray();
 
     //Read the Level
-    if (!this->Read_Level_Header()) {
-        qDebug() << "Level Header could not be read";
-        return false;
-    }
-    if (!this->Read_Objects()) {
-        qDebug() << "Objects could not be read";
-        return false;
-    }
-    if (!this->Read_Enemies()) {
-        qDebug() << "Enemies could not be read";
-        return false;
-    }
-    /*
     if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {
         this->Deallocate_Buffers();
         return false;
     }
-    */
 
     return true;
 }
@@ -97,6 +83,10 @@ bool SMB1_Writer::Write_Level() {
     //Make sure the offsets have been set
     if (this->objectOffset == BAD_OFFSET) return false;
     if (this->enemyOffset == BAD_OFFSET) return false;
+
+    //Fill the object and enemy buffers if they aren't already full
+    if (!this->objectWriter->Fill_Buffer()) return false;
+    if (!this->enemyWriter->Fill_Buffer()) return false;
 
     //Write Header
     if (!this->Write_Buffer(this->objectOffset-2, this->headerBuffer)) return false;

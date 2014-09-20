@@ -1,6 +1,7 @@
 #include "Item_Writer.h"
 #include "Header_Writer.h"
 #include <assert.h>
+#include <QDebug>
 
 Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter) {
     assert(buffer);
@@ -9,7 +10,7 @@ Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter) {
     this->headerWriter = headerWriter;
     this->bufferSize = this->buffer->size();
     this->currentPage = 0;
-    this->currentX = 0;
+    this->currentX = 15;
     this->currentY = 0;
     this->pageFlag = false;
     this->currentByte = 0;
@@ -60,7 +61,6 @@ bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     this->currentY = y;
     if (handlePageFlag) this->pageFlag = tmpPageFlag;
 
-    //TODO: Find a way to write this to the buffer
     QBitArray positionBits(8, false);
     Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, this->currentX); //x
     Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, this->currentY); //y
@@ -76,5 +76,5 @@ bool Item_Writer::Write_Byte_To_Buffer(int byte) {
 }
 
 int Item_Writer::How_Many_Bytes_Left() {
-    return (this->bufferSize - this->currentByte+1);
+    return (this->bufferSize - this->currentByte);
 }

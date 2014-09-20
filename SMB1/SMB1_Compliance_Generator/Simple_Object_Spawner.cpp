@@ -9,9 +9,12 @@ Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object) : Spawner() 
     this->object = object;
 }
 
-int Simple_Object_Spawner::Get_Random_Y() {
+int Simple_Object_Spawner::Get_Random_Y(int x) {
     int y = this->object->Get_Current_Y();
     bool up = static_cast<bool>((qrand() % 2));
+    if (x > Physics::BASIC_JUMP_HEIGHT) {
+        return Physics::GROUND_Y; //drop back to ground level if the x goes out too far
+    }
     if (up) {
         y -= qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
         if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y; //make sure y is valid
@@ -22,9 +25,10 @@ int Simple_Object_Spawner::Get_Random_Y() {
     return y;
 }
 
-int Simple_Object_Spawner::Get_Random_Pipe_Y() {
-    int y = this->Get_Random_Y() - 1;
-    if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y; //make sure y is valid
+int Simple_Object_Spawner::Get_Random_Pipe_Y(int x) {
+    int y = this->Get_Random_Y(x) - 1;
+    if (y < Physics::MAX_PIPE_Y) y = Physics::MAX_PIPE_Y; //make sure y is not too high
+    else if (y > Physics::MIN_PIPE_Y) y = Physics::MIN_PIPE_Y; //make sure y is not too low
     return y;
 }
 
@@ -48,11 +52,11 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     } else if (random <= PROBABILITY_HORIZONTAL_BLOCKS) {
         return this->object->Horizontal_Blocks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length());
     } else if (random <= PROBABILITY_HORIZONTAL_COINS) {
-        return this->object->Horizontal_Coins(x, this->Get_Random_Y(), this->Get_Random_Length());
+        return this->object->Horizontal_Coins(x, this->Get_Random_Y(x), this->Get_Random_Length());
     } else if (random <= PROBABILITY_PIPE) {
-        int y = this->Get_Random_Pipe_Y();
+        int y = this->Get_Random_Pipe_Y(x);
         int height = Physics::GROUND_Y - y + 1;
-        if (height > 8) height = 8;
+        assert(height <= 8);
         return this->object->Pipe(x, y, height);
     } else if (random <= PROBABILITY_HOLE) {
         if (this->object->Hole(x, this->Get_Random_Hole_Length(), false)) {
@@ -66,7 +70,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_COIN) {
         return this->object->Question_Block_With_Coin(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_VERTICAL_BLOCKS) {
-        int y = this->Get_Random_Y();
+        int y = this->Get_Random_Y(x);
         int height = Physics::GROUND_Y - y + 1;
         return this->object->Vertical_Blocks(x, y, height);
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_MUSHROOM) {
