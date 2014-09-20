@@ -24,18 +24,9 @@ public:
     int Get_Num_Object_Bytes();
     int Get_Num_Enemy_Bytes();
 
-
-private:
-    bool Are_Buffers_Allocated();
-    void Deallocate_Buffers();
-    bool Write_Buffer(const int offset, QByteArray *buffer);
-    bool Read_Level_Header();
-    bool Read_Objects();
-    bool Read_Enemies();
-
     //Header
     bool Header_Time(int value);
-    void Header_Autowalk(bool value);
+    bool Header_Autowalk(bool value);
     bool Header_Starting_Position(Level_Attribute::Level_Attribute value);
     bool Header_Background(Background::Background value);
     bool Header_Level_Compliment(Level_Compliment::Level_Compliment value);
@@ -125,6 +116,15 @@ private:
     bool Enemy_Page_Change(int x, int page);
     bool Enemy_Pipe_Pointer(int x, int room, int page);
     bool Enemy_Nothing(int x);
+
+
+private:
+    bool Are_Buffers_Allocated();
+    void Deallocate_Buffers();
+    bool Write_Buffer(const int offset, QByteArray *buffer);
+    bool Read_Level_Header();
+    bool Read_Objects();
+    bool Read_Enemies();
 
     int numObjectBytes;
     int numEnemyBytes;

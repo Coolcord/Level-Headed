@@ -16,7 +16,7 @@ class SMB1_Compliance_Parser
 public:
     SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin);
     ~SMB1_Compliance_Parser();
-    bool Parse_Level(QString fileLocation);
+    bool Parse_Level(const QString &fileLocation);
 
 private:
     void Populate_Object_Map();

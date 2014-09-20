@@ -22,7 +22,7 @@ public:
 
     //Header
     virtual bool Header_Time(int value)=0;
-    virtual void Header_Autowalk(bool value)=0;
+    virtual bool Header_Autowalk(bool value)=0;
     virtual bool Header_Starting_Position(Level_Attribute::Level_Attribute value)=0;
     virtual bool Header_Background(Background::Background value)=0;
     virtual bool Header_Level_Compliment(Level_Compliment::Level_Compliment value)=0;

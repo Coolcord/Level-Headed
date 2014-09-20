@@ -5,6 +5,7 @@
 #include "Header_Writer.h"
 #include "Binary_Manipulator.h"
 #include <assert.h>
+#include <QDebug>
 
 SMB1_Writer::SMB1_Writer() {
     //Set class variables
@@ -68,10 +69,24 @@ bool SMB1_Writer::New_Level(Level::Level level) {
     this->enemiesBuffer = new QByteArray();
 
     //Read the Level
+    if (!this->Read_Level_Header()) {
+        qDebug() << "Level Header could not be read";
+        return false;
+    }
+    if (!this->Read_Objects()) {
+        qDebug() << "Objects could not be read";
+        return false;
+    }
+    if (!this->Read_Enemies()) {
+        qDebug() << "Enemies could not be read";
+        return false;
+    }
+    /*
     if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {
         this->Deallocate_Buffers();
         return false;
     }
+    */
 
     return true;
 }
@@ -114,7 +129,7 @@ bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
 
 bool SMB1_Writer::Read_Level_Header() {
     assert(this->file);
-    if (!this->Are_Buffers_Allocated()) return false;
+    if (!this->headerBuffer || this->headerWriter) return false;
     if (!this->file->seek(objectOffset-2)) return false;
     QByteArray buffer(2, ' ');
     if (this->file->read(buffer.data(), 2) != 2) return false;
@@ -130,7 +145,7 @@ bool SMB1_Writer::Read_Objects() {
     assert(this->headerBuffer);
     assert(this->headerWriter);
     assert(!this->objectWriter);
-    if (!this->Are_Buffers_Allocated()) return false;
+    if (this->objectOffset == BAD_OFFSET || !this->objectsBuffer || this->objectWriter) return false;
     if (!this->file->seek(this->objectOffset)) return false;
 
     QByteArray buffer(2, ' ');
@@ -152,7 +167,7 @@ bool SMB1_Writer::Read_Enemies() {
     assert(this->headerBuffer);
     assert(this->headerWriter);
     assert(!this->enemyWriter);
-    if (!this->Are_Buffers_Allocated()) return false;
+    if (this->enemyOffset == BAD_OFFSET || !this->enemiesBuffer || this->enemyWriter) return false;
     if (this->enemyOffset == 0) return true; //nothing to read
     if (!this->file->seek(this->enemyOffset)) return false;
 
@@ -179,7 +194,8 @@ bool SMB1_Writer::Read_Enemies() {
 
 bool SMB1_Writer::Are_Buffers_Allocated() {
     return (this->headerBuffer != NULL && this->objectsBuffer != NULL && this->enemiesBuffer != NULL
-            && this->objectOffset != BAD_OFFSET && this->enemyOffset != BAD_OFFSET);
+            && this->objectOffset != BAD_OFFSET && this->enemyOffset != BAD_OFFSET
+            && this->objectWriter != NULL && this->enemyWriter != NULL && this->headerWriter != NULL);
 }
 
 void SMB1_Writer::Deallocate_Buffers() {

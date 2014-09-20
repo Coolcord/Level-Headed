@@ -45,6 +45,7 @@ bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
     }
     line += item + "\n"; //only use Unix endlines
     *(this->stream) << line;
+    if (this->stream->status() != QTextStream::Ok) return false;
 
     //Keep track of the level stats
     this->numBytesLeft -= 2;

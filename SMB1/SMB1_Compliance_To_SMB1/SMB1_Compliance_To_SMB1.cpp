@@ -1,6 +1,7 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../Common SMB1 Files/Level_Type.h"
+#include "SMB1_Compliance_Parser.h"
 #include <QPluginLoader>
 #include <QFile>
 #include <QDebug>
@@ -16,17 +17,24 @@ void SMB1_Compliance_To_SMB1::Set_Application_Directory(const QString &location)
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
+    this->generatorPlugin = NULL;
+    this->writerPlugin = NULL;
+
     qDebug() << "Phase 1";
     if (this->applicationLocation.isEmpty()) return false;
     qDebug() << "Phase 2";
     if (!this->Load_Plugins()) return false;
 
+    //Set up the Parser
+    this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
+
     qDebug() << "Loading a ROM...";
     if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Level-Headed Test Files/Super Mario Bros..nes")) return false;
-    qDebug() << "Allocating buffers for a new level...";
-    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) return false;
 
     qDebug() << "Attempting to generate a new level...";
+
+    //Allocate Buffers for a New Level
+    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) return false;
 
     //Generate the level
     QString fileName = this->applicationLocation + "/Level_1_1.lvl";
@@ -36,11 +44,24 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
+    //Parse the level
+    qDebug() << "Parsing the level...";
+    if (!this->parser->Parse_Level(fileName)) {
+        qDebug() << "Looks like the interpreter blew up";
+        return false;
+    }
+
+    //Write the Level
+    if (!this->writerPlugin->Write_Level()) return false;
+
     qDebug() << "Done!";
 
     //Unload plugins
+    this->writerPlugin->Shutdown();
+    delete this->parser;
     delete this->generatorPlugin;
     delete this->writerPlugin;
+    this->parser = NULL;
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
     return true;

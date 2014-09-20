@@ -7,6 +7,7 @@
 #include "Enemy_Handler.h"
 #include <assert.h>
 #include <QStringList>
+#include <QDebug>
 
 SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin) {
     assert(writerPlugin);
@@ -123,18 +124,30 @@ void SMB1_Compliance_Parser::Populate_Enemy_Map() {
     this->enemies->insert(Enemy_Item::STRING_NOTHING, Enemy_Item::NOTHING);
 }
 
-bool SMB1_Compliance_Parser::Parse_Level(QString fileLocation) {
+bool SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation) {
     //Open the file for reading
     QFile file(fileLocation);
     if (!file.open(QFile::ReadOnly)) {
+        qDebug() << "Unable to open file";
         return false;
     }
 
     //Parse the Header
-    if (!this->Parse_Header(&file)) return false;
+    if (!this->Parse_Header(&file)) {
+        qDebug() << "Unable to parse the header";
+        return false;
+    }
+
+    if (file.atEnd()) {
+        qDebug() << "There are no objects to parse!";
+        return false;
+    }
 
     //Parse all of the Objects
-    if (!this->Parse_Items(&file)) return false;
+    if (!this->Parse_Items(&file)) {
+        qDebug() << "Failed to parse an object";
+        return false;
+    }
 
     //Make sure everything was parsed
     if (!file.atEnd()) return false;
@@ -149,6 +162,7 @@ bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
     //Read the Header
     do {
         line = file->readLine();
+        line.chop(1); //remove the new line character
         //TODO: Parse the header
 
     } while (line != Level_Type::STRING_BREAK && !file->atEnd());
@@ -163,6 +177,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     //Read the Objects and Enemies
     do {
         line = file->readLine();
+        line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "O:") {
             if (!this->Parse_Object(line)) return false;
