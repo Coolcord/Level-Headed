@@ -39,10 +39,11 @@ public:
     bool Toad(const QString &line);
     bool Goomba_Group(const QString &line);
     bool Koopa_Group(const QString &line);
-    bool Page_Skip(const QString &line);
+    bool Page_Change(const QString &line);
     bool Nothing(const QString &line);
 
 private:
+    bool Parse_Difficulty(const QString &value, bool &onlyHardMode);
     SMB1_Writer_Interface *writerPlugin;
 };
 

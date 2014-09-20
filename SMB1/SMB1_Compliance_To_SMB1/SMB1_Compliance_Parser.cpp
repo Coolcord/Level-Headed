@@ -328,7 +328,7 @@ bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line) {
     case Enemy_Item::TOAD:                  return this->enemyHandler->Toad(line);
     case Enemy_Item::GOOMBA_GROUP:          return this->enemyHandler->Goomba_Group(line);
     case Enemy_Item::KOOPA_GROUP:           return this->enemyHandler->Koopa_Group(line);
-    case Enemy_Item::PAGE_CHANGE:           return this->enemyHandler->Page_Skip(line);
+    case Enemy_Item::PAGE_CHANGE:           return this->enemyHandler->Page_Change(line);
     case Enemy_Item::NOTHING:               return this->enemyHandler->Nothing(line);
     default:                                return false; //invalid enemy
     }
