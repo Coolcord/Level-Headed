@@ -127,8 +127,8 @@ bool SMB1_Writer::Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlace
     return this->objectWriter->Horizontal_Question_Blocks_With_Coins(x, yPlacement, length);
 }
 
-bool SMB1_Writer::Object_Page_Skip(int page) {
-    return this->objectWriter->Page_Skip(page);
+bool SMB1_Writer::Object_Page_Change(int page) {
+    return this->objectWriter->Page_Change(page);
 }
 
 bool SMB1_Writer::Object_Reverse_L_Pipe(int x) {

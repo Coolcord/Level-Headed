@@ -54,7 +54,7 @@ public:
     virtual bool Object_Balance_Rope(int x, int length)=0;
     virtual bool Object_Bridge(int x, int yPlacement, int length)=0;
     virtual bool Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length)=0;
-    virtual bool Object_Page_Skip(int page)=0;
+    virtual bool Object_Page_Change(int page)=0;
     virtual bool Object_Reverse_L_Pipe(int x)=0;
     virtual bool Object_Flagpole(int x)=0;
     virtual bool Object_Castle(int x)=0;

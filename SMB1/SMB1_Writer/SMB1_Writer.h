@@ -67,7 +67,7 @@ private:
     bool Object_Balance_Rope(int x, int length);
     bool Object_Bridge(int x, int yPlacement, int length);
     bool Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
-    bool Object_Page_Skip(int page);
+    bool Object_Page_Change(int page);
     bool Object_Reverse_L_Pipe(int x);
     bool Object_Flagpole(int x);
     bool Object_Castle(int x);

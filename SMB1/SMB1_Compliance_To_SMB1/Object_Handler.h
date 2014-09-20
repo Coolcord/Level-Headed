@@ -27,8 +27,8 @@ public:
     bool Horizontal_Coins(const QString &line);
     bool Vertical_Bricks(const QString &line);
     bool Vertical_Blocks(const QString &line);
-    bool Pipe(const QString &line);
-    bool Hole(const QString &line);
+    bool Pipe(const QString &line, bool enterable);
+    bool Hole(const QString &line, bool filledWithWater);
     bool Balance_Rope(const QString &line);
     bool Bridge(const QString &line);
     bool Horizontal_Question_Blocks_With_Coins(const QString &line);
@@ -40,7 +40,7 @@ public:
     bool Axe(const QString &line);
     bool Axe_Rope(const QString &line);
     bool Bowser_Bridge(const QString &line);
-    bool Scroll_Stop(const QString &line);
+    bool Scroll_Stop(const QString &line, bool warpZone);
     bool Flying_Cheep_Cheep_Spawner(const QString &line);
     bool Swimming_Cheep_Cheep_Spawner(const QString &line);
     bool Bullet_Bill_Spawner(const QString &line);

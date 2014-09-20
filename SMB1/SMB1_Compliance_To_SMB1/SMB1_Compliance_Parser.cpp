@@ -224,11 +224,13 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
     case Object_Item::VERTICAL_BLOCKS:
         return this->objectHandler->Vertical_Blocks(line);
     case Object_Item::PIPE:
+        return this->objectHandler->Pipe(line, false);
     case Object_Item::ENTERABLE_PIPE:
-        return this->objectHandler->Pipe(line);
+        return this->objectHandler->Pipe(line, true);
     case Object_Item::HOLE:
+        return this->objectHandler->Hole(line, false);
     case Object_Item::HOLE_WITH_WATER:
-        return this->objectHandler->Hole(line);
+        return this->objectHandler->Hole(line, true);
     case Object_Item::BALANCE_ROPE:
         return this->objectHandler->Balance_Rope(line);
     case Object_Item::BRIDGE:
@@ -252,8 +254,9 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
     case Object_Item::BOWSER_BRIDGE:
         return this->objectHandler->Bowser_Bridge(line);
     case Object_Item::SCROLL_STOP:
+        return this->objectHandler->Scroll_Stop(line, false);
     case Object_Item::SCROLL_STOP_WARP_ZONE:
-        return this->objectHandler->Scroll_Stop(line);
+        return this->objectHandler->Scroll_Stop(line, true);
     case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:
         return this->objectHandler->Flying_Cheep_Cheep_Spawner(line);
     case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:
