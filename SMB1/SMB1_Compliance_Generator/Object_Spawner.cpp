@@ -56,6 +56,12 @@ int Object_Spawner::Get_Random_Y(int x) {
         y += qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
         if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //make sure y is valid
     }
+
+    //Prevent creating unescapable areas
+    int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
+    if (!this->object->Was_Last_Object_A_Platform() && this->Get_Height_From_Y(y) > maxY) {
+        y = maxY;
+    }
     return y;
 }
 

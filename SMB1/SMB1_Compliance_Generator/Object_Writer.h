@@ -12,6 +12,7 @@ public:
     Object_Writer(QTextStream *stream, int numBytesLeft);
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
+    bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
 
@@ -63,18 +64,19 @@ public:
 private:
     Object_Writer(const Object_Writer&);
     Object_Writer& operator=(const Object_Writer&);
-    bool Write_Object(int x, const QString &object);
-    bool Write_Object(int x, const QString &object, int length);
-    bool Write_Object(int x, const QString &object, const QString &parameters);
-    bool Write_Object(int x, const QString &object, const QString &parameters, int length);
-    bool Write_Object(int x, int y, const QString &object, int length);
-    bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length);
+    bool Write_Object(int x, const QString &object, bool platform);
+    bool Write_Object(int x, const QString &object, int length, bool platform);
+    bool Write_Object(int x, const QString &object, const QString &parameters, bool platform);
+    bool Write_Object(int x, const QString &object, const QString &parameters, int length, bool platform);
+    bool Write_Object(int x, int y, const QString &object, int length, bool platform);
+    bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform);
     void Handle_Zones(int x);
 
     const static int MAX_COIN_BLOCK_ZONE = 24;
     const static int MAX_POWERUP_ZONE = 56;
 
     int lastObjectLength;
+    bool lastObjectIsPlatform;
     int coinBlockZone;
     int powerupZone;
 

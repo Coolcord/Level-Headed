@@ -32,7 +32,10 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     } else if (random <= PROBABILITY_HORIZONTAL_COINS) {
         return this->object->Horizontal_Coins(x, this->Get_Random_Y(x), this->Get_Random_Length());
     } else if (random <= PROBABILITY_PIPE) {
+        int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
         int y = this->Get_Random_Pipe_Y(x);
+        //Prevent creating areas that are impossible to get out of
+        if (x > this->object->Get_Last_Object_Length() && y > maxY) y = maxY;
         int height = Physics::GROUND_Y - y + 1;
         assert(height <= 8);
         return this->object->Pipe(x, y, height);
@@ -48,7 +51,10 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_COIN) {
         return this->object->Question_Block_With_Coin(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_VERTICAL_BLOCKS) {
+        int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
         int y = this->Get_Random_Y(x);
+        //Prevent creating areas that are impossible to get out of
+        if (x > this->object->Get_Last_Object_Length() && y > maxY) y = maxY;
         int height = Physics::GROUND_Y - y + 1;
         return this->object->Vertical_Blocks(x, y, height);
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_MUSHROOM) {

@@ -99,6 +99,10 @@ bool Common_Pattern_Spawner::Pipe_Series() {
         else x = this->Get_Random_Number(this->object->Get_Last_Object_Length(), 6);
         assert(x >= 2);
         int y = this->Get_Random_Pipe_Y(x);
+        if (!noSpace) { //prevent creating areas that are impossible to jump out of
+            int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
+            if (y > maxY) y = maxY;
+        }
         assert(this->object->Pipe(x, y, this->Get_Height_From_Y(y)));
         --this->availableObjects;
     }
