@@ -16,7 +16,7 @@ protected:
     int Get_Random_Number(int min, int max);
     int Get_Y_From_Height(int height);
     int Get_Height_From_Y(int y);
-    int Get_Random_Y(int x);
+    int Get_Safe_Random_Y(int x);
     int Get_Random_Pipe_Y(int x);
     bool Is_Safe_To_Spawn_Pattern(int objectCost);
     int Get_Safe_Random_X();

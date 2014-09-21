@@ -14,6 +14,8 @@ private:
     Common_Pattern_Spawner& operator=(const Common_Pattern_Spawner&);
     bool Two_Steps_And_Hole();
     bool Pipe_Series();
+    bool Platform_Over_Hole();
+    bool Vertical_And_Horizontal_Blocks();
 
     int availableObjects;
 };

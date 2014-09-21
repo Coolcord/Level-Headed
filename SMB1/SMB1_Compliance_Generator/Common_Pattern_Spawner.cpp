@@ -13,9 +13,11 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern() {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
-        switch (qrand() % 2) {
+        switch (qrand() % 4) {
         case 0:     return this->Two_Steps_And_Hole();
         case 1:     return this->Pipe_Series();
+        case 2:     return this->Platform_Over_Hole();
+        case 3:     return this->Vertical_And_Horizontal_Blocks();
         default:    return false;
         }
     }
@@ -99,14 +101,85 @@ bool Common_Pattern_Spawner::Pipe_Series() {
         else x = this->Get_Random_Number(this->object->Get_Last_Object_Length(), 6);
         assert(x >= 2);
         int y = this->Get_Random_Pipe_Y(x);
-        if (!noSpace) { //prevent creating areas that are impossible to jump out of
-            int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
-            if (y > maxY) y = maxY;
-        }
         assert(this->object->Pipe(x, y, this->Get_Height_From_Y(y)));
         --this->availableObjects;
     }
 
     return true;
 }
+
+bool Common_Pattern_Spawner::Platform_Over_Hole() {
+    assert(this->availableObjects >= 2);
+
+    //Add a hole with random length
+    int holeLength = this->Get_Random_Number(3, Physics::MAX_OBJECT_LENGTH-1);
+    int x = this->Get_Safe_Random_X();
+    assert(this->object->Hole(x, holeLength, false));
+
+    //Add a platform to use to cross the hole at a random height
+    int height = this->Get_Random_Number(2, Physics::BASIC_JUMP_HEIGHT);
+    x = this->Get_Random_Number(0, holeLength/2);
+    if (x > Physics::WALKING_JUMP_LENGTH) x = Physics::WALKING_JUMP_LENGTH;
+
+    //Possibly make the platform uniform on both sides
+    int length = 0;
+    if (qrand() % 2 == 0) { //uniform
+        length = holeLength-(2*x);
+    } else { //not uniform
+        length = this->Get_Random_Number(2, holeLength-x);
+        while (holeLength-(x+length) > Physics::RUNNING_JUMP_LENGTH) {
+            ++length; //prevent making impossible jumps
+        }
+    }
+    if (length < 2 && holeLength > 3) length = 2; //have at least 2 blocks on the platform
+    assert(length+x <= holeLength);
+
+    //Use either bricks or blocks to make the platform
+    if (qrand() % 2 == 0) {
+        assert(this->object->Horizontal_Blocks(x, this->Get_Y_From_Height(height), length));
+    } else {
+        assert(this->object->Horizontal_Bricks(x, this->Get_Y_From_Height(height), length));
+    }
+
+    //Fix the last object length
+    this->object->Increment_Last_Object_Length(holeLength-x);
+    return true;
+}
+
+bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks() {
+    assert(this->availableObjects >= 2);
+
+    //Spawn the initial block
+    bool vertical = false;
+    int x = this->Get_Safe_Random_X();
+    int y = this->Get_Safe_Random_Y(x);
+    if (qrand() % 2 == 0) {
+        assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
+        vertical = true;
+    } else {
+        assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(1, 4)));
+        vertical = false;
+    }
+    --this->availableObjects;
+
+    //Continue the pattern up to 6 more times
+    for (int i = this->Get_Random_Number(1, 7); i > 0 && this->availableObjects > 0; --i) {
+        x = this->object->Get_Last_Object_Length();
+        if (vertical) { //alternate between horizontal and vertical blocks
+            y = this->object->Get_Current_Y();
+            assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, Physics::MAX_OBJECT_LENGTH-1)));
+            vertical = false;
+        } else {
+            y = this->Get_Safe_Random_Y(x);
+            if (y == Physics::GROUND_Y) --y; //try to keep it interesting to prevent wasting object resources
+            assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
+            vertical = true;
+        }
+        --this->availableObjects;
+    }
+
+    return true;
+}
+
+
 
