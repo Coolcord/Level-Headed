@@ -1,6 +1,12 @@
 #include "Enemy_Handler.h"
 #include "../Common SMB1 Files/Enemy_Item_String.h"
 #include <QStringList>
+#include <assert.h>
+
+Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler::Item_Handler(writerPlugin) {
+    assert(writerPlugin);
+    this->writerPlugin = writerPlugin;
+}
 
 bool Enemy_Handler::Parse_Difficulty(const QString &value, bool &onlyHardMode) {
     if (value == Enemy_Item::STRING_NORMAL) {

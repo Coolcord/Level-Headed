@@ -13,8 +13,12 @@ public:
     int Get_Num_Items();
     int Get_Level_Length();
     int Get_Current_Y();
+    int Get_Absolute_X(int x);
+    void Set_Coordinate_Safety(bool value);
 
 protected:
+    Item_Writer(const Item_Writer&);
+    Item_Writer& operator=(const Item_Writer&);
     bool Write_Item(Item_Type type, int x, const QString &item);
     bool Is_Coordinate_Valid(int coordinate);
     bool Is_Byte_Valid(int byte);
@@ -27,6 +31,7 @@ protected:
     int currentX;
     int currentY;
     int currentPage;
+    bool coordinateSafety;
 };
 
 #endif // ITEM_WRITER_H

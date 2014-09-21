@@ -13,6 +13,7 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
     this->currentPage = 1;
     this->currentX = 0;
     this->currentY = Physics::GROUND_Y;
+    this->coordinateSafety = true;
 }
 
 int Item_Writer::Get_Num_Bytes_Left() {
@@ -31,8 +32,16 @@ int Item_Writer::Get_Current_Y() {
     return this->currentY;
 }
 
+int Item_Writer::Get_Absolute_X(int x) {
+    return ((this->currentX+x)%0x10);
+}
+
+void Item_Writer::Set_Coordinate_Safety(bool value) {
+    this->coordinateSafety = value;
+}
+
 bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
-    if (!this->Is_Coordinate_Valid(x))
+    if (this->coordinateSafety && !this->Is_Coordinate_Valid(x))
         return false;
     if (!this->Is_Safe_To_Write_Item())
         return false;

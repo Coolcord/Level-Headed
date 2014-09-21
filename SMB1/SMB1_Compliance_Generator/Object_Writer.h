@@ -12,6 +12,8 @@ public:
     Object_Writer(QTextStream *stream, int numBytesLeft);
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
+    int Get_Num_Objects_Left();
+    int Get_Num_Objects_Available();
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
@@ -59,6 +61,8 @@ public:
 
 
 private:
+    Object_Writer(const Object_Writer&);
+    Object_Writer& operator=(const Object_Writer&);
     bool Write_Object(int x, const QString &object);
     bool Write_Object(int x, const QString &object, int length);
     bool Write_Object(int x, const QString &object, const QString &parameters);

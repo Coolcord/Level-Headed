@@ -10,6 +10,8 @@ Level_Generator::Level_Generator(QFile *file, int numObjectBytes, int numEnemyBy
     this->enemy = new Enemy_Writer(this->stream, numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
+    this->end = new End_Spawner(this->object);
 }
 
 Level_Generator::~Level_Generator() {

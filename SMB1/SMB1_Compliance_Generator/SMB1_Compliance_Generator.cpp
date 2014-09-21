@@ -3,8 +3,7 @@
 #include <assert.h>
 #include <QTime>
 
-SMB1_Compliance_Generator::SMB1_Compliance_Generator()
-{
+SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
     //Seed the random number generator
     QTime midnight(0, 0, 0);
     qsrand(midnight.secsTo(QTime::currentTime()));

@@ -9,6 +9,8 @@
 #include "Enemy_Writer.h"
 #include "Pipe_Pointer_Writer.h"
 #include "Simple_Object_Spawner.h"
+#include "Common_Pattern_Spawner.h"
+#include "End_Spawner.h"
 #include <QFile>
 #include <QTextStream>
 
@@ -20,12 +22,16 @@ public:
     virtual bool Generate_Level()=0;
 
 protected:
+    Level_Generator(const Level_Generator&);
+    Level_Generator& operator=(const Level_Generator&);
     QTextStream *stream;
     Header_Writer *header;
     Object_Writer *object;
     Enemy_Writer *enemy;
     Pipe_Pointer_Writer *pipePointer;
     Simple_Object_Spawner *simpleObjectSpawner;
+    Common_Pattern_Spawner *commonPatternSpawner;
+    End_Spawner *end;
 };
 
 #endif // LEVEL_GENERATOR_H

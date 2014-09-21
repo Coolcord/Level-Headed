@@ -8,7 +8,7 @@ QT       += core gui
 
 TARGET = SMB1_Writer
 TEMPLATE = lib
-CONFIG += plugin c++11
+CONFIG += plugin c++11 pendantic Wall
 
 SOURCES += SMB1_Writer.cpp \
     Level_Offsets.cpp \

@@ -16,6 +16,8 @@ public:
     bool Brick_With_Vine(int x, int y, int room, int page);
 
 private:
+    Pipe_Pointer_Writer(const Pipe_Pointer_Writer&);
+    Pipe_Pointer_Writer& operator=(const Pipe_Pointer_Writer&);
     bool Is_Safe_To_Write_Pipe_Pointer();
 
     Enemy_Writer *enemy;

@@ -20,6 +20,9 @@ namespace Physics {
     const static int PIPE_LENGTH = 2;
     const static int END_STAIRS_LENGTH = 9;
     const static int REVERSE_L_PIPE_LENGTH = 4;
+    const static int MIN_END_OBJECTS = 3;
+    const static int FLAGPOLE_DISTANCE = 8;
+    const static int CASTLE_DISTANCE = 4;
 }
 
 #endif // PHYSICS_H

@@ -8,7 +8,7 @@ QT       += core gui
 
 TARGET = SMB1_Compliance_To_SMB1
 TEMPLATE = lib
-CONFIG += plugin
+CONFIG += plugin c++11 pendantic Wall
 
 SOURCES += SMB1_Compliance_To_SMB1.cpp \
     SMB1_Compliance_Parser.cpp \

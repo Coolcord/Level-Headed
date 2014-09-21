@@ -14,6 +14,8 @@ public:
                       int time, int halfwayPoint, int levelLength, int numObjects, int numEnemies, int numPipePointers);
 
 private:
+    Header_Writer(const Header_Writer&);
+    Header_Writer& operator=(const Header_Writer&);
     QFile *file;
     bool written;
 };

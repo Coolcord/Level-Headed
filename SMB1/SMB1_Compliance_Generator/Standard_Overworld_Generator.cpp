@@ -3,8 +3,13 @@
 
 bool Standard_Overworld_Generator::Generate_Level() {
 
-    while (this->object->Get_Num_Bytes_Left() > 0) {
-        assert(this->simpleObjectSpawner->Spawn_Simple_Object());
+    //Spawn the Level
+    while (!this->end->Is_End_Written()) {
+        if (this->object->Get_Num_Objects_Available() >= 3) {
+            if (qrand() % 3 == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern());
+            else assert(this->simpleObjectSpawner->Spawn_Simple_Object());
+        } else assert(this->simpleObjectSpawner->Spawn_Simple_Object());
+        assert(this->end->Handle_End());
     }
 
     //Write the header last

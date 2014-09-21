@@ -6,7 +6,7 @@
 class Enemy_Handler : public Item_Handler
 {
 public:
-    Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {}
+    Enemy_Handler(SMB1_Writer_Interface *writerPlugin);
 
     bool Green_Koopa(const QString &line);
     bool Red_Koopa(const QString &line);
@@ -44,7 +44,6 @@ public:
 
 private:
     bool Parse_Difficulty(const QString &value, bool &onlyHardMode);
-    SMB1_Writer_Interface *writerPlugin;
 };
 
 #endif // ENEMY_HANDLER_H

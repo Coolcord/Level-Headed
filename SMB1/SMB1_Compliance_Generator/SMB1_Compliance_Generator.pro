@@ -8,7 +8,7 @@ QT       += core gui
 
 TARGET = SMB1_Compliance_Generator
 TEMPLATE = lib
-CONFIG += plugin c++11
+CONFIG += plugin c++11 pendantic Wall
 
 SOURCES += SMB1_Compliance_Generator.cpp \
     Object_Writer.cpp \
@@ -19,7 +19,9 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Standard_Overworld_Generator.cpp \
     Pipe_Pointer_Writer.cpp \
     Simple_Object_Spawner.cpp \
-    Spawner.cpp
+    End_Spawner.cpp \
+    Common_Pattern_Spawner.cpp \
+    Object_Spawner.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -44,9 +46,11 @@ HEADERS += SMB1_Compliance_Generator.h \
     Standard_Overworld_Generator.h \
     Pipe_Pointer_Writer.h \
     Simple_Object_Spawner.h \
-    Spawner.h \
     Physics.h \
-    SMB1_Compliance_Generator_Interface.h
+    SMB1_Compliance_Generator_Interface.h \
+    End_Spawner.h \
+    Common_Pattern_Spawner.h \
+    Object_Spawner.h
 OTHER_FILES +=
 
 unix {

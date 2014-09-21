@@ -161,7 +161,7 @@ bool Object_Writer::Reverse_L_Pipe(int x) {
 }
 
 bool Object_Writer::Flagpole(int x) {
-    return this->Write_Object(x, 0xD, 0x41);
+    return this->Write_Object(x, 0xA, 0x0D);
 }
 
 bool Object_Writer::Castle(int x) {

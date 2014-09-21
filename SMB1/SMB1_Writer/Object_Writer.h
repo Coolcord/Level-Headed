@@ -61,6 +61,8 @@ public:
     bool Nothing(int x);
 
 private:
+    Object_Writer(const Object_Writer&);
+    Object_Writer& operator=(const Object_Writer&);
     bool Write_Object(int x, int y, int objectByte);
     bool Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit);
 };

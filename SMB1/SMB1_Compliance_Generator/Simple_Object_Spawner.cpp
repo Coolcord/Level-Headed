@@ -4,36 +4,13 @@
 #include <assert.h>
 #include <QTime>
 
-Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object) : Spawner() {
+Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object) : Object_Spawner::Object_Spawner(object) {
     assert(object);
     this->object = object;
 }
 
-int Simple_Object_Spawner::Get_Random_Y(int x) {
-    int y = this->object->Get_Current_Y();
-    bool up = static_cast<bool>((qrand() % 2));
-    if (x > Physics::BASIC_JUMP_HEIGHT) {
-        return Physics::GROUND_Y; //drop back to ground level if the x goes out too far
-    }
-    if (up) {
-        y -= qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
-        if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y; //make sure y is valid
-    } else {
-        y += qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
-        if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //make sure y is valid
-    }
-    return y;
-}
-
-int Simple_Object_Spawner::Get_Random_Pipe_Y(int x) {
-    int y = this->Get_Random_Y(x) - 1;
-    if (y < Physics::MAX_PIPE_Y) y = Physics::MAX_PIPE_Y; //make sure y is not too high
-    else if (y > Physics::MIN_PIPE_Y) y = Physics::MIN_PIPE_Y; //make sure y is not too low
-    return y;
-}
-
 int Simple_Object_Spawner::Get_Random_Length() {
-    return ((qrand() % (Physics::MAX_OBJECT_LENGTH-1))+1);
+    return ((qrand() % (Physics::MAX_OBJECT_LENGTH-2))+1);
 }
 
 int Simple_Object_Spawner::Get_Random_Hole_Length() {
@@ -45,6 +22,7 @@ int Simple_Object_Spawner::Get_Random_Steps_Size() {
 }
 
 bool Simple_Object_Spawner::Spawn_Simple_Object() {
+    if (this->object->Get_Num_Objects_Available() == 0) return false;
     int x = this->Get_Random_X(this->object->Get_Last_Object_Length());
     int random = qrand() % this->PROBABILITY_TOTAL_SIMPLE;
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {

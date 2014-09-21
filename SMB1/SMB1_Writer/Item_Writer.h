@@ -15,6 +15,8 @@ public:
 
 
 protected:
+    Item_Writer(const Item_Writer&);
+    Item_Writer& operator=(const Item_Writer&);
     bool Is_Safe_To_Write_Item();
     bool Write_Item(int x, int y, int itemByte);
     bool Write_Byte_To_Buffer(int byte);

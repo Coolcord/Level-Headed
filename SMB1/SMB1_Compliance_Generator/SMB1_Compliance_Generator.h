@@ -15,6 +15,8 @@ public:
     bool Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type);
 
 private:
+    SMB1_Compliance_Generator(const SMB1_Compliance_Generator&);
+    SMB1_Compliance_Generator& operator=(const SMB1_Compliance_Generator&);
     bool Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes);
 };
 

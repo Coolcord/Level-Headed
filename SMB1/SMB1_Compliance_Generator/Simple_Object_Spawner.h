@@ -1,24 +1,20 @@
 #ifndef SIMPLE_OBJECT_SPAWNER_H
 #define SIMPLE_OBJECT_SPAWNER_H
 
-#include "Spawner.h"
+#include "Object_Spawner.h"
 
-class Object_Writer;
-
-class Simple_Object_Spawner : public Spawner
+class Simple_Object_Spawner : public Object_Spawner
 {
 public:
     Simple_Object_Spawner(Object_Writer *object);
     bool Spawn_Simple_Object();
 
 private:
-    int Get_Random_Y(int x);
-    int Get_Random_Pipe_Y(int x);
+    Simple_Object_Spawner(const Simple_Object_Spawner&);
+    Simple_Object_Spawner& operator=(const Simple_Object_Spawner&);
     int Get_Random_Length();
     int Get_Random_Hole_Length();
     int Get_Random_Steps_Size();
-
-    Object_Writer *object;
 
     const static int PROBABILITY_HORIZONTAL_BRICKS =                                                       100;
     const static int PROBABILITY_HORIZONTAL_BLOCKS = PROBABILITY_HORIZONTAL_BRICKS +                       100;

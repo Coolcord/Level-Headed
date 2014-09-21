@@ -19,6 +19,14 @@ void Object_Writer::Increment_Last_Object_Length(int value) {
     this->lastObjectLength += value;
 }
 
+int Object_Writer::Get_Num_Objects_Left() {
+    return (this->Get_Num_Bytes_Left()/2);
+}
+
+int Object_Writer::Get_Num_Objects_Available() {
+    return (this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS);
+}
+
 bool Object_Writer::Write_Object(int x, const QString &object) {
     if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)))) {
         this->Handle_Zones(x);

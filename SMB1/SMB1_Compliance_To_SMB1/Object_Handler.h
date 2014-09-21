@@ -69,7 +69,6 @@ private:
     QMap<QString, Scenery::Scenery> *sceneries;
     QMap<QString, Brick::Brick> *bricks;
     QMap<QString, Background::Background> *backgrounds;
-    SMB1_Writer_Interface *writerPlugin;
 };
 
 #endif // OBJECT_HANDLER_H
