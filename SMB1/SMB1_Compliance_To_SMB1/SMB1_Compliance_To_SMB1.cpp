@@ -12,7 +12,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->applicationLocation = QString();
 }
 
-void SMB1_Compliance_To_SMB1::Set_Application_Directory(const QString &location) {
+void SMB1_Compliance_To_SMB1::Set_Application_Directory(QString location) {
     this->applicationLocation = location;
 }
 
@@ -99,6 +99,10 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (!validPlugin) return false; //TODO: Throw an error here
     this->writerPlugin = qobject_cast<SMB1_Writer_Interface*>(validPlugin);
     if (!this->writerPlugin) return false; //TODO: Throw an error here
+
+    //Set the application locations
+    this->generatorPlugin->Set_Application_Directory(this->applicationLocation);
+    this->writerPlugin->Set_Application_Directory(this->applicationLocation);
 
     return true;
 }

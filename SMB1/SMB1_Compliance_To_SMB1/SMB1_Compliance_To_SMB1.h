@@ -14,7 +14,7 @@ class SMB1_Compliance_To_SMB1 : public Interpreter_Interface {
     Q_INTERFACES(Interpreter_Interface)
 public:
     SMB1_Compliance_To_SMB1();
-    void Set_Application_Directory(const QString &location);
+    void Set_Application_Directory(QString location);
     bool Run();
     bool Configure_Generator();
     bool Configure_Writer();

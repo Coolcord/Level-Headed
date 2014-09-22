@@ -8,6 +8,7 @@
 
 class SMB1_Compliance_Generator_Interface : public QObject {
 public:
+    virtual void Set_Application_Directory(QString location)=0;
     virtual bool Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type)=0;
 };
 

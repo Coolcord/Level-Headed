@@ -9,6 +9,7 @@
 
 SMB1_Writer::SMB1_Writer() {
     //Set class variables
+    this->applicationLocation = QString();
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
     this->enemiesBuffer = NULL;
@@ -20,6 +21,10 @@ SMB1_Writer::SMB1_Writer() {
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
     this->numEnemyBytes = 0;
+}
+
+void SMB1_Writer::Set_Application_Directory(QString location) {
+    this->applicationLocation = location;
 }
 
 void SMB1_Writer::Shutdown() {
@@ -35,6 +40,7 @@ void SMB1_Writer::Shutdown() {
 }
 
 bool SMB1_Writer::Load_ROM(const QString &romLocation) {
+    if (this->applicationLocation.isEmpty()) return false;
 
     //Open the ROM file
     this->file = new QFile(romLocation);

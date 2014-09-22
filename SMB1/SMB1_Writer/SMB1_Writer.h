@@ -4,6 +4,7 @@
 #include "SMB1_Writer_Interface.h"
 #include <QFile>
 #include <QByteArray>
+#include <QString>
 
 class Level_Offset;
 class Object_Writer;
@@ -17,6 +18,7 @@ class SMB1_Writer : public SMB1_Writer_Interface {
 
 public:
     SMB1_Writer();
+    void Set_Application_Directory(QString location);
     void Shutdown();
     bool Load_ROM(const QString &romLocation);
     bool New_Level(Level::Level level);
@@ -138,6 +140,7 @@ private:
     Object_Writer *objectWriter;
     Enemy_Writer *enemyWriter;
     Header_Writer *headerWriter;
+    QString applicationLocation;
 };
 
 #endif // SMB1_WRITER_H

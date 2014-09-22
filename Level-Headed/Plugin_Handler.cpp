@@ -22,6 +22,15 @@ bool Plugin_Handler::Create_Directories() {
         return false;
     }
 
+    //Make the data folder
+    QString dataPath = QApplication::applicationDirPath() + "/" + Common_Strings::DATA;
+    if (!dir.exists(dataPath)) {
+        if (!dir.mkdir(dataPath)) {
+            this->Show_Read_Write_Error();
+            return false;
+        }
+    }
+
     //Make the plugins folder
     QString pluginPath = QApplication::applicationDirPath() + "/" + Common_Strings::PLUGINS;
     if (!dir.exists(pluginPath)) {
@@ -29,7 +38,7 @@ bool Plugin_Handler::Create_Directories() {
             this->Show_Read_Write_Error();
             return false;
         }
-    }
+    } 
     if (!dir.cd(pluginPath)) {
         this->Show_Read_Write_Error();
         return false;

@@ -13,6 +13,7 @@
 
 class SMB1_Writer_Interface : public QObject {
 public:
+    virtual void Set_Application_Directory(QString location)=0;
     virtual void Shutdown()=0;
     virtual bool Load_ROM(const QString &romLocation)=0;
     virtual bool New_Level(Level::Level level)=0;
