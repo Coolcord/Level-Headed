@@ -9,6 +9,7 @@ namespace Common_Strings {
     const static QString GENERATORS = "Generators";
     const static QString INTERPRETERS = "Interpreters";
     const static QString WRITERS = "Writers";
+    const static QString LEVELS = "Levels";
     const static QString DATA = "Data";
     const static QString INTERPRETER_SPLIT = "_To_";
     const static QString GENERATOR_SPLIT = "_Generator";

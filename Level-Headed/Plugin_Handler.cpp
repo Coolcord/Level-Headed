@@ -31,6 +31,15 @@ bool Plugin_Handler::Create_Directories() {
         }
     }
 
+    //Make the levels folder
+    QString levelPath = QApplication::applicationDirPath() + "/" + Common_Strings::LEVELS;
+    if (!dir.exists(levelPath)) {
+        if (!dir.mkdir(levelPath)) {
+            this->Show_Read_Write_Error();
+            return false;
+        }
+    }
+
     //Make the plugins folder
     QString pluginPath = QApplication::applicationDirPath() + "/" + Common_Strings::PLUGINS;
     if (!dir.exists(pluginPath)) {

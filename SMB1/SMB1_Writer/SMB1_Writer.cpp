@@ -4,6 +4,9 @@
 #include "Enemy_Writer.h"
 #include "Header_Writer.h"
 #include "Binary_Manipulator.h"
+#include "../../Level-Headed/Common_Strings.h"
+#include <QFileDialog>
+#include <QDir>
 #include <assert.h>
 #include <QDebug>
 
@@ -42,6 +45,38 @@ void SMB1_Writer::Shutdown() {
 bool SMB1_Writer::Load_ROM(const QString &romLocation) {
     if (this->applicationLocation.isEmpty()) return false;
 
+    //Check to see if a ROM file already exists
+    QDir dir(this->applicationLocation);
+    if (!dir.exists()) {
+        //TODO: Show an error here
+        return false;
+    }
+    if (!dir.cd(Common_Strings::DATA)) {
+        //TODO: Show an error here
+        return false;
+    }
+    if (!dir.cd(Common_Strings::GAME_NAME)) {
+        //Create the folder if necessary
+        if (!dir.mkdir(Common_Strings::GAME_NAME) || !dir.cd(Common_Strings::GAME_NAME)) {
+            //TODO: Show an error here
+            return false;
+        }
+    }
+
+    //Try to open the ROM file
+    QString romLocation = dir.absolutePath() + "/" + Common_Strings::GAME_NAME;
+    
+    if (QFile(romLocation + Common_Strings::NES_EXTENSION).exists()) {
+        this->file = new QFile(romLocation + Common_Strings::NES_EXTENSION);
+        
+    } else if (QFile(romLocation + Common_Strings::FDS_EXTENSION).exists()) {
+        this->file = new QFile(romLocation + Common_Strings::FDS_EXTENSION);
+    }
+
+    //If a ROM was found, check to see if it is valid and load it
+
+    //The ROM file has yet to be installed, so prompt the user for it
+
     //Open the ROM file
     this->file = new QFile(romLocation);
     if (!this->file) return false;
@@ -51,6 +86,11 @@ bool SMB1_Writer::Load_ROM(const QString &romLocation) {
         return false;
     }
 
+    return true;
+}
+
+bool SMB1_Writer::Is_ROM_Valid() {
+    if (!this->file) return false;
     //Read the ROM and make sure it's valid
     try {
         this->levelOffset = new Level_Offset(this->file);
@@ -58,7 +98,6 @@ bool SMB1_Writer::Load_ROM(const QString &romLocation) {
         this->Shutdown();
         return false;
     }
-    return true;
 }
 
 bool SMB1_Writer::New_Level(Level::Level level) {
