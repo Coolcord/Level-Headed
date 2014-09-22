@@ -26,9 +26,19 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     int x = this->Get_Random_X(this->object->Get_Last_Object_Length());
     int random = qrand() % this->PROBABILITY_TOTAL_SIMPLE;
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {
-        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length());
+        if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+            this->object->Increment_Last_Object_Length(1);
+            return true;
+        } else {
+            return false;
+        }
     } else if (random <= PROBABILITY_HORIZONTAL_BLOCKS) {
-        return this->object->Horizontal_Blocks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length());
+        if (this->object->Horizontal_Blocks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+            this->object->Increment_Last_Object_Length(1);
+            return true;
+        } else {
+            return false;
+        }
     } else if (random <= PROBABILITY_HORIZONTAL_COINS) {
         int length = this->Get_Random_Length();
         if (length < 3) length = 3; //spawn at least 3 coins
@@ -59,7 +69,12 @@ bool Simple_Object_Spawner::Spawn_Simple_Object() {
     } else if (random <= PROBABILITY_BRICK_WITH_10_COINS) {
         return this->object->Brick_With_10_Coins(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS) {
-        return this->object->Horizontal_Question_Blocks_With_Coins(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length());
+        if (this->object->Horizontal_Question_Blocks_With_Coins(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+            this->object->Increment_Last_Object_Length(1);
+            return true;
+        } else {
+            return false;
+        }
     } else if (random <= PROBABILITY_BRICK_WITH_MUSHROOM) {
         return this->object->Brick_With_Mushroom(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_BRICK_WITH_STAR) {

@@ -13,11 +13,12 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern() {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
-        switch (qrand() % 4) {
+        switch (qrand() % 5) {
         case 0:     return this->Two_Steps_And_Hole();
         case 1:     return this->Pipe_Series();
         case 2:     return this->Platform_Over_Hole();
         case 3:     return this->Vertical_And_Horizontal_Blocks();
+        case 4:     return this->Vertical_Blocks();
         default:    return false;
         }
     }
@@ -61,11 +62,13 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
     }
 
     //Possibly place vertical blocks to land on
+    bool landing = false;
     height = this->Get_Random_Number(2, height);
     if (this->availableObjects > 0) {
         if (qrand() % 2 == 0) {
             assert(this->object->Vertical_Blocks(length, this->Get_Y_From_Height(height), height));
             --this->availableObjects;
+            landing = true;
         }
     }
 
@@ -73,6 +76,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
     height = this->Get_Random_Number(Physics::MIN_STEPS_SIZE, height);
     if (this->availableObjects >= height) {
         if (qrand() % 2 == 0) {
+            landing = true;
             while (height > 0 && this->availableObjects > 0) {
                 assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), this->Get_Y_From_Height(height), height));
                 --this->availableObjects;
@@ -81,6 +85,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
         }
     }
 
+    if (hole && !landing) this->object->Increment_Last_Object_Length(1); //add a safe spot after the hole
     return true;
 }
 
@@ -162,19 +167,56 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks() {
     }
     --this->availableObjects;
 
-    //Continue the pattern up to 6 more times
+    //Continue the pattern up to 7 more times
     for (int i = this->Get_Random_Number(1, 7); i > 0 && this->availableObjects > 0; --i) {
         x = this->object->Get_Last_Object_Length();
         if (vertical) { //alternate between horizontal and vertical blocks
             y = this->object->Get_Current_Y();
+            //Possibly go down
+            if (qrand() % 2 == 0) y += this->Get_Random_Number(1, 4);
+            if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //don't go too low
             assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, Physics::MAX_OBJECT_LENGTH-1)));
             vertical = false;
         } else {
-            y = this->Get_Safe_Random_Y(x);
-            if (y == Physics::GROUND_Y) --y; //try to keep it interesting to prevent wasting object resources
+            y = this->object->Get_Current_Y();
+            //Possibly go up
+            if (qrand() % 2 == 0) y -= this->Get_Random_Number(1, 4);
+            if (y < 0) y = 0; //don't go too high
             assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
             vertical = true;
         }
+        --this->availableObjects;
+    }
+
+    return true;
+}
+
+bool Common_Pattern_Spawner::Vertical_Blocks() {
+    assert(this->availableObjects >= 2);
+
+    //Spawn the first Vertical Block
+    int x = this->Get_Safe_Random_X();
+    int y = this->Get_Safe_Random_Y(x);
+    if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
+    assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
+    --this->availableObjects;
+
+
+    //Spawn a series of Verical Blocks after
+    x = 1;
+    for (int i = this->Get_Random_Number(1, 6); i > 0 && this->availableObjects > 0; --i) {
+        y = this->object->Get_Current_Y();
+        //Possibly change Y
+        if (qrand() % 4 != 0) {
+            if (qrand() % 2 == 0) {
+                y -= this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);
+            } else {
+                y += this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);
+            }
+        }
+        if (y <= 0) y = Physics::HIGHEST_Y;
+        if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
+        assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
         --this->availableObjects;
     }
 

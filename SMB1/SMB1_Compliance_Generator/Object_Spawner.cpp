@@ -47,7 +47,7 @@ int Object_Spawner::Get_Safe_Random_Y(int x) {
     int y = this->object->Get_Current_Y();
     bool up = static_cast<bool>((qrand() % 2));
     if (x > Physics::BASIC_JUMP_HEIGHT) {
-        return Physics::GROUND_Y; //drop back to ground level if the x goes out too far
+        return this->Get_Random_Number(this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT), Physics::GROUND_Y); //drop back to ground level if the x goes out too far
     }
     if (up) {
         y -= qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
@@ -66,7 +66,10 @@ int Object_Spawner::Get_Safe_Random_Y(int x) {
 }
 
 int Object_Spawner::Get_Random_Pipe_Y(int x) {
-    int y = this->Get_Safe_Random_Y(x) - 1;
+    int y = this->Get_Safe_Random_Y(x);
+    if (y == Physics::GROUND_Y) { //try to get a better value
+        y = this->Get_Random_Number(this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT), Physics::MIN_PIPE_Y);
+    }
     if (y < Physics::MAX_PIPE_Y) y = Physics::MAX_PIPE_Y; //make sure y is not too high
     else if (y > Physics::MIN_PIPE_Y) y = Physics::MIN_PIPE_Y; //make sure y is not too low
     return y;

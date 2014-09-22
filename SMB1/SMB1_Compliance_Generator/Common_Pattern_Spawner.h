@@ -16,6 +16,7 @@ private:
     bool Pipe_Series();
     bool Platform_Over_Hole();
     bool Vertical_And_Horizontal_Blocks();
+    bool Vertical_Blocks();
 
     int availableObjects;
 };
