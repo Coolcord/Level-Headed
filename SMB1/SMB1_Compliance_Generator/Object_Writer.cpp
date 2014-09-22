@@ -115,6 +115,11 @@ bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
     }
 }
 
+bool Object_Writer::Question_Block_With_Mushroom_Only(int x, int y) {
+    if (this->powerupZone > 0) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Question_Block_With_Coin(int x, int y) {
     return this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_COIN, Physics::MIN_OBJECT_LENGTH, true);
 }
@@ -149,6 +154,11 @@ bool Object_Writer::Brick_With_Mushroom(int x, int y) {
     }
 }
 
+bool Object_Writer::Brick_With_Mushroom_Only(int x, int y) {
+    if (this->powerupZone > 0) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Brick_With_Star(int x, int y) {
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true)) {
@@ -160,6 +170,11 @@ bool Object_Writer::Brick_With_Star(int x, int y) {
     } else {
         return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
     }
+}
+
+bool Object_Writer::Brick_With_Star_Only(int x, int y) {
+    if (this->powerupZone > 0) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_10_Coins(int x, int y) {
@@ -175,6 +190,11 @@ bool Object_Writer::Brick_With_10_Coins(int x, int y) {
     }
 }
 
+bool Object_Writer::Brick_With_10_Coins_Only(int x, int y) {
+    if (this->coinBlockZone > 0) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_10_COINS, Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Brick_With_1up(int x, int y) {
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
@@ -186,6 +206,11 @@ bool Object_Writer::Brick_With_1up(int x, int y) {
     } else {
         return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
     }
+}
+
+bool Object_Writer::Brick_With_1up_Only(int x, int y) {
+    if (this->powerupZone > 0) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Used_Block(int x, int y) {

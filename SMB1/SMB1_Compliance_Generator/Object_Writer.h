@@ -17,13 +17,18 @@ public:
     int Get_Num_Objects_Available();
 
     bool Question_Block_With_Mushroom(int x, int y);
+    bool Question_Block_With_Mushroom_Only(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_1up(int x, int y);
     bool Brick_With_Mushroom(int x, int y);
+    bool Brick_With_Mushroom_Only(int x, int y);
     bool Brick_With_Star(int x, int y);
+    bool Brick_With_Star_Only(int x, int y);
     bool Brick_With_10_Coins(int x, int y);
+    bool Brick_With_10_Coins_Only(int x, int y);
     bool Brick_With_1up(int x, int y);
+    bool Brick_With_1up_Only(int x, int y);
     bool Used_Block(int x, int y);
     bool Trampoline(int x, int y);
     bool Cannon(int x, int y, int height);
