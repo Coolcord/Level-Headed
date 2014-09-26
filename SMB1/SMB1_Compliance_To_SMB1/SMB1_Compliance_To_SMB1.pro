@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 TARGET = SMB1_Compliance_To_SMB1
 TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Wall

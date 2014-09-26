@@ -4,8 +4,9 @@
 #include "Enemy_Writer.h"
 #include "Header_Writer.h"
 #include "Binary_Manipulator.h"
+#include "ROM_Handler.h"
+#include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include <QFileDialog>
 #include <QDir>
 #include <assert.h>
 #include <QDebug>
@@ -24,9 +25,12 @@ SMB1_Writer::SMB1_Writer() {
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
     this->numEnemyBytes = 0;
+    this->parent = NULL;
 }
 
-void SMB1_Writer::Set_Application_Directory(QString location) {
+void SMB1_Writer::Startup(QWidget *parent, QString location) {
+    assert(parent);
+    this->parent = parent;
     this->applicationLocation = location;
 }
 
@@ -42,62 +46,36 @@ void SMB1_Writer::Shutdown() {
     delete this->levelOffset;
 }
 
-bool SMB1_Writer::Load_ROM(const QString &romLocation) {
+bool SMB1_Writer::Create_ROM_Directory() {
     if (this->applicationLocation.isEmpty()) return false;
-
-    //Check to see if a ROM file already exists
-    QDir dir(this->applicationLocation);
-    if (!dir.exists()) {
-        //TODO: Show an error here
-        return false;
-    }
-    if (!dir.cd(Common_Strings::DATA)) {
-        //TODO: Show an error here
-        return false;
-    }
-    if (!dir.cd(Common_Strings::GAME_NAME)) {
-        //Create the folder if necessary
-        if (!dir.mkdir(Common_Strings::GAME_NAME) || !dir.cd(Common_Strings::GAME_NAME)) {
-            //TODO: Show an error here
-            return false;
-        }
-    }
-
-    //Try to open the ROM file
-    QString romLocation = dir.absolutePath() + "/" + Common_Strings::GAME_NAME;
-    
-    if (QFile(romLocation + Common_Strings::NES_EXTENSION).exists()) {
-        this->file = new QFile(romLocation + Common_Strings::NES_EXTENSION);
-        
-    } else if (QFile(romLocation + Common_Strings::FDS_EXTENSION).exists()) {
-        this->file = new QFile(romLocation + Common_Strings::FDS_EXTENSION);
-    }
-
-    //If a ROM was found, check to see if it is valid and load it
-
-    //The ROM file has yet to be installed, so prompt the user for it
-
-    //Open the ROM file
-    this->file = new QFile(romLocation);
-    if (!this->file) return false;
-    if (!this->file->open(QFile::ReadWrite)) {
-        delete this->file;
-        this->file = NULL;
-        return false;
-    }
-
+    QDir romDir(this->applicationLocation + Common_Strings::DATA);
+    if (!romDir.exists(Common_Strings::GAME_NAME) && !romDir.mkdir(Common_Strings::GAME_NAME)) return false;
     return true;
 }
 
-bool SMB1_Writer::Is_ROM_Valid() {
-    if (!this->file) return false;
-    //Read the ROM and make sure it's valid
-    try {
-        this->levelOffset = new Level_Offset(this->file);
-    } catch (...) {
-        this->Shutdown();
-        return false;
+bool SMB1_Writer::Load_ROM() {
+    if (!this->Create_ROM_Directory()) return false;
+    ROM_Handler romHandler(this->parent, this->applicationLocation + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    this->file = romHandler.Load_First_Local_ROM();
+
+    //Request for a ROM if none exist
+    if (!this->file) {
+        //TODO: Show a message displaying that it must be the user's first time running the plugin
+        if (!romHandler.Install_ROM()) return false;
+        this->file = romHandler.Load_First_Local_ROM();
+        if (!this->file) return false;
     }
+
+    romHandler.Clean_ROM_Directory();
+    return true;
+}
+
+bool SMB1_Writer::Load_ROM(const QString &fileName) {
+    if (!this->Create_ROM_Directory()) return false;
+    ROM_Handler romHandler(this->parent, this->applicationLocation + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    this->file = romHandler.Load_Local_ROM(fileName);
+    romHandler.Clean_ROM_Directory();
+    return (this->file); //file will be null on failure
 }
 
 bool SMB1_Writer::New_Level(Level::Level level) {

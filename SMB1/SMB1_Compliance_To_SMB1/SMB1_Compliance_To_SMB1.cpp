@@ -5,6 +5,7 @@
 #include <QPluginLoader>
 #include <QFile>
 #include <QDebug>
+#include <assert.h>
 
 SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->generatorPlugin = NULL;
@@ -12,7 +13,9 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->applicationLocation = QString();
 }
 
-void SMB1_Compliance_To_SMB1::Set_Application_Directory(QString location) {
+void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
+    assert(parent);
+    this->parent = parent;
     this->applicationLocation = location;
 }
 
@@ -29,7 +32,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
 
     qDebug() << "Loading a ROM...";
-    if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Level-Headed Test Files/Super Mario Bros..nes")) return false;
+    //if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Level-Headed Test Files/Super Mario Bros..nes")) return false;
     //if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Super Mario Bros (J).FDS")) return false;
 
     qDebug() << "Attempting to generate a new level...";
@@ -101,8 +104,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (!this->writerPlugin) return false; //TODO: Throw an error here
 
     //Set the application locations
-    this->generatorPlugin->Set_Application_Directory(this->applicationLocation);
-    this->writerPlugin->Set_Application_Directory(this->applicationLocation);
+    this->generatorPlugin->Startup(this->parent, this->applicationLocation);
+    this->writerPlugin->Startup(this->parent, this->applicationLocation);
 
     return true;
 }

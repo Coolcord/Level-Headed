@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 TARGET = SMB1_Writer
 TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Wall
@@ -18,7 +20,9 @@ SOURCES += SMB1_Writer.cpp \
     Header_Writer.cpp \
     Enemy_Writer.cpp \
     Level_Pointers_Writer.cpp \
-    SMB1_Writer_Accessors.cpp
+    SMB1_Writer_Accessors.cpp \
+    ROM_Handler.cpp \
+    ROM_Checksum.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -39,7 +43,9 @@ HEADERS += SMB1_Writer.h \
     ../Common SMB1 Files/Brick.h \
     ../Common SMB1 Files/Scenery.h \
     SMB1_Writer_Interface.h \
-    ../Common SMB1 Files/Level.h
+    ../Common SMB1 Files/Level.h \
+    ROM_Handler.h \
+    ROM_Filename.h
 OTHER_FILES +=
 
 unix {

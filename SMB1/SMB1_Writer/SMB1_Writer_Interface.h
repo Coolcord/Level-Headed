@@ -10,12 +10,14 @@
 #include <QObject>
 #include <QtPlugin>
 #include <QString>
+#include <QWidget>
 
 class SMB1_Writer_Interface : public QObject {
 public:
-    virtual void Set_Application_Directory(QString location)=0;
+    virtual void Startup(QWidget *parent, QString location)=0;
     virtual void Shutdown()=0;
-    virtual bool Load_ROM(const QString &romLocation)=0;
+    virtual bool Load_ROM()=0;
+    virtual bool Load_ROM(const QString &fileName)=0;
     virtual bool New_Level(Level::Level level)=0;
     virtual bool Write_Level()=0;
     virtual int Get_Num_Object_Bytes()=0;

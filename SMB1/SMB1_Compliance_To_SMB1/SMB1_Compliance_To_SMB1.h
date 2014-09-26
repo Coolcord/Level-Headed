@@ -14,7 +14,7 @@ class SMB1_Compliance_To_SMB1 : public Interpreter_Interface {
     Q_INTERFACES(Interpreter_Interface)
 public:
     SMB1_Compliance_To_SMB1();
-    void Set_Application_Directory(QString location);
+    void Startup(QWidget *parent, QString location);
     bool Run();
     bool Configure_Generator();
     bool Configure_Writer();
@@ -26,6 +26,7 @@ private:
     SMB1_Compliance_Generator_Interface *generatorPlugin;
     SMB1_Writer_Interface *writerPlugin;
     SMB1_Compliance_Parser *parser;
+    QWidget *parent;
 };
 
 #endif // SMB1_COMPLIANCE_TO_SMB1_H

@@ -18,9 +18,10 @@ class SMB1_Writer : public SMB1_Writer_Interface {
 
 public:
     SMB1_Writer();
-    void Set_Application_Directory(QString location);
+    void Startup(QWidget *parent, QString location);
     void Shutdown();
-    bool Load_ROM(const QString &romLocation);
+    bool Load_ROM();
+    bool Load_ROM(const QString &fileName);
     bool New_Level(Level::Level level);
     bool Write_Level();
     int Get_Num_Object_Bytes();
@@ -121,6 +122,7 @@ public:
 
 
 private:
+    bool Create_ROM_Directory();
     bool Are_Buffers_Allocated();
     void Deallocate_Buffers();
     bool Write_Buffer(const int offset, QByteArray *buffer);
@@ -141,6 +143,8 @@ private:
     Enemy_Writer *enemyWriter;
     Header_Writer *headerWriter;
     QString applicationLocation;
+    QString romFileName;
+    QWidget *parent;
 };
 
 #endif // SMB1_WRITER_H

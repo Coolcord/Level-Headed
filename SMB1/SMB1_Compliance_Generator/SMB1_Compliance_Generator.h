@@ -13,7 +13,7 @@ class SMB1_Compliance_Generator : public SMB1_Compliance_Generator_Interface {
 
 public:
     SMB1_Compliance_Generator();
-    void Set_Application_Directory(QString location);
+    void Startup(QWidget *parent, QString location);
     bool Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type);
 
 private:
@@ -21,6 +21,7 @@ private:
     SMB1_Compliance_Generator& operator=(const SMB1_Compliance_Generator&);
     bool Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes);
     QString applicationLocation;
+    QWidget *parent;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_H

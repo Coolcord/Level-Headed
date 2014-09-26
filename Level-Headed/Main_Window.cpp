@@ -145,7 +145,7 @@ bool Main_Window::Load_Interpreter(const QString &fileLocation) {
     if (!validPlugin) return false;
     this->interpreter = qobject_cast<Interpreter_Interface*>(validPlugin);
     if (!this->interpreter) return false;
-    this->interpreter->Set_Application_Directory(QApplication::applicationDirPath());
+    this->interpreter->Startup(this, QApplication::applicationDirPath());
     return true;
 }
 

@@ -11,7 +11,9 @@ SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
     qsrand(midnight.secsTo(QTime::currentTime()));
 }
 
-void SMB1_Compliance_Generator::Set_Application_Directory(QString location) {
+void SMB1_Compliance_Generator::Startup(QWidget *parent, QString location) {
+    assert(parent);
+    this->parent = parent;
     this->applicationLocation = location;
 }
 
