@@ -48,34 +48,50 @@ void SMB1_Writer::Shutdown() {
 
 bool SMB1_Writer::Create_ROM_Directory() {
     if (this->applicationLocation.isEmpty()) return false;
-    QDir romDir(this->applicationLocation + Common_Strings::DATA);
+    QDir romDir(this->applicationLocation + "/" + Common_Strings::DATA);
     if (!romDir.exists(Common_Strings::GAME_NAME) && !romDir.mkdir(Common_Strings::GAME_NAME)) return false;
     return true;
 }
 
 bool SMB1_Writer::Load_ROM() {
+    qDebug() << "Load ROM called!";
     if (!this->Create_ROM_Directory()) return false;
-    ROM_Handler romHandler(this->parent, this->applicationLocation + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
-    this->file = romHandler.Load_First_Local_ROM();
+    qDebug() << "ROM Directory Created!";
+    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    romHandler.Clean_ROM_Directory();
+    this->file = romHandler.Load_First_Local_ROM(); //TODO: Add a way to cancel, preferrably with a ref bool
 
     //Request for a ROM if none exist
     if (!this->file) {
         //TODO: Show a message displaying that it must be the user's first time running the plugin
-        if (!romHandler.Install_ROM()) return false;
-        this->file = romHandler.Load_First_Local_ROM();
-        if (!this->file) return false;
+        qDebug() << "Attempting to install a ROM";
+        QString fileName = romHandler.Install_ROM();
+        if (fileName.isEmpty()) {
+            qDebug() << "Install failed!";
+            return false;
+        }
+        return this->Load_ROM(fileName);
     }
 
-    romHandler.Clean_ROM_Directory();
-    return true;
+    if (this->file) {
+        this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool SMB1_Writer::Load_ROM(const QString &fileName) {
     if (!this->Create_ROM_Directory()) return false;
-    ROM_Handler romHandler(this->parent, this->applicationLocation + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    qDebug() << "Filename is: " << fileName;
     this->file = romHandler.Load_Local_ROM(fileName);
-    romHandler.Clean_ROM_Directory();
-    return (this->file); //file will be null on failure
+    if (this->file) {
+        this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool SMB1_Writer::New_Level(Level::Level level) {

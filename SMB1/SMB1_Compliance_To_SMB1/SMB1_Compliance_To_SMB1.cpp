@@ -32,8 +32,10 @@ bool SMB1_Compliance_To_SMB1::Run() {
     this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
 
     qDebug() << "Loading a ROM...";
-    //if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Level-Headed Test Files/Super Mario Bros..nes")) return false;
-    //if (!this->writerPlugin->Load_ROM("C:/Users/Cord/Desktop/Super Mario Bros (J).FDS")) return false;
+    if (!this->writerPlugin->Load_ROM()) {
+        qDebug() << "Failed to load the ROM!";
+        return false;
+    }
 
     qDebug() << "Attempting to generate a new level...";
 

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QFile>
 #include <QMap>
+#include <QByteArray>
 
 class ROM_Checksum {
 public:
@@ -15,6 +16,10 @@ public:
     QString Get_ROM_Filename_From_Checksum(const QString &romChecksum);
 
 private:
+    bool Check_ROM_Header(QFile *file);
+    bool Check_NES_ROM_Header(QByteArray *buffer);
+    bool Check_FDS_ROM_Header(QByteArray *buffer);
+
     QMap<QString, ROM_Type::ROM_Type> *checksumMap;
     QMap<QString, QString> *fileNameMap;
 

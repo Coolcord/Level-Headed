@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QCryptographicHash>
 #include <QByteArray>
+#include <QUrl>
+#include <QDebug>
 #include <assert.h>
 
 ROM_Handler::ROM_Handler(QWidget *parent, QString romFolderLocation) {
@@ -22,30 +24,123 @@ ROM_Handler::~ROM_Handler() {
     delete this->romChecksum;
 }
 
-bool ROM_Handler::Install_ROM() {
-    //QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM");
+QString ROM_Handler::Install_ROM() {
+    QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM");
+    if (fileLocation == NULL || fileLocation.isEmpty()) return QString(); //TODO: Throw an error here
+
+    QFile file(fileLocation);
+    if (!file.exists() || !file.open(QFile::ReadWrite)) {
+        file.close();
+        return QString(); //TODO: Throw an error here
+    }
+
+    //Verify ROM Checksum
+    QString checksum = this->romChecksum->Get_ROM_Checksum(&file);
+    ROM_Type::ROM_Type romType = this->romChecksum->Get_ROM_Type_From_Checksum(checksum);
+    if (romType == ROM_Type::INVALID) return QString(); //TODO: Throw an error here
+
+    //Check if the current ROM is already installed
+    QString fileName = this->romChecksum->Get_ROM_Filename_From_Checksum(checksum);
+    QFile installedFile(this->romFolderLocation + "/" + fileName);
+    if (installedFile.exists()) return QString(); //TODO: Throw an error here
+    if (!installedFile.open(QFile::ReadWrite)) return QString(); //TODO: Throw an error here
+
+    //Install the ROM
+    file.seek(0);
+    QByteArray buffer = file.readAll();
+    if (buffer.isEmpty()) return QString(); //TODO: Throw an error here
+    installedFile.seek(0);
+    if (installedFile.write(buffer) == -1) return QString(); //TODO: Throw an error here
+    file.close();
+    installedFile.close();
+    qDebug() << "ROM successfully installed";
+    return fileName;
 }
 
 QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
-    this->file = new QFile(this->romFolderLocation + "/" + fileName);
-    if (!this->file->exists() || !this->file->open(QFile::ReadWrite)) {
-        this->file->close();
-        delete this->file;
-        this->file = NULL;
+    qDebug() << "Load_Local_ROM() called!";
+    QFile loadFile(this->romFolderLocation + "/" + fileName);
+    if (!loadFile.exists() || !loadFile.open(QFile::ReadWrite)) {
+        loadFile.close();
         return NULL;
     }
 
     //Calculate the checksum
-    QString romChecksum = this->romChecksum->Get_ROM_Checksum(this->file);
+    QString romChecksum = this->romChecksum->Get_ROM_Checksum(&loadFile);
     this->romType = this->romChecksum->Get_ROM_Type_From_Checksum(romChecksum);
-    QString properFileName = this->romChecksum->Get_ROM_Filename_From_Checksum(romChecksum);
 
     //Make sure everything is valid
-    if (this->romType == ROM_Type::INVALID || this->file->fileName() != properFileName) {
-        this->romType = ROM_Type::INVALID;
+    if (this->romType == ROM_Type::INVALID) {
+        qDebug() << "ROM is invalid";
+        loadFile.close();
+        loadFile.remove(); //the file is not valid, so delete it
+        return NULL;
+    }
+
+    //Make a copy of the ROM for the new hacked version
+    QString fileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location");
+    qDebug() << "Saving at: " << fileLocation;
+    if (fileLocation == NULL || fileLocation.isEmpty()) {
+        qDebug() << "Failed to get a proper save location";
+        loadFile.close();
+        return NULL;
+    }
+
+    //Open the new save file and delete it if it currently exists
+    this->file = new QFile(fileLocation);
+    if (this->file->exists()) {
+        if (!this->file->remove()) {
+            this->file->close();
+            delete this->file;
+            this->file = NULL;
+            loadFile.close();
+            //TODO: Throw an error here saying that the file cannot be overwritten
+            return NULL;
+        }
+    }
+    if (!this->file->open(QFile::ReadWrite)) {
         this->file->close();
         delete this->file;
         this->file = NULL;
+        loadFile.close();
+        qDebug() << "Unable to create the save game";
+        return NULL;
+    }
+
+    //Copy the ROM to the new location
+    QByteArray buffer = loadFile.readAll();
+    if (buffer.isEmpty()) {
+        this->file->close();
+        delete this->file;
+        this->file = NULL;
+        loadFile.close();
+        qDebug() << "Buffer was empty";
+        //TODO: Show an error saying that the ROM could not be read
+        return NULL;
+    }
+
+    //Write the ROM at the new save location
+    if (this->file->write(buffer) == -1) {
+        this->file->close();
+        delete this->file;
+        this->file = NULL;
+        loadFile.close();
+        qDebug() << "Unable to copy the game";
+        //TODO: Show an error saying that the ROM could not be written
+        return NULL;
+    }
+
+    //Get Read permissions
+    this->file->close();
+    assert(this->file->exists());
+    if (!this->file->open(QFile::ReadWrite)) {
+        qDebug() << "Failed to change permissions to file!";
+        this->file->close();
+        delete this->file;
+        this->file = NULL;
+        loadFile.close();
+        qDebug() << "Unable to copy the game";
+        //TODO: Show an error saying that the ROM could not be written
         return NULL;
     }
     return this->file;
@@ -68,6 +163,7 @@ QFile *ROM_Handler::Load_First_Local_ROM() {
             return this->file;
         }
     }
+
     return NULL;
 }
 
@@ -94,9 +190,19 @@ bool ROM_Handler::Clean_ROM_Directory() {
     //Delete all invalid roms
     QFile *tmpFile = this->file;
     ROM_Type::ROM_Type tmpROMType = this->romType;
-    foreach (QString rom, romFolder.entryList(QDir::Files)) {
-        if (!this->Load_Local_ROM(rom)) {
-            if (!romFolder.remove(rom)) {
+    foreach (QString romName, romFolder.entryList(QDir::Files)) {
+        QFile rom(romName);
+        if (!rom.exists()) continue;
+        if (!rom.open(QFile::ReadWrite)) {
+            success = false;
+            continue;
+        }
+
+        //Delete the ROM if it is invalid
+        ROM_Type::ROM_Type romType = this->romChecksum->Get_ROM_Type_From_Checksum(this->romChecksum->Get_ROM_Checksum(&rom));
+        rom.close();
+        if (romType == ROM_Type::INVALID) {
+            if (!romFolder.remove(romName)) {
                 success = false;
             }
         }
@@ -108,40 +214,6 @@ bool ROM_Handler::Clean_ROM_Directory() {
 }
 
 ROM_Type::ROM_Type ROM_Handler::Get_ROM_Type() {
+    if (!this->file) return ROM_Type::INVALID;
     return this->romType;
-}
-
-ROM_Type::ROM_Type ROM_Handler::Determine_ROM_Type() {
-    if (!this->Check_ROM_Header()) return ROM_Type::INVALID; //bad header
-    this->romChecksum->Get_ROM_Checksum(this->file);
-}
-
-bool ROM_Handler::Check_ROM_Header() {
-    if (!this->file->seek(0)) return false;
-    QByteArray buffer(4, ' ');
-    if (this->file->read(buffer.data(), 4) != 4) return false;
-    if (buffer.data() == NULL || buffer.size() != 4) return false;
-
-    if (this->Check_NES_ROM_Header(&buffer)) return true;
-    return this->Check_FDS_ROM_Header(&buffer);
-}
-
-bool ROM_Handler::Check_NES_ROM_Header(QByteArray *buffer) {
-    assert(buffer);
-
-    //Make sure the first 4 bytes of the header are valid: "NES"
-    if (static_cast<unsigned char>(buffer->at(0)) != 0x4E) return false;
-    if (static_cast<unsigned char>(buffer->at(1)) != 0x45) return false;
-    if (static_cast<unsigned char>(buffer->at(2)) != 0x53) return false;
-    return static_cast<unsigned char>(buffer->at(3)) == 0x1A;
-}
-
-bool ROM_Handler::Check_FDS_ROM_Header(QByteArray *buffer) {
-    assert(buffer);
-
-    //Make sure the first 4 bytes of the header are valid: "FDS"
-    if (static_cast<unsigned char>(buffer->at(0)) != 0x46) return false;
-    if (static_cast<unsigned char>(buffer->at(1)) != 0x44) return false;
-    if (static_cast<unsigned char>(buffer->at(2)) != 0x53) return false;
-    return static_cast<unsigned char>(buffer->at(3)) == 0x1A;
 }
