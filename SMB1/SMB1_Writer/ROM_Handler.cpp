@@ -1,6 +1,7 @@
 #include "ROM_Handler.h"
 #include "ROM_Checksum.h"
 #include "ROM_Filename.h"
+#include "../../Level-Headed/Common_Strings.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
@@ -26,12 +27,18 @@ ROM_Handler::~ROM_Handler() {
 
 QString ROM_Handler::Install_ROM() {
     QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM");
-    if (fileLocation == NULL || fileLocation.isEmpty()) return QString(); //TODO: Throw an error here
+    if (fileLocation == NULL || fileLocation.isEmpty()) return QString();
 
     QFile file(fileLocation);
-    if (!file.exists() || !file.open(QFile::ReadWrite)) {
+    if (!file.exists()) {
+        this->Show_Error(fileLocation + " could not be found!");
+        return QString();
+    }
+    if (!file.open(QFile::ReadWrite)) {
         file.close();
-        return QString(); //TODO: Throw an error here
+        this->Show_Error(Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions to access " + file.fileName() + ". Cannot continue!");
+        return QString();
     }
 
     //Verify ROM Checksum
@@ -42,26 +49,45 @@ QString ROM_Handler::Install_ROM() {
     //Check if the current ROM is already installed
     QString fileName = this->romChecksum->Get_ROM_Filename_From_Checksum(checksum);
     QFile installedFile(this->romFolderLocation + "/" + fileName);
-    if (installedFile.exists()) return QString(); //TODO: Throw an error here
-    if (!installedFile.open(QFile::ReadWrite)) return QString(); //TODO: Throw an error here
+    if (installedFile.exists()) {
+        if (!installedFile.remove()) {
+            file.close();
+            this->Show_Error(Common_Strings::LEVEL_HEADED +
+                             " does not have proper read/write permissions to access " + installedFile.fileName() + ". Cannot continue!");
+            return QString();
+        }
+    }
+    if (!installedFile.open(QFile::ReadWrite)) {
+        file.close();
+        this->Show_Error(Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions to access " + installedFile.fileName() + ". Cannot continue!");
+        return QString();
+    }
 
     //Install the ROM
-    file.seek(0);
+    file.reset();
+    installedFile.reset();
     QByteArray buffer = file.readAll();
-    if (buffer.isEmpty()) return QString(); //TODO: Throw an error here
-    installedFile.seek(0);
-    if (installedFile.write(buffer) == -1) return QString(); //TODO: Throw an error here
+    if (buffer.isEmpty() || installedFile.write(buffer) == -1) {
+        this->Show_Error("Unable to install the ROM!");
+        return QString();
+    }
     file.close();
     installedFile.close();
-    qDebug() << "ROM successfully installed";
+    QMessageBox::information(this->parent, Common_Strings::LEVEL_HEADED, "ROM successfully installed!", Common_Strings::OK);
     return fileName;
 }
 
-QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
-    qDebug() << "Load_Local_ROM() called!";
+QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
     QFile loadFile(this->romFolderLocation + "/" + fileName);
-    if (!loadFile.exists() || !loadFile.open(QFile::ReadWrite)) {
+    if (!loadFile.exists()) {
+        this->Show_Error(fileName + " is not installed!");
+        return NULL;
+    }
+    if (!loadFile.open(QFile::ReadWrite)) {
         loadFile.close();
+        this->Show_Error(Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
         return NULL;
     }
 
@@ -71,9 +97,10 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
 
     //Make sure everything is valid
     if (this->romType == ROM_Type::INVALID) {
-        qDebug() << "ROM is invalid";
+        QString loadedFileName = loadFile.fileName();
         loadFile.close();
-        loadFile.remove(); //the file is not valid, so delete it
+        loadFile.remove();
+        this->Show_Error(loadedFileName + " is not a valid SMB1 ROM!");
         return NULL;
     }
 
@@ -81,7 +108,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
     QString fileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location");
     qDebug() << "Saving at: " << fileLocation;
     if (fileLocation == NULL || fileLocation.isEmpty()) {
-        qDebug() << "Failed to get a proper save location";
+        cancel = true;
         loadFile.close();
         return NULL;
     }
@@ -90,43 +117,24 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
     this->file = new QFile(fileLocation);
     if (this->file->exists()) {
         if (!this->file->remove()) {
-            this->file->close();
-            delete this->file;
-            this->file = NULL;
             loadFile.close();
-            //TODO: Throw an error here saying that the file cannot be overwritten
+            this->Show_Error(Common_Strings::LEVEL_HEADED +
+                             " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
             return NULL;
         }
     }
     if (!this->file->open(QFile::ReadWrite)) {
-        this->file->close();
-        delete this->file;
-        this->file = NULL;
         loadFile.close();
-        qDebug() << "Unable to create the save game";
+        this->Show_Error(Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
         return NULL;
     }
 
     //Copy the ROM to the new location
     QByteArray buffer = loadFile.readAll();
-    if (buffer.isEmpty()) {
-        this->file->close();
-        delete this->file;
-        this->file = NULL;
+    if (buffer.isEmpty() || this->file->write(buffer) == -1) {
         loadFile.close();
-        qDebug() << "Buffer was empty";
-        //TODO: Show an error saying that the ROM could not be read
-        return NULL;
-    }
-
-    //Write the ROM at the new save location
-    if (this->file->write(buffer) == -1) {
-        this->file->close();
-        delete this->file;
-        this->file = NULL;
-        loadFile.close();
-        qDebug() << "Unable to copy the game";
-        //TODO: Show an error saying that the ROM could not be written
+        this->Show_Error("Unable to copy the game to " + this->file->fileName());
         return NULL;
     }
 
@@ -134,19 +142,15 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName) {
     this->file->close();
     assert(this->file->exists());
     if (!this->file->open(QFile::ReadWrite)) {
-        qDebug() << "Failed to change permissions to file!";
-        this->file->close();
-        delete this->file;
-        this->file = NULL;
         loadFile.close();
-        qDebug() << "Unable to copy the game";
-        //TODO: Show an error saying that the ROM could not be written
+        this->Show_Error(Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
         return NULL;
     }
     return this->file;
 }
 
-QFile *ROM_Handler::Load_First_Local_ROM() {
+QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
     fileNames.append(ROM_Filename::STRING_USA1);
@@ -159,7 +163,7 @@ QFile *ROM_Handler::Load_First_Local_ROM() {
 
     //Attempt to open each supported ROM
     foreach (QString fileName, fileNames) {
-        if (this->Load_Local_ROM(fileName)) {
+        if (this->Load_Local_ROM(fileName, cancel)) {
             return this->file;
         }
     }
@@ -216,4 +220,19 @@ bool ROM_Handler::Clean_ROM_Directory() {
 ROM_Type::ROM_Type ROM_Handler::Get_ROM_Type() {
     if (!this->file) return ROM_Type::INVALID;
     return this->romType;
+}
+
+void ROM_Handler::Show_Error(const QString &error) {
+    //Perform Cleanup
+    if (this->file) {
+        if (this->file->isOpen()) this->file->close();
+        if (this->file->exists()) this->file->remove();
+    }
+    delete this->file;
+    this->file = NULL;
+    this->romType = ROM_Type::INVALID;
+
+    //Show the error
+    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+                          error, Common_Strings::OK);
 }

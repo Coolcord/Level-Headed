@@ -8,6 +8,7 @@
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QDir>
+#include <QMessageBox>
 #include <assert.h>
 #include <QDebug>
 
@@ -54,26 +55,27 @@ bool SMB1_Writer::Create_ROM_Directory() {
 }
 
 bool SMB1_Writer::Load_ROM() {
-    qDebug() << "Load ROM called!";
-    if (!this->Create_ROM_Directory()) return false;
-    qDebug() << "ROM Directory Created!";
+    if (!this->Create_ROM_Directory()) {
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+                         " does not have proper read/write permissions. Cannot continue!");
+        return false;
+    }
     ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
     romHandler.Clean_ROM_Directory();
-    this->file = romHandler.Load_First_Local_ROM(); //TODO: Add a way to cancel, preferrably with a ref bool
-
+    bool cancel = false;
+    this->file = romHandler.Load_First_Local_ROM(cancel);
     //Request for a ROM if none exist
-    if (!this->file) {
-        //TODO: Show a message displaying that it must be the user's first time running the plugin
-        qDebug() << "Attempting to install a ROM";
+    if (!cancel && !this->file) {
+        QMessageBox::information(this->parent, Common_Strings::LEVEL_HEADED,
+                                 "It looks like this is your first time using the SMB1 Writer Plugin. In order to continue, please provide a clean SMB1 ROM to use as a base game.",
+                                 Common_Strings::OK);
         QString fileName = romHandler.Install_ROM();
         if (fileName.isEmpty()) {
-            qDebug() << "Install failed!";
             return false;
         }
         return this->Load_ROM(fileName);
     }
-
-    if (this->file) {
+    if (!cancel && this->file) {
         this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
         return true;
     } else {
@@ -85,8 +87,9 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
     if (!this->Create_ROM_Directory()) return false;
     ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
     qDebug() << "Filename is: " << fileName;
-    this->file = romHandler.Load_Local_ROM(fileName);
-    if (this->file) {
+    bool cancel = false;
+    this->file = romHandler.Load_Local_ROM(fileName, cancel);
+    if (!cancel && this->file) {
         this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
         return true;
     } else {
