@@ -23,7 +23,9 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Simple_Object_Spawner.cpp \
     End_Spawner.cpp \
     Common_Pattern_Spawner.cpp \
-    Object_Spawner.cpp
+    Object_Spawner.cpp \
+    Level_Crawler.cpp \
+    SMB1_Compliance_Map.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -52,7 +54,9 @@ HEADERS += SMB1_Compliance_Generator.h \
     SMB1_Compliance_Generator_Interface.h \
     End_Spawner.h \
     Common_Pattern_Spawner.h \
-    Object_Spawner.h
+    Object_Spawner.h \
+    Level_Crawler.h \
+    SMB1_Compliance_Map.h
 OTHER_FILES +=
 
 unix {
