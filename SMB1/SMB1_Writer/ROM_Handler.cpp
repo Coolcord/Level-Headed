@@ -79,6 +79,7 @@ QString ROM_Handler::Install_ROM() {
 }
 
 QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
+    if (cancel) return false;
     QFile loadFile(this->romFolderLocation + "/" + fileName);
     if (!loadFile.exists()) {
         this->Show_Error(fileName + " is not installed!");
@@ -163,6 +164,7 @@ QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
 
     //Attempt to open each supported ROM
     foreach (QString fileName, fileNames) {
+        if (cancel) break;
         if (this->Load_Local_ROM(fileName, cancel)) {
             return this->file;
         }
