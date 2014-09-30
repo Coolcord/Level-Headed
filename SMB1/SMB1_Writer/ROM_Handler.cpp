@@ -31,20 +31,26 @@ QString ROM_Handler::Install_ROM() {
 
     QFile file(fileLocation);
     if (!file.exists()) {
-        this->Show_Error(fileLocation + " could not be found!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              fileLocation + " could not be found!", Common_Strings::OK);
         return QString();
     }
     if (!file.open(QFile::ReadWrite)) {
-        file.close();
-        this->Show_Error(Common_Strings::LEVEL_HEADED +
-                         " does not have proper read/write permissions to access " + file.fileName() + ". Cannot continue!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              Common_Strings::LEVEL_HEADED +
+                              " does not have proper read/write permissions to access " +
+                              file.fileName() + ". Cannot continue!", Common_Strings::OK);
         return QString();
     }
 
     //Verify ROM Checksum
     QString checksum = this->romChecksum->Get_ROM_Checksum(&file);
     ROM_Type::ROM_Type romType = this->romChecksum->Get_ROM_Type_From_Checksum(checksum);
-    if (romType == ROM_Type::INVALID) return QString(); //TODO: Throw an error here
+    if (romType == ROM_Type::INVALID) {
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              "This does not appear to be a valid SMB1 ROM!", Common_Strings::OK);
+        return QString();
+    }
 
     //Check if the current ROM is already installed
     QString fileName = this->romChecksum->Get_ROM_Filename_From_Checksum(checksum);
@@ -52,15 +58,18 @@ QString ROM_Handler::Install_ROM() {
     if (installedFile.exists()) {
         if (!installedFile.remove()) {
             file.close();
-            this->Show_Error(Common_Strings::LEVEL_HEADED +
-                             " does not have proper read/write permissions to access " + installedFile.fileName() + ". Cannot continue!");
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+                                  " does not have proper read/write permissions to access " +
+                                  installedFile.fileName() + ". Cannot continue!", Common_Strings::OK);
             return QString();
         }
     }
     if (!installedFile.open(QFile::ReadWrite)) {
         file.close();
-        this->Show_Error(Common_Strings::LEVEL_HEADED +
-                         " does not have proper read/write permissions to access " + installedFile.fileName() + ". Cannot continue!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              Common_Strings::LEVEL_HEADED +
+                              " does not have proper read/write permissions to access " + installedFile.fileName() +
+                              ". Cannot continue!", Common_Strings::OK);
         return QString();
     }
 
@@ -69,7 +78,9 @@ QString ROM_Handler::Install_ROM() {
     installedFile.reset();
     QByteArray buffer = file.readAll();
     if (buffer.isEmpty() || installedFile.write(buffer) == -1) {
-        this->Show_Error("Unable to install the ROM!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              Common_Strings::LEVEL_HEADED +
+                              " does not have proper read/write permissions. Cannot continue!", Common_Strings::OK);
         return QString();
     }
     file.close();
@@ -79,16 +90,16 @@ QString ROM_Handler::Install_ROM() {
 }
 
 QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
-    if (cancel) return false;
+    if (cancel) return NULL;
     QFile loadFile(this->romFolderLocation + "/" + fileName);
     if (!loadFile.exists()) {
-        this->Show_Error(fileName + " is not installed!");
         return NULL;
     }
     if (!loadFile.open(QFile::ReadWrite)) {
-        loadFile.close();
-        this->Show_Error(Common_Strings::LEVEL_HEADED +
-                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              Common_Strings::LEVEL_HEADED +
+                              " does not have proper read/write permissions to access " + this->file->fileName() +
+                              ". Cannot continue!", Common_Strings::OK);
         return NULL;
     }
 
@@ -101,7 +112,8 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         QString loadedFileName = loadFile.fileName();
         loadFile.close();
         loadFile.remove();
-        this->Show_Error(loadedFileName + " is not a valid SMB1 ROM!");
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              loadedFileName + " is not a valid SMB1 ROM!", Common_Strings::OK);
         return NULL;
     }
 
@@ -120,14 +132,16 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         if (!this->file->remove()) {
             loadFile.close();
             this->Show_Error(Common_Strings::LEVEL_HEADED +
-                             " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
+                             " does not have proper read/write permissions to access " +
+                             this->file->fileName() + ". Cannot continue!");
             return NULL;
         }
     }
     if (!this->file->open(QFile::ReadWrite)) {
         loadFile.close();
         this->Show_Error(Common_Strings::LEVEL_HEADED +
-                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
+                         " does not have proper read/write permissions to access " +
+                         this->file->fileName() + ". Cannot continue!");
         return NULL;
     }
 
@@ -145,7 +159,8 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
     if (!this->file->open(QFile::ReadWrite)) {
         loadFile.close();
         this->Show_Error(Common_Strings::LEVEL_HEADED +
-                         " does not have proper read/write permissions to access " + this->file->fileName() + ". Cannot continue!");
+                         " does not have proper read/write permissions to access " +
+                         this->file->fileName() + ". Cannot continue!");
         return NULL;
     }
     return this->file;
