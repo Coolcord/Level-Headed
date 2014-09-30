@@ -2,28 +2,24 @@
 #include "Physics.h"
 #include "../Common SMB1 Files/Object_Item_String.h"
 #include <QTime>
+#include <QDebug>
 #include <assert.h>
 
-Level_Crawler::Level_Crawler(Brick::Brick brick) : SMB1_Compliance_Map() {
-    this->brick = brick;
+Level_Crawler::Level_Crawler(QFile *file) : SMB1_Compliance_Map() {
+    assert(file);
+    this->file = file;
     this->badCoordinates = new QMap<QString, bool>();
-    this->stream = NULL;
 }
 
 Level_Crawler::~Level_Crawler() {
     delete this->badCoordinates;
-    delete this->stream;
 }
 
-bool Level_Crawler::Crawl_Level(QFile *file) {
-    if (!file->isOpen() || !file->reset()) return false;
-
-    //Create a text stream for the file
-    if (this->stream) {
-        delete this->stream;
-        this->stream = NULL;
-    }
-    this->stream = new QTextStream(file);
+bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
+    if (!this->file || !this->file->isOpen() || !this->file->isReadable()) return false;
+    if (!this->file->reset()) return false;
+    this->brick = startingBrick;
+    this->file = file;
 
     int x = 0;
     int previousX = x;
@@ -31,8 +27,9 @@ bool Level_Crawler::Crawl_Level(QFile *file) {
     //Read the Objects to Determine Safe Spots to Place Enemies
     QString line;
     do {
-        line = this->stream->readLine();
-        line.chop(1); //remove the newline character
+        line = this->file->readLine();
+        line.chop(1);
+        qDebug() << line;
         previousX = x;
         assert(this->Parse_Object(line, x, holeCrawlSteps));
 
@@ -42,7 +39,7 @@ bool Level_Crawler::Crawl_Level(QFile *file) {
             if (holeCrawlSteps < 0) holeCrawlSteps = 0;
         }
 
-    } while (line != NULL && !file->atEnd());
+    } while (line != NULL && !this->file->atEnd());
 
     return true;
 }
@@ -53,21 +50,13 @@ bool Level_Crawler::Find_Safe_Coordinate(int &x, int &y, int lastX) {
 
 bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX) {
     assert(size > 0);
-    for (int i = x-lastX; i < 16; ++i) {
+    for (int i = x; i <= lastX+16; ++i) {
         int safeY = 0;
         if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
-            bool valid = true;
-            for (int j = 0; j < size-1 && valid; ++j) {
-                if (!this->Is_Coordinate_Safe(j, safeY)) valid = false;
-            }
-            if (valid) {
-                //Safe Coordinate Found
-                x = i;
-                y = safeY;
-                return true;
-            }
+            x = i;
+            y = safeY;
+            return true;
         }
-
     }
     return false;
 }
@@ -300,8 +289,9 @@ QString Level_Crawler::Make_Key(int x, int y) {
 }
 
 bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlSteps) {
+    if (line == NULL || line.isEmpty()) return false;
     QStringList elements = line.split(' ');
-    assert(elements.at(0) == "O:");
+    if (elements.at(0) != "O:") return false;
 
     //Crawl forward according to the brick pattern
     bool valid = false;
@@ -415,7 +405,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::HOLE:
     case Object_Item::HOLE_WITH_WATER:
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         holeCrawlSteps = length;
         return true;
@@ -477,7 +467,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::STEPS:
         y = Physics::GROUND_Y;
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             for (int j = 0; j <= i; ++j) {

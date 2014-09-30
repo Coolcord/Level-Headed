@@ -2,8 +2,7 @@
 #include "Physics.h"
 #include <assert.h>
 
-Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
-{
+Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft) {
     assert(stream);
     assert(numBytesLeft >= 0);
     this->stream = stream;
@@ -11,7 +10,7 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft)
     this->levelLength = 0;
     this->numBytesLeft = numBytesLeft;
     this->currentPage = 1;
-    this->currentX = 0;
+    this->currentX = 1;
     this->currentY = Physics::GROUND_Y;
     this->coordinateSafety = true;
 }

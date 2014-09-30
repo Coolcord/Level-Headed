@@ -8,6 +8,7 @@
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Pipe_Pointer_Writer.h"
+#include "Enemy_Spawner.h"
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
 #include "End_Spawner.h"
@@ -29,6 +30,7 @@ protected:
     Object_Writer *object;
     Enemy_Writer *enemy;
     Pipe_Pointer_Writer *pipePointer;
+    Enemy_Spawner *enemySpawner;
     Simple_Object_Spawner *simpleObjectSpawner;
     Common_Pattern_Spawner *commonPatternSpawner;
     End_Spawner *end;

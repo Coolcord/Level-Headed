@@ -31,9 +31,9 @@ bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &e
 
 QString Enemy_Writer::Get_Difficulty_String(bool onlyHardMode) {
     if (onlyHardMode) {
-        return Enemy_Item::STRING_NORMAL;
-    } else {
         return Enemy_Item::STRING_HARD;
+    } else {
+        return Enemy_Item::STRING_NORMAL;
     }
 }
 

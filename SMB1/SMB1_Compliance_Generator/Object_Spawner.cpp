@@ -8,7 +8,6 @@ Object_Spawner::Object_Spawner(Object_Writer *object) {
     this->object = object;
 }
 
-
 int Object_Spawner::Get_Random_X() {
     //Aim for a lower value... but allow higher values to be possible
     switch (qrand() % 4) {

@@ -58,7 +58,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
     }
 
     //Write the Level
-    if (!this->writerPlugin->Write_Level()) return false;
+    qDebug() << "Writing to the ROM...";
+    if (!this->writerPlugin->Write_Level()) {
+        qDebug() << "Looks like the writer plugin blew up";
+        return false;
+    }
 
     qDebug() << "Done!";
 
