@@ -31,13 +31,8 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
         line.chop(1);
         qDebug() << line;
         previousX = x;
-        assert(this->Parse_Object(line, x, holeCrawlSteps));
 
-        //Handle Step crawling for Holes
-        if (holeCrawlSteps > 0) {
-            holeCrawlSteps -= x - previousX;
-            if (holeCrawlSteps < 0) holeCrawlSteps = 0;
-        }
+        assert(this->Parse_Object(line, x, holeCrawlSteps));
 
     } while (line != NULL && !this->file->atEnd());
 
@@ -182,14 +177,16 @@ void Level_Crawler::Crawl_Forward(int x, int spaces) {
     }
 }
 
-void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces) {
+void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSteps) {
     assert(x >= 0);
     assert(spaces >= 0);
-    for (int i = spaces; i > 0; --i, ++x) {
+    for (int i = spaces; i > 0; --i, ++x, --holeCrawlSteps) {
+        assert(holeCrawlSteps >= 0);
+        if (holeCrawlSteps == 0) return this->Crawl_Forward(x, i);
         switch (this->brick) {
         case Brick::NO_BRICKS:
             case Brick::SURFACE:
-            continue; //Nothing to do
+            break; //Nothing to do
         case Brick::SURFACE_AND_CEILING:
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
@@ -298,7 +295,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     int steps = elements.at(2).toInt(&valid);
     assert(valid);
     if (holeCrawlSteps == 0) this->Crawl_Forward(x, steps);
-    else this->Crawl_Forward_With_Hole(x, steps);
+    else this->Crawl_Forward_With_Hole(x, steps, holeCrawlSteps);
     x += steps;
     int y = 0;
     int length = 0;

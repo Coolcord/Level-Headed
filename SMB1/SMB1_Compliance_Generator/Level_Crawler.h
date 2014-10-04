@@ -19,7 +19,7 @@ public:
 private:
     bool Is_Coordinate_Safe(int x, int y);
     void Crawl_Forward(int x, int spaces);
-    void Crawl_Forward_With_Hole(int x, int spaces);
+    void Crawl_Forward_With_Hole(int x, int spaces, int &holeSteps);
     void Mark_Bad_Coordinate(int x, int y);
     void Mark_Bad_X(int x);
     void Clear_X(int x);
