@@ -12,6 +12,7 @@ public:
     Level_Crawler(QFile *file);
     ~Level_Crawler();
     bool Crawl_Level(Brick::Brick startingBrick);
+    int Get_Safe_Size();
     bool Find_Safe_Coordinate(int &x, int &y, int lastX);
     bool Find_Safe_Coordinate(int size, int &x, int &y, int lastX);
     bool Find_Safe_Coordinate_At_X(int x, int &y);
@@ -28,6 +29,8 @@ private:
 
     Brick::Brick brick;
     QFile *file;
+    bool endDetected;
+    int safeSize;
     QMap<QString, bool> *badCoordinates;
 };
 

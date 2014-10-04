@@ -8,6 +8,8 @@
 Level_Crawler::Level_Crawler(QFile *file) : SMB1_Compliance_Map() {
     assert(file);
     this->file = file;
+    this->endDetected = false;
+    this->safeSize = 0;
     this->badCoordinates = new QMap<QString, bool>();
 }
 
@@ -20,6 +22,8 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     if (!this->file->reset()) return false;
     this->brick = startingBrick;
     this->file = file;
+    this->endDetected = false;
+    this->safeSize = 0;
 
     int x = 0;
     int previousX = x;
@@ -34,9 +38,15 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
 
         assert(this->Parse_Object(line, x, holeCrawlSteps));
 
+        if (!endDetected) safeSize = x-1;
+
     } while (line != NULL && !this->file->atEnd());
 
     return true;
+}
+
+int Level_Crawler::Get_Safe_Size() {
+    return this->safeSize;
 }
 
 bool Level_Crawler::Find_Safe_Coordinate(int &x, int &y, int lastX) {
@@ -439,6 +449,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         }
         return true;
     case Object_Item::FLAGPOLE:
+        this->endDetected = true;
         this->Mark_Bad_X(x);
         return true;
     case Object_Item::CASTLE:
@@ -448,6 +459,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         }
         return true;
     case Object_Item::AXE:
+        this->endDetected = true;
         this->Mark_Bad_Coordinate(x, 6);
         return true;
     case Object_Item::AXE_ROPE:
@@ -473,6 +485,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         }
         return true;
     case Object_Item::END_STEPS:
+        this->endDetected = true;
         y = Physics::GROUND_Y;
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j <= i; ++j) {
