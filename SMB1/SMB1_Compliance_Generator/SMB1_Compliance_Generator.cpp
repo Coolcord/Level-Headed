@@ -17,6 +17,10 @@ void SMB1_Compliance_Generator::Startup(QWidget *parent, QString location) {
     this->applicationLocation = location;
 }
 
+void SMB1_Compliance_Generator::Shutdown() {
+
+}
+
 bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type) {
     if (this->applicationLocation.isEmpty()) return false;
 
@@ -27,11 +31,20 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
     }
 
     //Determine which level generator to use
+    bool success = false;
     switch (type) {
-    case Level_Type::STANDARD_OVERWORLD:    return this->Generate_Standard_Overworld_Level(&file, numObjectBytes, numEnemyBytes);
-    case Level_Type::ISLAND:                return false; //TODO: Implement this...
-    default:                    return false;
+    case Level_Type::STANDARD_OVERWORLD:
+        success = this->Generate_Standard_Overworld_Level(&file, numObjectBytes, numEnemyBytes);
+        break;
+    case Level_Type::ISLAND:
+        success = false;
+        break; //TODO: Implement this...
+    default:
+        assert(false);
     }
+
+    file.close();
+    return success;
 }
 
 bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {

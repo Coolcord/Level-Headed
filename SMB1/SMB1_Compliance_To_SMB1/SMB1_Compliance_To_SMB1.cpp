@@ -67,6 +67,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Done!";
 
     //Unload plugins
+    this->generatorPlugin->Shutdown();
     this->writerPlugin->Shutdown();
     delete this->parser;
     delete this->generatorPlugin;

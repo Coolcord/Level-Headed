@@ -14,6 +14,7 @@ class SMB1_Compliance_Generator : public SMB1_Compliance_Generator_Interface {
 public:
     SMB1_Compliance_Generator();
     void Startup(QWidget *parent, QString location);
+    void Shutdown();
     bool Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type);
 
 private:

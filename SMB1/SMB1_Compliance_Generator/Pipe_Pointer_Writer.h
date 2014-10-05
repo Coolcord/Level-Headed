@@ -8,6 +8,7 @@ class Pipe_Pointer_Writer
 {
 public:
     Pipe_Pointer_Writer(Object_Writer *object, Enemy_Writer *enemy);
+    ~Pipe_Pointer_Writer() {}
     bool Pipe_Pointer(int x, int room, int page);
     bool Enterable_Pipe(int x, int y, int height, int room, int page);
     bool Reverse_L_Pipe(int x, int room, int page);

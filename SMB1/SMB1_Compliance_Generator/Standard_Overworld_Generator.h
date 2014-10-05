@@ -7,6 +7,7 @@ class Standard_Overworld_Generator : public Level_Generator
 {
 public:
     Standard_Overworld_Generator(QFile *file, int numObjectBytes, int numEnemyBytes) : Level_Generator(file, numObjectBytes, numEnemyBytes) {}
+    ~Standard_Overworld_Generator() {}
     bool Generate_Level();
 private:
     Standard_Overworld_Generator(const Standard_Overworld_Generator&);

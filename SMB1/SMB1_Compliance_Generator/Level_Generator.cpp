@@ -15,7 +15,7 @@ Level_Generator::Level_Generator(QFile *file, int numObjectBytes, int numEnemyBy
 }
 
 Level_Generator::~Level_Generator() {
-    delete this->pipePointer;
+    delete this->stream;
     delete this->header;
     delete this->object;
     delete this->enemy;
@@ -24,5 +24,4 @@ Level_Generator::~Level_Generator() {
     delete this->simpleObjectSpawner;
     delete this->commonPatternSpawner;
     delete this->end;
-    delete this->stream;
 }
