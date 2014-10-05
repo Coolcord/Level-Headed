@@ -29,6 +29,11 @@ private:
     QString Make_Key(int x, int y);
     bool Parse_Object(const QString &line, int &x, int &holeCrawlSteps);
 
+    //Debug Functions
+    bool Draw_Map();
+    int Get_X_From_Key(const QString &key);
+    int Get_Y_From_Key(const QString &key);
+
     Brick::Brick brick;
     QFile *file;
     bool endDetected;

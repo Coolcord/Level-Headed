@@ -4,6 +4,7 @@
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
+#include <QVector>
 
 Level_Crawler::Level_Crawler(QFile *file) : SMB1_Compliance_Map() {
     assert(file);
@@ -41,6 +42,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     } while (line != NULL && !this->file->atEnd());
 
     return true;
+    //return this->Draw_Map();
 }
 
 int Level_Crawler::Get_Safe_Size() {
@@ -590,4 +592,55 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         assert(false);
         return false; //invalid object
     }
+}
+
+bool Level_Crawler::Draw_Map() {
+    QFile file("E:/Level-Headed/build-Level-Headed-Desktop_Qt_5_3_MinGW_32bit-Debug/debug/dump.txt");
+    if (!file.open(QFile::ReadWrite | QFile::Truncate)) return false;
+    QTextStream stream(&file);
+
+    int maxX = this->Get_Safe_Size();
+    bool map[maxX][13];
+    for (int i = 0; i < maxX; ++i) {
+        for (int j = 0; j < 13; ++j) {
+            map[i][j] = false;
+        }
+    }
+
+    //Determine what to draw
+    QVector<QString> keys = this->badCoordinates->keys().toVector();
+    for (int i = 0; i < keys.length(); ++i) {
+        int x = this->Get_X_From_Key(keys.at(i));
+        int y = this->Get_Y_From_Key(keys.at(i));
+        if (x == -1 || y == -1) continue;
+        map[x][y] = true;
+    }
+
+    //Draw the map
+    for (int i = 0; i < 13; ++i) {
+        for (int j = 0; j < maxX; ++j) {
+            if (map[j][i]) {
+                stream << "1";
+            } else {
+                stream << " ";
+            }
+        }
+        stream << "\n";
+    }
+
+    stream.flush();
+    file.close();
+    return true;
+}
+
+int Level_Crawler::Get_X_From_Key(const QString &key) {
+    if (key == NULL || key.isEmpty()) return -1;
+    QStringList coordinates = key.split("x");
+    return coordinates.at(0).toInt();
+}
+
+int Level_Crawler::Get_Y_From_Key(const QString &key) {
+    if (key == NULL || key.isEmpty()) return 0;
+    QStringList coordinates = key.split("x");
+    return coordinates.at(1).toInt();
 }

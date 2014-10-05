@@ -75,13 +75,7 @@ void Main_Window::Enable_Buttons() {
 
 bool Main_Window::Populate_Writers() {
     QStringList writerPlugins = this->pluginHandler->Get_Writer_Plugins();
-    if (writerPlugins.empty()) {
-        QString type = Common_Strings::WRITERS.toLower(); type.chop(1);
-        QMessageBox::critical(this, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
-                             " cannot find any compatible " + type + " plugins! Make sure that they are in the " +
-                              Common_Strings::WRITERS + " folder.", Common_Strings::OK);
-        return false;
-    }
+    if (writerPlugins.empty()) return false;
     this->ui->comboBaseGame->clear();
     this->ui->comboBaseGame->addItem(Common_Strings::SELECT_A_PLUGIN);
     this->ui->comboBaseGame->addItems(writerPlugins);

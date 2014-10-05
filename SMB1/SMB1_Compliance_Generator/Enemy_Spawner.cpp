@@ -60,7 +60,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         case 2:
             size = this->Common_Enemy(x, y, lastX, size); break;
         case 3:
-            size = this->Multi_Enemy(x, y, lastX, size); break;
+            //size = this->Multi_Enemy(x, y, lastX, size); break;
+            size = this->Common_Enemy(x, y, lastX, size); break;
             break;
         default:
             assert(false);
