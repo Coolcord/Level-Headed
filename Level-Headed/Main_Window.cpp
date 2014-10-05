@@ -129,7 +129,8 @@ void Main_Window::on_btnConfigureLevelGenerator_clicked(){
 
 void Main_Window::on_btnGenerateGame_clicked(){
     if (!this->interpreter) this->Show_Unable_To_Load_Plugin_Error();
-    this->interpreter->Run(); //TODO: Add threading?
+    this->interpreter->Run();
+    //TODO: Add threading?
     //If threading is added, the other components of the UI will need to be locked down until the generation is complete
 }
 

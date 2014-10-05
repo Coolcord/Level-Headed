@@ -63,7 +63,6 @@ ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Checksum(const QString &romCh
 QString ROM_Checksum::Get_ROM_Filename_From_Checksum(const QString &romChecksum) {
     assert(this->fileNameMap);
     if (!this->fileNameMap->contains(romChecksum)) return QString();
-    qDebug() << "Expected filename: " << this->fileNameMap->value(romChecksum);
     return this->fileNameMap->value(romChecksum);
 }
 

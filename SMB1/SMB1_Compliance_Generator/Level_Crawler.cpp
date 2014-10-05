@@ -33,7 +33,6 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     do {
         line = this->file->readLine();
         line.chop(1);
-        qDebug() << line;
 
         assert(this->Parse_Object(line, x, holeCrawlSteps));
 

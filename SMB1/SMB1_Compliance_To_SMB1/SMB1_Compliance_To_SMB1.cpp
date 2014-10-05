@@ -23,9 +23,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
 
-    qDebug() << "Phase 1";
     if (this->applicationLocation.isEmpty()) return false;
-    qDebug() << "Phase 2";
     if (!this->Load_Plugins()) return false;
 
     //Set up the Parser
