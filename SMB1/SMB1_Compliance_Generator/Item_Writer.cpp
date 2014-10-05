@@ -31,6 +31,10 @@ int Item_Writer::Get_Current_Y() {
     return this->currentY;
 }
 
+void Item_Writer::Set_Current_Y(int value) {
+    this->currentY = value;
+}
+
 int Item_Writer::Get_Absolute_X(int x) {
     return ((this->currentX+x)%0x10);
 }

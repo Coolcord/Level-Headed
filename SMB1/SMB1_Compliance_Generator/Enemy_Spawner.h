@@ -18,6 +18,7 @@ public:
 private:
     int Get_Random_X(int min);
     int Common_Enemy(int &x, int &y, int lastX, int lastSize);
+    int Multi_Enemy(int &x, int &y, int lastX, int lastSize);
 
     QFile *file;
     QTextStream *stream;

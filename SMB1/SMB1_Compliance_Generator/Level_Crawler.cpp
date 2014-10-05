@@ -26,7 +26,6 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     this->safeSize = 0;
 
     int x = 0;
-    int previousX = x;
     int holeCrawlSteps = 0;
     //Read the Objects to Determine Safe Spots to Place Enemies
     QString line;
@@ -34,7 +33,6 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
         line = this->file->readLine();
         line.chop(1);
         qDebug() << line;
-        previousX = x;
 
         assert(this->Parse_Object(line, x, holeCrawlSteps));
 
@@ -53,14 +51,76 @@ bool Level_Crawler::Find_Safe_Coordinate(int &x, int &y, int lastX) {
     return this->Find_Safe_Coordinate(1, x, y, lastX);
 }
 
-bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX) {
+bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bool reverse) {
     assert(size > 0);
-    for (int i = x; i <= lastX+16; ++i) {
-        int safeY = 0;
-        if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
-            x = i;
-            y = safeY;
-            return true;
+    if (reverse) {
+        for (int i = lastX+16; i >= x; --i) {
+            int safeY = 0;
+            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
+                if (size == 1) {
+                    x = i;
+                    y = safeY;
+                    return true;
+                } else {
+                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
+                        //Only return true on the last iteration if it is valid
+                        if (j == i+size-1) {
+                            x = i;
+                            y = safeY;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        for (int i = x; i <= lastX+16; ++i) {
+            int safeY = 0;
+            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
+                if (size == 1) {
+                    x = i;
+                    y = safeY;
+                    return true;
+                } else {
+                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
+                        //Only return true on the last iteration if it is valid
+                        if (j == i+size-1) {
+                            x = i;
+                            y = safeY;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Level_Crawler::Find_Safe_Coordinate_At_Y(int &x, int y, int lastX) {
+    return this->Find_Safe_Coordinate_At_Y(1, x, y, lastX);
+}
+
+bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX, bool reverse) {
+    assert(size > 0);
+    int numValid = 0;
+    if (reverse) {
+        for (int i = lastX+16; i <= x; --i) {
+            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
+            else numValid = 0;
+            if (numValid == size) {
+                x = i;
+                return true;
+            }
+        }
+    } else {
+        for (int i = x; i <= lastX+16; ++i) {
+            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
+            else numValid = 0;
+            if (numValid == size) {
+                x = i-size+1;
+                return true;
+            }
         }
     }
     return false;

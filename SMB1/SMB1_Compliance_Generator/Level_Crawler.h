@@ -14,7 +14,9 @@ public:
     bool Crawl_Level(Brick::Brick startingBrick);
     int Get_Safe_Size();
     bool Find_Safe_Coordinate(int &x, int &y, int lastX);
-    bool Find_Safe_Coordinate(int size, int &x, int &y, int lastX);
+    bool Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bool reverse = false);
+    bool Find_Safe_Coordinate_At_Y(int &x, int y, int lastX);
+    bool Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX, bool reverse = false);
     bool Find_Safe_Coordinate_At_X(int x, int &y);
 
 private:

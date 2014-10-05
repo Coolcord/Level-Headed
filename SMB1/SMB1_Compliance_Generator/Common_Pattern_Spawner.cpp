@@ -63,9 +63,9 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
 
     //Possibly place vertical blocks to land on
     bool landing = false;
-    height = this->Get_Random_Number(2, height);
     if (this->availableObjects > 0) {
         if (qrand() % 2 == 0) {
+            height = this->Get_Random_Number(2, height);
             assert(this->object->Vertical_Blocks(length, this->Get_Y_From_Height(height), height));
             --this->availableObjects;
             landing = true;
@@ -73,19 +73,24 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
     }
 
     //Possibly place steps going down
-    height = this->Get_Random_Number(Physics::MIN_STEPS_SIZE, height);
-    if (this->availableObjects >= height) {
+    bool steps = false;
+    int stepsHeight = this->Get_Random_Number(Physics::MIN_STEPS_SIZE, height);
+    if (this->availableObjects >= stepsHeight) {
         if (qrand() % 2 == 0) {
             landing = true;
-            while (height > 0 && this->availableObjects > 0) {
-                assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), this->Get_Y_From_Height(height), height));
+            steps = true;
+            while (stepsHeight > 0 && this->availableObjects > 0) {
+                assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), this->Get_Y_From_Height(stepsHeight), stepsHeight));
                 --this->availableObjects;
-                --height;
+                --stepsHeight;
             }
         }
     }
 
     if (hole && !landing) this->object->Increment_Last_Object_Length(1); //add a safe spot after the hole
+    if (!steps && height > Physics::BASIC_JUMP_HEIGHT) {
+        this->object->Set_Current_Y(Physics::BASIC_JUMP_HEIGHT); //prevent creating unescapable areas
+    }
     return true;
 }
 
