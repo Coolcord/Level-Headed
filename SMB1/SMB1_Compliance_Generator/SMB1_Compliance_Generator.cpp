@@ -5,10 +5,7 @@
 
 SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
     this->applicationLocation = QString();
-
-    //Seed the random number generator
-    QTime midnight(0, 0, 0);
-    qsrand(midnight.secsTo(QTime::currentTime()));
+    qsrand(QTime::currentTime().msecsSinceStartOfDay());
 }
 
 void SMB1_Compliance_Generator::Startup(QWidget *parent, QString location) {
