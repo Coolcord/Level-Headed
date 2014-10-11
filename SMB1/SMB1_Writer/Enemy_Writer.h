@@ -47,6 +47,7 @@ private:
     Enemy_Writer(const Enemy_Writer&);
     Enemy_Writer& operator=(const Enemy_Writer&);
     bool Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode);
+    bool Write_Group(int x, int y, int enemyByte, bool onlyHardMode);
 };
 
 #endif // ENEMY_WRITER_H

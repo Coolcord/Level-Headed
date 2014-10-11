@@ -12,6 +12,50 @@ bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
     return this->Write_Item(x, y, enemyByte);
 }
 
+bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
+    if (y < 0x0 || y > 0xD) return false; //enemies must exist between 0x0 and 0xD
+    assert(enemyByte >= 0x0);
+    if (onlyHardMode) {
+        enemyByte += 64; //trigger the hard mode bit
+        assert(enemyByte <= 0x7F);
+    }
+    if (!this->Is_Safe_To_Write_Item()) return false;
+
+    //Handle the x coordinate
+    x += 3;
+    int tmpX = this->currentX + x;
+    bool tmpPageFlag = this->pageFlag;
+    if (tmpX > 0xF) { //set the page flag if necessary
+        if (tmpPageFlag) return false;
+        tmpPageFlag = true;
+        tmpX -= 0x10;
+    }
+    if (tmpX > 0xF) return false; //the x coordinate cannot be off the next page
+
+    //Set the member variables
+    this->currentY = y;
+    this->pageFlag = tmpPageFlag;
+    this->currentX += x-3;
+    if (this->currentX > 0xF) {
+        this->currentX -= 0x10;
+    }
+
+    //Write the position byte
+    QBitArray positionBits(8, false);
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, tmpX); //x
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, y); //y
+    int positionByte = Binary_Manipulator::BitArray_To_Hex(positionBits); //get the byte
+    if (!this->Write_Byte_To_Buffer(positionByte)) return false;
+
+    //Write the item byte
+    if (this->pageFlag) {
+        this->pageFlag = false;
+        enemyByte += 128; //set the page flag in the byte
+        assert(enemyByte <= 0xFF);
+    }
+    return this->Write_Byte_To_Buffer(enemyByte);
+}
+
 bool Enemy_Writer::Fill_Buffer() {
     while (this->Is_Safe_To_Write_Item()) {
         assert(this->Nothing(0));
@@ -177,17 +221,17 @@ bool Enemy_Writer::Toad(int x, bool onlyHardMode) {
 bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6) {
         if (num == 2) {
-            return this->Write_Enemy(x, y, 0x39, onlyHardMode);
+            return this->Write_Group(x, y, 0x39, onlyHardMode);
         } else if (num == 3) {
-            return this->Write_Enemy(x, y, 0x3A, onlyHardMode);
+            return this->Write_Group(x, y, 0x3A, onlyHardMode);
         } else {
             return false;
         }
     } else if (y == 0xA) {
         if (num == 2) {
-            return this->Write_Enemy(x, y, 0x37, onlyHardMode);
+            return this->Write_Group(x, y, 0x37, onlyHardMode);
         } else if (num == 3) {
-            return this->Write_Enemy(x, y, 0x38, onlyHardMode);
+            return this->Write_Group(x, y, 0x38, onlyHardMode);
         } else {
             return false;
         }
@@ -199,17 +243,17 @@ bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
 bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6) {
         if (num == 2) {
-            return this->Write_Enemy(x, y, 0x3D, onlyHardMode);
+            return this->Write_Group(x, y, 0x3D, onlyHardMode);
         } else if (num == 3) {
-            return this->Write_Enemy(x, y, 0x3E, onlyHardMode);
+            return this->Write_Group(x, y, 0x3E, onlyHardMode);
         } else {
             return false;
         }
     } else if (y == 0xA) {
         if (num == 2) {
-            return this->Write_Enemy(x, y, 0x3B, onlyHardMode);
+            return this->Write_Group(x, y, 0x3B, onlyHardMode);
         } else if (num == 3) {
-            return this->Write_Enemy(x, y, 0x3C, onlyHardMode);
+            return this->Write_Group(x, y, 0x3C, onlyHardMode);
         } else {
             return false;
         }

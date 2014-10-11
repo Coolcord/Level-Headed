@@ -41,7 +41,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     } while (line != NULL && !this->file->atEnd());
 
     return true;
-    //return this->Draw_Map();
+    //return this->Draw_Map(); //Debug code
 }
 
 int Level_Crawler::Get_Safe_Size() {
@@ -106,7 +106,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
     assert(size > 0);
     int numValid = 0;
     if (reverse) {
-        for (int i = lastX+16; i <= x; --i) {
+        for (int i = lastX+16; i <= x; --i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
@@ -115,7 +115,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
             }
         }
     } else {
-        for (int i = x; i <= lastX+16; ++i) {
+        for (int i = x; i <= lastX+16; ++i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
@@ -599,9 +599,10 @@ bool Level_Crawler::Draw_Map() {
     QTextStream stream(&file);
 
     int maxX = this->Get_Safe_Size();
-    bool map[maxX][13];
+    int maxY = 13;
+    bool map[maxX][maxY];
     for (int i = 0; i < maxX; ++i) {
-        for (int j = 0; j < 13; ++j) {
+        for (int j = 0; j < maxY; ++j) {
             map[i][j] = false;
         }
     }
@@ -612,14 +613,23 @@ bool Level_Crawler::Draw_Map() {
         int x = this->Get_X_From_Key(keys.at(i));
         int y = this->Get_Y_From_Key(keys.at(i));
         if (x == -1 || y == -1) continue;
+        if (x >= maxX || y >= maxY) continue;
+
+        qDebug() << "MaxX: " << maxX;
+        qDebug() << "MaxY: " << maxY;
+        qDebug() << "X: " << x;
+        qDebug() << "Y: " << y;
+
+        assert(x >= 0 && x < maxX);
+        assert(y >= 0 && y < maxY);
         map[x][y] = true;
     }
 
     //Draw the map
-    for (int i = 0; i < 13; ++i) {
+    for (int i = 0; i < maxY; ++i) {
         for (int j = 0; j < maxX; ++j) {
             if (map[j][i]) {
-                stream << "1";
+                stream << "X";
             } else {
                 stream << " ";
             }

@@ -31,7 +31,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
 
     //Spawn the steps going up
     int x = this->Get_Safe_Random_X();
-    assert(x > 0);
+    assert(x >= 0);
     int height = this->Get_Random_Number(2, Physics::MAX_STEPS_SIZE-2);
     assert(this->object->Steps(x, height));
     --this->availableObjects;

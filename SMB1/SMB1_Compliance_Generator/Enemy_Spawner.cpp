@@ -60,8 +60,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         case 2:
             size = this->Common_Enemy(x, y, lastX, size); break;
         case 3:
-            //size = this->Multi_Enemy(x, y, lastX, size); break;
-            size = this->Common_Enemy(x, y, lastX, size); break;
+            size = this->Multi_Enemy(x, y, lastX, size); break;
             break;
         default:
             assert(false);
@@ -104,14 +103,14 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
     }
 
     //Determine the y to place the enemies at
-    int tmpY = 0;
+    int tmpY = y;
     switch (qrand() % 2) {
     case 0: tmpY = 0x6; break;
     case 1: tmpY = 0xA; break;
     default: assert(false);
     }
 
-    //Fall back to spawning a normal enemy if there's no room to spawn multiples
+    //Try to find a place to spawn the enemies
     if (!this->levelCrawler->Find_Safe_Coordinate_At_Y(numEnemies+1, tmpX, tmpY, lastX)) {
         //Try the other y coordinate
         if (tmpY == 0x6) tmpY = 0xA;
