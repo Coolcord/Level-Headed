@@ -24,6 +24,7 @@ private:
     int Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size);
     int Spawn_Island_Enemy(int &x, int &y, int lastX, int size);
 
+    bool Spawn_Page_Change(int &x, int &y, int &lastX, int averageDistance, int page, int enemyAmount);
     int Get_Random_X(int min);
     int Common_Enemy(int &x, int &y, int lastX, int lastSize);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize);

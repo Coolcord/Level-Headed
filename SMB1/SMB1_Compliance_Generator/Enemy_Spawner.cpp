@@ -41,6 +41,14 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
         numEnemies = this->enemies->Get_Num_Bytes_Left()/2;
     }
 
+    //Determine where to place the page changes
+    int firstPageChange = (numPages/4)+1;
+    int secondPageChange = (numPages/2)+1;
+    int thirdPageChange = static_cast<int>(((static_cast<double>(numPages)/4.0)*3.0))+1;
+    int firstEnemyGroup = static_cast<int>(((static_cast<double>(numEnemies)/4.0)*3.0))+1;
+    int secondEnemyGroup = (numEnemies/2)+1;
+    int thirdEnemyGroup = (numEnemies/4)+1;
+
     //Determine the average distance between each enemy
     int averageDistance = 0;
     if (numEnemies > 0) averageDistance = totalSpaces/numEnemies;
@@ -55,68 +63,6 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     int size = 1;
     x = averageDistance/2;
     while (this->enemies->Get_Num_Bytes_Left() > 1) {
-        //Spawn a page change if necessary
-        if (usePages && this->enemies->Get_Num_Bytes_Left() >= 4) {
-            switch (section) {
-            case 0:
-                //Skip the page change if necessary
-                if (this->enemies->Get_Current_Page()+1 >= (numPages/4)) {
-                    ++section;
-                    break;
-                }
-
-                //Spawn the page change if necessary
-                if ((this->enemies->Get_Num_Bytes_Left()/2) <= ((numEnemies/4)*3)) {
-                    qDebug() << "Page Change spawned at: " << (numPages/4);
-                    assert(this->enemies->Page_Change(numPages/4));
-                    x = (numPages/4)*16;
-                    lastX = x;
-                    x += averageDistance/2;
-                    y = Physics::GROUND_Y;
-                    ++section;
-                }
-                break;
-            case 1:
-                //Skip the page change if necessary
-                if (this->enemies->Get_Current_Page()+1 >= (numPages/2)) {
-                    ++section;
-                    break;
-                }
-
-                //Spawn the page change if necessary
-                if ((this->enemies->Get_Num_Bytes_Left()/2) <= (numEnemies/2)) {
-                    qDebug() << "Page Change spawned at: " << (numPages/2);
-                    assert(this->enemies->Page_Change(numPages/2));
-                    x = (numPages/2)*16;
-                    lastX = x;
-                    x += averageDistance/2;
-                    y = Physics::GROUND_Y;
-                    ++section;
-                }
-                break;
-            case 2:
-                //Skip the page change if necessary
-                if (this->enemies->Get_Current_Page()+1 >= ((numPages/4)*3)) {
-                    ++section;
-                    break;
-                }
-
-                //Spawn the page change if necessary
-                if ((this->enemies->Get_Num_Bytes_Left()/2) <= (numEnemies/4)) {
-                    qDebug() << "Page Change spawned at: " << ((numPages/4)*3);
-                    assert(this->enemies->Page_Change((numPages/4)*3));
-                    x = ((numPages/4)*3)*16;
-                    lastX = x;
-                    x += averageDistance/2;
-                    y = Physics::GROUND_Y;
-                    ++section;
-                }
-                break;
-            default:
-                break;
-            }
-        }
-
         //Determine what type of enemies to spawn
         switch (levelType) {
         case Level_Type::STANDARD_OVERWORLD:
@@ -148,6 +94,23 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
             lastX = x;
         }
 
+        //Spawn a page change if necessary
+        if (usePages && this->enemies->Get_Num_Bytes_Left() >= 4) {
+            switch (section) {
+            case 0:
+                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, firstPageChange, firstEnemyGroup)) ++section;
+                break;
+            case 1:
+                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, secondPageChange, secondEnemyGroup)) ++section;
+                break;
+            case 2:
+                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, thirdPageChange, thirdEnemyGroup)) ++section;
+                break;
+            default:
+                break;
+            }
+        }
+
         //Increment X
         x += averageDistance;
         if (averageDistance < size) {
@@ -155,6 +118,27 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
         }
     }
     return true;
+}
+
+bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int averageDistance, int page, int enemyAmount) {
+    //Skip the page change if necessary
+    if (this->enemies->Get_Current_Page()+1 >= page) {
+        return true;
+    }
+
+    //Spawn the page change if necessary
+    if ((this->enemies->Get_Num_Bytes_Left()/2) <= enemyAmount) {
+        qDebug() << "Page Change spawned at: " << page;
+        assert(this->enemies->Page_Change(page));
+        x = ((page-1)*16)+1;
+        qDebug() << "X is now: " << x;
+        lastX = x;
+        y = Physics::GROUND_Y;
+        return true;
+    }
+
+    //Cannot move on to the next section yet
+    return false;
 }
 
 int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size) {

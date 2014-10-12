@@ -266,7 +266,11 @@ bool Enemy_Writer::Page_Change(int page) {
     if (page < 0x0 || page > 0xFF) return false;
     if (!this->Is_Safe_To_Write_Item()) return false;
     if (!this->Write_Byte_To_Buffer(0x0F)) return false;
-    return this->Write_Byte_To_Buffer(page);
+    if (!this->Write_Byte_To_Buffer(page)) return false;
+    this->currentPage = page;
+    this->currentX = 0;
+    this->currentY = 0;
+    return true;
 }
 
 bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
