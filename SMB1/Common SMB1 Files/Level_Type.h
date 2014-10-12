@@ -4,6 +4,10 @@
 namespace Level_Type {
     enum Level_Type {
         STANDARD_OVERWORLD,
+        UNDERGROUND,
+        UNDERWATER,
+        CASTLE,
+        BRIDGE,
         ISLAND
     };
 }

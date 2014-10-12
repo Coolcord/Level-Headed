@@ -384,11 +384,10 @@ bool Enemy_Handler::Koopa_Group(const QString &line) {
 
 bool Enemy_Handler::Page_Change(const QString &line) {
     QStringList elements = line.split(' ');
-    if (elements.size() != 4) return false;
-    int x = 0; int room = 0; int page = 0;
-    if (!this->Parse_Num(elements.at(2), x)) return false;
-    if (!this->Parse_Num(elements.at(3), room)) return false;
-    return this->writerPlugin->Enemy_Page_Change(x, page);
+    if (elements.size() != 3) return false;
+    int page = 0;
+    if (!this->Parse_Num(elements.at(2), page)) return false;
+    return this->writerPlugin->Enemy_Page_Change(page);
 }
 
 bool Enemy_Handler::Nothing(const QString &line) {

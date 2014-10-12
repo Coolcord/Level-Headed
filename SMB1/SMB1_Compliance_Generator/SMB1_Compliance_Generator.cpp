@@ -33,6 +33,18 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
     case Level_Type::STANDARD_OVERWORLD:
         success = this->Generate_Standard_Overworld_Level(&file, numObjectBytes, numEnemyBytes);
         break;
+    case Level_Type::UNDERGROUND:
+        success = false;
+        break; //TODO: Implement this...
+    case Level_Type::UNDERWATER:
+        success = false;
+        break; //TODO: Implement this...
+    case Level_Type::CASTLE:
+        success = false;
+        break; //TODO: Implement this...
+    case Level_Type::BRIDGE:
+        success = false;
+        break; //TODO: Implement this...
     case Level_Type::ISLAND:
         success = false;
         break; //TODO: Implement this...

@@ -425,9 +425,9 @@ bool SMB1_Writer::Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     return this->enemyWriter->Koopa_Group(x, y, num, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Page_Change(int x, int page) {
+bool SMB1_Writer::Enemy_Page_Change(int page) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Page_Change(x, page);
+    return this->enemyWriter->Page_Change(page);
 }
 
 bool SMB1_Writer::Enemy_Pipe_Pointer(int x, int room, int page) {

@@ -13,7 +13,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
     }
 
     //Spawn the Enemies
-    this->enemySpawner->Spawn_Enemies(Brick::SURFACE);
+    this->enemySpawner->Spawn_Enemies(Brick::SURFACE, Level_Type::STANDARD_OVERWORLD);
 
     //Write the header last
     return this->header->Write_Header(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, Level_Compliment::TREES, 400, 5, this->object->Get_Level_Length(),

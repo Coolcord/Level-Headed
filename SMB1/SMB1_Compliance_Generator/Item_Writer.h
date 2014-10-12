@@ -15,6 +15,7 @@ public:
     int Get_Current_Y();
     void Set_Current_Y(int value);
     int Get_Absolute_X(int x);
+    int Get_Current_Page();
     void Set_Coordinate_Safety(bool value);
 
 protected:

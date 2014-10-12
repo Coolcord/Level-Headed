@@ -1,5 +1,6 @@
 #include "Enemy_Writer.h"
 #include "../Common SMB1 Files/Enemy_Item_String.h"
+#include <assert.h>
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
     return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)));
@@ -218,14 +219,15 @@ bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Page_Change(int page) {
-    if (page < 0x00 || page > 0xFF) return false;
+    assert(page >= 0x00 && page <= 0xFF);
     int tmpX = this->currentX;
     int tmpPage = this->currentPage;
     int tmpLevelLength = this->levelLength;
-    if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+    assert(this->Handle_Level_Length_On_Page_Change(page));
     if (this->Write_Item(ENEMY, 0x0, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
         return true; //page skip successful
     } else {
+        assert(false);
         //Restore previous stats
         this->currentX = tmpX;
         this->currentPage = tmpPage;

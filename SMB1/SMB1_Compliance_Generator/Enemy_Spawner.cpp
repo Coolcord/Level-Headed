@@ -1,11 +1,12 @@
 #include "Enemy_Spawner.h"
 #include "Enemy_Writer.h"
 #include "Level_Crawler.h"
+#include "Physics.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, int numEnemyBytes) {
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies) {
     assert(file);
     assert(stream);
     assert(enemies);
@@ -13,14 +14,13 @@ Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *ene
     this->stream = stream;
     this->enemies = enemies;
     this->levelCrawler = new Level_Crawler(this->file);
-    this->bytesLeft = numEnemyBytes;
 }
 
 Enemy_Spawner::~Enemy_Spawner() {
     delete this->levelCrawler;
 }
 
-bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
+bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_Type levelType) {
     this->stream->flush();
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
@@ -30,38 +30,113 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     int totalSpaces = this->levelCrawler->Get_Safe_Size();
     int numPages = totalSpaces/16;
+    bool usePages = false;
+    int section = 0; //used with pages to determine what group of enemies are being operated on
 
     //Determine the max number of enemies available
     int numEnemies = 0;
-    if (this->bytesLeft % 2 == 1) { //byteLeft is odd
-        numEnemies = (this->bytesLeft-1)/2;
+    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //byteLeft is odd
+        numEnemies = (this->enemies->Get_Num_Bytes_Left()-1)/2;
     } else {
-        numEnemies = this->bytesLeft/2;
+        numEnemies = this->enemies->Get_Num_Bytes_Left()/2;
     }
 
     //Determine the average distance between each enemy
     int averageDistance = 0;
     if (numEnemies > 0) averageDistance = totalSpaces/numEnemies;
-
-    //TODO: When the average Distance is greater, make use of pages instead of relative coordinates
-    qDebug() << "Average Distance between enemies: " << averageDistance;
-    if (averageDistance >= 12) {
-        qDebug() << "That's too big! Fixing...";
+    if (averageDistance >= 16) {
+        usePages = true;
+        qDebug() << "Using pages!";
+    }
+    if (averageDistance > 12) {
         averageDistance = 12;
     }
 
     int size = 1;
     x = averageDistance/2;
-    while (this->bytesLeft > 1) {
+    while (this->enemies->Get_Num_Bytes_Left() > 1) {
+        //Spawn a page change if necessary
+        if (usePages && this->enemies->Get_Num_Bytes_Left() >= 4) {
+            switch (section) {
+            case 0:
+                //Skip the page change if necessary
+                if (this->enemies->Get_Current_Page()+1 >= (numPages/4)) {
+                    ++section;
+                    break;
+                }
+
+                //Spawn the page change if necessary
+                if ((this->enemies->Get_Num_Bytes_Left()/2) <= ((numEnemies/4)*3)) {
+                    qDebug() << "Page Change spawned at: " << (numPages/4);
+                    assert(this->enemies->Page_Change(numPages/4));
+                    x = (numPages/4)*16;
+                    lastX = x;
+                    x += averageDistance/2;
+                    y = Physics::GROUND_Y;
+                    ++section;
+                }
+                break;
+            case 1:
+                //Skip the page change if necessary
+                if (this->enemies->Get_Current_Page()+1 >= (numPages/2)) {
+                    ++section;
+                    break;
+                }
+
+                //Spawn the page change if necessary
+                if ((this->enemies->Get_Num_Bytes_Left()/2) <= (numEnemies/2)) {
+                    qDebug() << "Page Change spawned at: " << (numPages/2);
+                    assert(this->enemies->Page_Change(numPages/2));
+                    x = (numPages/2)*16;
+                    lastX = x;
+                    x += averageDistance/2;
+                    y = Physics::GROUND_Y;
+                    ++section;
+                }
+                break;
+            case 2:
+                //Skip the page change if necessary
+                if (this->enemies->Get_Current_Page()+1 >= ((numPages/4)*3)) {
+                    ++section;
+                    break;
+                }
+
+                //Spawn the page change if necessary
+                if ((this->enemies->Get_Num_Bytes_Left()/2) <= (numEnemies/4)) {
+                    qDebug() << "Page Change spawned at: " << ((numPages/4)*3);
+                    assert(this->enemies->Page_Change((numPages/4)*3));
+                    x = ((numPages/4)*3)*16;
+                    lastX = x;
+                    x += averageDistance/2;
+                    y = Physics::GROUND_Y;
+                    ++section;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
         //Determine what type of enemies to spawn
-        switch (qrand() % 4) {
-        case 0:
-        case 1:
-        case 2:
-            size = this->Common_Enemy(x, y, lastX, size); break;
-        case 3:
-            size = this->Multi_Enemy(x, y, lastX, size); break;
+        switch (levelType) {
+        case Level_Type::STANDARD_OVERWORLD:
+            size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
             break;
+        case Level_Type::UNDERGROUND:
+            size = 0;
+            break; //TODO: Implement this...
+        case Level_Type::UNDERWATER:
+            size = 0;
+            break; //TODO: Implement this...
+        case Level_Type::CASTLE:
+            size = 0;
+            break; //TODO: Implement this...
+        case Level_Type::BRIDGE:
+            size = 0;
+            break; //TODO: Implement this...
+        case Level_Type::ISLAND:
+            size = 0;
+            break; //TODO: Implement this...
         default:
             assert(false);
         }
@@ -78,9 +153,48 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         if (averageDistance < size) {
             x += averageDistance - size; //Prevent enemies from spawning on top of each other
         }
-        this->bytesLeft -= 2;
     }
     return true;
+}
+
+int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size) {
+    switch (qrand() % 4) {
+    case 0:
+    case 1:
+    case 2:
+        return this->Common_Enemy(x, y, lastX, size);
+    case 3:
+        return this->Common_Enemy(x, y, lastX, size);
+        //return this->Multi_Enemy(x, y, lastX, size);
+    default:
+        assert(false);
+        return 0;
+    }
+}
+
+int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) {
+    //TODO: Implement this...
+    return 0;
+}
+
+int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
+    //TODO: Implement this...
+    return 0;
+}
+
+int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
+    //TODO: Implement this...
+    return 0;
+}
+
+int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
+    //TODO: Implement this...
+    return 0;
+}
+
+int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
+    //TODO: Implement this...
+    return 0;
 }
 
 int Enemy_Spawner::Get_Random_X(int min) {
@@ -133,8 +247,6 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
     }
 
     //Determine what type of enemies to spawn
-    qDebug() << "Y is: " << tmpY;
-    qDebug() << "Num: " << numEnemies;
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
     assert(spawnX <= 16);
@@ -182,5 +294,4 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     y = tmpY;
     return 1;
 }
-
 

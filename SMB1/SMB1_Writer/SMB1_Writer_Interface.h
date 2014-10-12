@@ -112,7 +112,7 @@ public:
     virtual bool Enemy_Toad(int x, bool onlyHardMode = false)=0;
     virtual bool Enemy_Goomba_Group(int x, int y, int num, bool onlyHardMode = false)=0;
     virtual bool Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Page_Change(int x, int page)=0;
+    virtual bool Enemy_Page_Change(int page)=0;
     virtual bool Enemy_Pipe_Pointer(int x, int room, int page)=0;
     virtual bool Enemy_Nothing(int x)=0;
 };

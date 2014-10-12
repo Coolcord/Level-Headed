@@ -1,6 +1,7 @@
 #include "Item_Writer.h"
 #include "Physics.h"
 #include <assert.h>
+#include <QDebug>
 
 Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft) {
     assert(stream);
@@ -39,15 +40,17 @@ int Item_Writer::Get_Absolute_X(int x) {
     return ((this->currentX+x)%0x10);
 }
 
+int Item_Writer::Get_Current_Page() {
+    return this->currentPage;
+}
+
 void Item_Writer::Set_Coordinate_Safety(bool value) {
     this->coordinateSafety = value;
 }
 
 bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
-    if (this->coordinateSafety && !this->Is_Coordinate_Valid(x))
-        return false;
-    if (!this->Is_Safe_To_Write_Item())
-        return false;
+    assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
+    assert(this->Is_Safe_To_Write_Item());
     QString line = "";
     switch (type) {
     case OBJECT:        line += "O: "; break;
@@ -84,7 +87,11 @@ bool Item_Writer::Is_Safe_To_Write_Item(int numBytes) {
 }
 
 bool Item_Writer::Handle_Level_Length_On_Page_Change(int page) {
-    if (this->currentPage >= page) return false;
+    if (this->currentPage >= page) {
+        qDebug() << "Current Page: " << this->currentPage;
+        qDebug() << "Page attempting to change to: " << page;
+        return false;
+    }
     this->currentPage = page;
     this->currentX = 0;
     this->levelLength = page*(0x10);
