@@ -6,7 +6,7 @@
 class Enemy_Writer : public Item_Writer
 {
 public:
-    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) {}
+    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) { this->groupPageFlag = false; }
     bool Fill_Buffer();
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
@@ -48,6 +48,9 @@ private:
     Enemy_Writer& operator=(const Enemy_Writer&);
     bool Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode);
     bool Write_Group(int x, int y, int enemyByte, bool onlyHardMode);
+    int Handle_Group_Page_Flag(int x);
+
+    bool groupPageFlag;
 };
 
 #endif // ENEMY_WRITER_H

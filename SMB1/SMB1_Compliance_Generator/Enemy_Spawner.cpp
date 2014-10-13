@@ -148,8 +148,7 @@ int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int
     case 2:
         return this->Common_Enemy(x, y, lastX, size);
     case 3:
-        return this->Common_Enemy(x, y, lastX, size);
-        //return this->Multi_Enemy(x, y, lastX, size);
+        return this->Multi_Enemy(x, y, lastX, size);
     default:
         assert(false);
         return 0;

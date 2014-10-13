@@ -9,6 +9,10 @@ bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
         enemyByte += 64; //trigger the hard mode bit
         assert(enemyByte <= 0x7F);
     }
+
+    //Fix the coordinates if a group was spawned previously
+    x = this->Handle_Group_Page_Flag(x);
+
     return this->Write_Item(x, y, enemyByte);
 }
 
@@ -22,6 +26,7 @@ bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
     if (!this->Is_Safe_To_Write_Item()) return false;
 
     //Handle the x coordinate
+    x = this->Handle_Group_Page_Flag(x);
     x += 3;
     int tmpX = this->currentX + x;
     bool tmpPageFlag = this->pageFlag;
@@ -36,9 +41,8 @@ bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
     this->currentY = y;
     this->pageFlag = tmpPageFlag;
     this->currentX += x-3;
-    if (this->currentX > 0xF) {
-        this->currentX -= 0x10;
-    }
+    if (this->currentX > 0xF) this->currentX -= 0x10;
+    if (this->currentX >= 0xD) this->groupPageFlag = true;
 
     //Write the position byte
     QBitArray positionBits(8, false);
@@ -54,6 +58,18 @@ bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
         assert(enemyByte <= 0xFF);
     }
     return this->Write_Byte_To_Buffer(enemyByte);
+}
+
+int Enemy_Writer::Handle_Group_Page_Flag(int x) {
+    if (this->groupPageFlag) {
+        if (this->currentX + x > 0xF) {
+            this->groupPageFlag = false;
+            this->currentX += x;
+            this->currentX -= 0x10; //roll current X over manually to prevent triggering the page flag
+            return 0;
+        }
+    }
+    return x;
 }
 
 bool Enemy_Writer::Fill_Buffer() {
@@ -270,11 +286,13 @@ bool Enemy_Writer::Page_Change(int page) {
     this->currentPage = page;
     this->currentX = 0;
     this->currentY = 0;
+    this->groupPageFlag = false;
     return true;
 }
 
 bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
     if (this->How_Many_Bytes_Left() < 3) return false;
+    x = this->Handle_Group_Page_Flag(x);
     if (!this->Write_Coordinates(x, 0xE)) return false;
     if (!this->Write_Byte_To_Buffer(room)) return false;
     return this->Write_Byte_To_Buffer(page);
