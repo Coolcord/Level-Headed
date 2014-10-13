@@ -137,6 +137,68 @@ bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
     return false;
 }
 
+bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
+    if (reverse) {
+        for (int i = lastX+16; i >= x; --i) {
+            for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+                //Check to see if a regular enemy can spawn here first
+                if (this->Is_Coordinate_Safe(i, j)) {
+                    //The two coordinates above cannot be solid objects
+                    if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
+                    if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
+                    //Safe coordinate found
+                    x = i;
+                    y = j;
+                    return true;
+                }
+            }
+        }
+    } else {
+        for (int i = x; i <= lastX+16; ++i) {
+            for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+                //Check to see if a regular enemy can spawn here first
+                if (this->Is_Coordinate_Safe(i, j)) {
+                    //The two coordinates above cannot be solid objects
+                    if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
+                    if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
+                    //Safe coordinate found
+                    x = i;
+                    y = j;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
+    if (reverse) {
+        for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+            for (int j = lastX+16; j >= x; --j) {
+                //Check if at least 3 coordinates have no collision
+                //TODO: Implement this!
+                assert(false);
+                return false;
+            }
+        }
+    } else {
+        for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+            for (int j = x; j <= lastX+16; ++j) {
+                //Check if at least 3 coordinates have no collision
+                //TODO: Implement this!
+                assert(false);
+                return false;
+            }
+        }
+    }
+    return false;
+}
+
+bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX) {
+
+}
+
 bool Level_Crawler::Is_Coordinate_Safe(int x, int y) {
     QString key = this->Make_Key(x, y);
     if (!this->badCoordinates->contains(key)) {
