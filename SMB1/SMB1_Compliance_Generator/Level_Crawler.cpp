@@ -443,18 +443,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         }
         return true;
     case Object_Item::HORIZONTAL_COINS:
-        valid = false;
-        y = elements.at(3).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(4).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            for (int j = y; j >= 0; --j) {
-                this->Mark_Bad_Coordinate(x+i, j);
-            }
-        }
-        return true;
+        return true; //ignore coins
     case Object_Item::PIPE:
     case Object_Item::ENTERABLE_PIPE:
         valid = false;
