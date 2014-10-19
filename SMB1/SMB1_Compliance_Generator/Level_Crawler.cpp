@@ -55,7 +55,7 @@ bool Level_Crawler::Find_Safe_Coordinate(int &x, int &y, int lastX) {
 bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bool reverse) {
     assert(size > 0);
     if (reverse) {
-        for (int i = lastX+16; i >= x; --i) {
+        for (int i = lastX+15; i >= x; --i) {
             int safeY = 0;
             if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
                 if (size == 1) {
@@ -75,7 +75,7 @@ bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bo
             }
         }
     } else {
-        for (int i = x; i <= lastX+16; ++i) {
+        for (int i = x; i <= lastX+15; ++i) {
             int safeY = 0;
             if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
                 if (size == 1) {
@@ -106,7 +106,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
     assert(size > 0);
     int numValid = 0;
     if (reverse) {
-        for (int i = lastX+16; i <= x; --i) { //use 0xD for enemy groups
+        for (int i = lastX+15; i <= x; --i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
@@ -115,7 +115,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
             }
         }
     } else {
-        for (int i = x; i <= lastX+16; ++i) { //use 0xD for enemy groups
+        for (int i = x; i <= lastX+15; ++i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
@@ -139,7 +139,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
 
 bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
-        for (int i = lastX+16; i >= x; --i) {
+        for (int i = lastX+15; i >= x; --i) {
             for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (this->Is_Coordinate_Safe(i, j)) {
@@ -154,7 +154,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
             }
         }
     } else {
-        for (int i = x; i <= lastX+16; ++i) {
+        for (int i = x; i <= lastX+15; ++i) {
             for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (this->Is_Coordinate_Safe(i, j)) {
@@ -175,7 +175,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
 bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
         for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-            for (int j = lastX+16; j >= x; --j) {
+            for (int j = lastX+15; j >= x; --j) {
                 //Check if at least 3 coordinates have no collision
                 //TODO: Implement this!
                 assert(false);
@@ -184,7 +184,7 @@ bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
         }
     } else {
         for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-            for (int j = x; j <= lastX+16; ++j) {
+            for (int j = x; j <= lastX+15; ++j) {
                 //Check if at least 3 coordinates have no collision
                 //TODO: Implement this!
                 assert(false);

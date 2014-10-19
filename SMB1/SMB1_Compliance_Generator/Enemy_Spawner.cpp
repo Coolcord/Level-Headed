@@ -56,8 +56,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
         usePages = true;
         qDebug() << "Using pages!";
     }
-    if (averageDistance > 12) {
-        averageDistance = 12;
+    if (averageDistance > 11) {
+        averageDistance = 11;
     }
 
     int size = 1;
