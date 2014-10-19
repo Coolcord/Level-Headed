@@ -7,9 +7,11 @@
 #include <QString>
 
 class Level_Offset;
+class Midpoint_Writer;
 class Object_Writer;
 class Enemy_Writer;
 class Header_Writer;
+class ROM_Handler;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -35,6 +37,9 @@ public:
     bool Header_Level_Compliment(Level_Compliment::Level_Compliment value);
     bool Header_Scenery(Scenery::Scenery value);
     bool Header_Brick(Brick::Brick value);
+
+    //Midpoint
+    bool Header_Midpoint(int index, int value);
 
     //Objects
     bool Object_Question_Block_With_Mushroom(int x, int y);
@@ -122,6 +127,7 @@ public:
 
 
 private:
+    bool Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler);
     bool Create_ROM_Directory();
     bool Are_Buffers_Allocated();
     void Deallocate_Buffers();
@@ -139,6 +145,7 @@ private:
     QByteArray *objectsBuffer;
     QByteArray *enemiesBuffer;
     Level_Offset *levelOffset;
+    Midpoint_Writer *midpointWriter;
     Object_Writer *objectWriter;
     Enemy_Writer *enemyWriter;
     Header_Writer *headerWriter;

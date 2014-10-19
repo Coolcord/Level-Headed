@@ -40,8 +40,8 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
 
     } while (line != NULL && !this->file->atEnd());
 
-    //return true;
-    return this->Draw_Map(); //Debug code
+    return true;
+    //return this->Draw_Map(); //Debug code
 }
 
 int Level_Crawler::Get_Safe_Size() {

@@ -2,8 +2,7 @@
 #include "Binary_Manipulator.h"
 #include <assert.h>
 
-Header_Writer::Header_Writer(QByteArray *buffer)
-{
+Header_Writer::Header_Writer(QByteArray *buffer) {
     assert(buffer);
     assert(buffer->size() == 2);
     this->buffer = buffer;

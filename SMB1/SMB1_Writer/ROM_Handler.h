@@ -17,7 +17,7 @@ public:
     bool Clean_ROM_Directory();
     QFile *Load_Local_ROM(const QString &fileName, bool &cancel);
     QFile *Load_First_Local_ROM(bool &cancel);
-    ROM_Type::ROM_Type Get_ROM_Type();
+    ROM_Type::ROM_Type Get_ROM_Type() const;
 
 private:
     void Show_Error(const QString &error);

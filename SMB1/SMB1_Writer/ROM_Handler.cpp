@@ -234,7 +234,7 @@ bool ROM_Handler::Clean_ROM_Directory() {
     return success;
 }
 
-ROM_Type::ROM_Type ROM_Handler::Get_ROM_Type() {
+ROM_Type::ROM_Type ROM_Handler::Get_ROM_Type() const {
     if (!this->file) return ROM_Type::INVALID;
     return this->romType;
 }

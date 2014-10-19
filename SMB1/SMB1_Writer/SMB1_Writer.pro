@@ -22,7 +22,8 @@ SOURCES += SMB1_Writer.cpp \
     Level_Pointers_Writer.cpp \
     SMB1_Writer_Accessors.cpp \
     ROM_Handler.cpp \
-    ROM_Checksum.cpp
+    ROM_Checksum.cpp \
+    Midpoint_Writer.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -45,7 +46,8 @@ HEADERS += SMB1_Writer.h \
     SMB1_Writer_Interface.h \
     ../Common SMB1 Files/Level.h \
     ROM_Handler.h \
-    ROM_Filename.h
+    ROM_Filename.h \
+    Midpoint_Writer.h
 OTHER_FILES +=
 
 unix {

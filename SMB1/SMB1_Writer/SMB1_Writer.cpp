@@ -1,5 +1,6 @@
 #include "SMB1_Writer.h"
 #include "Level_Offset.h"
+#include "Midpoint_Writer.h"
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Header_Writer.h"
@@ -42,9 +43,13 @@ void SMB1_Writer::Shutdown() {
         }
     }
     assert(!this->Are_Buffers_Allocated()); //make sure memory leaks never happen
+    if (!this->midpointWriter->Write_Midpoints()) {
+        qDebug() << "Unable to write the midpoints to the ROM!";
+    }
     this->file->close();
     delete this->file;
     delete this->levelOffset;
+    delete this->midpointWriter;
 }
 
 bool SMB1_Writer::Create_ROM_Directory() {
@@ -75,12 +80,7 @@ bool SMB1_Writer::Load_ROM() {
         }
         return this->Load_ROM(fileName);
     }
-    if (!cancel && this->file) {
-        this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
-        return true;
-    } else {
-        return false;
-    }
+    return this->Load_ROM_Offsets(cancel, romHandler);
 }
 
 bool SMB1_Writer::Load_ROM(const QString &fileName) {
@@ -89,9 +89,14 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
     qDebug() << "Filename is: " << fileName;
     bool cancel = false;
     this->file = romHandler.Load_Local_ROM(fileName, cancel);
+    return this->Load_ROM_Offsets(cancel, romHandler);
+}
+
+bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
     if (!cancel && this->file) {
         this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
-        return true;
+        this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset);
+        return this->midpointWriter->Read_Midpoints();
     } else {
         return false;
     }
