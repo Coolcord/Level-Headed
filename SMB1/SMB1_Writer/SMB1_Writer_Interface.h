@@ -32,6 +32,9 @@ public:
     virtual bool Header_Scenery(Scenery::Scenery value)=0;
     virtual bool Header_Brick(Brick::Brick value)=0;
 
+    //Midpoint
+    virtual bool Header_Midpoint(int index, int value)=0;
+
     //Objects
     virtual bool Object_Question_Block_With_Mushroom(int x, int y)=0;
     virtual bool Object_Question_Block_With_Coin(int x, int y)=0;

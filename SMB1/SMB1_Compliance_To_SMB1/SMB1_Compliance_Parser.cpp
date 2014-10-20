@@ -5,6 +5,7 @@
 #include "../Common SMB1 Files/Level_Type_String.h"
 #include "Object_Handler.h"
 #include "Enemy_Handler.h"
+#include "Header_Handler.h"
 #include <assert.h>
 #include <QStringList>
 #include <QDebug>
@@ -58,15 +59,8 @@ bool SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation) {
 
 bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
     assert(file);
-    QByteArray line;
-
-    //Read the Header
-    do {
-        line = file->readLine();
-        line.chop(1); //remove the new line character
-        //TODO: Parse the header
-
-    } while (line != Level_Type::STRING_BREAK && !file->atEnd());
+    Header_Handler headerHandler(this->writerPlugin);
+    headerHandler.Parse_Header();
 
     return true;
 }

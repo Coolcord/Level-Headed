@@ -17,7 +17,8 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Object_Handler.cpp \
     Item_Handler.cpp \
     SMB1_Compliance_Parser.cpp \
-    ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp
+    ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp \
+    Header_Handler.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -28,7 +29,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Enemy_Handler.h \
     Object_Handler.h \
     Item_Handler.h \
-    ../SMB1_Compliance_Generator/SMB1_Compliance_Map.h
+    ../SMB1_Compliance_Generator/SMB1_Compliance_Map.h \
+    Header_Handler.h
 
 OTHER_FILES +=
 
