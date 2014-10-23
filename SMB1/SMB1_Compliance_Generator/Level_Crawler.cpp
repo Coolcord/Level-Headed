@@ -206,7 +206,7 @@ bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
         //Scan possible flight path
         int numValid = 0;
         bool invalid = false;
-        for (int j = x; j >= x-Physics::GREEN_PARATROOPA_FLY_DISTANCE+1; --j) {
+        for (int j = x; j >= x-Physics::PARATROOPA_FLY_DISTANCE+1; --j) {
             //At least 3 spaces should not have collision
             if (!this->badCoordinates->contains(this->Make_Key(j, i))) ++numValid;
             //Prevent a bug with paratroopas getting stuck in walls after being stomped
@@ -220,8 +220,47 @@ bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
     return false;
 }
 
-bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX) {
-
+bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
+    if (reverse) {
+        for (int i = lastX+15; i >= x; --i) {
+            //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
+            for (int j = qrand()%5, numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
+                //Make sure the red paratroopa has a clear flight path
+                bool valid = true;
+                for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {
+                    if (this->badCoordinates->contains(this->Make_Key(i, k))) {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    x = i;
+                    y = j;
+                    return true;
+                }
+            }
+        }
+    } else {
+        for (int i = x; i <= lastX+15; ++i) {
+            //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
+            for (int j = qrand()%5, numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
+                //Make sure the red paratroopa has a clear flight path
+                bool valid = true;
+                for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {
+                    if (this->badCoordinates->contains(this->Make_Key(i, k))) {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    x = i;
+                    y = j;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 bool Level_Crawler::Is_Coordinate_Safe(int x, int y) {
