@@ -23,6 +23,7 @@ namespace Physics {
     const static int MIN_END_OBJECTS = 3;
     const static int FLAGPOLE_DISTANCE = 8;
     const static int CASTLE_DISTANCE = 4;
+    const static int GREEN_PARATROOPA_FLY_DISTANCE = 7;
 }
 
 #endif // PHYSICS_H

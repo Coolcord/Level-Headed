@@ -24,6 +24,7 @@ public:
 
 private:
     bool Is_Coordinate_Safe(int x, int y);
+    bool Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y);
     void Crawl_Forward(int x, int spaces);
     void Crawl_Forward_With_Hole(int x, int spaces, int &holeSteps);
     void Mark_Bad_Coordinate(int x, int y);

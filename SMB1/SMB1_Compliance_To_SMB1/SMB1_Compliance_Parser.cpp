@@ -59,8 +59,9 @@ bool SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation) {
 
 bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
     assert(file);
-    Header_Handler headerHandler(this->writerPlugin);
-    headerHandler.Parse_Header();
+    Header_Handler headerHandler(this->writerPlugin, file);
+    int lineNum = 1; //TODO: Make use of this later
+    headerHandler.Parse_Header(lineNum);
 
     return true;
 }

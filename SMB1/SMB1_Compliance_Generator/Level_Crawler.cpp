@@ -176,20 +176,45 @@ bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
     if (reverse) {
         for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = lastX+15; j >= x; --j) {
-                //Check if at least 3 coordinates have no collision
-                //TODO: Implement this!
-                assert(false);
-                return false;
+                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
+                    //Y was set in the function
+                    x = j;
+                    return true;
+                }
             }
         }
     } else {
         for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = x; j <= lastX+15; ++j) {
-                //Check if at least 3 coordinates have no collision
-                //TODO: Implement this!
-                assert(false);
-                return false;
+                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
+                    //Y was set in the function
+                    x = j;
+                    return true;
+                }
             }
+        }
+    }
+    return false;
+}
+
+bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
+    if (!this->Is_Coordinate_Safe(x, y)) return false;
+    //Scan up to 4 blocks above the ground
+    int scanDistance = 4;
+    if (y < 4) scanDistance = y+1;
+    for (int i = y-(qrand()%scanDistance), numScanned = 0; numScanned < scanDistance; i <= 0 ? i = y : --i) {
+        //Scan possible flight path
+        int numValid = 0;
+        bool invalid = false;
+        for (int j = x; j >= x-Physics::GREEN_PARATROOPA_FLY_DISTANCE+1; --j) {
+            //At least 3 spaces should not have collision
+            if (!this->badCoordinates->contains(this->Make_Key(j, i))) ++numValid;
+            //Prevent a bug with paratroopas getting stuck in walls after being stomped
+            if (this->Is_Coordinate_Safe(j, i-2)) invalid = true;
+        }
+        if (numValid >= 3 && !invalid) {
+            y = i;
+            return true;
         }
     }
     return false;

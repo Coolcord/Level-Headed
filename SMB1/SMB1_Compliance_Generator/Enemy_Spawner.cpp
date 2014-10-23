@@ -253,6 +253,30 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int tmpX = x;
     assert(tmpX-lastX > 0);
     int tmpY = y;
+
+    //Try to spawn a Green Paratroopa
+    if (qrand() % 5 == 0) {
+        bool spawnParatroopa = false;
+        if (!this->levelCrawler->Find_Safe_Green_Leaping_Paratroopa_Coordinate(tmpX, tmpY, lastX)) {
+            //Try again, but start closer to the last enemy
+            tmpX = lastX+lastSize;
+            if (lastSize == 0) ++tmpX;
+            if (this->levelCrawler->Find_Safe_Green_Leaping_Paratroopa_Coordinate(tmpX, tmpY, lastX, true)) {
+                spawnParatroopa = true;
+            }
+        } else {
+            spawnParatroopa = true;
+        }
+        if (spawnParatroopa) {
+            int spawnX = tmpX-lastX;
+            assert(this->enemies->Green_Paratroopa(spawnX, tmpY));
+            x = tmpX;
+            y = tmpY;
+            return 1;
+        }
+    }
+
+    //Try a normal enemy
     if (!this->levelCrawler->Find_Safe_Coordinate(tmpX, tmpY, lastX)) {
         //Try again, but start closer to the last enemy
         tmpX = lastX+lastSize;

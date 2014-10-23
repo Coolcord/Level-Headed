@@ -46,8 +46,8 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_TYPE + ":") return false;
-    QMap<QString, Object_Item::Object_Item>::iterator iter = this->types->find(elements.at(1));
-    if (iter == this->types->end()) return false; //not found
+    QMap<QString, Level_Type::Level_Type>::iterator typeIter = this->types->find(elements.at(1));
+    if (typeIter == this->types->end()) return false; //not found
 
     //Attribute
     ++lineNum;
@@ -55,8 +55,8 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_ATTRIBUTE + ":") return false;
-    iter = this->attributes->find(elements.at(1));
-    if (iter == this->attributes->end()) return false; //not found
+    QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
+    if (attributeIter == this->attributes->end()) return false; //not found
     //TODO: Add support for setting the attribute
 
     //Compliment
@@ -65,9 +65,9 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_COMPLIMENT + ":") return false;
-    iter = this->compliments->find(elements.at(1));
-    if (iter == this->compliments->end()) return false; //not found
-    if (!this->writerPlugin->Header_Level_Compliment(iter.value())) return false;
+    QMap<QString, Level_Compliment::Level_Compliment>::iterator complimentIter = this->compliments->find(elements.at(1));
+    if (complimentIter == this->compliments->end()) return false; //not found
+    if (!this->writerPlugin->Header_Level_Compliment(complimentIter.value())) return false;
 
     //Time
     ++lineNum;
@@ -83,7 +83,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     line = this->file->readLine(); line.chop(1);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_TIME + ":") return false;
+    if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
     if (!this->Parse_Num(elements.at(1), num)) return false;
     //TODO: Implement this
 
@@ -150,5 +150,6 @@ bool Header_Handler::Parse_Ignored_Line(const QString &name, int &lineNum) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != name + ":") return false;
+    int num = 0;
     if (!this->Parse_Num(elements.at(1), num)) return false;
 }

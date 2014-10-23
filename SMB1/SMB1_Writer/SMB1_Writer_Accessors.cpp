@@ -2,6 +2,7 @@
 #include "Header_Writer.h"
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
+#include "Midpoint_Writer.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -38,6 +39,10 @@ bool SMB1_Writer::Header_Scenery(Scenery::Scenery value) {
 bool SMB1_Writer::Header_Brick(Brick::Brick value) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->headerWriter->Set_Brick(value);
+}
+
+bool SMB1_Writer::Header_Midpoint(int index, int value) {
+    return this->midpointWriter->Set_Midpoint(index, value);
 }
 
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {

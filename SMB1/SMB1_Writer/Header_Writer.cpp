@@ -156,7 +156,7 @@ bool Header_Writer::Set_Time(int value) {
 
     //Write the data
     QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, hexDigit, 0, 1);
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, hexDigit, 2, 3);
     int byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
     return true;
