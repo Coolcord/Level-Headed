@@ -12,6 +12,8 @@ class Object_Writer;
 class Enemy_Writer;
 class Header_Writer;
 class ROM_Handler;
+class Room_ID_Handler;
+class Room_Order_Writer;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -28,6 +30,7 @@ public:
     bool Write_Level();
     int Get_Num_Object_Bytes();
     int Get_Num_Enemy_Bytes();
+    bool Set_Number_Of_Worlds(int value);
 
     //Header
     bool Header_Time(int value);
@@ -39,7 +42,7 @@ public:
     bool Header_Brick(Brick::Brick value);
 
     //Midpoint
-    bool Header_Midpoint(int index, int value);
+    bool Header_Midpoint(int value);
 
     //Objects
     bool Object_Question_Block_With_Mushroom(int x, int y);
@@ -149,6 +152,8 @@ private:
     Object_Writer *objectWriter;
     Enemy_Writer *enemyWriter;
     Header_Writer *headerWriter;
+    Room_ID_Handler *roomIDHandler;
+    Room_Order_Writer *roomOrderWriter;
     QString applicationLocation;
     QString romFileName;
     QWidget *parent;

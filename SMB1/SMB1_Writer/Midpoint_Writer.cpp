@@ -1,13 +1,22 @@
 #include "Midpoint_Writer.h"
 #include "Level_Offset.h"
+#include "Room_ID_Handler.h"
+#include <QVector>
 #include <assert.h>
 
-Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets) {
+Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_ID_Handler *roomIDHandler) {
     assert(file);
     assert(levelOffsets);
+    assert(roomIDHandler);
     this->buffer = new QByteArray(16, ' ');
     this->file = file;
     this->levelOffsets = levelOffsets;
+    this->roomIDHandler = roomIDHandler;
+    this->currentLevel = Level::WORLD_1_LEVEL_1;
+}
+
+Midpoint_Writer::~Midpoint_Writer() {
+    delete this->buffer;
 }
 
 bool Midpoint_Writer::Read_Midpoints() {
@@ -31,21 +40,29 @@ bool Midpoint_Writer::Write_Midpoints() {
     return this->file->write(this->buffer->data(), this->buffer->length()) == this->buffer->length();
 }
 
-bool Midpoint_Writer::Set_Midpoint(int index, int value) {
-    if (index < 0 || index > 32) return false;
+void Midpoint_Writer::Set_Current_Level(Level::Level level) {
+    this->currentLevel = level;
+}
+
+bool Midpoint_Writer::Set_Midpoint(int value) {
     if (value < 0x0 || value > 0xF) return false;
-    bool highNibble = (index % 2 == 1);
-    int properIndex = index / 2;
+    QVector<int> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Level(this->currentLevel);
+    if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
+    for (int i = 0; i < midpointIndexes->size(); ++i) {
+        int index = midpointIndexes->at(i);
+        bool highNibble = (index % 2 == 1);
+        int properIndex = index / 2;
 
-    //Write the nibble into the byte
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->at(properIndex)));
-    if (highNibble) {
-        Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, value);
-    } else {
-        Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, value);
+        //Write the nibble into the byte
+        QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->at(properIndex)));
+        if (highNibble) {
+            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, value);
+        } else {
+            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, value);
+        }
+
+        int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+        this->buffer->data()[0] = static_cast<char>(byte);
     }
-
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
-    this->buffer->data()[0] = static_cast<char>(byte);
     return true;
 }

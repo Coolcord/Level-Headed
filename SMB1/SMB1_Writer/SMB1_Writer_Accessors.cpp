@@ -41,8 +41,8 @@ bool SMB1_Writer::Header_Brick(Brick::Brick value) {
     return this->headerWriter->Set_Brick(value);
 }
 
-bool SMB1_Writer::Header_Midpoint(int index, int value) {
-    return this->midpointWriter->Set_Midpoint(index, value);
+bool SMB1_Writer::Header_Midpoint(int value) {
+    return this->midpointWriter->Set_Midpoint(value);
 }
 
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {

@@ -6,6 +6,8 @@
 #include "Header_Writer.h"
 #include "Binary_Manipulator.h"
 #include "ROM_Handler.h"
+#include "Room_ID_Handler.h"
+#include "Room_Order_Writer.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QDir>
@@ -23,6 +25,8 @@ SMB1_Writer::SMB1_Writer() {
     this->objectWriter = NULL;
     this->enemyWriter = NULL;
     this->headerWriter = NULL;
+    this->roomIDHandler = NULL;
+    this->roomOrderWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
@@ -50,6 +54,8 @@ void SMB1_Writer::Shutdown() {
     delete this->file;
     delete this->levelOffset;
     delete this->midpointWriter;
+    delete this->roomOrderWriter;
+    delete this->roomIDHandler;
 }
 
 bool SMB1_Writer::Create_ROM_Directory() {
@@ -95,8 +101,11 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
 bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
     if (!cancel && this->file) {
         this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
-        this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset);
-        return this->midpointWriter->Read_Midpoints();
+        this->roomIDHandler = new Room_ID_Handler();
+        this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
+        if (!this->midpointWriter->Read_Midpoints()) return false;
+        this->roomOrderWriter = new Room_Order_Writer(this->file, this->levelOffset, this->roomIDHandler);
+        return this->roomOrderWriter->Read_Room_Order_Table();
     } else {
         return false;
     }
@@ -121,6 +130,7 @@ bool SMB1_Writer::New_Level(Level::Level level) {
         return false;
     }
 
+    this->midpointWriter->Set_Current_Level(level);
     return true;
 }
 
@@ -155,6 +165,11 @@ int SMB1_Writer::Get_Num_Object_Bytes() {
 
 int SMB1_Writer::Get_Num_Enemy_Bytes() {
     return this->numEnemyBytes;
+}
+
+bool SMB1_Writer::Set_Number_Of_Worlds(int value) {
+    if (!this->roomOrderWriter) return false;
+    return this->roomOrderWriter->Set_Number_Of_Worlds(value);
 }
 
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {

@@ -5,20 +5,25 @@
 #include "Binary_Manipulator.h"
 #include <QFile>
 
+class Room_ID_Handler;
 class Level_Offset;
 
 class Midpoint_Writer
 {
 public:
-    Midpoint_Writer(QFile *file, Level_Offset *levelOffsets);
+    Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_ID_Handler *roomIDHandler);
+    ~Midpoint_Writer();
     bool Read_Midpoints();
     bool Write_Midpoints();
-    bool Set_Midpoint(int index, int value);
+    void Set_Current_Level(Level::Level level);
+    bool Set_Midpoint(int value);
 
 private:
     QFile *file;
     Level_Offset *levelOffsets;
+    Room_ID_Handler *roomIDHandler;
     QByteArray *buffer;
+    Level::Level currentLevel;
 };
 
 #endif // MIDPOINT_WRITER_H

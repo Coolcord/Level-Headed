@@ -48,7 +48,7 @@ int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     case Level::PIPE_INTRO:        return this->Fix_Offset(0x2844);
     case Level::UNDERGROUND_BONUS: return this->Fix_Offset(0x2D8B);
     case Level::CLOUD_BONUS_1:     return this->Fix_Offset(0x288C);
-    case Level::CLOUND_BONUS_2:    return this->Fix_Offset(0x2BE9);
+    case Level::CLOUD_BONUS_2:    return this->Fix_Offset(0x2BE9);
     case Level::UNDERWATER_BONUS:  return this->Fix_Offset(0x29E0);
     case Level::WARP_ZONE:         return this->Fix_Offset(0x2E18);
     case Level::UNDERWATER_CASTLE: return this->Fix_Offset(0x2ED2);
@@ -94,7 +94,7 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     case Level::WORLD_8_LEVEL_4:   return this->Fix_Offset(0x1E2F);
     case Level::UNDERGROUND_BONUS: return this->Fix_Offset(0x2143);
     case Level::CLOUD_BONUS_1:     return this->Fix_Offset(0x1FB0);
-    case Level::CLOUND_BONUS_2:    return this->Fix_Offset(0x20BA);
+    case Level::CLOUD_BONUS_2:    return this->Fix_Offset(0x20BA);
     case Level::UNDERWATER_BONUS:  return this->Fix_Offset(0x2170);
     case Level::UNDERWATER_CASTLE: return this->Fix_Offset(0x21AB);
     case Level::PIPE_INTRO:

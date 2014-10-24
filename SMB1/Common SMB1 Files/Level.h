@@ -38,7 +38,7 @@ namespace Level {
         PIPE_INTRO,
         UNDERGROUND_BONUS,
         CLOUD_BONUS_1,
-        CLOUND_BONUS_2,
+        CLOUD_BONUS_2,
         UNDERWATER_BONUS,
         WARP_ZONE,
         UNDERWATER_CASTLE

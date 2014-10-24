@@ -22,6 +22,7 @@ public:
     virtual bool Write_Level()=0;
     virtual int Get_Num_Object_Bytes()=0;
     virtual int Get_Num_Enemy_Bytes()=0;
+    virtual bool Set_Number_Of_Worlds(int value)=0;
 
     //Header
     virtual bool Header_Time(int value)=0;
@@ -33,7 +34,7 @@ public:
     virtual bool Header_Brick(Brick::Brick value)=0;
 
     //Midpoint
-    virtual bool Header_Midpoint(int index, int value)=0;
+    virtual bool Header_Midpoint(int value)=0;
 
     //Objects
     virtual bool Object_Question_Block_With_Mushroom(int x, int y)=0;
