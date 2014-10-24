@@ -8,17 +8,17 @@ Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Writer *object) : Object_S
     this->availableObjects = 0;
 }
 
-bool Common_Pattern_Spawner::Spawn_Common_Pattern() {
+bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
     this->availableObjects = this->object->Get_Num_Objects_Available();
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
         switch (qrand() % 5) {
-        case 0:     return this->Two_Steps_And_Hole();
-        case 1:     return this->Pipe_Series();
-        case 2:     return this->Platform_Over_Hole();
-        case 3:     return this->Vertical_And_Horizontal_Blocks();
-        case 4:     return this->Vertical_Blocks();
+        case 0:     return this->Two_Steps_And_Hole(x);
+        case 1:     return this->Pipe_Series(x);
+        case 2:     return this->Platform_Over_Hole(x);
+        case 3:     return this->Vertical_And_Horizontal_Blocks(x);
+        case 4:     return this->Vertical_Blocks(x);
         default:    return false;
         }
     }
@@ -26,11 +26,10 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern() {
     return false;
 }
 
-bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
+bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
     assert(this->availableObjects >= 3);
 
     //Spawn the steps going up
-    int x = this->Get_Safe_Random_X();
     assert(x >= 0);
     int height = this->Get_Random_Number(2, Physics::MAX_STEPS_SIZE-2);
     assert(this->object->Steps(x, height));
@@ -94,7 +93,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole() {
     return true;
 }
 
-bool Common_Pattern_Spawner::Pipe_Series() {
+bool Common_Pattern_Spawner::Pipe_Series(int x) {
     assert(this->availableObjects >= 3);
 
     //Possibly add space between each pipe
@@ -102,7 +101,6 @@ bool Common_Pattern_Spawner::Pipe_Series() {
     if (qrand() % 2 == 0) noSpace = true;
 
     //Spawn in all the pipes
-    int x = this->Get_Safe_Random_X();
     int y = this->Get_Random_Pipe_Y(x);
     assert(this->object->Pipe(x, y, this->Get_Height_From_Y(y)));
     --this->availableObjects;
@@ -118,12 +116,11 @@ bool Common_Pattern_Spawner::Pipe_Series() {
     return true;
 }
 
-bool Common_Pattern_Spawner::Platform_Over_Hole() {
+bool Common_Pattern_Spawner::Platform_Over_Hole(int x) {
     assert(this->availableObjects >= 2);
 
     //Add a hole with random length
     int holeLength = this->Get_Random_Number(3, Physics::MAX_OBJECT_LENGTH-1);
-    int x = this->Get_Safe_Random_X();
     assert(this->object->Hole(x, holeLength, false));
 
     //Add a platform to use to cross the hole at a random height
@@ -156,12 +153,11 @@ bool Common_Pattern_Spawner::Platform_Over_Hole() {
     return true;
 }
 
-bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks() {
+bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
     assert(this->availableObjects >= 2);
 
     //Spawn the initial block
     bool vertical = false;
-    int x = this->Get_Safe_Random_X();
     int y = this->Get_Safe_Random_Y(x);
     if (qrand() % 2 == 0) {
         assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
@@ -196,11 +192,10 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks() {
     return true;
 }
 
-bool Common_Pattern_Spawner::Vertical_Blocks() {
+bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
     assert(this->availableObjects >= 2);
 
     //Spawn the first Vertical Block
-    int x = this->Get_Safe_Random_X();
     int y = this->Get_Safe_Random_Y(x);
     if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
     assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));

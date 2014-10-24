@@ -8,24 +8,6 @@ Object_Spawner::Object_Spawner(Object_Writer *object) {
     this->object = object;
 }
 
-int Object_Spawner::Get_Random_X() {
-    //Aim for a lower value... but allow higher values to be possible
-    switch (qrand() % 4) {
-    case 0:     return (qrand() % 0x08);
-    case 1:     return (qrand() % 0x0A);
-    case 2:     return (qrand() % 0x0D);
-    case 3:     return (qrand() % 0x10);
-    default:    assert(false); return 0;
-    }
-}
-
-int Object_Spawner::Get_Random_X(int min) {
-    int x = this->Get_Random_X();
-    x += min;
-    if (x > 0x10) x = 0x10;
-    return x;
-}
-
 int Object_Spawner::Get_Random_Number(int min, int max) {
     if (min == max) return min;
     assert(max > min);
@@ -76,8 +58,4 @@ int Object_Spawner::Get_Random_Pipe_Y(int x) {
 
 bool Object_Spawner::Is_Safe_To_Spawn_Pattern(int objectCost) {
     return ((this->object->Get_Num_Objects_Left() - objectCost) > Physics::MIN_END_OBJECTS);
-}
-
-int Object_Spawner::Get_Safe_Random_X() {
-    return this->Get_Random_X(this->object->Get_Last_Object_Length());
 }

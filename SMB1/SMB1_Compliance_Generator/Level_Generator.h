@@ -23,6 +23,10 @@ public:
     virtual bool Generate_Level()=0;
 
 protected:
+    int Get_Random_X();
+    int Get_Random_X(int min);
+    int Get_Safe_Random_X();
+
     Level_Generator(const Level_Generator&);
     Level_Generator& operator=(const Level_Generator&);
     QTextStream *stream;

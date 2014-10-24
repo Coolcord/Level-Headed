@@ -82,9 +82,8 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
     if (numObjects > 0) this->object->Increment_Last_Object_Length(length-lastObjectX);
 }
 
-bool Simple_Object_Spawner::Spawn_Simple_Object() {
+bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     if (this->object->Get_Num_Objects_Available() == 0) return false;
-    int x = this->Get_Random_X(this->object->Get_Last_Object_Length());
     int random = qrand() % this->PROBABILITY_TOTAL_SIMPLE;
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {
         if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {

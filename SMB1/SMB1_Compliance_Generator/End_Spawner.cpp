@@ -12,18 +12,17 @@ bool End_Spawner::Is_End_Written() {
     return this->endWritten;
 }
 
-bool End_Spawner::Handle_End() {
+bool End_Spawner::Handle_End(int x) {
     if (this->endWritten) return false; //can't write another end
     int numObjectsLeft = this->object->Get_Num_Objects_Left();
-    if (numObjectsLeft == 3) return this->Shortest_End();
+    if (numObjectsLeft == 3) return this->Shortest_End(x);
     return true;
 }
 
-bool End_Spawner::Shortest_End() {
+bool End_Spawner::Shortest_End(int x) {
     if (this->object->Get_Num_Objects_Left() < Physics::MIN_END_OBJECTS) return false;
 
     //Spawn the end of the level
-    int x = this->Get_Random_X(this->object->Get_Last_Object_Length());
     int absoluteX = this->object->Get_Absolute_X(x);
 
     //Handle the problem case of spawning at the edge of a page

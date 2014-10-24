@@ -7,7 +7,7 @@ class Simple_Object_Spawner : public Object_Spawner
 {
 public:
     Simple_Object_Spawner(Object_Writer *object);
-    bool Spawn_Simple_Object();
+    bool Spawn_Simple_Object(int x);
 
 private:
     Simple_Object_Spawner(const Simple_Object_Spawner&);
