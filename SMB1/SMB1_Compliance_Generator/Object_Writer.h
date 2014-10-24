@@ -15,6 +15,7 @@ public:
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
+    bool Is_Midpoint_Ready();
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Mushroom_Only(int x, int y);
@@ -84,6 +85,7 @@ private:
     bool lastObjectIsPlatform;
     int coinBlockZone;
     int powerupZone;
+    int totalBytes;
 
     friend class Pipe_Pointer_Writer;
 };

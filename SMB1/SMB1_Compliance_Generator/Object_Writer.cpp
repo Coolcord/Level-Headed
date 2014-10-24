@@ -9,6 +9,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Write
     this->lastObjectLength = 0;
     this->coinBlockZone = 0;
     this->powerupZone = 0;
+    this->totalBytes = numBytesLeft;
 }
 
 int Object_Writer::Get_Last_Object_Length() {
@@ -29,6 +30,10 @@ int Object_Writer::Get_Num_Objects_Left() {
 
 int Object_Writer::Get_Num_Objects_Available() {
     return (this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS);
+}
+
+bool Object_Writer::Is_Midpoint_Ready() {
+    return (this->Get_Num_Objects_Available() < (this->totalBytes/4));
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {

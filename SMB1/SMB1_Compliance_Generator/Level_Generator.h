@@ -12,6 +12,7 @@
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
 #include "End_Spawner.h"
+#include "Midpoint_Handler.h"
 #include <QFile>
 #include <QTextStream>
 
@@ -38,6 +39,7 @@ protected:
     Simple_Object_Spawner *simpleObjectSpawner;
     Common_Pattern_Spawner *commonPatternSpawner;
     End_Spawner *end;
+    Midpoint_Handler *midpointHandler;
 };
 
 #endif // LEVEL_GENERATOR_H
