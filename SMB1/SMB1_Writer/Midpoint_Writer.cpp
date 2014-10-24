@@ -50,7 +50,7 @@ bool Midpoint_Writer::Set_Midpoint(int value) {
     if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
     for (int i = 0; i < midpointIndexes->size(); ++i) {
         int index = midpointIndexes->at(i);
-        bool highNibble = (index % 2 == 1);
+        bool highNibble = (index % 2 == 0);
         int properIndex = index / 2;
 
         //Write the nibble into the byte
@@ -61,7 +61,7 @@ bool Midpoint_Writer::Set_Midpoint(int value) {
             Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, value);
         }
 
-        int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+        unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
         this->buffer->data()[0] = static_cast<char>(byte);
     }
     return true;

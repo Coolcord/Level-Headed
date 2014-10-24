@@ -47,6 +47,9 @@ void SMB1_Writer::Shutdown() {
         }
     }
     assert(!this->Are_Buffers_Allocated()); //make sure memory leaks never happen
+    if (!this->roomOrderWriter->Write_Room_Order_Table()) {
+        qDebug() << "Unable to write the room order table to the ROM!";
+    }
     if (!this->midpointWriter->Write_Midpoints()) {
         qDebug() << "Unable to write the midpoints to the ROM!";
     }

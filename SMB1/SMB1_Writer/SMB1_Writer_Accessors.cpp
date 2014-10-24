@@ -42,6 +42,7 @@ bool SMB1_Writer::Header_Brick(Brick::Brick value) {
 }
 
 bool SMB1_Writer::Header_Midpoint(int value) {
+    if (!this->Are_Buffers_Allocated()) return false;
     return this->midpointWriter->Set_Midpoint(value);
 }
 

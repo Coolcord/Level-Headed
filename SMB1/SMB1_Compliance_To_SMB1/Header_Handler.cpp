@@ -85,7 +85,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
     if (!this->Parse_Num(elements.at(1), num)) return false;
-    //TODO: Implement this
+    if (!this->writerPlugin->Header_Midpoint(num)) return false;
 
     //Level Length
     if (!this->Parse_Ignored_Line(Header::STRING_LEVEL_LENGTH, lineNum)) {
