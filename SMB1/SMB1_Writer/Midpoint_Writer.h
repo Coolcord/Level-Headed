@@ -15,7 +15,6 @@ public:
     ~Midpoint_Writer();
     bool Read_Midpoints();
     bool Write_Midpoints();
-    void Set_Current_Level(Level::Level level);
     bool Set_Midpoint(int value);
 
 private:
@@ -23,7 +22,6 @@ private:
     Level_Offset *levelOffsets;
     Room_ID_Handler *roomIDHandler;
     QByteArray *buffer;
-    Level::Level currentLevel;
 };
 
 #endif // MIDPOINT_WRITER_H

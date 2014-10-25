@@ -12,7 +12,6 @@ Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_I
     this->file = file;
     this->levelOffsets = levelOffsets;
     this->roomIDHandler = roomIDHandler;
-    this->currentLevel = Level::WORLD_1_LEVEL_1;
 }
 
 Midpoint_Writer::~Midpoint_Writer() {
@@ -40,13 +39,9 @@ bool Midpoint_Writer::Write_Midpoints() {
     return this->file->write(this->buffer->data(), this->buffer->length()) == this->buffer->length();
 }
 
-void Midpoint_Writer::Set_Current_Level(Level::Level level) {
-    this->currentLevel = level;
-}
-
 bool Midpoint_Writer::Set_Midpoint(int value) {
     if (value < 0x0 || value > 0xF) return false;
-    QVector<int> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Level(this->currentLevel);
+    QVector<int> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Current_Level();
     if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
     for (int i = 0; i < midpointIndexes->size(); ++i) {
         int index = midpointIndexes->at(i);

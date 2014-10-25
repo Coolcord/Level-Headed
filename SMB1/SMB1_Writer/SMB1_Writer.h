@@ -109,9 +109,9 @@ public:
     bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false);
     bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false);
     bool Enemy_Spiny(int x, int y, bool onlyHardMode = false);
-    bool Enemy_Bowser_Fire_Spawner(int x, int y, bool onlyHardMode = false);
-    bool Enemy_Cheep_Cheep_Spawner(int x, int y, bool leaping = false, bool onlyHardMode = false);
-    bool Enemy_Bullet_Bill_Spawner(int x, int y, bool onlyHardMode = false);
+    bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false);
+    bool Enemy_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false);
+    bool Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode = false);
     bool Enemy_Fire_Bar(int x, int y, bool clockwise = true, bool fast = false, bool onlyHardMode = false);
     bool Enemy_Large_Fire_Bar(int x, int y, bool onlyHardMode = false);
     bool Enemy_Lift(int x, int y, bool vertical = true, bool onlyHardMode = false);

@@ -6,7 +6,7 @@
 class Enemy_Writer : public Item_Writer
 {
 public:
-    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) { this->groupPageFlag = false; }
+    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) { this->groupPageFlag = false; }
     bool Fill_Buffer();
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
@@ -24,9 +24,9 @@ public:
     bool Pirana_Plant(int x, int y, bool onlyHardMode = false);
     bool Lakitu(int x, int y, bool onlyHardMode = false);
     bool Spiny(int x, int y, bool onlyHardMode = false);
-    bool Bowser_Fire_Spawner(int x, int y, bool onlyHardMode = false);
-    bool Cheep_Cheep_Spawner(int x, int y, bool leaping = false, bool onlyHardMode = false);
-    bool Bullet_Bill_Spawner(int x, int y, bool onlyHardMode = false);
+    bool Bowser_Fire_Spawner(int x, bool onlyHardMode = false);
+    bool Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false);
+    bool Bullet_Bill_Spawner(int x, bool onlyHardMode = false);
     bool Fire_Bar(int x, int y, bool clockwise = true, bool fast = false, bool onlyHardMode = false);
     bool Large_Fire_Bar(int x, int y, bool onlyHardMode = false);
     bool Lift(int x, int y, bool vertical = true, bool onlyHardMode = false);

@@ -1,5 +1,7 @@
 #include "Object_Writer.h"
 #include "Header_Writer.h"
+#include "Room_ID_Handler.h"
+#include "../Common SMB1 Files/Level_Attribute.h"
 #include <assert.h>
 
 bool Object_Writer::Write_Object(int x, int y, int objectByte) {
@@ -194,11 +196,13 @@ bool Object_Writer::Flying_Cheep_Cheep_Spawner(int x) {
 }
 
 bool Object_Writer::Swimming_Cheep_Cheep_Spawner(int x) {
-
+    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() != Level_Attribute::UNDERWATER) return false;
+    return this->Write_Object(x, 0xD, 0x49);
 }
 
 bool Object_Writer::Bullet_Bill_Spawner(int x) {
-
+    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::UNDERWATER) return false;
+    return this->Write_Object(x, 0xD, 0x49);
 }
 
 bool Object_Writer::Cancel_Spawner(int x) {

@@ -4,10 +4,11 @@
 #include "Binary_Manipulator.h"
 
 class Header_Writer;
+class Room_ID_Handler;
 
 class Item_Writer {
 public:
-    Item_Writer(QByteArray *buffer, Header_Writer *headerWriter);
+    Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     int Get_Current_Page();
     int Get_Current_X();
     int Get_Current_Y();
@@ -24,6 +25,7 @@ protected:
 
     QByteArray *buffer;
     Header_Writer *headerWriter;
+    Room_ID_Handler *roomIDHandler;
     int bufferSize;
     int currentPage;
     int currentX;

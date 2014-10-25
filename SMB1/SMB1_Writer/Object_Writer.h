@@ -9,7 +9,7 @@
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter) : Item_Writer(buffer, headerWriter) {}
+    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) {}
     bool Fill_Buffer();
 
     bool Question_Block_With_Mushroom(int x, int y);

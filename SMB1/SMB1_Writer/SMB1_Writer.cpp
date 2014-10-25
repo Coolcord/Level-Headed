@@ -133,7 +133,7 @@ bool SMB1_Writer::New_Level(Level::Level level) {
         return false;
     }
 
-    this->midpointWriter->Set_Current_Level(level);
+    this->roomIDHandler->Set_Current_Level(level);
     return true;
 }
 
@@ -213,7 +213,7 @@ bool SMB1_Writer::Read_Objects() {
         ret = this->file->read(buffer.data(), 2);
     }
 
-    this->objectWriter = new Object_Writer(this->objectsBuffer, this->headerWriter);
+    this->objectWriter = new Object_Writer(this->objectsBuffer, this->headerWriter, this->roomIDHandler);
     return true;
 }
 
@@ -243,7 +243,7 @@ bool SMB1_Writer::Read_Enemies() {
         }
     }
 
-    this->enemyWriter = new Enemy_Writer(this->enemiesBuffer, this->headerWriter);
+    this->enemyWriter = new Enemy_Writer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
     return true;
 }
 

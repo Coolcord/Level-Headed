@@ -110,20 +110,20 @@ bool Enemy_Writer::Spiny(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_SPINY);
 }
 
-bool Enemy_Writer::Bowser_Fire_Spawner(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_BOWSER_FIRE_SPAWNER);
+bool Enemy_Writer::Bowser_Fire_Spawner(int x, bool onlyHardMode) {
+    return this->Write_Enemy(x, onlyHardMode, Enemy_Item::STRING_BOWSER_FIRE_SPAWNER);
 }
 
-bool Enemy_Writer::Cheep_Cheep_Spawner(int x, int y, bool leaping, bool onlyHardMode) {
+bool Enemy_Writer::Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (leaping) {
-        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_LEAPING);
+        return this->Write_Enemy(x, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_LEAPING);
     } else {
-        return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_FLYING);
+        return this->Write_Enemy(x, onlyHardMode, Enemy_Item::STRING_CHEEP_CHEEP_SPAWNER, Enemy_Item::STRING_FLYING);
     }
 }
 
-bool Enemy_Writer::Bullet_Bill_Spawner(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_BULLET_BILL_SPAWNER);
+bool Enemy_Writer::Bullet_Bill_Spawner(int x, bool onlyHardMode) {
+    return this->Write_Enemy(x, onlyHardMode, Enemy_Item::STRING_BULLET_BILL_SPAWNER);
 }
 
 bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {

@@ -1,4 +1,6 @@
 #include "Enemy_Writer.h"
+#include "../Common SMB1 Files/Level_Attribute.h"
+#include "Room_ID_Handler.h"
 #include <QDebug>
 #include <assert.h>
 
@@ -154,16 +156,22 @@ bool Enemy_Writer::Spiny(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x12, onlyHardMode);
 }
 
-bool Enemy_Writer::Bowser_Fire_Spawner(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x15, onlyHardMode);
+bool Enemy_Writer::Bowser_Fire_Spawner(int x, bool onlyHardMode) {
+    return this->Write_Enemy(x, 0xD, 0x15, onlyHardMode);
 }
 
-bool Enemy_Writer::Cheep_Cheep_Spawner(int x, int y, bool leaping, bool onlyHardMode) {
-
+bool Enemy_Writer::Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
+    if (leaping) {
+        return this->Write_Enemy(x, 0xD, 0x14, onlyHardMode);
+    } else {
+        if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() != Level_Attribute::UNDERWATER) return false;
+        return this->Write_Enemy(x, 0xD, 0x17, onlyHardMode);
+    }
 }
 
-bool Enemy_Writer::Bullet_Bill_Spawner(int x, int y, bool onlyHardMode) {
-
+bool Enemy_Writer::Bullet_Bill_Spawner(int x, bool onlyHardMode) {
+    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::UNDERWATER) return false;
+    return this->Write_Enemy(x, 0xD, 0x17, onlyHardMode);
 }
 
 bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {

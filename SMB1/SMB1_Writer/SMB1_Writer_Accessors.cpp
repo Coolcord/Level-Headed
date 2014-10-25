@@ -356,19 +356,19 @@ bool SMB1_Writer::Enemy_Spiny(int x, int y, bool onlyHardMode) {
     return this->enemyWriter->Spiny(x, y, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Bowser_Fire_Spawner(int x, int y, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bowser_Fire_Spawner(x, y, onlyHardMode);
+    return this->enemyWriter->Bowser_Fire_Spawner(x, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Cheep_Cheep_Spawner(int x, int y, bool leaping, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Cheep_Cheep_Spawner(x, y, leaping, onlyHardMode);
+    return this->enemyWriter->Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Bullet_Bill_Spawner(int x, int y, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bullet_Bill_Spawner(x, y, onlyHardMode);
+    return this->enemyWriter->Bullet_Bill_Spawner(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {

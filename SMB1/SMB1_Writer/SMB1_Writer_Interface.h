@@ -101,9 +101,9 @@ public:
     virtual bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Spiny(int x, int y, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Bowser_Fire_Spawner(int x, int y, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Cheep_Cheep_Spawner(int x, int y, bool leaping = false, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Bullet_Bill_Spawner(int x, int y, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode = false)=0;
     virtual bool Enemy_Fire_Bar(int x, int y, bool clockwise = true, bool fast = false, bool onlyHardMode = false)=0;
     virtual bool Enemy_Large_Fire_Bar(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Lift(int x, int y, bool vertical = true, bool onlyHardMode = false)=0;

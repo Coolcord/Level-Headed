@@ -1,5 +1,6 @@
 #include "SMB1_Compliance_Generator.h"
 #include "Standard_Overworld_Generator.h"
+#include "Bridge_Generator.h"
 #include <assert.h>
 #include <QTime>
 
@@ -43,8 +44,8 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
         success = false;
         break; //TODO: Implement this...
     case Level_Type::BRIDGE:
-        success = false;
-        break; //TODO: Implement this...
+        success = this->Generate_Bridge_Level(&file, numObjectBytes, numEnemyBytes);
+        break;
     case Level_Type::ISLAND:
         success = false;
         break; //TODO: Implement this...
@@ -58,5 +59,10 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
 
 bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {
     Standard_Overworld_Generator levelGenerator(file, numObjectBytes, numEnemyBytes);
+    return levelGenerator.Generate_Level();
+}
+
+bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {
+    Bridge_Generator levelGenerator(file, numObjectBytes, numEnemyBytes);
     return levelGenerator.Generate_Level();
 }

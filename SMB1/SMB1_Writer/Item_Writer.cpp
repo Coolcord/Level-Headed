@@ -1,13 +1,16 @@
 #include "Item_Writer.h"
 #include "Header_Writer.h"
+#include "Room_ID_Handler.h"
 #include <assert.h>
 #include <QDebug>
 
-Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter) {
+Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) {
     assert(buffer);
     assert(headerWriter);
+    assert(roomIDHandler);
     this->buffer = buffer;
     this->headerWriter = headerWriter;
+    this->roomIDHandler = roomIDHandler;
     this->bufferSize = this->buffer->size();
     this->currentPage = 0;
     this->currentX = 15;

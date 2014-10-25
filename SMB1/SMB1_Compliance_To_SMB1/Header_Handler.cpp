@@ -151,5 +151,5 @@ bool Header_Handler::Parse_Ignored_Line(const QString &name, int &lineNum) {
     if (elements.size() != 2) return false;
     if (elements.at(0) != name + ":") return false;
     int num = 0;
-    if (!this->Parse_Num(elements.at(1), num)) return false;
+    return this->Parse_Num(elements.at(1), num);
 }

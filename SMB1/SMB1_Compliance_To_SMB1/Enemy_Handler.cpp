@@ -192,37 +192,34 @@ bool Enemy_Handler::Spiny(const QString &line) {
 
 bool Enemy_Handler::Bowser_Fire_Spawner(const QString &line) {
     QStringList elements = line.split(' ');
-    if (elements.size() != 5) return false;
-    int x = 0; int y = 0; bool onlyHardMode = false;
+    if (elements.size() != 4) return false;
+    int x = 0; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(2), x)) return false;
-    if (!this->Parse_Num(elements.at(3), y)) return false;
-    if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
-    return this->writerPlugin->Enemy_Bowser_Fire_Spawner(x, y, onlyHardMode);
+    if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
+    return this->writerPlugin->Enemy_Bowser_Fire_Spawner(x, onlyHardMode);
 }
 
 bool Enemy_Handler::Cheep_Cheep_Spawner(const QString &line) {
     QStringList elements = line.split(' ');
-    if (elements.size() != 6) return false;
-    int x = 0; int y = 0; bool leaping = false; bool onlyHardMode = false;
+    if (elements.size() != 5) return false;
+    int x = 0; bool leaping = false; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(2), x)) return false;
-    if (!this->Parse_Num(elements.at(3), y)) return false;
-    if (!this->Parse_Difficulty(elements.at(5), onlyHardMode)) return false;
+    if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
 
     //Parse the movement type
-    if (elements.at(4) == Enemy_Item::STRING_LEAPING) leaping = true;
-    else if (elements.at(4) == Enemy_Item::STRING_FLYING) leaping = false;
+    if (elements.at(3) == Enemy_Item::STRING_LEAPING) leaping = true;
+    else if (elements.at(3) == Enemy_Item::STRING_FLYING) leaping = false;
     else return false; //invalid movement type
-    return this->writerPlugin->Enemy_Cheep_Cheep_Spawner(x, y, leaping, onlyHardMode);
+    return this->writerPlugin->Enemy_Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
 }
 
 bool Enemy_Handler::Bullet_Bill_Spawner(const QString &line) {
     QStringList elements = line.split(' ');
-    if (elements.size() != 5) return false;
-    int x = 0; int y = 0; bool onlyHardMode = false;
+    if (elements.size() != 4) return false;
+    int x = 0; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(2), x)) return false;
-    if (!this->Parse_Num(elements.at(3), y)) return false;
-    if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
-    return this->writerPlugin->Enemy_Bullet_Bill_Spawner(x, y, onlyHardMode);
+    if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
+    return this->writerPlugin->Enemy_Bullet_Bill_Spawner(x, onlyHardMode);
 }
 
 bool Enemy_Handler::Fire_Bar(const QString &line) {

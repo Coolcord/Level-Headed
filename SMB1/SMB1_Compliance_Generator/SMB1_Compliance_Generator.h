@@ -21,6 +21,7 @@ private:
     SMB1_Compliance_Generator(const SMB1_Compliance_Generator&);
     SMB1_Compliance_Generator& operator=(const SMB1_Compliance_Generator&);
     bool Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes);
+    bool Generate_Bridge_Level(QFile *file, int numObjectBytes, int numEnemyBytes);
     QString applicationLocation;
     QWidget *parent;
 };

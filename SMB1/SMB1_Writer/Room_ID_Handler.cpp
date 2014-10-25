@@ -2,6 +2,7 @@
 #include <assert.h>
 
 Room_ID_Handler::Room_ID_Handler() {
+    this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->roomIDs = new QMap<Level::Level, int>();
     this->midpointIndexes = new QMap<int, QVector<int>*>();
     this->Populate_Room_IDs();
@@ -17,6 +18,14 @@ Room_ID_Handler::~Room_ID_Handler() {
     delete this->midpointIndexes;
 }
 
+Level::Level Room_ID_Handler::Get_Current_Level() {
+    return this->currentLevel;
+}
+
+void Room_ID_Handler::Set_Current_Level(Level::Level level) {
+    this->currentLevel = level;
+}
+
 int Room_ID_Handler::Get_Room_ID_From_Level(Level::Level level) {
     QMap<Level::Level, int>::iterator iter = this->roomIDs->find(level);
     if (iter == this->roomIDs->end()) return -1; //not found
@@ -29,10 +38,34 @@ QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Room_ID(int id) {
     return iter.value();
 }
 
+QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Current_Level() {
+    return this->Get_Midpoint_Indexes_From_Level(this->currentLevel);
+}
+
 QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Level(Level::Level level) {
     int roomID = this->Get_Room_ID_From_Level(level);
     if (roomID == -1) return NULL;
     return this->Get_Midpoint_Indexes_From_Room_ID(roomID);
+}
+
+Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_Current_Level() {
+    return this->Get_Level_Attribute_From_Level(this->currentLevel);
+}
+
+Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_Level(Level::Level level) {
+    int id = this->Get_Room_ID_From_Level(level);
+    return this->Get_Level_Attribute_From_ID(id);
+}
+
+Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_ID(int id) {
+    int attribute = ((id >> 5) & 0x3);
+    switch (attribute) {
+    case 0: return Level_Attribute::UNDERWATER;
+    case 1: return Level_Attribute::OVERWORLD;
+    case 2: return Level_Attribute::UNDERGROUND;
+    case 3: return Level_Attribute::CASTLE;
+    default: assert(false); return Level_Attribute::OVERWORLD;
+    }
 }
 
 void Room_ID_Handler::Populate_Room_IDs() {
