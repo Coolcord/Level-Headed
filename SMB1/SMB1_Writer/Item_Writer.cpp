@@ -13,7 +13,7 @@ Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_I
     this->roomIDHandler = roomIDHandler;
     this->bufferSize = this->buffer->size();
     this->currentPage = 0;
-    this->currentX = 15;
+    this->currentX = 0;
     this->currentY = 0;
     this->pageFlag = false;
     this->currentByte = 0;
