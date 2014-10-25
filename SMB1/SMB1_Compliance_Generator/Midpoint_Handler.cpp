@@ -14,8 +14,8 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
     if (!this->object->Is_Midpoint_Ready()) return; //midpoint is not ready to be written yet
     if (!this->Increment_Past_Midpoint(x)) return; //unable to increment at this time
 
-    this->midpoint = this->object->Get_Current_Page();
-    if (this->midpoint > 0xF) this->midpoint = 0xF; //the midpoint must be able to fit into a nibble
+    this->midpoint = this->object->Get_Current_Page()-1;
+    if (this->midpoint > 0xF) this->midpoint = 0x0; //the midpoint must be able to fit into a nibble
     this->midpointWritten = true;
 }
 

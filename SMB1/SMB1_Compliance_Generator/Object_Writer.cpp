@@ -33,7 +33,8 @@ int Object_Writer::Get_Num_Objects_Available() {
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
-    return (this->Get_Num_Objects_Available() < (this->totalBytes/4));
+    return (this->Get_Num_Objects_Available() < (this->totalBytes/4)
+            || this->currentPage > 0xA);
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {
