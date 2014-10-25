@@ -24,7 +24,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     this->stream->flush();
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
-    int x = 0;
+    int x = 16;
     int lastX = x;
     int y = 0;
 
@@ -61,7 +61,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     }
 
     int size = 1;
-    x = 16 + (averageDistance/2);
+    x += (averageDistance/2);
     while (this->enemies->Get_Num_Bytes_Left() > 1) {
         //Determine what type of enemies to spawn
         switch (levelType) {

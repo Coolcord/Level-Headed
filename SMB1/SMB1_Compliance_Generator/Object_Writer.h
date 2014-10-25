@@ -10,6 +10,7 @@ class Object_Writer : public Item_Writer
 {
 public:
     Object_Writer(QTextStream *stream, int numBytesLeft);
+    ~Object_Writer() {}
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
     bool Was_Last_Object_A_Platform();
@@ -77,6 +78,7 @@ private:
     bool Write_Object(int x, int y, const QString &object, int length, bool platform);
     bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform);
     void Handle_Zones(int x);
+    bool Is_Coordinate_Valid(int coordinate);
 
     const static int MAX_COIN_BLOCK_ZONE = 24;
     const static int MAX_POWERUP_ZONE = 56;

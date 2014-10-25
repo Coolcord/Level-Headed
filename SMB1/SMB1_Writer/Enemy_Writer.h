@@ -6,7 +6,7 @@
 class Enemy_Writer : public Item_Writer
 {
 public:
-    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) { this->groupPageFlag = false; }
+    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     bool Fill_Buffer();
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);

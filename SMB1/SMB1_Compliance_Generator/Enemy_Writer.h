@@ -7,7 +7,8 @@
 class Enemy_Writer : public Item_Writer
 {
 public:
-    Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {}
+    Enemy_Writer(QTextStream *stream, int numBytesLeft);
+    ~Enemy_Writer() {}
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
     bool Red_Koopa(int x, int y, bool onlyHardMode = false);
@@ -50,6 +51,9 @@ private:
     bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy);
     bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters);
     QString Get_Difficulty_String(bool onlyHardMode);
+    bool Is_Coordinate_Valid(int coordinate);
+
+    bool firstEnemy;
 
     friend class Pipe_Pointer_Writer;
 };

@@ -80,10 +80,6 @@ bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
     return true;
 }
 
-bool Item_Writer::Is_Coordinate_Valid(int coordinate) {
-    return (coordinate >= 0x0 && coordinate <= 0x10);
-}
-
 bool Item_Writer::Is_Byte_Valid(int byte) {
     return (byte >= 0x00 && byte <= 0xFF);
 }

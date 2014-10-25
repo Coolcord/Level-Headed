@@ -4,6 +4,10 @@
 #include <QDebug>
 #include <assert.h>
 
+Enemy_Writer::Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) {
+    this->groupPageFlag = false;
+}
+
 bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
     if (y > 0xD) return false; //enemies must exist between 0x0 and 0xD
     assert(enemyByte >= 0x0);

@@ -108,6 +108,10 @@ void Object_Writer::Handle_Zones(int x) {
     if (this->powerupZone < 0) this->powerupZone = 0;
 }
 
+bool Object_Writer::Is_Coordinate_Valid(int coordinate) {
+    return (coordinate >= 0x0 && coordinate <= 0x10);
+}
+
 bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {

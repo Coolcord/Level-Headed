@@ -1,18 +1,37 @@
 #include "Enemy_Writer.h"
 #include "../Common SMB1 Files/Enemy_Item_String.h"
+#include <QDebug>
 #include <assert.h>
 
+Enemy_Writer::Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {
+    this->firstEnemy = true;
+}
+
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
-    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)));
+    if (this->firstEnemy) x += 16;
+    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->firstEnemy = false;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters) {
-    return this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)));
+    if (this->firstEnemy) x += 16;
+    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->firstEnemy = false;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy) {
     if (y > 0xD) return false;
+    if (this->firstEnemy) x += 16;
     if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->firstEnemy = false;
         this->currentY = y;
         return true;
     } else {
@@ -22,7 +41,9 @@ bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &e
 
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters) {
     if (y > 0xD) return false;
+    if (this->firstEnemy) x += 16;
     if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+        this->firstEnemy = false;
         this->currentY = y;
         return true;
     } else {
@@ -36,6 +57,11 @@ QString Enemy_Writer::Get_Difficulty_String(bool onlyHardMode) {
     } else {
         return Enemy_Item::STRING_NORMAL;
     }
+}
+
+bool Enemy_Writer::Is_Coordinate_Valid(int coordinate) {
+    if (this->firstEnemy) return (coordinate >= 0x10 && coordinate <= 0x1F);
+    return (coordinate >= 0x0 && coordinate <= 0x10);
 }
 
 bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
