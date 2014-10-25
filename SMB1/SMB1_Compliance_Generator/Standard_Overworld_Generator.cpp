@@ -11,7 +11,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
             if (qrand() % 3 == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
-        assert(this->end->Handle_End(x));
+        assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 
     //Spawn the Enemies

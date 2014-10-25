@@ -61,7 +61,7 @@ bool SMB1_Compliance_Parser::Parse_Header(QFile *file) {
     assert(file);
     Header_Handler headerHandler(this->writerPlugin, file);
     int lineNum = 1; //TODO: Make use of this later
-    headerHandler.Parse_Header(lineNum);
+    if (!headerHandler.Parse_Header(lineNum)) return false;
 
     return true;
 }
@@ -76,9 +76,13 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
         line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "O:") {
-            if (!this->Parse_Object(line)) return false;
+            if (!this->Parse_Object(line)) {
+                return false;
+            }
         } else if (elements.at(0) == "E:" || elements.at(0) == "P:") {
-            if (!this->Parse_Enemy(line)) return false;
+            if (!this->Parse_Enemy(line)) {
+                return false;
+            }
         } else {
             return false; //line is invalid
         }

@@ -42,11 +42,14 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Generate the level
     QString fileName = this->applicationLocation + "/Level_1_1.lvl";
+    //QString fileName = "C:/Users/Cord/Desktop/Level_1_1.lvl";
+
     if (!this->generatorPlugin->Generate_Level(fileName, this->writerPlugin->Get_Num_Object_Bytes(),
                                                this->writerPlugin->Get_Num_Enemy_Bytes(), Level_Type::STANDARD_OVERWORLD)) {
         qDebug() << "Looks like the generator blew up";
         return false;
     }
+
 
     //Parse the level
     qDebug() << "Parsing the level...";

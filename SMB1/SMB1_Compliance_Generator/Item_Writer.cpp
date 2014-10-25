@@ -10,8 +10,8 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft) {
     this->numItems = 0;
     this->levelLength = 0;
     this->numBytesLeft = numBytesLeft;
-    this->currentPage = 1;
-    this->currentX = 1;
+    this->currentPage = 0;
+    this->currentX = 0xF;
     this->currentY = Physics::GROUND_Y;
     this->coordinateSafety = true;
 }
@@ -48,6 +48,11 @@ void Item_Writer::Set_Coordinate_Safety(bool value) {
     this->coordinateSafety = value;
 }
 
+bool Item_Writer::Will_Page_Flag_Be_Tripped(int x) {
+    int simulatedCurrentX = this->currentX + x;
+    return (simulatedCurrentX > 0xF);
+}
+
 bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
@@ -60,6 +65,7 @@ bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
     }
     line += item + "\n"; //only use Unix endlines
     *(this->stream) << line;
+    qDebug() << line;
     if (this->stream->status() != QTextStream::Ok) return false;
 
     //Keep track of the level stats

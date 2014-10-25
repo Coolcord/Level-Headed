@@ -122,16 +122,14 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
 
 bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int averageDistance, int page, int enemyAmount) {
     //Skip the page change if necessary
-    if (this->enemies->Get_Current_Page()+1 >= page) {
+    if (this->enemies->Get_Current_Page() >= page) {
         return true;
     }
 
     //Spawn the page change if necessary
     if ((this->enemies->Get_Num_Bytes_Left()/2) <= enemyAmount) {
-        qDebug() << "Page Change spawned at: " << page;
         assert(this->enemies->Page_Change(page));
         x = ((page-1)*16)+1;
-        qDebug() << "X is now: " << x;
         lastX = x;
         y = Physics::GROUND_Y;
         return true;

@@ -17,6 +17,7 @@ public:
     int Get_Absolute_X(int x);
     int Get_Current_Page();
     void Set_Coordinate_Safety(bool value);
+    bool Will_Page_Flag_Be_Tripped(int x);
 
 protected:
     Item_Writer(const Item_Writer&);

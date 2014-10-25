@@ -12,7 +12,7 @@ public:
     int Get_Midpoint();
 
 private:
-    bool Increment_Past_Midpoint(int &x);
+    bool Increment_Past_Midpoint(int &x, int &page);
 
     Object_Writer *object;
     bool midpointWritten;
