@@ -75,6 +75,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_ATTRIBUTE + ":") return false;
     QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
     if (attributeIter == this->attributes->end()) return false; //not found
+    if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) return false;
     //TODO: Add support for setting the attribute
 
     //Brick

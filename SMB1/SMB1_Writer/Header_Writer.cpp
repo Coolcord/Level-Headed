@@ -173,9 +173,9 @@ bool Header_Writer::Set_Starting_Position(Level_Attribute::Level_Attribute value
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
-    case Level_Attribute::OVERWORLD:     hexDigit = 0x2; break;
-    case Level_Attribute::UNDERGROUND:   hexDigit = 0x1; break;
     case Level_Attribute::UNDERWATER:    hexDigit = 0x0; break;
+    case Level_Attribute::OVERWORLD:     hexDigit = 0x1; break;
+    case Level_Attribute::UNDERGROUND:   hexDigit = 0x2; break;
     case Level_Attribute::CASTLE:        hexDigit = 0x3; break;
     default:            return false;
     }
