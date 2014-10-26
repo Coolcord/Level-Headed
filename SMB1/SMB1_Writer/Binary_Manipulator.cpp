@@ -112,13 +112,13 @@ void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start,
 void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, unsigned char hexDigit, unsigned int hexStart, unsigned int hexEnd) {
     //Make sure the byte passed in is valid
     assert(start <= bits.size() && start >= 0);
-    assert(hexDigit >= 0x0 && hexDigit <= 0xF);
+    assert(hexDigit <= 0xF);
     assert(hexStart <= 3 && hexEnd <= 3);
 
     QBitArray hexDigitBits = Hex_Digit_To_BitArray(hexDigit);
     assert(hexDigitBits.size() <= bits.size());
 
-    for (int i = start, j = hexStart; j <= hexEnd; ++i, ++j) {
+    for (unsigned int i = start, j = hexStart; j <= hexEnd; ++i, ++j) {
         bits.setBit(i, hexDigitBits.testBit(j));
     }
 }

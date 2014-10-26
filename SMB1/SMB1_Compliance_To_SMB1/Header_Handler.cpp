@@ -63,8 +63,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
         do {
             ++lineNum;
             line = file->readLine();
+            if (line.isEmpty()) continue;
+            if (file->atEnd()) return false;
             line.chop(1); //remove the new line character
-        } while (line != Level_Type::STRING_BREAK && line != NULL && !file->atEnd());
+        } while (line != Level_Type::STRING_BREAK);
     }
 
     //Type
@@ -146,13 +148,19 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Midpoint(num)) return false;
 
     //Seperator
+    bool success = false;
     do {
         ++lineNum;
         line = file->readLine();
+        if (line.isEmpty()) continue;
         line.chop(1); //remove the new line character
-    } while (line != Level_Type::STRING_BREAK && line != NULL && !file->atEnd());
+        if (line == Level_Type::STRING_BREAK) {
+            success = true;
+            break;
+        }
+    } while (!file->atEnd());
 
-    return true;
+    return success;
 }
 
 void Header_Handler::Populate_Types() {

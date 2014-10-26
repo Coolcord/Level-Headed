@@ -75,19 +75,22 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     bool success = false;
     do {
         line = file->readLine();
+        if (line.isEmpty()) continue;
         line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "O:") {
             if (!this->Parse_Object(line)) {
                 return false;
             }
+        } else if (line.size() > 1 && line.at(0) == '#') {
+            continue; //ignore comments
         } else if (line == Level_Type::STRING_BREAK) {
             success = true;
             break;
         } else {
             return false; //line is invalid
         }
-    } while (line != NULL && !file->atEnd());
+    } while (!file->atEnd());
 
     //The seperator could not be found
     if (!success) return false;
@@ -96,19 +99,22 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     success = false;
     do {
         line = file->readLine();
+        if (line.isEmpty()) continue;
         line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "E:") {
             if (!this->Parse_Enemy(line)) {
                 return false;
             }
+        } else if (line.size() > 1 && line.at(0) == '#') {
+            continue; //ignore comments
         } else if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
             success = true;
             break;
         } else {
             return false; //line is invalid
         }
-    } while (line != NULL && !file->atEnd());
+    } while (!file->atEnd());
 
     //The seperator could not be found
     if (!success) return false;
