@@ -65,8 +65,8 @@ bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     if (handlePageFlag) this->pageFlag = tmpPageFlag;
 
     QBitArray positionBits(8, false);
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, this->currentX); //x
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, this->currentY); //y
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, static_cast<unsigned char>(this->currentX)); //x
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, static_cast<unsigned char>(this->currentY)); //y
     int positionByte = Binary_Manipulator::BitArray_To_Hex(positionBits); //get the byte
     return this->Write_Byte_To_Buffer(positionByte);
 }

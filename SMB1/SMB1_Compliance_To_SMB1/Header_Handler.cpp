@@ -2,6 +2,9 @@
 #include "../Common SMB1 Files/Header_String.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
 #include "../Common SMB1 Files/Level_Attribute_String.h"
+#include "../Common SMB1 Files/Brick_String.h"
+#include "../Common SMB1 Files/Background_String.h"
+#include "../Common SMB1 Files/Scenery_String.h"
 #include "../Common SMB1 Files/Level_Compliment_String.h"
 #include <assert.h>
 
@@ -19,6 +22,18 @@ Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file)
     this->attributes = new QMap<QString, Level_Attribute::Level_Attribute>();
     this->Populate_Attributes();
 
+    //Populate Bricks
+    this->bricks = new QMap<QString, Brick::Brick>();
+    this->Populate_Bricks();
+
+    //Populate Backgrounds
+    this->backgrounds = new QMap<QString, Background::Background>();
+    this->Populate_Backgrounds();
+
+    //Populate Sceneries
+    this->sceneries = new QMap<QString, Scenery::Scenery>();
+    this->Populate_Sceneries();
+
     //Populate Level Compliments
     this->compliments = new QMap<QString, Level_Compliment::Level_Compliment>();
     this->Populate_Compliments();
@@ -27,6 +42,9 @@ Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file)
 Header_Handler::~Header_Handler() {
     delete this->types;
     delete this->attributes;
+    delete this->bricks;
+    delete this->backgrounds;
+    delete this->sceneries;
     delete this->compliments;
 }
 
@@ -58,6 +76,36 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
     if (attributeIter == this->attributes->end()) return false; //not found
     //TODO: Add support for setting the attribute
+
+    //Brick
+    ++lineNum;
+    line = this->file->readLine(); line.chop(1);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_BRICK + ":") return false;
+    QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->find(elements.at(1));
+    if (brickIter == this->bricks->end()) return false; //not found
+    if (!this->writerPlugin->Header_Brick(brickIter.value())) return false;
+
+    //Background
+    ++lineNum;
+    line = this->file->readLine(); line.chop(1);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_BACKGROUND + ":") return false;
+    QMap<QString, Background::Background>::iterator backgroundIter = this->backgrounds->find(elements.at(1));
+    if (backgroundIter == this->backgrounds->end()) return false; //not found
+    if (!this->writerPlugin->Header_Background(backgroundIter.value())) return false;
+
+    //Scenery
+    ++lineNum;
+    line = this->file->readLine(); line.chop(1);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_SCENERY + ":") return false;
+    QMap<QString, Scenery::Scenery>::iterator sceneryIter = this->sceneries->find(elements.at(1));
+    if (sceneryIter == this->sceneries->end()) return false; //not found
+    if (!this->writerPlugin->Header_Scenery(sceneryIter.value())) return false;
 
     //Compliment
     ++lineNum;
@@ -133,6 +181,49 @@ void Header_Handler::Populate_Attributes() {
     this->attributes->insert(Level_Attribute::STRING_UNDERGROUND, Level_Attribute::UNDERGROUND);
     this->attributes->insert(Level_Attribute::STRING_UNDERWATER, Level_Attribute::UNDERWATER);
     this->attributes->insert(Level_Attribute::STRING_CASTLE, Level_Attribute::CASTLE);
+}
+
+void Header_Handler::Populate_Bricks() {
+    assert(this->bricks);
+    this->bricks->clear();
+    this->bricks->insert(Brick::STRING_NO_BRICKS, Brick::NO_BRICKS);
+    this->bricks->insert(Brick::STRING_SURFACE, Brick::SURFACE);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING, Brick::SURFACE_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_3, Brick::SURFACE_AND_CEILING_3);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_4, Brick::SURFACE_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_8, Brick::SURFACE_AND_CEILING_8);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING, Brick::SURFACE_4_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_3, Brick::SURFACE_4_AND_CEILING_3);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_4, Brick::SURFACE_4_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING, Brick::SURFACE_5_AND_CEILING);
+    this->bricks->insert(Brick::STRING_CEILING, Brick::CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING_4, Brick::SURFACE_5_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_8_AND_CEILING, Brick::SURFACE_8_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5, Brick::SURFACE_AND_CEILING_AND_MIDDLE_5);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4, Brick::SURFACE_AND_CEILING_AND_MIDDLE_4);
+    this->bricks->insert(Brick::STRING_ALL, Brick::ALL);
+}
+
+void Header_Handler::Populate_Backgrounds() {
+    assert(this->backgrounds);
+    this->backgrounds->clear();
+    this->backgrounds->insert(Background::STRING_BLANK_BACKGROUND, Background::BLANK_BACKGROUND);
+    this->backgrounds->insert(Background::STRING_IN_WATER, Background::IN_WATER);
+    this->backgrounds->insert(Background::STRING_CASTLE_WALL, Background::CASTLE_WALL);
+    this->backgrounds->insert(Background::STRING_OVER_WATER, Background::OVER_WATER);
+    this->backgrounds->insert(Background::STRING_NIGHT, Background::NIGHT);
+    this->backgrounds->insert(Background::STRING_SNOW, Background::SNOW);
+    this->backgrounds->insert(Background::STRING_NIGHT_AND_SNOW, Background::NIGHT_AND_SNOW);
+    this->backgrounds->insert(Background::STRING_NIGHT_AND_FREEZE, Background::NIGHT_AND_FREEZE);
+}
+
+void Header_Handler::Populate_Sceneries() {
+    assert(this->sceneries);
+    this->sceneries->clear();
+    this->sceneries->insert(Scenery::STRING_NO_SCENERY, Scenery::NO_SCENERY);
+    this->sceneries->insert(Scenery::STRING_ONLY_CLOUDS, Scenery::ONLY_CLOUDS);
+    this->sceneries->insert(Scenery::STRING_MOUNTAINS, Scenery::MOUNTAINS);
+    this->sceneries->insert(Scenery::STRING_FENCES, Scenery::FENCES);
 }
 
 void Header_Handler::Populate_Compliments() {

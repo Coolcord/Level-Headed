@@ -17,6 +17,7 @@ public:
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
     bool Is_Midpoint_Ready();
+    void Set_Tmp_Coordinate_Safety(bool tmpCoordinateSafety);
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Mushroom_Only(int x, int y);
@@ -88,6 +89,7 @@ private:
     int coinBlockZone;
     int powerupZone;
     int totalBytes;
+    bool tmpCoordinateSafety;
 
     friend class Pipe_Pointer_Writer;
 };

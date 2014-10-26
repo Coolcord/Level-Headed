@@ -51,9 +51,9 @@ bool Midpoint_Writer::Set_Midpoint(int value) {
         //Write the nibble into the byte
         QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->at(properIndex)));
         if (highNibble) {
-            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, value);
+            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, static_cast<unsigned char>(value));
         } else {
-            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, value);
+            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, static_cast<unsigned char>(value));
         }
 
         unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);

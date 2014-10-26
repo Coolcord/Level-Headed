@@ -10,7 +10,7 @@ Header_Writer::Header_Writer(QByteArray *buffer) {
 
 int Header_Writer::Get_Time() {
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
     QBitArray bits(2);
     for (int i = 0; i < 2; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -28,13 +28,13 @@ int Header_Writer::Get_Time() {
 }
 
 bool Header_Writer::Get_Autowalk() {
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
     return bits.testBit(2); //get the bit
 }
 
 Level_Attribute::Level_Attribute Header_Writer::Get_Starting_Position(){
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
     QBitArray bits(2);
     for (int i = 3; i < 5; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -53,7 +53,7 @@ Level_Attribute::Level_Attribute Header_Writer::Get_Starting_Position(){
 
 Background::Background Header_Writer::Get_Background() {
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
     QBitArray bits(3);
     for (int i = 5; i < 8; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -76,7 +76,7 @@ Background::Background Header_Writer::Get_Background() {
 
 Level_Compliment::Level_Compliment Header_Writer::Get_Level_Compliment() {
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
     QBitArray bits(2);
     for (int i = 0; i < 2; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -95,7 +95,7 @@ Level_Compliment::Level_Compliment Header_Writer::Get_Level_Compliment() {
 
 Scenery::Scenery Header_Writer::Get_Scenery() {
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
     QBitArray bits(2);
     for (int i = 2; i < 4; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -114,7 +114,7 @@ Scenery::Scenery Header_Writer::Get_Scenery() {
 
 Brick::Brick Header_Writer::Get_Brick() {
     //Get the bits
-    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
+    QBitArray tmp = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
     QBitArray bits(4);
     for (int i = 4; i < 8; ++i) {
         bits.setBit(i, tmp.testBit(i));
@@ -155,15 +155,15 @@ bool Header_Writer::Set_Time(int value) {
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, hexDigit, 2, 3);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, static_cast<unsigned char>(hexDigit), 2, 3);
     int byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
     return true;
 }
 
 void Header_Writer::Set_Autowalk(bool value) {
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
     bits.setBit(2, value); //set the bit
     int byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
@@ -181,9 +181,9 @@ bool Header_Writer::Set_Starting_Position(Level_Attribute::Level_Attribute value
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 2, hexDigit, 0, 1);
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 2, static_cast<unsigned char>(hexDigit), 2, 3);
+    unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
     return true;
 }
@@ -204,9 +204,9 @@ bool Header_Writer::Set_Background(Background::Background value) {
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[0]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 5, hexDigit, 0, 2);
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 5, static_cast<unsigned char>(hexDigit), 1, 3);
+    unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
     return true;
 }
@@ -223,9 +223,9 @@ bool Header_Writer::Set_Level_Compliment(Level_Compliment::Level_Compliment valu
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, hexDigit, 0, 1);
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, static_cast<unsigned char>(hexDigit), 2, 3);
+    unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[1] = static_cast<char>(byte);
     return true;
 }
@@ -242,9 +242,9 @@ bool Header_Writer::Set_Scenery(Scenery::Scenery value) {
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 2, hexDigit, 0, 1);
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 2, static_cast<unsigned char>(hexDigit), 2, 3);
+    unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[1] = static_cast<char>(byte);
     return true;
 }
@@ -273,9 +273,9 @@ bool Header_Writer::Set_Brick(Brick::Brick value) {
     }
 
     //Write the data
-    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<int>(this->buffer->data()[1]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, hexDigit);
-    int byte = Binary_Manipulator::BitArray_To_Hex(bits);
+    QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[1]));
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, static_cast<unsigned char>(hexDigit));
+    unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[1] = static_cast<char>(byte);
     return true;
 }

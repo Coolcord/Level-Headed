@@ -8,6 +8,9 @@ namespace Header {
     const static QString STRING_NAME = Level_Type::STRING_NAME + "_Level";
     const static QString STRING_TYPE = "Type";
     const static QString STRING_ATTRIBUTE = "Attribute";
+    const static QString STRING_BRICK = "Brick";
+    const static QString STRING_BACKGROUND = "Background";
+    const static QString STRING_SCENERY = "Scenery";
     const static QString STRING_COMPLIMENT = "Compliment";
     const static QString STRING_TIME = "Time";
     const static QString STRING_MIDPOINT = "Midpoint";

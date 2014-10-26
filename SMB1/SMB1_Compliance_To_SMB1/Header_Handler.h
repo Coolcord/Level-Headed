@@ -4,6 +4,9 @@
 #include "Item_Handler.h"
 #include "../Common SMB1 Files/Level_Type.h"
 #include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common SMB1 Files/Brick.h"
+#include "../Common SMB1 Files/Background.h"
+#include "../Common SMB1 Files/Scenery.h"
 #include "../Common SMB1 Files/Level_Compliment.h"
 #include <QFile>
 #include <QMap>
@@ -18,6 +21,9 @@ public:
 private:
     void Populate_Types();
     void Populate_Attributes();
+    void Populate_Bricks();
+    void Populate_Backgrounds();
+    void Populate_Sceneries();
     void Populate_Compliments();
 
     bool Parse_Ignored_Line(const QString &name, int &lineNum);
@@ -25,6 +31,9 @@ private:
     QFile *file;
     QMap<QString, Level_Type::Level_Type> *types;
     QMap<QString, Level_Attribute::Level_Attribute> *attributes;
+    QMap<QString, Brick::Brick> *bricks;
+    QMap<QString, Background::Background> *backgrounds;
+    QMap<QString, Scenery::Scenery> *sceneries;
     QMap<QString, Level_Compliment::Level_Compliment> *compliments;
 };
 

@@ -19,20 +19,20 @@ void SMB1_Compliance_Generator::Shutdown() {
 
 }
 
-bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numObjectBytes, int numEnemyBytes, Level_Type::Level_Type type) {
+bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Arguments args) {
     if (this->applicationLocation.isEmpty()) return false;
 
     //Create a new file for writing
-    QFile file(fileName);
+    QFile file(args.fileName);
     if (!file.open(QFile::ReadWrite | QFile::Truncate)) {
         return false;
     }
 
     //Determine which level generator to use
     bool success = false;
-    switch (type) {
+    switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
-        success = this->Generate_Standard_Overworld_Level(&file, numObjectBytes, numEnemyBytes);
+        success = this->Generate_Standard_Overworld_Level(&file, args);
         break;
     case Level_Type::UNDERGROUND:
         success = false;
@@ -44,7 +44,7 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
         success = false;
         break; //TODO: Implement this...
     case Level_Type::BRIDGE:
-        success = this->Generate_Bridge_Level(&file, numObjectBytes, numEnemyBytes);
+        success = this->Generate_Bridge_Level(&file, args);
         break;
     case Level_Type::ISLAND:
         success = false;
@@ -57,12 +57,12 @@ bool SMB1_Compliance_Generator::Generate_Level(const QString &fileName, int numO
     return success;
 }
 
-bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {
-    Standard_Overworld_Generator levelGenerator(file, numObjectBytes, numEnemyBytes);
+bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, const SMB1_Compliance_Generator_Arguments &args) {
+    Standard_Overworld_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
 }
 
-bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, int numObjectBytes, int numEnemyBytes) {
-    Bridge_Generator levelGenerator(file, numObjectBytes, numEnemyBytes);
+bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, const SMB1_Compliance_Generator_Arguments &args) {
+    Bridge_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
 }

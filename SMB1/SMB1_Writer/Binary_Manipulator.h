@@ -15,8 +15,8 @@ namespace Binary_Manipulator {
     unsigned char BitArray_To_Hex(const QBitArray &bits);
     QString BitArray_To_String(const QBitArray &bits);
     QBitArray Combine_BitArrays(const QBitArray &a, const QBitArray &b);
-    void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit);
-    void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit, unsigned int hexStart, unsigned int hexEnd);
+    void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, unsigned char hexDigit);
+    void Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, unsigned char hexDigit, unsigned int hexStart, unsigned int hexEnd);
     void Write_Byte_To_BitArray(QBitArray &bits, int start, int hex);
     bool Is_Valid_Hex_Digit(unsigned char hexDigit);
     unsigned char Get_First_Digit_From_Hex(unsigned char hex);

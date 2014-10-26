@@ -10,6 +10,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Write
     this->coinBlockZone = 0;
     this->powerupZone = 0;
     this->totalBytes = numBytesLeft;
+    this->tmpCoordinateSafety = false;
 }
 
 int Object_Writer::Get_Last_Object_Length() {
@@ -35,6 +36,10 @@ int Object_Writer::Get_Num_Objects_Available() {
 bool Object_Writer::Is_Midpoint_Ready() {
     return (this->Get_Num_Objects_Available() < (this->totalBytes/4)
             || this->currentPage > 0xA);
+}
+
+void Object_Writer::Set_Tmp_Coordinate_Safety(bool tmpCoordinateSafety) {
+    this->tmpCoordinateSafety = tmpCoordinateSafety;
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {
@@ -109,6 +114,10 @@ void Object_Writer::Handle_Zones(int x) {
 }
 
 bool Object_Writer::Is_Coordinate_Valid(int coordinate) {
+    if (this->tmpCoordinateSafety) {
+        this->tmpCoordinateSafety = false;
+        return (coordinate >= 0x10 && coordinate <= 0x1F);
+    }
     return (coordinate >= 0x0 && coordinate <= 0x10);
 }
 

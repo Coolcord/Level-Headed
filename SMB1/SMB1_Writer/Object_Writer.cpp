@@ -12,8 +12,8 @@ bool Object_Writer::Write_Object(int x, int y, int firstObjectHexDigit, int seco
     if (!Binary_Manipulator::Is_Valid_Hex_Digit(firstObjectHexDigit)) return false;
     if (!Binary_Manipulator::Is_Valid_Hex_Digit(secondObjectHexDigit)) return false;
     QBitArray objectBits(8, false);
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 0, firstObjectHexDigit); //write the object
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 4, secondObjectHexDigit); //write the properties
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 0, static_cast<unsigned char>(firstObjectHexDigit)); //write the object
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 4, static_cast<unsigned char>(secondObjectHexDigit)); //write the properties
     return this->Write_Object(x, y, Binary_Manipulator::BitArray_To_Hex(objectBits));
 }
 

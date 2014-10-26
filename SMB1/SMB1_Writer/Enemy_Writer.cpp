@@ -52,8 +52,8 @@ bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
 
     //Write the position byte
     QBitArray positionBits(8, false);
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, tmpX); //x
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, y); //y
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 0, static_cast<unsigned char>(tmpX)); //x
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(positionBits, 4, static_cast<unsigned char>(y)); //y
     int positionByte = Binary_Manipulator::BitArray_To_Hex(positionBits); //get the byte
     if (!this->Write_Byte_To_Buffer(positionByte)) return false;
 

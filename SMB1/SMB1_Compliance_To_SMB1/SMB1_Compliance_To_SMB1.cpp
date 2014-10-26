@@ -1,6 +1,6 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "SMB1_Compliance_Parser.h"
 #include <QPluginLoader>
 #include <QFile>
@@ -41,11 +41,17 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) return false;
 
     //Generate the level
-    QString fileName = this->applicationLocation + "/Level_1_1.lvl";
-    //QString fileName = "C:/Users/Cord/Desktop/Level_1_1.lvl";
-
-    if (!this->generatorPlugin->Generate_Level(fileName, this->writerPlugin->Get_Num_Object_Bytes(),
-                                               this->writerPlugin->Get_Num_Enemy_Bytes(), Level_Type::STANDARD_OVERWORLD)) {
+    SMB1_Compliance_Generator_Arguments args;
+    args.fileName = this->applicationLocation + "/Level_1_1.lvl";
+    args.headerBackground = Background::BLANK_BACKGROUND;
+    args.headerScenery = Scenery::MOUNTAINS;
+    args.levelCompliment = Level_Compliment::TREES;
+    args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
+    args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
+    args.startCastle = Castle::NONE;
+    args.endCastle = Castle::SMALL;
+    args.levelType = Level_Type::STANDARD_OVERWORLD;
+    if (!this->generatorPlugin->Generate_Level(args)) {
         qDebug() << "Looks like the generator blew up";
         return false;
     }
@@ -53,7 +59,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Parse the level
     qDebug() << "Parsing the level...";
-    if (!this->parser->Parse_Level(fileName)) {
+    if (!this->parser->Parse_Level(args.fileName)) {
         qDebug() << "Looks like the interpreter blew up";
         return false;
     }

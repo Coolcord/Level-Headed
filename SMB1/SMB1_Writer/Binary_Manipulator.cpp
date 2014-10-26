@@ -1,4 +1,5 @@
 #include "Binary_Manipulator.h"
+#include <assert.h>
 
 QString Binary_Manipulator::Hex_To_Binary_String(unsigned char hex) {
     int value = static_cast<int>(hex);
@@ -70,9 +71,7 @@ unsigned char Binary_Manipulator::Binary_String_To_Hex(const QString &binary) {
 }
 
 unsigned char Binary_Manipulator::BitArray_To_Hex(const QBitArray &bits, int start, int end) {
-    if (end >= bits.size()) {
-        throw "End cannot be greater than the bit vector size!";
-    }
+    assert(end < bits.size());
     unsigned char value = 0;
     for (int i = end, j = 1; i >= start; --i) {
         if (bits.testBit(i)) value += j;
@@ -106,28 +105,28 @@ QBitArray Binary_Manipulator::Combine_BitArrays(const QBitArray &a, const QBitAr
     return bits;
 }
 
-void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit) {
+void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, unsigned char hexDigit) {
     return Write_Hex_Digit_To_BitArray(bits, start, hexDigit, 0, 3);
 }
 
-void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, int hexDigit, unsigned int hexStart, unsigned int hexEnd) {
+void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start, unsigned char hexDigit, unsigned int hexStart, unsigned int hexEnd) {
     //Make sure the byte passed in is valid
-    if (start > bits.size() || start < 0) throw "Start must be a proper index";
-    else if (hexDigit < 0x0 || hexDigit > 0xF) throw "A hex digit is expected";
-    else if (hexStart > 3 || hexEnd > 3) throw "Start and end must be between 0 and 3";
+    assert(start <= bits.size() && start >= 0);
+    assert(hexDigit >= 0x0 && hexDigit <= 0xF);
+    assert(hexStart <= 3 && hexEnd <= 3);
 
     QBitArray hexDigitBits = Hex_Digit_To_BitArray(hexDigit);
-    if (start + hexDigitBits.size() > bits.size()) throw "Cannot write outside of the bit array";
+    assert(hexDigitBits.size() <= bits.size());
 
-    for (unsigned int i = start, j = hexStart; j <= hexEnd; ++i, ++j) {
+    for (int i = start, j = hexStart; j <= hexEnd; ++i, ++j) {
         bits.setBit(i, hexDigitBits.testBit(j));
     }
 }
 
 void Binary_Manipulator::Write_Byte_To_BitArray(QBitArray &bits, int start, int hex) {
     //Make sure the byte passed in is valid
-    if (start > bits.size() || start < 0) throw "Start must be a proper index";
-    else if (hex < 0x00 || hex > 0xFF) throw "A hex digit is expected";
+    assert(start <= bits.size() && start >= 0);
+    assert(hex >= 0x00 && hex <= 0xFF);
 
     QBitArray hexBits = Hex_To_BitArray(hex);
     if (start + hexBits.size() > bits.size()) throw "Cannot write outside of the bit array";
