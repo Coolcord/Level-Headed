@@ -76,14 +76,13 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     do {
         line = file->readLine();
         if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
         line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "O:") {
             if (!this->Parse_Object(line)) {
                 return false;
             }
-        } else if (line.size() > 1 && line.at(0) == '#') {
-            continue; //ignore comments
         } else if (line == Level_Type::STRING_BREAK) {
             success = true;
             break;
@@ -100,14 +99,13 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     do {
         line = file->readLine();
         if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
         line.chop(1); //remove the new line character
         QList<QByteArray> elements = line.split(' ');
         if (elements.at(0) == "E:") {
             if (!this->Parse_Enemy(line)) {
                 return false;
             }
-        } else if (line.size() > 1 && line.at(0) == '#') {
-            continue; //ignore comments
         } else if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
             success = true;
             break;

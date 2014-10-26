@@ -45,6 +45,7 @@ int Level_Generator::Get_Random_X(int min, bool firstPage) {
     int x = this->Get_Random_X();
     x += min;
     if (!firstPage && x > 0x10) x = 0x10;
+    else if (firstPage && x > 0x1F) x = 0x1F;
     return x;
 }
 

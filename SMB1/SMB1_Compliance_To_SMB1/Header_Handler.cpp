@@ -70,8 +70,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     }
 
     //Type
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TYPE + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_TYPE + ":") return false;
@@ -79,8 +78,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (typeIter == this->types->end()) return false; //not found
 
     //Attribute
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_ATTRIBUTE + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_ATTRIBUTE + ":") return false;
@@ -90,8 +88,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     //TODO: Add support for setting the attribute
 
     //Brick
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_BRICK + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_BRICK + ":") return false;
@@ -100,8 +97,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Brick(brickIter.value())) return false;
 
     //Background
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_BACKGROUND + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_BACKGROUND + ":") return false;
@@ -110,8 +106,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Background(backgroundIter.value())) return false;
 
     //Scenery
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_SCENERY + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_SCENERY + ":") return false;
@@ -120,8 +115,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Scenery(sceneryIter.value())) return false;
 
     //Compliment
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_COMPLIMENT + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_COMPLIMENT + ":") return false;
@@ -130,8 +124,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Level_Compliment(complimentIter.value())) return false;
 
     //Time
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_TIME + ":") return false;
@@ -139,8 +132,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Time(num)) return false;
 
     //Midpoint
-    ++lineNum;
-    line = this->file->readLine(); line.chop(1);
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_MIDPOINT + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
@@ -148,19 +140,34 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->writerPlugin->Header_Midpoint(num)) return false;
 
     //Seperator
-    bool success = false;
+    if (!this->Parse_Through_Comments_Until_String(Level_Type::STRING_BREAK, lineNum)) return false;
+
+    return true;
+}
+
+bool Header_Handler::Parse_Through_Comments_Until_String(const QString &value, int &lineNum) {
     do {
         ++lineNum;
-        line = file->readLine();
+        QString line = file->readLine();
         if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
         line.chop(1); //remove the new line character
-        if (line == Level_Type::STRING_BREAK) {
-            success = true;
-            break;
-        }
+        if (line == value) return true;
     } while (!file->atEnd());
+    return false;
+}
 
-    return success;
+QString Header_Handler::Parse_Through_Comments_Until_First_Word(const QString &word, int &lineNum) {
+    do {
+        ++lineNum;
+        QString line = this->file->readLine();
+        if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
+        line.chop(1);
+        QStringList elements = line.split(' ');
+        if (elements.at(0) == word) return line;
+    } while (!file->atEnd());
+    return "Invalid Line";
 }
 
 void Header_Handler::Populate_Types() {
