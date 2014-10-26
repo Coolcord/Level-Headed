@@ -7,6 +7,8 @@
 #include "../Common SMB1 Files/Background_String.h"
 #include "../Common SMB1 Files/Scenery_String.h"
 #include "../Common SMB1 Files/Brick_String.h"
+#include <QTime>
+#include <QDate>
 #include <QDebug>
 
 Header_Writer::Header_Writer(QFile *file) {
@@ -22,6 +24,16 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     //Prepare the buffer
     QString buffer = "";
     buffer += Header::STRING_NAME + "\n";
+
+    //Add the notes section
+    buffer += Level_Type::STRING_BREAK + "\n";
+    buffer += Header::STRING_COOLCORD + "\n";
+    buffer += Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A") + ".\n";
+    buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + "\n";
+    buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + "\n";
+    buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + "\n";
+    buffer += Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers) + "\n";
+    buffer += Level_Type::STRING_BREAK + "\n";
 
     //Handle the Level Type
     buffer += Header::STRING_TYPE + ": ";
@@ -97,13 +109,11 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     default:                                    return false;
     }
 
-    //Write the rest of the header to the buffer
+    //Time
     buffer += Header::STRING_TIME + ": " + QString::number(time) + "\n";
+
+    //Midpoint
     buffer += Header::STRING_MIDPOINT + ": " + QString::number(halfwayPoint) + "\n";
-    buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + "\n";
-    buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + "\n";
-    buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + "\n";
-    buffer += Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers) + "\n";
     buffer += Level_Type::STRING_BREAK + "\n";
 
     //Append the current file's contents to the buffer

@@ -2,6 +2,7 @@
 #include "Enemy_Writer.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
+#include "../Common SMB1 Files/Level_Type_String.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -22,6 +23,8 @@ Enemy_Spawner::~Enemy_Spawner() {
 
 bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_Type levelType) {
     this->stream->flush();
+    *(this->stream) << Level_Type::STRING_BREAK + "\n";
+    if (this->stream->status() != QTextStream::Ok) return false;
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
     int x = 16;
@@ -117,6 +120,10 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
             x += averageDistance - size; //Prevent enemies from spawning on top of each other
         }
     }
+
+    //Add a seperator at the end of the file
+    *(this->stream) << Level_Type::STRING_BREAK + "\n";
+    if (this->stream->status() != QTextStream::Ok) return false;
     return true;
 }
 

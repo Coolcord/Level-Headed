@@ -58,6 +58,15 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     line = this->file->readLine(); line.chop(1);
     if (line != Header::STRING_NAME) return false;
 
+    //Notes Section -- Look for 2 seperators
+    for (int i = 0; i < 2; ++i) {
+        do {
+            ++lineNum;
+            line = file->readLine();
+            line.chop(1); //remove the new line character
+        } while (line != Level_Type::STRING_BREAK && line != NULL && !file->atEnd());
+    }
+
     //Type
     ++lineNum;
     line = this->file->readLine(); line.chop(1);
@@ -136,30 +145,12 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (!this->Parse_Num(elements.at(1), num)) return false;
     if (!this->writerPlugin->Header_Midpoint(num)) return false;
 
-    //Level Length
-    if (!this->Parse_Ignored_Line(Header::STRING_LEVEL_LENGTH, lineNum)) {
-        return false;
-    }
-
-    //Number of Objects
-    if (!this->Parse_Ignored_Line(Header::STRING_NUMBER_OF_OBJECTS, lineNum)) {
-        return false;
-    }
-
-    //Number of Enemies
-    if (!this->Parse_Ignored_Line(Header::STRING_NUMBER_OF_ENEMIES, lineNum)) {
-        return false;
-    }
-
-    //Number of Pipe Pointers
-    if (!this->Parse_Ignored_Line(Header::STRING_NUMBER_OF_PIPE_POINTERS, lineNum)) {
-        return false;
-    }
-
     //Seperator
-    ++lineNum;
-    line = file->readLine(); line.chop(1);
-    if (line != Level_Type::STRING_BREAK) return false;
+    do {
+        ++lineNum;
+        line = file->readLine();
+        line.chop(1); //remove the new line character
+    } while (line != Level_Type::STRING_BREAK && line != NULL && !file->atEnd());
 
     return true;
 }

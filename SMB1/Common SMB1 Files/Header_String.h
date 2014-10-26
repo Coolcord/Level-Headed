@@ -14,10 +14,12 @@ namespace Header {
     const static QString STRING_COMPLIMENT = "Compliment";
     const static QString STRING_TIME = "Time";
     const static QString STRING_MIDPOINT = "Midpoint";
-    const static QString STRING_LEVEL_LENGTH = "Level_Length";
-    const static QString STRING_NUMBER_OF_OBJECTS = "Number_Of_Objects";
-    const static QString STRING_NUMBER_OF_ENEMIES = "Number_Of_Enemies";
-    const static QString STRING_NUMBER_OF_PIPE_POINTERS = "Number_Of_Pipe_Pointers";
+    const static QString STRING_COOLCORD = STRING_NAME + " format created by Coolcord.";
+    const static QString STRING_CREATED = "Randomly Generated on";
+    const static QString STRING_LEVEL_LENGTH = "Level Length";
+    const static QString STRING_NUMBER_OF_OBJECTS = "Number Of Objects";
+    const static QString STRING_NUMBER_OF_ENEMIES = "Number Of Enemies";
+    const static QString STRING_NUMBER_OF_PIPE_POINTERS = "Number Of Pipe Pointers";
 }
 
 #endif // HEADER_STRING_H

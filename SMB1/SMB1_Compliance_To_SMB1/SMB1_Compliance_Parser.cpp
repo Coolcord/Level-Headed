@@ -3,6 +3,7 @@
 #include "../Common SMB1 Files/Enemy_Item_String.h"
 #include "../Common SMB1 Files/Level_Type.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
+#include "../Common SMB1 Files/Header_String.h"
 #include "Object_Handler.h"
 #include "Enemy_Handler.h"
 #include "Header_Handler.h"
@@ -70,7 +71,8 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
     assert(file);
     QByteArray line;
 
-    //Read the Objects and Enemies
+    //Read the Objects
+    bool success = false;
     do {
         line = file->readLine();
         line.chop(1); //remove the new line character
@@ -79,14 +81,37 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
             if (!this->Parse_Object(line)) {
                 return false;
             }
-        } else if (elements.at(0) == "E:" || elements.at(0) == "P:") {
-            if (!this->Parse_Enemy(line)) {
-                return false;
-            }
+        } else if (line == Level_Type::STRING_BREAK) {
+            success = true;
+            break;
         } else {
             return false; //line is invalid
         }
     } while (line != NULL && !file->atEnd());
+
+    //The seperator could not be found
+    if (!success) return false;
+
+    //Read the Enemies
+    success = false;
+    do {
+        line = file->readLine();
+        line.chop(1); //remove the new line character
+        QList<QByteArray> elements = line.split(' ');
+        if (elements.at(0) == "E:") {
+            if (!this->Parse_Enemy(line)) {
+                return false;
+            }
+        } else if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
+            success = true;
+            break;
+        } else {
+            return false; //line is invalid
+        }
+    } while (line != NULL && !file->atEnd());
+
+    //The seperator could not be found
+    if (!success) return false;
 
     return true;
 }

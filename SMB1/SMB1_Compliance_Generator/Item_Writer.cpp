@@ -60,12 +60,11 @@ bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
     switch (type) {
     case OBJECT:        line += "O: "; break;
     case ENEMY:         line += "E: "; break;
-    case PIPE_POINTER:  line += "P: "; break;
+    case PIPE_POINTER:  line += "E: "; break;
     default:            return false;
     }
     line += item + "\n"; //only use Unix endlines
     *(this->stream) << line;
-    qDebug() << line;
     if (this->stream->status() != QTextStream::Ok) return false;
 
     //Keep track of the level stats
