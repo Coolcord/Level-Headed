@@ -9,6 +9,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Write
     this->lastObjectLength = 0;
     this->coinBlockZone = 0;
     this->powerupZone = 0;
+    this->endObjectCount = Physics::MIN_END_OBJECTS;
     this->totalBytes = numBytesLeft;
     this->firstPageSafety = false;
 }
@@ -30,11 +31,11 @@ int Object_Writer::Get_Num_Objects_Left() {
 }
 
 int Object_Writer::Get_Num_Objects_Available() {
-    return (this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS);
+    return (this->Get_Num_Objects_Left()-this->endObjectCount);
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
-    return (this->Get_Num_Objects_Available() < (this->totalBytes/4)
+    return ((this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS) < (this->totalBytes/4)
             || this->currentPage > 0xA);
 }
 
@@ -44,6 +45,10 @@ bool Object_Writer::Get_First_Page_Safety() {
 
 void Object_Writer::Set_First_Page_Safety(bool firstPageSafety) {
     this->firstPageSafety = firstPageSafety;
+}
+
+void Object_Writer::Set_End_Object_Count(int value) {
+    this->endObjectCount = value;
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {

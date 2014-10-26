@@ -19,6 +19,7 @@ public:
     bool Is_Midpoint_Ready();
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
+    void Set_End_Object_Count(int value);
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Mushroom_Only(int x, int y);
@@ -90,6 +91,7 @@ private:
     bool lastObjectIsPlatform;
     int coinBlockZone;
     int powerupZone;
+    int endObjectCount;
     int totalBytes;
     bool firstPageSafety;
 

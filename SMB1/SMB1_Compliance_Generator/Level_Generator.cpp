@@ -11,7 +11,7 @@ Level_Generator::Level_Generator(QFile *file, const SMB1_Compliance_Generator_Ar
     this->enemySpawner = new Enemy_Spawner(file, this->stream, this->enemy);
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
-    this->end = new End_Spawner(this->object);
+    this->end = new End_Spawner(this->object, args.endCastle);
     this->midpointHandler = new Midpoint_Handler(this->object);
     this->firstPageHandler = new First_Page_Handler(this->object, args.headerBackground, args.startCastle);
 }
