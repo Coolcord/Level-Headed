@@ -55,13 +55,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     //Determine the average distance between each enemy
     int averageDistance = 0;
     if (numEnemies > 0) averageDistance = totalSpaces/numEnemies;
-    if (averageDistance >= 16) {
-        usePages = true;
-        qDebug() << "Using pages!";
-    }
-    if (averageDistance > 11) {
-        averageDistance = 11;
-    }
+    if (averageDistance >= 16) usePages = true;
+    if (averageDistance > 11) averageDistance = 11;
 
     int size = 1;
     x += (averageDistance/2);

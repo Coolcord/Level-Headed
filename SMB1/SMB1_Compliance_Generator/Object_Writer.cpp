@@ -10,7 +10,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Write
     this->coinBlockZone = 0;
     this->powerupZone = 0;
     this->totalBytes = numBytesLeft;
-    this->tmpCoordinateSafety = false;
+    this->firstPageSafety = false;
 }
 
 int Object_Writer::Get_Last_Object_Length() {
@@ -38,8 +38,12 @@ bool Object_Writer::Is_Midpoint_Ready() {
             || this->currentPage > 0xA);
 }
 
-void Object_Writer::Set_Tmp_Coordinate_Safety(bool tmpCoordinateSafety) {
-    this->tmpCoordinateSafety = tmpCoordinateSafety;
+bool Object_Writer::Get_First_Page_Safety() {
+    return this->firstPageSafety;
+}
+
+void Object_Writer::Set_First_Page_Safety(bool firstPageSafety) {
+    this->firstPageSafety = firstPageSafety;
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {
@@ -81,7 +85,7 @@ bool Object_Writer::Write_Object(int x, const QString &object, const QString &pa
 }
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object, int length, bool platform) {
-    if (!this->Is_Coordinate_Valid(y)) return false;
+    if (!this->Is_Y_Valid(y)) return false;
     if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
@@ -94,7 +98,7 @@ bool Object_Writer::Write_Object(int x, int y, const QString &object, int length
 }
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform) {
-    if (!this->Is_Coordinate_Valid(y)) return false;
+    if (!this->Is_Y_Valid(y)) return false;
     if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)+" "+parameters))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
@@ -113,10 +117,14 @@ void Object_Writer::Handle_Zones(int x) {
     if (this->powerupZone < 0) this->powerupZone = 0;
 }
 
+bool Object_Writer::Is_Y_Valid(int y) {
+    return (y >= 0x0 && y <= 0xF);
+}
+
 bool Object_Writer::Is_Coordinate_Valid(int coordinate) {
-    if (this->tmpCoordinateSafety) {
-        this->tmpCoordinateSafety = false;
-        return (coordinate >= 0x10 && coordinate <= 0x1F);
+    if (this->firstPageSafety) {
+        this->firstPageSafety = false;
+        return (coordinate >= 0x0A && coordinate <= 0x1F);
     }
     return (coordinate >= 0x0 && coordinate <= 0x10);
 }

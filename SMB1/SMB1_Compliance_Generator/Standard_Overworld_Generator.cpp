@@ -7,7 +7,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
         int x = this->object->Get_Last_Object_Length();
         this->firstPageHandler->Handle_First_Page(x);
         this->midpointHandler->Handle_Midpoint(x);
-        x = this->Get_Random_X(x);
+        x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
             if (qrand() % 3 == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
@@ -19,7 +19,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
     assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE, Level_Type::STANDARD_OVERWORLD));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, Brick::SURFACE, Background::BLANK_BACKGROUND, Scenery::MOUNTAINS, Level_Compliment::TREES, 400,
+    return this->header->Write_Header(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), Scenery::MOUNTAINS, Level_Compliment::TREES, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }

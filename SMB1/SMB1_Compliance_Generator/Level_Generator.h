@@ -25,7 +25,7 @@ public:
 
 protected:
     int Get_Random_X();
-    int Get_Random_X(int min);
+    int Get_Random_X(int min, bool firstPage = false);
     int Get_Safe_Random_X();
 
     Level_Generator(const Level_Generator&);

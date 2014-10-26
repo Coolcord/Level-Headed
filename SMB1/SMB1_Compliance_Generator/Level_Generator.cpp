@@ -41,10 +41,10 @@ int Level_Generator::Get_Random_X() {
     }
 }
 
-int Level_Generator::Get_Random_X(int min) {
+int Level_Generator::Get_Random_X(int min, bool firstPage) {
     int x = this->Get_Random_X();
     x += min;
-    if (x > 0x10) x = 0x10;
+    if (!firstPage && x > 0x10) x = 0x10;
     return x;
 }
 

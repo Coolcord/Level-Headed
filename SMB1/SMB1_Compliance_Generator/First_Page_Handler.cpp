@@ -15,13 +15,11 @@ void First_Page_Handler::Handle_First_Page(int &x) {
     switch (castle) {
     case Castle::SMALL:
         assert(this->object->Castle(0));
-        this->object->Set_Tmp_Coordinate_Safety(true);
         x += 16;
         break;
     case Castle::BIG:
         assert(this->object->Big_Castle(0));
         assert(this->object->Change_Background(6, this->headerBackground));
-        this->object->Set_Tmp_Coordinate_Safety(true);
         x += 10;
         break;
     case Castle::NONE:
@@ -30,6 +28,7 @@ void First_Page_Handler::Handle_First_Page(int &x) {
     default:
         assert(false);
     }
+    this->object->Set_First_Page_Safety(true);
     this->firstPageWritten = true;
 }
 

@@ -20,8 +20,6 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
 
     //Set the midpoint
     this->midpoint = page;
-    qDebug() << "Current page is: " << this->object->Get_Current_Page();
-    qDebug() << "Midpoint spawned at: " << this->midpoint;
     if (this->midpoint > 0xF) this->midpoint = 0x0; //the midpoint must be able to fit into a nibble
     this->midpointWritten = true;
 }

@@ -7,7 +7,7 @@ bool Bridge_Generator::Generate_Level() {
         int x = this->object->Get_Last_Object_Length();
         this->firstPageHandler->Handle_First_Page(x);
         this->midpointHandler->Handle_Midpoint(x);
-        x = this->Get_Random_X(x);
+        x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
 
 
 

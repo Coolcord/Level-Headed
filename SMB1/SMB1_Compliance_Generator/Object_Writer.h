@@ -17,7 +17,8 @@ public:
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
     bool Is_Midpoint_Ready();
-    void Set_Tmp_Coordinate_Safety(bool tmpCoordinateSafety);
+    bool Get_First_Page_Safety();
+    void Set_First_Page_Safety(bool firstPageSafety);
 
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Mushroom_Only(int x, int y);
@@ -79,6 +80,7 @@ private:
     bool Write_Object(int x, int y, const QString &object, int length, bool platform);
     bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform);
     void Handle_Zones(int x);
+    bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int coordinate);
 
     const static int MAX_COIN_BLOCK_ZONE = 24;
@@ -89,7 +91,7 @@ private:
     int coinBlockZone;
     int powerupZone;
     int totalBytes;
-    bool tmpCoordinateSafety;
+    bool firstPageSafety;
 
     friend class Pipe_Pointer_Writer;
 };
