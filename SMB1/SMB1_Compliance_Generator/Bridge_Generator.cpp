@@ -20,7 +20,7 @@ bool Bridge_Generator::Generate_Level() {
 
         //TODO: Clean up this
         switch (qrand()%4) {
-        case 0:     //this->Spawn_Simple_Bridge(x); break;
+        case 0:     this->Spawn_Simple_Bridge(x); break;
         case 1:     //this->Spawn_Multi_Bridge(x); break;
         case 2:     this->Spawn_Lone_Bridge(x); break;
         case 3:     this->Spawn_Lone_Bridge_Series(x); break;
