@@ -23,6 +23,7 @@ public:
     bool Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse = false);
 
 private:
+    void Populate_Brick_Map();
     bool Is_Coordinate_Safe(int x, int y);
     bool Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y);
     void Crawl_Forward(int x, int spaces);
@@ -39,6 +40,7 @@ private:
     int Get_Y_From_Key(const QString &key);
 
     Brick::Brick brick;
+    QMap<QString, Brick::Brick> *bricks;
     QFile *file;
     bool endDetected;
     int safeSize;

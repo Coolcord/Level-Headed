@@ -40,6 +40,10 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     switch (type) {
     case Level_Type::STANDARD_OVERWORLD:    buffer += Level_Type::STRING_STANDARD_OVERWORLD + "\n"; break;
     case Level_Type::ISLAND:                buffer += Level_Type::STRING_ISLAND + "\n"; break;
+    case Level_Type::BRIDGE:                buffer += Level_Type::STRING_BRIDGE + "\n"; break;
+    case Level_Type::UNDERGROUND:           buffer += Level_Type::STRING_UNDERGROUND + "\n"; break;
+    case Level_Type::UNDERWATER:            buffer += Level_Type::STRING_UNDERWATER + "\n"; break;
+    case Level_Type::CASTLE:                buffer += Level_Type::STRING_CASTLE + "\n"; break;
     default:                                return false;
     }
 

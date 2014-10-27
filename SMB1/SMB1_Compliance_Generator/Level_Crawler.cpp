@@ -1,6 +1,7 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "../Common SMB1 Files/Object_Item_String.h"
+#include "../Common SMB1 Files/Brick_String.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -12,10 +13,35 @@ Level_Crawler::Level_Crawler(QFile *file) : SMB1_Compliance_Map() {
     this->endDetected = false;
     this->safeSize = 0;
     this->badCoordinates = new QMap<QString, bool>();
+
+    //Build the map for Bricks
+    this->bricks = new QMap<QString, Brick::Brick>();
+    this->Populate_Brick_Map();
 }
 
 Level_Crawler::~Level_Crawler() {
+    delete this->bricks;
     delete this->badCoordinates;
+}
+
+void Level_Crawler::Populate_Brick_Map() {
+    this->bricks->clear();
+    this->bricks->insert(Brick::STRING_NO_BRICKS, Brick::NO_BRICKS);
+    this->bricks->insert(Brick::STRING_SURFACE, Brick::SURFACE);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING, Brick::SURFACE_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_3, Brick::SURFACE_AND_CEILING_3);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_4, Brick::SURFACE_4_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_8, Brick::SURFACE_AND_CEILING_8);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING, Brick::SURFACE_4_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_3, Brick::SURFACE_4_AND_CEILING_3);
+    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_4, Brick::SURFACE_4_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING, Brick::SURFACE_5_AND_CEILING);
+    this->bricks->insert(Brick::STRING_CEILING, Brick::CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING_4, Brick::SURFACE_5_AND_CEILING_4);
+    this->bricks->insert(Brick::STRING_SURFACE_8_AND_CEILING, Brick::SURFACE_8_AND_CEILING);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5, Brick::SURFACE_AND_CEILING_AND_MIDDLE_5);
+    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4, Brick::SURFACE_AND_CEILING_AND_MIDDLE_4);
+    this->bricks->insert(Brick::STRING_ALL, Brick::ALL);
 }
 
 bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
@@ -496,6 +522,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     x += steps;
     int y = 0;
     int length = 0;
+    QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->end();
 
     QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(elements.at(1));
     if (iter == this->objects->end()) return false; //not found
@@ -688,6 +715,11 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
             this->Mark_Bad_X(x+i);
         }
         return true;
+    case Object_Item::CHANGE_BRICK_AND_SCENERY:
+        brickIter = this->bricks->find(elements.at(3));
+        assert(brickIter != this->bricks->end()); //not found
+        this->brick = brickIter.value();
+        return true;
     case Object_Item::HIDDEN_BLOCK_WITH_COIN:
     case Object_Item::HIDDEN_BLOCK_WITH_1UP:
     case Object_Item::BALANCE_LIFT_ROPE:
@@ -698,7 +730,6 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::BULLET_BILL_SPAWNER:
     case Object_Item::CANCEL_SPAWNER:
     case Object_Item::LOOP_COMMAND:
-    case Object_Item::CHANGE_BRICK_AND_SCENERY:
     case Object_Item::CHANGE_BACKGROUND:
     case Object_Item::NOTHING:
         return true; //nothing to do

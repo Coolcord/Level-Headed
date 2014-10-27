@@ -20,6 +20,7 @@ public:
     bool Configure_Writer();
 
 private:
+    void Shutdown();
     bool Load_Plugins();
     QString applicationLocation;
 

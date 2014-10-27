@@ -55,7 +55,3 @@ int Object_Spawner::Get_Random_Pipe_Y(int x) {
     else if (y > Physics::MIN_PIPE_Y) y = Physics::MIN_PIPE_Y; //make sure y is not too low
     return y;
 }
-
-bool Object_Spawner::Is_Safe_To_Spawn_Pattern(int objectCost) {
-    return ((this->object->Get_Num_Objects_Left() - objectCost) > Physics::MIN_END_OBJECTS);
-}

@@ -13,8 +13,8 @@ End_Spawner::End_Spawner(Object_Writer *object, Castle::Castle castle) : Object_
     default: assert(false);
     }
 
-    //TODO: Determine how many objects to allocate for the end
-    this->endObjectCount = Physics::MIN_END_OBJECTS;
+    //TODO: Determine what type of end to use here so that the objects can be allocated
+    this->endObjectCount = Physics::MIN_END_OBJECTS + this->castleObjectCount;
     this->object->Set_End_Object_Count(this->endObjectCount);
 }
 

@@ -129,7 +129,7 @@ bool Object_Writer::Is_Y_Valid(int y) {
 bool Object_Writer::Is_Coordinate_Valid(int coordinate) {
     if (this->firstPageSafety) {
         this->firstPageSafety = false;
-        return (coordinate >= 0x0A && coordinate <= 0x1F);
+        return (coordinate >= 0x00 && coordinate <= 0x1F);
     }
     return (coordinate >= 0x0 && coordinate <= 0x10);
 }
@@ -421,32 +421,32 @@ bool Object_Writer::Loop_Command(int x) {
 
 bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery) {
     QString property = "";
-    switch (scenery) {
-    case Scenery::NO_SCENERY:   property = Scenery::STRING_NO_SCENERY; break;
-    case Scenery::ONLY_CLOUDS:  property = Scenery::STRING_ONLY_CLOUDS; break;
-    case Scenery::MOUNTAINS:    property = Scenery::STRING_MOUNTAINS; break;
-    case Scenery::FENCES:       property = Scenery::STRING_FENCES; break;
-    default:                    return false;
+    switch (brick) {
+    case Brick::NO_BRICKS:                          property = Brick::STRING_NO_BRICKS; break;
+    case Brick::SURFACE:                            property = Brick::STRING_SURFACE; break;
+    case Brick::SURFACE_AND_CEILING:                property = Brick::STRING_SURFACE_AND_CEILING; break;
+    case Brick::SURFACE_AND_CEILING_3:              property = Brick::STRING_SURFACE_AND_CEILING_3; break;
+    case Brick::SURFACE_AND_CEILING_4:              property = Brick::STRING_SURFACE_AND_CEILING_4; break;
+    case Brick::SURFACE_AND_CEILING_8:              property = Brick::STRING_SURFACE_AND_CEILING_8; break;
+    case Brick::SURFACE_4_AND_CEILING:              property = Brick::STRING_SURFACE_4_AND_CEILING; break;
+    case Brick::SURFACE_4_AND_CEILING_3:            property = Brick::STRING_SURFACE_4_AND_CEILING_3; break;
+    case Brick::SURFACE_4_AND_CEILING_4:            property = Brick::STRING_SURFACE_4_AND_CEILING_4; break;
+    case Brick::SURFACE_5_AND_CEILING:              property = Brick::STRING_SURFACE_5_AND_CEILING; break;
+    case Brick::CEILING:                            property = Brick::STRING_CEILING; break;
+    case Brick::SURFACE_5_AND_CEILING_4:            property = Brick::STRING_SURFACE_5_AND_CEILING_4; break;
+    case Brick::SURFACE_8_AND_CEILING:              property = Brick::STRING_SURFACE_8_AND_CEILING; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   property = Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5; break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   property = Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4; break;
+    case Brick::ALL:                                property = Brick::STRING_ALL; break;
+    default:                                        return false;
     }
     property += " ";
-    switch (brick) {
-    case Brick::NO_BRICKS:                          property += Brick::STRING_NO_BRICKS; break;
-    case Brick::SURFACE:                            property += Brick::STRING_SURFACE; break;
-    case Brick::SURFACE_AND_CEILING:                property += Brick::STRING_SURFACE_AND_CEILING; break;
-    case Brick::SURFACE_AND_CEILING_3:              property += Brick::STRING_SURFACE_AND_CEILING_3; break;
-    case Brick::SURFACE_AND_CEILING_4:              property += Brick::STRING_SURFACE_AND_CEILING_4; break;
-    case Brick::SURFACE_AND_CEILING_8:              property += Brick::STRING_SURFACE_AND_CEILING_8; break;
-    case Brick::SURFACE_4_AND_CEILING:              property += Brick::STRING_SURFACE_4_AND_CEILING; break;
-    case Brick::SURFACE_4_AND_CEILING_3:            property += Brick::STRING_SURFACE_4_AND_CEILING_3; break;
-    case Brick::SURFACE_4_AND_CEILING_4:            property += Brick::STRING_SURFACE_4_AND_CEILING_4; break;
-    case Brick::SURFACE_5_AND_CEILING:              property += Brick::STRING_SURFACE_5_AND_CEILING; break;
-    case Brick::CEILING:                            property += Brick::STRING_CEILING; break;
-    case Brick::SURFACE_5_AND_CEILING_4:            property += Brick::STRING_SURFACE_5_AND_CEILING_4; break;
-    case Brick::SURFACE_8_AND_CEILING:              property += Brick::STRING_SURFACE_8_AND_CEILING; break;
-    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   property += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5; break;
-    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   property += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4; break;
-    case Brick::ALL:                                property += Brick::STRING_ALL; break;
-    default:                                        return false;
+    switch (scenery) {
+    case Scenery::NO_SCENERY:   property += Scenery::STRING_NO_SCENERY; break;
+    case Scenery::ONLY_CLOUDS:  property += Scenery::STRING_ONLY_CLOUDS; break;
+    case Scenery::MOUNTAINS:    property += Scenery::STRING_MOUNTAINS; break;
+    case Scenery::FENCES:       property += Scenery::STRING_FENCES; break;
+    default:                    return false;
     }
     return this->Write_Object(x, Object_Item::STRING_CHANGE_BRICK_AND_SCENERY, property, false);
 }

@@ -32,27 +32,32 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Loading a ROM...";
     if (!this->writerPlugin->Load_ROM()) {
         qDebug() << "Failed to load the ROM!";
+        this->Shutdown();
         return false;
     }
 
     qDebug() << "Attempting to generate a new level...";
 
     //Allocate Buffers for a New Level
-    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) return false;
+    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) {
+        this->Shutdown();
+        return false;
+    }
 
     //Generate the level
     SMB1_Compliance_Generator_Arguments args;
     args.fileName = this->applicationLocation + "/Level_1_1.lvl";
     args.headerBackground = Background::BLANK_BACKGROUND;
-    args.headerScenery = Scenery::MOUNTAINS;
+    args.headerScenery = Scenery::ONLY_CLOUDS;
     args.levelCompliment = Level_Compliment::TREES;
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
     args.startCastle = Castle::NONE;
     args.endCastle = Castle::SMALL;
-    args.levelType = Level_Type::STANDARD_OVERWORLD;
+    args.levelType = Level_Type::BRIDGE;
     if (!this->generatorPlugin->Generate_Level(args)) {
         qDebug() << "Looks like the generator blew up";
+        this->Shutdown();
         return false;
     }
 
@@ -61,6 +66,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Parsing the level...";
     if (!this->parser->Parse_Level(args.fileName)) {
         qDebug() << "Looks like the interpreter blew up";
+        this->Shutdown();
         return false;
     }
 
@@ -68,20 +74,14 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Writing to the ROM...";
     if (!this->writerPlugin->Write_Level()) {
         qDebug() << "Looks like the writer plugin blew up";
+        this->Shutdown();
         return false;
     }
 
     qDebug() << "Done!";
 
     //Unload plugins
-    this->generatorPlugin->Shutdown();
-    this->writerPlugin->Shutdown();
-    delete this->parser;
-    delete this->generatorPlugin;
-    delete this->writerPlugin;
-    this->parser = NULL;
-    this->generatorPlugin = NULL;
-    this->writerPlugin = NULL;
+    this->Shutdown();
     return true;
 }
 
@@ -93,6 +93,17 @@ bool SMB1_Compliance_To_SMB1::Configure_Generator() {
 bool SMB1_Compliance_To_SMB1::Configure_Writer() {
     qDebug() << "Configure Writer Called!";
     return true;
+}
+
+void SMB1_Compliance_To_SMB1::Shutdown() {
+    this->generatorPlugin->Shutdown();
+    this->writerPlugin->Shutdown();
+    delete this->parser;
+    delete this->generatorPlugin;
+    delete this->writerPlugin;
+    this->parser = NULL;
+    this->generatorPlugin = NULL;
+    this->writerPlugin = NULL;
 }
 
 bool SMB1_Compliance_To_SMB1::Load_Plugins() {
