@@ -119,10 +119,15 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     assert(length >= height);
     x = (qrand()%(length-(height-1)));
     assert(x < length);
-    assert(this->object->Steps(x, height));
+    //Reduce the number of used objects if possible
+    if (height == 1) assert(this->object->Horizontal_Blocks(x, y, (qrand()%3)+1));
+    else assert(this->object->Steps(x, height));
     int numBlocks = (qrand()%3);
-    for (int i = 0; i < numBlocks; ++i) {
-        assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
+    //Possibly extend the top of the steps if stairs were used
+    if (height > 1) {
+        for (int i = 0; i < numBlocks; ++i) {
+            assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
+        }
     }
     assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, this->Get_Bridge_Length()));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
