@@ -17,7 +17,6 @@ private:
     int Get_Bridge_Y();
     int Get_Bridge_Length();
     int Get_Safe_Jump_Distance(int min = 0);
-    int Trim_Distance(int value, int amount);
     bool Spawn_Intro(int &x);
     bool Spawn_Simple_Bridge(int x, int y = 0, bool ignoreFirstSupport = false);
     bool Spawn_Multi_Bridge(int x, int y = 0, bool ignoreFirstSupport = false);

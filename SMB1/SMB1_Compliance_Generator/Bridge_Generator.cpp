@@ -1,6 +1,7 @@
 #include "Bridge_Generator.h"
 #include "Physics.h"
 #include <QTime>
+#include <QDebug>
 #include <assert.h>
 
 bool Bridge_Generator::Generate_Level() {
@@ -18,13 +19,15 @@ bool Bridge_Generator::Generate_Level() {
 
 
         //TODO: Clean up this
-        this->Spawn_Simple_Bridge(x);
-        this->Spawn_Multi_Bridge(x);
-        this->Spawn_Lone_Bridge(x);
-        this->Spawn_Lone_Bridge_Series(x);
+        switch (qrand()%4) {
+        case 0:     //this->Spawn_Simple_Bridge(x); break;
+        case 1:     //this->Spawn_Multi_Bridge(x); break;
+        case 2:     this->Spawn_Lone_Bridge(x); break;
+        case 3:     this->Spawn_Lone_Bridge_Series(x); break;
+        default:    assert(false); return false;
+        }
 
-
-        assert(this->end->Handle_End(this->Get_Safe_Random_X()));
+        assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length())));
     }
 
     //Spawn the Enemies
@@ -62,22 +65,14 @@ int Bridge_Generator::Get_Bridge_Length() {
 int Bridge_Generator::Get_Safe_Jump_Distance(int min) {
     //Aim for a lower value... but allow higher values to be possible
     int x = 0;
-    switch (qrand()%3) {
-    case 0:     x = (qrand()%0x5)+1; break;
-    case 1:     x = (qrand()%0x6)+1; break;
-    case 2:     x = (qrand()%0x7)+1; break;
-    case 3:     x = (qrand()%Physics::RUNNING_JUMP_LENGTH)+1; break;
+    switch (qrand()%2) {
+    case 0:     x = (qrand()%0x4)+1; break;
+    case 1:     x = (qrand()%0x5)+1; break;
     default:    assert(false); return 0;
     }
     x += min;
-    if (x > Physics::RUNNING_JUMP_LENGTH) x = Physics::RUNNING_JUMP_LENGTH;
+    if (x > 0x10) x = 0x10;
     return x;
-}
-
-int Bridge_Generator::Trim_Distance(int value, int amount) {
-    value -= amount;
-    if (value < 1) value = 1;
-    return value;
 }
 
 bool Bridge_Generator::Spawn_Intro(int &x) {
@@ -86,7 +81,7 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
 
     //Possibly spawn a hole between the steps and the castle
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
-    x = (qrand()%Physics::WALKING_JUMP_LENGTH)+1;
+    x = (qrand()%Physics::WALKING_JUMP_LENGTH+1)+1;
     int length = (qrand()%8)+3;
     assert(this->object->Island(x, Physics::GROUND_Y+1, length));
 
@@ -114,22 +109,29 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     //Spawn the Steps and Bridge
     if (length == 3) {
         height = 1;
-        y = Physics::GROUND_Y+1;
+        y = Physics::GROUND_Y;
     }
     assert(length >= height);
     x = (qrand()%(length-(height-1)));
     assert(x < length);
-    //Reduce the number of used objects if possible
-    if (height == 1) assert(this->object->Horizontal_Blocks(x, y, (qrand()%3)+1));
-    else assert(this->object->Steps(x, height));
+    assert(height+x <= length);
     int numBlocks = (qrand()%3);
+    //Prevent the blocks from being created over the edge of the island
+    while (height+x+numBlocks > length) {
+        --numBlocks;
+    }
+    //Reduce the number of used objects if possible
+    if (height == 1) assert(this->object->Horizontal_Blocks(x, y, numBlocks+1));
+    else assert(this->object->Steps(x, height));
     //Possibly extend the top of the steps if stairs were used
     if (height > 1) {
         for (int i = 0; i < numBlocks; ++i) {
             assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
         }
     }
-    assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, this->Get_Bridge_Length()));
+    int bridgeLength = this->Get_Bridge_Length();
+    if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+(qrand()%3);
+    assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, bridgeLength));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
 
     return true;
@@ -183,9 +185,9 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
         assert(this->object->Vertical_Blocks(x, y, height));
         assert(this->object->Bridge(1, y, length));
     }
-    if (uniformDistance) x = this->Trim_Distance(this->Get_Safe_Jump_Distance(), 2);
+    if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
     for (int i = 1; i < numBridges; ++i) {
-        if (!uniformDistance) x = this->Trim_Distance(this->Get_Safe_Jump_Distance(), 1);
+        if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
         if (!uniformLength) length = this->Get_Bridge_Length();
         if (!uniformHeight) {
             y = this->Get_Bridge_Y();
@@ -224,15 +226,15 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
     bool uniformHeight = !(static_cast<bool>(qrand()%4));
     bool uniformLength = !(static_cast<bool>(qrand()%4));
     int y = this->Get_Bridge_Y();
-    int length = this->Get_Bridge_Length();
+    int length = (qrand()%3)+2;
 
     //Spawn the Lone Bridge Series
     assert(this->Spawn_Lone_Bridge(x, y, length));
-    if (uniformDistance) x = this->Trim_Distance(this->Get_Safe_Jump_Distance(), 2);
+    if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
     for (int i = 1; i < numBridges; ++i) {
-        if (!uniformDistance) x = this->Trim_Distance(this->Get_Safe_Jump_Distance(), 1);
+        if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
         if (!uniformHeight) y = this->Get_Bridge_Y();
-        if (!uniformLength) length = this->Get_Bridge_Length();
+        if (!uniformLength) length = (qrand()%3)+2;
         assert(this->Spawn_Lone_Bridge(x, y, length));
     }
     return true;
