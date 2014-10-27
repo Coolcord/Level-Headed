@@ -17,13 +17,28 @@ bool Bridge_Generator::Generate_Level() {
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Safe_Jump_Distance(x);
 
-
-        //TODO: Clean up this
-        switch (qrand()%4) {
-        case 0:     this->Spawn_Simple_Bridge(x); break;
-        case 1:     //this->Spawn_Multi_Bridge(x); break;
-        case 2:     this->Spawn_Lone_Bridge(x); break;
-        case 3:     this->Spawn_Lone_Bridge_Series(x); break;
+        //TODO: Clean up probabilities
+        switch (qrand()%20) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:     this->Spawn_Simple_Bridge(x); break;
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:    this->Spawn_Multi_Bridge(x); break;
+        case 16:
+        case 17:
+        case 18:    this->Spawn_Lone_Bridge(x); break;
+        case 19:    this->Spawn_Lone_Bridge_Series(x); break;
         default:    assert(false); return false;
         }
 
@@ -57,7 +72,7 @@ int Bridge_Generator::Get_Bridge_Y() {
 }
 
 int Bridge_Generator::Get_Bridge_Length() {
-    int length = this->Get_Random_X(1);
+    int length = this->Get_Random_X(3);
     if (length > 0xF) length = 0xF;
     return length;
 }
@@ -120,9 +135,9 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     while (height+x+numBlocks > length) {
         --numBlocks;
     }
-    //Reduce the number of used objects if possible
-    if (height == 1) assert(this->object->Horizontal_Blocks(x, y, numBlocks+1));
-    else assert(this->object->Steps(x, height));
+    //Don't extend the platform if there is only one step
+    if (height == 1) numBlocks = 0;
+    assert(this->object->Steps(x, height));
     //Possibly extend the top of the steps if stairs were used
     if (height > 1) {
         for (int i = 0; i < numBlocks; ++i) {
@@ -171,9 +186,9 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
     }
 
     //Allow the Multi Bridge to be uniform in some aspects
-    bool uniformDistance = !(static_cast<bool>(qrand()%4));
-    bool uniformHeight = !(static_cast<bool>(qrand()%4));
-    bool uniformLength = !(static_cast<bool>(qrand()%4));
+    bool uniformDistance = !(static_cast<bool>(qrand()%3));
+    bool uniformHeight = !(static_cast<bool>(qrand()%3));
+    bool uniformLength = !(static_cast<bool>(qrand()%3));
     if (!y) y = this->Get_Bridge_Y();
     int height = this->Get_Height_From_Y(y);
     int length = this->Get_Bridge_Length();
@@ -190,12 +205,18 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
         if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
         if (!uniformLength) length = this->Get_Bridge_Length();
         if (!uniformHeight) {
+            int previousY = y;
+            int previousHeight = height;
             y = this->Get_Bridge_Y();
             height = this->Get_Height_From_Y(y);
+            if (y > previousY) assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), previousY, previousHeight));
+            else assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
+        } else {
+            assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
         }
-        assert(this->object->Vertical_Blocks(x, y, height));
-        assert(this->object->Bridge(1, y, length));
+        assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, length));
     }
+    assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
     return true;
 }
 
