@@ -25,54 +25,67 @@ bool Object_Writer::Fill_Buffer() {
 }
 
 bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x00);
 }
 
 bool Object_Writer::Question_Block_With_Coin(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x01);
 }
 
 bool Object_Writer::Hidden_Block_With_Coin(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x02);
 }
 
 bool Object_Writer::Hidden_Block_With_1up(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x03);
 }
 
 bool Object_Writer::Brick_With_Mushroom(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x04);
 }
 
 bool Object_Writer::Brick_With_Vine(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x05);
 }
 
 bool Object_Writer::Brick_With_Star(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x06);
 }
 
 bool Object_Writer::Brick_With_10_Coins(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x07);
 }
 
 bool Object_Writer::Brick_With_1up(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x08);
 }
 
 bool Object_Writer::Underwater_Sideways_Pipe(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x09);
 }
 
 bool Object_Writer::Used_Block(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x0A);
 }
 
 bool Object_Writer::Trampoline(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, 0x0B);
 }
 
 bool Object_Writer::Cannon(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     Level_Compliment::Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
     if (levelCompliment == Level_Compliment::BULLET_BILL_TURRETS) {
@@ -83,6 +96,7 @@ bool Object_Writer::Cannon(int x, int y, int height) {
 }
 
 bool Object_Writer::Island(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length > 16 || length < 1) return false;
     Level_Compliment::Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
     if (levelCompliment != Level_Compliment::BULLET_BILL_TURRETS) {
@@ -93,31 +107,37 @@ bool Object_Writer::Island(int x, int y, int length) {
 }
 
 bool Object_Writer::Horizontal_Bricks(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length > 16 || length < 1) return false;
     return this->Write_Object(x, y, 0x2, length-1);
 }
 
 bool Object_Writer::Horizontal_Blocks(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length > 16 || length < 1) return false;
     return this->Write_Object(x, y, 0x3, length-1);
 }
 
 bool Object_Writer::Horizontal_Coins(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length > 16 || length < 1) return false;
     return this->Write_Object(x, y, 0x4, length-1);
 }
 
 bool Object_Writer::Vertical_Bricks(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     return this->Write_Object(x, y, 0x5, height-1);
 }
 
 bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     return this->Write_Object(x, y, 0x6, height-1);
 }
 
 bool Object_Writer::Pipe(int x, int y, int height, bool enterable) {
+    if (y > 0xB) return false;
     if (height > 8 || height < 2) return false;
     --height;
     if (enterable) height += 8; //set the bit
