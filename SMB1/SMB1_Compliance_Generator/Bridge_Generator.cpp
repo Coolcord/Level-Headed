@@ -9,7 +9,7 @@ bool Bridge_Generator::Generate_Level() {
 
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
-    this->Spawn_Intro(x);
+    assert(this->Spawn_Intro(x));
 
     //Create the level
     while (!this->end->Is_End_Written()) {
@@ -18,6 +18,7 @@ bool Bridge_Generator::Generate_Level() {
         x = this->Get_Safe_Jump_Distance(x);
 
         //TODO: Clean up probabilities
+        //TODO: Add support for spawning coins and item boxes above bridges
         switch (qrand()%20) {
         case 0:
         case 1:

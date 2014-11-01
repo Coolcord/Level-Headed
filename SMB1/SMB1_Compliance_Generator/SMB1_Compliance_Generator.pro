@@ -29,7 +29,8 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Enemy_Spawner.cpp \
     Midpoint_Handler.cpp \
     Bridge_Generator.cpp \
-    First_Page_Handler.cpp
+    First_Page_Handler.cpp \
+    Island_Generator.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -66,7 +67,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Bridge_Generator.h \
     First_Page_Handler.h \
     SMB1_Compliance_Generator_Arguments.h \
-    End_Pattern.h
+    End_Pattern.h \
+    Island_Generator.h
 OTHER_FILES +=
 
 unix {

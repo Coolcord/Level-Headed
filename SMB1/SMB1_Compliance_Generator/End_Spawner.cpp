@@ -35,6 +35,8 @@ bool End_Spawner::Handle_End(int x) {
         switch (this->endPattern) {
         case End_Pattern::Shortest:
             success =  this->Shortest_End(x); break;
+        case End_Pattern::Shortest_With_Brick:
+            success = this->Shortest_With_Brick_End(x); break;
         case End_Pattern::One_Block_Bridge_Island:
             success = this->One_Block_Bridge_Island_End(x); break;
         default:
@@ -108,8 +110,15 @@ bool End_Spawner::Determine_Bridge_End() {
 }
 
 bool End_Spawner::Determine_Island_End() {
-    //TODO: Implement this...
-    assert(false); return false;
+    switch (qrand()%1) {
+    case 0:
+        this->endPattern = End_Pattern::Shortest_With_Brick;
+        this->endObjectCount = 3;
+        return true;
+    default:
+        assert(false);
+        return false;
+    }
 }
 
 bool End_Spawner::Shortest_End(int x) {
@@ -134,6 +143,17 @@ bool End_Spawner::Shortest_End(int x) {
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
 
     return true;
+}
+
+bool End_Spawner::Shortest_With_Brick_End(int x) {
+    //Minimum 4 objects with a standard castle
+    if (this->object->Get_Num_Objects_Left() < Physics::MIN_END_OBJECTS+1) return false;
+
+    //Change to the surface brick pattern
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
+
+    x = (qrand()%7)+2;
+    return this->Shortest_End(x);
 }
 
 bool End_Spawner::One_Block_Bridge_Island_End(int x) {

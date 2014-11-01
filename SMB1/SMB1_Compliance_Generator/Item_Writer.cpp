@@ -12,7 +12,7 @@ Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft) {
     this->numBytesLeft = numBytesLeft;
     this->currentPage = 0;
     this->currentX = 0;
-    this->currentY = Physics::GROUND_Y;
+    this->currentY = Physics::GROUND_Y+1;
     this->coordinateSafety = true;
 }
 

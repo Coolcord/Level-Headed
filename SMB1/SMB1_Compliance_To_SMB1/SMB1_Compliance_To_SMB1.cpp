@@ -54,7 +54,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
     args.startCastle = Castle::NONE;
     args.endCastle = Castle::SMALL;
-    args.levelType = Level_Type::BRIDGE;
+    args.levelType = Level_Type::ISLAND;
     if (!this->generatorPlugin->Generate_Level(args)) {
         qDebug() << "Looks like the generator blew up";
         this->Shutdown();

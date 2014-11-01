@@ -22,6 +22,7 @@ private:
     SMB1_Compliance_Generator& operator=(const SMB1_Compliance_Generator&);
     bool Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Bridge_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
+    bool Generate_Island_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     QString applicationLocation;
     QWidget *parent;
 };

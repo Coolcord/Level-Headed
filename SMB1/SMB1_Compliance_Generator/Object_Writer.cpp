@@ -135,6 +135,7 @@ bool Object_Writer::Is_Coordinate_Valid(int coordinate) {
 }
 
 bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -148,6 +149,7 @@ bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
 }
 
 bool Object_Writer::Question_Block_With_Mushroom_Only(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -158,14 +160,17 @@ bool Object_Writer::Question_Block_With_Mushroom_Only(int x, int y) {
 }
 
 bool Object_Writer::Question_Block_With_Coin(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_COIN, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Hidden_Block_With_Coin(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, Object_Item::STRING_HIDDEN_BLOCK_WITH_COIN, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Hidden_Block_With_1up(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_HIDDEN_BLOCK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -179,6 +184,7 @@ bool Object_Writer::Hidden_Block_With_1up(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_Mushroom(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -192,6 +198,7 @@ bool Object_Writer::Brick_With_Mushroom(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_Mushroom_Only(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -202,6 +209,7 @@ bool Object_Writer::Brick_With_Mushroom_Only(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_Star(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -215,6 +223,7 @@ bool Object_Writer::Brick_With_Star(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_Star_Only(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -225,6 +234,7 @@ bool Object_Writer::Brick_With_Star_Only(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_10_Coins(int x, int y) {
+    if (y > 0xB) return false;
     if (this->coinBlockZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_10_COINS, Physics::MIN_OBJECT_LENGTH, true)) {
             this->coinBlockZone = this->MAX_COIN_BLOCK_ZONE;
@@ -238,6 +248,7 @@ bool Object_Writer::Brick_With_10_Coins(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_10_Coins_Only(int x, int y) {
+    if (y > 0xB) return false;
     if (this->coinBlockZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_10_COINS, Physics::MIN_OBJECT_LENGTH, true)) {
             this->coinBlockZone = this->MAX_COIN_BLOCK_ZONE;
@@ -248,6 +259,7 @@ bool Object_Writer::Brick_With_10_Coins_Only(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_1up(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -261,6 +273,7 @@ bool Object_Writer::Brick_With_1up(int x, int y) {
 }
 
 bool Object_Writer::Brick_With_1up_Only(int x, int y) {
+    if (y > 0xB) return false;
     if (this->powerupZone == 0) {
         if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
             this->powerupZone = this->MAX_POWERUP_ZONE;
@@ -271,49 +284,59 @@ bool Object_Writer::Brick_With_1up_Only(int x, int y) {
 }
 
 bool Object_Writer::Used_Block(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, Object_Item::STRING_USED_BLOCK, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Trampoline(int x, int y) {
+    if (y > 0xB) return false;
     return this->Write_Object(x, y, Object_Item::STRING_TRAMPOLINE, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Cannon(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_CANNON, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Island(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_ISLAND, QString::number(length), length, true);
 }
 
 bool Object_Writer::Horizontal_Bricks(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BRICKS, QString::number(length), length, true);
 }
 
 bool Object_Writer::Horizontal_Blocks(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_BLOCKS, QString::number(length), length, true);
 }
 
 bool Object_Writer::Horizontal_Coins(int x, int y, int length) {
+    if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_HORIZONTAL_COINS, QString::number(length), length, false);
 }
 
 bool Object_Writer::Vertical_Bricks(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BRICKS, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
     return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Pipe(int x, int y, int height) {
+    if (y > 0xB) return false;
     if (height < 2 || height > 8) return false;
     return this->Write_Object(x, y, Object_Item::STRING_PIPE, QString::number(height), Physics::PIPE_LENGTH, true);
 }

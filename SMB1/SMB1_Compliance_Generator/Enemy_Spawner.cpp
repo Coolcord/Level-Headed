@@ -79,8 +79,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
             size = this->Spawn_Bridge_Enemy(x, y, lastX, size);
             break;
         case Level_Type::ISLAND:
-            size = 0;
-            break; //TODO: Implement this...
+            size = this->Spawn_Island_Enemy(x, y, lastX, size);
+            break;
         default:
             assert(false);
         }
@@ -187,7 +187,18 @@ int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
 }
 
 int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
-    //TODO: Implement this...
+    //TODO: Add other paratroopa types
+    switch (qrand() % 4) {
+    case 0:
+    case 1:
+    case 2:
+        return this->Common_Enemy(x, y, lastX, size);
+    case 3:
+        return this->Multi_Enemy(x, y, lastX, size);
+    default:
+        assert(false);
+        return 0;
+    }
     return 0;
 }
 

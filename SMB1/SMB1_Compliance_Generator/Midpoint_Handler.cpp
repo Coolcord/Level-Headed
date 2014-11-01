@@ -118,6 +118,9 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         int length = 0x15-absoluteX;
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
+        if (this->levelType == Level_Type::BRIDGE) {
+            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) return false;
+        }
         x = length;
         return true;
     }
