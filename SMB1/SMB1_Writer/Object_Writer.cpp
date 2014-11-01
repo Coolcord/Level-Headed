@@ -159,6 +159,7 @@ bool Object_Writer::Page_Change(int page) {
 }
 
 bool Object_Writer::Reverse_L_Pipe(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x40);
 }
 
@@ -175,41 +176,50 @@ bool Object_Writer::Big_Castle(int x) {
 }
 
 bool Object_Writer::Axe(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x42);
 }
 
 bool Object_Writer::Axe_Rope(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x43);
 }
 
 bool Object_Writer::Bowser_Bridge(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x44);
 }
 
 bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
+    if (this->currentX+x == 0xF) return false;
     if (warpZone) return this->Write_Object(x, 0xD, 0x45);
     else return this->Write_Object(x, 0xD, 0x46);
 }
 
 bool Object_Writer::Flying_Cheep_Cheep_Spawner(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x48);
 }
 
 bool Object_Writer::Swimming_Cheep_Cheep_Spawner(int x) {
+    if (this->currentX+x == 0xF) return false;
     if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() != Level_Attribute::UNDERWATER) return false;
     return this->Write_Object(x, 0xD, 0x49);
 }
 
 bool Object_Writer::Bullet_Bill_Spawner(int x) {
+    if (this->currentX+x == 0xF) return false;
     if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::UNDERWATER) return false;
     return this->Write_Object(x, 0xD, 0x49);
 }
 
 bool Object_Writer::Cancel_Spawner(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x4A);
 }
 
 bool Object_Writer::Loop_Command(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xD, 0x4B);
 }
 
