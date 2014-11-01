@@ -28,17 +28,19 @@ bool Bridge_Generator::Generate_Level() {
         case 6:
         case 7:
         case 8:
-        case 9:     this->Spawn_Simple_Bridge(x); break;
+        case 9:     if (!this->Spawn_Simple_Bridge(x)) assert(this->Spawn_Lone_Bridge(x));
+                    break;
         case 10:
         case 11:
         case 12:
         case 13:
         case 14:
-        case 15:    this->Spawn_Multi_Bridge(x); break;
+        case 15:    if (!this->Spawn_Multi_Bridge(x)) assert(this->Spawn_Lone_Bridge(x));
+                    break;
         case 16:
         case 17:
-        case 18:    this->Spawn_Lone_Bridge(x); break;
-        case 19:    this->Spawn_Lone_Bridge_Series(x); break;
+        case 18:    assert(this->Spawn_Lone_Bridge(x)); break;
+        case 19:    if (!this->Spawn_Lone_Bridge_Series(x)) assert(this->Spawn_Lone_Bridge(x)); break;
         default:    assert(false); return false;
         }
 
@@ -78,13 +80,7 @@ int Bridge_Generator::Get_Bridge_Length() {
 }
 
 int Bridge_Generator::Get_Safe_Jump_Distance(int min) {
-    //Aim for a lower value... but allow higher values to be possible
-    int x = 0;
-    switch (qrand()%2) {
-    case 0:     x = (qrand()%0x4)+1; break;
-    case 1:     x = (qrand()%0x5)+1; break;
-    default:    assert(false); return 0;
-    }
+    int x = (qrand()%0x4)+2;
     x += min;
     if (x > 0x10) x = 0x10;
     return x;
@@ -148,6 +144,8 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+(qrand()%3);
     assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, bridgeLength));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
+    if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(1));
+    else assert(this->object->Flying_Cheep_Cheep_Spawner(0));
 
     return true;
 }
@@ -187,8 +185,8 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
 
     //Allow the Multi Bridge to be uniform in some aspects
     bool uniformDistance = !(static_cast<bool>(qrand()%3));
-    bool uniformHeight = !(static_cast<bool>(qrand()%3));
     bool uniformLength = !(static_cast<bool>(qrand()%3));
+    bool uniformHeight = (static_cast<bool>(qrand()%3));
     if (!y) y = this->Get_Bridge_Y();
     int height = this->Get_Height_From_Y(y);
     int length = this->Get_Bridge_Length();

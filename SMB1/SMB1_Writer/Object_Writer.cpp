@@ -286,6 +286,7 @@ bool Object_Writer::Steps(int x, int width) {
 }
 
 bool Object_Writer::End_Steps(int x) {
+    if (this->currentX+x == 0xF) return false;
     return this->Write_Object(x, 0xF, 0x38);
 }
 

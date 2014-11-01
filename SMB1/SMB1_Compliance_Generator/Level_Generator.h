@@ -19,7 +19,7 @@
 class Level_Generator
 {
 public:
-    Level_Generator(QFile *file, const SMB1_Compliance_Generator_Arguments &args);
+    Level_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     ~Level_Generator();
     virtual bool Generate_Level()=0;
 
@@ -41,6 +41,7 @@ protected:
     End_Spawner *end;
     Midpoint_Handler *midpointHandler;
     First_Page_Handler *firstPageHandler;
+    SMB1_Compliance_Generator_Arguments *args;
 };
 
 #endif // LEVEL_GENERATOR_H

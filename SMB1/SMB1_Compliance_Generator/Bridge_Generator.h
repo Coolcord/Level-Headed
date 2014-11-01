@@ -6,7 +6,7 @@
 class Bridge_Generator : public Level_Generator
 {
 public:
-    Bridge_Generator(QFile *file, const SMB1_Compliance_Generator_Arguments &args) : Level_Generator(file, args) {}
+    Bridge_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {}
     ~Bridge_Generator() {}
     bool Generate_Level();
 private:

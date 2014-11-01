@@ -65,7 +65,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Midpoint_Handler.h \
     Bridge_Generator.h \
     First_Page_Handler.h \
-    SMB1_Compliance_Generator_Arguments.h
+    SMB1_Compliance_Generator_Arguments.h \
+    End_Pattern.h
 OTHER_FILES +=
 
 unix {

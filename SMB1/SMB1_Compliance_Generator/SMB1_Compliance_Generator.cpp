@@ -32,7 +32,7 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     bool success = false;
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
-        success = this->Generate_Standard_Overworld_Level(&file, args);
+        success = this->Generate_Standard_Overworld_Level(&file, &args);
         break;
     case Level_Type::UNDERGROUND:
         success = false;
@@ -44,7 +44,7 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
         success = false;
         break; //TODO: Implement this...
     case Level_Type::BRIDGE:
-        success = this->Generate_Bridge_Level(&file, args);
+        success = this->Generate_Bridge_Level(&file, &args);
         break;
     case Level_Type::ISLAND:
         success = false;
@@ -57,12 +57,12 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     return success;
 }
 
-bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, const SMB1_Compliance_Generator_Arguments &args) {
+bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Standard_Overworld_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
 }
 
-bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, const SMB1_Compliance_Generator_Arguments &args) {
+bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Bridge_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
 }

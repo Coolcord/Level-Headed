@@ -1,19 +1,21 @@
 #include "Level_Generator.h"
 #include <assert.h>
 
-Level_Generator::Level_Generator(QFile *file, const SMB1_Compliance_Generator_Arguments &args) {
+Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     assert(file);
+    assert(args);
+    this->args = args;
     this->header = new Header_Writer(file);
     this->stream = new QTextStream(file);
-    this->object = new Object_Writer(this->stream, args.numObjectBytes);
-    this->enemy = new Enemy_Writer(this->stream, args.numEnemyBytes);
+    this->object = new Object_Writer(this->stream, this->args->numObjectBytes);
+    this->enemy = new Enemy_Writer(this->stream, this->args->numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
     this->enemySpawner = new Enemy_Spawner(file, this->stream, this->enemy);
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
-    this->end = new End_Spawner(this->object, args.endCastle);
+    this->end = new End_Spawner(this->object, this->args);
     this->midpointHandler = new Midpoint_Handler(this->object);
-    this->firstPageHandler = new First_Page_Handler(this->object, args.headerBackground, args.startCastle);
+    this->firstPageHandler = new First_Page_Handler(this->object, this->args->headerBackground, this->args->startCastle);
 }
 
 Level_Generator::~Level_Generator() {

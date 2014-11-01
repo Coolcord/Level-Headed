@@ -92,6 +92,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         absoluteX = this->object->Get_Absolute_X(tmpX);
         //Determine the length
         int length = (0xB-absoluteX)+(qrand()%3);
+        if (length < 3) length = 3;
         if (length > 7) length = 7;
         //Determine a y value
         int y = 0;
