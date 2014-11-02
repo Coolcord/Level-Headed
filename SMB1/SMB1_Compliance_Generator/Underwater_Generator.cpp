@@ -46,7 +46,7 @@ bool Underwater_Generator::Spawn_Intro(int x) {
 
 bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
     if (this->object->Get_Num_Objects_Available() < 2) return false;
-    if (x == 0) ++x;
+    if (x == this->object->Get_Last_Object_Length()) ++x;
 
     //Determine which kind of brick pattern to use
     Brick::Brick brick = Brick::NO_BRICKS;
