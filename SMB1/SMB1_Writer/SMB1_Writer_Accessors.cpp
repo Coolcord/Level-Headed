@@ -3,6 +3,7 @@
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Midpoint_Writer.h"
+#include "Room_Order_Writer.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -44,6 +45,16 @@ bool SMB1_Writer::Header_Brick(Brick::Brick value) {
 bool SMB1_Writer::Header_Midpoint(int value) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->midpointWriter->Set_Midpoint(value);
+}
+
+bool SMB1_Writer::Room_Table_Set_Next_Level(Level::Level level) {
+    if (!this->roomOrderWriter) return false;
+    return this->roomOrderWriter->Set_Next_Level(level);
+}
+
+bool SMB1_Writer::Room_Table_Set_Number_Of_Worlds(int value) {
+    if (!this->roomOrderWriter) return false;
+    return this->roomOrderWriter->Set_Number_Of_Worlds(value);
 }
 
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {

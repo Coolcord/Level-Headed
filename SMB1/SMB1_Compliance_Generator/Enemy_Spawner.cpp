@@ -70,8 +70,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
             size = 0;
             break; //TODO: Implement this...
         case Level_Type::UNDERWATER:
-            size = 0;
-            break; //TODO: Implement this...
+            size = this->Spawn_Underwater_Enemy(x, y, lastX, size);
+            break;
         case Level_Type::CASTLE:
             size = 0;
             break; //TODO: Implement this...
@@ -161,7 +161,18 @@ int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) 
 }
 
 int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
-    //TODO: Implement this...
+    //TODO: This should only be Bloopers and cheep-cheeps
+    switch (qrand() % 4) {
+    case 0:
+    case 1:
+    case 2:
+        return this->Common_Enemy(x, y, lastX, size);
+    case 3:
+        return this->Multi_Enemy(x, y, lastX, size);
+    default:
+        assert(false);
+        return 0;
+    }
     return 0;
 }
 

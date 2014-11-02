@@ -22,6 +22,7 @@ namespace Object_Item {
         HORIZONTAL_COINS,
         VERTICAL_BRICKS,
         VERTICAL_BLOCKS,
+        CORRAL,
         PIPE,
 		ENTERABLE_PIPE,
         HOLE,

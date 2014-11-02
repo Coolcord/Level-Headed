@@ -246,6 +246,10 @@ bool Object_Handler::Vertical_Blocks(const QString &line) {
     return this->writerPlugin->Object_Vertical_Blocks(x, y, height);
 }
 
+bool Object_Handler::Corral(const QString &line) {
+    return this->Vertical_Bricks(line);
+}
+
 bool Object_Handler::Pipe(const QString &line, bool enterable) {
     QStringList elements = line.split(' ');
     if (elements.size() != 5) return false;

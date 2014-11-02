@@ -335,6 +335,12 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
+bool Object_Writer::Corral(int x, int y, int height) {
+    if (y > 0xB) return false;
+    if (height < 1 || height > 16) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_CORRAL, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Pipe(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 2 || height > 8) return false;

@@ -1,5 +1,6 @@
 #include "SMB1_Compliance_Generator.h"
 #include "Standard_Overworld_Generator.h"
+#include "Underwater_Generator.h"
 #include "Bridge_Generator.h"
 #include "Island_Generator.h"
 #include <assert.h>
@@ -39,8 +40,8 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
         success = false;
         break; //TODO: Implement this...
     case Level_Type::UNDERWATER:
-        success = false;
-        break; //TODO: Implement this...
+        success = this->Generate_Underwater_Level(&file, &args);
+        break;
     case Level_Type::CASTLE:
         success = false;
         break; //TODO: Implement this...
@@ -60,6 +61,11 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
 
 bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Standard_Overworld_Generator levelGenerator(file, args);
+    return levelGenerator.Generate_Level();
+}
+
+bool SMB1_Compliance_Generator::Generate_Underwater_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
+    Underwater_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
 }
 

@@ -165,6 +165,8 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
         return this->objectHandler->Vertical_Bricks(line);
     case Object_Item::VERTICAL_BLOCKS:
         return this->objectHandler->Vertical_Blocks(line);
+    case Object_Item::CORRAL:
+        return this->objectHandler->Corral(line);
     case Object_Item::PIPE:
         return this->objectHandler->Pipe(line, false);
     case Object_Item::ENTERABLE_PIPE:

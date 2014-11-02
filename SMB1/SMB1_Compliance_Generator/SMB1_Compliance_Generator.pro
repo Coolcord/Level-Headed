@@ -30,7 +30,8 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Midpoint_Handler.cpp \
     Bridge_Generator.cpp \
     First_Page_Handler.cpp \
-    Island_Generator.cpp
+    Island_Generator.cpp \
+    Underwater_Generator.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -68,7 +69,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     First_Page_Handler.h \
     SMB1_Compliance_Generator_Arguments.h \
     End_Pattern.h \
-    Island_Generator.h
+    Island_Generator.h \
+    Underwater_Generator.h
 OTHER_FILES +=
 
 unix {

@@ -32,6 +32,7 @@ public:
     bool Horizontal_Coins(const QString &line);
     bool Vertical_Bricks(const QString &line);
     bool Vertical_Blocks(const QString &line);
+    bool Corral(const QString &line);
     bool Pipe(const QString &line, bool enterable);
     bool Hole(const QString &line, bool filledWithWater);
     bool Balance_Rope(const QString &line);

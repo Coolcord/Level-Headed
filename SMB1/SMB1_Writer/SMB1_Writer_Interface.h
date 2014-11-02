@@ -36,6 +36,10 @@ public:
     //Midpoint
     virtual bool Header_Midpoint(int value)=0;
 
+    //Room Table
+    virtual bool Room_Table_Set_Next_Level(Level::Level level)=0;
+    virtual bool Room_Table_Set_Number_Of_Worlds(int value)=0;
+
     //Objects
     virtual bool Object_Question_Block_With_Mushroom(int x, int y)=0;
     virtual bool Object_Question_Block_With_Coin(int x, int y)=0;

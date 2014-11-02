@@ -28,7 +28,7 @@ bool Island_Generator::Generate_Level() {
     assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE, Level_Type::ISLAND));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::BRIDGE, Level_Attribute::OVERWORLD, Brick::SURFACE, Background::BLANK_BACKGROUND, Scenery::ONLY_CLOUDS, Level_Compliment::TREES, 400,
+    return this->header->Write_Header(Level_Type::ISLAND, Level_Attribute::OVERWORLD, Brick::SURFACE, Background::BLANK_BACKGROUND, Scenery::ONLY_CLOUDS, Level_Compliment::TREES, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }

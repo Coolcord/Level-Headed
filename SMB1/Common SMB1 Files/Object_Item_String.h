@@ -23,6 +23,7 @@ namespace Object_Item {
     const static QString STRING_HORIZONTAL_COINS = "Horizontal_Coins";
     const static QString STRING_VERTICAL_BRICKS = "Vertical_Bricks";
     const static QString STRING_VERTICAL_BLOCKS = "Vertical_Blocks";
+    const static QString STRING_CORRAL = "Corral";
     const static QString STRING_PIPE = "Pipe";
 	const static QString STRING_ENTERABLE_PIPE = "Enterable_Pipe";
     const static QString STRING_HOLE = "Hole";

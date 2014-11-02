@@ -585,6 +585,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::VERTICAL_BRICKS:
     case Object_Item::VERTICAL_BLOCKS:
+    case Object_Item::CORRAL:
         valid = false;
         y = elements.at(3).toInt(&valid);
         assert(valid);

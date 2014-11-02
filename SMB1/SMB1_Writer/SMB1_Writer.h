@@ -44,6 +44,10 @@ public:
     //Midpoint
     bool Header_Midpoint(int value);
 
+    //Room Table
+    bool Room_Table_Set_Next_Level(Level::Level level);
+    bool Room_Table_Set_Number_Of_Worlds(int value);
+
     //Objects
     bool Object_Question_Block_With_Mushroom(int x, int y);
     bool Object_Question_Block_With_Coin(int x, int y);
