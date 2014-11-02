@@ -8,8 +8,7 @@ class Object_Writer;
 class Midpoint_Handler
 {
 public:
-    Midpoint_Handler(Object_Writer *object);
-    void Set_Level_Type(Level_Type::Level_Type type);
+    Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType);
     void Handle_Midpoint(int &x);
     bool Is_Midpoint_Written();
     int Get_Midpoint();

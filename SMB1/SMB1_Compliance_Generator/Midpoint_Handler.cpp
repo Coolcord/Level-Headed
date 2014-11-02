@@ -4,16 +4,12 @@
 #include <QDebug>
 #include <assert.h>
 
-Midpoint_Handler::Midpoint_Handler(Object_Writer *object) {
+Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType) {
     assert(object);
     this->object = object;
+    this->levelType = levelType;
     this->midpointWritten = false;
     this->midpoint = 0;
-    this->levelType = Level_Type::STANDARD_OVERWORLD;
-}
-
-void Midpoint_Handler::Set_Level_Type(Level_Type::Level_Type type) {
-    this->levelType = type;
 }
 
 void Midpoint_Handler::Handle_Midpoint(int &x) {

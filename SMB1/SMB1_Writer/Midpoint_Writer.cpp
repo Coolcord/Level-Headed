@@ -42,7 +42,7 @@ bool Midpoint_Writer::Write_Midpoints() {
 
 bool Midpoint_Writer::Set_Midpoint(int value) {
     if (value < 0x0 || value > 0xF) return false;
-    QVector<int> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Current_Level();
+    QVector<unsigned char> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Current_Level();
     if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
     for (int i = 0; i < midpointIndexes->size(); ++i) {
         int index = midpointIndexes->at(i);

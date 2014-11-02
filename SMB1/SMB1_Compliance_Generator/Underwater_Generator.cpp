@@ -5,8 +5,6 @@
 #include <assert.h>
 
 bool Underwater_Generator::Generate_Level() {
-    this->midpointHandler->Set_Level_Type(Level_Type::UNDERWATER);
-
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
@@ -32,7 +30,7 @@ bool Underwater_Generator::Generate_Level() {
     }
 
     //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE, Level_Type::UNDERWATER));
+    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
 
     //Write the header last
     return this->header->Write_Header(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, Brick::SURFACE, Background::IN_WATER, Scenery::NO_SCENERY, Level_Compliment::TREES, 400,
@@ -54,9 +52,10 @@ int Underwater_Generator::Get_Underwater_X(int min) {
     return x;
 }
 
-bool Underwater_Generator::Spawn_Intro(int x) {
+bool Underwater_Generator::Spawn_Intro(int &x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
     assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+    x = 0;
     return true;
 }
 

@@ -83,8 +83,15 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
 }
 
 bool End_Spawner::Determine_Underground_End() {
-    //TODO: Implement this...
-    assert(false); return false;
+    switch (qrand()%1) {
+    case 0:
+        this->endPattern = End_Pattern::Shortest;
+        this->endObjectCount = 2;
+        return true;
+    default:
+        assert(false);
+        return false;
+    }
 }
 
 bool End_Spawner::Determine_Underwater_End() {

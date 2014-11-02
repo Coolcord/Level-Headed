@@ -42,7 +42,9 @@ bool Room_Order_Writer::Write_Room_Order_Table() {
 
 bool Room_Order_Writer::Set_Next_Level(Level::Level level) {
     if (this->currentByte >= 36) return false; //no more space!
-    this->buffer->data()[this->currentByte] = static_cast<char>(this->roomIDHandler->Get_Room_ID_From_Level(level)); //write the byte
+    unsigned char roomID = 0;
+    if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
+    this->buffer->data()[this->currentByte] = static_cast<char>(roomID); //write the byte
     ++this->currentByte;
     this->Populate_Midpoint_Indexes_In_Handler();
     return true;
@@ -62,11 +64,11 @@ bool Room_Order_Writer::Set_Number_Of_Worlds(int value) {
     return true;
 }
 
-QVector<int> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(int id) {
-    QVector<int> *midpoints = new QVector<int>();
+QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(unsigned char id) {
+    QVector<unsigned char> *midpoints = new QVector<unsigned char>();
     int midpointIndex = 0;
     for (int i = 0; i < 36; ++i) {
-        int roomID = static_cast<int>(this->buffer->data()[i]);
+        unsigned char roomID = static_cast<unsigned char>(this->buffer->data()[i]);
         if (roomID == id) midpoints->append(midpointIndex);
         if (roomID != 0x29) ++midpointIndex; //don't count the pipe cutscenes
     }
@@ -81,7 +83,7 @@ bool Room_Order_Writer::Write_Number_Of_Worlds_To_Offset(int offset, const QByte
 
 void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {
     this->roomIDHandler->midpointIndexes->clear();
-    foreach (int value, this->roomIDHandler->roomIDs->values()) {
-        this->roomIDHandler->midpointIndexes->insert(value, this->Get_Midpoints_From_Room_Order_Table(value));
+    foreach (unsigned char value, this->roomIDHandler->roomIDs->values()) {
+        this->roomIDHandler->midpointIndexes->insert(static_cast<int>(value), this->Get_Midpoints_From_Room_Order_Table(value));
     }
 }

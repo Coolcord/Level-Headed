@@ -3,8 +3,8 @@
 
 Room_ID_Handler::Room_ID_Handler() {
     this->currentLevel = Level::WORLD_1_LEVEL_1;
-    this->roomIDs = new QMap<Level::Level, int>();
-    this->midpointIndexes = new QMap<int, QVector<int>*>();
+    this->roomIDs = new QMap<Level::Level, unsigned char>();
+    this->midpointIndexes = new QMap<unsigned char, QVector<unsigned char>*>();
     this->Populate_Room_IDs();
 }
 
@@ -12,7 +12,7 @@ Room_ID_Handler::~Room_ID_Handler() {
     delete this->roomIDs;
 
     //Deallocate all of the QVectors
-    foreach (QVector<int> *vector, this->midpointIndexes->values()) {
+    foreach (QVector<unsigned char> *vector, this->midpointIndexes->values()) {
         delete vector;
     }
     delete this->midpointIndexes;
@@ -26,25 +26,26 @@ void Room_ID_Handler::Set_Current_Level(Level::Level level) {
     this->currentLevel = level;
 }
 
-int Room_ID_Handler::Get_Room_ID_From_Level(Level::Level level) {
-    QMap<Level::Level, int>::iterator iter = this->roomIDs->find(level);
-    if (iter == this->roomIDs->end()) return -1; //not found
-    return iter.value();
+bool Room_ID_Handler::Get_Room_ID_From_Level(Level::Level level, unsigned char &id) {
+    QMap<Level::Level, unsigned char>::iterator iter = this->roomIDs->find(level);
+    if (iter == this->roomIDs->end()) return false; //not found
+    id = iter.value();
+    return true;
 }
 
-QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Room_ID(int id) {
-    QMap<int, QVector<int>*>::iterator iter = this->midpointIndexes->find(id);
+QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Room_ID(unsigned char id) {
+    QMap<unsigned char, QVector<unsigned char>*>::iterator iter = this->midpointIndexes->find(id);
     if (iter == this->midpointIndexes->end()) return NULL; //not found
     return iter.value();
 }
 
-QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Current_Level() {
+QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Current_Level() {
     return this->Get_Midpoint_Indexes_From_Level(this->currentLevel);
 }
 
-QVector<int> *Room_ID_Handler::Get_Midpoint_Indexes_From_Level(Level::Level level) {
-    int roomID = this->Get_Room_ID_From_Level(level);
-    if (roomID == -1) return NULL;
+QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Level(Level::Level level) {
+    unsigned char roomID = 0;
+    if (!this->Get_Room_ID_From_Level(level, roomID)) return NULL;
     return this->Get_Midpoint_Indexes_From_Room_ID(roomID);
 }
 
@@ -53,12 +54,13 @@ Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_Curre
 }
 
 Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_Level(Level::Level level) {
-    int id = this->Get_Room_ID_From_Level(level);
+    unsigned char id = 0;
+    assert(this->Get_Room_ID_From_Level(level, id));
     return this->Get_Level_Attribute_From_ID(id);
 }
 
-Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_ID(int id) {
-    int attribute = ((id >> 5) & 0x3);
+Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_ID(unsigned char id) {
+    unsigned char attribute = ((id >> 5) & 0x3);
     switch (attribute) {
     case 0: return Level_Attribute::UNDERWATER;
     case 1: return Level_Attribute::OVERWORLD;

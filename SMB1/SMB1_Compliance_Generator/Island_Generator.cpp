@@ -5,8 +5,6 @@
 #include <assert.h>
 
 bool Island_Generator::Generate_Level() {
-    this->midpointHandler->Set_Level_Type(Level_Type::ISLAND);
-
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
@@ -25,7 +23,7 @@ bool Island_Generator::Generate_Level() {
     }
 
     //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE, Level_Type::ISLAND));
+    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
 
     //Write the header last
     return this->header->Write_Header(Level_Type::ISLAND, Level_Attribute::OVERWORLD, Brick::SURFACE, Background::BLANK_BACKGROUND, Scenery::ONLY_CLOUDS, Level_Compliment::TREES, 400,

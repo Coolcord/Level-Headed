@@ -7,13 +7,14 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies) {
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Level_Type::Level_Type levelType) {
     assert(file);
     assert(stream);
     assert(enemies);
     this->file = file;
     this->stream = stream;
     this->enemies = enemies;
+    this->levelType = levelType;
     this->levelCrawler = new Level_Crawler(this->file);
 }
 
@@ -21,11 +22,10 @@ Enemy_Spawner::~Enemy_Spawner() {
     delete this->levelCrawler;
 }
 
-bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_Type levelType) {
+bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     this->stream->flush();
     *(this->stream) << Level_Type::STRING_BREAK + "\n";
     if (this->stream->status() != QTextStream::Ok) return false;
-    this->levelType = levelType;
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
     int x = 16;
@@ -68,14 +68,14 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
             size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
             break;
         case Level_Type::UNDERGROUND:
-            size = 0;
-            break; //TODO: Implement this...
+            size = this->Spawn_Underground_Enemy(x, y, lastX, size);
+            break;
         case Level_Type::UNDERWATER:
             size = this->Spawn_Underwater_Enemy(x, y, lastX, size);
             break;
         case Level_Type::CASTLE:
-            size = 0;
-            break; //TODO: Implement this...
+            size = this->Spawn_Castle_Enemy(x, y, lastX, size);
+            break;
         case Level_Type::BRIDGE:
             size = this->Spawn_Bridge_Enemy(x, y, lastX, size);
             break;
@@ -97,13 +97,13 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
         if (usePages && this->enemies->Get_Num_Bytes_Left() >= 4) {
             switch (section) {
             case 0:
-                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, firstPageChange, firstEnemyGroup)) ++section;
+                if (this->Spawn_Page_Change(x, y, lastX, firstPageChange, firstEnemyGroup)) ++section;
                 break;
             case 1:
-                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, secondPageChange, secondEnemyGroup)) ++section;
+                if (this->Spawn_Page_Change(x, y, lastX, secondPageChange, secondEnemyGroup)) ++section;
                 break;
             case 2:
-                if (this->Spawn_Page_Change(x, y, lastX, averageDistance, thirdPageChange, thirdEnemyGroup)) ++section;
+                if (this->Spawn_Page_Change(x, y, lastX, thirdPageChange, thirdEnemyGroup)) ++section;
                 break;
             default:
                 break;
@@ -123,7 +123,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     return true;
 }
 
-bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int averageDistance, int page, int enemyAmount) {
+bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount) {
     //Skip the page change if necessary
     if (this->enemies->Get_Current_Page() >= page-1) {
         return true;
@@ -157,8 +157,17 @@ int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int
 }
 
 int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) {
-    //TODO: Implement this...
-    return 0;
+    switch (qrand() % 4) {
+    case 0:
+    case 1:
+    case 2:
+        return this->Common_Enemy(x, y, lastX, size);
+    case 3:
+        return this->Multi_Enemy(x, y, lastX, size);
+    default:
+        assert(false);
+        return 0;
+    }
 }
 
 int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
@@ -167,8 +176,17 @@ int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
 }
 
 int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
-    //TODO: Implement this...
-    return 0;
+    switch (qrand() % 4) {
+    case 0:
+    case 1:
+    case 2:
+        return this->Common_Enemy(x, y, lastX, size);
+    case 3:
+        return this->Multi_Enemy(x, y, lastX, size);
+    default:
+        assert(false);
+        return 0;
+    }
 }
 
 int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
@@ -317,15 +335,26 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     }
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
-    switch (qrand() % 3) {
-    case 0:
-        assert(this->enemies->Goomba(spawnX, tmpY)); break;
-    case 1:
-        assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
-    case 2:
-        assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
-    default:
-        assert(false);
+    if (this->levelType == Level_Type::STANDARD_OVERWORLD) {
+        switch (qrand()%3) {
+        case 0:
+            assert(this->enemies->Goomba(spawnX, tmpY)); break;
+        case 1:
+            assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+        case 2:
+            assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+        default:
+            assert(false);
+        }
+    } else { //don't spawn enemies that don't change colors with the pallette
+        switch (qrand()%2) {
+        case 0:
+            assert(this->enemies->Goomba(spawnX, tmpY)); break;
+        case 1:
+            assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+        default:
+            assert(false);
+        }
     }
     x = tmpX;
     y = tmpY;

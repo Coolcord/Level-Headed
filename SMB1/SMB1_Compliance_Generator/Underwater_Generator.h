@@ -13,7 +13,7 @@ private:
     Underwater_Generator(const Underwater_Generator&);
     Underwater_Generator& operator=(const Underwater_Generator&);
     int Get_Underwater_X(int min);
-    bool Spawn_Intro(int x);
+    bool Spawn_Intro(int &x);
     bool Brick_Pattern_Distraction(int x);
     bool Corral(int x);
     bool Corral_Series(int x);

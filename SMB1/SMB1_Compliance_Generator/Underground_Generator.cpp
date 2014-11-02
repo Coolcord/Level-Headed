@@ -1,22 +1,25 @@
-#include "Standard_Overworld_Generator.h"
+#include "Underground_Generator.h"
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
 #include <assert.h>
 #include <QDebug>
 
-Standard_Overworld_Generator::~Standard_Overworld_Generator() {
+Underground_Generator::~Underground_Generator() {
     delete this->simpleObjectSpawner;
     delete this->commonPatternSpawner;
 }
 
-bool Standard_Overworld_Generator::Generate_Level() {
+bool Underground_Generator::Generate_Level() {
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
 
+    int x = this->object->Get_Last_Object_Length();
+    this->firstPageHandler->Handle_First_Page(x);
+    assert(this->Spawn_Intro(x));
+
     //Create the level
     while (!this->end->Is_End_Written()) {
-        int x = this->object->Get_Last_Object_Length();
-        this->firstPageHandler->Handle_First_Page(x);
+        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
@@ -27,10 +30,19 @@ bool Standard_Overworld_Generator::Generate_Level() {
     }
 
     //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
+    assert(this->enemySpawner->Spawn_Enemies(Brick::ALL));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), Scenery::MOUNTAINS, Level_Compliment::TREES, 400,
+    return this->header->Write_Header(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), Scenery::NO_SCENERY, Level_Compliment::TREES, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
+}
+
+bool Underground_Generator::Spawn_Intro(int &x) {
+    if (this->object->Get_Num_Objects_Available() < 2) return false;
+    this->object->Set_First_Page_Safety(false); //undground levels can ignore the first page safety
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(5, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    x = 4;
+    return true;
 }
