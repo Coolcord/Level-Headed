@@ -13,9 +13,9 @@ bool Underwater_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        int x = this->Get_Safe_Random_X();
+        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
-        x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
+        x = this->Get_Underwater_X(x);
 
         //TODO: Fix probabilities
         //TODO: Add coins to some of the patterns
@@ -28,7 +28,7 @@ bool Underwater_Generator::Generate_Level() {
         default: assert(false); return false;
         }
 
-        assert(this->end->Handle_End(this->Get_Safe_Random_X()));
+        assert(this->end->Handle_End(this->Get_Underwater_X(this->object->Get_Last_Object_Length())));
     }
 
     //Spawn the Enemies
@@ -40,6 +40,20 @@ bool Underwater_Generator::Generate_Level() {
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 
+int Underwater_Generator::Get_Underwater_X(int min) {
+    //Aim for a lower value... but allow higher values to be possible
+    int x = min;
+    switch (qrand()%4) {
+    case 0:     x += (qrand()%0x04); break;
+    case 1:     x += (qrand()%0x06); break;
+    case 2:     x += (qrand()%0x08); break;
+    case 3:     x += (qrand()%0x0A); break;
+    default:    assert(false); return 0;
+    }
+    if (x > 0x10) x = 0x10;
+    return x;
+}
+
 bool Underwater_Generator::Spawn_Intro(int x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
     assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
@@ -49,6 +63,7 @@ bool Underwater_Generator::Spawn_Intro(int x) {
 bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
     if (this->object->Get_Num_Objects_Available() < 2) return false;
     if (x == this->object->Get_Last_Object_Length()) ++x;
+    if (x > 0x10) x = 0x10;
 
     //Determine which kind of brick pattern to use
     Brick::Brick brick = Brick::NO_BRICKS;
@@ -127,7 +142,7 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
             if (blocksY-height < 1) height = (qrand()%(blocksY-2))+2;
             int y = blocksY - height;
             assert(this->object->Corral(x, y, height));
-            x = 0;
+            x = 1;
             --numObjectsAvailable;
         } else {
             ++x;
@@ -145,7 +160,7 @@ bool Underwater_Generator::Hole(int x) {
     if (numObjectsAvailable < 1) return false;
 
     int holeLength = (qrand()%7)+2; //length is from 2 to 8
-    bool sideBarriers = !static_cast<bool>(qrand()%3);
+    bool sideBarriers = static_cast<bool>(qrand()%4);
     int firstHeight = 0;
     int secondHeight = 0;
     if (numObjectsAvailable < 5) sideBarriers = false;
