@@ -31,6 +31,7 @@ public:
     bool Horizontal_Coins(int x, int y, int length);
     bool Vertical_Bricks(int x, int y, int height);
     bool Vertical_Blocks(int x, int y, int height);
+    bool Corral(int x, int y, int height);
     bool Pipe(int x, int y, int height, bool enterable = false);
     bool Hole(int x, int length, bool filledWithWater = false);
     bool Balance_Rope(int x, int length);

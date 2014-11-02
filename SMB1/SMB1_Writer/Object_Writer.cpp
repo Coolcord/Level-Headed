@@ -127,6 +127,7 @@ bool Object_Writer::Horizontal_Coins(int x, int y, int length) {
 bool Object_Writer::Vertical_Bricks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
+    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::UNDERWATER) return false;
     return this->Write_Object(x, y, 0x5, height-1);
 }
 
@@ -134,6 +135,13 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     return this->Write_Object(x, y, 0x6, height-1);
+}
+
+bool Object_Writer::Corral(int x, int y, int height) {
+    if (y > 0xB) return false;
+    if (height > 16 || height < 1) return false;
+    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() != Level_Attribute::UNDERWATER) return false;
+    return this->Write_Object(x, y, 0x5, height-1);
 }
 
 bool Object_Writer::Pipe(int x, int y, int height, bool enterable) {

@@ -68,6 +68,7 @@ public:
     bool Object_Horizontal_Coins(int x, int y, int length);
     bool Object_Vertical_Bricks(int x, int y, int height);
     bool Object_Vertical_Blocks(int x, int y, int height);
+    bool Object_Corral(int x, int y, int height);
     bool Object_Pipe(int x, int y, int height, bool enterable = false);
     bool Object_Hole(int x, int length, bool filledWithWater = false);
     bool Object_Balance_Rope(int x, int length);

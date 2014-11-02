@@ -247,7 +247,13 @@ bool Object_Handler::Vertical_Blocks(const QString &line) {
 }
 
 bool Object_Handler::Corral(const QString &line) {
-    return this->Vertical_Bricks(line);
+    QStringList elements = line.split(' ');
+    if (elements.size() != 5) return false;
+    int x = 0; int y = 0; int height = 0;
+    if (!this->Parse_Num(elements.at(2), x)) return false;
+    if (!this->Parse_Num(elements.at(3), y)) return false;
+    if (!this->Parse_Num(elements.at(4), height)) return false;
+    return this->writerPlugin->Object_Corral(x, y, height);
 }
 
 bool Object_Handler::Pipe(const QString &line, bool enterable) {
