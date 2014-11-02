@@ -18,11 +18,13 @@ bool Underwater_Generator::Generate_Level() {
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
 
         //TODO: Fix probabilities
-        switch (qrand()%4) {
+        //TODO: Add coins to some of the patterns
+        switch (qrand()%5) {
         case 0:     this->Brick_Pattern_Distraction(x); break;
         case 1:     this->Corral(x); break;
         case 2:     this->Corral_Series(x); break;
         case 3:     this->Corral_On_Blocks(x); break;
+        case 4:     this->Hole(x); break;
         default: assert(false); return false;
         }
 
@@ -135,5 +137,32 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
     //Fix the object length
     assert(remainingLength >= 0);
     if (remainingLength > 0) this->object->Increment_Last_Object_Length(remainingLength);
+    return true;
+}
+
+bool Underwater_Generator::Hole(int x) {
+    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    if (numObjectsAvailable < 1) return false;
+
+    int holeLength = (qrand()%7)+2; //length is from 2 to 8
+    bool sideBarriers = !static_cast<bool>(qrand()%3);
+    int firstHeight = 0;
+    int secondHeight = 0;
+    if (numObjectsAvailable < 5) sideBarriers = false;
+
+    //Spawn a hole with uniform side barriers
+    if (sideBarriers) {
+        firstHeight = (qrand()%5)+2; //height is from 2 to 6
+        secondHeight = (qrand()%5)+2;
+        assert(this->object->Vertical_Blocks(x, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
+        assert(this->object->Vertical_Blocks(1, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
+        x = 1;
+    }
+    assert(this->object->Hole(x, holeLength));
+    if (sideBarriers) {
+        assert(this->object->Vertical_Blocks(holeLength, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
+        assert(this->object->Vertical_Blocks(1, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
+        x = 1;
+    }
     return true;
 }

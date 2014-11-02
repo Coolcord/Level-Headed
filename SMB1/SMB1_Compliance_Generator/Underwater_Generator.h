@@ -17,6 +17,7 @@ private:
     bool Corral(int x);
     bool Corral_Series(int x);
     bool Corral_On_Blocks(int x);
+    bool Hole(int x);
 };
 
 #endif // UNDERWATER_GENERATOR_H
