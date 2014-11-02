@@ -4,8 +4,21 @@
 #include <assert.h>
 #include <QDebug>
 
-Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Writer *object) : Object_Spawner(object) {
+Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Writer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
     this->availableObjects = 0;
+    this->levelType = levelType;
+    switch (this->levelType) {
+    case Level_Type::STANDARD_OVERWORLD:
+    case Level_Type::UNDERWATER:
+    case Level_Type::ISLAND:
+    case Level_Type::BRIDGE:
+    case Level_Type::CASTLE:
+        this->minY = Physics::HIGHEST_Y; break;
+    case Level_Type::UNDERGROUND:
+        this->minY = 3; break;
+    default:
+        assert(false);
+    }
 }
 
 bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
@@ -102,6 +115,7 @@ bool Common_Pattern_Spawner::Pipe_Series(int x) {
 
     //Spawn in all the pipes
     int y = this->Get_Random_Pipe_Y(x);
+    if (y < this->minY) y = this->minY;
     assert(this->object->Pipe(x, y, this->Get_Height_From_Y(y)));
     --this->availableObjects;
     for (int i = this->Get_Random_Number(2, 5); this->availableObjects > 0 && i > 0; --i) {
@@ -109,6 +123,7 @@ bool Common_Pattern_Spawner::Pipe_Series(int x) {
         else x = this->Get_Random_Number(this->object->Get_Last_Object_Length(), 6);
         assert(x >= 2);
         int y = this->Get_Random_Pipe_Y(x);
+        if (y < this->minY) y = this->minY;
         assert(this->object->Pipe(x, y, this->Get_Height_From_Y(y)));
         --this->availableObjects;
     }
@@ -159,6 +174,7 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
     //Spawn the initial block
     bool vertical = false;
     int y = this->Get_Safe_Random_Y(x);
+    if (y < this->minY) y = this->minY;
     if (qrand() % 2 == 0) {
         assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
         vertical = true;
@@ -176,13 +192,14 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
             //Possibly go down
             if (qrand() % 2 == 0) y += this->Get_Random_Number(1, 4);
             if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //don't go too low
+            if (y < this->minY) y = this->minY;
             assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, Physics::MAX_OBJECT_LENGTH-1)));
             vertical = false;
         } else {
             y = this->object->Get_Current_Y();
             //Possibly go up
             if (qrand() % 2 == 0) y -= this->Get_Random_Number(1, 4);
-            if (y < 0) y = 0; //don't go too high
+            if (y < this->minY) y = this->minY; //don't go too high
             assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
             vertical = true;
         }
@@ -198,6 +215,7 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
     //Spawn the first Vertical Block
     int y = this->Get_Safe_Random_Y(x);
     if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
+    if (y < this->minY) y = this->minY;
     assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
     --this->availableObjects;
 
@@ -214,7 +232,7 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
                 y += this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);
             }
         }
-        if (y <= 0) y = Physics::HIGHEST_Y;
+        if (y < this->minY) y = this->minY;
         if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
         assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
         --this->availableObjects;

@@ -4,9 +4,20 @@
 #include <assert.h>
 #include <QTime>
 
-Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object) : Object_Spawner::Object_Spawner(object) {
-    assert(object);
-    this->object = object;
+Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object, Level_Type::Level_Type levelType) : Object_Spawner::Object_Spawner(object) {
+    this->levelType = levelType;
+    switch (this->levelType) {
+    case Level_Type::STANDARD_OVERWORLD:
+    case Level_Type::UNDERWATER:
+    case Level_Type::ISLAND:
+    case Level_Type::BRIDGE:
+    case Level_Type::CASTLE:
+        this->minY = Physics::HIGHEST_Y; break;
+    case Level_Type::UNDERGROUND:
+        this->minY = 3; break;
+    default:
+        assert(false);
+    }
 }
 
 int Simple_Object_Spawner::Get_Random_Length() {
@@ -108,6 +119,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
         return this->object->Horizontal_Coins(x, y, length);
     } else if (random <= PROBABILITY_PIPE) {
         int y = this->Get_Random_Pipe_Y(x);
+        if (y < this->minY) y = this->minY;
         int height = Physics::GROUND_Y - y + 1;
         assert(height <= 8);
         return this->object->Pipe(x, y, height);
@@ -124,6 +136,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
         return this->object->Question_Block_With_Coin(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_VERTICAL_BLOCKS) {
         int y = this->Get_Safe_Random_Y(x);
+        if (y < this->minY) y = this->minY;
         int height = Physics::GROUND_Y - y + 1;
         return this->object->Vertical_Blocks(x, y, height);
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_MUSHROOM) {

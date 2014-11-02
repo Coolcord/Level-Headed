@@ -10,8 +10,8 @@ Standard_Overworld_Generator::~Standard_Overworld_Generator() {
 }
 
 bool Standard_Overworld_Generator::Generate_Level() {
-    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
-    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
+    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object, Level_Type::STANDARD_OVERWORLD);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object, Level_Type::STANDARD_OVERWORLD);
 
     //Create the level
     while (!this->end->Is_End_Written()) {

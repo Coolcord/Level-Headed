@@ -11,7 +11,6 @@ bool Underwater_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Underwater_X(x);
 
@@ -27,6 +26,7 @@ bool Underwater_Generator::Generate_Level() {
         }
 
         assert(this->end->Handle_End(this->Get_Underwater_X(this->object->Get_Last_Object_Length())));
+        x = this->object->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies

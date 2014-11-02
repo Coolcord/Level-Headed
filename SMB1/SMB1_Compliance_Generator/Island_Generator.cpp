@@ -11,7 +11,6 @@ bool Island_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Safe_Jump_Distance(x);
 
@@ -20,6 +19,7 @@ bool Island_Generator::Generate_Level() {
         else assert(this->Spawn_Basic_Island(x));
 
         assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length())));
+        x = this->object->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies

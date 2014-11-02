@@ -2,11 +2,12 @@
 #define SIMPLE_OBJECT_SPAWNER_H
 
 #include "Object_Spawner.h"
+#include "../Common SMB1 Files/Level_Type.h"
 
 class Simple_Object_Spawner : public Object_Spawner
 {
 public:
-    Simple_Object_Spawner(Object_Writer *object);
+    Simple_Object_Spawner(Object_Writer *object, Level_Type::Level_Type levelType);
     bool Spawn_Simple_Object(int x);
 
 private:
@@ -17,6 +18,9 @@ private:
     int Get_Random_Steps_Size();
     void Fill_With_Question_Blocks(int y, int length);
     void Fill_With_Question_Blocks_And_Bricks(int y, int length);
+
+    Level_Type::Level_Type levelType;
+    int minY;
 
     //Probabilities for Filling Bricks
     const static int BRICK_NOTHING =                                                                      3000;

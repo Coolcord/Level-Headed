@@ -2,11 +2,12 @@
 #define COMMON_PATTERN_SPAWNER_H
 
 #include "Object_Spawner.h"
+#include "../Common SMB1 Files/Level_Type.h"
 
 class Common_Pattern_Spawner : public Object_Spawner
 {
 public:
-    Common_Pattern_Spawner(Object_Writer *object);
+    Common_Pattern_Spawner(Object_Writer *object, Level_Type::Level_Type levelType);
     bool Spawn_Common_Pattern(int x);
 
 private:
@@ -18,7 +19,9 @@ private:
     bool Vertical_And_Horizontal_Blocks(int x);
     bool Vertical_Blocks(int x);
 
+    Level_Type::Level_Type levelType;
     int availableObjects;
+    int minY;
 };
 
 #endif // COMMON_PATTERN_SPAWNER_H

@@ -11,7 +11,6 @@ bool Bridge_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Safe_Jump_Distance(x);
 
@@ -44,6 +43,7 @@ bool Bridge_Generator::Generate_Level() {
         }
 
         assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length())));
+        x = this->object->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies
@@ -145,6 +145,7 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
     if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(1));
     else assert(this->object->Flying_Cheep_Cheep_Spawner(0));
+    x = 1;
 
     return true;
 }

@@ -10,8 +10,8 @@ Underground_Generator::~Underground_Generator() {
 }
 
 bool Underground_Generator::Generate_Level() {
-    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object);
-    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object);
+    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object, Level_Type::UNDERGROUND);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object, Level_Type::UNDERGROUND);
 
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
@@ -19,7 +19,6 @@ bool Underground_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
@@ -27,6 +26,7 @@ bool Underground_Generator::Generate_Level() {
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
+        x = this->object->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies
