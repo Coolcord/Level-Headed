@@ -12,9 +12,11 @@ public:
 private:
     Underwater_Generator(const Underwater_Generator&);
     Underwater_Generator& operator=(const Underwater_Generator&);
+    bool Spawn_Intro(int x);
     bool Brick_Pattern_Distraction(int x);
     bool Corral(int x);
     bool Corral_Series(int x);
+    bool Corral_On_Blocks(int x);
 };
 
 #endif // UNDERWATER_GENERATOR_H

@@ -62,14 +62,18 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         if (x+(5-absoluteX) > 0x10) return false;
         else x += (5-absoluteX);
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
-        return true;
     } else {
         if (x+(0x15-absoluteX) > 0x10) return false;
         else x += (0x15-absoluteX);
         assert(this->object->Will_Page_Flag_Be_Tripped(x));
         ++page;
-        return true;
     }
+
+    if (this->levelType == Level_Type::UNDERWATER) {
+        assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+        x = 0;
+    }
+    return true;
 }
 
 bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {

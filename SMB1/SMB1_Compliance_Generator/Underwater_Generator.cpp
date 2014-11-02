@@ -7,18 +7,22 @@
 bool Underwater_Generator::Generate_Level() {
     this->midpointHandler->Set_Level_Type(Level_Type::UNDERWATER);
 
+    int x = this->object->Get_Last_Object_Length();
+    this->firstPageHandler->Handle_First_Page(x);
+    assert(this->Spawn_Intro(x));
+
     //Create the level
     while (!this->end->Is_End_Written()) {
         int x = this->Get_Safe_Random_X();
-        this->firstPageHandler->Handle_First_Page(x);
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
 
         //TODO: Fix probabilities
-        switch (qrand()%3) {
+        switch (qrand()%4) {
         case 0:     this->Brick_Pattern_Distraction(x); break;
         case 1:     this->Corral(x); break;
         case 2:     this->Corral_Series(x); break;
+        case 3:     this->Corral_On_Blocks(x); break;
         default: assert(false); return false;
         }
 
@@ -32,6 +36,12 @@ bool Underwater_Generator::Generate_Level() {
     return this->header->Write_Header(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, Brick::SURFACE, Background::IN_WATER, Scenery::NO_SCENERY, Level_Compliment::TREES, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
+}
+
+bool Underwater_Generator::Spawn_Intro(int x) {
+    if (this->object->Get_Num_Objects_Available() < 1) return false;
+    assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+    return true;
 }
 
 bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
@@ -88,5 +98,42 @@ bool Underwater_Generator::Corral_Series(int x) {
         if (!uniformDistance) x = (qrand()%3)+1;
         assert(this->Corral(x));
     }
+    return true;
+}
+
+bool Underwater_Generator::Corral_On_Blocks(int x) {
+    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    if (numObjectsAvailable < 1) return false;
+
+    //Determine the length of the horizontal blocks
+    int length = (qrand()%4)+2; //length should be between 2 and 5
+    int blocksY = (qrand()%8)+3; //y should be between 3 and 8
+    assert(this->object->Horizontal_Blocks(x, blocksY, length));
+    --numObjectsAvailable;
+
+    //Spawn the corral
+    x = 0;
+    int remainingLength = length;
+    for (int i = 0; i < length && numObjectsAvailable > 0; ++i) {
+        if (qrand()%3 == 0) {
+            assert(x <= length);
+            remainingLength -= x;
+            int height = 0;
+            if (qrand()%4 == 0) height = (qrand()%8)+2;
+            else height = (qrand()%4)+2;
+            if (blocksY-height < 1) height = (qrand()%(blocksY-2))+2;
+            int y = blocksY - height;
+            qDebug() << "Y: " <<  y;
+            qDebug() << "Height: " << height;
+            assert(this->object->Corral(x, y, height));
+            --numObjectsAvailable;
+        } else {
+            ++x;
+        }
+    }
+
+    //Fix the object length
+    assert(remainingLength >= 0);
+    if (remainingLength > 0) this->object->Increment_Last_Object_Length(remainingLength);
     return true;
 }
