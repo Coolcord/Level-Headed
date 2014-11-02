@@ -14,6 +14,7 @@ private:
     Underwater_Generator& operator=(const Underwater_Generator&);
     bool Brick_Pattern_Distraction(int x);
     bool Corral(int x);
+    bool Corral_Series(int x);
 };
 
 #endif // UNDERWATER_GENERATOR_H

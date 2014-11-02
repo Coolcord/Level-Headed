@@ -48,6 +48,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     if (!this->file || !this->file->isOpen() || !this->file->isReadable()) return false;
     if (!this->file->reset()) return false;
     this->brick = startingBrick;
+    this->nextBrick = startingBrick;
     this->file = file;
     this->endDetected = false;
     this->safeSize = 0;
@@ -302,7 +303,10 @@ bool Level_Crawler::Is_Coordinate_Safe(int x, int y) {
 void Level_Crawler::Crawl_Forward(int x, int spaces) {
     assert(x >= 0);
     assert(spaces >= 0);
+    bool changeBrick = false;
     for (int i = spaces; i > 0; --i, ++x) {
+        if (changeBrick) this->brick = this->nextBrick; //brick changes don't happen until one space later
+        if (this->brick != this->nextBrick) changeBrick = true;
         switch (this->brick) {
         case Brick::NO_BRICKS:
             continue; //Nothing to do
@@ -398,12 +402,16 @@ void Level_Crawler::Crawl_Forward(int x, int spaces) {
         default: assert(false);
         }
     }
+    if (changeBrick) this->brick = this->nextBrick;
 }
 
 void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSteps) {
     assert(x >= 0);
     assert(spaces >= 0);
+    bool changeBrick = false;
     for (int i = spaces; i > 0; --i, ++x, --holeCrawlSteps) {
+        if (changeBrick) this->brick = this->nextBrick; //brick changes don't happen until one space later
+        if (this->brick != this->nextBrick) changeBrick = true;
         assert(holeCrawlSteps >= 0);
         if (holeCrawlSteps == 0) return this->Crawl_Forward(x, i);
         switch (this->brick) {
@@ -480,6 +488,7 @@ void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSte
         default: assert(false);
         }
     }
+    if (changeBrick) this->brick = this->nextBrick;
 }
 
 void Level_Crawler::Mark_Bad_Coordinate(int x, int y) {
@@ -719,7 +728,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::CHANGE_BRICK_AND_SCENERY:
         brickIter = this->bricks->find(elements.at(3));
         assert(brickIter != this->bricks->end()); //not found
-        this->brick = brickIter.value();
+        this->nextBrick = brickIter.value();
         return true;
     case Object_Item::HIDDEN_BLOCK_WITH_COIN:
     case Object_Item::HIDDEN_BLOCK_WITH_1UP:

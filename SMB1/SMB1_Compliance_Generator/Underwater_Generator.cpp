@@ -15,9 +15,10 @@ bool Underwater_Generator::Generate_Level() {
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
 
         //TODO: Fix probabilities
-        switch (qrand()%2) {
+        switch (qrand()%3) {
         case 0:     this->Brick_Pattern_Distraction(x); break;
         case 1:     this->Corral(x); break;
+        case 2:     this->Corral_Series(x); break;
         default: assert(false); return false;
         }
 
@@ -63,10 +64,29 @@ bool Underwater_Generator::Corral(int x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
 
     //The corral can be anywhere between 2 - 9 in height
-    int y = 0;
-    if (qrand()%2 == 0) y = (qrand()%8)+2;
-    else y = (qrand()%4)+2;
-    int height = Physics::GROUND_Y - y + 1;
+    int height = 0;
+    if (qrand()%4 == 0) height = (qrand()%8)+2;
+    else height = (qrand()%4)+2;
+    int y = Physics::GROUND_Y - height + 1;
     assert(this->object->Corral(x, y, height));
+    return true;
+}
+
+bool Underwater_Generator::Corral_Series(int x) {
+    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    if (numObjectsAvailable < 3) return false;
+
+    //Use between 3 and 5 corral
+    int numCorral = (qrand()%3)+3;
+    if (numCorral > numObjectsAvailable) numCorral = numObjectsAvailable;
+
+    //Spawn the Corral Series
+    bool uniformDistance = static_cast<bool>(qrand()%2);
+    assert(this->Corral(x));
+    x = (qrand()%3)+1;
+    for (int i = 1; i < numCorral; ++i) {
+        if (!uniformDistance) x = (qrand()%3)+1;
+        assert(this->Corral(x));
+    }
     return true;
 }

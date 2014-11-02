@@ -40,6 +40,7 @@ private:
     int Get_Y_From_Key(const QString &key);
 
     Brick::Brick brick;
+    Brick::Brick nextBrick;
     QMap<QString, Brick::Brick> *bricks;
     QFile *file;
     bool endDetected;
