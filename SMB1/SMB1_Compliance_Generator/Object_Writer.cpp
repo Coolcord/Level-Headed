@@ -22,6 +22,10 @@ void Object_Writer::Increment_Last_Object_Length(int value) {
     this->lastObjectLength += value;
 }
 
+void Object_Writer::Set_Last_Object_Length(int value) {
+    this->lastObjectLength = value;
+}
+
 bool Object_Writer::Was_Last_Object_A_Platform() {
     return this->lastObjectIsPlatform;
 }

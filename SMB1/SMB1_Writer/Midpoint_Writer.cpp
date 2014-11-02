@@ -2,6 +2,7 @@
 #include "Level_Offset.h"
 #include "Room_ID_Handler.h"
 #include <QVector>
+#include <QDebug>
 #include <assert.h>
 
 Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_ID_Handler *roomIDHandler) {
@@ -57,7 +58,7 @@ bool Midpoint_Writer::Set_Midpoint(int value) {
         }
 
         unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
-        this->buffer->data()[0] = static_cast<char>(byte);
+        this->buffer->data()[properIndex] = static_cast<char>(byte);
     }
     return true;
 }

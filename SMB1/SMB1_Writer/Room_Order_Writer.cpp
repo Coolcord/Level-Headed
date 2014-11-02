@@ -44,6 +44,7 @@ bool Room_Order_Writer::Set_Next_Level(Level::Level level) {
     if (this->currentByte >= 36) return false; //no more space!
     this->buffer->data()[this->currentByte] = static_cast<char>(this->roomIDHandler->Get_Room_ID_From_Level(level)); //write the byte
     ++this->currentByte;
+    this->Populate_Midpoint_Indexes_In_Handler();
     return true;
 }
 

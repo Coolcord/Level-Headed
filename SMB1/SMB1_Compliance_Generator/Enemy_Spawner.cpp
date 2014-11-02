@@ -25,6 +25,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     this->stream->flush();
     *(this->stream) << Level_Type::STRING_BREAK + "\n";
     if (this->stream->status() != QTextStream::Ok) return false;
+    this->levelType = levelType;
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
     int x = 16;
@@ -62,7 +63,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick, Level_Type::Level_
     x += (averageDistance/2);
     while (this->enemies->Get_Num_Bytes_Left() > 1) {
         //Determine what type of enemies to spawn
-        switch (levelType) {
+        switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
             size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
             break;
@@ -161,19 +162,8 @@ int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) 
 }
 
 int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
-    //TODO: This should only be Bloopers and cheep-cheeps
-    switch (qrand() % 4) {
-    case 0:
-    case 1:
-    case 2:
-        return this->Common_Enemy(x, y, lastX, size);
-    case 3:
-        return this->Multi_Enemy(x, y, lastX, size);
-    default:
-        assert(false);
-        return 0;
-    }
-    return 0;
+    //This should only be Bloopers. Cheep-cheeps will be handled via a spawner
+    return this->Common_Enemy(x, y, lastX, size);
 }
 
 int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
@@ -286,6 +276,13 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int tmpX = x;
     assert(tmpX-lastX > 0);
     int tmpY = y;
+
+    if (this->levelType == Level_Type::UNDERWATER) {
+        int spawnX = x - lastX;
+        y = (qrand()%10)+1;
+        assert(this->enemies->Blooper(spawnX, y));
+        return 1;
+    }
 
     //Try to spawn a Green Paratroopa
     if (qrand() % 5 == 0) {

@@ -33,6 +33,7 @@ private:
     QTextStream *stream;
     Enemy_Writer *enemies;
     Level_Crawler *levelCrawler;
+    Level_Type::Level_Type levelType;
 };
 
 #endif // ENEMY_SPAWNER_H

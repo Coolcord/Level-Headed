@@ -46,6 +46,7 @@ bool Underwater_Generator::Spawn_Intro(int x) {
 
 bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
     if (this->object->Get_Num_Objects_Available() < 2) return false;
+    if (x == 0) ++x;
 
     //Determine which kind of brick pattern to use
     Brick::Brick brick = Brick::NO_BRICKS;
@@ -66,7 +67,7 @@ bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
 
     //The length of the brick pattern will be between 2 and 8
     assert(this->object->Change_Brick_And_Scenery((qrand()%7)+2, Brick::SURFACE, Scenery::NO_SCENERY));
-
+    this->object->Set_Last_Object_Length(2);
     return true;
 }
 
@@ -116,16 +117,15 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
     int remainingLength = length;
     for (int i = 0; i < length && numObjectsAvailable > 0; ++i) {
         if (qrand()%3 == 0) {
-            assert(x <= length);
+            assert(x <= remainingLength);
             remainingLength -= x;
             int height = 0;
             if (qrand()%4 == 0) height = (qrand()%8)+2;
             else height = (qrand()%4)+2;
             if (blocksY-height < 1) height = (qrand()%(blocksY-2))+2;
             int y = blocksY - height;
-            qDebug() << "Y: " <<  y;
-            qDebug() << "Height: " << height;
             assert(this->object->Corral(x, y, height));
+            x = 0;
             --numObjectsAvailable;
         } else {
             ++x;

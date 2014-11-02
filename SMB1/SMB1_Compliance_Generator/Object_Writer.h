@@ -13,6 +13,7 @@ public:
     ~Object_Writer() {}
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
+    void Set_Last_Object_Length(int value);
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();

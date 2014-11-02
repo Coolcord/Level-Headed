@@ -38,14 +38,14 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     qDebug() << "Attempting to generate a new level...";
 
+    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_2));
+
     //Allocate Buffers for a New Level
     if (!this->writerPlugin->New_Level(Level::WORLD_2_LEVEL_2)) {
         this->Shutdown();
         return false;
     }
-
-    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_2));
 
     //Generate the level
     SMB1_Compliance_Generator_Arguments args;
