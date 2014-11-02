@@ -23,12 +23,15 @@ public:
 
 private:
     void Populate_Midpoint_Indexes_In_Handler();
+    bool Update_Room_ID(unsigned char oldID, unsigned char newID);
 
     QFile *file;
     Room_ID_Handler *roomIDHandler;
     Level_Offset *levelOffsets;
     QByteArray *buffer;
     int currentByte;
+
+    friend class Room_ID_Handler;
 };
 
 #endif // ROOM_ORDER_WRITER_H

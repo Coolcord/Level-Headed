@@ -108,6 +108,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
         if (!this->midpointWriter->Read_Midpoints()) return false;
         this->roomOrderWriter = new Room_Order_Writer(this->file, this->levelOffset, this->roomIDHandler);
+        this->roomIDHandler->Set_Room_Order_Writer(this->roomOrderWriter);
         return this->roomOrderWriter->Read_Room_Order_Table();
     } else {
         return false;

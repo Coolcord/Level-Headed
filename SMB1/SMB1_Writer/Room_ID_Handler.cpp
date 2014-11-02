@@ -1,9 +1,11 @@
 #include "Room_ID_Handler.h"
+#include "Room_Order_Writer.h"
 #include <assert.h>
 
 Room_ID_Handler::Room_ID_Handler() {
     this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
+    this->roomOrderWriter = NULL;
     this->midpointIndexes = new QMap<unsigned char, QVector<unsigned char>*>();
     this->Populate_Room_IDs();
 }
@@ -16,6 +18,10 @@ Room_ID_Handler::~Room_ID_Handler() {
         delete vector;
     }
     delete this->midpointIndexes;
+}
+
+void Room_ID_Handler::Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter) {
+    this->roomOrderWriter = roomOrderWriter;
 }
 
 Level::Level Room_ID_Handler::Get_Current_Level() {
@@ -68,6 +74,64 @@ Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_ID(un
     case 3: return Level_Attribute::CASTLE;
     default: assert(false); return Level_Attribute::OVERWORLD;
     }
+}
+
+bool Room_ID_Handler::Change_Current_Level_ID(unsigned char newID) {
+    return this->Change_Level_ID(this->currentLevel, newID);
+}
+
+bool Room_ID_Handler::Change_Level_ID(Level::Level level, unsigned char newID) {
+    unsigned char oldID = 0;
+    if (!this->Get_Room_ID_From_Level(level, oldID)) return false;
+    return this->Change_Room_ID(oldID, newID);
+}
+
+bool Room_ID_Handler::Change_Room_ID(unsigned char oldID, unsigned char newID) {
+    //This function requires access to the Room Order Writer
+    if (!this->roomOrderWriter) return false;
+
+    //Don't allow duplicate IDs
+    if (this->midpointIndexes->keys().contains(newID)) return false;
+
+    //Fix the Room IDs associated with the Level enum
+    bool roomIDSuccess = false;
+    foreach (Level::Level level, this->roomIDs->keys()) {
+        if (this->roomIDs->value(level) == oldID) {
+            assert(this->roomIDs->remove(level) != 0);
+            this->roomIDs->insert(level, newID);
+            roomIDSuccess = true;
+        }
+    }
+    if (!roomIDSuccess) return false;
+
+    //Fix the Room IDs associated with the midpoint indexes
+    bool midpointSuccess = false;
+    foreach (unsigned char roomID, this->midpointIndexes->keys()) {
+        if (roomID == oldID) {
+            QVector<unsigned char> *midpoints = this->midpointIndexes->value(roomID);
+            assert(this->midpointIndexes->remove(roomID) != 0);
+            this->midpointIndexes->insert(roomID, midpoints);
+            midpointSuccess = true;
+        }
+    }
+    if (!midpointSuccess) return false;
+
+    //Fix the Room IDs in the Room Order Writer
+    return this->roomOrderWriter->Update_Room_ID(oldID, newID);
+}
+
+bool Room_ID_Handler::Change_Current_Level_Attribute(Level_Attribute::Level_Attribute attribute) {
+    return this->Change_Level_Attribute(this->currentLevel, attribute);
+}
+
+bool Room_ID_Handler::Change_Level_Attribute(Level::Level level, Level_Attribute::Level_Attribute attribute) {
+    unsigned char id = 0;
+    if (!this->Get_Room_ID_From_Level(level, id)) return false;
+    return this->Change_Room_Attribute(id, attribute);
+}
+
+bool Room_ID_Handler::Change_Room_Attribute(unsigned char id, Level_Attribute::Level_Attribute attribute) {
+
 }
 
 void Room_ID_Handler::Populate_Room_IDs() {
