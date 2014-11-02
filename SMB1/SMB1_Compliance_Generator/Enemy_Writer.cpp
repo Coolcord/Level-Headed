@@ -9,7 +9,7 @@ Enemy_Writer::Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
     if (this->firstEnemy) x += 16;
-    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+    if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
         this->firstEnemy = false;
         return true;
     } else {
@@ -19,7 +19,7 @@ bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters) {
     if (this->firstEnemy) x += 16;
-    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+    if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
         this->firstEnemy = false;
         return true;
     } else {
@@ -30,7 +30,7 @@ bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy, c
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy) {
     if (y > 0xD) return false;
     if (this->firstEnemy) x += 16;
-    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+    if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
         this->firstEnemy = false;
         this->currentY = y;
         return true;
@@ -42,7 +42,7 @@ bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &e
 bool Enemy_Writer::Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters) {
     if (y > 0xD) return false;
     if (this->firstEnemy) x += 16;
-    if (this->Write_Item(ENEMY, x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
+    if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+QString::number(y)+" "+parameters+" "+this->Get_Difficulty_String(onlyHardMode)))) {
         this->firstEnemy = false;
         this->currentY = y;
         return true;
@@ -250,7 +250,7 @@ bool Enemy_Writer::Page_Change(int page) {
     int tmpPage = this->currentPage;
     int tmpLevelLength = this->levelLength;
     assert(this->Handle_Level_Length_On_Page_Change(page));
-    if (this->Write_Item(ENEMY, 0x0, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
+    if (this->Write_Item(0x0, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
         return true; //page skip successful
     } else {
         assert(false);

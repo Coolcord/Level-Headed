@@ -1,7 +1,6 @@
 #ifndef ITEM_WRITER_H
 #define ITEM_WRITER_H
 
-#include "Item_Type.h"
 #include <QTextStream>
 #include <QString>
 
@@ -23,7 +22,7 @@ public:
 protected:
     Item_Writer(const Item_Writer&);
     Item_Writer& operator=(const Item_Writer&);
-    bool Write_Item(Item_Type type, int x, const QString &item);
+    bool Write_Item(int x, const QString &item);
     virtual bool Is_Coordinate_Valid(int coordinate)=0;
     bool Is_Byte_Valid(int byte);
     bool Is_Safe_To_Write_Item(int numBytes = 2);

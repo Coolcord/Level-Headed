@@ -56,7 +56,7 @@ void Object_Writer::Set_End_Object_Count(int value) {
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, bool platform) {
-    if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)))) {
+    if (this->Write_Item(x, QString(object+" "+QString::number(x)))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
         return true;
@@ -75,7 +75,7 @@ bool Object_Writer::Write_Object(int x, const QString &object, int length, bool 
 }
 
 bool Object_Writer::Write_Object(int x, const QString &object, const QString &parameters, bool platform) {
-    if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+parameters))) {
+    if (this->Write_Item(x, QString(object+" "+QString::number(x)+" "+parameters))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
         return true;
@@ -95,7 +95,7 @@ bool Object_Writer::Write_Object(int x, const QString &object, const QString &pa
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object, int length, bool platform) {
     if (!this->Is_Y_Valid(y)) return false;
-    if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)))) {
+    if (this->Write_Item(x, QString(object+" "+QString::number(x)+" "+QString::number(y)))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
         this->currentY = y;
@@ -108,7 +108,7 @@ bool Object_Writer::Write_Object(int x, int y, const QString &object, int length
 
 bool Object_Writer::Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform) {
     if (!this->Is_Y_Valid(y)) return false;
-    if (this->Write_Item(OBJECT, x, QString(object+" "+QString::number(x)+" "+QString::number(y)+" "+parameters))) {
+    if (this->Write_Item(x, QString(object+" "+QString::number(x)+" "+QString::number(y)+" "+parameters))) {
         this->lastObjectIsPlatform = platform;
         this->Handle_Zones(x);
         this->currentY = y;

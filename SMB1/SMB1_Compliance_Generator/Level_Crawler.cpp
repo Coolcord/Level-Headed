@@ -520,11 +520,10 @@ QString Level_Crawler::Make_Key(int x, int y) {
 bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlSteps) {
     if (line == NULL || line.isEmpty()) return false;
     QStringList elements = line.split(' ');
-    if (elements.at(0) != "O:") return false;
 
     //Crawl forward according to the brick pattern
     bool valid = false;
-    int steps = elements.at(2).toInt(&valid);
+    int steps = elements.at(1).toInt(&valid);
     assert(valid);
     if (holeCrawlSteps == 0) this->Crawl_Forward(x, steps);
     else this->Crawl_Forward_With_Hole(x, steps, holeCrawlSteps);
@@ -533,7 +532,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     int length = 0;
     QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->end();
 
-    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(elements.at(1));
+    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(elements.at(0));
     if (iter == this->objects->end()) return false; //not found
     switch (iter.value()) {
     case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
@@ -545,24 +544,24 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::BRICK_WITH_1UP:
     case Object_Item::USED_BLOCK:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         this->Mark_Bad_Coordinate(x, y);
         return true;
     case Object_Item::UNDERWATER_SIDEWAYS_PIPE:
     case Object_Item::TRAMPOLINE:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         this->Mark_Bad_Coordinate(x, y);
         this->Mark_Bad_Coordinate(x, y+1);
         return true;
     case Object_Item::CANNON:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x, i);
@@ -570,10 +569,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::ISLAND:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x+i, y);
@@ -583,10 +582,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::HORIZONTAL_BLOCKS:
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x+i, y);
@@ -596,10 +595,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::VERTICAL_BLOCKS:
     case Object_Item::CORRAL:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x, y+i);
@@ -610,10 +609,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::PIPE:
     case Object_Item::ENTERABLE_PIPE:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x, y+i);
@@ -625,7 +624,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::HOLE:
     case Object_Item::HOLE_WITH_WATER:
         valid = false;
-        length = elements.at(3).toInt(&valid);
+        length = elements.at(2).toInt(&valid);
         assert(valid);
         holeCrawlSteps = length;
         return true;
@@ -634,10 +633,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::BRIDGE:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         valid = false;
-        length = elements.at(4).toInt(&valid);
+        length = elements.at(3).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             this->Mark_Bad_Coordinate(x+i, y);
@@ -645,7 +644,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::PAGE_CHANGE:
         valid = false;
-        length = elements.at(3).toInt(&valid);
+        length = elements.at(2).toInt(&valid);
         assert(valid);
         this->Crawl_Forward(x, (length*16)-x);
         x = length * 16;
@@ -689,7 +688,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::STEPS:
         y = Physics::GROUND_Y;
         valid = false;
-        length = elements.at(3).toInt(&valid);
+        length = elements.at(2).toInt(&valid);
         assert(valid);
         for (int i = 0; i < length; ++i) {
             for (int j = 0; j <= i; ++j) {
@@ -711,7 +710,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::TALL_REVERSE_L_PIPE:
         valid = false;
-        y = elements.at(3).toInt(&valid);
+        y = elements.at(2).toInt(&valid);
         assert(valid);
         this->Mark_Bad_Coordinate(x, y);
         this->Mark_Bad_Coordinate(x, y+1);
@@ -726,7 +725,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         }
         return true;
     case Object_Item::CHANGE_BRICK_AND_SCENERY:
-        brickIter = this->bricks->find(elements.at(3));
+        brickIter = this->bricks->find(elements.at(2));
         assert(brickIter != this->bricks->end()); //not found
         this->nextBrick = brickIter.value();
         return true;

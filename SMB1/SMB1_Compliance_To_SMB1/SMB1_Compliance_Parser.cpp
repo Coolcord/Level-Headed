@@ -78,16 +78,13 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
         line.chop(1); //remove the new line character
-        QList<QByteArray> elements = line.split(' ');
-        if (elements.at(0) == "O:") {
-            if (!this->Parse_Object(line)) {
-                return false;
-            }
-        } else if (line == Level_Type::STRING_BREAK) {
+        if (line == Level_Type::STRING_BREAK) {
             success = true;
             break;
         } else {
-            return false; //line is invalid
+            if (!this->Parse_Object(line)) {
+                return false;
+            }
         }
     } while (!file->atEnd());
 
@@ -101,16 +98,13 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
         line.chop(1); //remove the new line character
-        QList<QByteArray> elements = line.split(' ');
-        if (elements.at(0) == "E:") {
-            if (!this->Parse_Enemy(line)) {
-                return false;
-            }
-        } else if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
+        if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
             success = true;
             break;
         } else {
-            return false; //line is invalid
+            if (!this->Parse_Enemy(line)) {
+                return false;
+            }
         }
     } while (!file->atEnd());
 
@@ -123,7 +117,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file) {
 bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
-    QString object = elements.at(1);
+    QString object = elements.at(0);
     QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(object);
     if (iter == this->objects->end()) return false; //not found
     switch (iter.value()) {
@@ -237,7 +231,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line) {
 bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line) {
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
-    QString enemy = elements.at(1);
+    QString enemy = elements.at(0);
     QMap<QString, Enemy_Item::Enemy_Item>::iterator iter = this->enemies->find(enemy);
     if (iter == this->enemies->end()) return false; //not found
     switch (iter.value()) {

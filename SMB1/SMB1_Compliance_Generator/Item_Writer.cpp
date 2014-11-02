@@ -53,17 +53,10 @@ bool Item_Writer::Will_Page_Flag_Be_Tripped(int x) {
     return (simulatedCurrentX > 0xF);
 }
 
-bool Item_Writer::Write_Item(Item_Type type, int x, const QString &item) {
+bool Item_Writer::Write_Item(int x, const QString &item) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    QString line = "";
-    switch (type) {
-    case OBJECT:        line += "O: "; break;
-    case ENEMY:         line += "E: "; break;
-    case PIPE_POINTER:  line += "E: "; break;
-    default:            return false;
-    }
-    line += item + "\n"; //only use Unix endlines
+    QString line = item + "\n"; //only use Unix endlines
     *(this->stream) << line;
     if (this->stream->status() != QTextStream::Ok) return false;
 
