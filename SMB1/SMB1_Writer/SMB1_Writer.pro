@@ -19,13 +19,13 @@ SOURCES += SMB1_Writer.cpp \
     Object_Writer.cpp \
     Header_Writer.cpp \
     Enemy_Writer.cpp \
-    Level_Pointers_Writer.cpp \
     SMB1_Writer_Accessors.cpp \
     ROM_Handler.cpp \
     ROM_Checksum.cpp \
     Midpoint_Writer.cpp \
     Room_Order_Writer.cpp \
-    Room_ID_Handler.cpp
+    Room_ID_Handler.cpp \
+    Room_Address_Writer.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -39,7 +39,6 @@ HEADERS += SMB1_Writer.h \
     Level_Compliment.h \
     Header_Writer.h \
     Enemy_Writer.h \
-    Level_Pointers_Writer.h \
     ../Common SMB1 Files/Level_Attribute.h \
     ../Common SMB1 Files/Level_Compliment.h \
     ../Common SMB1 Files/Background.h \
@@ -51,7 +50,8 @@ HEADERS += SMB1_Writer.h \
     ROM_Filename.h \
     Midpoint_Writer.h \
     Room_Order_Writer.h \
-    Room_ID_Handler.h
+    Room_ID_Handler.h \
+    Room_Address_Writer.h
 OTHER_FILES +=
 
 unix {

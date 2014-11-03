@@ -14,6 +14,7 @@ class Header_Writer;
 class ROM_Handler;
 class Room_ID_Handler;
 class Room_Order_Writer;
+class Room_Address_Writer;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -159,6 +160,7 @@ private:
     Header_Writer *headerWriter;
     Room_ID_Handler *roomIDHandler;
     Room_Order_Writer *roomOrderWriter;
+    Room_Address_Writer *roomAddressWriter;
     QString applicationLocation;
     QString romFileName;
     QWidget *parent;

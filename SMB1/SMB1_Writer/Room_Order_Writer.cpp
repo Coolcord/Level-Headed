@@ -10,7 +10,7 @@ Room_Order_Writer::Room_Order_Writer(QFile *file, Level_Offset *levelOffsets, Ro
     this->buffer = new QByteArray(36, ' ');
     this->file = file;
     this->roomIDHandler = roomIDHandler;
-    this->levelOffsets = levelOffsets;
+    this->levelOffset = levelOffsets;
     this->currentByte = 0;
 }
 
@@ -20,7 +20,7 @@ Room_Order_Writer::~Room_Order_Writer() {
 
 bool Room_Order_Writer::Read_Room_Order_Table() {
     assert(this->buffer);
-    int offset = this->levelOffsets->Fix_Offset(0x1CCC);
+    int offset = this->levelOffset->Fix_Offset(0x1CCC);
     if (!this->file->seek(offset)) return false;
 
     //Read the Room Order Table from the ROM
@@ -33,7 +33,7 @@ bool Room_Order_Writer::Read_Room_Order_Table() {
 
 bool Room_Order_Writer::Write_Room_Order_Table() {
     assert(this->buffer);
-    int offset = this->levelOffsets->Fix_Offset(0x1CCC);
+    int offset = this->levelOffset->Fix_Offset(0x1CCC);
     if (!this->file->seek(offset)) return false;
 
     //Write the Room Order Table to the ROM
@@ -76,7 +76,7 @@ QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(u
 }
 
 bool Room_Order_Writer::Write_Number_Of_Worlds_To_Offset(int offset, const QByteArray &worldByte) {
-    offset = this->levelOffsets->Fix_Offset(offset);
+    offset = this->levelOffset->Fix_Offset(offset);
     if (!this->file->seek(offset)) return false;
     return (this->file->write(worldByte) == 1);
 }

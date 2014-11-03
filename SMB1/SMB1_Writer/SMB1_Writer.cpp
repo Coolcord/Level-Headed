@@ -8,6 +8,7 @@
 #include "ROM_Handler.h"
 #include "Room_ID_Handler.h"
 #include "Room_Order_Writer.h"
+#include "Room_Address_Writer.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QDir>
@@ -27,6 +28,7 @@ SMB1_Writer::SMB1_Writer() {
     this->headerWriter = NULL;
     this->roomIDHandler = NULL;
     this->roomOrderWriter = NULL;
+    this->roomAddressWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
@@ -50,6 +52,9 @@ void SMB1_Writer::Shutdown() {
     if (!this->roomOrderWriter->Write_Room_Order_Table()) {
         qDebug() << "Unable to write the room order table to the ROM!";
     }
+    if (!this->roomAddressWriter->Write_Room_Address_Tables()) {
+        qDebug() << "Unable to write the room address tables to the ROM!";
+    }
     if (!this->midpointWriter->Write_Midpoints()) {
         qDebug() << "Unable to write the midpoints to the ROM!";
     }
@@ -59,6 +64,7 @@ void SMB1_Writer::Shutdown() {
     delete this->midpointWriter;
     delete this->roomOrderWriter;
     delete this->roomIDHandler;
+    delete this->roomAddressWriter;
 }
 
 bool SMB1_Writer::Create_ROM_Directory() {
@@ -109,7 +115,10 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
         if (!this->midpointWriter->Read_Midpoints()) return false;
         this->roomOrderWriter = new Room_Order_Writer(this->file, this->levelOffset, this->roomIDHandler);
         this->roomIDHandler->Set_Room_Order_Writer(this->roomOrderWriter);
-        return this->roomOrderWriter->Read_Room_Order_Table();
+        if (!this->roomOrderWriter->Read_Room_Order_Table()) return false;
+        this->roomAddressWriter = new Room_Address_Writer(this->file, this->levelOffset);
+        this->roomIDHandler->Set_Room_Address_Writer(this->roomAddressWriter);
+        return this->roomAddressWriter->Read_Room_Address_Tables();
     } else {
         return false;
     }

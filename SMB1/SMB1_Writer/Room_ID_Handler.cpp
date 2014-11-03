@@ -1,11 +1,13 @@
 #include "Room_ID_Handler.h"
 #include "Room_Order_Writer.h"
+#include "Room_Address_Writer.h"
 #include <assert.h>
 
 Room_ID_Handler::Room_ID_Handler() {
     this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
     this->roomOrderWriter = NULL;
+    this->roomAddressWriter = NULL;
     this->midpointIndexes = new QMap<unsigned char, QVector<unsigned char>*>();
     this->Populate_Room_IDs();
 }
@@ -22,6 +24,10 @@ Room_ID_Handler::~Room_ID_Handler() {
 
 void Room_ID_Handler::Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter) {
     this->roomOrderWriter = roomOrderWriter;
+}
+
+void Room_ID_Handler::Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter) {
+    this->roomAddressWriter = roomAddressWriter;
 }
 
 Level::Level Room_ID_Handler::Get_Current_Level() {

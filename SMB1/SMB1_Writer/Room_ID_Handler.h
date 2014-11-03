@@ -7,6 +7,7 @@
 #include <QVector>
 
 class Room_Order_Writer;
+class Room_Address_Writer;
 
 class Room_ID_Handler
 {
@@ -14,6 +15,7 @@ public:
     Room_ID_Handler();
     ~Room_ID_Handler();
     void Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter);
+    void Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter);
     Level::Level Get_Current_Level();
     void Set_Current_Level(Level::Level level);
 
@@ -38,6 +40,7 @@ private:
     QMap<Level::Level, unsigned char> *roomIDs;
     QMap<unsigned char, QVector<unsigned char>*> *midpointIndexes;
     Room_Order_Writer *roomOrderWriter;
+    Room_Address_Writer *roomAddressWriter;
 
     friend class Room_Order_Writer;
 };

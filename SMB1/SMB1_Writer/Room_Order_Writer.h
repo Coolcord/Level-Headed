@@ -12,7 +12,7 @@ class Level_Offset;
 class Room_Order_Writer
 {
 public:
-    Room_Order_Writer(QFile *file, Level_Offset *levelOffsets, Room_ID_Handler *roomIDHandler);
+    Room_Order_Writer(QFile *file, Level_Offset *levelOffset, Room_ID_Handler *roomIDHandler);
     ~Room_Order_Writer();
     bool Read_Room_Order_Table();
     bool Write_Room_Order_Table();
@@ -27,7 +27,7 @@ private:
 
     QFile *file;
     Room_ID_Handler *roomIDHandler;
-    Level_Offset *levelOffsets;
+    Level_Offset *levelOffset;
     QByteArray *buffer;
     int currentByte;
 
