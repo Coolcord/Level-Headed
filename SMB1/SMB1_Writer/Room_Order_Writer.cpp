@@ -82,6 +82,10 @@ bool Room_Order_Writer::Write_Number_Of_Worlds_To_Offset(int offset, const QByte
 }
 
 void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {
+    //Deallocate all of the QVectors
+    foreach (QVector<unsigned char> *vector, this->roomIDHandler->midpointIndexes->values()) {
+        delete vector;
+    }
     this->roomIDHandler->midpointIndexes->clear();
     foreach (unsigned char value, this->roomIDHandler->roomIDs->values()) {
         this->roomIDHandler->midpointIndexes->insert(static_cast<int>(value), this->Get_Midpoints_From_Room_Order_Table(value));

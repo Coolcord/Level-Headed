@@ -34,10 +34,10 @@ public:
     unsigned char Get_Value_From_Attribute(Level_Attribute::Level_Attribute attribute);
 
 private:
-    void Update_Room_IDs(const QMap<Level::Level, unsigned char> &newRoomLevels);
-    void Update_Room_ID(const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level);
-    bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels);
-    bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level);
+    void Update_Room_IDs(unsigned char oldRoomNum, unsigned char newRoomNum, unsigned char oldAttribute, unsigned char newAttribute);
+    void Update_Room_ID(Level::Level level, unsigned char oldRoomNum, unsigned char newRoomNum, unsigned char oldAttribute, unsigned char newAttribute);
+    bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs);
+    bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, Level::Level level);
     Level::Level Get_Base_Level(Level::Level level);
     void Populate_Room_IDs();
 
