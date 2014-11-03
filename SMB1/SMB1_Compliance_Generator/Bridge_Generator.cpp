@@ -11,6 +11,7 @@ bool Bridge_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
+        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Safe_Jump_Distance(x);
 
@@ -43,14 +44,13 @@ bool Bridge_Generator::Generate_Level() {
         }
 
         assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length())));
-        x = this->object->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies
     assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::BRIDGE, Level_Attribute::OVERWORLD, Brick::SURFACE, Background::BLANK_BACKGROUND, Scenery::ONLY_CLOUDS, Level_Compliment::TREES, 400,
+    return this->header->Write_Header(Level_Type::BRIDGE, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }

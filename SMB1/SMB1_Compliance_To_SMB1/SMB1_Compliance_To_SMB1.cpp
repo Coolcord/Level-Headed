@@ -50,14 +50,14 @@ bool SMB1_Compliance_To_SMB1::Run() {
     //Generate the level
     SMB1_Compliance_Generator_Arguments args;
     args.fileName = this->applicationLocation + "/Level_1_1.lvl";
-    args.headerBackground = Background::BLANK_BACKGROUND;
-    args.headerScenery = Scenery::NO_SCENERY;
-    args.levelCompliment = Level_Compliment::TREES;
+    args.headerBackground = Background::NIGHT;
+    args.headerScenery = Scenery::ONLY_CLOUDS;
+    args.levelCompliment = Level_Compliment::MUSHROOMS;
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
     args.startCastle = Castle::NONE;
-    args.endCastle = Castle::SMALL;
-    args.levelType = Level_Type::UNDERGROUND;
+    args.endCastle = Castle::BIG;
+    args.levelType = Level_Type::BRIDGE;
     if (!this->generatorPlugin->Generate_Level(args)) {
         qDebug() << "Looks like the generator blew up";
         this->Shutdown();

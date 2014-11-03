@@ -33,7 +33,7 @@ bool Underground_Generator::Generate_Level() {
     assert(this->enemySpawner->Spawn_Enemies(Brick::ALL));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), Scenery::NO_SCENERY, Level_Compliment::TREES, 400,
+    return this->header->Write_Header(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }

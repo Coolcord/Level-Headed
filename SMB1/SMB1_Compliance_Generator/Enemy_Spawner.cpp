@@ -335,7 +335,10 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     }
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
-    if (this->levelType == Level_Type::STANDARD_OVERWORLD) {
+    switch (this->levelType) {
+    case Level_Type::STANDARD_OVERWORLD:
+    case Level_Type::BRIDGE:
+    case Level_Type::ISLAND:
         switch (qrand()%3) {
         case 0:
             assert(this->enemies->Goomba(spawnX, tmpY)); break;
@@ -346,7 +349,10 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
         default:
             assert(false);
         }
-    } else { //don't spawn enemies that don't change colors with the pallette
+        break;
+    case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
+    case Level_Type::UNDERWATER:
+    case Level_Type::CASTLE:
         switch (qrand()%2) {
         case 0:
             assert(this->enemies->Goomba(spawnX, tmpY)); break;
@@ -355,6 +361,9 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
         default:
             assert(false);
         }
+        break;
+    default:
+        assert(false); return 0;
     }
     x = tmpX;
     y = tmpY;
