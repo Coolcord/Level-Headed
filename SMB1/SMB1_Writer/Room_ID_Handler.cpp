@@ -194,7 +194,7 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
     //Fix the Room Order Table
     for (i = 0; i < 36; ++i) {
         unsigned char id = static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i]);
-        if (((static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i])>>5)&0x3) == oldAttribute) {
+        if (((id>>5)&0x3) == oldAttribute) {
             if (oldRoomNum == (id&0x1F)) {
                 this->roomOrderWriter->buffer->data()[i] = static_cast<char>((newAttribute<<5)|newRoomNum);
             } else if (oldRoomNum < (id&0x1F)) {
@@ -387,13 +387,21 @@ bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Le
             QByteArray buffer(3, ' ');
             if (this->file->read(buffer.data(), 3) != 3) return false; //something went wrong...
             unsigned char roomID = static_cast<unsigned char>(buffer.data()[1]);
+            bool pageFlag = false;
             if (!oldRoomIDs.contains(roomID)) {
-                roomID = (roomID!=0x80); //try the other value
+                roomID = (roomID^0x80); //try the other value
                 if (!oldRoomIDs.contains(roomID)) return false;
             }
+            if (roomID > 0x80) pageFlag = true;
             Level::Level key = oldRoomIDs.value(roomID);
             if (this->roomIDs->contains(key)) {
-                buffer.data()[1] = static_cast<char>(this->roomIDs->value(key));
+                unsigned char properValue = this->roomIDs->value(key);
+                if (pageFlag) {
+                    if (properValue < 0x80) properValue += 0x80;
+                } else {
+                    if (properValue > 0x80) properValue -= 0x80;
+                }
+                buffer.data()[1] = static_cast<char>(properValue);
             }
             enemiesBuffer.append(buffer);
         } else { //typical enemy
