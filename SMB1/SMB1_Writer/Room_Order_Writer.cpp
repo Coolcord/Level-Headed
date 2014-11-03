@@ -81,17 +81,6 @@ bool Room_Order_Writer::Write_Number_Of_Worlds_To_Offset(int offset, const QByte
     return (this->file->write(worldByte) == 1);
 }
 
-bool Room_Order_Writer::Update_Room_ID(unsigned char oldID, unsigned char newID) {
-    bool success = false;
-    for (int i = 0; i < this->buffer->size(); ++i) {
-        if (static_cast<unsigned char>(this->buffer->data()[i]) == oldID) {
-            this->buffer->data()[i] = static_cast<char>(newID);
-            success = true;
-        }
-    }
-    return success;
-}
-
 void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {
     this->roomIDHandler->midpointIndexes->clear();
     foreach (unsigned char value, this->roomIDHandler->roomIDs->values()) {

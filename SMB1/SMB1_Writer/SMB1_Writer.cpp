@@ -150,6 +150,13 @@ bool SMB1_Writer::New_Level(Level::Level level) {
 bool SMB1_Writer::Write_Level() {
     if (!this->file) return false; //the ROM needs to be loaded first
 
+    unsigned char id = 0;
+    assert(this->roomIDHandler->Change_Current_Level_Attribute(Level_Attribute::CASTLE));
+    assert(this->roomIDHandler->Get_Room_ID_From_Level(this->roomIDHandler->Get_Current_Level(), id));
+    qDebug() << "New Room ID: " << id;
+    this->Deallocate_Buffers();
+    return true;
+
     //Make sure the offsets have been set
     if (this->objectOffset == BAD_OFFSET) return false;
     if (this->enemyOffset == BAD_OFFSET) return false;

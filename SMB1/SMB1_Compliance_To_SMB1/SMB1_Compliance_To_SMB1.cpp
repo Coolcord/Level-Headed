@@ -39,10 +39,10 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Attempting to generate a new level...";
 
     assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_2));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
 
     //Allocate Buffers for a New Level
-    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_2)) {
+    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) {
         this->Shutdown();
         return false;
     }
@@ -51,13 +51,13 @@ bool SMB1_Compliance_To_SMB1::Run() {
     SMB1_Compliance_Generator_Arguments args;
     args.fileName = this->applicationLocation + "/Level_1_1.lvl";
     args.headerBackground = Background::BLANK_BACKGROUND;
-    args.headerScenery = Scenery::NO_SCENERY;
+    args.headerScenery = Scenery::MOUNTAINS;
     args.levelCompliment = Level_Compliment::TREES;
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
     args.startCastle = Castle::NONE;
     args.endCastle = Castle::SMALL;
-    args.levelType = Level_Type::UNDERGROUND;
+    args.levelType = Level_Type::STANDARD_OVERWORLD;
     if (!this->generatorPlugin->Generate_Level(args)) {
         qDebug() << "Looks like the generator blew up";
         this->Shutdown();

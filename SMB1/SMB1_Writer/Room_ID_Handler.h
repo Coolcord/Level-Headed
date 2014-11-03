@@ -26,14 +26,15 @@ public:
     Level_Attribute::Level_Attribute Get_Level_Attribute_From_Current_Level();
     Level_Attribute::Level_Attribute Get_Level_Attribute_From_Level(Level::Level level);
     Level_Attribute::Level_Attribute Get_Level_Attribute_From_ID(unsigned char id);
-    bool Change_Current_Level_ID(unsigned char newID);
-    bool Change_Level_ID(Level::Level level, unsigned char newID);
-    bool Change_Room_ID(unsigned char oldID, unsigned char newID);
     bool Change_Current_Level_Attribute(Level_Attribute::Level_Attribute attribute);
     bool Change_Level_Attribute(Level::Level level, Level_Attribute::Level_Attribute attribute);
-    bool Change_Room_Attribute(unsigned char id, Level_Attribute::Level_Attribute attribute);
+    bool Change_Room_Attribute(unsigned char oldRoomID, Level_Attribute::Level_Attribute attribute);
+    unsigned char Get_Value_From_Attribute(Level_Attribute::Level_Attribute attribute);
 
 private:
+    void Update_Room_IDs(const QMap<Level::Level, unsigned char> &newRoomLevels);
+    void Update_Room_ID(const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level);
+    Level::Level Get_Base_Level(Level::Level level);
     void Populate_Room_IDs();
 
     Level::Level currentLevel;

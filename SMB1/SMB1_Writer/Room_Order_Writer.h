@@ -23,13 +23,14 @@ public:
 
 private:
     void Populate_Midpoint_Indexes_In_Handler();
-    bool Update_Room_ID(unsigned char oldID, unsigned char newID);
 
     QFile *file;
     Room_ID_Handler *roomIDHandler;
     Level_Offset *levelOffset;
     QByteArray *buffer;
     int currentByte;
+
+    //TODO: Fix the World Numbers at offset 0x1CC4 (it's the header for the room id table)
 
     friend class Room_ID_Handler;
 };

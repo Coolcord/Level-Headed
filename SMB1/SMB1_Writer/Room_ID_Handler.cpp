@@ -82,50 +82,6 @@ Level_Attribute::Level_Attribute Room_ID_Handler::Get_Level_Attribute_From_ID(un
     }
 }
 
-bool Room_ID_Handler::Change_Current_Level_ID(unsigned char newID) {
-    return this->Change_Level_ID(this->currentLevel, newID);
-}
-
-bool Room_ID_Handler::Change_Level_ID(Level::Level level, unsigned char newID) {
-    unsigned char oldID = 0;
-    if (!this->Get_Room_ID_From_Level(level, oldID)) return false;
-    return this->Change_Room_ID(oldID, newID);
-}
-
-bool Room_ID_Handler::Change_Room_ID(unsigned char oldID, unsigned char newID) {
-    //This function requires access to the Room Order Writer
-    if (!this->roomOrderWriter) return false;
-
-    //Don't allow duplicate IDs
-    if (this->midpointIndexes->keys().contains(newID)) return false;
-
-    //Fix the Room IDs associated with the Level enum
-    bool roomIDSuccess = false;
-    foreach (Level::Level level, this->roomIDs->keys()) {
-        if (this->roomIDs->value(level) == oldID) {
-            assert(this->roomIDs->remove(level) != 0);
-            this->roomIDs->insert(level, newID);
-            roomIDSuccess = true;
-        }
-    }
-    if (!roomIDSuccess) return false;
-
-    //Fix the Room IDs associated with the midpoint indexes
-    bool midpointSuccess = false;
-    foreach (unsigned char roomID, this->midpointIndexes->keys()) {
-        if (roomID == oldID) {
-            QVector<unsigned char> *midpoints = this->midpointIndexes->value(roomID);
-            assert(this->midpointIndexes->remove(roomID) != 0);
-            this->midpointIndexes->insert(roomID, midpoints);
-            midpointSuccess = true;
-        }
-    }
-    if (!midpointSuccess) return false;
-
-    //Fix the Room IDs in the Room Order Writer
-    return this->roomOrderWriter->Update_Room_ID(oldID, newID);
-}
-
 bool Room_ID_Handler::Change_Current_Level_Attribute(Level_Attribute::Level_Attribute attribute) {
     return this->Change_Level_Attribute(this->currentLevel, attribute);
 }
@@ -136,8 +92,199 @@ bool Room_ID_Handler::Change_Level_Attribute(Level::Level level, Level_Attribute
     return this->Change_Room_Attribute(id, attribute);
 }
 
-bool Room_ID_Handler::Change_Room_Attribute(unsigned char id, Level_Attribute::Level_Attribute attribute) {
+bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attribute::Level_Attribute attribute) {
+    //This function requires access to the Room Order Writer
+    if (!this->roomOrderWriter) return false;
+    //This function requires access to the Room Address Writer
+    if (!this->roomAddressWriter) return false;
 
+    //Get the values of the attributes
+    unsigned char newAttribute = this->Get_Value_From_Attribute(attribute);
+    unsigned char oldAttribute = ((oldRoomID>>5)&0x3);
+    unsigned char oldRoomNum = (oldRoomID&0x1F);
+    unsigned char i = 0;
+    if (newAttribute == oldAttribute) return true; //nothing to do
+
+    //Copy the Room IDs
+    QMap<unsigned char, Level::Level> oldRoomIDs;
+    foreach (unsigned char value, this->roomIDs->values()) {
+        oldRoomIDs.insert(value, this->roomIDs->key(value));
+    }
+
+    //Copy the Room Order
+    QVector<Level::Level> oldRoomOrder;
+    for (i = 0; i < 36; ++i) {
+        assert(oldRoomIDs.contains(this->roomOrderWriter->buffer->data()[i]));
+        oldRoomOrder.append(oldRoomIDs[this->roomOrderWriter->buffer->data()[i]]);
+    }
+
+    //Copy the Header Address Tables
+    QByteArray oldObjectsHeaderBuffer = *(this->roomAddressWriter->objectsHeaderBuffer);
+    QByteArray oldEnemiesHeaderBuffer = *(this->roomAddressWriter->enemiesHeaderBuffer);
+
+    //Fix the Enemy Header
+    for (i = 0; i < 4; ++i) {
+        if (static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[i]) > static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[newAttribute])) {
+            ++(this->roomAddressWriter->enemiesHeaderBuffer->data()[i]);
+        }
+    }
+    for (i = 0; i < 4; ++i) {
+        if (static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[i]) > static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[oldAttribute])) {
+            --(this->roomAddressWriter->enemiesHeaderBuffer->data()[i]);
+        }
+    }
+
+    //Fix the Object Header
+    for (i = 0; i < 4; ++i) {
+        if (static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[i]) > static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[newAttribute])) {
+            ++(this->roomAddressWriter->objectsHeaderBuffer->data()[i]);
+        }
+    }
+    for (i = 0; i < 4; ++i) {
+        if (static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[i]) > static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[oldAttribute])) {
+            --(this->roomAddressWriter->objectsHeaderBuffer->data()[i]);
+        }
+    }
+
+    //Get a new room ID
+    unsigned char addressLength = 34;
+    for (i = 0; i < 4; ++i) {
+        if (static_cast<unsigned char>(this->roomAddressWriter->enemiesHeaderBuffer->data()[i]) > static_cast<unsigned char>(this->roomAddressWriter->enemiesHeaderBuffer->data()[newAttribute])
+            && addressLength > static_cast<unsigned char>(this->roomAddressWriter->enemiesHeaderBuffer->data()[i])) {
+            addressLength = static_cast<unsigned char>(this->roomAddressWriter->enemiesHeaderBuffer->data()[i]);
+        }
+    }
+    unsigned char newRoomNum = addressLength-static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[newAttribute])-1;
+
+    //Fix the enemy addresses
+    unsigned char tmpLowByte = static_cast<unsigned char>(this->roomAddressWriter->lowEnemyBuffer->data()[static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[oldAttribute])+oldRoomNum]);
+    unsigned char tmpHighByte = static_cast<unsigned char>(this->roomAddressWriter->highEnemyBuffer->data()[static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[oldAttribute])+oldRoomNum]);
+    for (i = static_cast<unsigned char>(oldEnemiesHeaderBuffer.data()[oldAttribute])+oldRoomNum; i < 33; ++i) {
+        this->roomAddressWriter->lowEnemyBuffer->data()[i] = this->roomAddressWriter->lowEnemyBuffer->data()[i+1];
+        this->roomAddressWriter->highEnemyBuffer->data()[i] = this->roomAddressWriter->highEnemyBuffer->data()[i+1];
+    }
+    for (i = 33; i > static_cast<unsigned char>(this->roomAddressWriter->enemiesHeaderBuffer->data()[newAttribute])+newRoomNum; --i) {
+        this->roomAddressWriter->lowEnemyBuffer->data()[i] = this->roomAddressWriter->lowEnemyBuffer->data()[i-1];
+        this->roomAddressWriter->highEnemyBuffer->data()[i] = this->roomAddressWriter->highEnemyBuffer->data()[i-1];
+    }
+    this->roomAddressWriter->lowEnemyBuffer->data()[i] = static_cast<char>(tmpLowByte);
+    this->roomAddressWriter->highEnemyBuffer->data()[i] = static_cast<char>(tmpHighByte);
+
+
+    //Fix the object addresses
+    tmpLowByte = static_cast<unsigned char>(this->roomAddressWriter->lowObjectBuffer->data()[static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[oldAttribute])+oldRoomNum]);
+    tmpHighByte = static_cast<unsigned char>(this->roomAddressWriter->highObjectBuffer->data()[static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[oldAttribute])+oldRoomNum]);
+    for (i = static_cast<unsigned char>(oldObjectsHeaderBuffer.data()[oldAttribute])+oldRoomNum; i < 33; ++i) {
+        this->roomAddressWriter->lowObjectBuffer->data()[i] = this->roomAddressWriter->lowObjectBuffer->data()[i+1];
+        this->roomAddressWriter->highObjectBuffer->data()[i] = this->roomAddressWriter->highObjectBuffer->data()[i+1];
+    }
+    for (i = 33; i > static_cast<unsigned char>(this->roomAddressWriter->objectsHeaderBuffer->data()[newAttribute])+newRoomNum; --i) {
+        this->roomAddressWriter->lowObjectBuffer->data()[i] = this->roomAddressWriter->lowObjectBuffer->data()[i-1];
+        this->roomAddressWriter->highObjectBuffer->data()[i] = this->roomAddressWriter->highObjectBuffer->data()[i-1];
+    }
+    this->roomAddressWriter->lowObjectBuffer->data()[i] = static_cast<char>(tmpLowByte);
+    this->roomAddressWriter->highObjectBuffer->data()[i] = static_cast<char>(tmpHighByte);
+
+    //Fix the Room Order Table
+    for (i = 0; i < 36; ++i) {
+        unsigned char id = static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i]);
+        if (oldRoomNum == (id&0x1F)) {
+            this->roomOrderWriter->buffer->data()[i] = static_cast<char>((newAttribute<<5)|newRoomNum);
+        } else if (newRoomNum < (id&0x1F)) {
+            --id;
+            this->roomOrderWriter->buffer->data()[i] = static_cast<char>(id);
+        }
+    }
+
+    //Run through the Room Order Table and update the Room IDs that have changed
+    QMap<unsigned char, Level::Level> newRoomIDs;
+    QMap<Level::Level, unsigned char> newRoomLevels;
+    for (i = 0; i < 36; ++i) {
+        newRoomIDs.insert(this->roomOrderWriter->buffer->data()[i], oldRoomOrder.at(i));
+        newRoomLevels.insert(oldRoomOrder.at(i), this->roomOrderWriter->buffer->data()[i]);
+    }
+    this->Update_Room_IDs(newRoomLevels);
+    this->roomOrderWriter->Populate_Midpoint_Indexes_In_Handler();
+
+    //TODO: Fix Pipe Pointers
+
+    return true;
+}
+
+unsigned char Room_ID_Handler::Get_Value_From_Attribute(Level_Attribute::Level_Attribute attribute) {
+    switch (attribute) {
+    case Level_Attribute::UNDERWATER:   return 0;
+    case Level_Attribute::OVERWORLD:    return 1;
+    case Level_Attribute::UNDERGROUND:  return 2;
+    case Level_Attribute::CASTLE:       return 3;
+    default:                            assert(false); return 0;
+    }
+}
+
+void Room_ID_Handler::Update_Room_IDs(const QMap<Level::Level, unsigned char> &newRoomLevels) {
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_1_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_1_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_1_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_1_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_2_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_2_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_2_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_2_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_3_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_3_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_3_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_3_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_4_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_4_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_4_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_4_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_5_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_5_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_5_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_5_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_6_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_6_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_6_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_6_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_7_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_7_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_7_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_7_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_8_LEVEL_1);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_8_LEVEL_2);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_8_LEVEL_3);
+    this->Update_Room_ID(newRoomLevels, Level::WORLD_8_LEVEL_4);
+    this->Update_Room_ID(newRoomLevels, Level::PIPE_INTRO);
+    this->Update_Room_ID(newRoomLevels, Level::UNDERWATER_BONUS);
+    this->Update_Room_ID(newRoomLevels, Level::UNDERWATER_CASTLE);
+    this->Update_Room_ID(newRoomLevels, Level::CLOUD_BONUS_1);
+    this->Update_Room_ID(newRoomLevels, Level::CLOUD_BONUS_2);
+    this->Update_Room_ID(newRoomLevels, Level::UNDERGROUND_BONUS);
+}
+
+void Room_ID_Handler::Update_Room_ID(const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level) {
+    Level::Level baseLevel = this->Get_Base_Level(level);
+    if (newRoomLevels.contains(baseLevel)) {
+        this->roomIDs->remove(level);
+        this->roomIDs->insert(level, newRoomLevels[baseLevel]);
+    }
+}
+
+Level::Level Room_ID_Handler::Get_Base_Level(Level::Level level) {
+    switch (level) {
+    case Level::WORLD_1_LEVEL_2:   return Level::WORLD_1_LEVEL_2;
+    case Level::WORLD_1_LEVEL_3:
+    case Level::WORLD_5_LEVEL_3:   return Level::WORLD_1_LEVEL_3;
+    case Level::WORLD_1_LEVEL_4:
+    case Level::WORLD_6_LEVEL_4:   return Level::WORLD_1_LEVEL_4;
+    case Level::WORLD_2_LEVEL_2:
+    case Level::WORLD_7_LEVEL_2:   return Level::WORLD_2_LEVEL_2;
+    case Level::WORLD_2_LEVEL_3:
+    case Level::WORLD_7_LEVEL_3:   return Level::WORLD_2_LEVEL_3;
+    case Level::WORLD_2_LEVEL_4:
+    case Level::WORLD_5_LEVEL_4:   return Level::WORLD_2_LEVEL_4;
+    default:                       return level;
+    }
 }
 
 void Room_ID_Handler::Populate_Room_IDs() {
