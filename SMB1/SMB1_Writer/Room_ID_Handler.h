@@ -3,16 +3,18 @@
 
 #include "../Common SMB1 Files/Level.h"
 #include "../Common SMB1 Files/Level_Attribute.h"
+#include <QFile>
 #include <QMap>
 #include <QVector>
 
+class Level_Offset;
 class Room_Order_Writer;
 class Room_Address_Writer;
 
 class Room_ID_Handler
 {
 public:
-    Room_ID_Handler();
+    Room_ID_Handler(QFile *file, Level_Offset *levelOffset);
     ~Room_ID_Handler();
     void Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter);
     void Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter);
@@ -34,10 +36,14 @@ public:
 private:
     void Update_Room_IDs(const QMap<Level::Level, unsigned char> &newRoomLevels);
     void Update_Room_ID(const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level);
+    bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels);
+    bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level);
     Level::Level Get_Base_Level(Level::Level level);
     void Populate_Room_IDs();
 
+    QFile *file;
     Level::Level currentLevel;
+    Level_Offset *levelOffset;
     QMap<Level::Level, unsigned char> *roomIDs;
     QMap<unsigned char, QVector<unsigned char>*> *midpointIndexes;
     Room_Order_Writer *roomOrderWriter;

@@ -85,7 +85,7 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
     if (attributeIter == this->attributes->end()) return false; //not found
     if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) return false;
-    //TODO: Add support for setting the attribute
+    if (!this->writerPlugin->Header_Attribute(attributeIter.value())) return false;
 
     //Brick
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_BRICK + ":", lineNum);

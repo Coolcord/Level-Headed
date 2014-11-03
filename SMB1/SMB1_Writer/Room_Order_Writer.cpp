@@ -70,7 +70,7 @@ QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(u
     for (int i = 0; i < 36; ++i) {
         unsigned char roomID = static_cast<unsigned char>(this->buffer->data()[i]);
         if (roomID == id) midpoints->append(midpointIndex);
-        if (roomID != 0x29) ++midpointIndex; //don't count the pipe cutscenes
+        if (roomID != this->roomIDHandler->roomIDs->value(Level::PIPE_INTRO)) ++midpointIndex; //don't count the pipe cutscenes
     }
     return midpoints;
 }

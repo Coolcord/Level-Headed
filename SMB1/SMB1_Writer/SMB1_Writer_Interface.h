@@ -32,8 +32,7 @@ public:
     virtual bool Header_Level_Compliment(Level_Compliment::Level_Compliment value)=0;
     virtual bool Header_Scenery(Scenery::Scenery value)=0;
     virtual bool Header_Brick(Brick::Brick value)=0;
-
-    //Midpoint
+    virtual bool Header_Attribute(Level_Attribute::Level_Attribute attribute)=0;
     virtual bool Header_Midpoint(int value)=0;
 
     //Room Table

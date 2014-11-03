@@ -1,10 +1,16 @@
 #include "Room_ID_Handler.h"
 #include "Room_Order_Writer.h"
 #include "Room_Address_Writer.h"
+#include "Level_Offset.h"
+#include "Binary_Manipulator.h"
 #include <assert.h>
 
-Room_ID_Handler::Room_ID_Handler() {
+Room_ID_Handler::Room_ID_Handler(QFile *file, Level_Offset *levelOffset) {
+    assert(file);
+    assert(levelOffset);
+    this->file = file;
     this->currentLevel = Level::WORLD_1_LEVEL_1;
+    this->levelOffset = levelOffset;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;
@@ -14,7 +20,6 @@ Room_ID_Handler::Room_ID_Handler() {
 
 Room_ID_Handler::~Room_ID_Handler() {
     delete this->roomIDs;
-
     //Deallocate all of the QVectors
     foreach (QVector<unsigned char> *vector, this->midpointIndexes->values()) {
         delete vector;
@@ -106,10 +111,7 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
     if (newAttribute == oldAttribute) return true; //nothing to do
 
     //Copy the Room IDs
-    QMap<unsigned char, Level::Level> oldRoomIDs;
-    foreach (unsigned char value, this->roomIDs->values()) {
-        oldRoomIDs.insert(value, this->roomIDs->key(value));
-    }
+    QMap<unsigned char, Level::Level> oldRoomIDs = *(this->roomIDs);
 
     //Copy the Room Order
     QVector<Level::Level> oldRoomOrder;
@@ -196,17 +198,19 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
         }
     }
 
+    //Fix the Room IDs
+    //foreach (unsigned char value, this->roomIDs)
+
     //Run through the Room Order Table and update the Room IDs that have changed
-    QMap<unsigned char, Level::Level> newRoomIDs;
-    QMap<Level::Level, unsigned char> newRoomLevels;
+    QMap<Level::Level, unsigned char> newRoomLevels = oldRoomLevels;
     for (i = 0; i < 36; ++i) {
-        newRoomIDs.insert(this->roomOrderWriter->buffer->data()[i], oldRoomOrder.at(i));
         newRoomLevels.insert(oldRoomOrder.at(i), this->roomOrderWriter->buffer->data()[i]);
     }
     this->Update_Room_IDs(newRoomLevels);
     this->roomOrderWriter->Populate_Midpoint_Indexes_In_Handler();
 
-    //TODO: Fix Pipe Pointers
+    //Fix Pipe Pointers
+    if (!this->Update_Pipe_Pointers(oldRoomIDs, newRoomLevels)) return false;
 
     return true;
 }
@@ -260,14 +264,88 @@ void Room_ID_Handler::Update_Room_IDs(const QMap<Level::Level, unsigned char> &n
     this->Update_Room_ID(newRoomLevels, Level::CLOUD_BONUS_1);
     this->Update_Room_ID(newRoomLevels, Level::CLOUD_BONUS_2);
     this->Update_Room_ID(newRoomLevels, Level::UNDERGROUND_BONUS);
+    this->Update_Room_ID(newRoomLevels, Level::WARP_ZONE);
 }
 
 void Room_ID_Handler::Update_Room_ID(const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level) {
     Level::Level baseLevel = this->Get_Base_Level(level);
     if (newRoomLevels.contains(baseLevel)) {
         this->roomIDs->remove(level);
-        this->roomIDs->insert(level, newRoomLevels[baseLevel]);
+        this->roomIDs->insert(level, newRoomLevels.value(baseLevel));
     }
+}
+
+bool Room_ID_Handler::Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels) {
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_1_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_1_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_1_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_1_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_2_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_2_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_2_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_2_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_3_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_3_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_3_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_3_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_4_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_4_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_4_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_4_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_5_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_5_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_6_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_6_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_6_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_7_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_7_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_8_LEVEL_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_8_LEVEL_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_8_LEVEL_3)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::WORLD_8_LEVEL_4)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::UNDERWATER_BONUS)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::UNDERWATER_CASTLE)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::CLOUD_BONUS_1)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::CLOUD_BONUS_2)) return false;
+    if (!this->Update_Pipe_Pointers_At_Level(oldRoomIDs, newRoomLevels, Level::UNDERGROUND_BONUS)) return false;
+    return true;
+}
+
+bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, const QMap<Level::Level, unsigned char> &newRoomLevels, Level::Level level) {
+    if (this->currentLevel == level) return true; //don't bother messing with the current level, as it will be written later
+    int offset = this->levelOffset->Get_Level_Enemy_Offset(level);
+    if (offset == BAD_OFFSET) return false;
+    if (offset == 0) return true; //nothing to read
+    if (!this->file->seek(offset)) return false;
+
+    //Read the enemies from the level, fixing Pipe Pointers along the way
+    QByteArray enemiesBuffer;
+    for (QByteArray coordinate = this->file->peek(1); !coordinate.isEmpty() &&
+         static_cast<unsigned char>(coordinate.data()[0]) != 0xFF; coordinate = this->file->peek(1)) {
+        if (Binary_Manipulator::Get_Second_Digit_From_Hex(static_cast<unsigned char>(coordinate[0])) == 0xE) { //pipe pointer
+            QByteArray buffer(3, ' ');
+            if (this->file->read(buffer.data(), 3) != 3) return false; //something went wrong...
+            unsigned char roomID = static_cast<unsigned char>(buffer.data()[1]);
+            if (!oldRoomIDs.contains(roomID)) {
+                roomID = (roomID!=0x80); //try the other value
+                if (!oldRoomIDs.contains(roomID)) return false;
+            }
+            Level::Level key = oldRoomIDs.value(roomID);
+            if (newRoomLevels.contains(key)) {
+                buffer.data()[1] = static_cast<char>(newRoomLevels.value(key));
+            }
+            enemiesBuffer.append(buffer);
+        } else { //typical enemy
+            QByteArray buffer(2, ' ');
+            if (this->file->read(buffer.data(), 2) != 2) return false; //something went wrong...
+            enemiesBuffer.append(buffer);
+        }
+    }
+
+    //Write the enemies back to the ROM
+    if (enemiesBuffer.isEmpty()) return true; //nothing to write
+    if (!this->file->seek(offset)) return false;
+    return this->file->write(enemiesBuffer.data(), enemiesBuffer.length()) == enemiesBuffer.length();
 }
 
 Level::Level Room_ID_Handler::Get_Base_Level(Level::Level level) {
@@ -326,5 +404,6 @@ void Room_ID_Handler::Populate_Room_IDs() {
     this->roomIDs->insert(Level::UNDERWATER_CASTLE, 0x02);
     this->roomIDs->insert(Level::CLOUD_BONUS_1, 0x2B);
     this->roomIDs->insert(Level::CLOUD_BONUS_2, 0x34);
-    this->roomIDs->insert(Level::UNDERGROUND_BONUS, 0x42);
+    this->roomIDs->insert(Level::UNDERGROUND_BONUS, 0xC2);
+    this->roomIDs->insert(Level::WARP_ZONE, 0x2F);
 }

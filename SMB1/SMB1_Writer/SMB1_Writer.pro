@@ -13,7 +13,6 @@ TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Wall
 
 SOURCES += SMB1_Writer.cpp \
-    Level_Offsets.cpp \
     Item_Writer.cpp \
     Binary_Manipulator.cpp \
     Object_Writer.cpp \
@@ -25,7 +24,8 @@ SOURCES += SMB1_Writer.cpp \
     Midpoint_Writer.cpp \
     Room_Order_Writer.cpp \
     Room_ID_Handler.cpp \
-    Room_Address_Writer.cpp
+    Room_Address_Writer.cpp \
+    Level_Offset.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \

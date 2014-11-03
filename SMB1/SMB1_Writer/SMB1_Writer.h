@@ -41,8 +41,7 @@ public:
     bool Header_Level_Compliment(Level_Compliment::Level_Compliment value);
     bool Header_Scenery(Scenery::Scenery value);
     bool Header_Brick(Brick::Brick value);
-
-    //Midpoint
+    bool Header_Attribute(Level_Attribute::Level_Attribute attribute);
     bool Header_Midpoint(int value);
 
     //Room Table

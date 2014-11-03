@@ -4,6 +4,7 @@
 #include "Enemy_Writer.h"
 #include "Midpoint_Writer.h"
 #include "Room_Order_Writer.h"
+#include "Room_ID_Handler.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -40,6 +41,11 @@ bool SMB1_Writer::Header_Scenery(Scenery::Scenery value) {
 bool SMB1_Writer::Header_Brick(Brick::Brick value) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->headerWriter->Set_Brick(value);
+}
+
+bool SMB1_Writer::Header_Attribute(Level_Attribute::Level_Attribute attribute) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->roomIDHandler->Change_Current_Level_Attribute(attribute);
 }
 
 bool SMB1_Writer::Header_Midpoint(int value) {
