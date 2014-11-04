@@ -4,6 +4,7 @@
 #include "../../Level-Headed/Interpreter_Interface.h"
 #include "../../SMB1/SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h"
 #include "../../SMB1/SMB1_Writer/SMB1_Writer_Interface.h"
+#include "QPluginLoader"
 
 class SMB1_Compliance_Parser;
 
@@ -26,6 +27,8 @@ private:
 
     SMB1_Compliance_Generator_Interface *generatorPlugin;
     SMB1_Writer_Interface *writerPlugin;
+    QPluginLoader *generatorLoader;
+    QPluginLoader *writerLoader;
     SMB1_Compliance_Parser *parser;
     QWidget *parent;
 };

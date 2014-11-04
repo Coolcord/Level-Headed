@@ -29,6 +29,7 @@ SMB1_Writer::SMB1_Writer() {
     this->roomIDHandler = NULL;
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;
+    this->midpointWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
@@ -43,22 +44,24 @@ void SMB1_Writer::Startup(QWidget *parent, QString location) {
 }
 
 void SMB1_Writer::Shutdown() {
-    if (this->Are_Buffers_Allocated()) {
-        if (!this->Write_Level()) { //try to flush the buffers
-            this->Deallocate_Buffers(); //deallocate memory manually
+    if (this->file) {
+        if (this->Are_Buffers_Allocated()) {
+            if (!this->Write_Level()) { //try to flush the buffers
+                this->Deallocate_Buffers(); //deallocate memory manually
+            }
         }
+        assert(!this->Are_Buffers_Allocated()); //make sure memory leaks never happen
+        if (!this->roomOrderWriter->Write_Room_Order_Table()) {
+            qDebug() << "Unable to write the room order table to the ROM!";
+        }
+        if (!this->roomAddressWriter->Write_Room_Address_Tables()) {
+            qDebug() << "Unable to write the room address tables to the ROM!";
+        }
+        if (!this->midpointWriter->Write_Midpoints()) {
+            qDebug() << "Unable to write the midpoints to the ROM!";
+        }
+        this->file->close();
     }
-    assert(!this->Are_Buffers_Allocated()); //make sure memory leaks never happen
-    if (!this->roomOrderWriter->Write_Room_Order_Table()) {
-        qDebug() << "Unable to write the room order table to the ROM!";
-    }
-    if (!this->roomAddressWriter->Write_Room_Address_Tables()) {
-        qDebug() << "Unable to write the room address tables to the ROM!";
-    }
-    if (!this->midpointWriter->Write_Midpoints()) {
-        qDebug() << "Unable to write the midpoints to the ROM!";
-    }
-    this->file->close();
     delete this->file;
     delete this->levelOffset;
     delete this->midpointWriter;

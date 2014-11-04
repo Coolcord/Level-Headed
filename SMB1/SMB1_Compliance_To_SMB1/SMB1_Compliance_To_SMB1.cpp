@@ -2,7 +2,6 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "SMB1_Compliance_Parser.h"
-#include <QPluginLoader>
 #include <QFile>
 #include <QDebug>
 #include <assert.h>
@@ -23,8 +22,10 @@ bool SMB1_Compliance_To_SMB1::Run() {
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
 
-    if (this->applicationLocation.isEmpty()) return false;
-    if (!this->Load_Plugins()) return false;
+    if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
+        this->Shutdown();
+        return false;
+    }
 
     //Set up the Parser
     this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
@@ -39,7 +40,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
     qDebug() << "Attempting to generate a new level...";
 
     assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
-    //assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_1));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_2));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_4));
+    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
 
     //Allocate Buffers for a New Level
     if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) {
@@ -99,11 +104,15 @@ bool SMB1_Compliance_To_SMB1::Configure_Writer() {
 }
 
 void SMB1_Compliance_To_SMB1::Shutdown() {
-    this->generatorPlugin->Shutdown();
-    this->writerPlugin->Shutdown();
+    if (this->generatorPlugin) this->generatorPlugin->Shutdown();
+    if (this->writerPlugin) this->writerPlugin->Shutdown();
+    if (this->generatorLoader) this->generatorLoader->unload();
+    if (this->writerLoader) this->writerLoader->unload();
+    delete this->generatorLoader;
+    delete this->writerLoader;
     delete this->parser;
-    delete this->generatorPlugin;
-    delete this->writerPlugin;
+    this->generatorLoader = NULL;
+    this->writerLoader = NULL;
     this->parser = NULL;
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
@@ -118,15 +127,15 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (!QFile(writerLocation).exists()) return false; //TODO: Throw an error here
 
     //Load the Level Generator Plugin
-    QPluginLoader generatorLoader(generatorLocation);
-    QObject *validPlugin = generatorLoader.instance();
+    this->generatorLoader = new QPluginLoader(generatorLocation);
+    QObject *validPlugin = this->generatorLoader->instance();
     if (!validPlugin) return false; //TODO: Throw an error here
     this->generatorPlugin = qobject_cast<SMB1_Compliance_Generator_Interface*>(validPlugin);
     if (!this->generatorPlugin) return false; //TODO: Throw an error here
 
     //Load the Writer Plugin
-    QPluginLoader writerLoader(writerLocation);
-    validPlugin = writerLoader.instance();
+    this->writerLoader = new QPluginLoader(writerLocation);
+    validPlugin = this->writerLoader->instance();
     if (!validPlugin) return false; //TODO: Throw an error here
     this->writerPlugin = qobject_cast<SMB1_Writer_Interface*>(validPlugin);
     if (!this->writerPlugin) return false; //TODO: Throw an error here
