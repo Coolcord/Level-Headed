@@ -22,6 +22,7 @@ public:
     void Set_Current_Level(Level::Level level);
 
     bool Get_Room_ID_From_Level(Level::Level level, unsigned char &id);
+    bool Get_Level_From_Room_ID(unsigned char id, Level::Level &level);
     QVector<unsigned char> *Get_Midpoint_Indexes_From_Room_ID(unsigned char id);
     QVector<unsigned char> *Get_Midpoint_Indexes_From_Current_Level();
     QVector<unsigned char> *Get_Midpoint_Indexes_From_Level(Level::Level level);

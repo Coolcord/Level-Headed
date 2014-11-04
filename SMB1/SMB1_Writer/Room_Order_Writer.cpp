@@ -33,6 +33,11 @@ bool Room_Order_Writer::Read_Room_Order_Table() {
 
 bool Room_Order_Writer::Write_Room_Order_Table() {
     assert(this->buffer);
+
+    //Fix the Room Order Table Header First
+    if (!this->Fix_Room_Order_Table_Header()) return false;
+
+    //Get the Room Order Table Offset
     int offset = this->levelOffset->Fix_Offset(0x1CCC);
     if (!this->file->seek(offset)) return false;
 
@@ -90,4 +95,72 @@ void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {
     foreach (unsigned char value, this->roomIDHandler->roomIDs->values()) {
         this->roomIDHandler->midpointIndexes->insert(static_cast<int>(value), this->Get_Midpoints_From_Room_Order_Table(value));
     }
+}
+
+bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
+    QByteArray header(8, ' ');
+    //Get the Room Order Table Header Offset
+    int offset = this->levelOffset->Fix_Offset(0x1CC4);
+    if (!this->file->seek(offset)) return false;
+
+    //Read the Room Order Table Header from the ROM
+    qint64 ret = this->file->read(header.data(), 8);
+    if (ret != 8 || header.size() != 8) return false;
+
+    //Scan each level for Axes or Flagpoles to determine where the end of each world is
+    unsigned char levels = 1;
+    unsigned char world = 1;
+    //Assume first byte is always 0
+    header.data()[0] = static_cast<char>(0);
+    for (int i = 0; i < 36; ++i) {
+        Level::Level level = Level::WORLD_1_LEVEL_1;
+        bool endOfWorld = false;
+        assert(this->roomIDHandler->Get_Level_From_Room_ID(static_cast<unsigned char>(this->buffer->data()[i]), level));
+        assert(this->Scan_Level_For_End_Objects(level, endOfWorld));
+        if (endOfWorld) {
+            if (world < 8) header.data()[world] = static_cast<char>(levels);
+            ++world;
+        } else {
+            ++levels;
+        }
+    }
+    //Fill the unused bytes
+    for (unsigned char i = world; i < 8; ++i) {
+        header.data()[i] = static_cast<char>(levels);
+    }
+
+    //Write the Room Order Table to the ROM
+    if (!this->file->seek(offset)) return false;
+    return this->file->write(header.data(), header.length()) == header.length();
+}
+
+bool Room_Order_Writer::Scan_Level_For_End_Objects(Level::Level level, bool &endOfWorld) {
+    int offset = this->levelOffset->Get_Level_Object_Offset(level);
+    if (offset == BAD_OFFSET) return false;
+    if (!this->file->seek(offset)) return false;
+
+    QByteArray buffer(2, ' ');
+    qint64 ret = this->file->read(buffer.data(), 2);
+    while (ret == 2 && buffer.data() != NULL
+           && static_cast<unsigned char>(buffer.data()[0]) != 0xFD) {
+        switch (static_cast<unsigned char>(buffer.data()[1])) {
+        //FlagPole
+        case 0x8D:
+        case 0x0D:
+        case 0xC1:
+        case 0x41:
+            endOfWorld = false;
+            return true;
+        //Axe
+        case 0xC2:
+        case 0x42:
+            endOfWorld = true;
+            return true;
+        default:
+            break;
+        }
+        ret = this->file->read(buffer.data(), 2);
+    }
+    endOfWorld = false;
+    return true; //unable to find an end object, so assume that it is a normal level
 }

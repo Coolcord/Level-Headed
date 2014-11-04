@@ -23,6 +23,8 @@ public:
 
 private:
     void Populate_Midpoint_Indexes_In_Handler();
+    bool Fix_Room_Order_Table_Header();
+    bool Scan_Level_For_End_Objects(Level::Level level, bool &endOfWorld);
 
     QFile *file;
     Room_ID_Handler *roomIDHandler;

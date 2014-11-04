@@ -50,6 +50,16 @@ bool Room_ID_Handler::Get_Room_ID_From_Level(Level::Level level, unsigned char &
     return true;
 }
 
+bool Room_ID_Handler::Get_Level_From_Room_ID(unsigned char id, Level::Level &level) {
+    foreach (unsigned char value, this->roomIDs->values()) {
+        if (value == id) {
+            level = this->roomIDs->key(value);
+            return true;
+        }
+    }
+    return false;
+}
+
 QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Room_ID(unsigned char id) {
     QMap<unsigned char, QVector<unsigned char>*>::iterator iter = this->midpointIndexes->find(id);
     if (iter == this->midpointIndexes->end()) return NULL; //not found
