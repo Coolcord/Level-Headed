@@ -68,355 +68,550 @@ void Object_Handler::Populate_Background_Map() {
     this->backgrounds->insert(Background::STRING_NIGHT_AND_FREEZE, Background::NIGHT_AND_FREEZE);
 }
 
-bool Object_Handler::Question_Block_With_Mushroom(const QString &line) {
+bool Object_Handler::Question_Block_With_Mushroom(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Question_Block_With_Mushroom(x, y);
+    if (!this->writerPlugin->Object_Question_Block_With_Mushroom(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Question_Block_With_Coin(const QString &line) {
+bool Object_Handler::Question_Block_With_Coin(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Question_Block_With_Coin(x, y);
+    if (!this->writerPlugin->Object_Question_Block_With_Coin(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Hidden_Block_With_Coin(const QString &line) {
+bool Object_Handler::Hidden_Block_With_Coin(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Hidden_Block_With_Coin(x, y);
+    if (!this->writerPlugin->Object_Hidden_Block_With_Coin(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Hidden_Block_With_1up(const QString &line) {
+bool Object_Handler::Hidden_Block_With_1up(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Hidden_Block_With_1up(x, y);
+    if (!this->writerPlugin->Object_Hidden_Block_With_1up(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Brick_With_Mushroom(const QString &line) {
+bool Object_Handler::Brick_With_Mushroom(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Brick_With_Mushroom(x, y);
+    if (!this->writerPlugin->Object_Brick_With_Mushroom(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Brick_With_Vine(const QString &line) {
+bool Object_Handler::Brick_With_Vine(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Brick_With_Vine(x, y);
+    if (!this->writerPlugin->Object_Brick_With_Vine(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Brick_With_Star(const QString &line) {
+bool Object_Handler::Brick_With_Star(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Brick_With_Star(x, y);
+    if (!this->writerPlugin->Object_Brick_With_Star(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Brick_With_10_Coins(const QString &line) {
+bool Object_Handler::Brick_With_10_Coins(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Brick_With_10_Coins(x, y);
+    if (!this->writerPlugin->Object_Brick_With_10_Coins(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Brick_With_1up(const QString &line) {
+bool Object_Handler::Brick_With_1up(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Brick_With_1up(x, y);
+    if (!this->writerPlugin->Object_Brick_With_1up(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Underwater_Sideways_Pipe(const QString &line) {
+bool Object_Handler::Underwater_Sideways_Pipe(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Underwater_Sideways_Pipe(x, y);
+    if (!this->writerPlugin->Object_Underwater_Sideways_Pipe(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Used_Block(const QString &line) {
+bool Object_Handler::Used_Block(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Used_Block(x, y);
+    if (!this->writerPlugin->Object_Used_Block(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Trampoline(const QString &line) {
+bool Object_Handler::Trampoline(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int y = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
-    return this->writerPlugin->Object_Trampoline(x, y);
+    if (!this->writerPlugin->Object_Trampoline(x, y)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Cannon(const QString &line) {
+bool Object_Handler::Cannon(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int height = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    return this->writerPlugin->Object_Cannon(x, y, height);
+    if (!this->writerPlugin->Object_Cannon(x, y, height)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Island(const QString &line) {
+bool Object_Handler::Island(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Island(x, y, length);
+    if (!this->writerPlugin->Object_Island(x, y, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Horizontal_Bricks(const QString &line) {
+bool Object_Handler::Horizontal_Bricks(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Horizontal_Bricks(x, y, length);
+    if (!this->writerPlugin->Object_Horizontal_Bricks(x, y, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Horizontal_Blocks(const QString &line) {
+bool Object_Handler::Horizontal_Blocks(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Horizontal_Blocks(x, y, length);
+    if (!this->writerPlugin->Object_Horizontal_Blocks(x, y, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Horizontal_Coins(const QString &line) {
+bool Object_Handler::Horizontal_Coins(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Horizontal_Coins(x, y, length);
+    if (!this->writerPlugin->Object_Horizontal_Coins(x, y, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Vertical_Bricks(const QString &line) {
+bool Object_Handler::Vertical_Bricks(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int height = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    return this->writerPlugin->Object_Vertical_Bricks(x, y, height);
+    if (!this->writerPlugin->Object_Vertical_Bricks(x, y, height)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Vertical_Blocks(const QString &line) {
+bool Object_Handler::Vertical_Blocks(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int height = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    return this->writerPlugin->Object_Vertical_Blocks(x, y, height);
+    if (!this->writerPlugin->Object_Vertical_Blocks(x, y, height)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Corral(const QString &line) {
+bool Object_Handler::Corral(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int height = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    return this->writerPlugin->Object_Corral(x, y, height);
+    if (!this->writerPlugin->Object_Corral(x, y, height)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Pipe(const QString &line, bool enterable) {
+bool Object_Handler::Pipe(const QString &line, bool enterable, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; int height = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    return this->writerPlugin->Object_Pipe(x, y, height, enterable);
+    if (!this->writerPlugin->Object_Pipe(x, y, height, enterable)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Hole(const QString &line, bool filledWithWater) {
+bool Object_Handler::Hole(const QString &line, bool filledWithWater, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), length)) return false;
-    return this->writerPlugin->Object_Hole(x, length, filledWithWater);
+    if (!this->writerPlugin->Object_Hole(x, length, filledWithWater)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Balance_Rope(const QString &line) {
+bool Object_Handler::Balance_Rope(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), length)) return false;
-    return this->writerPlugin->Object_Balance_Rope(x, length);
+    if (!this->writerPlugin->Object_Balance_Rope(x, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Bridge(const QString &line) {
+bool Object_Handler::Bridge(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int yPlacement = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), yPlacement)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Bridge(x, yPlacement, length);
+    if (!this->writerPlugin->Object_Bridge(x, yPlacement, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Horizontal_Question_Blocks_With_Coins(const QString &line) {
+bool Object_Handler::Horizontal_Question_Blocks_With_Coins(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int yPlacement = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), yPlacement)) return false;
     if (!this->Parse_Num(elements.at(3), length)) return false;
-    return this->writerPlugin->Object_Horizontal_Question_Blocks_With_Coins(x, yPlacement, length);
+    if (!this->writerPlugin->Object_Horizontal_Question_Blocks_With_Coins(x, yPlacement, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Page_Change(const QString &line) {
+bool Object_Handler::Page_Change(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int page = 0;
     if (!this->Parse_Num(elements.at(1), page)) return false;
-    return this->writerPlugin->Object_Page_Change(page);
+    if (!this->writerPlugin->Object_Page_Change(page)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Reverse_L_Pipe(const QString &line) {
+bool Object_Handler::Reverse_L_Pipe(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Reverse_L_Pipe(x);
+    if (!this->writerPlugin->Object_Reverse_L_Pipe(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Flagpole(const QString &line) {
+bool Object_Handler::Flagpole(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Flagpole(x);
+    if (!this->writerPlugin->Object_Flagpole(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Castle(const QString &line) {
+bool Object_Handler::Castle(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Castle(x);
+    if (!this->writerPlugin->Object_Castle(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Big_Castle(const QString &line) {
+bool Object_Handler::Big_Castle(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Big_Castle(x);
+    if (!this->writerPlugin->Object_Big_Castle(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Axe(const QString &line) {
+bool Object_Handler::Axe(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Axe(x);
+    if (!this->writerPlugin->Object_Axe(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Axe_Rope(const QString &line) {
+bool Object_Handler::Axe_Rope(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Axe_Rope(x);
+    if (!this->writerPlugin->Object_Axe_Rope(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Bowser_Bridge(const QString &line) {
+bool Object_Handler::Bowser_Bridge(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Bowser_Bridge(x);
+    if (!this->writerPlugin->Object_Bowser_Bridge(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Scroll_Stop(const QString &line, bool warpZone) {
+bool Object_Handler::Scroll_Stop(const QString &line, bool warpZone, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Scroll_Stop(x, warpZone);
+    if (!this->writerPlugin->Object_Scroll_Stop(x, warpZone)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Flying_Cheep_Cheep_Spawner(const QString &line) {
+bool Object_Handler::Flying_Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Flying_Cheep_Cheep_Spawner(x);
+    if (!this->writerPlugin->Object_Flying_Cheep_Cheep_Spawner(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Swimming_Cheep_Cheep_Spawner(const QString &line) {
+bool Object_Handler::Swimming_Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Swimming_Cheep_Cheep_Spawner(x);
+    if (!this->writerPlugin->Object_Swimming_Cheep_Cheep_Spawner(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Bullet_Bill_Spawner(const QString &line) {
+bool Object_Handler::Bullet_Bill_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Bullet_Bill_Spawner(x);
+    if (!this->writerPlugin->Object_Bullet_Bill_Spawner(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Cancel_Spawner(const QString &line) {
+bool Object_Handler::Cancel_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Cancel_Spawner(x);
+    if (!this->writerPlugin->Object_Cancel_Spawner(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Loop_Command(const QString &line) {
+bool Object_Handler::Loop_Command(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Loop_Command(x);
+    if (!this->writerPlugin->Object_Loop_Command(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Change_Brick_And_Scenery(const QString &line) {
+bool Object_Handler::Change_Brick_And_Scenery(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0;
@@ -434,10 +629,15 @@ bool Object_Handler::Change_Brick_And_Scenery(const QString &line) {
     if (sceneryIter == this->sceneries->end()) return false; //not found
     scenery = sceneryIter.value();
 
-    return this->writerPlugin->Object_Change_Brick_And_Scenery(x, brick, scenery);
+    if (!this->writerPlugin->Object_Change_Brick_And_Scenery(x, brick, scenery)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Change_Background(const QString &line) {
+bool Object_Handler::Change_Background(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; Background::Background background = Background::BLANK_BACKGROUND;
@@ -448,64 +648,104 @@ bool Object_Handler::Change_Background(const QString &line) {
     if (iter == this->backgrounds->end()) return false; //not found
     background = iter.value();
 
-    return this->writerPlugin->Object_Change_Background(x, background);
+    if (!this->writerPlugin->Object_Change_Background(x, background)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Lift_Rope(const QString &line) {
+bool Object_Handler::Lift_Rope(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Lift_Rope(x);
+    if (!this->writerPlugin->Object_Lift_Rope(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Balance_Lift_Rope(const QString &line) {
+bool Object_Handler::Balance_Lift_Rope(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), length)) return false;
-    return this->writerPlugin->Object_Balance_Lift_Rope(x, length);
+    if (!this->writerPlugin->Object_Balance_Lift_Rope(x, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Steps(const QString &line) {
+bool Object_Handler::Steps(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int width = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), width)) return false;
-    return this->writerPlugin->Object_Steps(x, width);
+    if (!this->writerPlugin->Object_Steps(x, width)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::End_Steps(const QString &line) {
+bool Object_Handler::End_Steps(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_End_Steps(x);
+    if (!this->writerPlugin->Object_End_Steps(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Tall_Reverse_L_Pipe(const QString &line) {
+bool Object_Handler::Tall_Reverse_L_Pipe(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int yPlacement = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), yPlacement)) return false;
-    return this->writerPlugin->Object_Tall_Reverse_L_Pipe(x, yPlacement);
+    if (!this->writerPlugin->Object_Tall_Reverse_L_Pipe(x, yPlacement)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Pipe_Wall(const QString &line) {
+bool Object_Handler::Pipe_Wall(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Pipe_Wall(x);
+    if (!this->writerPlugin->Object_Pipe_Wall(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Object_Handler::Nothing(const QString &line) {
+bool Object_Handler::Nothing(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    return this->writerPlugin->Object_Nothing(x);
+    if (!this->writerPlugin->Object_Nothing(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
 }

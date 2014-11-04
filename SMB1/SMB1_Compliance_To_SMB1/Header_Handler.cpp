@@ -14,10 +14,6 @@ Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file)
     this->writerPlugin = writerPlugin;
     this->file = file;
 
-    //Populate Level Types
-    this->types = new QMap<QString, Level_Type::Level_Type>();
-    this->Populate_Types();
-
     //Populate Level Attributes
     this->attributes = new QMap<QString, Level_Attribute::Level_Attribute>();
     this->Populate_Attributes();
@@ -40,7 +36,6 @@ Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file)
 }
 
 Header_Handler::~Header_Handler() {
-    delete this->types;
     delete this->attributes;
     delete this->bricks;
     delete this->backgrounds;
@@ -48,7 +43,7 @@ Header_Handler::~Header_Handler() {
     delete this->compliments;
 }
 
-bool Header_Handler::Parse_Header(int &lineNum) {
+bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
     assert(lineNum == 1);
     QStringList elements;
     int num = 0;
@@ -69,14 +64,6 @@ bool Header_Handler::Parse_Header(int &lineNum) {
         } while (line != Level_Type::STRING_BREAK);
     }
 
-    //Type
-    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TYPE + ":", lineNum);
-    elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_TYPE + ":") return false;
-    QMap<QString, Level_Type::Level_Type>::iterator typeIter = this->types->find(elements.at(1));
-    if (typeIter == this->types->end()) return false; //not found
-
     //Attribute
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_ATTRIBUTE + ":", lineNum);
     elements = line.split(' ');
@@ -84,8 +71,14 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_ATTRIBUTE + ":") return false;
     QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
     if (attributeIter == this->attributes->end()) return false; //not found
-    if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) return false;
-    if (!this->writerPlugin->Header_Attribute(attributeIter.value())) return false;
+    if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) {
+        errorCode = 3;
+        return false;
+    }
+    if (!this->writerPlugin->Header_Attribute(attributeIter.value())) {
+        errorCode = 3;
+        return false;
+    }
 
     //Brick
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_BRICK + ":", lineNum);
@@ -94,7 +87,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_BRICK + ":") return false;
     QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->find(elements.at(1));
     if (brickIter == this->bricks->end()) return false; //not found
-    if (!this->writerPlugin->Header_Brick(brickIter.value())) return false;
+    if (!this->writerPlugin->Header_Brick(brickIter.value())) {
+        errorCode = 3;
+        return false;
+    }
 
     //Background
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_BACKGROUND + ":", lineNum);
@@ -103,7 +99,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_BACKGROUND + ":") return false;
     QMap<QString, Background::Background>::iterator backgroundIter = this->backgrounds->find(elements.at(1));
     if (backgroundIter == this->backgrounds->end()) return false; //not found
-    if (!this->writerPlugin->Header_Background(backgroundIter.value())) return false;
+    if (!this->writerPlugin->Header_Background(backgroundIter.value())) {
+        errorCode = 3;
+        return false;
+    }
 
     //Scenery
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_SCENERY + ":", lineNum);
@@ -112,7 +111,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_SCENERY + ":") return false;
     QMap<QString, Scenery::Scenery>::iterator sceneryIter = this->sceneries->find(elements.at(1));
     if (sceneryIter == this->sceneries->end()) return false; //not found
-    if (!this->writerPlugin->Header_Scenery(sceneryIter.value())) return false;
+    if (!this->writerPlugin->Header_Scenery(sceneryIter.value())) {
+        errorCode = 3;
+        return false;
+    }
 
     //Compliment
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_COMPLIMENT + ":", lineNum);
@@ -121,7 +123,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.at(0) != Header::STRING_COMPLIMENT + ":") return false;
     QMap<QString, Level_Compliment::Level_Compliment>::iterator complimentIter = this->compliments->find(elements.at(1));
     if (complimentIter == this->compliments->end()) return false; //not found
-    if (!this->writerPlugin->Header_Level_Compliment(complimentIter.value())) return false;
+    if (!this->writerPlugin->Header_Level_Compliment(complimentIter.value())) {
+        errorCode = 3;
+        return false;
+    }
 
     //Time
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
@@ -129,7 +134,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_TIME + ":") return false;
     if (!this->Parse_Num(elements.at(1), num)) return false;
-    if (!this->writerPlugin->Header_Time(num)) return false;
+    if (!this->writerPlugin->Header_Time(num)) {
+        errorCode = 3;
+        return false;
+    }
 
     //Midpoint
     line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_MIDPOINT + ":", lineNum);
@@ -137,7 +145,10 @@ bool Header_Handler::Parse_Header(int &lineNum) {
     if (elements.size() != 2) return false;
     if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
     if (!this->Parse_Num(elements.at(1), num)) return false;
-    if (!this->writerPlugin->Header_Midpoint(num)) return false;
+    if (!this->writerPlugin->Header_Midpoint(num)) {
+        errorCode = 3;
+        return false;
+    }
 
     //Seperator
     if (!this->Parse_Through_Comments_Until_String(Level_Type::STRING_BREAK, lineNum)) return false;
@@ -168,17 +179,6 @@ QString Header_Handler::Parse_Through_Comments_Until_First_Word(const QString &w
         if (elements.at(0) == word) return line;
     } while (!file->atEnd());
     return "Invalid Line";
-}
-
-void Header_Handler::Populate_Types() {
-    assert(this->types);
-    this->types->clear();
-    this->types->insert(Level_Type::STRING_STANDARD_OVERWORLD, Level_Type::STANDARD_OVERWORLD);
-    this->types->insert(Level_Type::STRING_ISLAND, Level_Type::ISLAND);
-    this->types->insert(Level_Type::STRING_UNDERGROUND, Level_Type::UNDERGROUND);
-    this->types->insert(Level_Type::STRING_UNDERWATER, Level_Type::UNDERWATER);
-    this->types->insert(Level_Type::STRING_CASTLE, Level_Type::CASTLE);
-    this->types->insert(Level_Type::STRING_BRIDGE, Level_Type::BRIDGE);
 }
 
 void Header_Handler::Populate_Attributes() {

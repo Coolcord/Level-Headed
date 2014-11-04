@@ -14,13 +14,14 @@ class SMB1_Compliance_Parser : public SMB1_Compliance_Map
 public:
     SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin);
     ~SMB1_Compliance_Parser();
-    bool Parse_Level(const QString &fileLocation);
+    int Parse_Level(const QString &fileLocation);
+    int Parse_Level(const QString &fileLocation, int &lineNum);
 
 private:
-    bool Parse_Header(QFile *file);
-    bool Parse_Items(QFile *file);
-    bool Parse_Object(const QString &line);
-    bool Parse_Enemy(const QString &line);
+    bool Parse_Header(QFile *file, int &lineNum, int &errorCode);
+    bool Parse_Items(QFile *file, int &lineNum, int &errorCode);
+    bool Parse_Object(const QString &line, int &errorCode);
+    bool Parse_Enemy(const QString &line, int &errorCode);
 
     SMB1_Writer_Interface *writerPlugin;
     Object_Handler *objectHandler;

@@ -3,6 +3,7 @@
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "SMB1_Compliance_Parser.h"
 #include <QFile>
+#include <QMessageBox>
 #include <QDebug>
 #include <assert.h>
 
@@ -41,10 +42,6 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
     assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_1));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_2));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_2_LEVEL_4));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
 
     //Allocate Buffers for a New Level
     if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) {
@@ -69,13 +66,32 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
-
     //Parse the level
     qDebug() << "Parsing the level...";
-    if (!this->parser->Parse_Level(args.fileName)) {
-        qDebug() << "Looks like the interpreter blew up";
+    int lineNum = 0;
+    int errorCode = this->parser->Parse_Level(args.fileName, lineNum);
+    switch (errorCode) {
+    case -1: //An error occurred and was handled within the parser
         this->Shutdown();
         return false;
+    case 0: break; //Parser ran fine
+    case 1: //Unable to open the file
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              "Unable to open " + args.fileName + "!", Common_Strings::OK);
+        this->Shutdown();
+        return false;
+    case 2: //Syntax error
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+        this->Shutdown();
+        return false;
+    case 3: //Writer was unable to write an item
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+        this->Shutdown();
+        return false;
+    default:
+        assert(false);
     }
 
     //Write the Level

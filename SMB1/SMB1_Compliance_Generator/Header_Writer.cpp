@@ -29,12 +29,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     buffer += Level_Type::STRING_BREAK + "\n";
     buffer += Header::STRING_COOLCORD + "\n";
     buffer += Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A") + ".\n";
-    buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + "\n";
-    buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + "\n";
-    buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + "\n";
-    buffer += Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers) + "\n";
-    buffer += Level_Type::STRING_BREAK + "\n";
-
     //Handle the Level Type
     buffer += Header::STRING_TYPE + ": ";
     switch (type) {
@@ -46,6 +40,11 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Level_Type::CASTLE:                buffer += Level_Type::STRING_CASTLE + "\n"; break;
     default:                                return false;
     }
+    buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + "\n";
+    buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + "\n";
+    buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + "\n";
+    buffer += Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers) + "\n";
+    buffer += Level_Type::STRING_BREAK + "\n";
 
     //Handle the Level Attribute
     buffer += Header::STRING_ATTRIBUTE + ": ";
