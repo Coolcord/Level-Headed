@@ -2,6 +2,7 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "SMB1_Compliance_Parser.h"
+#include "Configure_Base_Form.h"
 #include <QFile>
 #include <QMessageBox>
 #include <QDebug>
@@ -11,6 +12,10 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
     this->applicationLocation = QString();
+    this->pluginsLoaded = false;
+    this->baseGameSettings.numWorlds = 8;
+    this->baseGameSettings.noDuplicates = false;
+    this->baseGameSettings.baseROM = "";
 }
 
 void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
@@ -20,9 +25,6 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
-    this->generatorPlugin = NULL;
-    this->writerPlugin = NULL;
-
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         return false;
@@ -32,7 +34,13 @@ bool SMB1_Compliance_To_SMB1::Run() {
     this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
 
     qDebug() << "Loading a ROM...";
-    if (!this->writerPlugin->Load_ROM()) {
+    bool loaded = false;
+    if (this->baseGameSettings.baseROM.isEmpty()) {
+        loaded = this->writerPlugin->Load_ROM();
+    } else {
+        loaded = this->writerPlugin->Load_ROM(this->baseGameSettings.baseROM);
+    }
+    if (!loaded) {
         qDebug() << "Failed to load the ROM!";
         this->Shutdown();
         return false;
@@ -40,7 +48,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     qDebug() << "Attempting to generate a new level...";
 
-    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(1));
+    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(this->baseGameSettings.numWorlds));
     assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
 
     //Allocate Buffers for a New Level
@@ -109,14 +117,18 @@ bool SMB1_Compliance_To_SMB1::Run() {
     return true;
 }
 
-bool SMB1_Compliance_To_SMB1::Configure_Generator() {
+int SMB1_Compliance_To_SMB1::Configure_Generator() {
     qDebug() << "Configure Generator Called!";
-    return true;
+    return 0;
 }
 
-bool SMB1_Compliance_To_SMB1::Configure_Writer() {
-    qDebug() << "Configure Writer Called!";
-    return true;
+int SMB1_Compliance_To_SMB1::Configure_Writer() {
+    if (!this->Load_Plugins()) {
+        //TODO: Show an error here
+        return 1;
+    }
+    Configure_Writer_Form form(this->parent, &this->baseGameSettings, this->writerPlugin);
+    return form.exec();
 }
 
 void SMB1_Compliance_To_SMB1::Shutdown() {
@@ -129,12 +141,14 @@ void SMB1_Compliance_To_SMB1::Shutdown() {
     delete this->parser;
     this->generatorLoader = NULL;
     this->writerLoader = NULL;
-    this->parser = NULL;
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
+    this->parser = NULL;
+    this->pluginsLoaded = false;
 }
 
 bool SMB1_Compliance_To_SMB1::Load_Plugins() {
+    if (this->pluginsLoaded) return true;
     QString pluginLocation = this->applicationLocation + "/" + Common_Strings::PLUGINS + "/";
     QString generatorLocation = pluginLocation + Common_Strings::GENERATORS + "/SMB1_Compliance_Generator" + Common_Strings::PLUGIN_EXTENSION;
     QString writerLocation = pluginLocation + Common_Strings::WRITERS + "/SMB1_Writer" + Common_Strings::PLUGIN_EXTENSION;
@@ -160,5 +174,6 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     this->generatorPlugin->Startup(this->parent, this->applicationLocation);
     this->writerPlugin->Startup(this->parent, this->applicationLocation);
 
+    this->pluginsLoaded = true;
     return true;
 }

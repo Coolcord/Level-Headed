@@ -18,7 +18,8 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Item_Handler.cpp \
     SMB1_Compliance_Parser.cpp \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp \
-    Header_Handler.cpp
+    Header_Handler.cpp \
+    Configure_Base_Form.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -30,7 +31,9 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Object_Handler.h \
     Item_Handler.h \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.h \
-    Header_Handler.h
+    Header_Handler.h \
+    Configure_Base_Form.h \
+    Base_Game_Settings.h
 
 OTHER_FILES +=
 
@@ -38,3 +41,6 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+FORMS += \
+    Configure_Base_Form.ui

@@ -2,6 +2,7 @@
 #define ROM_HANDLER_H
 
 #include "ROM_Type.h"
+#include <QStringList>
 #include <QFile>
 #include <QString>
 #include <QWidget>
@@ -15,6 +16,7 @@ public:
     ~ROM_Handler();
     QString Install_ROM();
     bool Clean_ROM_Directory();
+    QStringList Get_Installed_ROMs();
     QFile *Load_Local_ROM(const QString &fileName, bool &cancel);
     QFile *Load_First_Local_ROM(bool &cancel);
     ROM_Type::ROM_Type Get_ROM_Type() const;

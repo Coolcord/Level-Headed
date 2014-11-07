@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QString>
+#include <QPluginLoader>
 
 class Plugin_Handler;
 class Interpreter_Interface;
@@ -28,13 +29,9 @@ private slots:
     void Enable_Buttons();
 
     void on_comboBaseGame_currentIndexChanged(const QString &arg1);
-
     void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
-
     void on_btnConfigureBaseGame_clicked();
-
     void on_btnConfigureLevelGenerator_clicked();
-
     void on_btnGenerateGame_clicked();
 
 private:
@@ -43,7 +40,8 @@ private:
 
     Ui::Main_Window *ui;
     Plugin_Handler *pluginHandler;
-    Interpreter_Interface *interpreter;
+    QPluginLoader *interpreterLoader;
+    Interpreter_Interface *interpreterPlugin;
 };
 
 #endif // MAIN_WINDOW_H

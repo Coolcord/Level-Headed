@@ -16,12 +16,13 @@ Main_Window::Main_Window(QWidget *parent) :
 {
     ui->setupUi(this);
     this->pluginHandler = new Plugin_Handler(this);
-    this->interpreter = NULL;
+    this->interpreterLoader = NULL;
+    this->interpreterPlugin = NULL;
 }
 
 Main_Window::~Main_Window() {
     delete ui;
-    delete this->interpreter;
+    delete this->interpreterLoader;
 }
 
 bool Main_Window::Create_Directories() {
@@ -36,8 +37,11 @@ void Main_Window::Disable_All() {
     this->ui->btnConfigureLevelGenerator->setEnabled(false);
     this->ui->btnConfigureBaseGame->setEnabled(false);
     this->ui->btnGenerateGame->setEnabled(false);
-    delete this->interpreter;
-    this->interpreter = NULL;
+    if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
+    if (this->interpreterLoader) this->interpreterLoader->unload();
+    delete this->interpreterLoader;
+    this->interpreterLoader = NULL;
+    this->interpreterPlugin = NULL;
     this->ui->comboBaseGame->setCurrentIndex(0);
 }
 
@@ -48,8 +52,11 @@ void Main_Window::Enable_Generator() {
     this->ui->btnConfigureBaseGame->setEnabled(false);
     this->ui->btnConfigureLevelGenerator->setEnabled(false);
     this->ui->btnGenerateGame->setEnabled(false);
-    delete this->interpreter;
-    this->interpreter = NULL;
+    if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
+    if (this->interpreterLoader) this->interpreterLoader->unload();
+    delete this->interpreterLoader;
+    this->interpreterLoader = NULL;
+    this->interpreterPlugin = NULL;
 }
 
 void Main_Window::Enable_Buttons() {
@@ -118,18 +125,18 @@ void Main_Window::on_comboLevelGenerator_currentIndexChanged(const QString &arg1
 }
 
 void Main_Window::on_btnConfigureBaseGame_clicked(){
-    if (!this->interpreter) this->Show_Unable_To_Load_Plugin_Error();
-    this->interpreter->Configure_Writer();
+    if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
+    this->interpreterPlugin->Configure_Writer();
 }
 
 void Main_Window::on_btnConfigureLevelGenerator_clicked(){
-    if (!this->interpreter) this->Show_Unable_To_Load_Plugin_Error();
-    this->interpreter->Configure_Generator();
+    if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
+    this->interpreterPlugin->Configure_Generator();
 }
 
 void Main_Window::on_btnGenerateGame_clicked(){
-    if (!this->interpreter) this->Show_Unable_To_Load_Plugin_Error();
-    if (this->interpreter->Run()) {
+    if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
+    if (this->interpreterPlugin->Run()) {
         QMessageBox::information(this, Common_Strings::LEVEL_HEADED,
                               "Game successfully generated!", Common_Strings::OK);
     } else {
@@ -141,12 +148,12 @@ void Main_Window::on_btnGenerateGame_clicked(){
 }
 
 bool Main_Window::Load_Interpreter(const QString &fileLocation) {
-    QPluginLoader loader(fileLocation);
-    QObject *validPlugin = loader.instance();
+    this->interpreterLoader = new QPluginLoader(fileLocation);
+    QObject *validPlugin = this->interpreterLoader->instance();
     if (!validPlugin) return false;
-    this->interpreter = qobject_cast<Interpreter_Interface*>(validPlugin);
-    if (!this->interpreter) return false;
-    this->interpreter->Startup(this, QApplication::applicationDirPath());
+    this->interpreterPlugin = qobject_cast<Interpreter_Interface*>(validPlugin);
+    if (!this->interpreterPlugin) return false;
+    this->interpreterPlugin->Startup(this, QApplication::applicationDirPath());
     return true;
 }
 

@@ -240,6 +240,42 @@ bool ROM_Handler::Clean_ROM_Directory() {
     return success;
 }
 
+QStringList ROM_Handler::Get_Installed_ROMs() {
+    QStringList fileNames;
+    fileNames.append(ROM_Filename::STRING_USA0);
+    fileNames.append(ROM_Filename::STRING_USA1);
+    fileNames.append(ROM_Filename::STRING_EUROPE);
+    fileNames.append(ROM_Filename::STRING_FDS);
+    fileNames.append(ROM_Filename::STRING_DUCK);
+    fileNames.append(ROM_Filename::STRING_TRACK);
+    fileNames.append(ROM_Filename::STRING_DUCKE);
+    fileNames.append(ROM_Filename::STRING_TETRIS);
+    QStringList installedROMs;
+
+    //Attempt to open each supported ROM
+    foreach (QString fileName, fileNames) {
+        QFile loadFile(this->romFolderLocation + "/" + fileName);
+        if (!loadFile.exists()) continue;
+        if (!loadFile.open(QFile::ReadWrite)) continue;
+
+        //Calculate the checksum
+        QString romChecksum = this->romChecksum->Get_ROM_Checksum(&loadFile);
+        this->romType = this->romChecksum->Get_ROM_Type_From_Checksum(romChecksum);
+
+        //Ignore the ROM if it is invalid
+        if (this->romType == ROM_Type::INVALID) {
+            loadFile.close();
+            loadFile.remove();
+            continue;
+        }
+
+        //The ROM must be valid
+        installedROMs.append(fileName);
+    }
+
+    return installedROMs;
+}
+
 ROM_Type::ROM_Type ROM_Handler::Get_ROM_Type() const {
     if (!this->file) return ROM_Type::INVALID;
     return this->romType;

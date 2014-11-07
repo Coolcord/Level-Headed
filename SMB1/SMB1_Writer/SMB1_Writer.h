@@ -25,6 +25,8 @@ public:
     SMB1_Writer();
     void Startup(QWidget *parent, QString location);
     void Shutdown();
+    QStringList Get_Installed_ROMs();
+    QString Install_ROM();
     bool Load_ROM();
     bool Load_ROM(const QString &fileName);
     bool New_Level(Level::Level level);

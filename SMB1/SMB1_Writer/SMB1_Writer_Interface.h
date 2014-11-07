@@ -16,6 +16,8 @@ class SMB1_Writer_Interface : public QObject {
 public:
     virtual void Startup(QWidget *parent, QString location)=0;
     virtual void Shutdown()=0;
+    virtual QStringList Get_Installed_ROMs()=0;
+    virtual QString Install_ROM()=0;
     virtual bool Load_ROM()=0;
     virtual bool Load_ROM(const QString &fileName)=0;
     virtual bool New_Level(Level::Level level)=0;

@@ -57,6 +57,7 @@ void SMB1_Writer::Shutdown() {
         if (!this->roomAddressWriter->Write_Room_Address_Tables()) {
             qDebug() << "Unable to write the room address tables to the ROM!";
         }
+        //TODO: Fix midpoints on Famicom version
         if (!this->midpointWriter->Write_Midpoints()) {
             qDebug() << "Unable to write the midpoints to the ROM!";
         }
@@ -68,6 +69,16 @@ void SMB1_Writer::Shutdown() {
     delete this->roomOrderWriter;
     delete this->roomIDHandler;
     delete this->roomAddressWriter;
+}
+
+QStringList SMB1_Writer::Get_Installed_ROMs() {
+    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    return romHandler.Get_Installed_ROMs();
+}
+
+QString SMB1_Writer::Install_ROM() {
+    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    return romHandler.Install_ROM();
 }
 
 bool SMB1_Writer::Create_ROM_Directory() {
