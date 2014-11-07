@@ -304,46 +304,8 @@ void Room_ID_Handler::Update_Room_ID(Level::Level level, unsigned char oldRoomNu
             --value;
         }
     }
-    switch (level) {
-    case Level::WORLD_1_LEVEL_3:
-    case Level::WORLD_5_LEVEL_3:
-        assert(this->roomIDs->remove(Level::WORLD_1_LEVEL_3) != 0);
-        this->roomIDs->insert(Level::WORLD_1_LEVEL_3, value);
-        assert(this->roomIDs->remove(Level::WORLD_5_LEVEL_3) != 0);
-        this->roomIDs->insert(Level::WORLD_5_LEVEL_3, value);
-        break;
-    case Level::WORLD_1_LEVEL_4:
-    case Level::WORLD_6_LEVEL_4:
-        assert(this->roomIDs->remove(Level::WORLD_1_LEVEL_4) != 0);
-        this->roomIDs->insert(Level::WORLD_1_LEVEL_4, value);
-        assert(this->roomIDs->remove(Level::WORLD_6_LEVEL_4) != 0);
-        this->roomIDs->insert(Level::WORLD_6_LEVEL_4, value);
-        break;
-    case Level::WORLD_2_LEVEL_2:
-    case Level::WORLD_7_LEVEL_2:
-        assert(this->roomIDs->remove(Level::WORLD_2_LEVEL_2) != 0);
-        this->roomIDs->insert(Level::WORLD_2_LEVEL_2, value);
-        assert(this->roomIDs->remove(Level::WORLD_7_LEVEL_2) != 0);
-        this->roomIDs->insert(Level::WORLD_7_LEVEL_2, value);
-        break;
-    case Level::WORLD_2_LEVEL_3:
-    case Level::WORLD_7_LEVEL_3:
-        assert(this->roomIDs->remove(Level::WORLD_2_LEVEL_3) != 0);
-        this->roomIDs->insert(Level::WORLD_2_LEVEL_3, value);
-        assert(this->roomIDs->remove(Level::WORLD_7_LEVEL_3) != 0);
-        this->roomIDs->insert(Level::WORLD_7_LEVEL_3, value);
-        break;
-    case Level::WORLD_2_LEVEL_4:
-    case Level::WORLD_5_LEVEL_4:
-        assert(this->roomIDs->remove(Level::WORLD_2_LEVEL_4) != 0);
-        this->roomIDs->insert(Level::WORLD_2_LEVEL_4, value);
-        assert(this->roomIDs->remove(Level::WORLD_5_LEVEL_4) != 0);
-        this->roomIDs->insert(Level::WORLD_5_LEVEL_4, value);
-        break;
-    default:
-        assert(this->roomIDs->remove(level) != 0);
-        this->roomIDs->insert(level, value);
-    }
+    assert(this->roomIDs->remove(level) != 0);
+    this->roomIDs->insert(level, value);
 }
 
 bool Room_ID_Handler::Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs) {
@@ -427,22 +389,6 @@ bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Le
     return this->file->write(enemiesBuffer.data(), enemiesBuffer.length()) == enemiesBuffer.length();
 }
 
-Level::Level Room_ID_Handler::Get_Base_Level(Level::Level level) {
-    switch (level) {
-    case Level::WORLD_1_LEVEL_3:
-    case Level::WORLD_5_LEVEL_3:   return Level::WORLD_1_LEVEL_3;
-    case Level::WORLD_1_LEVEL_4:
-    case Level::WORLD_6_LEVEL_4:   return Level::WORLD_1_LEVEL_4;
-    case Level::WORLD_2_LEVEL_2:
-    case Level::WORLD_7_LEVEL_2:   return Level::WORLD_2_LEVEL_2;
-    case Level::WORLD_2_LEVEL_3:
-    case Level::WORLD_7_LEVEL_3:   return Level::WORLD_2_LEVEL_3;
-    case Level::WORLD_2_LEVEL_4:
-    case Level::WORLD_5_LEVEL_4:   return Level::WORLD_2_LEVEL_4;
-    default:                       return level;
-    }
-}
-
 void Room_ID_Handler::Populate_Room_IDs() {
     this->roomIDs->clear();
     this->roomIDs->insert(Level::WORLD_1_LEVEL_1, 0x25);
@@ -463,15 +409,10 @@ void Room_ID_Handler::Populate_Room_IDs() {
     this->roomIDs->insert(Level::WORLD_4_LEVEL_4, 0x61);
     this->roomIDs->insert(Level::WORLD_5_LEVEL_1, 0x2A);
     this->roomIDs->insert(Level::WORLD_5_LEVEL_2, 0x31);
-    this->roomIDs->insert(Level::WORLD_5_LEVEL_3, 0x26);
-    this->roomIDs->insert(Level::WORLD_5_LEVEL_4, 0x62);
     this->roomIDs->insert(Level::WORLD_6_LEVEL_1, 0x2E);
     this->roomIDs->insert(Level::WORLD_6_LEVEL_2, 0x23);
     this->roomIDs->insert(Level::WORLD_6_LEVEL_3, 0x2D);
-    this->roomIDs->insert(Level::WORLD_6_LEVEL_4, 0x60);
     this->roomIDs->insert(Level::WORLD_7_LEVEL_1, 0x33);
-    this->roomIDs->insert(Level::WORLD_7_LEVEL_2, 0x01);
-    this->roomIDs->insert(Level::WORLD_7_LEVEL_3, 0x27);
     this->roomIDs->insert(Level::WORLD_7_LEVEL_4, 0x64);
     this->roomIDs->insert(Level::WORLD_8_LEVEL_1, 0x30);
     this->roomIDs->insert(Level::WORLD_8_LEVEL_2, 0x32);

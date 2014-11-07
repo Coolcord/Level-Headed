@@ -39,7 +39,6 @@ private:
     void Update_Room_ID(Level::Level level, unsigned char oldRoomNum, unsigned char newRoomNum, unsigned char oldAttribute, unsigned char newAttribute);
     bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs);
     bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, Level::Level level);
-    Level::Level Get_Base_Level(Level::Level level);
     void Populate_Room_IDs();
 
     QFile *file;

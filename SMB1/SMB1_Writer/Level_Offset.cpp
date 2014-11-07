@@ -15,17 +15,12 @@ int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     switch (level) {
     case Level::WORLD_1_LEVEL_1:   return this->Fix_Offset(0x26A0);
     case Level::WORLD_1_LEVEL_2:   return this->Fix_Offset(0x2C47);
-    case Level::WORLD_1_LEVEL_3:
-    case Level::WORLD_5_LEVEL_3:   return this->Fix_Offset(0x2705);
-    case Level::WORLD_1_LEVEL_4:
-    case Level::WORLD_6_LEVEL_4:   return this->Fix_Offset(0x21C1);
+    case Level::WORLD_1_LEVEL_3:   return this->Fix_Offset(0x2705);
+    case Level::WORLD_1_LEVEL_4:   return this->Fix_Offset(0x21C1);
     case Level::WORLD_2_LEVEL_1:   return this->Fix_Offset(0x27DF);
-    case Level::WORLD_2_LEVEL_2:
-    case Level::WORLD_7_LEVEL_2:   return this->Fix_Offset(0x2E57);
-    case Level::WORLD_2_LEVEL_3:
-    case Level::WORLD_7_LEVEL_3:   return this->Fix_Offset(0x275A);
-    case Level::WORLD_2_LEVEL_4:
-    case Level::WORLD_5_LEVEL_4:   return this->Fix_Offset(0x22A1);
+    case Level::WORLD_2_LEVEL_2:   return this->Fix_Offset(0x2E57);
+    case Level::WORLD_2_LEVEL_3:   return this->Fix_Offset(0x275A);
+    case Level::WORLD_2_LEVEL_4:   return this->Fix_Offset(0x22A1);
     case Level::WORLD_3_LEVEL_1:   return this->Fix_Offset(0x262B);
     case Level::WORLD_3_LEVEL_2:   return this->Fix_Offset(0x2C14);
     case Level::WORLD_3_LEVEL_3:   return this->Fix_Offset(0x247D);
@@ -62,17 +57,12 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     switch (level) {
     case Level::WORLD_1_LEVEL_1:   return this->Fix_Offset(0x1F11);
     case Level::WORLD_1_LEVEL_2:   return this->Fix_Offset(0x20E8);
-    case Level::WORLD_1_LEVEL_3:
-    case Level::WORLD_5_LEVEL_3:   return this->Fix_Offset(0x1F2F);
-    case Level::WORLD_1_LEVEL_4:
-    case Level::WORLD_6_LEVEL_4:   return this->Fix_Offset(0x1D80);
+    case Level::WORLD_1_LEVEL_3:   return this->Fix_Offset(0x1F2F);
+    case Level::WORLD_1_LEVEL_4:   return this->Fix_Offset(0x1D80);
     case Level::WORLD_2_LEVEL_1:   return this->Fix_Offset(0x1F61);
-    case Level::WORLD_2_LEVEL_2:
-    case Level::WORLD_7_LEVEL_2:   return this->Fix_Offset(0x2181);
-    case Level::WORLD_2_LEVEL_3:
-    case Level::WORLD_7_LEVEL_3:   return this->Fix_Offset(0x1F4C);
-    case Level::WORLD_2_LEVEL_4:
-    case Level::WORLD_5_LEVEL_4:   return this->Fix_Offset(0x1DC0);
+    case Level::WORLD_2_LEVEL_2:   return this->Fix_Offset(0x2181);
+    case Level::WORLD_2_LEVEL_3:   return this->Fix_Offset(0x1F4C);
+    case Level::WORLD_2_LEVEL_4:   return this->Fix_Offset(0x1DC0);
     case Level::WORLD_3_LEVEL_1:   return this->Fix_Offset(0x1EE0);
     case Level::WORLD_3_LEVEL_2:   return this->Fix_Offset(0x20C3);
     case Level::WORLD_3_LEVEL_3:   return this->Fix_Offset(0x1E69);
@@ -94,7 +84,7 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     case Level::WORLD_8_LEVEL_4:   return this->Fix_Offset(0x1E2F);
     case Level::UNDERGROUND_BONUS: return this->Fix_Offset(0x2143);
     case Level::CLOUD_BONUS_1:     return this->Fix_Offset(0x1FB0);
-    case Level::CLOUD_BONUS_2:    return this->Fix_Offset(0x20BA);
+    case Level::CLOUD_BONUS_2:     return this->Fix_Offset(0x20BA);
     case Level::UNDERWATER_BONUS:  return this->Fix_Offset(0x2170);
     case Level::UNDERWATER_CASTLE: return this->Fix_Offset(0x21AB);
     case Level::PIPE_INTRO:
