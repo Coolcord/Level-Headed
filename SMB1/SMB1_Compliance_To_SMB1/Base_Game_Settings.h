@@ -3,6 +3,8 @@
 
 #include <QString>
 
+const static QString STRING_NO_ROMS_INSTALLED = "No ROMs installed!";
+
 struct Base_Game_Settings {
     QString baseROM;
     int numWorlds;

@@ -43,20 +43,28 @@ void Configure_Writer_Form::on_cbDuplicateLevels_toggled(bool checked) {
 }
 
 void Configure_Writer_Form::on_comboBaseROM_currentIndexChanged(const QString &arg1) {
-    this->baseGameSettings->baseROM = arg1;
+    if (arg1 != STRING_NO_ROMS_INSTALLED && !arg1.isEmpty()) {
+        this->baseGameSettings->baseROM = arg1;
+    }
 }
 
 void Configure_Writer_Form::Populate_Installed_ROMs() {
     this->ui->comboBaseROM->clear();
     QStringList installedROMs = this->writerPlugin->Get_Installed_ROMs();
     QString tmpBaseROM = this->baseGameSettings->baseROM;
-    this->ui->comboBaseROM->addItems(installedROMs);
+    if (installedROMs.isEmpty()) {
+        this->ui->comboBaseROM->addItem(STRING_NO_ROMS_INSTALLED);
+    } else {
+        this->ui->comboBaseROM->addItems(installedROMs);
+    }
     if (tmpBaseROM != "" && installedROMs.contains(tmpBaseROM)) {
         this->ui->comboBaseROM->setCurrentText(tmpBaseROM);
     } else {
         this->ui->comboBaseROM->setCurrentIndex(0);
     }
-    this->baseGameSettings->baseROM = this->ui->comboBaseROM->currentText();
+    if (this->ui->comboBaseROM->currentText() != STRING_NO_ROMS_INSTALLED) {
+        this->baseGameSettings->baseROM = this->ui->comboBaseROM->currentText();
+    }
 }
 
 
