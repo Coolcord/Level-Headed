@@ -1,9 +1,9 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
-#include "SMB1_Compliance_Parser.h"
 #include "Configure_Base_Form.h"
 #include "Configure_Level_Form.h"
+#include "Level_Generator.h"
 #include <QFile>
 #include <QMessageBox>
 #include <QDebug>
@@ -38,87 +38,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
-    //Set up the Parser
-    this->parser = new SMB1_Compliance_Parser(this->writerPlugin);
-
-    qDebug() << "Loading a ROM...";
-    bool loaded = false;
-    if (this->pluginSettings.baseROM.isEmpty()) {
-        loaded = this->writerPlugin->Load_ROM();
-    } else {
-        loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
-    }
-    if (!loaded) {
-        qDebug() << "Failed to load the ROM!";
-        this->Shutdown();
-        return false;
-    }
-
-    qDebug() << "Attempting to generate a new level...";
-
-    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(this->pluginSettings.numWorlds));
-    assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
-
-    //Allocate Buffers for a New Level
-    if (!this->writerPlugin->New_Level(Level::WORLD_1_LEVEL_1)) {
-        this->Shutdown();
-        return false;
-    }
-
-    //Generate the level
-    SMB1_Compliance_Generator_Arguments args;
-    args.fileName = this->applicationLocation + "/Level_1_1.lvl";
-    args.headerBackground = Background::NIGHT;
-    args.headerScenery = Scenery::ONLY_CLOUDS;
-    args.levelCompliment = Level_Compliment::MUSHROOMS;
-    args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
-    args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
-    args.startCastle = Castle::NONE;
-    args.endCastle = Castle::BIG;
-    args.levelType = Level_Type::BRIDGE;
-    if (!this->generatorPlugin->Generate_Level(args)) {
-        qDebug() << "Looks like the generator blew up";
-        this->Shutdown();
-        return false;
-    }
-
-    //Parse the level
-    qDebug() << "Parsing the level...";
-    int lineNum = 0;
-    int errorCode = this->parser->Parse_Level(args.fileName, lineNum);
-    switch (errorCode) {
-    case -1: //An error occurred and was handled within the parser
-        this->Shutdown();
-        return false;
-    case 0: break; //Parser ran fine
-    case 1: //Unable to open the file
-        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                              "Unable to open " + args.fileName + "!", Common_Strings::OK);
-        this->Shutdown();
-        return false;
-    case 2: //Syntax error
-        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                              "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::OK);
-        this->Shutdown();
-        return false;
-    case 3: //Writer was unable to write an item
-        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                              "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::OK);
-        this->Shutdown();
-        return false;
-    default:
-        assert(false);
-    }
-
-    //Write the Level
-    qDebug() << "Writing to the ROM...";
-    if (!this->writerPlugin->Write_Level()) {
-        qDebug() << "Looks like the writer plugin blew up";
-        this->Shutdown();
-        return false;
-    }
-
-    qDebug() << "Done!";
+    //Generate the levels
+    Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
+    if (!levelGenerator.Generate_Levels()) {
+        qDebug() << "Something went wrong...";
+    } else qDebug() << "Done!";
 
     //Unload plugins
     this->Shutdown();
@@ -130,7 +54,7 @@ int SMB1_Compliance_To_SMB1::Configure_Generator() {
         //TODO: Show an error here
         return 1;
     }
-    Configure_Level_Form form(this->parent, &this->pluginSettings);
+    Configure_Level_Form form(this->parent, &this->pluginSettings, this->applicationLocation);
     return form.exec();
 }
 
@@ -150,12 +74,10 @@ void SMB1_Compliance_To_SMB1::Shutdown() {
     if (this->writerLoader) this->writerLoader->unload();
     delete this->generatorLoader;
     delete this->writerLoader;
-    delete this->parser;
     this->generatorLoader = NULL;
     this->writerLoader = NULL;
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
-    this->parser = NULL;
     this->pluginsLoaded = false;
 }
 

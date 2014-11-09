@@ -5,6 +5,7 @@
 #include <QAbstractButton>
 #include <QComboBox>
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class Configure_Level_Form;
@@ -15,7 +16,7 @@ class Configure_Level_Form : public QDialog
     Q_OBJECT
 
 public:
-    Configure_Level_Form(QWidget *parent, Plugin_Settings *pluginSettings);
+    Configure_Level_Form(QWidget *parent, Plugin_Settings *pluginSettings, const QString &location);
     ~Configure_Level_Form();
 
 private slots:
@@ -32,6 +33,7 @@ private:
 
     Ui::Configure_Level_Form *ui;
     Plugin_Settings *pluginSettings;
+    QString levelLocation;
 };
 
 #endif // CONFIGURE_LEVEL_FORM_H

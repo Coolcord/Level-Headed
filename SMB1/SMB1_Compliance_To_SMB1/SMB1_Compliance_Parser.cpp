@@ -27,12 +27,15 @@ SMB1_Compliance_Parser::~SMB1_Compliance_Parser() {
     delete this->enemyHandler;
 }
 
-int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation) {
+int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation, Level::Level level) {
     int lineNum = 1;
-    return this->Parse_Level(fileLocation, lineNum);
+    return this->Parse_Level(fileLocation, level, lineNum);
 }
 
-int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation, int &lineNum) {
+int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation, Level::Level level, int &lineNum) {
+    //Allocate Buffers for a New Level
+    if (!this->writerPlugin->New_Level(level)) return 4;
+
     //Open the file for reading
     QFile file(fileLocation);
     if (!file.open(QFile::ReadOnly)) {
@@ -52,6 +55,9 @@ int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation, int &lineNu
 
     //Make sure everything was parsed
     if (!file.atEnd()) return 2;
+
+    //Write the Level
+    if (!this->writerPlugin->Write_Level()) return 5;
 
     return 0;
 }

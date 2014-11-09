@@ -7,8 +7,6 @@
 #include "Plugin_Settings.h"
 #include "QPluginLoader"
 
-class SMB1_Compliance_Parser;
-
 class SMB1_Compliance_To_SMB1 : public Interpreter_Interface {
 
     Q_OBJECT
@@ -31,7 +29,6 @@ private:
     SMB1_Writer_Interface *writerPlugin;
     QPluginLoader *generatorLoader;
     QPluginLoader *writerLoader;
-    SMB1_Compliance_Parser *parser;
     QWidget *parent;
     Plugin_Settings pluginSettings;
 };

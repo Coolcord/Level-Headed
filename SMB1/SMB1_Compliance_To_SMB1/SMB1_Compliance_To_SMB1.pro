@@ -20,7 +20,8 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp \
     Header_Handler.cpp \
     Configure_Base_Form.cpp \
-    Configure_Level_Form.cpp
+    Configure_Level_Form.cpp \
+    Level_Generator.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -35,7 +36,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Header_Handler.h \
     Configure_Base_Form.h \
     Configure_Level_Form.h \
-    Plugin_Settings.h
+    Plugin_Settings.h \
+    Level_Generator.h
 
 OTHER_FILES +=
 

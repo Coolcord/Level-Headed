@@ -4,6 +4,7 @@
 #include <QString>
 
 const static QString STRING_NO_ROMS_INSTALLED = "No ROMs installed!";
+const static QString STRING_NO_LEVEL_SCRIPTS_FOUND = "No Level Scripts found!";
 const static QString STRING_VERY_COMMON = "Very Common";
 const static QString STRING_COMMON = "Common";
 const static QString STRING_UNCOMMON = "Uncommon";

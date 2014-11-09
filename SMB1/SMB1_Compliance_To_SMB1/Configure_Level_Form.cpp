@@ -1,21 +1,25 @@
 #include "Configure_Level_Form.h"
 #include "ui_Configure_Level_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include <QMessageBox>
+#include <QDir>
 #include <assert.h>
 
-Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *pluginSettings) :
+Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *pluginSettings, const QString &location) :
     QDialog(parent),
     ui(new Ui::Configure_Level_Form) {
     assert(pluginSettings);
     this->pluginSettings = pluginSettings;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    this->levelLocation = location + "/" + Common_Strings::LEVELS + "/" + Common_Strings::GAME_NAME;
+    QDir dir(location + "/" + Common_Strings::LEVELS);
+    if (!dir.exists(this->levelLocation)) dir.mkdir(this->levelLocation); //don't bother checking for success here
 
     //Setup the UI
     ui->setupUi(this);
     this->ui->cbGenerateNewLevels->setChecked(this->pluginSettings->generateNewLevels);
     this->Enable_New_Level_ComboBoxes(this->pluginSettings->generateNewLevels);
-
 }
 
 Configure_Level_Form::~Configure_Level_Form() {
@@ -32,6 +36,12 @@ void Configure_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
     if (!this->At_Least_One_Very_Common_Selected()) {
         QMessageBox::critical(this, Common_Strings::LEVEL_HEADED,
                               "At least one level type must have a \"" + STRING_VERY_COMMON + "\" chance!",
+                              Common_Strings::OK);
+        return;
+    }
+    if (this->ui->comboLevelScripts->currentText() == STRING_NO_LEVEL_SCRIPTS_FOUND) {
+        QMessageBox::critical(this, Common_Strings::LEVEL_HEADED,
+                              "No level scripts could be found! Try generating new levels.",
                               Common_Strings::OK);
         return;
     }
@@ -78,7 +88,40 @@ void Configure_Level_Form::Populate_Chance_ComboBox(QComboBox *comboBox) {
 }
 
 void Configure_Level_Form::Populate_Level_Scripts_ComboBox() {
+    this->ui->comboLevelScripts->clear();
+    QDir dir(this->levelLocation);
+    if (!dir.exists()) {
+        this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
+        return;
+    }
 
+    //Scan for valid level scripts
+    QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    QStringList validLevelFolders;
+    foreach (QString level, levelFolders) {
+        if (!dir.cd(level)) continue;
+        if (!dir.exists(level + ".map")) {
+            if (!dir.cdUp()) { //this shouldn't happen unless the parent directory is removed
+                this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
+                return;
+            }
+        }
+        validLevelFolders.append(level);
+    }
+
+    //Add the valid folders to the ComboBox
+    if (validLevelFolders.isEmpty()) {
+        this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
+    } else {
+        this->ui->comboLevelScripts->addItems(validLevelFolders);
+    }
+
+    //Use the last selected level scripts
+    if (validLevelFolders.contains(this->pluginSettings->levelScripts)) {
+        this->ui->comboLevelScripts->setCurrentText(this->pluginSettings->levelScripts);
+    } else {
+        this->ui->comboLevelScripts->setCurrentIndex(0);
+    }
 }
 
 bool Configure_Level_Form::At_Least_One_Very_Common_Selected() {
@@ -112,8 +155,7 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     if (enable) {
         this->ui->comboLevelScripts->clear();
         this->Populate_Chance_ComboBoxes();
-    }
-    else {
+    } else {
         this->Clear_Chance_ComboBoxes();
         this->Populate_Level_Scripts_ComboBox();
     }
