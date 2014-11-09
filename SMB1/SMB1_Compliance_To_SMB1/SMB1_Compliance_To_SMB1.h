@@ -4,7 +4,7 @@
 #include "../../Level-Headed/Interpreter_Interface.h"
 #include "../../SMB1/SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h"
 #include "../../SMB1/SMB1_Writer/SMB1_Writer_Interface.h"
-#include "Base_Game_Settings.h"
+#include "Plugin_Settings.h"
 #include "QPluginLoader"
 
 class SMB1_Compliance_Parser;
@@ -33,7 +33,7 @@ private:
     QPluginLoader *writerLoader;
     SMB1_Compliance_Parser *parser;
     QWidget *parent;
-    Base_Game_Settings baseGameSettings;
+    Plugin_Settings pluginSettings;
 };
 
 #endif // SMB1_COMPLIANCE_TO_SMB1_H

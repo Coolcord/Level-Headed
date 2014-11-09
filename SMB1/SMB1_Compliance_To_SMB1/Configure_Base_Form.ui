@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Configure_Writer_Form</class>
- <widget class="QDialog" name="Configure_Writer_Form">
+ <class>Configure_Base_Form</class>
+ <widget class="QDialog" name="Configure_Base_Form">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -108,7 +108,7 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
      <property name="centerButtons">
       <bool>true</bool>

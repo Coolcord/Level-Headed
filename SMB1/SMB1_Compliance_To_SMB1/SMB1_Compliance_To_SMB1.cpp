@@ -3,6 +3,7 @@
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "SMB1_Compliance_Parser.h"
 #include "Configure_Base_Form.h"
+#include "Configure_Level_Form.h"
 #include <QFile>
 #include <QMessageBox>
 #include <QDebug>
@@ -13,9 +14,16 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->writerPlugin = NULL;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
-    this->baseGameSettings.numWorlds = 8;
-    this->baseGameSettings.noDuplicates = false;
-    this->baseGameSettings.baseROM = "";
+    this->pluginSettings.numWorlds = 8;
+    this->pluginSettings.noDuplicates = false;
+    this->pluginSettings.baseROM = "";
+    this->pluginSettings.generateNewLevels = true;
+    this->pluginSettings.levelScripts = "";
+    this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;
+    this->pluginSettings.undergroundChance = STRING_COMMON;
+    this->pluginSettings.underwaterChance = STRING_UNCOMMON;
+    this->pluginSettings.bridgeChance = STRING_UNCOMMON;
+    this->pluginSettings.islandChance = STRING_UNCOMMON;
 }
 
 void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
@@ -35,10 +43,10 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     qDebug() << "Loading a ROM...";
     bool loaded = false;
-    if (this->baseGameSettings.baseROM.isEmpty()) {
+    if (this->pluginSettings.baseROM.isEmpty()) {
         loaded = this->writerPlugin->Load_ROM();
     } else {
-        loaded = this->writerPlugin->Load_ROM(this->baseGameSettings.baseROM);
+        loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
     }
     if (!loaded) {
         qDebug() << "Failed to load the ROM!";
@@ -48,7 +56,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     qDebug() << "Attempting to generate a new level...";
 
-    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(this->baseGameSettings.numWorlds));
+    assert(this->writerPlugin->Room_Table_Set_Number_Of_Worlds(this->pluginSettings.numWorlds));
     assert(this->writerPlugin->Room_Table_Set_Next_Level(Level::WORLD_1_LEVEL_1));
 
     //Allocate Buffers for a New Level
@@ -118,8 +126,12 @@ bool SMB1_Compliance_To_SMB1::Run() {
 }
 
 int SMB1_Compliance_To_SMB1::Configure_Generator() {
-    qDebug() << "Configure Generator Called!";
-    return 0;
+    if (!this->Load_Plugins()) {
+        //TODO: Show an error here
+        return 1;
+    }
+    Configure_Level_Form form(this->parent, &this->pluginSettings);
+    return form.exec();
 }
 
 int SMB1_Compliance_To_SMB1::Configure_Writer() {
@@ -127,7 +139,7 @@ int SMB1_Compliance_To_SMB1::Configure_Writer() {
         //TODO: Show an error here
         return 1;
     }
-    Configure_Writer_Form form(this->parent, &this->baseGameSettings, this->writerPlugin);
+    Configure_Base_Form form(this->parent, &this->pluginSettings, this->writerPlugin);
     return form.exec();
 }
 
