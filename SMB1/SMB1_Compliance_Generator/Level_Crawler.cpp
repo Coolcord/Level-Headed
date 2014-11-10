@@ -132,8 +132,10 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int &x, int y, int lastX) {
 bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX, bool reverse) {
     assert(size > 0);
     int numValid = 0;
+    int incrementLastX = 15;
+    if (size > 1) incrementLastX = 13;
     if (reverse) {
-        for (int i = lastX+15; i <= x; --i) { //use 0xD for enemy groups
+        for (int i = lastX+incrementLastX; i <= x; --i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
@@ -142,7 +144,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
             }
         }
     } else {
-        for (int i = x; i <= lastX+15; ++i) { //use 0xD for enemy groups
+        for (int i = x; i <= lastX+incrementLastX; ++i) { //use 0xD for enemy groups
             if (this->Is_Coordinate_Safe(i, y)) ++numValid;
             else numValid = 0;
             if (numValid == size) {

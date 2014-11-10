@@ -29,7 +29,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
     int x = 16;
-    int lastX = 13; //set to 3 lower to prevent enemy group errors
+    int lastX = x;
     int y = 0;
 
     int totalSpaces = this->levelCrawler->Get_Safe_Size();
@@ -61,7 +61,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     int size = 1;
     x += (averageDistance/2);
-    while (this->enemies->Get_Num_Bytes_Left() > 1) {
+    while (this->enemies->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
         //Determine what type of enemies to spawn
         switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
