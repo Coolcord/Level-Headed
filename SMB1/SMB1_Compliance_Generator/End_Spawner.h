@@ -26,7 +26,7 @@ private:
     bool Determine_Island_End();
     bool Shortest_End(int x);
     bool Shortest_With_Brick_End(int x);
-    bool One_Block_Bridge_Island_End(int x);
+    bool One_Block_Bridge_End(int x);
     bool Spawn_Castle();
 
     SMB1_Compliance_Generator_Arguments *args;

@@ -12,7 +12,7 @@ class ROM_Checksum;
 class ROM_Handler
 {
 public:
-    ROM_Handler(QWidget *parent, QString romFolderLocation);
+    ROM_Handler(QWidget *parent, const QString &applicationLocation);
     ~ROM_Handler();
     QString Install_ROM();
     bool Clean_ROM_Directory();
@@ -28,6 +28,7 @@ private:
     ROM_Checksum *romChecksum;
     QFile *file;
     QString romFolderLocation;
+    QString applicationLocation;
     QWidget *parent;
 };
 

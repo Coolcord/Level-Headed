@@ -29,7 +29,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
     int x = 16;
-    int lastX = x;
+    int lastX = 13; //set to 3 lower to prevent enemy group errors
     int y = 0;
 
     int totalSpaces = this->levelCrawler->Get_Safe_Size();

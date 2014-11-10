@@ -100,13 +100,11 @@ void Configure_Level_Form::Populate_Level_Scripts_ComboBox() {
     QStringList validLevelFolders;
     foreach (QString level, levelFolders) {
         if (!dir.cd(level)) continue;
-        if (!dir.exists(level + ".map")) {
-            if (!dir.cdUp()) { //this shouldn't happen unless the parent directory is removed
-                this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
-                return;
-            }
+        if (dir.exists(level + ".map")) validLevelFolders.append(level);
+        if (!dir.cdUp()) {
+            this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
+            return; //this shouldn't happen unless the parent directory is removed
         }
-        validLevelFolders.append(level);
     }
 
     //Add the valid folders to the ComboBox

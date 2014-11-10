@@ -37,8 +37,8 @@ bool End_Spawner::Handle_End(int x) {
             success =  this->Shortest_End(x); break;
         case End_Pattern::Shortest_With_Brick:
             success = this->Shortest_With_Brick_End(x); break;
-        case End_Pattern::One_Block_Bridge_Island:
-            success = this->One_Block_Bridge_Island_End(x); break;
+        case End_Pattern::One_Block_Bridge:
+            success = this->One_Block_Bridge_End(x); break;
         default:
             assert(false); return false;
         }
@@ -114,7 +114,7 @@ bool End_Spawner::Determine_Castle_End() {
 bool End_Spawner::Determine_Bridge_End() {
     switch (qrand()%1) {
     case 0:
-        this->endPattern = End_Pattern::One_Block_Bridge_Island;
+        this->endPattern = End_Pattern::One_Block_Bridge;
         this->endObjectCount = 8;
         return true;
     default:
@@ -170,7 +170,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
     return this->Shortest_End(x);
 }
 
-bool End_Spawner::One_Block_Bridge_Island_End(int x) {
+bool End_Spawner::One_Block_Bridge_End(int x) {
     if (this->object->Get_Num_Objects_Left() < 8) return false;
 
     //Spawn the ending bridge

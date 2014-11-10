@@ -72,12 +72,12 @@ void SMB1_Writer::Shutdown() {
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
-    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    ROM_Handler romHandler(this->parent, this->applicationLocation);
     return romHandler.Get_Installed_ROMs();
 }
 
 QString SMB1_Writer::Install_ROM() {
-    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    ROM_Handler romHandler(this->parent, this->applicationLocation);
     return romHandler.Install_ROM();
 }
 
@@ -94,7 +94,7 @@ bool SMB1_Writer::Load_ROM() {
                          " does not have proper read/write permissions. Cannot continue!");
         return false;
     }
-    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    ROM_Handler romHandler(this->parent, this->applicationLocation);
     romHandler.Clean_ROM_Directory();
     bool cancel = false;
     this->file = romHandler.Load_First_Local_ROM(cancel);
@@ -114,7 +114,7 @@ bool SMB1_Writer::Load_ROM() {
 
 bool SMB1_Writer::Load_ROM(const QString &fileName) {
     if (!this->Create_ROM_Directory()) return false;
-    ROM_Handler romHandler(this->parent, this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME);
+    ROM_Handler romHandler(this->parent, this->applicationLocation);
     qDebug() << "Filename is: " << fileName;
     bool cancel = false;
     this->file = romHandler.Load_Local_ROM(fileName, cancel);

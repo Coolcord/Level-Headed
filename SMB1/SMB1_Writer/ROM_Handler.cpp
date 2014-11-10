@@ -2,6 +2,7 @@
 #include "ROM_Checksum.h"
 #include "ROM_Filename.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "SMB1_Writer_Strings.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
@@ -13,12 +14,13 @@
 #include <QDebug>
 #include <assert.h>
 
-ROM_Handler::ROM_Handler(QWidget *parent, QString romFolderLocation) {
+ROM_Handler::ROM_Handler(QWidget *parent, const QString &applicationLocation) {
     assert(parent);
     this->parent = parent;
     this->romType = ROM_Type::INVALID;
     this->romChecksum = new ROM_Checksum();
-    this->romFolderLocation = romFolderLocation;
+    this->applicationLocation = applicationLocation;
+    this->romFolderLocation = this->applicationLocation + "/" + Common_Strings::DATA + "/" + Common_Strings::GAME_NAME;
 }
 
 ROM_Handler::~ROM_Handler() {
@@ -26,7 +28,7 @@ ROM_Handler::~ROM_Handler() {
 }
 
 QString ROM_Handler::Install_ROM() {
-    QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM");
+    QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM", this->applicationLocation, "NES ROMs (*.nes *.fds)");
     if (fileLocation == NULL || fileLocation.isEmpty()) return QString();
 
     QFile file(fileLocation);
@@ -120,7 +122,17 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
     }
 
     //Make a copy of the ROM for the new hacked version
-    QString fileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location");
+    QString extension = loadFile.fileName().split('.').last().toLower();
+    QString extensionFilter = "";
+    if (extension == "fds") {
+        extensionFilter = "Famicom Images (*.fds)";
+    } else if (extension == "nes") {
+        extensionFilter = "NES ROMs (*.nes)";
+    } else {
+        extensionFilter = "NES ROMs (*.nes *.fds)";
+    }
+    QString fileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
+    //if (fileLocation.split('.').last().toLower() != extension) fileLocation += "." + extension;
     qDebug() << "Saving at: " << fileLocation;
     if (fileLocation == NULL || fileLocation.isEmpty()) {
         cancel = true;

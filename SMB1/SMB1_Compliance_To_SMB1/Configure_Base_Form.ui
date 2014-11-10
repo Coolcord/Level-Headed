@@ -79,7 +79,7 @@
        <item>
         <widget class="QLabel" name="lblNumLevelsPerWorld">
          <property name="text">
-          <string>Number of Levels Per World: </string>
+          <string>Number of Levels per World: </string>
          </property>
         </widget>
        </item>

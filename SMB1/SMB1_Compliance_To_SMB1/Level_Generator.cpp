@@ -1,9 +1,13 @@
 #include "Level_Generator.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../Common SMB1 Files/Level_String.h"
+#include "../Common SMB1 Files/Header_String.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "SMB1_Compliance_Parser.h"
 #include <QMessageBox>
+#include <QFile>
 #include <QDir>
+#include <QDate>
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -64,6 +68,30 @@ bool Level_Generator::Generate_Levels() {
         return false;
     }
 
+    //Make the folder to store the random generation in
+    QString generationName = "Random " + QDate::currentDate().toString("yy-MM-dd-") + QTime::currentTime().toString("HH-mm-ss-zzz");
+    QDir dir(this->levelLocation);
+    if (!dir.exists(generationName)) {
+        if (!dir.mkdir(generationName)) {
+            //TODO: Show a read/write error here
+            return false;
+        }
+    } else {
+        if (!dir.cd(generationName) || !dir.removeRecursively()) {
+            //TODO: Show a read/write error here
+            return false;
+        }
+    }
+
+    //Create a new map file
+    QFile map(this->levelLocation + "/" + generationName + "/" + generationName + ".map");
+    if (!map.open(QFile::ReadWrite | QFile::Truncate)) {
+        //TODO: Show a read/write error here
+        return false;
+    }
+    QTextStream mapStream(&map);
+    if (!this->Write_To_Map(mapStream, Header::STRING_MAP_NAME)) return false;
+
     //Set up the parser
     SMB1_Compliance_Parser parser(this->writerPlugin);
 
@@ -72,6 +100,17 @@ bool Level_Generator::Generate_Levels() {
         qDebug() << "Failed to write the number of worlds to the ROM!";
         return false;
     }
+
+    //Write the Comment section of the map file
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A."))) return false;
+
+    //Write the Header of the map file
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ": " + QString::number(this->pluginSettings->numLevelsPerWorld))) return false;
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
     //Build the Room Order Map
     QVector<Level::Level> levelOrder;
@@ -94,11 +133,12 @@ bool Level_Generator::Generate_Levels() {
     //Generate the Levels
     for (int i = 0; i < numLevels; ++i) {
         //Prepare Arguments
-        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(i);
+        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i);
 
         //TODO: This if will be depricated once Castle levels can be generated
         if (args.levelType == Level_Type::CASTLE) {
             this->writerPlugin->Header_Midpoint(levelOrder.at(i), 0);
+            if (!this->Write_To_Map(mapStream, levelOrder.at(i))) return false;
         } else {
             if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
                 QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
@@ -141,16 +181,23 @@ bool Level_Generator::Generate_Levels() {
                                       "The writer plugin failed to write the ROM!", Common_Strings::OK);
                 return false;
             }
+
+            //Write the level to the map
+            if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
         }
     }
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+
+    mapStream.flush();
+    map.close();
     return true;
 }
 
-SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(int levelNum) {
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QString &generationName, int levelNum) {
     int level = (levelNum%this->pluginSettings->numLevelsPerWorld)+1;
     int world = (levelNum/this->pluginSettings->numLevelsPerWorld)+1;
     SMB1_Compliance_Generator_Arguments args;
-    args.fileName = this->levelLocation + "/Level_" + QString::number(world) + "_" + QString::number(level) + ".lvl";
+    args.fileName = this->levelLocation + "/" + generationName + "/Level_" + QString::number(world) + "_" + QString::number(level) + ".lvl";
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
@@ -357,6 +404,60 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
         assert(false); return false;
     }
     return true;
+}
+
+bool Level_Generator::Write_To_Map(QTextStream &mapStream, const QString &string) {
+    mapStream << string << "\n";
+    if (mapStream.status() != QTextStream::Ok) {
+        //TODO: Show a read/write error here
+        return false;
+    }
+    return true;
+}
+
+bool Level_Generator::Write_To_Map(QTextStream &mapStream, Level::Level level, const QString &fileName) {
+    QString line = "";
+
+    switch (level) {
+    case Level::WORLD_1_LEVEL_1:    line = Level::STRING_WORLD_1_LEVEL_1; break;
+    case Level::WORLD_1_LEVEL_2:    line = Level::STRING_WORLD_1_LEVEL_2; break;
+    case Level::WORLD_1_LEVEL_3:    line = Level::STRING_WORLD_1_LEVEL_3; break;
+    case Level::WORLD_1_LEVEL_4:    line = Level::STRING_WORLD_1_LEVEL_4; break;
+    case Level::WORLD_2_LEVEL_1:    line = Level::STRING_WORLD_2_LEVEL_1; break;
+    case Level::WORLD_2_LEVEL_2:    line = Level::STRING_WORLD_2_LEVEL_2; break;
+    case Level::WORLD_2_LEVEL_3:    line = Level::STRING_WORLD_2_LEVEL_3; break;
+    case Level::WORLD_2_LEVEL_4:    line = Level::STRING_WORLD_2_LEVEL_4; break;
+    case Level::WORLD_3_LEVEL_1:    line = Level::STRING_WORLD_3_LEVEL_1; break;
+    case Level::WORLD_3_LEVEL_2:    line = Level::STRING_WORLD_3_LEVEL_2; break;
+    case Level::WORLD_3_LEVEL_3:    line = Level::STRING_WORLD_3_LEVEL_3; break;
+    case Level::WORLD_3_LEVEL_4:    line = Level::STRING_WORLD_3_LEVEL_4; break;
+    case Level::WORLD_4_LEVEL_1:    line = Level::STRING_WORLD_4_LEVEL_1; break;
+    case Level::WORLD_4_LEVEL_2:    line = Level::STRING_WORLD_4_LEVEL_2; break;
+    case Level::WORLD_4_LEVEL_3:    line = Level::STRING_WORLD_4_LEVEL_3; break;
+    case Level::WORLD_4_LEVEL_4:    line = Level::STRING_WORLD_4_LEVEL_4; break;
+    case Level::WORLD_5_LEVEL_1:    line = Level::STRING_WORLD_5_LEVEL_1; break;
+    case Level::WORLD_5_LEVEL_2:    line = Level::STRING_WORLD_5_LEVEL_2; break;
+    case Level::WORLD_6_LEVEL_1:    line = Level::STRING_WORLD_6_LEVEL_1; break;
+    case Level::WORLD_6_LEVEL_2:    line = Level::STRING_WORLD_6_LEVEL_2; break;
+    case Level::WORLD_6_LEVEL_3:    line = Level::STRING_WORLD_6_LEVEL_3; break;
+    case Level::WORLD_7_LEVEL_1:    line = Level::STRING_WORLD_7_LEVEL_1; break;
+    case Level::WORLD_7_LEVEL_4:    line = Level::STRING_WORLD_7_LEVEL_4; break;
+    case Level::WORLD_8_LEVEL_1:    line = Level::STRING_WORLD_8_LEVEL_1; break;
+    case Level::WORLD_8_LEVEL_2:    line = Level::STRING_WORLD_8_LEVEL_2; break;
+    case Level::WORLD_8_LEVEL_3:    line = Level::STRING_WORLD_8_LEVEL_3; break;
+    case Level::WORLD_8_LEVEL_4:    line = Level::STRING_WORLD_8_LEVEL_4; break;
+    case Level::PIPE_INTRO:         line = Level::STRING_PIPE_INTRO; break;
+    case Level::UNDERGROUND_BONUS:  line = Level::STRING_UNDERGROUND_BONUS; break;
+    case Level::CLOUD_BONUS_1:      line = Level::STRING_CLOUD_BONUS_1; break;
+    case Level::CLOUD_BONUS_2:      line = Level::STRING_CLOUD_BONUS_2; break;
+    case Level::UNDERWATER_BONUS:   line = Level::STRING_UNDERWATER_BONUS; break;
+    case Level::WARP_ZONE:          line = Level::STRING_WARP_ZONE; break;
+    case Level::UNDERWATER_CASTLE:  line = Level::STRING_UNDERWATER_CASTLE; break;
+    default:                        assert(false);
+    }
+
+    if (fileName.size() > 0) line += " \"" + fileName + "\"";
+    return this->Write_To_Map(mapStream, line);
 }
 
 //TODO: This area will be deprecated once Castle Levels are implemented

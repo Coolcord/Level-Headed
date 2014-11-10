@@ -5,7 +5,7 @@ namespace End_Pattern {
     enum End_Pattern {
         Shortest,
         Shortest_With_Brick,
-        One_Block_Bridge_Island
+        One_Block_Bridge
     };
 }
 
