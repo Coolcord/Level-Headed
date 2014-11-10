@@ -96,7 +96,7 @@ bool Level_Generator::Generate_Levels() {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(i);
 
-        //TODO: This if will be depreciated once Castle levels can be generated
+        //TODO: This if will be depricated once Castle levels can be generated
         if (args.levelType == Level_Type::CASTLE) {
             this->writerPlugin->Header_Midpoint(levelOrder.at(i), 0);
         } else {
@@ -288,7 +288,7 @@ bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Lev
     return true;
 }
 
-//TODO: This will be depreciated once item sending is implemented
+//TODO: This will be deprecated once item sending is implemented
 bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder) {
     QMap<Level::Level, int> castleLevelUses;
     QVector<Level::Level> castleLevels;
@@ -359,7 +359,7 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
     return true;
 }
 
-//TODO: This area will be depreciated once Castle Levels are implemented
+//TODO: This area will be deprecated once Castle Levels are implemented
 Level::Level Level_Generator::Get_Random_Castle_Level(QMap<Level::Level, int> &castleLevelUses, QVector<Level::Level> &castleLevels, int &numWorldsLeft) {
     assert(castleLevels.size() > 0);
     int index = (qrand()%castleLevels.size());

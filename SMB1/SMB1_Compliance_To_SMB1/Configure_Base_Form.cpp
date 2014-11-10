@@ -16,7 +16,8 @@ Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *plugi
     this->Populate_Installed_ROMs();
     this->ui->cbDuplicateLevels->setChecked(this->pluginSettings->noDuplicates);
     this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
-    if (this->pluginSettings->noDuplicates) this->ui->sbNumWorlds->setMaximum(7);
+    this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
+    this->Fix_Max_Worlds(this->pluginSettings->noDuplicates, this->pluginSettings->numLevelsPerWorld);
 }
 
 Configure_Base_Form::~Configure_Base_Form() {
@@ -35,13 +36,13 @@ void Configure_Base_Form::on_buttonBox_clicked(QAbstractButton *button) {
         this->pluginSettings->baseROM = baseROM;
     }
     this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
+    this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
     this->pluginSettings->noDuplicates = this->ui->cbDuplicateLevels->isChecked();
     this->close();
 }
 
 void Configure_Base_Form::on_cbDuplicateLevels_toggled(bool checked) {
-    if (checked) this->ui->sbNumWorlds->setMaximum(7);
-    else this->ui->sbNumWorlds->setMaximum(8);
+    this->Fix_Max_Worlds(checked, this->ui->sbNumLevelsPerWorld->value());
 }
 
 void Configure_Base_Form::Populate_Installed_ROMs() {
@@ -60,8 +61,51 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
     }
 }
 
+void Configure_Base_Form::Fix_Max_Worlds(bool noDuplicates, int numLevelsPerWorld) {
+    if (noDuplicates) {
+        switch (numLevelsPerWorld) {
+        default:
+            this->ui->sbNumWorlds->setMaximum(8);
+            break;
+        case 4:
+            this->ui->sbNumWorlds->setMaximum(6);
+            break;
+        case 5:
+            this->ui->sbNumWorlds->setMaximum(5);
+            break;
+        case 6:
+            this->ui->sbNumWorlds->setMaximum(4);
+            break;
+        case 7:
+        case 8:
+            this->ui->sbNumWorlds->setMaximum(3);
+            break;
+        }
+    } else {
+        switch (numLevelsPerWorld) {
+        default:
+            this->ui->sbNumWorlds->setMaximum(8);
+            break;
+        case 5:
+            this->ui->sbNumWorlds->setMaximum(6);
+            break;
+        case 6:
+            this->ui->sbNumWorlds->setMaximum(5);
+            break;
+        case 7:
+        case 8:
+            this->ui->sbNumWorlds->setMaximum(4);
+            break;
+        }
+    }
+}
+
 void Configure_Base_Form::on_btnInstallNewROM_clicked() {
     if (!this->writerPlugin->Install_ROM().isEmpty()) {
         this->Populate_Installed_ROMs();
     }
+}
+
+void Configure_Base_Form::on_sbNumLevelsPerWorld_valueChanged(int arg1) {
+    this->Fix_Max_Worlds(this->ui->cbDuplicateLevels->isChecked(), arg1);
 }

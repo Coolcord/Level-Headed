@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>293</width>
-    <height>218</height>
+    <width>375</width>
+    <height>251</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,26 +49,57 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layoutNumWorlds">
+    <layout class="QVBoxLayout" name="layoutLevelNumberSettings">
      <item>
-      <widget class="QLabel" name="lblNumWorlds">
-       <property name="text">
-        <string>Number of Worlds:</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="layoutNumWorlds">
+       <item>
+        <widget class="QLabel" name="lblNumWorlds">
+         <property name="text">
+          <string>Number of Worlds:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="sbNumWorlds">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>8</number>
+         </property>
+         <property name="value">
+          <number>8</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QSpinBox" name="sbNumWorlds">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>8</number>
-       </property>
-       <property name="value">
-        <number>8</number>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="layoutNumLevelsPerWorld">
+       <item>
+        <widget class="QLabel" name="lblNumLevelsPerWorld">
+         <property name="text">
+          <string>Number of Levels Per World: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="sbNumLevelsPerWorld">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>8</number>
+         </property>
+         <property name="value">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -88,7 +119,7 @@
    <item>
     <widget class="QCheckBox" name="cbDuplicateLevels">
      <property name="text">
-      <string>No Duplicate Levels (Last Level will be 7-3)</string>
+      <string>No Duplicate Levels</string>
      </property>
     </widget>
    </item>
