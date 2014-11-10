@@ -41,8 +41,12 @@ bool Midpoint_Writer::Write_Midpoints() {
 }
 
 bool Midpoint_Writer::Set_Midpoint(int value) {
+    return this->Set_Midpoint(this->roomIDHandler->Get_Current_Level(), value);
+}
+
+bool Midpoint_Writer::Set_Midpoint(Level::Level level, int value) {
     if (value < 0x0 || value > 0xF) return false;
-    QVector<unsigned char> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Current_Level();
+    QVector<unsigned char> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Level(level);
     if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
     for (int i = 0; i < midpointIndexes->size(); ++i) {
         int index = midpointIndexes->at(i);

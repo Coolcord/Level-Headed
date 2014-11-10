@@ -27,19 +27,19 @@ bool Bridge_Generator::Generate_Level() {
         case 6:
         case 7:
         case 8:
-        case 9:     if (!this->Spawn_Simple_Bridge(x)) assert(this->Spawn_Lone_Bridge(x));
+        case 9:     if (!this->Spawn_Simple_Bridge(x)) this->Spawn_Lone_Bridge(x);
                     break;
         case 10:
         case 11:
         case 12:
         case 13:
         case 14:
-        case 15:    if (!this->Spawn_Multi_Bridge(x)) assert(this->Spawn_Lone_Bridge(x));
+        case 15:    if (!this->Spawn_Multi_Bridge(x)) this->Spawn_Lone_Bridge(x);
                     break;
         case 16:
         case 17:
-        case 18:    assert(this->Spawn_Lone_Bridge(x)); break;
-        case 19:    if (!this->Spawn_Lone_Bridge_Series(x)) assert(this->Spawn_Lone_Bridge(x)); break;
+        case 18:    this->Spawn_Lone_Bridge(x); break;
+        case 19:    if (!this->Spawn_Lone_Bridge_Series(x)) this->Spawn_Lone_Bridge(x); break;
         default:    assert(false); return false;
         }
 

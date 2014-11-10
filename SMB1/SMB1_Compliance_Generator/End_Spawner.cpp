@@ -85,8 +85,8 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
 bool End_Spawner::Determine_Underground_End() {
     switch (qrand()%1) {
     case 0:
-        this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 2;
+        this->endPattern = End_Pattern::Shortest_With_Brick;
+        this->endObjectCount = 3;
         return true;
     default:
         assert(false);

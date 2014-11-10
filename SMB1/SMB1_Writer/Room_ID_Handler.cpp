@@ -215,30 +215,6 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
 
     //Fix the Room IDs
     this->Update_Room_IDs(oldRoomNum, newRoomNum, oldAttribute, newAttribute);
-    /*
-    QMap<Level::Level, bool> usedKeys;
-    foreach (unsigned char value, this->roomIDs->values()) {
-        Level::Level key = this->roomIDs->key(value);
-        if (!usedKeys.contains(key)) {
-            if (oldRoomNum == (value&0x1F)) {
-                value = ((newAttribute<<5)|newRoomNum);
-            } else if (newRoomNum < (value&0x1F)) {
-                --value;
-            }
-            this->Update_Room_ID(key, value);
-            usedKeys.insert(key, true);
-        }
-    }
-    */
-
-    //Run through the Room Order Table and update the Room IDs that have changed
-    /*
-    QMap<Level::Level, unsigned char> newRoomLevels = oldRoomLevels;
-    for (i = 0; i < 36; ++i) {
-        newRoomLevels.insert(oldRoomOrder.at(i), this->roomOrderWriter->buffer->data()[i]);
-    }
-    //this->Update_Room_IDs(newRoomLevels);
-    */
     this->roomOrderWriter->Populate_Midpoint_Indexes_In_Handler();
 
     //Fix Pipe Pointers

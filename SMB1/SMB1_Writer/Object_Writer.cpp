@@ -89,7 +89,7 @@ bool Object_Writer::Cannon(int x, int y, int height) {
     if (height > 16 || height < 1) return false;
     Level_Compliment::Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
     if (levelCompliment == Level_Compliment::BULLET_BILL_TURRETS) {
-        return this->Write_Object(x, y, 0x1, height);
+        return this->Write_Object(x, y, 0x1, height-1);
     } else {
         return false;
     }
@@ -100,7 +100,7 @@ bool Object_Writer::Island(int x, int y, int length) {
     if (length > 16 || length < 1) return false;
     Level_Compliment::Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
     if (levelCompliment != Level_Compliment::BULLET_BILL_TURRETS) {
-        return this->Write_Object(x, y, 0x1, length);
+        return this->Write_Object(x, y, 0x1, length-1);
     } else {
         return false;
     }

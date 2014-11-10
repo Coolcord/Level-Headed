@@ -39,7 +39,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     //Determine the max number of enemies available
     int numEnemies = 0;
-    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //byteLeft is odd
+    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //bytesLeft is odd
         numEnemies = (this->enemies->Get_Num_Bytes_Left()-1)/2;
     } else {
         numEnemies = this->enemies->Get_Num_Bytes_Left()/2;

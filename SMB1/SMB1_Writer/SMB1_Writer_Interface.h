@@ -36,6 +36,7 @@ public:
     virtual bool Header_Brick(Brick::Brick value)=0;
     virtual bool Header_Attribute(Level_Attribute::Level_Attribute attribute)=0;
     virtual bool Header_Midpoint(int value)=0;
+    virtual bool Header_Midpoint(Level::Level level, int value)=0;
 
     //Room Table
     virtual bool Room_Table_Set_Next_Level(Level::Level level)=0;

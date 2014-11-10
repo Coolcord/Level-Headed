@@ -53,6 +53,10 @@ bool SMB1_Writer::Header_Midpoint(int value) {
     return this->midpointWriter->Set_Midpoint(value);
 }
 
+bool SMB1_Writer::Header_Midpoint(Level::Level level, int value) {
+    return this->midpointWriter->Set_Midpoint(level, value);
+}
+
 bool SMB1_Writer::Room_Table_Set_Next_Level(Level::Level level) {
     if (!this->roomOrderWriter) return false;
     return this->roomOrderWriter->Set_Next_Level(level);

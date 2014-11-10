@@ -17,11 +17,13 @@ class Level_Generator
 public:
     Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                     SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin);
+    ~Level_Generator();
     bool Generate_Levels();
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(int levelNum);
     Level_Type::Level_Type Determine_Level_Type();
+    void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
 
     //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
@@ -33,6 +35,11 @@ private:
     SMB1_Compliance_Generator_Interface *generatorPlugin;
     SMB1_Writer_Interface *writerPlugin;
     QString levelLocation;
+    QMap<QString, Chance> *chances;
+    QVector<Level_Type::Level_Type> *veryCommonLevels;
+    QVector<Level_Type::Level_Type> *commonLevels;
+    QVector<Level_Type::Level_Type> *uncommonLevels;
+    QVector<Level_Type::Level_Type> *rareLevels;
 };
 
 #endif // LEVEL_GENERATOR_H

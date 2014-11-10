@@ -11,9 +11,18 @@ const static QString STRING_UNCOMMON = "Uncommon";
 const static QString STRING_RARE = "Rare";
 const static QString STRING_NONE = "None";
 
+enum Chance {
+    VERY_COMMON,
+    COMMON,
+    UNCOMMON,
+    RARE,
+    NONE
+};
+
 struct Plugin_Settings {
     QString baseROM;
     int numWorlds;
+    int numLevelsPerWorld;
     bool noDuplicates;
     bool generateNewLevels;
     QString levelScripts;

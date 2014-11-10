@@ -137,11 +137,9 @@ void Main_Window::on_btnConfigureLevelGenerator_clicked(){
 void Main_Window::on_btnGenerateGame_clicked(){
     if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
     if (this->interpreterPlugin->Run()) {
-        QMessageBox::information(this, Common_Strings::LEVEL_HEADED,
-                              "Game successfully generated!", Common_Strings::OK);
+        qDebug() << "Interpreter ran successfully";
     } else {
-        QMessageBox::critical(this, Common_Strings::LEVEL_HEADED,
-                              "Something went wrong. Check debug info...", Common_Strings::OK);
+        qDebug() << "Something went wrong. Check debug info...";
     }
     //TODO: Add threading?
     //If threading is added, the other components of the UI will need to be locked down until the generation is complete

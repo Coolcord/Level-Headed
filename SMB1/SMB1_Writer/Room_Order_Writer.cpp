@@ -72,7 +72,7 @@ bool Room_Order_Writer::Set_Number_Of_Worlds(int value) {
 QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(unsigned char id) {
     QVector<unsigned char> *midpoints = new QVector<unsigned char>();
     int midpointIndex = 0;
-    for (int i = 0; i < 36; ++i) {
+    for (int i = 0; i < 36 && midpointIndex < 32; ++i) {
         unsigned char roomID = static_cast<unsigned char>(this->buffer->data()[i]);
         if (roomID == id) midpoints->append(midpointIndex);
         if (roomID != this->roomIDHandler->roomIDs->value(Level::PIPE_INTRO)) ++midpointIndex; //don't count the pipe cutscenes
@@ -108,7 +108,7 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
     if (ret != 8 || header.size() != 8) return false;
 
     //Scan each level for Axes or Flagpoles to determine where the end of each world is
-    unsigned char levels = 1;
+    unsigned char levels = 0;
     unsigned char world = 1;
     //Assume first byte is always 0
     header.data()[0] = static_cast<char>(0);
@@ -117,11 +117,10 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
         bool endOfWorld = false;
         assert(this->roomIDHandler->Get_Level_From_Room_ID(static_cast<unsigned char>(this->buffer->data()[i]), level));
         assert(this->Scan_Level_For_End_Objects(level, endOfWorld));
+        ++levels;
         if (endOfWorld) {
             if (world < 8) header.data()[world] = static_cast<char>(levels);
             ++world;
-        } else {
-            ++levels;
         }
     }
     //Fill the unused bytes
@@ -154,8 +153,11 @@ bool Room_Order_Writer::Scan_Level_For_End_Objects(Level::Level level, bool &end
         //Axe
         case 0xC2:
         case 0x42:
-            endOfWorld = true;
-            return true;
+            if (static_cast<unsigned char>(buffer.data()[0]&0x0D) == 0x0D) {
+                endOfWorld = true;
+                return true;
+            }
+            break;
         default:
             break;
         }

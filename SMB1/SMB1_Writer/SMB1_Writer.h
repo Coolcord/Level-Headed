@@ -45,6 +45,7 @@ public:
     bool Header_Brick(Brick::Brick value);
     bool Header_Attribute(Level_Attribute::Level_Attribute attribute);
     bool Header_Midpoint(int value);
+    bool Header_Midpoint(Level::Level level, int value);
 
     //Room Table
     bool Room_Table_Set_Next_Level(Level::Level level);

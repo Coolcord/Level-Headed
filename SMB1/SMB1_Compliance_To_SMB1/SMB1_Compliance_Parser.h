@@ -14,8 +14,8 @@ class SMB1_Compliance_Parser : public SMB1_Compliance_Map
 public:
     SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin);
     ~SMB1_Compliance_Parser();
-    int Parse_Level(const QString &fileLocation, Level::Level level);
-    int Parse_Level(const QString &fileLocation, Level::Level level, int &lineNum);
+    int Parse_Level(const QString &fileLocation);
+    int Parse_Level(const QString &fileLocation, int &lineNum);
 
 private:
     bool Parse_Header(QFile *file, int &lineNum, int &errorCode);

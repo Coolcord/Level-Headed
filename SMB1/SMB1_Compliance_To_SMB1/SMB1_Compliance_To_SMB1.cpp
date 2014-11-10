@@ -15,6 +15,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
     this->pluginSettings.numWorlds = 8;
+    this->pluginSettings.numLevelsPerWorld = 4;
     this->pluginSettings.noDuplicates = false;
     this->pluginSettings.baseROM = "";
     this->pluginSettings.generateNewLevels = true;
@@ -35,18 +36,23 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
 bool SMB1_Compliance_To_SMB1::Run() {
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
+        //TODO: Update this error
+        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                              "Something went wrong. Check debug info...", Common_Strings::OK);
         return false;
     }
 
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
-    if (!levelGenerator.Generate_Levels()) {
-        qDebug() << "Something went wrong...";
-    } else qDebug() << "Done!";
+    bool success = levelGenerator.Generate_Levels();
 
     //Unload plugins
     this->Shutdown();
-    return true;
+    if (success) {
+        QMessageBox::information(this->parent, Common_Strings::LEVEL_HEADED,
+                                 "Game successfully generated!", Common_Strings::OK);
+    }
+    return success;
 }
 
 int SMB1_Compliance_To_SMB1::Configure_Generator() {

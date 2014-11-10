@@ -16,6 +16,7 @@ public:
     bool Read_Midpoints();
     bool Write_Midpoints();
     bool Set_Midpoint(int value);
+    bool Set_Midpoint(Level::Level level, int value);
 
 private:
     QFile *file;
