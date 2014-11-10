@@ -176,6 +176,7 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     //Spawn the ending bridge
     int y = Physics::GROUND_Y;
     int height = 0xD - y;
+    assert(height == 3);
     int bridgeLength = (qrand()%6)+5;
     assert(this->object->Vertical_Blocks(x, y, height));
     assert(this->object->Bridge(1, y, bridgeLength));
@@ -185,6 +186,7 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     int islandLength = (qrand()%12)+3;
     if (islandLength < 5) x = this->object->Get_Last_Object_Length();
     else x = this->object->Get_Last_Object_Length()-(qrand()%(islandLength-4));
+    if (x < 0) x = 0; //TODO: Fix the else statement above to remove this line
     assert(this->object->Island(x, Physics::GROUND_Y+1, islandLength));
     distanceRemainingFromBridgeEnd -= x;
     int distanceRemainingFromIslandEnd = islandLength;
