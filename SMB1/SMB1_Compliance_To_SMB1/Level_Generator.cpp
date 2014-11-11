@@ -208,12 +208,12 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         else args.levelCompliment = Level_Compliment::TREES;
         if (qrand()%2==0) args.headerScenery = Scenery::MOUNTAINS;
         else args.headerScenery = Scenery::FENCES;
-        if (qrand()%4==0) {
-            int random = qrand()%115;
+        if (qrand()%3==0) {
+            int random = qrand()%120;
             if (random < 40) args.headerBackground = Background::NIGHT;
-            if (random < 80) args.headerBackground = Background::SNOW;
+            else if (random < 80) args.headerBackground = Background::SNOW;
             else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
-            else if (random < 115) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            else if (random < 120) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else assert(false);
         } else args.headerBackground = Background::BLANK_BACKGROUND;
         break;
@@ -222,13 +222,13 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::ONLY_CLOUDS;
-        if (qrand()%3==0) args.headerBackground = Background::OVER_WATER;
-        else if (qrand()%4==0) {
-            int random = qrand()%115;
-            if (random < 40) args.headerBackground = Background::NIGHT;
-            if (random < 80) args.headerBackground = Background::SNOW;
-            else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
-            else if (random < 115) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        if (qrand()%2==0) {
+            int random = qrand()%170;
+            if (random < 50) args.headerBackground = Background::OVER_WATER;
+            else if (random < 90) args.headerBackground = Background::NIGHT;
+            else if (random < 130) args.headerBackground = Background::SNOW;
+            else if (random < 155) args.headerBackground = Background::NIGHT_AND_SNOW;
+            else if (random < 170) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else assert(false);
         } else args.headerBackground = Background::BLANK_BACKGROUND;
         break;
@@ -237,7 +237,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::NO_SCENERY;
         if (args.levelCompliment == Level_Compliment::TREES && qrand()%5==0) {
-            if (qrand()%5==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            if (qrand()%3==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else args.headerBackground = Background::NIGHT_AND_SNOW;
         } else {
             args.headerBackground = Background::BLANK_BACKGROUND;

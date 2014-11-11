@@ -3,11 +3,13 @@
 
 #include "Level_Generator.h"
 
+class Item_Spawner;
+
 class Bridge_Generator : public Level_Generator
 {
 public:
-    Bridge_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {}
-    ~Bridge_Generator() {}
+    Bridge_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
+    ~Bridge_Generator();
     bool Generate_Level();
 private:
     Bridge_Generator(const Bridge_Generator&);
@@ -22,6 +24,8 @@ private:
     bool Spawn_Multi_Bridge(int x, int y = 0, bool ignoreFirstSupport = false);
     bool Spawn_Lone_Bridge(int x, int y = 0, int length = 0);
     bool Spawn_Lone_Bridge_Series(int x);
+
+    Item_Spawner *itemSpawner;
 };
 
 #endif // BRIDGE_GENERATOR_H

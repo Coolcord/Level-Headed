@@ -1,8 +1,17 @@
 #include "Bridge_Generator.h"
 #include "Physics.h"
+#include "Item_Spawner.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
+
+Bridge_Generator::Bridge_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {
+    this->itemSpawner = new Item_Spawner(this->object, Level_Type::BRIDGE);
+}
+
+Bridge_Generator::~Bridge_Generator() {
+    delete this->itemSpawner;
+}
 
 bool Bridge_Generator::Generate_Level() {
     int x = this->object->Get_Last_Object_Length();
@@ -164,9 +173,10 @@ bool Bridge_Generator::Spawn_Simple_Bridge(int x, int y, bool ignoreFirstSupport
 
     //Spawn the bridge itself
     assert(this->object->Bridge(1, y, length));
+    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, 1);
 
     //Spawn the right support
-    assert(this->object->Vertical_Blocks(length, y, height));
+    assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
 
     return true;
 }
@@ -194,10 +204,13 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
     //Spawn the Multi Bridge
     if (ignoreFirstSupport) {
         assert(this->object->Bridge(x, y, length));
+        --numObjectsRequired;
     } else {
         assert(this->object->Vertical_Blocks(x, y, height));
         assert(this->object->Bridge(1, y, length));
+        numObjectsRequired -= 2;
     }
+    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, numObjectsRequired);
     if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
     for (int i = 1; i < numBridges; ++i) {
         if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
@@ -213,6 +226,8 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
             assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
         }
         assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, length));
+        numObjectsRequired -= 2;
+        this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, numObjectsRequired);
     }
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
     return true;
@@ -258,5 +273,4 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
     }
     return true;
 }
-
 

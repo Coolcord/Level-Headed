@@ -1,8 +1,17 @@
 #include "Island_Generator.h"
 #include "Physics.h"
+#include "Item_Spawner.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
+
+Island_Generator::Island_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {
+    this->itemSpawner = new Item_Spawner(this->object, Level_Type::ISLAND);
+}
+
+Island_Generator::~Island_Generator() {
+    delete this->itemSpawner;
+}
 
 bool Island_Generator::Generate_Level() {
     int x = this->object->Get_Last_Object_Length();
@@ -78,7 +87,10 @@ int Island_Generator::Get_Island_Y() {
 
 bool Island_Generator::Spawn_Basic_Island(int x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
-    assert(this->object->Island(x, this->Get_Island_Y(), this->Get_Island_Length()));
+    int y = this->Get_Island_Y();
+    int length = this->Get_Island_Length();
+    assert(this->object->Island(x, y, length));
+    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, 0);
     return true;
 }
 
@@ -116,5 +128,6 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
     if (x+topLength < bottomLength) {
         this->object->Increment_Last_Object_Length(bottomLength-(x+topLength));
     }
+    this->itemSpawner->Spawn_Random_Item(0, topLength, y, Physics::HIGHEST_Y, 0);
     return true;
 }

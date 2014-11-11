@@ -32,7 +32,8 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     First_Page_Handler.cpp \
     Island_Generator.cpp \
     Underwater_Generator.cpp \
-    Underground_Generator.cpp
+    Underground_Generator.cpp \
+    Item_Spawner.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -71,7 +72,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     End_Pattern.h \
     Island_Generator.h \
     Underwater_Generator.h \
-    Underground_Generator.h
+    Underground_Generator.h \
+    Item_Spawner.h
 OTHER_FILES +=
 
 unix {
