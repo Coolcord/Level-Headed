@@ -15,7 +15,7 @@ Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Writer *object, Level_Type
     case Level_Type::CASTLE:
         this->minY = Physics::HIGHEST_Y; break;
     case Level_Type::UNDERGROUND:
-        this->minY = 3; break;
+        this->minY = 4; break;
     default:
         assert(false);
     }
@@ -44,7 +44,9 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
 
     //Spawn the steps going up
     assert(x >= 0);
-    int height = this->Get_Random_Number(2, Physics::MAX_STEPS_SIZE-2);
+    int height = 0;
+    if (this->levelType == Level_Type::UNDERGROUND) height = this->Get_Random_Number(2, Physics::MAX_STEPS_SIZE-3);
+    else height = this->Get_Random_Number(2, Physics::MAX_STEPS_SIZE-2);
     assert(this->object->Steps(x, height));
     --this->availableObjects;
 
@@ -60,7 +62,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
     bool hole = false;
     if (height > Physics::BASIC_JUMP_HEIGHT || qrand() % 2 == 0) {
         int length = 0;
-        if (extendedTop) length = this->Get_Random_Number(Physics::WALKING_JUMP_LENGTH, Physics::RUNNING_JUMP_LENGTH);
+        if (extendedTop && this->levelType != Level_Type::UNDERGROUND) length = this->Get_Random_Number(Physics::WALKING_JUMP_LENGTH, Physics::RUNNING_JUMP_LENGTH);
         else length = this->Get_Random_Number(2, Physics::WALKING_JUMP_LENGTH);
         assert(this->object->Hole(this->object->Get_Last_Object_Length(), length, false));
         hole = true;
