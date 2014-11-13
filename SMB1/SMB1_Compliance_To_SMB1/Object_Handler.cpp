@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <assert.h>
 
-Object_Handler::Object_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler::Item_Handler(writerPlugin) {
+Object_Handler::Object_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {
     assert(writerPlugin);
     this->writerPlugin = writerPlugin;
 

@@ -16,6 +16,7 @@ private:
     Underground_Generator(const Underground_Generator&);
     Underground_Generator& operator=(const Underground_Generator&);
     bool Spawn_Intro(int &x);
+    bool Brick_Pattern_Distraction(int x);
 
     Simple_Object_Spawner *simpleObjectSpawner;
     Common_Pattern_Spawner *commonPatternSpawner;

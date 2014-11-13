@@ -358,6 +358,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
         default:
             assert(false);
         }
+        break;
     case Level_Type::ISLAND:
         switch (qrand()%6) {
         case 0:

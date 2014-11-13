@@ -46,7 +46,7 @@ QString ROM_Checksum::Get_ROM_Checksum(QFile *file) {
     file->seek(0);
     QByteArray buffer = file->readAll();
     if (!file->reset()) return QString();
-    if (buffer == NULL || buffer.size() == 0) return QString();
+    if (buffer.size() == 0) return QString();
 
     //Calculate the hash and return it
     QString hash = QString(QCryptographicHash::hash(buffer, QCryptographicHash::Sha512).toHex().toUpper());

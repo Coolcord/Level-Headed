@@ -152,6 +152,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>comboBaseGame</tabstop>
+  <tabstop>comboLevelGenerator</tabstop>
+  <tabstop>btnGenerateGame</tabstop>
+  <tabstop>btnConfigureBaseGame</tabstop>
+  <tabstop>btnConfigureLevelGenerator</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

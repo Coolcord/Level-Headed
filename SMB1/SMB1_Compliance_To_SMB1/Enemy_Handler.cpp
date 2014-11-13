@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <assert.h>
 
-Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler::Item_Handler(writerPlugin) {
+Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {
     assert(writerPlugin);
     this->writerPlugin = writerPlugin;
 }

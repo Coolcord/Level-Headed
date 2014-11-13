@@ -757,7 +757,14 @@ bool Level_Crawler::Draw_Map() {
 
     int maxX = this->Get_Safe_Size();
     int maxY = 13;
-    bool map[maxX][maxY];
+
+    //Allocate a 2D Vector to use as the map
+    QVector<QVector<bool>> map(maxX);
+    for (int i = 0; i < maxX; ++i) {
+        map[i].resize(maxY);
+    }
+
+    //Initialize all elements to false
     for (int i = 0; i < maxX; ++i) {
         for (int j = 0; j < maxY; ++j) {
             map[i][j] = false;
