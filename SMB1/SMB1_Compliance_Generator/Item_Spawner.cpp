@@ -17,15 +17,16 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
     int lastObjectLength = maxX-minX;
 
     //TODO: Add more than just coins, but remember that these values are set up specifically for coins
-    int x = ((qrand()%(maxX+1)))-minX;
-    if (x > maxX-3) x = maxX-3;
+
+    int length = (qrand()%((maxX-minX)+1))+3; //try to spawn at least 3 coins
+    if (minX+length > maxX) length = maxX-minX; //cut back if necessary
+    int x = qrand()%((maxX-(length-1))+minX);
+    assert(x <= maxX-3);
     if (x < minX) x = minX;
     int y = 0;
     if (this->levelType == Level_Type::BRIDGE) y = groundLevelY-((qrand()%3)+3);
     else y = groundLevelY-((qrand()%5)+1);
     if (y < minY) y = minY;
-    int length = (qrand()%((maxX-x)+1))+3;
-    if (x+length > maxX) length = maxX-x;
     assert(this->object->Horizontal_Coins(x, y, length));
     amountIncremented += x;
 
