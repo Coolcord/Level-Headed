@@ -90,7 +90,7 @@ bool Island_Generator::Spawn_Basic_Island(int x) {
     int y = this->Get_Island_Y();
     int length = this->Get_Island_Length();
     assert(this->object->Island(x, y, length));
-    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, 0);
+    this->itemSpawner->Spawn_Random_Item(0, length-1, y, Physics::HIGHEST_Y, 0);
     return true;
 }
 
@@ -128,6 +128,6 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
     if (x+topLength < bottomLength) {
         this->object->Increment_Last_Object_Length(bottomLength-(x+topLength));
     }
-    this->itemSpawner->Spawn_Random_Item(0, topLength, y, Physics::HIGHEST_Y, 0);
+    this->itemSpawner->Spawn_Random_Item(0, topLength-1, y, Physics::HIGHEST_Y, 0);
     return true;
 }

@@ -12,22 +12,32 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
     assert(minX <= maxX);
     assert(groundLevelY >= minY);
     if (this->object->Get_Num_Objects_Available()-requiredObjects < 1) return 0; //nothing to do
-    if (qrand()%3 != 0) return 0; //don't spawn anything at this time
+    if (qrand()%3 == 0) return 0; //don't spawn anything at this time
     int amountIncremented = 0;
     int lastObjectLength = maxX-minX;
 
-    //TODO: Add more than just coins, but remember that these values are set up specifically for coins
-
-    int length = (qrand()%((maxX-minX)+1))+3; //try to spawn at least 3 coins
-    if (minX+length > maxX) length = maxX-minX; //cut back if necessary
-    int x = qrand()%((maxX-(length-1))+minX);
-    assert(x <= maxX-3);
-    if (x < minX) x = minX;
+    int x = 0;
     int y = 0;
-    if (this->levelType == Level_Type::BRIDGE) y = groundLevelY-((qrand()%3)+3);
-    else y = groundLevelY-((qrand()%5)+1);
-    if (y < minY) y = minY;
-    assert(this->object->Horizontal_Coins(x, y, length));
+    int random = qrand()%3;
+    y = groundLevelY - 4;
+    if (random == 0 && y >= minY) { //possibly spawn a powerup
+        x = (qrand()%((maxX-minX)+1));
+        if (qrand()%2 == 0) { //spawn a mushroom
+            assert(this->object->Question_Block_With_Mushroom(x, y));
+        } else {
+            assert(this->object->Question_Block_With_Coin(x, y));
+        }
+    } else { //spawn coins
+        int length = (qrand()%((maxX-minX)+1))+3; //try to spawn at least 3 coins
+        if (minX+length > maxX) length = maxX-minX; //cut back if necessary
+        x = qrand()%((maxX-(length-1))+minX);
+        assert(x <= maxX);
+        if (x < minX) x = minX;
+        if (this->levelType == Level_Type::BRIDGE) y = groundLevelY-((qrand()%3)+3);
+        else y = groundLevelY-((qrand()%5)+1);
+        if (y < minY) y = minY;
+        assert(this->object->Horizontal_Coins(x, y, length));
+    }
     amountIncremented += x;
 
     assert(lastObjectLength-amountIncremented >= 0);
