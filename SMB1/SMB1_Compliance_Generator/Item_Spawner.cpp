@@ -14,14 +14,14 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
     if (this->object->Get_Num_Objects_Available()-requiredObjects < 1) return 0; //nothing to do
     if (qrand()%3 == 0) return 0; //don't spawn anything at this time
     int amountIncremented = 0;
-    int lastObjectLength = maxX-minX;
+    int lastObjectLength = (maxX-minX)+1;
 
     int x = 0;
     int y = 0;
     int random = qrand()%3;
     y = groundLevelY - 4;
     if (random == 0 && y >= minY) { //possibly spawn a powerup
-        x = (qrand()%((maxX-minX)+1));
+        x = qrand()%lastObjectLength;
         if (qrand()%2 == 0) { //spawn a mushroom
             assert(this->object->Question_Block_With_Mushroom(x, y));
         } else {
@@ -29,8 +29,8 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
         }
     } else { //spawn coins
         int length = (qrand()%((maxX-minX)+1))+3; //try to spawn at least 3 coins
-        if (minX+length > maxX) length = maxX-minX; //cut back if necessary
-        x = qrand()%((maxX-(length-1))+minX);
+        if (minX+length > maxX) length = (maxX-minX)+1; //cut back if necessary
+        x = (qrand()%((maxX-(length-1))+1))+minX;
         assert(x <= maxX);
         if (x < minX) x = minX;
         if (this->levelType == Level_Type::BRIDGE) y = groundLevelY-((qrand()%3)+3);

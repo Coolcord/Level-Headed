@@ -166,12 +166,13 @@ bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
     return false;
 }
 
+//TODO: Remove the j > 1 if check and implement it into the for loops
 bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
         for (int i = lastX+15; i >= x; --i) {
             for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
-                if (this->Is_Coordinate_Safe(i, j)) {
+                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
                     //The two coordinates above cannot be solid objects
                     if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
                     if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
@@ -186,7 +187,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
         for (int i = x; i <= lastX+15; ++i) {
             for (int j = qrand() % 12, numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
-                if (this->Is_Coordinate_Safe(i, j)) {
+                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
                     //The two coordinates above cannot be solid objects
                     if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
                     if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
@@ -201,6 +202,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
     return false;
 }
 
+//TODO: Don't allow these to spawn above y 2
 bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
         for (int i = qrand() % 12, numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
@@ -226,6 +228,7 @@ bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
     return false;
 }
 
+//TODO: Don't allow these to spawn above y 2
 bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
     if (!this->Is_Coordinate_Safe(x, y)) return false;
     //Scan up to 4 blocks above the ground
