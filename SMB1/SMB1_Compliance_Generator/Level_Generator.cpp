@@ -10,7 +10,8 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
     this->object = new Object_Writer(this->stream, this->args->numObjectBytes);
     this->enemy = new Enemy_Writer(this->stream, this->args->numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
-    this->enemySpawner = new Enemy_Spawner(file, this->stream, this->enemy, this->args->levelType);
+    this->requiredEnemySpawns = new Required_Enemy_Spawns(this->object, this->enemy);
+    this->enemySpawner = new Enemy_Spawner(file, this->stream, this->enemy, this->requiredEnemySpawns, this->args->levelType);
     this->end = new End_Spawner(this->object, this->args);
     this->midpointHandler = new Midpoint_Handler(this->object, this->args->levelType);
     this->firstPageHandler = new First_Page_Handler(this->object, this->args->headerBackground, this->args->startCastle);
@@ -23,6 +24,7 @@ Level_Generator::~Level_Generator() {
     delete this->enemy;
     delete this->pipePointer;
     delete this->enemySpawner;
+    delete this->requiredEnemySpawns;
     delete this->end;
     delete this->midpointHandler;
     delete this->firstPageHandler;

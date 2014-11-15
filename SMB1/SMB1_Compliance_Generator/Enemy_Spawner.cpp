@@ -7,13 +7,15 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Level_Type::Level_Type levelType) {
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType) {
     assert(file);
     assert(stream);
     assert(enemies);
+    assert(requiredEnemySpawns);
     this->file = file;
     this->stream = stream;
     this->enemies = enemies;
+    this->requiredEnemySpawns = requiredEnemySpawns;
     this->levelType = levelType;
     this->levelCrawler = new Level_Crawler(this->file);
 }

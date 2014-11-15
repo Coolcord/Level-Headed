@@ -7,6 +7,7 @@
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Pipe_Pointer_Writer.h"
+#include "Required_Enemy_Spawns.h"
 #include "Enemy_Spawner.h"
 #include "End_Spawner.h"
 #include "Midpoint_Handler.h"
@@ -33,6 +34,7 @@ protected:
     Object_Writer *object;
     Enemy_Writer *enemy;
     Pipe_Pointer_Writer *pipePointer;
+    Required_Enemy_Spawns *requiredEnemySpawns;
     Enemy_Spawner *enemySpawner;
     End_Spawner *end;
     Midpoint_Handler *midpointHandler;

@@ -8,11 +8,12 @@
 
 class Enemy_Writer;
 class Level_Crawler;
+class Required_Enemy_Spawns;
 
 class Enemy_Spawner
 {
 public:
-    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Level_Type::Level_Type levelType);
+    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType);
     ~Enemy_Spawner();
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
@@ -32,6 +33,7 @@ private:
     QFile *file;
     QTextStream *stream;
     Enemy_Writer *enemies;
+    Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Crawler *levelCrawler;
     Level_Type::Level_Type levelType;
 };
