@@ -59,7 +59,7 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
             ++lineNum;
             line = file->readLine();
             if (line.isEmpty()) continue;
-            if (file->atEnd()) return false;
+            if (file->atEnd()) return false; //TODO: Handle this error
             line.chop(1); //remove the new line character
         } while (line != Level_Type::STRING_BREAK);
     }

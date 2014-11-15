@@ -7,6 +7,7 @@
 #include "../Common SMB1 Files/Level_Type.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Plugin_Settings.h"
+#include <QFile>
 #include <QTextStream>
 #include <QWidget>
 #include <QMap>
@@ -20,11 +21,17 @@ public:
                     SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin);
     ~Level_Generator();
     bool Generate_Levels();
+    bool Parse_Level_Map();
+    bool Parse_Map_Header(QFile &file, int &lineNum, int &errorCode);
+    bool Parse_Levels(QFile &file, int &lineNum, int &errorCode);
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum);
     Level_Type::Level_Type Determine_Level_Type();
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
+    QString Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum);
+    bool Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum);
+    void Populate_Level_Map(QMap<QString, Level::Level> &levels);
 
     //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);

@@ -5,7 +5,6 @@
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "SMB1_Compliance_Parser.h"
 #include <QMessageBox>
-#include <QFile>
 #include <QDir>
 #include <QDate>
 #include <QTime>
@@ -109,7 +108,6 @@ bool Level_Generator::Generate_Levels() {
     //Write the Header of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ": " + QString::number(this->pluginSettings->numLevelsPerWorld))) return false;
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
     //Build the Room Order Map
@@ -190,6 +188,166 @@ bool Level_Generator::Generate_Levels() {
 
     mapStream.flush();
     map.close();
+    return true;
+}
+
+bool Level_Generator::Parse_Level_Map() {
+    QFile mapFile(this->levelLocation + "/" + this->pluginSettings->levelScripts + "/" + this->pluginSettings->levelScripts + ".map");
+    if (!mapFile.exists() || !mapFile.open(QFile::ReadOnly)) {
+        //TODO: Show an error here
+        return false;
+    }
+
+    //Load a ROM into the Writer Plugin
+    //TODO: This section is duplicate
+    bool loaded = false;
+    if (this->pluginSettings->baseROM.isEmpty()) {
+        loaded = this->writerPlugin->Load_ROM();
+    } else {
+        loaded = this->writerPlugin->Load_ROM(this->pluginSettings->baseROM);
+    }
+    if (!loaded) {
+        qDebug() << "Failed to load the ROM!";
+        return false;
+    }
+
+    //Parse through the map file
+    int lineNum = 0;
+    int errorCode = 0;
+    if (!this->Parse_Map_Header(mapFile, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return 2;
+    if (!this->Parse_Levels(mapFile, lineNum, errorCode)) return false;
+    if (!mapFile.atEnd()) return 2;
+    mapFile.close();
+    return true;
+}
+
+bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode) {
+    //Level Name
+    QString line;
+    line = file.readLine(); line.chop(1);
+    if (line != Header::STRING_MAP_NAME) return false;
+
+    //Notes Section -- Look for 2 seperators
+    for (int i = 0; i < 2; ++i) {
+        do {
+            ++lineNum;
+            line = file.readLine();
+            if (line.isEmpty()) continue;
+            if (file.atEnd()) return false; //TODO: Handle this error
+            line.chop(1); //remove the new line character
+        } while (line != Level_Type::STRING_BREAK);
+    }
+
+    //Parse the Number of Worlds
+    line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_NUMBER_OF_WORLDS + ":", lineNum);
+    QStringList elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_NUMBER_OF_WORLDS + ":") return false;
+    bool valid = false;
+    int numWorlds = elements.at(1).toInt(&valid);
+    if (!valid) return false; //unable to parse int
+    if (!this->writerPlugin->Set_Number_Of_Worlds(numWorlds)) {
+        errorCode = 3;
+        return false;
+    }
+
+    //Seperator
+    //TODO: Handler seperator errors better
+    if (!this->Parse_Through_Comments_Until_String(file, Level_Type::STRING_BREAK, lineNum)) return false;
+
+    return true;
+}
+
+bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
+    QMap<QString, Level::Level> levels;
+    this->Populate_Level_Map(levels);
+
+    //Read the Level Lines
+    bool success = false;
+    do {
+        ++lineNum;
+        QString line = file.readLine();
+        if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
+        line.chop(1); //remove the new line character
+        if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
+            success = true;
+            break;
+        } else {
+            QStringList elements = line.split(' ');
+            QMap<QString, Level::Level>::iterator iter = levels.find(elements.at(0));
+            if (elements.size() > 2) {
+                //TODO: Make this a different error code?
+                errorCode = 2; //syntax error
+                return false;
+            }
+            if (iter == levels.end()) {
+                errorCode = 2; //invalid level slot
+                return false;
+            }
+
+            //Add the level to the room order table
+            Level::Level currentLevel = iter.value();
+            if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
+                errorCode = 3;
+                return false;
+            }
+
+            //Parse the level if it has a script
+            if (elements.size() == 2) {
+                QString scriptName = elements.at(1);
+                if (scriptName.size() < 3) {
+                    errorCode = 2; //syntax error
+                    return false;
+                }
+                scriptName.chop(1); scriptName = scriptName.remove(0, 1);
+                int lastIndex = file.fileName().lastIndexOf("/");
+                scriptName = file.fileName().remove(lastIndex, file.fileName().size()-lastIndex) + "/" + scriptName;
+                if (!this->writerPlugin->New_Level(currentLevel)) {
+                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                          "The writer plugin failed to allocate buffers for a new level!", Common_Strings::OK);
+                    return false;
+                }
+
+                //TODO: Make these error messages file specific
+                SMB1_Compliance_Parser parser(this->writerPlugin);
+                int levelLineNum = 0;
+                int levelErrorCode = parser.Parse_Level(scriptName, levelLineNum);
+                errorCode = -1;
+                switch (levelErrorCode) {
+                case -1: //An error occurred and was handled within the parser
+                    return false;
+                case 0: break; //Parser ran fine
+                case 1: //Unable to open the file
+                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                          "Unable to open " + scriptName + "!", Common_Strings::OK);
+                    return false;
+                case 2: //Syntax error
+                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                          "Syntax error on line " + QString::number(lineNum) + " in " + scriptName + "!", Common_Strings::OK);
+                    return false;
+                case 3: //Writer was unable to write an item
+                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                          "The writer plugin failed to write item on line " + QString::number(lineNum) + " in " + scriptName + "!", Common_Strings::OK);
+                    return false;
+                default:
+                    assert(false);
+                }
+                errorCode = 0;
+
+                if (!this->writerPlugin->Write_Level()) {
+                    errorCode = -1;
+                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                          "The writer plugin failed to write the ROM!", Common_Strings::OK);
+                    return false;
+                }
+            }
+        }
+    } while (!file.atEnd());
+
+    //The seperator could not be found
+    if (!success) return false; //TODO: Add an error here
     return true;
 }
 
@@ -327,6 +485,76 @@ void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level
     default:
         assert(false); return;
     }
+}
+
+//TODO: This is a duplicate of the Header Handler function. Refactor so that there is only one
+QString Level_Generator::Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum) {
+    do {
+        ++lineNum;
+        QString line = file.readLine();
+        if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
+        line.chop(1);
+        QStringList elements = line.split(' ');
+        if (elements.at(0) == word) return line;
+    } while (!file.atEnd());
+    return "Invalid Line";
+}
+
+//TODO: This is a duplicate of the Header Handler function. Refactor so that there is only one
+bool Level_Generator::Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum) {
+    do {
+        ++lineNum;
+        QString line = file.readLine();
+        if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
+        line.chop(1); //remove the new line character
+        if (line == value) return true;
+    } while (!file.atEnd());
+    return false;
+}
+
+void Level_Generator::Populate_Level_Map(QMap<QString, Level::Level> &levels) {
+    levels.clear();
+    levels.insert(Level::STRING_WORLD_1_LEVEL_1, Level::WORLD_1_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_1_LEVEL_2, Level::WORLD_1_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_1_LEVEL_3, Level::WORLD_1_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_1_LEVEL_4, Level::WORLD_1_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_2_LEVEL_1, Level::WORLD_2_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_2_LEVEL_2, Level::WORLD_2_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_2_LEVEL_3, Level::WORLD_2_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_2_LEVEL_4, Level::WORLD_2_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_3_LEVEL_1, Level::WORLD_3_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_3_LEVEL_2, Level::WORLD_3_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_3_LEVEL_3, Level::WORLD_3_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_3_LEVEL_4, Level::WORLD_3_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_4_LEVEL_1, Level::WORLD_4_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_4_LEVEL_2, Level::WORLD_4_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_4_LEVEL_3, Level::WORLD_4_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_4_LEVEL_4, Level::WORLD_4_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_5_LEVEL_1, Level::WORLD_5_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_5_LEVEL_2, Level::WORLD_5_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_5_LEVEL_3, Level::WORLD_5_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_5_LEVEL_4, Level::WORLD_5_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_6_LEVEL_1, Level::WORLD_6_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_6_LEVEL_2, Level::WORLD_6_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_6_LEVEL_3, Level::WORLD_6_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_6_LEVEL_4, Level::WORLD_6_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_7_LEVEL_1, Level::WORLD_7_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_7_LEVEL_2, Level::WORLD_7_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_7_LEVEL_3, Level::WORLD_7_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_7_LEVEL_4, Level::WORLD_7_LEVEL_4);
+    levels.insert(Level::STRING_WORLD_8_LEVEL_1, Level::WORLD_8_LEVEL_1);
+    levels.insert(Level::STRING_WORLD_8_LEVEL_2, Level::WORLD_8_LEVEL_2);
+    levels.insert(Level::STRING_WORLD_8_LEVEL_3, Level::WORLD_8_LEVEL_3);
+    levels.insert(Level::STRING_WORLD_8_LEVEL_4, Level::WORLD_8_LEVEL_4);
+    levels.insert(Level::STRING_PIPE_INTRO, Level::PIPE_INTRO);
+    levels.insert(Level::STRING_UNDERGROUND_BONUS, Level::UNDERGROUND_BONUS);
+    levels.insert(Level::STRING_CLOUD_BONUS_1, Level::CLOUD_BONUS_1);
+    levels.insert(Level::STRING_CLOUD_BONUS_2, Level::CLOUD_BONUS_2);
+    levels.insert(Level::STRING_UNDERWATER_BONUS, Level::UNDERWATER_BONUS);
+    levels.insert(Level::STRING_WARP_ZONE, Level::WARP_ZONE);
+    levels.insert(Level::STRING_UNDERWATER_CASTLE, Level::UNDERWATER_CASTLE);
 }
 
 bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Level level) {

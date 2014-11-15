@@ -44,7 +44,9 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
-    bool success = levelGenerator.Generate_Levels();
+    bool success = false;
+    if (this->pluginSettings.generateNewLevels) success = levelGenerator.Generate_Levels();
+    else success = levelGenerator.Parse_Level_Map();
 
     //Unload plugins
     this->Shutdown();

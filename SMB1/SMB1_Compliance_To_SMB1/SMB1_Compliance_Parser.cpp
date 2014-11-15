@@ -87,7 +87,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file, int &lineNum, int &errorCo
     } while (!file->atEnd());
 
     //The seperator could not be found
-    if (!success) return false;
+    if (!success) return false; //TODO: Add an error here
 
     //Read the Enemies
     success = false;
@@ -108,7 +108,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file, int &lineNum, int &errorCo
     } while (!file->atEnd());
 
     //The seperator could not be found
-    if (!success) return false;
+    if (!success) return false; //TODO: Add an error here
 
     return true;
 }
