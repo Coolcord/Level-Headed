@@ -192,7 +192,11 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
         if (vertical) { //alternate between horizontal and vertical blocks
             y = this->object->Get_Current_Y();
             //Possibly go down
-            if (qrand() % 2 == 0) y += this->Get_Random_Number(1, 4);
+            if (y == Physics::HIGHEST_Y) {
+                if (qrand()%5 != 0) y += this->Get_Random_Number(1, 4); //more likely to go down when at highest y
+            } else {
+                if (qrand() % 2 == 0) y += this->Get_Random_Number(1, 4);
+            }
             if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //don't go too low
             if (y < this->minY) y = this->minY;
             assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, Physics::MAX_OBJECT_LENGTH-1)));
@@ -200,7 +204,11 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
         } else {
             y = this->object->Get_Current_Y();
             //Possibly go up
-            if (qrand() % 2 == 0) y -= this->Get_Random_Number(1, 4);
+            if (y == Physics::GROUND_Y) {
+                if (qrand()%5 != 0) y -= this->Get_Random_Number(1, 4); //more likely to go up when on the ground
+            } else {
+                if (qrand() % 2 == 0) y -= this->Get_Random_Number(1, 4);
+            }
             if (y < this->minY) y = this->minY; //don't go too high
             assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
             vertical = true;

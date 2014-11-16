@@ -20,18 +20,26 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
     int page = this->object->Get_Current_Page();
 
     //Handle according to the level type
+    int tmpX = x;
+    if (x < this->object->Get_Last_Object_Length()) x = this->object->Get_Last_Object_Length();
     switch (this->levelType) {
     case Level_Type::UNDERGROUND:
     case Level_Type::UNDERWATER:
     case Level_Type::STANDARD_OVERWORLD:
-        if (!this->Increment_Past_Standard_Overworld_Midpoint(x, page)) return; //unable to increment at this time
+        if (!this->Increment_Past_Standard_Overworld_Midpoint(x, page)) {
+            x = tmpX;
+            return; //unable to increment at this time
+        }
         break;
     case Level_Type::CASTLE:
         assert(false); //TODO: Implement this...
         break;
     case Level_Type::ISLAND:
     case Level_Type::BRIDGE:
-        if (!this->Increment_Past_Island_Midpoint(x, page)) return;
+        if (!this->Increment_Past_Island_Midpoint(x, page)) {
+            x = tmpX;
+            return;
+        }
         break;
     default: assert(false); return;
     }
@@ -82,7 +90,9 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (!this->object->Island(x, Physics::GROUND_Y+1, (qrand()%3)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length();
         if (this->levelType == Level_Type::BRIDGE) {
-            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) return false;
+            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
+                if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
+            }
         }
         return true;
     }
@@ -122,7 +132,9 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
         if (this->levelType == Level_Type::BRIDGE) {
-            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) return false;
+            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
+                if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
+            }
         }
         x = length;
         return true;

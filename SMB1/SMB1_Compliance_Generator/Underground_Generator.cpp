@@ -16,9 +16,6 @@ bool Underground_Generator::Generate_Level() {
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
-    this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::RED_CHEEP_CHEEP, 25, 5);
-    this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::GREEN_CHEEP_CHEEP, 25, 7);
-    this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::HAMMER_BRO, 27, 10);
 
     //Create the level
     while (!this->end->Is_End_Written()) {

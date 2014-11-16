@@ -173,7 +173,7 @@ bool Bridge_Generator::Spawn_Simple_Bridge(int x, int y, bool ignoreFirstSupport
 
     //Spawn the bridge itself
     assert(this->object->Bridge(1, y, length));
-    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, 1);
+    this->itemSpawner->Spawn_Random_Item(0, length-1, y, Physics::HIGHEST_Y, 1);
 
     //Spawn the right support
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
@@ -210,7 +210,7 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
         assert(this->object->Bridge(1, y, length));
         numObjectsRequired -= 2;
     }
-    this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, numObjectsRequired);
+    this->itemSpawner->Spawn_Random_Item(0, length-1, y, Physics::HIGHEST_Y, numObjectsRequired);
     if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
     for (int i = 1; i < numBridges; ++i) {
         if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
@@ -227,7 +227,7 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
         }
         assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, length));
         numObjectsRequired -= 2;
-        this->itemSpawner->Spawn_Random_Item(0, length, y, Physics::HIGHEST_Y, numObjectsRequired);
+        this->itemSpawner->Spawn_Random_Item(0, length-1, y, Physics::HIGHEST_Y, numObjectsRequired);
     }
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, height));
     return true;
