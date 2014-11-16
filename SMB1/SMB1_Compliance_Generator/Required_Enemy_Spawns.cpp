@@ -61,12 +61,14 @@ Extra_Enemy_Args Required_Enemy_Spawns::Get_Initialized_Extra_Enemy_Args() {
     return args;
 }
 
-bool Required_Enemy_Spawns::Spawn_Required_Enemy(int lastX) {
+bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     if (this->requiredEnemies->isEmpty()) return false;
     int nextX = this->requiredEnemies->first().x;
     int y = this->requiredEnemies->first().y;
     int x = nextX - lastX;
+    lastX += x;
     assert(x >= 0);
+    assert(lastX == nextX);
     Enemy_Item::Enemy_Item enemy = this->requiredEnemies->first().enemy;
     Extra_Enemy_Args args = this->requiredEnemies->first().args;
     this->requiredEnemies->pop_front();
@@ -110,8 +112,8 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int lastX) {
 
 bool Required_Enemy_Spawns::Is_In_Range_Of_Required_Enemy(int x) {
     if (this->requiredEnemies->isEmpty()) return false;
-    assert(x >= this->requiredEnemies->first().x);
-    return (x-this->requiredEnemies->first().x <= 0x10);
+    assert(this->requiredEnemies->first().x >= x);
+    return (this->requiredEnemies->first().x-x <= 0x10);
 }
 
 int Required_Enemy_Spawns::Get_Num_Required_Enemy_Spawns() {

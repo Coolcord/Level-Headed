@@ -82,8 +82,8 @@ int Bridge_Generator::Get_Bridge_Y() {
 }
 
 int Bridge_Generator::Get_Bridge_Length() {
-    int length = this->Get_Random_X(3);
-    if (length > 0xF) length = 0xF;
+    int length = 3+(qrand()%12);
+    assert(length <= 0xF);
     return length;
 }
 

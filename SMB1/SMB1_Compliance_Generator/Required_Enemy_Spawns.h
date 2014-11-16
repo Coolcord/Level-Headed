@@ -19,7 +19,7 @@ public:
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y);
     Extra_Enemy_Args Get_Initialized_Extra_Enemy_Args();
-    bool Spawn_Required_Enemy(int lastX);
+    bool Spawn_Required_Enemy(int &lastX);
     bool Is_In_Range_Of_Required_Enemy(int x);
     int Get_Num_Required_Enemy_Spawns();
     int Get_Num_Required_Bytes();

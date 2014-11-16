@@ -62,11 +62,16 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     if (numEnemies > 0) averageDistance = totalSpaces/numEnemies;
     if (averageDistance >= 16) usePages = true;
     if (averageDistance > 11) averageDistance = 11;
+    if (averageDistance < 4) averageDistance = 4;
 
     int size = 1;
     x += (averageDistance/2);
     while (this->enemies->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
-        this->Handle_Required_Enemies(lastX);
+        if (this->Handle_Required_Enemies(lastX)) {
+            x = lastX;
+            x += averageDistance;
+            continue;
+        }
         //Determine what type of enemies to spawn
         switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
@@ -117,9 +122,6 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
         //Increment X
         x += averageDistance;
-        if (averageDistance < size) {
-            x += averageDistance - size; //Prevent enemies from spawning on top of each other
-        }
     }
 
     //Add a seperator at the end of the file
@@ -129,14 +131,16 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 }
 
 bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
-    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return true; //nothing to do
+    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return false; //nothing to do
     assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
     if (this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 >= this->enemies->Get_Num_Bytes_Left()) this->emergencySpawnMode = true;
     if (this->emergencySpawnMode) return this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
+    bool enemySpawned = false;
     while (this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
-        this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
+        enemySpawned = this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
+        assert(enemySpawned);
     }
-    return true;
+    return enemySpawned;
 }
 
 bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) {
@@ -167,14 +171,14 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
             if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
                 int page = lastX/16;
                 assert(this->enemies->Page_Change(page));
-                lastX = page*16;
+                x = (page*16);
+                lastX = x;
             }
             this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
         }
         //Check to see if the page change can be skipped now
         if (this->enemies->Get_Current_Page() >= page-1) return true;
     }
-
 
     //Spawn the page change if necessary
     if ((this->enemies->Get_Num_Bytes_Left()/2) <= enemyAmount) {

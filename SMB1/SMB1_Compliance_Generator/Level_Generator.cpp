@@ -32,12 +32,18 @@ Level_Generator::~Level_Generator() {
 
 int Level_Generator::Get_Random_X() {
     //Aim for a lower value... but allow higher values to be possible
-    switch (qrand() % 4) {
-    case 0:     return (qrand() % 0x08);
-    case 1:     return (qrand() % 0x0A);
-    case 2:     return (qrand() % 0x0D);
-    case 3:     return (qrand() % 0x10);
-    default:    assert(false); return 0;
+    int random = qrand()%20;
+    if (random < 10) {
+        return (qrand() % 0x06);
+    } else if (random < 16) {
+        return (qrand() % 0x08);
+    } else if (random < 19) {
+        return (qrand() % 0x0A);
+    } else if (random < 20) {
+        return (qrand() % 0x10);
+    } else {
+        assert(false);
+        return 0;
     }
 }
 
