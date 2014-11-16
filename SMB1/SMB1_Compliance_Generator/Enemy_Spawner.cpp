@@ -42,12 +42,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     int section = 0; //used with pages to determine what group of enemies are being operated on
 
     //Determine the max number of enemies available
-    int numEnemies = 0;
-    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //bytesLeft is odd
-        numEnemies = (this->enemies->Get_Num_Bytes_Left()-1)/2;
-    } else {
-        numEnemies = this->enemies->Get_Num_Bytes_Left()/2;
-    }
+    int numEnemies = this->Calculate_Number_Of_Enemies();
 
     //Determine where to place the page changes
     int firstPageChange = (numPages/4)+1;
@@ -58,11 +53,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     int thirdEnemyGroup = (numEnemies/4)+1;
 
     //Determine the average distance between each enemy
-    int averageDistance = 0;
-    if (numEnemies > 0) averageDistance = totalSpaces/numEnemies;
+    int averageDistance = this->Calculate_Average_Distance(x, totalSpaces, numEnemies);
     if (averageDistance >= 16) usePages = true;
-    if (averageDistance > 11) averageDistance = 11;
-    if (averageDistance < 4) averageDistance = 4;
 
     int size = 1;
     x += (averageDistance/2);
@@ -72,6 +64,10 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
             x += averageDistance;
             continue;
         }
+
+        //Recalculate the average distance each round
+        averageDistance = this->Calculate_Average_Distance(x, totalSpaces, this->Calculate_Number_Of_Enemies());
+
         //Determine what type of enemies to spawn
         switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
@@ -270,6 +266,25 @@ int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
         return 0;
     }
     return 0;
+}
+
+int Enemy_Spawner::Calculate_Number_Of_Enemies() {
+    int numEnemies = 0;
+    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //bytesLeft is odd
+        numEnemies = (this->enemies->Get_Num_Bytes_Left()-1)/2;
+    } else {
+        numEnemies = this->enemies->Get_Num_Bytes_Left()/2;
+    }
+    return numEnemies;
+}
+
+int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEnemies) {
+    int averageDistance = 4;
+    assert(totalSpaces-x >= 0);
+    if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
+    if (averageDistance > 11) averageDistance = 11;
+    if (averageDistance < 4) averageDistance = 4;
+    return averageDistance;
 }
 
 int Enemy_Spawner::Get_Random_X(int min) {
