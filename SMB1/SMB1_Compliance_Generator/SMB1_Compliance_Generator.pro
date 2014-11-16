@@ -34,7 +34,8 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Underwater_Generator.cpp \
     Underground_Generator.cpp \
     Item_Spawner.cpp \
-    Required_Enemy_Spawns.cpp
+    Required_Enemy_Spawns.cpp \
+    Castle_Generator.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     Object_Writer.h \
@@ -76,7 +77,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Underground_Generator.h \
     Item_Spawner.h \
     Required_Enemy_Spawns.h \
-    Extra_Enemy_Args.h
+    Extra_Enemy_Args.h \
+    Castle_Generator.h
 OTHER_FILES +=
 
 unix {

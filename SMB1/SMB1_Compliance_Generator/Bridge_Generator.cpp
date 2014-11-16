@@ -25,7 +25,6 @@ bool Bridge_Generator::Generate_Level() {
         x = this->Get_Safe_Jump_Distance(x);
 
         //TODO: Clean up probabilities
-        //TODO: Add support for spawning coins and item boxes above bridges
         switch (qrand()%20) {
         case 0:
         case 1:

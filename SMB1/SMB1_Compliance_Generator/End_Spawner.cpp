@@ -1,12 +1,15 @@
 #include "End_Spawner.h"
+#include "Required_Enemy_Spawns.h"
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args) : Object_Spawner(object) {
+End_Spawner::End_Spawner(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns) : Object_Spawner(object) {
     assert(object);
     assert(args);
+    assert(requiredEnemySpawns);
     this->object = object;
     this->args = args;
+    this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
     switch (args->endCastle) {
     case Castle::NONE:  this->castleObjectCount = 0; break;
@@ -107,8 +110,15 @@ bool End_Spawner::Determine_Underwater_End() {
 }
 
 bool End_Spawner::Determine_Castle_End() {
-    //TODO: Implement this...
-    assert(false); return false;
+    switch (qrand()%1) {
+    case 0:
+        this->endPattern = End_Pattern::Shortest_Castle;
+        this->endObjectCount = 9;
+        return true;
+    default:
+        assert(false);
+        return false;
+    }
 }
 
 bool End_Spawner::Determine_Bridge_End() {
@@ -168,6 +178,25 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 
     x = (qrand()%7)+2;
     return this->Shortest_End(x);
+}
+
+bool End_Spawner::Shortest_Castle(int x) {
+    if (this->object->Get_Num_Bytes_Left() < 9) return false;
+
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
+
+    //The absolute x must be 0xF here
+    x = 0xF - this->object->Get_Absolute_X(0);
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
+
+    //Create the Bowser Bridge page
+    assert(this->object->Bowser_Bridge(1));
+    assert(this->object->Axe_Rope(12));
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Axe(1));
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    return true;
 }
 
 bool End_Spawner::One_Block_Bridge_End(int x) {

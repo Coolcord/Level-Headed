@@ -32,8 +32,9 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
         }
         break;
     case Level_Type::CASTLE:
-        assert(false); //TODO: Implement this...
-        break;
+        this->midpoint = 0;
+        this->midpointWritten = true;
+        return;
     case Level_Type::ISLAND:
     case Level_Type::BRIDGE:
         if (!this->Increment_Past_Island_Midpoint(x, page)) {
