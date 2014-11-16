@@ -75,7 +75,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Underwater_Generator.h \
     Underground_Generator.h \
     Item_Spawner.h \
-    Required_Enemy_Spawns.h
+    Required_Enemy_Spawns.h \
+    Extra_Enemy_Args.h
 OTHER_FILES +=
 
 unix {

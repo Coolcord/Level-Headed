@@ -18,6 +18,9 @@ public:
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
 private:
+    bool Handle_Required_Enemies(int &lastX);
+    bool Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX);
+
     int Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size);
     int Spawn_Underground_Enemy(int &x, int &y, int lastX, int size);
     int Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size);
@@ -36,6 +39,7 @@ private:
     Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Crawler *levelCrawler;
     Level_Type::Level_Type levelType;
+    bool emergencySpawnMode;
 };
 
 #endif // ENEMY_SPAWNER_H

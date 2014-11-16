@@ -1,5 +1,6 @@
 #include "Enemy_Spawner.h"
 #include "Enemy_Writer.h"
+#include "Required_Enemy_Spawns.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
@@ -18,6 +19,7 @@ Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *ene
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->levelType = levelType;
     this->levelCrawler = new Level_Crawler(this->file);
+    this->emergencySpawnMode = false;
 }
 
 Enemy_Spawner::~Enemy_Spawner() {
@@ -64,6 +66,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     int size = 1;
     x += (averageDistance/2);
     while (this->enemies->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
+        this->Handle_Required_Enemies(lastX);
         //Determine what type of enemies to spawn
         switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
@@ -125,11 +128,53 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     return true;
 }
 
+bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
+    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return true; //nothing to do
+    assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
+    if (this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 >= this->enemies->Get_Num_Bytes_Left()) this->emergencySpawnMode = true;
+    if (this->emergencySpawnMode) return this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
+    while (this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
+        this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
+    }
+    return true;
+}
+
+bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) {
+    assert(this->emergencySpawnMode);
+    while (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0) {
+        //Spawn a page change if necessary
+        if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
+            int page = lastX/16;
+            assert(this->enemies->Page_Change(page));
+            lastX = page*16;
+        }
+        assert(this->requiredEnemySpawns->Spawn_Required_Enemy(lastX));
+    }
+    assert(this->requiredEnemySpawns->Get_Num_Required_Bytes() == 0);
+    return true;
+}
+
 bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount) {
     //Skip the page change if necessary
     if (this->enemies->Get_Current_Page() >= page-1) {
         return true;
     }
+
+    //Don't forget to spawn the required enemies
+    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0) {
+        while (page*16 > this->requiredEnemySpawns->Get_X()) {
+            //Spawn a page change if necessary
+            if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
+                int page = lastX/16;
+                assert(this->enemies->Page_Change(page));
+                lastX = page*16;
+            }
+            this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
+        }
+        //Check to see if the page change can be skipped now
+        if (this->enemies->Get_Current_Page() >= page-1) return true;
+    }
+
 
     //Spawn the page change if necessary
     if ((this->enemies->Get_Num_Bytes_Left()/2) <= enemyAmount) {
