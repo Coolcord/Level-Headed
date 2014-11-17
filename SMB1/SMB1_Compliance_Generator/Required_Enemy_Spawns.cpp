@@ -12,6 +12,7 @@ Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer
     this->enemy = enemy;
     this->pipePointer = pipePointer;
     this->numRequiredBytes = 0;
+    this->numEndBytes = 0;
     this->requiredEnemies = new QQueue<Required_Enemy_Spawn>();
 }
 
@@ -35,7 +36,7 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     int previousNumRequiredBytes = this->numRequiredBytes;
     bool disableCoordinateSafety = false;
     assert(Determine_Bytes_Required_For_Required_Enemy_Spawn(enemy, disableCoordinateSafety, x));
-    if (this->numRequiredBytes > this->enemy->Get_Num_Bytes_Left()) {
+    if (this->numRequiredBytes+this->numEndBytes > this->enemy->Get_Num_Bytes_Left()) {
         this->numRequiredBytes = previousNumRequiredBytes;
         return false;
     }
@@ -48,6 +49,16 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     enemySpawn.disableCoordinateSafety = disableCoordinateSafety;
     assert(enemySpawn.numRequiredBytes >= 2 && enemySpawn.numRequiredBytes <= 5);
     this->requiredEnemies->append(enemySpawn);
+    return true;
+}
+
+int Required_Enemy_Spawns::Get_Num_End_Bytes() {
+    return this->numEndBytes;
+}
+
+bool Required_Enemy_Spawns::Set_Num_End_Bytes(int value) {
+    if (this->numRequiredBytes+value > this->enemy->Get_Num_Bytes_Left()) return false;
+    this->numEndBytes = value;
     return true;
 }
 
@@ -156,7 +167,7 @@ int Required_Enemy_Spawns::Get_Num_Required_Enemy_Spawns() {
 }
 
 int Required_Enemy_Spawns::Get_Num_Required_Bytes() {
-    return this->numRequiredBytes;
+    return this->numRequiredBytes+this->numEndBytes;
 }
 
 Enemy_Item::Enemy_Item Required_Enemy_Spawns::Get_Enemy() {

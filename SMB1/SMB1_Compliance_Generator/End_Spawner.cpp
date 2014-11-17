@@ -119,6 +119,7 @@ bool End_Spawner::Determine_Castle_End() {
     case 0:
         this->endPattern = End_Pattern::Shortest_Castle;
         this->endObjectCount = 9;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(6));
         return true;
     default:
         assert(false);
@@ -187,7 +188,8 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 
 bool End_Spawner::Shortest_Castle(int x) {
     if (this->object->Get_Num_Objects_Left() < 9) return false;
-    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 4) return false;
+    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 6) return false;
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
 
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
@@ -209,9 +211,7 @@ bool End_Spawner::Shortest_Castle(int x) {
 }
 
 bool End_Spawner::One_Block_Bridge_End(int x) {
-    if (this->object->Get_Num_Objects_Left() < 8) {
-        return false;
-    }
+    if (this->object->Get_Num_Objects_Left() < 8) return false;
 
     //Spawn the ending bridge
     int y = Physics::GROUND_Y;
@@ -251,11 +251,7 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
     x = (qrand()%11)+2;
-    bool success = this->Shortest_End(x);
-    if (success == false) {
-        return false;
-    }
-    return true;
+    return this->Shortest_End(x);
 }
 
 bool End_Spawner::Spawn_Castle() {

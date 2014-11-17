@@ -18,6 +18,8 @@ public:
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y);
+    int Get_Num_End_Bytes();
+    bool Set_Num_End_Bytes(int value);
     Extra_Enemy_Args Get_Initialized_Extra_Enemy_Args();
     bool Spawn_Required_Enemy(int &lastX);
     bool Is_In_Range_Of_Required_Enemy(int x);
@@ -45,6 +47,7 @@ private:
     Enemy_Writer *enemy;
     Pipe_Pointer_Writer *pipePointer;
     int numRequiredBytes;
+    int numEndBytes;
 };
 
 #endif // REQUIRED_ENEMY_SPAWNS_H
