@@ -23,6 +23,8 @@ private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
     void on_cbGenerateNewLevels_toggled(bool checked);
 
+    void on_btnClearAllRandomLevelScripts_clicked();
+
 private:
     void Clear_Chance_ComboBoxes();
     void Populate_Chance_ComboBoxes();

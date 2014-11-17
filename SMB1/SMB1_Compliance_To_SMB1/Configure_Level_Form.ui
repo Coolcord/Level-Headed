@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>443</height>
+    <height>541</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,6 +25,13 @@
      </item>
      <item>
       <widget class="QComboBox" name="comboLevelScripts"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnClearAllRandomLevelScripts">
+       <property name="text">
+        <string>Clear All Random Level Scripts</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="cbGenerateNewLevels">

@@ -136,6 +136,7 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     //Toggle the Level Scripts
     this->ui->lblLevelScripts->setEnabled(!enable);
     this->ui->comboLevelScripts->setEnabled(!enable);
+    this->ui->btnClearAllRandomLevelScripts->setEnabled(!enable);
 
     //Toggle the comboboxes
     this->ui->lblStandardOverworld->setEnabled(enable);
@@ -161,4 +162,39 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
 
 void Configure_Level_Form::on_cbGenerateNewLevels_toggled(bool checked) {
     this->Enable_New_Level_ComboBoxes(checked);
+}
+
+void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
+    QMessageBox::StandardButton answer;
+    answer = QMessageBox::question(this, Common_Strings::LEVEL_HEADED,
+                                   "This will delete all of your previously generated random level scripts! Are you sure that you want to do this?",
+                                   QMessageBox::Yes | QMessageBox::No);
+
+    //Delete all random level scripts
+    if (answer == QMessageBox::Yes) {
+        QDir dir(this->levelLocation);
+        bool success = true;
+        if (dir.exists()) {
+            //Scan for valid level scripts
+            QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+            foreach (QString level, levelFolders) {
+                if (level.startsWith("Random ")) {
+                    QDir levelDir(dir.path() + "/" + level);
+                    if (!levelDir.removeRecursively()) success = false;
+                }
+            }
+        }
+
+        //Show a message for the status of the operation
+        if (success) {
+            QMessageBox::information(this, Common_Strings::LEVEL_HEADED,
+                                     "All previously generated random level scripts have been removed!",
+                                     Common_Strings::OK);
+        } else {
+            QMessageBox::critical(this, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+                                  " could not delete all of the randomly generated level scripts!",
+                                  Common_Strings::OK);
+        }
+        this->Populate_Level_Scripts_ComboBox();
+    }
 }
