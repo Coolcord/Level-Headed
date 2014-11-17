@@ -403,8 +403,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         args.headerBackground = Background::IN_WATER;
         break;
     case Level_Type::CASTLE:
-        if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
-        else args.levelCompliment = Level_Compliment::TREES;
+        args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::NO_SCENERY;
         args.headerBackground = Background::OVER_WATER;
         break;

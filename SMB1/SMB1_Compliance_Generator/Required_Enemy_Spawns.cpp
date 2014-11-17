@@ -82,7 +82,19 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     Extra_Enemy_Args args = this->requiredEnemies->first().args;
 
     //Spawn a page change if necessary
-    if (!this->requiredEnemies->first().disableCoordinateSafety && !this->Is_In_Range_Of_Required_Enemy(x)) {
+    int previousRequiredX = this->enemy->Get_Level_Length();
+    int currentX = this->enemy->Get_Level_Length() + x;
+    int distance = currentX - previousRequiredX;
+    assert(distance >= 0);
+
+    //Check to see if a page change is required
+    int previousAbsoluteX = previousRequiredX%0x10;
+    int amountUntilNextPage = 0x10 - previousAbsoluteX;
+    assert(amountUntilNextPage <= 0x10);
+
+    if (distance > 0x10 && distance <= 0xF+amountUntilNextPage) {
+        assert(disableCoordinateSafety); //the coordinate safety should get disabled
+    } else if (distance > 0x10) { //spawn the page change
         int page = nextX/16;
         assert(this->enemy->Page_Change(page));
         lastX = page*16;
@@ -173,6 +185,9 @@ bool Required_Enemy_Spawns::Mark_Enemy_As_Spawned() {
 bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x) {
     int previousRequiredX = 0;
     if (!this->requiredEnemies->isEmpty()) previousRequiredX = this->requiredEnemies->last().x;
+    int currentX = this->object->Get_Level_Length() + x;
+    int distance = currentX - previousRequiredX;
+    assert(distance >= 0);
     disableSafety = false;
     int numRequiredBytes = this->numRequiredBytes;
     numRequiredBytes += 2;
@@ -182,10 +197,11 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     int previousAbsoluteX = previousRequiredX%0x10;
     int amountUntilNextPage = 0x10 - previousAbsoluteX;
     assert(amountUntilNextPage <= 0x10);
-    if (0xF+amountUntilNextPage > x) {
-        numRequiredBytes += 2;
-    } else {
+
+    if (distance > 0x10 && distance <= 0xF+amountUntilNextPage) {
         disableSafety = true; //it's technically possible to spawn the enemy without a page change, so do so to conserve bytes
+    } else if (distance > 0x10) {
+        numRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
     }
 
     if (numRequiredBytes > this->enemy->Get_Num_Bytes_Left()) return false;

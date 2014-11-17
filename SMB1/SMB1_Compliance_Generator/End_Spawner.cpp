@@ -251,7 +251,11 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
     x = (qrand()%11)+2;
-    return this->Shortest_End(x);
+    bool success = this->Shortest_End(x);
+    if (success == false) {
+        return false;
+    }
+    return true;
 }
 
 bool End_Spawner::Spawn_Castle() {
