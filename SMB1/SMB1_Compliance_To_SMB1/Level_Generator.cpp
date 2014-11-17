@@ -119,6 +119,7 @@ bool Level_Generator::Generate_Levels() {
 
     //Determine the number of levels to use
     int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
+    if (this->pluginSettings->noDuplicates && this->pluginSettings->numWorlds == 7) --numLevels; //TODO: this line will need to be refactored once item sending gets implemented
     assert(numLevels == levelOrder.size());
 
     //Determine the number of level types for each chance type
@@ -133,56 +134,50 @@ bool Level_Generator::Generate_Levels() {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i);
 
-        //TODO: This if will be depricated once Castle levels can be generated
-        if (args.levelType == Level_Type::CASTLE) {
-            this->writerPlugin->Header_Midpoint(levelOrder.at(i), 0);
-            if (!this->Write_To_Map(mapStream, levelOrder.at(i))) return false;
-        } else {
-            if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
-                QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                      "The writer plugin failed to allocate buffers for a new level!", Common_Strings::OK);
-                return false;
-            }
-            args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
-            args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
-            qDebug() << args.numObjectBytes;
-
-            if (!this->generatorPlugin->Generate_Level(args)) {
-                qDebug() << "Looks like the generator blew up";
-                return false;
-            }
-
-            int lineNum = 0;
-            int errorCode = parser.Parse_Level(args.fileName, lineNum);
-            switch (errorCode) {
-            case -1: //An error occurred and was handled within the parser
-                return false;
-            case 0: break; //Parser ran fine
-            case 1: //Unable to open the file
-                QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                      "Unable to open " + args.fileName + "!", Common_Strings::OK);
-                return false;
-            case 2: //Syntax error
-                QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                      "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::OK);
-                return false;
-            case 3: //Writer was unable to write an item
-                QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                      "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::OK);
-                return false;
-            default:
-                assert(false);
-            }
-
-            if (!this->writerPlugin->Write_Level()) {
-                QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                      "The writer plugin failed to write the ROM!", Common_Strings::OK);
-                return false;
-            }
-
-            //Write the level to the map
-            if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
+        if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::OK);
+            return false;
         }
+        args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
+        args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
+        qDebug() << args.numObjectBytes;
+
+        if (!this->generatorPlugin->Generate_Level(args)) {
+            qDebug() << "Looks like the generator blew up";
+            return false;
+        }
+
+        int lineNum = 0;
+        int errorCode = parser.Parse_Level(args.fileName, lineNum);
+        switch (errorCode) {
+        case -1: //An error occurred and was handled within the parser
+            return false;
+        case 0: break; //Parser ran fine
+        case 1: //Unable to open the file
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                  "Unable to open " + args.fileName + "!", Common_Strings::OK);
+            return false;
+        case 2: //Syntax error
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                  "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+            return false;
+        case 3: //Writer was unable to write an item
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                  "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+            return false;
+        default:
+            assert(false);
+        }
+
+        if (!this->writerPlugin->Write_Level()) {
+            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
+                                  "The writer plugin failed to write the ROM!", Common_Strings::OK);
+            return false;
+        }
+
+        //Write the level to the map
+        if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
     }
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
@@ -359,6 +354,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
+    else if (this->pluginSettings->noDuplicates && level == 3 && world == 7) args.levelType = Level_Type::CASTLE;
     else args.levelType = this->Determine_Level_Type();
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
@@ -407,7 +403,8 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         args.headerBackground = Background::IN_WATER;
         break;
     case Level_Type::CASTLE:
-        args.levelCompliment = Level_Compliment::TREES;
+        if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::NO_SCENERY;
         args.headerBackground = Background::OVER_WATER;
         break;
@@ -565,68 +562,46 @@ bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Lev
 
 //TODO: This will be deprecated once item sending is implemented
 bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder) {
-    QMap<Level::Level, int> castleLevelUses;
-    QVector<Level::Level> castleLevels;
-    castleLevelUses.insert(Level::WORLD_1_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_1_LEVEL_4);
-    castleLevelUses.insert(Level::WORLD_2_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_2_LEVEL_4);
-    castleLevelUses.insert(Level::WORLD_3_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_3_LEVEL_4);
-    castleLevelUses.insert(Level::WORLD_4_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_4_LEVEL_4);
-    castleLevelUses.insert(Level::WORLD_7_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_7_LEVEL_4);
-    castleLevelUses.insert(Level::WORLD_8_LEVEL_4, 0);
-    castleLevels.append(Level::WORLD_8_LEVEL_4);
-    int numWorldsLeft = this->pluginSettings->numWorlds;
     switch (this->pluginSettings->numWorlds) {
     case 7:
     case 8:
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_2)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_3)) return false;
     case 5:
     case 6:
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_3)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_4)) return false;
     case 1:
     case 2:
     case 3:
     case 4:
-        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_3)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
-        if (this->pluginSettings->numWorlds == 1) break;
         if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_3)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_3)) return false;
+        if (this->pluginSettings->numWorlds == 1) break;
+        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_4)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
-        if (this->pluginSettings->numWorlds == 2) break;
+        if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_4)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_2)) return false;
+        if (this->pluginSettings->numWorlds == 2) break;
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_1)) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_4)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
-        if (this->pluginSettings->numWorlds == 3) break;
         if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_2)) return false;
+        if (this->pluginSettings->numWorlds == 3) break;
+        if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_4)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_3)) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_4)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
         if (this->pluginSettings->numWorlds == 4 || this->pluginSettings->numWorlds == 5) break;
         if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
-        if (this->pluginSettings->numWorlds != 8) break;
-        //Duplicate Levels
-        if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_3)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, this->Get_Random_Castle_Level(castleLevelUses, castleLevels, numWorldsLeft))) return false;
+        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_2)) return false; //ends at level 7-3
         break;
     default:
         assert(false); return false;
@@ -686,21 +661,4 @@ bool Level_Generator::Write_To_Map(QTextStream &mapStream, Level::Level level, c
 
     if (fileName.size() > 0) line += " \"" + fileName + "\"";
     return this->Write_To_Map(mapStream, line);
-}
-
-//TODO: This area will be deprecated once Castle Levels are implemented
-Level::Level Level_Generator::Get_Random_Castle_Level(QMap<Level::Level, int> &castleLevelUses, QVector<Level::Level> &castleLevels, int &numWorldsLeft) {
-    assert(castleLevels.size() > 0);
-    int index = (qrand()%castleLevels.size());
-    Level::Level level = castleLevels.at(index);
-    int numUses = castleLevelUses[level];
-    assert(numUses < 2);
-    if (numUses == 0) {
-        castleLevelUses.insert(level, 1);
-    } else {
-        castleLevels.removeAt(index);
-        castleLevelUses.remove(level);
-    }
-    --numWorldsLeft;
-    return level;
 }

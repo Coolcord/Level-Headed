@@ -58,7 +58,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     int size = 1;
     x += (averageDistance/2);
-    while (this->enemies->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
+    while (this->enemies->Get_Num_Bytes_Left() > this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 && x < this->levelCrawler->Get_Safe_Size()) {
         if (this->Handle_Required_Enemies(lastX)) {
             x = lastX;
             x += averageDistance;
@@ -120,6 +120,12 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         x += averageDistance;
     }
 
+    //Spawn the rest of the required spawns if there are any
+    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0) {
+        this->emergencySpawnMode = true;
+        this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
+    }
+
     //Add a seperator at the end of the file
     *(this->stream) << Level_Type::STRING_BREAK + "\n";
     if (this->stream->status() != QTextStream::Ok) return false;
@@ -142,12 +148,6 @@ bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
 bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) {
     assert(this->emergencySpawnMode);
     while (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0) {
-        //Spawn a page change if necessary
-        if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
-            int page = lastX/16;
-            assert(this->enemies->Page_Change(page));
-            lastX = page*16;
-        }
         assert(this->requiredEnemySpawns->Spawn_Required_Enemy(lastX));
     }
     assert(this->requiredEnemySpawns->Get_Num_Required_Bytes() == 0);

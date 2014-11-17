@@ -23,6 +23,7 @@ private:
     bool Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Underground_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Underwater_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
+    bool Generate_Castle_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Bridge_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Island_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     QString applicationLocation;

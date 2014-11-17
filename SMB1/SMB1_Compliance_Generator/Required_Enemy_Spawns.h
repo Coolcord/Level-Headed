@@ -34,10 +34,11 @@ private:
         int x;
         int y;
         int numRequiredBytes;
+        bool disableCoordinateSafety;
         Extra_Enemy_Args args;
     };
 
-    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x);
+    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x);
 
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
     Object_Writer *object;

@@ -7,10 +7,13 @@
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Object_Spawner.h"
 
+class Enemy_Writer;
+class Required_Enemy_Spawns;
+
 class End_Spawner : public Object_Spawner
 {
 public:
-    End_Spawner(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args);
+    End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns);
     bool Is_End_Written();
     bool Handle_End(int x);
 
@@ -26,10 +29,13 @@ private:
     bool Determine_Island_End();
     bool Shortest_End(int x);
     bool Shortest_With_Brick_End(int x);
+    bool Shortest_Castle(int x);
     bool One_Block_Bridge_End(int x);
     bool Spawn_Castle();
 
+    Enemy_Writer *enemy;
     SMB1_Compliance_Generator_Arguments *args;
+    Required_Enemy_Spawns *requiredEnemySpawns;
     End_Pattern::End_Pattern endPattern;
     int castleObjectCount;
     int endObjectCount;

@@ -683,6 +683,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         this->Mark_Bad_Coordinate(x, 7);
         return true;
     case Object_Item::BOWSER_BRIDGE:
+        this->endDetected = true;
         for (int i = 0; i < 13; ++i) {
             this->Mark_Bad_Coordinate(x+i, 8);
         }

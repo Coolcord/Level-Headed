@@ -2,13 +2,14 @@
 #include <assert.h>
 
 bool Castle_Generator::Generate_Level() {
+    int x = 0;
     assert(this->Spawn_Intro(x));
     this->midpointHandler->Handle_Midpoint(x);
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        int x = this->object->Get_Last_Object_Length();
-
+        x = this->object->Get_Last_Object_Length();
+        this->object->Nothing();
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 

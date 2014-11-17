@@ -413,18 +413,22 @@ bool Object_Writer::Big_Castle(int x) {
 }
 
 bool Object_Writer::Axe(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_AXE, Physics::MIN_OBJECT_LENGTH, false);
 }
 
 bool Object_Writer::Axe_Rope(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_AXE_ROPE, Physics::MIN_OBJECT_LENGTH, false);
 }
 
 bool Object_Writer::Bowser_Bridge(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_BOWSER_BRIDGE, Physics::BOWSER_BRIDGE_LENGTH, true);
 }
 
 bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     if (warpZone) {
         return this->Write_Object(x, Object_Item::STRING_SCROLL_STOP_WARP_ZONE, false);
     } else {
@@ -433,22 +437,27 @@ bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
 }
 
 bool Object_Writer::Flying_Cheep_Cheep_Spawner(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_FLYING_CHEEP_CHEEP_SPAWNER, false);
 }
 
 bool Object_Writer::Swimming_Cheep_Cheep_Spawner(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_SWIMMING_CHEEP_CHEEP_SPAWNER, false);
 }
 
 bool Object_Writer::Bullet_Bill_Spawner(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_BULLET_BILL_SPAWNER, false);
 }
 
 bool Object_Writer::Cancel_Spawner(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_CANCEL_SPAWNER, false);
 }
 
 bool Object_Writer::Loop_Command(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(x, Object_Item::STRING_LOOP_COMMAND, false);
 }
 

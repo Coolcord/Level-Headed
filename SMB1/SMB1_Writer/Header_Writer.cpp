@@ -182,7 +182,7 @@ bool Header_Writer::Set_Starting_Position(Level_Attribute::Level_Attribute value
 
     //Write the data
     QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->data()[0]));
-    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 2, static_cast<unsigned char>(hexDigit), 2, 3);
+    Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 3, static_cast<unsigned char>(hexDigit), 2, 3);
     unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
     this->buffer->data()[0] = static_cast<char>(byte);
     return true;

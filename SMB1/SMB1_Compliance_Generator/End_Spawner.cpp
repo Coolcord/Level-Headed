@@ -1,13 +1,16 @@
 #include "End_Spawner.h"
+#include "Enemy_Writer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns) : Object_Spawner(object) {
+End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns) : Object_Spawner(object) {
     assert(object);
+    assert(enemy);
     assert(args);
     assert(requiredEnemySpawns);
     this->object = object;
+    this->enemy = enemy;
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
@@ -40,6 +43,8 @@ bool End_Spawner::Handle_End(int x) {
             success =  this->Shortest_End(x); break;
         case End_Pattern::Shortest_With_Brick:
             success = this->Shortest_With_Brick_End(x); break;
+        case End_Pattern::Shortest_Castle:
+            success = this->Shortest_Castle(x); break;
         case End_Pattern::One_Block_Bridge:
             success = this->One_Block_Bridge_End(x); break;
         default:
@@ -181,7 +186,8 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 }
 
 bool End_Spawner::Shortest_Castle(int x) {
-    if (this->object->Get_Num_Bytes_Left() < 9) return false;
+    if (this->object->Get_Num_Objects_Left() < 9) return false;
+    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 4) return false;
 
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
@@ -191,16 +197,21 @@ bool End_Spawner::Shortest_Castle(int x) {
 
     //Create the Bowser Bridge page
     assert(this->object->Bowser_Bridge(1));
+    assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER, 7));
     assert(this->object->Axe_Rope(12));
     assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING, Scenery::NO_SCENERY));
     assert(this->object->Axe(1));
     assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
-    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Scroll_Stop(6, false));
+    assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::TOAD, 4));
     return true;
 }
 
 bool End_Spawner::One_Block_Bridge_End(int x) {
-    if (this->object->Get_Num_Objects_Left() < 8) return false;
+    if (this->object->Get_Num_Objects_Left() < 8) {
+        return false;
+    }
 
     //Spawn the ending bridge
     int y = Physics::GROUND_Y;

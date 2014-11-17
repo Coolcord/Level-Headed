@@ -12,6 +12,7 @@ public:
 private:
     Castle_Generator(const Castle_Generator&);
     Castle_Generator& operator=(const Castle_Generator&);
+    bool Spawn_Intro(int &x);
 };
 
 #endif // CASTLE_GENERATOR_H

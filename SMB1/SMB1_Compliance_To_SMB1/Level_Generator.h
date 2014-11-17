@@ -38,7 +38,6 @@ private:
     bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder);
     bool Write_To_Map(QTextStream &mapStream, const QString &string);
     bool Write_To_Map(QTextStream &mapStream, Level::Level level, const QString &fileName = "");
-    Level::Level Get_Random_Castle_Level(QMap<Level::Level, int> &castleLevelUses, QVector<Level::Level> &castleLevels, int &numWorldsLeft);
 
     QWidget *parent;
     Plugin_Settings *pluginSettings;

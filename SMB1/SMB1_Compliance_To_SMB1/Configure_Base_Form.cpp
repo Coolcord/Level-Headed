@@ -65,7 +65,7 @@ void Configure_Base_Form::Fix_Max_Worlds(bool noDuplicates, int numLevelsPerWorl
     if (noDuplicates) {
         switch (numLevelsPerWorld) {
         default:
-            this->ui->sbNumWorlds->setMaximum(8);
+            this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this to 8 once item sending and noDuplicates are implemented
             break;
         case 4:
             this->ui->sbNumWorlds->setMaximum(6);
@@ -84,7 +84,7 @@ void Configure_Base_Form::Fix_Max_Worlds(bool noDuplicates, int numLevelsPerWorl
     } else {
         switch (numLevelsPerWorld) {
         default:
-            this->ui->sbNumWorlds->setMaximum(8);
+            this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this to 8 once item sending and noDuplicates are implemented
             break;
         case 5:
             this->ui->sbNumWorlds->setMaximum(6);
