@@ -178,7 +178,7 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
             //Scan for valid level scripts
             QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
             foreach (QString level, levelFolders) {
-                if (level.startsWith("Random ")) {
+                if (level.size() == 28 && level.startsWith("Random ")) {
                     QDir levelDir(dir.path() + "/" + level);
                     if (!levelDir.removeRecursively()) success = false;
                 }

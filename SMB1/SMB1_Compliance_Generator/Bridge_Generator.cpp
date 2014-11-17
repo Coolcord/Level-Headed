@@ -190,7 +190,7 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
     int numObjectsRequired = 5+((numBridges-2)*2);
     if (numObjectsAvailable < numObjectsRequired) {
         numBridges = ((numObjectsAvailable-5)/2)+2;
-        numObjectsRequired = 5+((numBridges-2)*2);
+        numObjectsRequired = numObjectsAvailable;
     }
 
     //Allow the Multi Bridge to be uniform in some aspects
