@@ -72,9 +72,8 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
     //Spawn a center platform with a possible firebar
-    x = (qrand()%2)+1; //between 1 and 3
+    x = (qrand()%2)+2; //between 2 and 3
     assert(this->object->Used_Block(x, 8));
-    /*
     if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(0)) {
         if (qrand()%6==0) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, 8));
@@ -85,7 +84,6 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, 8));
         }
     }
-    */
     x = (qrand()%2)+1; //between 1 and 3
 
     //Spawn another hole
