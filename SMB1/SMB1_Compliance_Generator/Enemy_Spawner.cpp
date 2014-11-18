@@ -58,7 +58,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     int size = 1;
     x += (averageDistance/2);
-    while (this->enemies->Get_Num_Bytes_Left() > this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 && x < this->levelCrawler->Get_Safe_Size()) {
+    while (this->requiredEnemySpawns->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
         if (this->Handle_Required_Enemies(lastX)) {
             x = lastX;
             x += averageDistance;
@@ -100,7 +100,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         }
 
         //Spawn a page change if necessary
-        if (usePages && this->enemies->Get_Num_Bytes_Left() >= 4) {
+        if (usePages && this->requiredEnemySpawns->Get_Num_Bytes_Left() >= 4) {
             switch (section) {
             case 0:
                 if (this->Spawn_Page_Change(x, y, lastX, firstPageChange, firstEnemyGroup)) ++section;
@@ -135,7 +135,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
     if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return false; //nothing to do
     assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
-    if (this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 >= this->enemies->Get_Num_Bytes_Left()) this->emergencySpawnMode = true;
+    if (this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 >= this->requiredEnemySpawns->Get_Num_Bytes_Left()) this->emergencySpawnMode = true;
     if (this->emergencySpawnMode) return this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
     bool enemySpawned = false;
     while (this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
@@ -177,7 +177,7 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
     }
 
     //Spawn the page change if necessary
-    if ((this->enemies->Get_Num_Bytes_Left()/2) <= enemyAmount) {
+    if ((this->requiredEnemySpawns->Get_Num_Bytes_Left()/2) <= enemyAmount) {
         assert(this->enemies->Page_Change(page));
         x = (page*16);
         lastX = x;
@@ -270,10 +270,10 @@ int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
 
 int Enemy_Spawner::Calculate_Number_Of_Enemies() {
     int numEnemies = 0;
-    if (this->enemies->Get_Num_Bytes_Left() % 2 == 1) { //bytesLeft is odd
-        numEnemies = (this->enemies->Get_Num_Bytes_Left()-1)/2;
+    if (this->requiredEnemySpawns->Get_Num_Bytes_Left() % 2 == 1) { //bytesLeft is odd
+        numEnemies = (this->requiredEnemySpawns->Get_Num_Bytes_Left()-1)/2;
     } else {
-        numEnemies = this->enemies->Get_Num_Bytes_Left()/2;
+        numEnemies = this->requiredEnemySpawns->Get_Num_Bytes_Left()/2;
     }
     return numEnemies;
 }

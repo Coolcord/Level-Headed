@@ -33,7 +33,7 @@ bool End_Spawner::Is_End_Written() {
 bool End_Spawner::Handle_End(int x) {
     if (this->endWritten) return false; //can't write another end
     int numObjectsLeft = this->object->Get_Num_Objects_Left();
-    if (numObjectsLeft < this->endObjectCount) return false;
+    assert(numObjectsLeft >= this->endObjectCount);
 
     //Handle each end pattern accordingly
     if (numObjectsLeft == this->endObjectCount) {
@@ -211,7 +211,9 @@ bool End_Spawner::Shortest_Castle(int x) {
 }
 
 bool End_Spawner::One_Block_Bridge_End(int x) {
-    if (this->object->Get_Num_Objects_Left() < 8) return false;
+    if (this->object->Get_Num_Objects_Left() < 8) {
+        return false;
+    }
 
     //Spawn the ending bridge
     int y = Physics::GROUND_Y;

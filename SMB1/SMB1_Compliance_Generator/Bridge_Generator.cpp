@@ -253,7 +253,7 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
 
     //A series of lone bridges can consist of anywhere between 3 and 6 bridges
     int numBridges = (qrand()%3)+3;
-    if (numObjectsAvailable < numBridges) numBridges = numObjectsAvailable;
+    if (numBridges > numObjectsAvailable) numBridges = numObjectsAvailable;
 
     //Allow the series to be uniform in some aspects
     bool uniformDistance = !(static_cast<bool>(qrand()%4));

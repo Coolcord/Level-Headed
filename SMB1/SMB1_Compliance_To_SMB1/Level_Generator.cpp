@@ -141,7 +141,6 @@ bool Level_Generator::Generate_Levels() {
         }
         args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
         args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
-        qDebug() << args.numObjectBytes;
 
         if (!this->generatorPlugin->Generate_Level(args)) {
             qDebug() << "Looks like the generator blew up";

@@ -22,6 +22,7 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
     //Handle according to the level type
     int tmpX = x;
     if (x < this->object->Get_Last_Object_Length()) x = this->object->Get_Last_Object_Length();
+    if (this->object->Get_Num_Objects_Available() == 0) return; //midpoint may not be necessary
     switch (this->levelType) {
     case Level_Type::UNDERGROUND:
     case Level_Type::UNDERWATER:
@@ -82,6 +83,10 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
 }
 
 bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
+    int requiredObjects = 1;
+    if (this->levelType == Level_Type::BRIDGE) ++requiredObjects;
+    if (this->object->Get_Num_Objects_Available() < requiredObjects) return false;
+
     //Absolute coordinates 0x3 and 0x4 must be clear
     //Increment to 0x5 to fix
     int absoluteX = this->object->Get_Absolute_X(x);
@@ -99,7 +104,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     }
 
     //Place some kind of object to push the x over to the midpoint
-    if (absoluteX < 0xA) {
+    if (absoluteX < 0xA && this->object->Get_Num_Objects_Available() > requiredObjects+1) {
         //Try to randomize the distance
         int tmpX = x+(qrand()%4)+1;
         if (tmpX > 0x10) tmpX = x;

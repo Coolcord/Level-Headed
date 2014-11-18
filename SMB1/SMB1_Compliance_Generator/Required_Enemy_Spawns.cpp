@@ -2,6 +2,7 @@
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Pipe_Pointer_Writer.h"
+#include <QDebug>
 #include <assert.h>
 
 Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer) {
@@ -50,6 +51,22 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     assert(enemySpawn.numRequiredBytes >= 2 && enemySpawn.numRequiredBytes <= 5);
     this->requiredEnemies->append(enemySpawn);
     return true;
+}
+
+bool Required_Enemy_Spawns::Is_Safe_To_Add_Required_Enemy_Spawn(int x) {
+    int tmpNumRequiredBytes = this->numRequiredBytes;
+    bool disableSafety = false;
+    if (!this->Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::GOOMBA, disableSafety, x)) {
+        this->numRequiredBytes = tmpNumRequiredBytes;
+        return false;
+    }
+    int numBytes = this->numRequiredBytes - tmpNumRequiredBytes;
+    this->numRequiredBytes = tmpNumRequiredBytes;
+    return (this->numRequiredBytes+this->numEndBytes+numBytes <= this->enemy->Get_Num_Bytes_Left());
+}
+
+int Required_Enemy_Spawns::Get_Num_Bytes_Left() {
+    return this->enemy->Get_Num_Bytes_Left()-(this->numEndBytes+this->numRequiredBytes);
 }
 
 int Required_Enemy_Spawns::Get_Num_End_Bytes() {
@@ -104,12 +121,14 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     assert(amountUntilNextPage <= 0x10);
 
     if (distance > 0x10 && distance <= 0xF+amountUntilNextPage) {
-        assert(disableCoordinateSafety); //the coordinate safety should get disabled
+        disableCoordinateSafety = true; //the coordinate safety should get disabled
     } else if (distance > 0x10) { //spawn the page change
+        assert(numRequiredBytes > 3);
         int page = nextX/16;
         assert(this->enemy->Page_Change(page));
         lastX = page*16;
         x = nextX - lastX;
+        assert(x < 0x10);
     }
 
     this->enemy->Set_Coordinate_Safety(!disableCoordinateSafety);
@@ -153,6 +172,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     }
     if (success) this->numRequiredBytes -= numRequiredBytes;
     this->enemy->Set_Coordinate_Safety(true);
+    lastX = nextX;
     return success;
 }
 
@@ -215,7 +235,7 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
         numRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
     }
 
-    if (numRequiredBytes > this->enemy->Get_Num_Bytes_Left()) return false;
+    if (numRequiredBytes+this->numEndBytes > this->enemy->Get_Num_Bytes_Left()) return false;
     this->numRequiredBytes = numRequiredBytes;
     return true;
 }

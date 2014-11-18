@@ -181,21 +181,21 @@ bool Enemy_Writer::Bullet_Bill_Spawner(int x, bool onlyHardMode) {
 bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {
     if (clockwise) {
         if (fast) {
-            return this->Write_Enemy(x, y+1, 0x1C, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x1C, onlyHardMode);
         } else {
-            return this->Write_Enemy(x, y+1, 0x1B, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x1B, onlyHardMode);
         }
     } else {
         if (fast) {
-            return this->Write_Enemy(x, y+1, 0x1E, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x1E, onlyHardMode);
         } else {
-            return this->Write_Enemy(x, y+1, 0x1D, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x1D, onlyHardMode);
         }
     }
 }
 
 bool Enemy_Writer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x1F, onlyHardMode);
+    return this->Write_Enemy(x, y+2, 0x1F, onlyHardMode);
 }
 
 bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {

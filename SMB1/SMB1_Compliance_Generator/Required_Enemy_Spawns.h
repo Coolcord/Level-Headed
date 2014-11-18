@@ -18,6 +18,8 @@ public:
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y);
+    bool Is_Safe_To_Add_Required_Enemy_Spawn(int x);
+    int Get_Num_Bytes_Left();
     int Get_Num_End_Bytes();
     bool Set_Num_End_Bytes(int value);
     Extra_Enemy_Args Get_Initialized_Extra_Enemy_Args();
