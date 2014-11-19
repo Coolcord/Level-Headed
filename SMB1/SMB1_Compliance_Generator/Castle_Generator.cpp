@@ -12,13 +12,13 @@ bool Castle_Generator::Generate_Level() {
     while (!this->end->Is_End_Written()) {
         x = this->Get_Safe_Random_X();
         bool success = false;
-        switch (qrand()%3) {
+        switch (qrand()%1) {
         case 0: success = this->Room_With_Single_Firebar_Pillar(x); break;
-        case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
-        case 2: success = this->Two_Object_Hole(x); break;
+        //case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
+        //case 2: success = this->Two_Object_Hole(x); break;
         default: break;
         }
-        if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Nothing();
+        if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 

@@ -54,7 +54,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
     //Determine the average distance between each enemy
     int averageDistance = this->Calculate_Average_Distance(x, totalSpaces, numEnemies);
-    if (averageDistance >= 16) usePages = true;
+    //if (averageDistance >= 16) usePages = true; //TODO: Reimplement pages!!!
 
     int size = 1;
     x += (averageDistance/2);

@@ -191,6 +191,7 @@ bool End_Spawner::Shortest_Castle(int x) {
     if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 6) return false;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
 
+    //TODO: Bowser MUST Land on a EVEN page and Toad MUST Land on an ODD page!
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
     //The absolute x must be 0xF here
@@ -200,10 +201,10 @@ bool End_Spawner::Shortest_Castle(int x) {
     //Create the Bowser Bridge page
     assert(this->object->Bowser_Bridge(1));
     assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER, 7));
-    assert(this->object->Axe_Rope(12));
-    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING, Scenery::NO_SCENERY));
-    assert(this->object->Axe(1));
-    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(12, Brick::SURFACE_5_AND_CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Axe_Rope(0));
+    assert(this->object->Change_Brick_And_Scenery(1, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
+    assert(this->object->Axe(0));
     assert(this->object->Change_Brick_And_Scenery(2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
     assert(this->object->Scroll_Stop(6, false));
     assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::TOAD, 4));
