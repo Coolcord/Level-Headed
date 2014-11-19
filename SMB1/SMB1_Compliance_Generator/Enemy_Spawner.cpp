@@ -135,7 +135,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
     if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return false; //nothing to do
     assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
-    if (this->requiredEnemySpawns->Get_Num_Required_Bytes()+1 >= this->requiredEnemySpawns->Get_Num_Bytes_Left()) this->emergencySpawnMode = true;
+    if (this->enemies->Get_Num_Bytes_Left() <= this->requiredEnemySpawns->Get_Num_Required_Bytes()+1) this->emergencySpawnMode = true;
     if (this->emergencySpawnMode) return this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
     bool enemySpawned = false;
     while (this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
