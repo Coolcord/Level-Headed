@@ -190,13 +190,16 @@ bool End_Spawner::Shortest_Castle(int x) {
     if (this->object->Get_Num_Objects_Left() < 9) return false;
     if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 6) return false;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
-
-    //TODO: Bowser MUST Land on a EVEN page and Toad MUST Land on an ODD page!
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
-    //The absolute x must be 0xF here
+    //Ensure that Bowser lands on an EVEN page and Toad lands on an ODD page!
     x = 0xF - this->object->Get_Absolute_X(0);
+    if (this->object->Get_Current_Page()%2 == 0) { //page is even
+        x += 0x10; //increment to an odd numbered page
+        this->object->Set_Coordinate_Safety(false);
+    }
     assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
+    this->object->Set_Coordinate_Safety(true);
 
     //Create the Bowser Bridge page
     assert(this->object->Bowser_Bridge(1));
