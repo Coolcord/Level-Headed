@@ -9,6 +9,7 @@ class Enemy_Writer : public Item_Writer
 public:
     Enemy_Writer(QTextStream *stream, int numBytesLeft);
     ~Enemy_Writer() {}
+    bool Get_First_Enemy();
     void Set_First_Enemy(bool value);
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);

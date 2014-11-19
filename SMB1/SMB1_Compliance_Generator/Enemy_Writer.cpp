@@ -7,6 +7,14 @@ Enemy_Writer::Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(
     this->firstEnemy = true;
 }
 
+bool Enemy_Writer::Get_First_Enemy() {
+    return this->firstEnemy;
+}
+
+void Enemy_Writer::Set_First_Enemy(bool value) {
+    this->firstEnemy = value;
+}
+
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
     if (this->firstEnemy && x < 16) x += 16;
     if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)))) {

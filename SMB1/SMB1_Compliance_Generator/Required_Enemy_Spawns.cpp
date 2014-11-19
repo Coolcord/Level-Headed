@@ -97,6 +97,8 @@ Extra_Enemy_Args Required_Enemy_Spawns::Get_Initialized_Extra_Enemy_Args() {
 
 bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     if (this->requiredEnemies->isEmpty()) return false;
+    bool firstEnemy = this->enemy->Get_First_Enemy();
+    this->enemy->Set_First_Enemy(false);
     int nextX = this->requiredEnemies->first().x;
     int y = this->requiredEnemies->first().y;
 
@@ -105,8 +107,6 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);
-
-
 
     int numRequiredBytes = this->requiredEnemies->first().numRequiredBytes;
     assert(this->requiredEnemies->front().numRequiredBytes <= this->enemy->Get_Num_Bytes_Left());
@@ -173,6 +173,8 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     if (success) {
         this->numRequiredBytes -= numRequiredBytes;
         lastX = nextX;
+    } else {
+        this->enemy->Set_First_Enemy(firstEnemy);
     }
     this->enemy->Set_Coordinate_Safety(true);
     return success;
