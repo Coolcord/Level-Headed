@@ -102,8 +102,11 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
 
     //Handle the x values
     int previousX = this->enemy->Get_Level_Length();
+    assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);
+
+
 
     int numRequiredBytes = this->requiredEnemies->first().numRequiredBytes;
     assert(this->requiredEnemies->front().numRequiredBytes <= this->enemy->Get_Num_Bytes_Left());
@@ -119,7 +122,6 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
 
     if (x > 0x10 && x <= 0xF+amountUntilNextPage) {
         disableCoordinateSafety = true; //the coordinate safety should get disabled
-        assert(numRequiredBytes <= 3);
     } else if (x > 0x10) { //spawn the page change
         assert(numRequiredBytes > 3);
         int page = nextX/16;
@@ -127,7 +129,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
         previousX = page*16;
         x = nextX - previousX;
         assert(x < 0x10);
-    } else assert(numRequiredBytes <= 3);
+    }
 
     this->enemy->Set_Coordinate_Safety(!disableCoordinateSafety);
     this->requiredEnemies->pop_front();
