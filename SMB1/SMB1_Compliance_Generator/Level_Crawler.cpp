@@ -1,5 +1,6 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
+#include "../../Level-Headed/Common_Strings.h"
 #include "../Common SMB1 Files/Object_Item_String.h"
 #include "../Common SMB1 Files/Brick_String.h"
 #include <QTime>
@@ -58,8 +59,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     //Read the Objects to Determine Safe Spots to Place Enemies
     QString line;
     do {
-        line = this->file->readLine();
-        line.chop(1);
+        line = this->file->readLine().trimmed();
 
         assert(this->Parse_Object(line, x, holeCrawlSteps));
 
@@ -802,7 +802,7 @@ bool Level_Crawler::Draw_Map() {
                 stream << " ";
             }
         }
-        stream << "\n";
+        stream << Common_Strings::NEW_LINE;
     }
 
     stream.flush();

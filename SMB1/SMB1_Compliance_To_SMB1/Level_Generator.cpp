@@ -219,17 +219,16 @@ bool Level_Generator::Parse_Level_Map() {
 bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode) {
     //Level Name
     QString line;
-    line = file.readLine(); line.chop(1);
+    line = file.readLine().trimmed();
     if (line != Header::STRING_MAP_NAME) return false;
 
     //Notes Section -- Look for 2 seperators
     for (int i = 0; i < 2; ++i) {
         do {
             ++lineNum;
-            line = file.readLine();
+            line = file.readLine().trimmed();
             if (line.isEmpty()) continue;
             if (file.atEnd()) return false; //TODO: Handle this error
-            line.chop(1); //remove the new line character
         } while (line != Level_Type::STRING_BREAK);
     }
 
@@ -261,10 +260,9 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
     bool success = false;
     do {
         ++lineNum;
-        QString line = file.readLine();
+        QString line = file.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        line.chop(1); //remove the new line character
         if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
             success = true;
             break;
@@ -486,10 +484,9 @@ void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level
 QString Level_Generator::Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum) {
     do {
         ++lineNum;
-        QString line = file.readLine();
+        QString line = file.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        line.chop(1);
         QStringList elements = line.split(' ');
         if (elements.at(0) == word) return line;
     } while (!file.atEnd());
@@ -500,10 +497,9 @@ QString Level_Generator::Parse_Through_Comments_Until_First_Word(QFile &file, co
 bool Level_Generator::Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum) {
     do {
         ++lineNum;
-        QString line = file.readLine();
+        QString line = file.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        line.chop(1); //remove the new line character
         if (line == value) return true;
     } while (!file.atEnd());
     return false;
@@ -608,7 +604,7 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
 }
 
 bool Level_Generator::Write_To_Map(QTextStream &mapStream, const QString &string) {
-    mapStream << string << "\n";
+    mapStream << string << Common_Strings::NEW_LINE;
     if (mapStream.status() != QTextStream::Ok) {
         //TODO: Show a read/write error here
         return false;

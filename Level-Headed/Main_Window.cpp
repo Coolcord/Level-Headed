@@ -92,7 +92,7 @@ bool Main_Window::Populate_Writers() {
 bool Main_Window::Populate_Generators(const QString &writerPlugin) {
     QStringList generatorPlugins = this->pluginHandler->Get_Generator_Plugins(writerPlugin);
     if (generatorPlugins.empty()) {
-        QString type = Common_Strings::GENERATORS.toLower(); type.chop(1);
+        QString type = Common_Strings::GENERATORS.toLower().trimmed();
         QMessageBox::critical(this, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
                              " cannot find any compatible " + type + " plugins! Make sure that they are in the " +
                               Common_Strings::GENERATORS + " folder.", Common_Strings::OK);

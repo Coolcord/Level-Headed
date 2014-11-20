@@ -50,17 +50,16 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
 
     //Level Name
     QString line;
-    line = this->file->readLine(); line.chop(1);
+    line = this->file->readLine().trimmed();
     if (line != Header::STRING_NAME) return false;
 
     //Notes Section -- Look for 2 seperators
     for (int i = 0; i < 2; ++i) {
         do {
             ++lineNum;
-            line = file->readLine();
+            line = file->readLine().trimmed();
             if (line.isEmpty()) continue;
             if (file->atEnd()) return false; //TODO: Handle this error
-            line.chop(1); //remove the new line character
         } while (line != Level_Type::STRING_BREAK);
     }
 
@@ -159,10 +158,9 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
 bool Header_Handler::Parse_Through_Comments_Until_String(const QString &value, int &lineNum) {
     do {
         ++lineNum;
-        QString line = file->readLine();
+        QString line = file->readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        line.chop(1); //remove the new line character
         if (line == value) return true;
     } while (!file->atEnd());
     return false;
@@ -171,10 +169,9 @@ bool Header_Handler::Parse_Through_Comments_Until_String(const QString &value, i
 QString Header_Handler::Parse_Through_Comments_Until_First_Word(const QString &word, int &lineNum) {
     do {
         ++lineNum;
-        QString line = this->file->readLine();
+        QString line = this->file->readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        line.chop(1);
         QStringList elements = line.split(' ');
         if (elements.at(0) == word) return line;
     } while (!file->atEnd());
@@ -244,7 +241,7 @@ void Header_Handler::Populate_Compliments() {
 
 bool Header_Handler::Parse_Ignored_Line(const QString &name, int &lineNum) {
     ++lineNum;
-    QString line = file->readLine(); line.chop(1);
+    QString line = file->readLine().trimmed();
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;
     if (elements.at(0) != name + ":") return false;

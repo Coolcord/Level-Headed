@@ -4,6 +4,7 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
+#include "../../Level-Headed/Common_Strings.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -28,10 +29,11 @@ Enemy_Spawner::~Enemy_Spawner() {
 
 bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     this->stream->flush();
-    *(this->stream) << Level_Type::STRING_BREAK + "\n";
     if (this->stream->status() != QTextStream::Ok) return false;
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
+    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::NEW_LINE;
+    if (this->stream->status() != QTextStream::Ok) return false;
     int x = 16;
     int lastX = x;
     int y = 0;
@@ -127,7 +129,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     }
 
     //Add a seperator at the end of the file
-    *(this->stream) << Level_Type::STRING_BREAK + "\n";
+    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::NEW_LINE;
     if (this->stream->status() != QTextStream::Ok) return false;
     return true;
 }
