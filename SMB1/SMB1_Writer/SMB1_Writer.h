@@ -74,7 +74,6 @@ public:
     bool Object_Corral(int x, int y, int height);
     bool Object_Pipe(int x, int y, int height, bool enterable = false);
     bool Object_Hole(int x, int length, bool filledWithWater = false);
-    bool Object_Balance_Rope(int x, int length);
     bool Object_Bridge(int x, int yPlacement, int length);
     bool Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
     bool Object_Page_Change(int page);
@@ -94,7 +93,8 @@ public:
     bool Object_Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery);
     bool Object_Change_Background(int x, Background::Background background);
     bool Object_Lift_Rope(int x);
-    bool Object_Balance_Lift_Rope(int x, int length);
+    bool Object_Balance_Lift_Vertical_Rope(int x, int length);
+    bool Object_Balance_Lift_Horizontal_Rope(int x, int length);
     bool Object_Steps(int x, int width);
     bool Object_End_Steps(int x);
     bool Object_Tall_Reverse_L_Pipe(int x, int yPlacement);
@@ -113,12 +113,12 @@ public:
     bool Enemy_Red_Paratroopa(int x, int y, bool onlyHardMode = false);
     bool Enemy_Green_Cheep_Cheep(int x, int y, bool onlyHardMode = false);
     bool Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode = false);
-    bool Enemy_Podoboo(int x, int y, bool onlyHardMode = false);
+    bool Enemy_Podoboo(int x, bool onlyHardMode = false);
     bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false);
     bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false);
     bool Enemy_Spiny(int x, int y, bool onlyHardMode = false);
     bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false);
-    bool Enemy_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false);
+    bool Enemy_Swimming_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false);
     bool Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode = false);
     bool Enemy_Fire_Bar(int x, int y, bool clockwise = true, bool fast = false, bool onlyHardMode = false);
     bool Enemy_Large_Fire_Bar(int x, int y, bool onlyHardMode = false);

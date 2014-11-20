@@ -207,12 +207,11 @@ bool Enemy_Handler::Red_Cheep_Cheep(const QString &line, int &errorCode) {
 
 bool Enemy_Handler::Podoboo(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
-    if (elements.size() != 4) return false;
-    int x = 0; int y = 0; bool onlyHardMode = false;
+    if (elements.size() != 3) return false;
+    int x = 0; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    if (!this->Parse_Num(elements.at(2), y)) return false;
-    if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Podoboo(x, y, onlyHardMode)) {
+    if (!this->Parse_Difficulty(elements.at(2), onlyHardMode)) return false;
+    if (!this->writerPlugin->Enemy_Podoboo(x, onlyHardMode)) {
         errorCode = 3;
         return false;
     } else {
@@ -279,7 +278,7 @@ bool Enemy_Handler::Bowser_Fire_Spawner(const QString &line, int &errorCode) {
     }
 }
 
-bool Enemy_Handler::Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
+bool Enemy_Handler::Swimming_Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; bool leaping = false; bool onlyHardMode = false;
@@ -290,7 +289,7 @@ bool Enemy_Handler::Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
     if (elements.at(2) == Enemy_Item::STRING_LEAPING) leaping = true;
     else if (elements.at(2) == Enemy_Item::STRING_FLYING) leaping = false;
     else return false; //invalid movement type
-    if (!this->writerPlugin->Enemy_Cheep_Cheep_Spawner(x, leaping, onlyHardMode)) {
+    if (!this->writerPlugin->Enemy_Swimming_Cheep_Cheep_Spawner(x, leaping, onlyHardMode)) {
         errorCode = 3;
         return false;
     } else {
@@ -478,6 +477,7 @@ bool Enemy_Handler::Pipe_Pointer(const QString &line, int &errorCode) {
     if (elements.size() != 4) return false;
     int x = 0; int room = 0; int page = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
+    //TODO: Make the room be a word, not an id
     if (!this->Parse_Num(elements.at(2), room)) return false;
     if (!this->Parse_Num(elements.at(3), page)) return false;
     if (!this->writerPlugin->Enemy_Pipe_Pointer(x, room, page)) {

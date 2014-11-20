@@ -177,11 +177,6 @@ bool SMB1_Writer::Object_Hole(int x, int length, bool filledWithWater) {
     return this->objectWriter->Hole(x, length, filledWithWater);
 }
 
-bool SMB1_Writer::Object_Balance_Rope(int x, int length) {
-    if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Balance_Lift_Vertical_Rope(x, length);
-}
-
 bool SMB1_Writer::Object_Bridge(int x, int yPlacement, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->objectWriter->Bridge(x, yPlacement, length);
@@ -277,7 +272,12 @@ bool SMB1_Writer::Object_Lift_Rope(int x) {
     return this->objectWriter->Lift_Rope(x);
 }
 
-bool SMB1_Writer::Object_Balance_Lift_Rope(int x, int length) {
+bool SMB1_Writer::Object_Balance_Lift_Vertical_Rope(int x, int length) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->objectWriter->Balance_Lift_Vertical_Rope(x, length);
+}
+
+bool SMB1_Writer::Object_Balance_Lift_Horizontal_Rope(int x, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->objectWriter->Balance_Lift_Horizontal_Rope(x, length);
 }
@@ -362,9 +362,9 @@ bool SMB1_Writer::Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     return this->enemyWriter->Red_Cheep_Cheep(x, y, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Podoboo(int x, int y, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Podoboo(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Podoboo(x, y, onlyHardMode);
+    return this->enemyWriter->Podoboo(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Pirana_Plant(int x, int y, bool onlyHardMode) {
@@ -387,9 +387,9 @@ bool SMB1_Writer::Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode) {
     return this->enemyWriter->Bowser_Fire_Spawner(x, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
+    return this->enemyWriter->Swimming_Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode) {

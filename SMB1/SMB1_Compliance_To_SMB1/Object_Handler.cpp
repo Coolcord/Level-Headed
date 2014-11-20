@@ -385,20 +385,6 @@ bool Object_Handler::Hole(const QString &line, bool filledWithWater, int &errorC
     }
 }
 
-bool Object_Handler::Balance_Rope(const QString &line, int &errorCode) {
-    QStringList elements = line.split(' ');
-    if (elements.size() != 3) return false;
-    int x = 0; int length = 0;
-    if (!this->Parse_Num(elements.at(1), x)) return false;
-    if (!this->Parse_Num(elements.at(2), length)) return false;
-    if (!this->writerPlugin->Object_Balance_Rope(x, length)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
-}
-
 bool Object_Handler::Bridge(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
@@ -669,13 +655,27 @@ bool Object_Handler::Lift_Rope(const QString &line, int &errorCode) {
     }
 }
 
-bool Object_Handler::Balance_Lift_Rope(const QString &line, int &errorCode) {
+bool Object_Handler::Balance_Lift_Vertical_Rope(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 3) return false;
     int x = 0; int length = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), length)) return false;
-    if (!this->writerPlugin->Object_Balance_Lift_Rope(x, length)) {
+    if (!this->writerPlugin->Object_Balance_Lift_Vertical_Rope(x, length)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
+}
+
+bool Object_Handler::Balance_Lift_Horizontal_Rope(const QString &line, int &errorCode) {
+    QStringList elements = line.split(' ');
+    if (elements.size() != 3) return false;
+    int x = 0; int length = 0;
+    if (!this->Parse_Num(elements.at(1), x)) return false;
+    if (!this->Parse_Num(elements.at(2), length)) return false;
+    if (!this->writerPlugin->Object_Balance_Lift_Horizontal_Rope(x, length)) {
         errorCode = 3;
         return false;
     } else {

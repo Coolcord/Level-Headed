@@ -144,8 +144,8 @@ bool Enemy_Writer::Red_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0B, onlyHardMode);
 }
 
-bool Enemy_Writer::Podoboo(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x0C, onlyHardMode);
+bool Enemy_Writer::Podoboo(int x, bool onlyHardMode) {
+    return this->Write_Enemy(x, 0xC, 0x0C, onlyHardMode);
 }
 
 bool Enemy_Writer::Pirana_Plant(int x, int y, bool onlyHardMode) {
@@ -164,7 +164,7 @@ bool Enemy_Writer::Bowser_Fire_Spawner(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0xD, 0x15, onlyHardMode);
 }
 
-bool Enemy_Writer::Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
+bool Enemy_Writer::Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (leaping) {
         return this->Write_Enemy(x, 0xD, 0x14, onlyHardMode);
     } else {

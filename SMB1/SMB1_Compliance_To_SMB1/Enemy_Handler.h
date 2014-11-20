@@ -24,7 +24,7 @@ public:
     bool Lakitu(const QString &line, int &errorCode);
     bool Spiny(const QString &line, int &errorCode);
     bool Bowser_Fire_Spawner(const QString &line, int &errorCode);
-    bool Cheep_Cheep_Spawner(const QString &line, int &errorCode);
+    bool Swimming_Cheep_Cheep_Spawner(const QString &line, int &errorCode);
     bool Bullet_Bill_Spawner(const QString &line, int &errorCode);
     bool Fire_Bar(const QString &line, int &errorCode);
     bool Large_Fire_Bar(const QString &line, int &errorCode);

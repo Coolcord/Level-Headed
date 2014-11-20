@@ -146,12 +146,12 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::RED_PARATROOPA:        success = this->enemy->Red_Paratroopa(x, y, args.onlyHardMode); break;
     case Enemy_Item::GREEN_CHEEP_CHEEP:     success = this->enemy->Green_Cheep_Cheep(x, y, args.onlyHardMode); break;
     case Enemy_Item::RED_CHEEP_CHEEP:       success = this->enemy->Red_Cheep_Cheep(x, y, args.onlyHardMode); break;
-    case Enemy_Item::PODOBOO:               success = this->enemy->Podoboo(x, y, args.onlyHardMode); break;
+    case Enemy_Item::PODOBOO:               success = this->enemy->Podoboo(x, args.onlyHardMode); break;
     case Enemy_Item::PIRANA_PLANT:          success = this->enemy->Pirana_Plant(x, y, args.onlyHardMode); break;
     case Enemy_Item::LAKITU:                success = this->enemy->Lakitu(x, y, args.onlyHardMode); break;
     case Enemy_Item::SPINY:                 success = this->enemy->Spiny(x, y, args.onlyHardMode); break;
     case Enemy_Item::BOWSER_FIRE_SPAWNER:   success = this->enemy->Bowser_Fire_Spawner(x, args.onlyHardMode); break;
-    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   success = this->enemy->Cheep_Cheep_Spawner(x, args.leaping, args.onlyHardMode); break;
+    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   success = this->enemy->Swimming_Cheep_Cheep_Spawner(x, args.leaping, args.onlyHardMode); break;
     case Enemy_Item::BULLET_BILL_SPAWNER:   success = this->enemy->Bullet_Bill_Spawner(x, args.onlyHardMode); break;
     case Enemy_Item::FIRE_BAR:              success = this->enemy->Fire_Bar(x, y, args.clockwise, args.fast, args.onlyHardMode); break;
     case Enemy_Item::LARGE_FIRE_BAR:        success = this->enemy->Large_Fire_Bar(x, y, args.onlyHardMode); break;

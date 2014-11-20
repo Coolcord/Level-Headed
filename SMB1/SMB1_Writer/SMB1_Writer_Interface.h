@@ -65,7 +65,6 @@ public:
     virtual bool Object_Corral(int x, int y, int height)=0;
     virtual bool Object_Pipe(int x, int y, int height, bool enterable = false)=0;
     virtual bool Object_Hole(int x, int length, bool filledWithWater = false)=0;
-    virtual bool Object_Balance_Rope(int x, int length)=0;
     virtual bool Object_Bridge(int x, int yPlacement, int length)=0;
     virtual bool Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length)=0;
     virtual bool Object_Page_Change(int page)=0;
@@ -85,7 +84,8 @@ public:
     virtual bool Object_Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery)=0;
     virtual bool Object_Change_Background(int x, Background::Background background)=0;
     virtual bool Object_Lift_Rope(int x)=0;
-    virtual bool Object_Balance_Lift_Rope(int x, int length)=0;
+    virtual bool Object_Balance_Lift_Vertical_Rope(int x, int length)=0;
+    virtual bool Object_Balance_Lift_Horizontal_Rope(int x, int length)=0;
     virtual bool Object_Steps(int x, int width)=0;
     virtual bool Object_End_Steps(int x)=0;
     virtual bool Object_Tall_Reverse_L_Pipe(int x, int yPlacement)=0;
@@ -104,12 +104,12 @@ public:
     virtual bool Enemy_Red_Paratroopa(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Green_Cheep_Cheep(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Podoboo(int x, int y, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Podoboo(int x, bool onlyHardMode = false)=0;
     virtual bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Spiny(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Swimming_Cheep_Cheep_Spawner(int x, bool leaping = false, bool onlyHardMode = false)=0;
     virtual bool Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode = false)=0;
     virtual bool Enemy_Fire_Bar(int x, int y, bool clockwise = true, bool fast = false, bool onlyHardMode = false)=0;
     virtual bool Enemy_Large_Fire_Bar(int x, int y, bool onlyHardMode = false)=0;
