@@ -297,10 +297,10 @@ bool Object_Writer::Trampoline(int x, int y) {
     return this->Write_Object(x, y, Object_Item::STRING_TRAMPOLINE, Physics::MIN_OBJECT_LENGTH, true);
 }
 
-bool Object_Writer::Cannon(int x, int y, int height) {
+bool Object_Writer::Bullet_Bill_Turret(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_CANNON, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
+    return this->Write_Object(x, y, Object_Item::STRING_BULLET_BILL_TURRET, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Island(int x, int y, int length) {
@@ -358,11 +358,6 @@ bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
     } else {
         return this->Write_Object(x, Object_Item::STRING_HOLE, QString::number(length), length, false);
     }
-}
-
-bool Object_Writer::Balance_Rope(int x, int length) {
-    if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, Object_Item::STRING_BALANCE_ROPE, length, false);
 }
 
 bool Object_Writer::Bridge(int x, int yPlacement, int length) {
@@ -513,9 +508,14 @@ bool Object_Writer::Lift_Rope(int x) {
     return this->Write_Object(x, Object_Item::STRING_LIFT_ROPE, Physics::MIN_OBJECT_LENGTH, false);
 }
 
-bool Object_Writer::Balance_Lift_Rope(int x, int length) {
+bool Object_Writer::Balance_Lift_Vertical_Rope(int x, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_ROPE, QString::number(length), Physics::MIN_OBJECT_LENGTH, false);
+    return this->Write_Object(x, Object_Item::STRING_BALANCE__LIFT_VERTICAL_ROPE, length, false);
+}
+
+bool Object_Writer::Balance_Lift_Horizontal_Rope(int x, int length) {
+    if (length < 3 || length > 16) return false;
+    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_HORIZONTAL_ROPE, QString::number(length), Physics::MIN_OBJECT_LENGTH, false);
 }
 
 bool Object_Writer::Steps(int x, int width) {

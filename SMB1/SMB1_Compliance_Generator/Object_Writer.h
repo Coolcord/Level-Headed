@@ -37,7 +37,7 @@ public:
     bool Brick_With_1up_Only(int x, int y);
     bool Used_Block(int x, int y);
     bool Trampoline(int x, int y);
-    bool Cannon(int x, int y, int height);
+    bool Bullet_Bill_Turret(int x, int y, int height);
     bool Island(int x, int y, int length);
     bool Horizontal_Bricks(int x, int y, int length);
     bool Horizontal_Blocks(int x, int y, int length);
@@ -47,7 +47,6 @@ public:
     bool Corral(int x, int y, int height);
     bool Pipe(int x, int y, int height);
     bool Hole(int x, int length, bool filledWithWater = false);
-    bool Balance_Rope(int x, int length);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
     bool Page_Change(int amount);
@@ -66,7 +65,8 @@ public:
     bool Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery);
     bool Change_Background(int x, Background::Background background);
     bool Lift_Rope(int x);
-    bool Balance_Lift_Rope(int x, int length);
+    bool Balance_Lift_Vertical_Rope(int x, int length);
+    bool Balance_Lift_Horizontal_Rope(int x, int length);
     bool Steps(int x, int width);
     bool End_Steps(int x);
     bool Pipe_Wall(int x);

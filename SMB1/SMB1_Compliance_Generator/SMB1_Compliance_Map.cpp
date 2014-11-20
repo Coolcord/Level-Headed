@@ -31,7 +31,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_UNDERWATER_SIDEWAYS_PIPE, Object_Item::UNDERWATER_SIDEWAYS_PIPE);
     this->objects->insert(Object_Item::STRING_USED_BLOCK, Object_Item::USED_BLOCK);
     this->objects->insert(Object_Item::STRING_TRAMPOLINE, Object_Item::TRAMPOLINE);
-    this->objects->insert(Object_Item::STRING_CANNON, Object_Item::CANNON);
+    this->objects->insert(Object_Item::STRING_BULLET_BILL_TURRET, Object_Item::CANNON);
     this->objects->insert(Object_Item::STRING_ISLAND, Object_Item::ISLAND);
     this->objects->insert(Object_Item::STRING_HORIZONTAL_BRICKS, Object_Item::HORIZONTAL_BRICKS);
     this->objects->insert(Object_Item::STRING_HORIZONTAL_BLOCKS, Object_Item::HORIZONTAL_BLOCKS);
@@ -43,7 +43,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_ENTERABLE_PIPE, Object_Item::ENTERABLE_PIPE);
     this->objects->insert(Object_Item::STRING_HOLE, Object_Item::HOLE);
     this->objects->insert(Object_Item::STRING_HOLE_WITH_WATER, Object_Item::HOLE_WITH_WATER);
-    this->objects->insert(Object_Item::STRING_BALANCE_ROPE, Object_Item::BALANCE_ROPE);
+    this->objects->insert(Object_Item::STRING_BALANCE__LIFT_VERTICAL_ROPE, Object_Item::BALANCE_LIFT_VERTICAL_ROPE);
     this->objects->insert(Object_Item::STRING_BRIDGE, Object_Item::BRIDGE);
     this->objects->insert(Object_Item::STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS);
     this->objects->insert(Object_Item::STRING_PAGE_CHANGE, Object_Item::PAGE_CHANGE);
@@ -64,7 +64,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_CHANGE_BRICK_AND_SCENERY, Object_Item::CHANGE_BRICK_AND_SCENERY);
     this->objects->insert(Object_Item::STRING_CHANGE_BACKGROUND, Object_Item::CHANGE_BACKGROUND);
     this->objects->insert(Object_Item::STRING_LIFT_ROPE, Object_Item::LIFT_ROPE);
-    this->objects->insert(Object_Item::STRING_BALANCE_LIFT_ROPE, Object_Item::BALANCE_LIFT_ROPE);
+    this->objects->insert(Object_Item::STRING_BALANCE_LIFT_HORIZONTAL_ROPE, Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE);
     this->objects->insert(Object_Item::STRING_STEPS, Object_Item::STEPS);
     this->objects->insert(Object_Item::STRING_END_STEPS, Object_Item::END_STEPS);
     this->objects->insert(Object_Item::STRING_TALL_REVERSE_L_PIPE, Object_Item::TALL_REVERSE_L_PIPE);

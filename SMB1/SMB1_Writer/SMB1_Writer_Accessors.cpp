@@ -129,7 +129,7 @@ bool SMB1_Writer::Object_Trampoline(int x, int y) {
 
 bool SMB1_Writer::Object_Cannon(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Cannon(x, y, height);
+    return this->objectWriter->Bullet_Bill_Turret(x, y, height);
 }
 
 bool SMB1_Writer::Object_Island(int x, int y, int length) {
@@ -179,7 +179,7 @@ bool SMB1_Writer::Object_Hole(int x, int length, bool filledWithWater) {
 
 bool SMB1_Writer::Object_Balance_Rope(int x, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Balance_Rope(x, length);
+    return this->objectWriter->Balance_Lift_Vertical_Rope(x, length);
 }
 
 bool SMB1_Writer::Object_Bridge(int x, int yPlacement, int length) {
@@ -279,7 +279,7 @@ bool SMB1_Writer::Object_Lift_Rope(int x) {
 
 bool SMB1_Writer::Object_Balance_Lift_Rope(int x, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Balance_Lift_Rope(x, length);
+    return this->objectWriter->Balance_Lift_Horizontal_Rope(x, length);
 }
 
 bool SMB1_Writer::Object_Steps(int x, int width) {

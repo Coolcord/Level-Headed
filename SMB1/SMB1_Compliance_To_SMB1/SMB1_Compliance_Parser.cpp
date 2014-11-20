@@ -168,7 +168,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Hole(line, false, errorCode);
     case Object_Item::HOLE_WITH_WATER:
         return this->objectHandler->Hole(line, true, errorCode);
-    case Object_Item::BALANCE_ROPE:
+    case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
         return this->objectHandler->Balance_Rope(line, errorCode);
     case Object_Item::BRIDGE:
         return this->objectHandler->Bridge(line, errorCode);
@@ -210,7 +210,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Change_Background(line, errorCode);
     case Object_Item::LIFT_ROPE:
         return this->objectHandler->Lift_Rope(line, errorCode);
-    case Object_Item::BALANCE_LIFT_ROPE:
+    case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
         return this->objectHandler->Balance_Lift_Rope(line, errorCode);
     case Object_Item::STEPS:
         return this->objectHandler->Steps(line, errorCode);

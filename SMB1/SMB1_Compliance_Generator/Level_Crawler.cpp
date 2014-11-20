@@ -633,7 +633,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         assert(valid);
         holeCrawlSteps = length;
         return true;
-    case Object_Item::BALANCE_ROPE:
+    case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
         this->Clear_X(x);
         return true;
     case Object_Item::BRIDGE:
@@ -737,7 +737,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::HIDDEN_BLOCK_WITH_COIN:
     case Object_Item::HIDDEN_BLOCK_WITH_1UP:
-    case Object_Item::BALANCE_LIFT_ROPE:
+    case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
     case Object_Item::SCROLL_STOP:
     case Object_Item::SCROLL_STOP_WARP_ZONE:
     case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:

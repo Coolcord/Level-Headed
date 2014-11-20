@@ -16,7 +16,7 @@ namespace Object_Item {
     const static QString STRING_UNDERWATER_SIDEWAYS_PIPE = "Underwater_Sideways_Pipe";
     const static QString STRING_USED_BLOCK = "Used_Block";
     const static QString STRING_TRAMPOLINE = "Trampoline";
-    const static QString STRING_CANNON = "Cannon";
+    const static QString STRING_BULLET_BILL_TURRET = "Bullet_Bill_Turret";
     const static QString STRING_ISLAND = "Island";
     const static QString STRING_HORIZONTAL_BRICKS = "Horizontal_Bricks";
     const static QString STRING_HORIZONTAL_BLOCKS = "Horizontal_Blocks";
@@ -28,7 +28,6 @@ namespace Object_Item {
 	const static QString STRING_ENTERABLE_PIPE = "Enterable_Pipe";
     const static QString STRING_HOLE = "Hole";
 	const static QString STRING_HOLE_WITH_WATER = "Hole_With_Water";
-    const static QString STRING_BALANCE_ROPE = "Balance_Rope";
     const static QString STRING_BRIDGE = "Bridge";
     const static QString STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS = "Horizontal_Question_Blocks_With_Coins";
     const static QString STRING_PAGE_CHANGE = "Page_Change";
@@ -49,7 +48,8 @@ namespace Object_Item {
     const static QString STRING_CHANGE_BRICK_AND_SCENERY = "Change_Brick_And_Scenery";
     const static QString STRING_CHANGE_BACKGROUND = "Change_Background";
     const static QString STRING_LIFT_ROPE = "Lift_Rope";
-    const static QString STRING_BALANCE_LIFT_ROPE = "Balance_Lift_Rope";
+    const static QString STRING_BALANCE__LIFT_VERTICAL_ROPE = "Balance_Lift_Vertical_Rope";
+    const static QString STRING_BALANCE_LIFT_HORIZONTAL_ROPE = "Balance_Lift_Horizontal_Rope";
     const static QString STRING_STEPS = "Steps";
     const static QString STRING_END_STEPS = "End_Steps";
     const static QString STRING_TALL_REVERSE_L_PIPE = "Tall_Reverse_L_Pipe";

@@ -84,7 +84,7 @@ bool Object_Writer::Trampoline(int x, int y) {
     return this->Write_Object(x, y, 0x0B);
 }
 
-bool Object_Writer::Cannon(int x, int y, int height) {
+bool Object_Writer::Bullet_Bill_Turret(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     Level_Compliment::Level_Compliment levelCompliment = this->headerWriter->Get_Level_Compliment();
@@ -156,11 +156,6 @@ bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
     if (length > 16 || length < 1) return false;
     if (filledWithWater) return this->Write_Object(x, 0xC, 0x5, length-1);
     else return this->Write_Object(x, 0xC, 0x0, length-1);
-}
-
-bool Object_Writer::Balance_Rope(int x, int length) {
-    if (length > 16 || length < 1) return false;
-    return this->Write_Object(x, 0xC, 0x1, length-1);
 }
 
 bool Object_Writer::Bridge(int x, int yPlacement, int length) {
@@ -307,8 +302,13 @@ bool Object_Writer::Lift_Rope(int x) {
     return this->Write_Object(x, 0xF, 0x00);
 }
 
-bool Object_Writer::Balance_Lift_Rope(int x, int length) {
+bool Object_Writer::Balance_Lift_Vertical_Rope(int x, int length) {
     if (length > 16 || length < 1) return false;
+    return this->Write_Object(x, 0xC, 0x1, length-1);
+}
+
+bool Object_Writer::Balance_Lift_Horizontal_Rope(int x, int length) {
+    if (length > 16 || length < 3) return false;
     return this->Write_Object(x, 0xF, 0x1, length-1);
 }
 
