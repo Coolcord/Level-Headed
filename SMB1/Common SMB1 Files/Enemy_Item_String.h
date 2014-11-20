@@ -32,7 +32,7 @@ namespace Enemy_Item {
     const static QString STRING_LIFT_SPAWNER = "Lift_Spawner";
     const static QString STRING_BOWSER = "Bowser";
     const static QString STRING_WARP_ZONE = "Warp_Zone";
-    const static QString STRING_PIPE_POINTER = "Pipe Pointer";
+    const static QString STRING_PIPE_POINTER = "Pipe_Pointer";
     const static QString STRING_TOAD = "Toad";
     const static QString STRING_GOOMBA_GROUP = "Goomba_Group";
     const static QString STRING_KOOPA_GROUP = "Koopa_Group";

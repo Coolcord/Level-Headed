@@ -35,7 +35,6 @@ public:
     bool Corral(const QString &line, int &errorCode);
     bool Pipe(const QString &line, bool enterable, int &errorCode);
     bool Hole(const QString &line, bool filledWithWater, int &errorCode);
-    bool Balance_Rope(const QString &line, int &errorCode);
     bool Bridge(const QString &line, int &errorCode);
     bool Horizontal_Question_Blocks_With_Coins(const QString &line, int &errorCode);
     bool Page_Change(const QString &line, int &errorCode);
@@ -55,7 +54,8 @@ public:
     bool Change_Brick_And_Scenery(const QString &line, int &errorCode);
     bool Change_Background(const QString &line, int &errorCode);
     bool Lift_Rope(const QString &line, int &errorCode);
-    bool Balance_Lift_Rope(const QString &line, int &errorCode);
+    bool Balance_Lift_Vertical_Rope(const QString &line, int &errorCode);
+    bool Balance_Lift_Horizontal_Rope(const QString &line, int &errorCode);
     bool Steps(const QString &line, int &errorCode);
     bool End_Steps(const QString &line, int &errorCode);
     bool Tall_Reverse_L_Pipe(const QString &line, int &errorCode);

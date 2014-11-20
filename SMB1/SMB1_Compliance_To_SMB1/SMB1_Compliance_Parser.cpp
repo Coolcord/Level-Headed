@@ -169,7 +169,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
     case Object_Item::HOLE_WITH_WATER:
         return this->objectHandler->Hole(line, true, errorCode);
     case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
-        return this->objectHandler->Balance_Rope(line, errorCode);
+        return this->objectHandler->Balance_Lift_Vertical_Rope(line, errorCode);
     case Object_Item::BRIDGE:
         return this->objectHandler->Bridge(line, errorCode);
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
@@ -211,7 +211,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
     case Object_Item::LIFT_ROPE:
         return this->objectHandler->Lift_Rope(line, errorCode);
     case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
-        return this->objectHandler->Balance_Lift_Rope(line, errorCode);
+        return this->objectHandler->Balance_Lift_Horizontal_Rope(line, errorCode);
     case Object_Item::STEPS:
         return this->objectHandler->Steps(line, errorCode);
     case Object_Item::END_STEPS:
@@ -250,7 +250,7 @@ bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line, int &errorCode) {
     case Enemy_Item::LAKITU:                return this->enemyHandler->Lakitu(line, errorCode);
     case Enemy_Item::SPINY:                 return this->enemyHandler->Spiny(line, errorCode);
     case Enemy_Item::BOWSER_FIRE_SPAWNER:   return this->enemyHandler->Bowser_Fire_Spawner(line, errorCode);
-    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   return this->enemyHandler->Cheep_Cheep_Spawner(line, errorCode);
+    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   return this->enemyHandler->Swimming_Cheep_Cheep_Spawner(line, errorCode);
     case Enemy_Item::BULLET_BILL_SPAWNER:   return this->enemyHandler->Bullet_Bill_Spawner(line, errorCode);
     case Enemy_Item::FIRE_BAR:              return this->enemyHandler->Fire_Bar(line, errorCode);
     case Enemy_Item::LARGE_FIRE_BAR:        return this->enemyHandler->Large_Fire_Bar(line, errorCode);
