@@ -229,7 +229,7 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
             line = file.readLine().trimmed();
             if (line.isEmpty()) continue;
             if (file.atEnd()) return false; //TODO: Handle this error
-        } while (line != Level_Type::STRING_BREAK);
+        } while (!line.startsWith("==="));
     }
 
     //Parse the Number of Worlds
@@ -246,8 +246,12 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     }
 
     //Seperator
-    //TODO: Handler seperator errors better
-    if (!this->Parse_Through_Comments_Until_String(file, Level_Type::STRING_BREAK, lineNum)) return false;
+    do {
+        ++lineNum;
+        line = file.readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (file.atEnd()) return false; //TODO: Handle this error
+    } while (!line.startsWith("==="));
 
     return true;
 }
@@ -263,7 +267,7 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
         QString line = file.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
+        if (line.startsWith("===")) {
             success = true;
             break;
         } else {

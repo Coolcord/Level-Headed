@@ -60,7 +60,7 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
             line = file->readLine().trimmed();
             if (line.isEmpty()) continue;
             if (file->atEnd()) return false; //TODO: Handle this error
-        } while (line != Level_Type::STRING_BREAK);
+        } while (!line.startsWith("==="));
     }
 
     //Attribute
@@ -150,7 +150,12 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
     }
 
     //Seperator
-    if (!this->Parse_Through_Comments_Until_String(Level_Type::STRING_BREAK, lineNum)) return false;
+    do {
+        ++lineNum;
+        line = this->file->readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (this->file->atEnd()) return false; //TODO: Handle this error
+    } while (line.startsWith("==="));
 
     return true;
 }

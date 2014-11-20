@@ -75,7 +75,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file, int &lineNum, int &errorCo
         line = file->readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        if (line == Level_Type::STRING_BREAK) {
+        if (line.startsWith("===")) {
             success = true;
             break;
         } else {
@@ -95,7 +95,7 @@ bool SMB1_Compliance_Parser::Parse_Items(QFile *file, int &lineNum, int &errorCo
         line = file->readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
-        if (line == Level_Type::STRING_BREAK || line + "=" == Level_Type::STRING_BREAK) {
+        if (line.startsWith("===")) {
             success = true;
             break;
         } else {
