@@ -200,9 +200,9 @@ bool Enemy_Writer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
 
 bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
     if (vertical) {
-        return this->Write_Enemy(x, y+1, 0x25, onlyHardMode);
+        return this->Write_Enemy(x, y+2, 0x25, onlyHardMode);
     } else {
-        return this->Write_Enemy(x, y+1, 0x28, onlyHardMode);
+        return this->Write_Enemy(x, y+2, 0x28, onlyHardMode);
     }
 }
 
@@ -215,7 +215,7 @@ bool Enemy_Writer::Balance_Lift(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x2A, onlyHardMode);
+    return this->Write_Enemy(x, y+2, 0x2A, onlyHardMode);
 }
 
 bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {

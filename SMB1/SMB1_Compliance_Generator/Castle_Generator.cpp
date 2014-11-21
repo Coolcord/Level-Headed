@@ -96,6 +96,30 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
     return true;
 }
 
+bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
+    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    if (numObjectsAvailable < 4 || (numObjectsAvailable < 3 && this->brick == Brick::SURFACE_4_AND_CEILING_3)) return false;
+
+    /*
+
+    //Spawn anywhere between 3 and 6 platforms
+    int numPlatforms = (qrand()%4)+3;
+    if (numObjectsAvailable < numPlatforms) numPlatforms = numObjectsAvailable;
+
+    //Make sure that there is a place to stand
+    if (this->brick != Brick::SURFACE_4_AND_CEILING_3) {
+        assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING_3, Scenery::NO_SCENERY));
+        x = (qrand()%4)+3; //between 3 and 6
+    }
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::NO_SCENERY));
+    x = (qrand()%4)+2; //between 2 and 5
+    int length = (qrand()%4)+2; //between 2 and 5
+    int y = 0;
+    for ()
+    */
+
+}
+
 bool Castle_Generator::Drop_Down_And_Climb_Up_U_Shape(int x) {
     if (this->object->Get_Num_Objects_Available() < 6) return false;
 

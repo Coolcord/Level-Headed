@@ -174,11 +174,23 @@ bool Object_Writer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
 }
 
 bool Object_Writer::Page_Change(int page) {
-    if (page >= 0x00 && page <= 0x0F) return this->Write_Object(0x0, 0xD, 0x0, page);
-    else if (page >= 0x10 && page <= 0x1F) return this->Write_Object(0x0, 0xD, 0x1, page);
-    else if (page >= 0x20 && page <= 0x2F) return this->Write_Object(0x0, 0xD, 0x2, page);
-    else if (page >= 0x30 && page <= 0x3F) return this->Write_Object(0x0, 0xD, 0x3, page);
-    return false;
+    bool success = false;
+    int tmpX = this->currentX;
+    int tmpY = this->currentY;
+    int tmpPage = this->currentPage;
+    this->currentX = 0;
+    this->currentY = 0;
+    this->currentPage = page;
+    if (page >= 0x00 && page <= 0x0F) success = this->Write_Object(0x0, 0xD, 0x0, page);
+    else if (page >= 0x10 && page <= 0x1F) success = this->Write_Object(0x0, 0xD, 0x1, page);
+    else if (page >= 0x20 && page <= 0x2F) success = this->Write_Object(0x0, 0xD, 0x2, page);
+    else if (page >= 0x30 && page <= 0x3F) success = this->Write_Object(0x0, 0xD, 0x3, page);
+    if (!success) {
+        this->currentX = tmpX;
+        this->currentY = tmpY;
+        this->currentPage = tmpPage;
+    }
+    return success;
 }
 
 bool Object_Writer::Reverse_L_Pipe(int x) {
