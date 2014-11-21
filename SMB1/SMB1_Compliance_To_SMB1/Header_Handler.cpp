@@ -155,7 +155,7 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
         line = this->file->readLine().trimmed();
         if (line.isEmpty()) continue;
         if (this->file->atEnd()) return false; //TODO: Handle this error
-    } while (line.startsWith("==="));
+    } while (!line.startsWith("==="));
 
     return true;
 }
