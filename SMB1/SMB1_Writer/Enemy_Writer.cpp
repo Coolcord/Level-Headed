@@ -207,11 +207,11 @@ bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Falling_Lift(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x29, onlyHardMode);
+    return this->Write_Enemy(x, y+2, 0x29, onlyHardMode);
 }
 
 bool Enemy_Writer::Balance_Lift(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y+1, 0x24, onlyHardMode);
+    return this->Write_Enemy(x, y+2, 0x24, onlyHardMode);
 }
 
 bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
@@ -221,15 +221,15 @@ bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
 bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
     if (up) {
         if (small) {
-            return this->Write_Enemy(x, y+1, 0x2B, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x2B, onlyHardMode);
         } else {
-            return this->Write_Enemy(x, y+1, 0x26, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x26, onlyHardMode);
         }
     } else {
         if (small) {
-            return this->Write_Enemy(x, y+1, 0x2C, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x2C, onlyHardMode);
         } else {
-            return this->Write_Enemy(x, y+1, 0x27, onlyHardMode);
+            return this->Write_Enemy(x, y+2, 0x27, onlyHardMode);
         }
     }
 }
