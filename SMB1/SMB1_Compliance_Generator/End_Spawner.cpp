@@ -34,6 +34,7 @@ bool End_Spawner::Handle_End(int x) {
     if (this->endWritten) return false; //can't write another end
     int numObjectsLeft = this->object->Get_Num_Objects_Left();
     assert(numObjectsLeft >= this->endObjectCount);
+    assert(this->enemy->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_End_Bytes());
 
     //Handle each end pattern accordingly
     if (numObjectsLeft == this->endObjectCount) {
@@ -188,7 +189,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 
 bool End_Spawner::Shortest_Castle(int x) {
     if (this->object->Get_Num_Objects_Left() < 9) return false;
-    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 6) return false;
+    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 0) return false;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 

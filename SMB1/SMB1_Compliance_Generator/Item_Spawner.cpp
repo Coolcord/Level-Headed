@@ -7,7 +7,7 @@ Item_Spawner::Item_Spawner(Object_Writer *object, Level_Type::Level_Type levelTy
     this->levelType = levelType;
 }
 
-int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int minY, int requiredObjects) {
+int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int minY, int requiredObjects, bool noBlocks) {
     assert(requiredObjects >= 0);
     assert(minX <= maxX);
     assert(groundLevelY >= minY);
@@ -20,14 +20,14 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
     int y = 0;
     int random = qrand()%3;
     y = groundLevelY - 4;
-    if (random == 0 && y >= minY) { //possibly spawn a powerup
+    if (!noBlocks && random == 0 && y >= minY) { //possibly spawn a powerup
         x = qrand()%lastObjectLength;
         if (qrand()%2 == 0) { //spawn a mushroom
             assert(this->object->Question_Block_With_Mushroom(x, y));
         } else {
             assert(this->object->Question_Block_With_Coin(x, y));
         }
-    } else { //spawn coins
+    } else if (random != 0) { //spawn coins
         int length = (qrand()%((maxX-minX)+1))+3; //try to spawn at least 3 coins
         if (minX+length > maxX) length = (maxX-minX)+1; //cut back if necessary
         x = (qrand()%((maxX-(length-1))+1))+minX;
