@@ -318,7 +318,7 @@ bool Castle_Generator::Item_Tease(int x) {
                 if (!uniform) length = (qrand()%3)+1; //between 1 and 3
                 if (length == 1) {
                     if (qrand()%2 == 0) {
-                        assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                        assert(this->object->Question_Block_With_Coin(x, y));
                     } else {
                         assert(this->object->Question_Block_With_Mushroom(x, y));
                     }
@@ -348,7 +348,7 @@ bool Castle_Generator::Item_Tease(int x) {
             length += (qrand()%3);
             if (length == 1) {
                 if (qrand()%2 == 0) {
-                    assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                    assert(this->object->Question_Block_With_Coin(x, y));
                 } else {
                     assert(this->object->Question_Block_With_Mushroom(x, y));
                 }
