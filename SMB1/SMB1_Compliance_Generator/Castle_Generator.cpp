@@ -22,16 +22,29 @@ bool Castle_Generator::Generate_Level() {
     while (!this->end->Is_End_Written()) {
         x = this->Get_Safe_Random_X();
         bool success = false;
-        switch (qrand()%6) {
+        switch (qrand()%7) {
         case 0: success = this->Room_With_Single_Firebar_Pillar(x); break;
         case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
         case 2: success = this->Two_Object_Hole(x); break;
         case 3: success = this->Room_With_Platforms_And_Firebars(x); break;
         case 4: success = this->Coin_Tease(x); break;
         case 5: success = this->Item_Tease(x); break;
+        case 6: success = this->Defense_Hole(x); break;
         default: break;
         }
-        if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
+        if (!success) {
+            if (this->object->Get_Num_Objects_Available() > 2) {
+                if (qrand()%4==0) {
+                    if (!this->Two_Object_Hole(x)) {
+                        if (this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
+                    }
+                } else {
+                    if (!this->Defense_Hole(x)) {
+                        if (this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
+                    }
+                }
+            } else if (this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
+        }
 
         this->Handle_Bowser_Fire();
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
@@ -359,6 +372,16 @@ bool Castle_Generator::Item_Tease(int x) {
     x = this->object->Get_Last_Object_Length()+(qrand()%3)+2; //between 2 and 5
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
+    return true;
+}
+
+bool Castle_Generator::Defense_Hole(int x) {
+    if (this->object->Get_Num_Objects_Available() < 2 || this->brick == Brick::SURFACE_AND_CEILING) return false;
+
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    if (qrand()%3==0) x = (qrand()%4)+2; //between 2 and 5
+    else x = (qrand()%2)+2; //between 2 and 3
+    assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     return true;
 }
 

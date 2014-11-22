@@ -28,6 +28,7 @@ private:
     bool Two_Object_Hole(int x);
     bool Coin_Tease(int x);
     bool Item_Tease(int x);
+    bool Defense_Hole(int x);
 };
 
 #endif // CASTLE_GENERATOR_H
