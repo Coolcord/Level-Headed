@@ -20,12 +20,13 @@ bool Castle_Generator::Generate_Level() {
     while (!this->end->Is_End_Written()) {
         x = this->Get_Safe_Random_X();
         bool success = false;
-        switch (qrand()%5) {
+        switch (qrand()%6) {
         case 0: success = this->Room_With_Single_Firebar_Pillar(x); break;
         case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
         case 2: success = this->Two_Object_Hole(x); break;
         case 3: success = this->Room_With_Platforms_And_Firebars(x); break;
         case 4: success = this->Coin_Tease(x); break;
+        case 5: success = this->Item_Tease(x); break;
         default: break;
         }
         if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
@@ -83,6 +84,18 @@ int Castle_Generator::Get_Random_Y() {
     return y;
 }
 
+bool Castle_Generator::Spawn_Firebar(int x, int y) {
+    if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
+        assert(this->object->Used_Block(x, y));
+        Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
+        args.fast = static_cast<bool>(qrand()%2==0);
+        args.clockwise = static_cast<bool>(qrand()%2==0);
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, y));
+        return true;
+    }
+    return false;
+}
+
 bool Castle_Generator::Spawn_Intro(int &x) {
     if (this->object->Get_Num_Objects_Available() < 3) return false;
     assert(this->object->Horizontal_Blocks(0, 5, 3));
@@ -103,8 +116,8 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
 
     //Spawn a center platform with a possible firebar
     x = (qrand()%2)+2; //between 2 and 3
-    assert(this->object->Used_Block(x, 8));
     if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(0)) {
+        assert(this->object->Used_Block(x, 8));
         if (qrand()%6==0) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, 8));
         } else {
@@ -219,12 +232,6 @@ bool Castle_Generator::Two_Object_Hole(int x) {
     return true;
 }
 
-bool Castle_Generator::Platform_Spawner(int x) {
-    if (this->object->Get_Num_Objects_Available() < 3) return false;
-
-
-}
-
 bool Castle_Generator::Coin_Tease(int x) {
     if (this->object->Get_Num_Objects_Available() < 5) return false;
     if (this->requiredEnemySpawns->Get_Num_Bytes_Left() < 4) return false;
@@ -254,6 +261,90 @@ bool Castle_Generator::Coin_Tease(int x) {
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, fireBarY));
     }
     x = usedBlockX + (qrand()%5)+2; //between 2 and 6
+    assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
+    this->object->Set_Last_Object_Length(2);
+    return true;
+}
+
+bool Castle_Generator::Item_Tease(int x) {
+    if (this->object->Get_Num_Objects_Available() < 6) return false;
+
+    Brick::Brick brick;
+    switch (qrand()%5) {
+    case 0: brick = Brick::SURFACE_4_AND_CEILING; break;
+    case 1: brick = Brick::SURFACE_5_AND_CEILING; break;
+    case 2: brick = Brick::SURFACE; break;
+    case 3: brick = Brick::SURFACE_AND_CEILING; break;
+    case 4: brick = Brick::SURFACE_AND_CEILING_3; break;
+    case 5: brick = Brick::SURFACE_AND_CEILING_4; break;
+    default: assert(false); return false;
+    }
+    if (this->brick != brick) {
+        assert(this->object->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
+        x = (qrand()%4)+3; //between 3 and 6
+    }
+    int y = this->Get_Lowest_Y_From_Brick(brick)-3;
+
+    if (qrand()%2 == 0) { //one firebar
+        bool uniform = !(static_cast<bool>((qrand()%4==0))); //75% chance
+        int length = (qrand()%3)+1; //between 1 and 3
+        for (int i = 0; i < 2; ++i) {
+            if (y == 3 || y == 7) {
+                if (!uniform) length = (qrand()%3)+1; //between 1 and 3
+                if (length == 1) {
+                    if (qrand()%2 == 0) {
+                        assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                    } else {
+                        assert(this->object->Question_Block_With_Mushroom(x, y));
+                    }
+                    x = 1;
+                } else {
+                    assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                    x = length;
+                    if (qrand()%2 == 0) {
+                        x = qrand()%length;
+                        if (this->object->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
+                        else x = length;
+                    }
+                }
+            } else {
+                if (qrand()%2 == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
+                else assert(this->object->Question_Block_With_Coin(x, y));
+                x = 1;
+            }
+            if (i != 1 && !this->Spawn_Firebar(x, y)) break;
+            x = 1;
+        }
+    } else { //two firebars
+        if (this->Spawn_Firebar(x, y)) x = 1;
+        else x = (qrand()%4)+3; //between 3 and 6
+        int length = 1;
+        if (y == 3 || y == 7) {
+            length += (qrand()%3);
+            if (length == 1) {
+                if (qrand()%2 == 0) {
+                    assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                } else {
+                    assert(this->object->Question_Block_With_Mushroom(x, y));
+                }
+                x = 1;
+            } else {
+                assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
+                x = length;
+                if (qrand()%2 == 0) {
+                    x = qrand()%length;
+                    if (this->object->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
+                    else x = length;
+                }
+            }
+        } else {
+            if (qrand()%2 == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
+            else assert(this->object->Question_Block_With_Coin(x, y));
+        }
+        this->Spawn_Firebar(x, y);
+    }
+
+    x = this->object->Get_Last_Object_Length()+(qrand()%3)+2; //between 2 and 5
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     return true;
