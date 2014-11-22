@@ -11,6 +11,8 @@ Castle_Generator::~Castle_Generator() {
 }
 
 bool Castle_Generator::Generate_Level() {
+    this->bowserFireSpawned = false;
+    this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()+4);
     int x = 0;
     assert(this->Spawn_Intro(x));
     this->midpointHandler->Handle_Midpoint(x);
@@ -30,6 +32,8 @@ bool Castle_Generator::Generate_Level() {
         default: break;
         }
         if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
+
+        this->Handle_Bowser_Fire();
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 
@@ -104,6 +108,14 @@ bool Castle_Generator::Spawn_Intro(int &x) {
     this->object->Set_Last_Object_Length(16);
     x = 16;
     return true;
+}
+
+void Castle_Generator::Handle_Bowser_Fire() {
+    if (!this->bowserFireSpawned && this->object->Get_Num_Objects_Available() < (this->args->numObjectBytes/8)) {
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()-4));
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 0));
+        this->bowserFireSpawned = true;
+    }
 }
 
 bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {

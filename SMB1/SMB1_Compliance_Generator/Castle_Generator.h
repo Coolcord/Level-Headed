@@ -15,11 +15,13 @@ private:
     Castle_Generator& operator=(const Castle_Generator&);
     Brick::Brick brick;
     Item_Spawner *itemSpawner;
+    bool bowserFireSpawned;
     int Get_Lowest_Y_From_Brick(Brick::Brick brick);
     int Get_Random_Y();
     bool Spawn_Firebar(int x, int y);
 
     bool Spawn_Intro(int &x);
+    void Handle_Bowser_Fire();
     bool Room_With_Single_Firebar_Pillar(int x);
     bool Room_With_Platforms_And_Firebars(int x);
     bool Drop_Down_And_Climb_Up_U_Shape(int x);
