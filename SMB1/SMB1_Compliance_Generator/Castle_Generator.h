@@ -23,6 +23,8 @@ private:
     bool Room_With_Platforms_And_Firebars(int x);
     bool Drop_Down_And_Climb_Up_U_Shape(int x);
     bool Two_Object_Hole(int x);
+    bool Platform_Spawner(int x);
+    bool Coin_Tease(int x);
 };
 
 #endif // CASTLE_GENERATOR_H

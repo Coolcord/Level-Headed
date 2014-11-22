@@ -20,11 +20,12 @@ bool Castle_Generator::Generate_Level() {
     while (!this->end->Is_End_Written()) {
         x = this->Get_Safe_Random_X();
         bool success = false;
-        switch (qrand()%4) {
+        switch (qrand()%5) {
         case 0: success = this->Room_With_Single_Firebar_Pillar(x); break;
         case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
         case 2: success = this->Two_Object_Hole(x); break;
         case 3: success = this->Room_With_Platforms_And_Firebars(x); break;
+        case 4: success = this->Coin_Tease(x); break;
         default: break;
         }
         if (!success && this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
@@ -157,7 +158,7 @@ bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
                 if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
                     assert(this->object->Used_Block(x, y));
                     this->object->Set_Last_Object_Length(length-x);
-                    if (qrand()%6==0) {
+                    if (qrand()%6==0 && (y < 8 && y > 2)) {
                         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, y));
                     } else {
                         Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
@@ -215,6 +216,46 @@ bool Castle_Generator::Two_Object_Hole(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
 
+    return true;
+}
+
+bool Castle_Generator::Platform_Spawner(int x) {
+    if (this->object->Get_Num_Objects_Available() < 3) return false;
+
+
+}
+
+bool Castle_Generator::Coin_Tease(int x) {
+    if (this->object->Get_Num_Objects_Available() < 5) return false;
+    if (this->requiredEnemySpawns->Get_Num_Bytes_Left() < 4) return false;
+
+    if (this->brick != Brick::SURFACE) {
+        assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, Scenery::NO_SCENERY));
+        x = (qrand()%5)+2; //between 2 and 6
+    }
+
+    //Spawn the coins
+    int length = (qrand()%5)+3; //between 3 and 7
+    int fireBarY = (qrand()%4)+6; //between 6 and 9
+    assert(this->object->Horizontal_Coins(x, fireBarY-((qrand()%3)+1), length));
+    assert(this->object->Horizontal_Coins(0, Physics::GROUND_Y, length));
+
+    //Spawn the firebar
+    int usedBlockX = 0;
+    if (length%2 == 0) usedBlockX = (length/2)-(qrand()%2);
+    else usedBlockX = length/2;
+    assert(this->object->Used_Block(usedBlockX, fireBarY));
+    if (qrand()%6==0 && (fireBarY < 8 && fireBarY > 2)) {
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, fireBarY));
+    } else {
+        Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
+        args.fast = static_cast<bool>(qrand()%2==0);
+        args.clockwise = static_cast<bool>(qrand()%2==0);
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, fireBarY));
+    }
+    x = usedBlockX + (qrand()%5)+2; //between 2 and 6
+    assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
+    this->object->Set_Last_Object_Length(2);
     return true;
 }
 
