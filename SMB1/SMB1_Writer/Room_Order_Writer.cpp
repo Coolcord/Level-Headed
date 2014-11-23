@@ -112,6 +112,19 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
     unsigned char world = 1;
     //Assume first byte is always 0
     header.data()[0] = static_cast<char>(0);
+
+
+    //TODO: The code will be obselete once the uncommented section works
+    header.data()[1] = static_cast<char>(0x04);
+    header.data()[2] = static_cast<char>(0x08);
+    header.data()[3] = static_cast<char>(0x0C);
+    header.data()[4] = static_cast<char>(0x10);
+    header.data()[5] = static_cast<char>(0x14);
+    header.data()[6] = static_cast<char>(0x18);
+    header.data()[7] = static_cast<char>(0x1B);
+
+    //TODO: At the moment, this has some bugs, so we'll fix it later
+    /*
     for (int i = 0; i < 36; ++i) {
         Level::Level level = Level::WORLD_1_LEVEL_1;
         bool endOfWorld = false;
@@ -127,6 +140,7 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
     for (unsigned char i = world; i < 8; ++i) {
         header.data()[i] = static_cast<char>(levels);
     }
+    */
 
     //Write the Room Order Table to the ROM
     if (!this->file->seek(offset)) return false;
