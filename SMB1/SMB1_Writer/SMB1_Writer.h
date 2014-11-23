@@ -133,7 +133,7 @@ public:
     bool Enemy_Goomba_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Enemy_Page_Change(int page);
-    bool Enemy_Pipe_Pointer(int x, int room, int page);
+    bool Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page);
     bool Enemy_Nothing(int x);
 
 

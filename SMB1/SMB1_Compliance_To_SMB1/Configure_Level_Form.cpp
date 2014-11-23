@@ -98,9 +98,13 @@ void Configure_Level_Form::Populate_Level_Scripts_ComboBox() {
     //Scan for valid level scripts
     QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
     QStringList validLevelFolders;
+    QStringList validRandomFolders;
     foreach (QString level, levelFolders) {
         if (!dir.cd(level)) continue;
-        if (dir.exists(level + ".map")) validLevelFolders.append(level);
+        if (dir.exists(level + ".map")) {
+            if (level.startsWith("Random ")) validRandomFolders.append(level);
+            else validLevelFolders.append(level);
+        }
         if (!dir.cdUp()) {
             this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
             return; //this shouldn't happen unless the parent directory is removed
@@ -108,10 +112,11 @@ void Configure_Level_Form::Populate_Level_Scripts_ComboBox() {
     }
 
     //Add the valid folders to the ComboBox
-    if (validLevelFolders.isEmpty()) {
+    if (validLevelFolders.isEmpty() && validRandomFolders.isEmpty()) {
         this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
     } else {
-        this->ui->comboLevelScripts->addItems(validLevelFolders);
+        if (!validLevelFolders.isEmpty()) this->ui->comboLevelScripts->addItems(validLevelFolders);
+        if (!validRandomFolders.isEmpty()) this->ui->comboLevelScripts->addItems(validRandomFolders);
     }
 
     //Use the last selected level scripts

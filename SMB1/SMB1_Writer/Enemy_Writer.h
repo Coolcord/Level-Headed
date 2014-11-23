@@ -2,11 +2,15 @@
 #define ENEMY_WRITER_H
 
 #include "Item_Writer.h"
+#include "../Common SMB1 Files/Level.h"
+#include <QMap>
 
 class Enemy_Writer : public Item_Writer
 {
 public:
     Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
+    ~Enemy_Writer();
+    void Populate_Level_Slots();
     bool Fill_Buffer();
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
@@ -41,6 +45,7 @@ public:
     bool Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Page_Change(int page);
     bool Pipe_Pointer(int x, int room, int page);
+    bool Pipe_Pointer(int x, const QString &levelSlot, int page);
     bool Nothing(int x);
 
 private:
@@ -50,6 +55,7 @@ private:
     bool Write_Group(int x, int y, int enemyByte, bool onlyHardMode);
     int Handle_Group_Page_Flag(int x);
 
+    QMap<QString, Level::Level> *levelSlots;
     bool groupPageFlag;
 };
 

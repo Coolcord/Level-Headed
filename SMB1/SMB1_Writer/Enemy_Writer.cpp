@@ -1,11 +1,18 @@
 #include "Enemy_Writer.h"
 #include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common SMB1 Files/Level_String.h"
 #include "Room_ID_Handler.h"
 #include <QDebug>
 #include <assert.h>
 
 Enemy_Writer::Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) {
     this->groupPageFlag = false;
+    this->levelSlots = new QMap<QString, Level::Level>();
+    this->Populate_Level_Slots();
+}
+
+Enemy_Writer::~Enemy_Writer() {
+    delete this->levelSlots;
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
@@ -305,11 +312,65 @@ bool Enemy_Writer::Page_Change(int page) {
 bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
     if (this->How_Many_Bytes_Left() < 3) return false;
     x = this->Handle_Group_Page_Flag(x);
+    if (this->currentX+x > 0xF) return false;
     if (!this->Write_Coordinates(x, 0xE)) return false;
     if (!this->Write_Byte_To_Buffer(room)) return false;
     return this->Write_Byte_To_Buffer(page);
 }
 
+bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
+    QMap<QString, Level::Level>::Iterator iter = this->levelSlots->find(levelSlot);
+    if (iter == this->levelSlots->end()) return false;
+    Level::Level level = iter.value();
+    unsigned char roomID = ' ';
+    if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
+    int room = static_cast<int>(roomID);
+    return this->Pipe_Pointer(x, room, page);
+}
+
 bool Enemy_Writer::Nothing(int x) {
     return this->Write_Enemy(x, 0xD, 0x23, false);
+}
+
+void Enemy_Writer::Populate_Level_Slots() {
+    this->levelSlots->clear();
+    this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_1, Level::WORLD_1_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_2, Level::WORLD_1_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_3, Level::WORLD_1_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_4, Level::WORLD_1_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_2_LEVEL_1, Level::WORLD_2_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_2_LEVEL_2, Level::WORLD_2_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_2_LEVEL_3, Level::WORLD_2_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_2_LEVEL_4, Level::WORLD_2_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_3_LEVEL_1, Level::WORLD_3_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_3_LEVEL_2, Level::WORLD_3_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_3_LEVEL_3, Level::WORLD_3_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_3_LEVEL_4, Level::WORLD_3_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_4_LEVEL_1, Level::WORLD_4_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_4_LEVEL_2, Level::WORLD_4_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_4_LEVEL_3, Level::WORLD_4_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_4_LEVEL_4, Level::WORLD_4_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_5_LEVEL_1, Level::WORLD_5_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_5_LEVEL_2, Level::WORLD_5_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_5_LEVEL_3, Level::WORLD_5_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_5_LEVEL_4, Level::WORLD_5_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_6_LEVEL_1, Level::WORLD_6_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_6_LEVEL_2, Level::WORLD_6_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_6_LEVEL_3, Level::WORLD_6_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_6_LEVEL_4, Level::WORLD_6_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_7_LEVEL_1, Level::WORLD_7_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_7_LEVEL_2, Level::WORLD_7_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_7_LEVEL_3, Level::WORLD_7_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_7_LEVEL_4, Level::WORLD_7_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_WORLD_8_LEVEL_1, Level::WORLD_8_LEVEL_1);
+    this->levelSlots->insert(Level::STRING_WORLD_8_LEVEL_2, Level::WORLD_8_LEVEL_2);
+    this->levelSlots->insert(Level::STRING_WORLD_8_LEVEL_3, Level::WORLD_8_LEVEL_3);
+    this->levelSlots->insert(Level::STRING_WORLD_8_LEVEL_4, Level::WORLD_8_LEVEL_4);
+    this->levelSlots->insert(Level::STRING_PIPE_INTRO, Level::PIPE_INTRO);
+    this->levelSlots->insert(Level::STRING_UNDERGROUND_BONUS, Level::UNDERGROUND_BONUS);
+    this->levelSlots->insert(Level::STRING_CLOUD_BONUS_1, Level::CLOUD_BONUS_1);
+    this->levelSlots->insert(Level::STRING_CLOUD_BONUS_2, Level::CLOUD_BONUS_2);
+    this->levelSlots->insert(Level::STRING_UNDERWATER_BONUS, Level::UNDERWATER_BONUS);
+    this->levelSlots->insert(Level::STRING_WARP_ZONE, Level::WARP_ZONE);
+    this->levelSlots->insert(Level::STRING_UNDERWATER_CASTLE, Level::UNDERWATER_CASTLE);
 }

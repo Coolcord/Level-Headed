@@ -78,6 +78,9 @@
       <layout class="QHBoxLayout" name="layoutNumLevelsPerWorld">
        <item>
         <widget class="QLabel" name="lblNumLevelsPerWorld">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Number of Levels per World: </string>
          </property>

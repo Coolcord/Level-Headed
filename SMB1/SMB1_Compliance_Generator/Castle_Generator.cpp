@@ -33,7 +33,7 @@ bool Castle_Generator::Generate_Level() {
         default: break;
         }
         if (!success) {
-            if (this->object->Get_Num_Objects_Available() > 2) {
+            if (this->object->Get_Num_Objects_Available() >= 2) {
                 if (qrand()%4==0) {
                     if (!this->Two_Object_Hole(x)) {
                         if (this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);

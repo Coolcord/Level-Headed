@@ -475,12 +475,10 @@ bool Enemy_Handler::Warp_Zone(const QString &line, int &errorCode) {
 bool Enemy_Handler::Pipe_Pointer(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
-    int x = 0; int room = 0; int page = 0;
+    int x = 0; int page = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    //TODO: Make the room be a word, not an id
-    if (!this->Parse_Num(elements.at(2), room)) return false;
     if (!this->Parse_Num(elements.at(3), page)) return false;
-    if (!this->writerPlugin->Enemy_Pipe_Pointer(x, room, page)) {
+    if (!this->writerPlugin->Enemy_Pipe_Pointer(x, elements.at(2), page)) {
         errorCode = 3;
         return false;
     } else {
