@@ -47,12 +47,15 @@ void Configure_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
     }
     //Save the settings
     this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
-    this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
-    this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
-    this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
-    this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
-    this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
-    this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+    if (!this->pluginSettings->generateNewLevels) {
+        this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
+    } else {
+        this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
+        this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
+        this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
+        this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
+        this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+    }
     this->close();
 }
 

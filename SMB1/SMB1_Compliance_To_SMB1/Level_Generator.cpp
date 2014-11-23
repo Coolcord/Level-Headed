@@ -317,15 +317,15 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
                 case 0: break; //Parser ran fine
                 case 1: //Unable to open the file
                     QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "Unable to open " + scriptName + "!", Common_Strings::OK);
+                                          "Unable to open " + elements.at(1) + "!", Common_Strings::OK);
                     return false;
                 case 2: //Syntax error
                     QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "Syntax error on line " + QString::number(lineNum) + " in " + scriptName + "!", Common_Strings::OK);
+                                          "Syntax error on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::OK);
                     return false;
                 case 3: //Writer was unable to write an item
                     QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "The writer plugin failed to write item on line " + QString::number(lineNum) + " in " + scriptName + "!", Common_Strings::OK);
+                                          "The writer plugin failed to write item on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::OK);
                     return false;
                 default:
                     assert(false);
