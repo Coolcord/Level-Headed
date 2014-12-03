@@ -391,7 +391,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::NO_SCENERY;
-        if (args.levelCompliment == Level_Compliment::TREES && qrand()%5==0) {
+        if (args.levelCompliment == Level_Compliment::TREES && qrand()%4==0) {
             if (qrand()%3==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else args.headerBackground = Background::NIGHT_AND_SNOW;
         } else {

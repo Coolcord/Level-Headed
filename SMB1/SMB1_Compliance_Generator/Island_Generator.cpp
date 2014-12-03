@@ -105,6 +105,7 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
         y = (qrand()%7)+5;
     }
     int bottomLength = this->Get_Island_Length(5);
+    int bottomY = y;
     assert(this->object->Island(x, y, bottomLength));
 
     //The top island should spawn 3 - 4 blocks above the bottom island (prefer 4)
@@ -125,9 +126,13 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
 
     //Fix the last object length
     assert(x+topLength <= bottomLength);
+    bool incremented = false;
     if (x+topLength < bottomLength) {
         this->object->Increment_Last_Object_Length(bottomLength-(x+topLength));
     }
     this->itemSpawner->Spawn_Random_Item(0, topLength-1, y, Physics::HIGHEST_Y, 0);
+
+    //Make sure the y is reasonable
+    if (incremented) this->object->Set_Current_Y(bottomY);
     return true;
 }
