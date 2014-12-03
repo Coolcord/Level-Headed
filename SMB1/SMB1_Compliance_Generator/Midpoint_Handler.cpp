@@ -94,7 +94,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         //Place an island to ensure that the midpoint will be safe
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, (qrand()%3)+(6-absoluteX))) return false;
-        x = this->object->Get_Last_Object_Length();
+        x = this->object->Get_Last_Object_Length()+1;
         if (this->levelType == Level_Type::BRIDGE) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;

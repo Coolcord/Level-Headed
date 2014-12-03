@@ -6,7 +6,6 @@
 #include <QFile>
 #include <QPluginLoader>
 #include <QDebug>
-
 #include "Common_Strings.h"
 #include <QMessageBox>
 

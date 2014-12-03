@@ -6,6 +6,7 @@
 #include "Bridge_Generator.h"
 #include "Island_Generator.h"
 #include <assert.h>
+#include <QDebug>
 #include <QTime>
 
 SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
