@@ -115,7 +115,6 @@ bool SMB1_Writer::Load_ROM() {
 bool SMB1_Writer::Load_ROM(const QString &fileName) {
     if (!this->Create_ROM_Directory()) return false;
     ROM_Handler romHandler(this->parent, this->applicationLocation);
-    qDebug() << "Filename is: " << fileName;
     bool cancel = false;
     this->file = romHandler.Load_Local_ROM(fileName, cancel);
     return this->Load_ROM_Offsets(cancel, romHandler);
