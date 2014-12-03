@@ -20,23 +20,26 @@ int Object_Spawner::Get_Y_From_Height(int height) {
 }
 
 int Object_Spawner::Get_Height_From_Y(int y) {
-    assert(y >= 0 && y <= Physics::GROUND_Y);
+    //assert(y >= 0 && y <= Physics::GROUND_Y);
+    if (!(y >= 0 && y <= Physics::GROUND_Y)) {
+        return false;
+    }
     return (Physics::GROUND_Y-y)+1;
 }
 
 int Object_Spawner::Get_Safe_Random_Y(int x) {
     int y = this->object->Get_Current_Y();
-    bool up = static_cast<bool>((qrand() % 2));
     if (x > Physics::BASIC_JUMP_HEIGHT) {
         return this->Get_Random_Number(this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT), Physics::GROUND_Y); //drop back to ground level if the x goes out too far
     }
-    if (up) {
-        y -= qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
-        if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y; //make sure y is valid
-    } else {
-        y += qrand() % (Physics::BASIC_JUMP_HEIGHT+1);
-        if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //make sure y is valid
-    }
+
+    //Go up or down
+    if (qrand()%2 == 0) y -= qrand()%(Physics::BASIC_JUMP_HEIGHT+1);
+    else y += qrand()%(Physics::BASIC_JUMP_HEIGHT+1);
+
+    //Make sure y is valid
+    if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y;
+    else if (y > Physics::GROUND_Y) y = Physics::GROUND_Y;
 
     //Prevent creating unescapable areas
     int maxY = this->Get_Y_From_Height(Physics::BASIC_JUMP_HEIGHT);
