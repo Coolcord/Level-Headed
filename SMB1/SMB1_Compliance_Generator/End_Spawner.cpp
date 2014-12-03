@@ -162,9 +162,11 @@ bool End_Spawner::Shortest_End(int x) {
     //Handle the problem case of spawning at the edge of a page
     if (absoluteX == 0xF) {
         if (x < 0x10) ++x;
-        else if (x > this->object->Get_Last_Object_Length()+1) --x;
-        else ++x;
+        else if (x < this->object->Get_Last_Object_Length()+1) ++x;
+        else --x;
     }
+    absoluteX = this->object->Get_Absolute_X(x);
+    assert(absoluteX != 0xF);
 
     //Write the End Pattern
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
