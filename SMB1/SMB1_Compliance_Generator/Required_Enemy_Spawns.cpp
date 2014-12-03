@@ -56,13 +56,12 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
 bool Required_Enemy_Spawns::Is_Safe_To_Add_Required_Enemy_Spawn(int x) {
     int tmpNumRequiredBytes = this->numRequiredBytes;
     bool disableSafety = false;
-    if (!this->Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::GOOMBA, disableSafety, x)) {
+    if (this->Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::GOOMBA, disableSafety, x)) {
         this->numRequiredBytes = tmpNumRequiredBytes;
+        return true;
+    } else {
         return false;
     }
-    int numBytes = this->numRequiredBytes - tmpNumRequiredBytes;
-    this->numRequiredBytes = tmpNumRequiredBytes;
-    return (this->numRequiredBytes+this->numEndBytes+numBytes <= this->enemy->Get_Num_Bytes_Left());
 }
 
 int Required_Enemy_Spawns::Get_Num_Bytes_Left() {
@@ -224,9 +223,9 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     int distance = currentX - previousRequiredX;
     assert(distance >= 0);
     disableSafety = false;
-    int numRequiredBytes = this->numRequiredBytes;
-    numRequiredBytes += 2;
-    if (enemy == Enemy_Item::PIPE_POINTER) ++numRequiredBytes;
+    int tmpNumRequiredBytes = this->numRequiredBytes;
+    tmpNumRequiredBytes += 2;
+    if (enemy == Enemy_Item::PIPE_POINTER) ++tmpNumRequiredBytes;
 
     //Check to see if a page change is required
     int previousAbsoluteX = previousRequiredX%0x10;
@@ -236,11 +235,13 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     if (distance > 0x10 && distance <= 0xF+amountUntilNextPage) {
         disableSafety = true; //it's technically possible to spawn the enemy without a page change, so do so to conserve bytes
     } else if (distance > 0x10) {
-        numRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
+        tmpNumRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
     }
 
-    if (numRequiredBytes+this->numEndBytes > this->enemy->Get_Num_Bytes_Left()) return false;
-    this->numRequiredBytes = numRequiredBytes;
+    int numBytes = tmpNumRequiredBytes - this->numRequiredBytes;
+    assert(numBytes > 0);
+    if (this->numRequiredBytes+this->numEndBytes+numBytes > this->enemy->Get_Num_Bytes_Left()) return false;
+    this->numRequiredBytes = tmpNumRequiredBytes;
     return true;
 }
 

@@ -141,7 +141,7 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
 
     //Spawn a center platform with a possible firebar
     x = (qrand()%2)+2; //between 2 and 3
-    if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(0)) {
+    if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
         assert(this->object->Used_Block(x, 8));
         if (qrand()%6==0) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, 8));
