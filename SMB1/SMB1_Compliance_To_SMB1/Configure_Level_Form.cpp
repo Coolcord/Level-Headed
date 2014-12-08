@@ -45,17 +45,8 @@ void Configure_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
                               Common_Strings::OK);
         return;
     }
-    //Save the settings
-    this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
-    if (!this->pluginSettings->generateNewLevels) {
-        this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
-    } else {
-        this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
-        this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
-        this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
-        this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
-        this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
-    }
+
+    this->Save_Settings();
     this->close();
 }
 
@@ -168,6 +159,19 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     }
 }
 
+void Configure_Level_Form::Save_Settings() {
+    this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
+    if (!this->pluginSettings->generateNewLevels) {
+        this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
+    } else {
+        this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
+        this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
+        this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
+        this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
+        this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+    }
+}
+
 void Configure_Level_Form::on_cbGenerateNewLevels_toggled(bool checked) {
     this->Enable_New_Level_ComboBoxes(checked);
 }
@@ -204,5 +208,6 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
                                   Common_Strings::OK);
         }
         this->Populate_Level_Scripts_ComboBox();
+        this->Save_Settings();
     }
 }

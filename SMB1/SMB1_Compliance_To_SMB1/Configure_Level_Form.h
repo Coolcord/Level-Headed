@@ -32,6 +32,7 @@ private:
     void Populate_Level_Scripts_ComboBox();
     bool At_Least_One_Very_Common_Selected();
     void Enable_New_Level_ComboBoxes(bool enable);
+    void Save_Settings();
 
     Ui::Configure_Level_Form *ui;
     Plugin_Settings *pluginSettings;
