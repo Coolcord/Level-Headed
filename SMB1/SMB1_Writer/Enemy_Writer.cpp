@@ -314,6 +314,8 @@ bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
     x = this->Handle_Group_Page_Flag(x);
     if (this->currentX+x > 0xF) return false;
     if (!this->Write_Coordinates(x, 0xE)) return false;
+    room = room&0x7F;
+    //TODO: Add the page flag to the room if it is set
     if (!this->Write_Byte_To_Buffer(room)) return false;
     return this->Write_Byte_To_Buffer(page);
 }
