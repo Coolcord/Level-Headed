@@ -3,14 +3,14 @@ Level-Headed
 
 Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the NES
 
--===============================- About Level-Headed -===============================-
+-===========================- About Level-Headed -===========================-
 
  Level-Headed is an application that is still under development. Ultimately, I am
  designing it to be a random level generator that will work across multiple platforming
  games. In its current state, Level-Headed can essentially create new Mario games based
  off of Super Mario Bros. 1 (SMB1) with a click of a button! Users can also create their
- own levels using the "SMB1_Compliance" scripting language. As of now, only SMB1 is supported,
- but in the future, support for more games will be added.
+ own levels using the "SMB1_Compliance" scripting language. As of now, only SMB1 is
+ supported, but in the future, support for more games will be added.
  
  In order for Level-Headed to work properly, a base ROM must be supplied to Level-Headed.
  As of the Water Vapor Build (12/07/14), the following 5 ROMs are supported:
@@ -24,9 +24,9 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  information on how to use the "Water Vapor" build of Level-Headed.
  
  If you're a Windows user, you can download the Windows build at:
- http://www.mediafire.com/download/3qemydv48w05rrf/Level-Headed_Water_Vapor_Build.exe
+ http://www.mediafire.com/download/77aj4t558j9l8oq/Level-Headed_Water_Vapor_Build.exe
  
- Linux users should compile the application and plugins through QtCreator.
+ Linux and Mac users should compile the application and plugins through QtCreator.
  
  All code in this repository is released under the GPLv2 License.
  
