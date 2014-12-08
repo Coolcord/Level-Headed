@@ -14,11 +14,17 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  In order for Level-Headed to work properly, a base ROM must be supplied to Level-Headed.
  As of the Water Vapor Build (12/07/14), the following 5 ROMs are supported:
+ 
  Super Mario Bros. (JU) (PRG0) [!].nes
+ 
  Super Mario Bros. (JU) (PRG1).nes
+ 
  Super Mario Bros. (J).fds
+ 
  Super Mario Bros. + Duck Hunt (U).nes
+ 
  Super Mario Bros. + Duck Hunt + World Class Track Meet (U).nes
+ 
  
  Check out "Level-Headed Water Vapor Build Readme.pdf" under the "Doc" folder for more
  information on how to use the "Water Vapor" build of Level-Headed.
