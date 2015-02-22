@@ -98,6 +98,9 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 int Level_Offset::Fix_Offset(int offset) {
     switch (this->romType) {
     case ROM_Type::DEFAULT: return offset; //nothing to do
+    case ROM_Type::EUROPE:
+        if (offset < 0x6A27) return offset;
+        else return offset + 0x7;
     case ROM_Type::TRACK: return offset + 0x8000; //increment for Track combo cart
     case ROM_Type::FDS:
         if (offset < 0x0489) return offset + 0x2153;
