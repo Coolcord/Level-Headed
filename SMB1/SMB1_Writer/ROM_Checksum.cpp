@@ -14,7 +14,6 @@ ROM_Checksum::ROM_Checksum() {
     this->checksumMap->insert(CHECKSUM_FDS, ROM_Type::FDS);
     this->checksumMap->insert(CHECKSUM_DUCK, ROM_Type::DEFAULT);
     this->checksumMap->insert(CHECKSUM_TRACK, ROM_Type::TRACK);
-    this->checksumMap->insert(CHECKSUM_DUCKE, ROM_Type::EUROPE);
     //Populate the filename map
     this->fileNameMap = new QMap<QString, QString>();
     this->fileNameMap->insert(CHECKSUM_USA0, ROM_Filename::STRING_USA0);
@@ -23,7 +22,6 @@ ROM_Checksum::ROM_Checksum() {
     this->fileNameMap->insert(CHECKSUM_FDS, ROM_Filename::STRING_FDS);
     this->fileNameMap->insert(CHECKSUM_DUCK, ROM_Filename::STRING_DUCK);
     this->fileNameMap->insert(CHECKSUM_TRACK, ROM_Filename::STRING_TRACK);
-    this->fileNameMap->insert(CHECKSUM_DUCKE, ROM_Filename::STRING_DUCKE);
 }
 
 ROM_Checksum::~ROM_Checksum() {
