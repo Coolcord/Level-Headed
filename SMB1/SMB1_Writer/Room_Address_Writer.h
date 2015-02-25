@@ -14,6 +14,8 @@ public:
     ~Room_Address_Writer();
     bool Read_Room_Address_Tables();
     bool Write_Room_Address_Tables();
+    unsigned int Get_Room_ID_Object_Offset_From_Table(unsigned char roomID);
+    unsigned int Get_Room_ID_Enemy_Offset_From_Table(unsigned char roomID);
 
 private:
     bool Read_Into_Buffer(int offset, int amount, QByteArray *buffer);

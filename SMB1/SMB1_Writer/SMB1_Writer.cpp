@@ -131,6 +131,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
         if (!this->roomOrderWriter->Read_Room_Order_Table()) return false;
         this->roomAddressWriter = new Room_Address_Writer(this->file, this->levelOffset);
         this->roomIDHandler->Set_Room_Address_Writer(this->roomAddressWriter);
+        this->levelOffset->Set_Extras(this->roomIDHandler, this->roomAddressWriter);
         return this->roomAddressWriter->Read_Room_Address_Tables();
     } else {
         return false;

@@ -1,5 +1,7 @@
 #include "Level_Offset.h"
 #include "ROM_Checksum.h"
+#include "Room_ID_Handler.h"
+#include "Room_Address_Writer.h"
 #include <assert.h>
 
 Level_Offset::Level_Offset(QFile *file, ROM_Type::ROM_Type romType) {
@@ -9,9 +11,40 @@ Level_Offset::Level_Offset(QFile *file, ROM_Type::ROM_Type romType) {
     }
     this->file = file;
     this->romType = romType;
+    this->roomIDHandler = NULL;
+    this->roomAddressWriter = NULL;
+}
+
+void Level_Offset::Set_Extras(Room_ID_Handler *roomIDHandler, Room_Address_Writer *roomAddressWriter) {
+    assert(roomIDHandler);
+    assert(roomAddressWriter);
+    this->roomIDHandler = roomIDHandler;
+    this->roomAddressWriter = roomAddressWriter;
 }
 
 int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
+    assert(this->roomIDHandler);
+    assert(this->roomAddressWriter);
+
+    //TODO: In order for this section to work properly, a data structure of all possible level offsets will need to be created and maintained
+    //      within Room_Address_Writer. If this is not performed, any levels that are not in the
+    switch (level) {
+    case Level::PIPE_INTRO:        return this->Fix_Offset(0x2844);
+    case Level::UNDERGROUND_BONUS: return this->Fix_Offset(0x2D8B);
+    case Level::CLOUD_BONUS_1:     return this->Fix_Offset(0x288C);
+    case Level::CLOUD_BONUS_2:     return this->Fix_Offset(0x2BE9);
+    case Level::UNDERWATER_BONUS:  return this->Fix_Offset(0x29E0);
+    case Level::WARP_ZONE:         return this->Fix_Offset(0x2E18);
+    case Level::UNDERWATER_CASTLE: return this->Fix_Offset(0x2ED2);
+    default: break;
+    }
+    unsigned char roomID = 0;
+    assert(this->roomIDHandler->Get_Room_ID_From_Level(level, roomID));
+    unsigned int offset = this->roomAddressWriter->Get_Room_ID_Object_Offset_From_Table(roomID);
+    offset -= 0x7FEE; //convert from RAM value to ROM value
+    return this->Fix_Offset(offset);
+
+    /*
     switch (level) {
     case Level::WORLD_1_LEVEL_1:   return this->Fix_Offset(0x26A0);
     case Level::WORLD_1_LEVEL_2:   return this->Fix_Offset(0x2C47);
@@ -51,9 +84,35 @@ int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
         assert(false);
     }
     return BAD_OFFSET;
+    */
 }
 
 int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
+    assert(this->roomIDHandler);
+    assert(this->roomAddressWriter);
+
+    //TODO: Further notes: Something may be wrong with the enemies header offset
+    //      assuming there is an enemies header like there was for objects.
+    //      Decompile the game further to research this
+    /*
+    switch (level) {
+    case Level::UNDERGROUND_BONUS: return this->Fix_Offset(0x2143);
+    case Level::CLOUD_BONUS_1:     return this->Fix_Offset(0x1FB0);
+    case Level::CLOUD_BONUS_2:     return this->Fix_Offset(0x20BA);
+    case Level::UNDERWATER_BONUS:  return this->Fix_Offset(0x2170);
+    case Level::UNDERWATER_CASTLE: return this->Fix_Offset(0x21AB);
+    case Level::PIPE_INTRO:
+    case Level::WARP_ZONE:         return BAD_OFFSET; //these levels don't have enemies
+    default: break;
+    }
+    unsigned char roomID = 0;
+    assert(this->roomIDHandler->Get_Room_ID_From_Level(level, roomID));
+    unsigned int offset = this->roomAddressWriter->Get_Room_ID_Enemy_Offset_From_Table(roomID);
+    offset -= 0x7FEE; //convert from RAM value to ROM value
+    return this->Fix_Offset(offset);
+    */
+
+
     switch (level) {
     case Level::WORLD_1_LEVEL_1:   return this->Fix_Offset(0x1F11);
     case Level::WORLD_1_LEVEL_2:   return this->Fix_Offset(0x20E8);
@@ -93,6 +152,7 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
         assert(false);
     }
     return BAD_OFFSET;
+
 }
 
 int Level_Offset::Fix_Offset(int offset) {

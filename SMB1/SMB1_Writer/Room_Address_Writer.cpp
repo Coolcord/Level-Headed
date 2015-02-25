@@ -68,6 +68,32 @@ bool Room_Address_Writer::Write_Room_Address_Tables() {
     return true;
 }
 
+unsigned int Room_Address_Writer::Get_Room_ID_Object_Offset_From_Table(unsigned char roomID) {
+    //Get the index in the table
+    unsigned char attribute = ((roomID>>5)&0x3);
+    unsigned char index = static_cast<unsigned char>(this->objectsHeaderBuffer->data()[attribute]);
+    index += (roomID&0x1F);
+
+    //Calculate the offset
+    unsigned int offset = static_cast<unsigned int>(static_cast<unsigned char>(this->highObjectBuffer->data()[index]));
+    offset *= 0x100; //move to the high byte
+    offset += static_cast<unsigned int>(static_cast<unsigned char>(this->lowObjectBuffer->data()[index]));
+    return offset;
+}
+
+unsigned int Room_Address_Writer::Get_Room_ID_Enemy_Offset_From_Table(unsigned char roomID) {
+    //Get the index in the table
+    unsigned char attribute = ((roomID>>5)&0x3);
+    unsigned char index = static_cast<unsigned char>(this->enemiesHeaderBuffer->data()[attribute]);
+    index += (roomID&0x1F);
+
+    //Calculate the offset
+    unsigned int offset = static_cast<unsigned int>(this->highEnemyBuffer->data()[index]);
+    offset *= 100;
+    offset += static_cast<unsigned int>(this->lowEnemyBuffer->data()[index]);
+    return offset;
+}
+
 bool Room_Address_Writer::Read_Into_Buffer(int offset, int amount, QByteArray *buffer) {
     if (!buffer) return false;
     if (!this->file->seek(this->levelOffset->Fix_Offset(offset))) return false;
