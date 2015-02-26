@@ -31,9 +31,9 @@ private:
     QByteArray *enemiesHeaderBuffer;
 
     const static int OBJECT_ADDRESS_HEADER = 0x1D38;
-    const static int ENEMY_ADDRESS_HEADER = 0x1CF0;
     const static int OBJECT_ADDRESS_LOW_BYTE = 0x1D3C;
     const static int OBJECT_ADDRESS_HIGH_BYTE = 0x1D5E;
+    const static int ENEMY_ADDRESS_HEADER = 0x1CF0;
     const static int ENEMY_ADDRESS_LOW_BYTE = 0x1CF4;
     const static int ENEMY_ADDRESS_HIGH_BYTE = 0x1D16;
 

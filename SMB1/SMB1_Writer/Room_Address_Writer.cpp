@@ -25,7 +25,7 @@ Room_Address_Writer::~Room_Address_Writer() {
 }
 
 bool Room_Address_Writer::Read_Room_Address_Tables() {
-    //Read the Objects Address Header
+    //Read the Object Address Header
     if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_HEADER, 4, this->objectsHeaderBuffer)) return false;
 
     //Read the Objects Address Low Byte Table
@@ -34,7 +34,7 @@ bool Room_Address_Writer::Read_Room_Address_Tables() {
     //Read the Objects Address High Byte Table
     if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, 34, this->highObjectBuffer)) return false;
 
-    //Read the Enemies Address Header
+    //Read the Enemy Address Header
     if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_HEADER, 4, this->enemiesHeaderBuffer)) return false;
 
     //Read the Enemies Address Low Byte Table
@@ -47,7 +47,7 @@ bool Room_Address_Writer::Read_Room_Address_Tables() {
 }
 
 bool Room_Address_Writer::Write_Room_Address_Tables() {
-    //Write the Objects Address Header
+    //Write the Object Address Header
     if (!this->Write_Buffer(this->OBJECT_ADDRESS_HEADER, this->objectsHeaderBuffer)) return false;
 
     //Write the Objects Address Low Byte Table
@@ -56,7 +56,7 @@ bool Room_Address_Writer::Write_Room_Address_Tables() {
     //Write the Objects Address High Byte Table
     if (!this->Write_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, this->highObjectBuffer)) return false;
 
-    //Write the Enemies Address Header
+    //Write the Enemy Address Header
     if (!this->Write_Buffer(this->ENEMY_ADDRESS_HEADER, this->enemiesHeaderBuffer)) return false;
 
     //Write the Enemies Address Low Byte Table
@@ -88,9 +88,9 @@ unsigned int Room_Address_Writer::Get_Room_ID_Enemy_Offset_From_Table(unsigned c
     index += (roomID&0x1F);
 
     //Calculate the offset
-    unsigned int offset = static_cast<unsigned int>(this->highEnemyBuffer->data()[index]);
-    offset *= 100;
-    offset += static_cast<unsigned int>(this->lowEnemyBuffer->data()[index]);
+    unsigned int offset = static_cast<unsigned int>(static_cast<unsigned char>(this->highEnemyBuffer->data()[index]));
+    offset *= 0x100; //move to the high byte
+    offset += static_cast<unsigned int>(static_cast<unsigned char>(this->lowEnemyBuffer->data()[index]));
     return offset;
 }
 
