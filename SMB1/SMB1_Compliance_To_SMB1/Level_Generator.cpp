@@ -111,6 +111,7 @@ bool Level_Generator::Generate_Levels() {
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
     //Build the Room Order Map
+    //TODO: With item sending implemented, this code will need to be refactored
     QVector<Level::Level> levelOrder;
     if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder)) {
         qDebug() << "Failed to rearrange the room order";

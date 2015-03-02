@@ -16,10 +16,12 @@ public:
     bool Write_Room_Address_Tables();
     unsigned int Get_Room_ID_Object_Offset_From_Table(unsigned char roomID);
     unsigned int Get_Room_ID_Enemy_Offset_From_Table(unsigned char roomID);
+    bool Fix_Level_Addresses(int fromOffset, int toOffset, int numBytes);
 
 private:
     bool Read_Into_Buffer(int offset, int amount, QByteArray *buffer);
     bool Write_Buffer(int offset, QByteArray *buffer);
+    bool Fix_Level_Address_Buffer(int fromOffset, int toOffset, int numBytes, QByteArray *lowByteBuffer, QByteArray *highByteBuffer, bool enemies);
 
     QFile *file;
     Level_Offset *levelOffset;

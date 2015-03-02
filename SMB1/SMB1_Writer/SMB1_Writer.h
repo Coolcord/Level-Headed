@@ -136,6 +136,12 @@ public:
     bool Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page);
     bool Enemy_Nothing(int x);
 
+    //Transfer Bytes Between Levels
+    bool Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
+    bool Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
+    bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
+    bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
+
 
 private:
     bool Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler);

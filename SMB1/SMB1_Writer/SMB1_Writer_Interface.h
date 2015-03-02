@@ -126,6 +126,12 @@ public:
     virtual bool Enemy_Page_Change(int page)=0;
     virtual bool Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page)=0;
     virtual bool Enemy_Nothing(int x)=0;
+
+    //Transfer Bytes Between Levels
+    virtual bool Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel)=0;
+    virtual bool Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel)=0;
+    virtual bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes)=0;
+    virtual bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes)=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Writer_Interface, "SMB1_Writer_Interface")

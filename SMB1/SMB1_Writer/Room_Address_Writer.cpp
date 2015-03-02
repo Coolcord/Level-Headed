@@ -94,6 +94,11 @@ unsigned int Room_Address_Writer::Get_Room_ID_Enemy_Offset_From_Table(unsigned c
     return offset;
 }
 
+bool Room_Address_Writer::Fix_Level_Addresses(int fromOffset, int toOffset, int numBytes) {
+    if (!this->Fix_Level_Address_Buffer(fromOffset, toOffset, numBytes, this->lowObjectBuffer, this->highObjectBuffer, false)) return false;
+    return this->Fix_Level_Address_Buffer(fromOffset, toOffset, numBytes, this->lowEnemyBuffer, this->highEnemyBuffer, true);
+}
+
 bool Room_Address_Writer::Read_Into_Buffer(int offset, int amount, QByteArray *buffer) {
     if (!buffer) return false;
     if (!this->file->seek(this->levelOffset->Fix_Offset(offset))) return false;
@@ -109,4 +114,53 @@ bool Room_Address_Writer::Write_Buffer(int offset, QByteArray *buffer) {
     if (!buffer) return false;
     if (!this->file->seek(this->levelOffset->Fix_Offset(offset))) return false;
     return this->file->write(buffer->data(), buffer->length()) == buffer->length();
+}
+
+bool Room_Address_Writer::Fix_Level_Address_Buffer(int fromOffset, int toOffset, int numBytes, QByteArray *lowByteBuffer, QByteArray *highByteBuffer, bool enemies) {
+    assert(lowByteBuffer);
+    assert(highByteBuffer);
+    int byteBufferSize = lowByteBuffer->size();
+    assert(byteBufferSize == highByteBuffer->size());
+
+    //Determine which direction to increment
+    bool add = false;
+    assert(fromOffset != toOffset);
+    if (toOffset < fromOffset) add = true;
+
+    //Fix all of the offsets in the buffers
+    for (int i = 0; i < byteBufferSize; ++i) {
+        //Calculate the offset
+        unsigned int offset = static_cast<unsigned int>(static_cast<unsigned char>(highByteBuffer->data()[i]));
+        offset *= 0x100; //move to the high byte
+        offset += static_cast<unsigned int>(static_cast<unsigned char>(lowByteBuffer->data()[i]));
+
+        //Convert from RAM value to ROM value
+        unsigned int fixedOffset = offset;
+        if (enemies) fixedOffset -= 0x7FF0;
+        else fixedOffset -= 0x7FEE;
+        fixedOffset = static_cast<unsigned int>(this->levelOffset->Fix_Offset(fixedOffset));
+
+        //Determine if any calculations are necessary
+        if (fixedOffset < static_cast<unsigned int>(fromOffset) && fixedOffset < static_cast<unsigned int>(toOffset)) continue;
+        if (fixedOffset > static_cast<unsigned int>(fromOffset) && fixedOffset > static_cast<unsigned int>(toOffset)) continue;
+        if (add) {
+            if (fixedOffset == static_cast<unsigned int>(toOffset)) continue;
+        } else {
+            if (fixedOffset == static_cast<unsigned int>(fromOffset)) continue;
+        }
+
+        //Fix the offset
+        if (add) {
+            offset += numBytes;
+        } else {
+            assert(offset >= static_cast<unsigned int>(numBytes));
+            offset -= numBytes;
+        }
+
+        //Update the offset in the buffer
+        lowByteBuffer->data()[i] = static_cast<char>(static_cast<unsigned char>(offset&0x00FF));
+        highByteBuffer->data()[i] = static_cast<char>(static_cast<unsigned char>((offset&0xFF00)/0x100));
+    }
+
+    return true;
 }

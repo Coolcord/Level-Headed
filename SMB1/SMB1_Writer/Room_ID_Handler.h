@@ -33,6 +33,10 @@ public:
     bool Change_Level_Attribute(Level::Level level, Level_Attribute::Level_Attribute attribute);
     bool Change_Room_Attribute(unsigned char oldRoomID, Level_Attribute::Level_Attribute attribute);
     unsigned char Get_Value_From_Attribute(Level_Attribute::Level_Attribute attribute);
+    bool Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
+    bool Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
+    bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
+    bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
 
 private:
     void Update_Room_IDs(unsigned char oldRoomNum, unsigned char newRoomNum, unsigned char oldAttribute, unsigned char newAttribute);
@@ -40,6 +44,9 @@ private:
     bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs);
     bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, Level::Level level);
     void Populate_Room_IDs();
+    bool Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes);
+    bool Read_First_Byte(int offset, unsigned char &c);
+    bool Fix_Level_Addresses(int fromOffset, int toOffset, int numBytes);
 
     QFile *file;
     Level::Level currentLevel;

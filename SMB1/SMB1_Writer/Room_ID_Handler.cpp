@@ -233,6 +233,109 @@ unsigned char Room_ID_Handler::Get_Value_From_Attribute(Level_Attribute::Level_A
     }
 }
 
+bool Room_ID_Handler::Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
+    return this->Send_Object_Bytes_From_One_Level_To_Another(fromLevel, toLevel, 2);
+}
+
+bool Room_ID_Handler::Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
+    //Determine the number of bytes that need to be sent
+    int offset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
+    unsigned char firstByte = 0;
+    if (!this->Read_First_Byte(offset, firstByte)) return false;
+
+    //Determine if the first byte is a pipe pointer
+    int numBytes = 0;
+    firstByte = firstByte&0xF;
+    if (firstByte == 0xE) numBytes = 3; //pipe pointers need 3 bytes
+    else numBytes = 2; //everything else need 2 bytes
+
+    return this->Send_Enemy_Bytes_From_One_Level_To_Another(fromLevel, toLevel, numBytes);
+}
+
+bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
+    assert(this->file);
+    assert(fromLevel != toLevel);
+
+    //Get the Level Offsets
+    int fromOffset = this->levelOffset->Get_Level_Object_Offset(fromLevel);
+    int toOffset = this->levelOffset->Get_Level_Object_Offset(toLevel);
+
+    return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+}
+
+bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
+    assert(this->file);
+    assert(fromLevel != toLevel);
+
+    //Get the Level Offsets
+    int fromOffset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
+    int toOffset = this->levelOffset->Get_Level_Enemy_Offset(toLevel);
+
+    return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+}
+
+bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes) {
+    assert(this->file);
+    assert(fromOffset != toOffset);
+
+    //Calculate the Buffer Size and Buffer Read Offset
+    int offset = 0;
+    int bufferSize = 0;
+    bool fromFirst = false;
+    if (toOffset > fromOffset) {
+        bufferSize = toOffset - fromOffset;
+        offset = fromOffset;
+        fromFirst = true;
+    } else { //toLevel comes first in the binary
+        bufferSize = (fromOffset+numBytes) - toOffset;
+        offset = toOffset;
+    }
+
+    //Determine if the first byte is valid
+    unsigned char firstByte = 0;
+    if (!this->Read_First_Byte(offset, firstByte)) return false;
+
+    //Read into the Buffer
+    QByteArray byteBuffer = QByteArray(bufferSize, ' ');
+    if (!this->file->seek(offset)) return false;
+    qint64 ret = this->file->read(byteBuffer.data(), bufferSize);
+    if (ret != bufferSize || byteBuffer.size() != bufferSize) return false;
+
+    //Send the Bytes to the according level
+    assert(numBytes < bufferSize);
+    QByteArray data = QByteArray(numBytes, ' ');
+    if (fromFirst) {
+        for (int i = 0; i < numBytes; ++i) {
+            data.data()[i] = byteBuffer.at(i);
+        }
+        byteBuffer = byteBuffer.remove(0, numBytes);
+        byteBuffer.append(data);
+    } else {
+        for (int i = 0; i < numBytes; ++i) {
+            data.data()[i] = byteBuffer.at((bufferSize-numBytes)+i);
+        }
+        byteBuffer = byteBuffer.remove(bufferSize-numBytes, numBytes);
+        byteBuffer.prepend(data);
+    }
+
+    //Write the Buffer back to the ROM
+    if (!this->file->seek(offset)) return false;
+    if (!this->file->write(byteBuffer.data(), byteBuffer.length()) == byteBuffer.length()) return false;
+    return this->roomAddressWriter->Fix_Level_Addresses(fromOffset, toOffset, numBytes);
+}
+
+bool Room_ID_Handler::Read_First_Byte(int offset, unsigned char &c) {
+    assert(this->file);
+    QByteArray buffer(1, ' ');
+    if (!this->file->seek(offset)) return false;
+    qint64 ret = this->file->read(buffer.data(), 1);
+    if (ret != 1 || buffer.data() == NULL) return false;
+    unsigned char firstByte = static_cast<unsigned char>(buffer.data()[0]);
+    if (firstByte == 0xFD) return false; //end of the level
+    c = firstByte;
+    return true;
+}
+
 void Room_ID_Handler::Update_Room_IDs(unsigned char oldRoomNum, unsigned char newRoomNum, unsigned char oldAttribute, unsigned char newAttribute) {
     this->Update_Room_ID(Level::WORLD_1_LEVEL_1, oldRoomNum, newRoomNum, oldAttribute, newAttribute);
     this->Update_Room_ID(Level::WORLD_1_LEVEL_2, oldRoomNum, newRoomNum, oldAttribute, newAttribute);
