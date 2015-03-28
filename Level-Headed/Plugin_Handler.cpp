@@ -170,6 +170,7 @@ QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
     QStringList pluginList = dir.entryList(filters, QDir::Files, QDir::Name);
     if (pluginList.empty()) {
         QString pluginType = folder.toLower().trimmed();
+        pluginType.chop(1);
         QMessageBox::critical(this->widget, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED
                               + " could not find any " + pluginType + " plugins! Place compatible plugins in the "
                               + folder + " folder.",
