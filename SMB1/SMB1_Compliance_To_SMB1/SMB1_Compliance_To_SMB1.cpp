@@ -27,7 +27,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.islandChance = STRING_UNCOMMON;
 }
 
-void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, QString location) {
+void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) {
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;

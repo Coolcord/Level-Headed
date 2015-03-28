@@ -37,7 +37,7 @@ SMB1_Writer::SMB1_Writer() {
     this->parent = NULL;
 }
 
-void SMB1_Writer::Startup(QWidget *parent, QString location) {
+void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;

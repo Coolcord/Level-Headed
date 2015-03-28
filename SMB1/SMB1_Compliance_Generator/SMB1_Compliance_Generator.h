@@ -13,7 +13,7 @@ class SMB1_Compliance_Generator : public SMB1_Compliance_Generator_Interface {
 
 public:
     SMB1_Compliance_Generator();
-    void Startup(QWidget *parent, QString location);
+    void Startup(QWidget *parent, const QString &location);
     void Shutdown();
     bool Generate_Level(SMB1_Compliance_Generator_Arguments args);
 
