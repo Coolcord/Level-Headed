@@ -57,6 +57,16 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     default:                            return false;
     }
 
+    //Handle the Starting Position
+    buffer += Header::STRING_STARTING_POSITION + ": ";
+    switch (attribute) { //use the same starting position as the attribute of the level
+    case Level_Attribute::UNDERWATER:   buffer += Level_Attribute::STRING_UNDERWATER + Common_Strings::NEW_LINE; break;
+    case Level_Attribute::OVERWORLD:    buffer += Level_Attribute::STRING_OVERWORLD + Common_Strings::NEW_LINE; break;
+    case Level_Attribute::UNDERGROUND:  buffer += Level_Attribute::STRING_UNDERGROUND + Common_Strings::NEW_LINE; break;
+    case Level_Attribute::CASTLE:       buffer += Level_Attribute::STRING_CASTLE + Common_Strings::NEW_LINE; break;
+    default:                            return false;
+    }
+
     //Handle the Brick
     buffer += Header::STRING_BRICK + ": ";
     switch (brick) {

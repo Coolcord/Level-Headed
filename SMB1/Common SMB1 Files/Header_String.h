@@ -9,10 +9,12 @@ namespace Header {
     const static QString STRING_MAP_NAME = Level_Type::STRING_NAME + "_Level_Map";
     const static QString STRING_TYPE = "Level Type";
     const static QString STRING_ATTRIBUTE = "Attribute";
+    const static QString STRING_AUTO_WALK = "Auto_Walk";
     const static QString STRING_BRICK = "Brick_Pattern";
     const static QString STRING_BACKGROUND = "Background";
     const static QString STRING_SCENERY = "Scenery";
     const static QString STRING_COMPLIMENT = "Compliment";
+    const static QString STRING_STARTING_POSITION = "Starting_Position";
     const static QString STRING_TIME = "Time";
     const static QString STRING_MIDPOINT = "Midpoint";
     const static QString STRING_COOLCORD = STRING_NAME + " format created by Coolcord.";

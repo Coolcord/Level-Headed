@@ -1,4 +1,5 @@
 #include "Header_Handler.h"
+#include "../../Level-Headed/Common_Strings.h"
 #include "../Common SMB1 Files/Header_String.h"
 #include "../Common SMB1 Files/Level_Type_String.h"
 #include "../Common SMB1 Files/Level_Attribute_String.h"
@@ -70,13 +71,38 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
     if (elements.at(0) != Header::STRING_ATTRIBUTE + ":") return false;
     QMap<QString, Level_Attribute::Level_Attribute>::iterator attributeIter = this->attributes->find(elements.at(1));
     if (attributeIter == this->attributes->end()) return false; //not found
-    if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) {
-        errorCode = 3;
-        return false;
-    }
     if (!this->writerPlugin->Header_Attribute(attributeIter.value())) {
         errorCode = 3;
         return false;
+    }
+
+    //Starting Position
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_STARTING_POSITION + ":", lineNum);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_STARTING_POSITION + ":") return false;
+    //Handle Autowalk if the user set it
+    if (elements.at(1) == Level_Attribute::STRING_OVERWORLD_WALKING) {
+        if (!this->writerPlugin->Header_Autowalk(true)) {
+            errorCode = 3;
+            return false;
+        }
+        if (!this->writerPlugin->Header_Starting_Position(Level_Attribute::OVERWORLD)) {
+            errorCode = 3;
+            return false;
+        }
+    } else {
+        //Remember that starting positions and attributes are very similar!
+        attributeIter = this->attributes->find(elements.at(1));
+        if (attributeIter == this->attributes->end()) return false; //not found
+        if (!this->writerPlugin->Header_Autowalk(false)) {
+            errorCode = 3;
+            return false;
+        }
+        if (!this->writerPlugin->Header_Starting_Position(attributeIter.value())) {
+            errorCode = 3;
+            return false;
+        }
     }
 
     //Brick

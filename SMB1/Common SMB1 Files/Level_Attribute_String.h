@@ -6,6 +6,7 @@
 namespace Level_Attribute {
     const static QString STRING_UNDERWATER = "Underwater";
     const static QString STRING_OVERWORLD = "Overworld";
+    const static QString STRING_OVERWORLD_WALKING = "Overworld_Walking";
     const static QString STRING_UNDERGROUND = "Underground";
     const static QString STRING_CASTLE = "Castle";
 }

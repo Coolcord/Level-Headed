@@ -16,6 +16,8 @@ namespace Common_Strings {
     const static QString WRITER_SPLIT = "_Writer";
     const static QString OK = "OK";
     const static QString SELECT_A_PLUGIN = "-- Select a Plugin --";
+	const static QString ON = "On";
+	const static QString OFF = "Off";
 
     #ifdef Q_OS_WIN32
     const static QString PLUGIN_EXTENSION = ".dll"; //Windows uses .dll files
