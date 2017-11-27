@@ -1,8 +1,8 @@
 #ifndef ROOM_ID_HANDLER_H
 #define ROOM_ID_HANDLER_H
 
-#include "../Common SMB1 Files/Level.h"
-#include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Level.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 #include <QMap>
 #include <QVector>

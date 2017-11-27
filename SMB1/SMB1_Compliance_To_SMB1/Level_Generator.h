@@ -3,8 +3,8 @@
 
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h"
 #include "../SMB1_Writer/SMB1_Writer_Interface.h"
-#include "../Common SMB1 Files/Level.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Level.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Plugin_Settings.h"
 #include <QFile>

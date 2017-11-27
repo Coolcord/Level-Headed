@@ -1,7 +1,7 @@
 #include "Level_Generator.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../Common SMB1 Files/Level_String.h"
-#include "../Common SMB1 Files/Header_String.h"
+#include "../Common_SMB1_Files/Level_String.h"
+#include "../Common_SMB1_Files/Header_String.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "SMB1_Compliance_Parser.h"
 #include <QMessageBox>

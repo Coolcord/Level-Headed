@@ -1,8 +1,8 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../Common SMB1 Files/Object_Item_String.h"
-#include "../Common SMB1 Files/Brick_String.h"
+#include "../Common_SMB1_Files/Object_Item_String.h"
+#include "../Common_SMB1_Files/Brick_String.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>

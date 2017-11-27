@@ -39,13 +39,13 @@ HEADERS += SMB1_Writer.h \
     Level_Compliment.h \
     Header_Writer.h \
     Enemy_Writer.h \
-    ../Common SMB1 Files/Level_Attribute.h \
-    ../Common SMB1 Files/Level_Compliment.h \
-    ../Common SMB1 Files/Background.h \
-    ../Common SMB1 Files/Brick.h \
-    ../Common SMB1 Files/Scenery.h \
+    ../Common_SMB1_Files/Level_Attribute.h \
+    ../Common_SMB1_Files/Level_Compliment.h \
+    ../Common_SMB1_Files/Background.h \
+    ../Common_SMB1_Files/Brick.h \
+    ../Common_SMB1_Files/Scenery.h \
     SMB1_Writer_Interface.h \
-    ../Common SMB1 Files/Level.h \
+    ../Common_SMB1_Files/Level.h \
     ROM_Handler.h \
     ROM_Filename.h \
     Midpoint_Writer.h \

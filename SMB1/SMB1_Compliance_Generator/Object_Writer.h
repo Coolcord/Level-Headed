@@ -1,9 +1,9 @@
 #ifndef OBJECT_WRITER_H
 #define OBJECT_WRITER_H
 
-#include "../Common SMB1 Files/Background.h"
-#include "../Common SMB1 Files/Brick.h"
-#include "../Common SMB1 Files/Scenery.h"
+#include "../Common_SMB1_Files/Background.h"
+#include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Scenery.h"
 #include "Item_Writer.h"
 
 class Object_Writer : public Item_Writer

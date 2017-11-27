@@ -25,6 +25,8 @@ private slots:
 
     void on_btnClearAllRandomLevelScripts_clicked();
 
+    void on_cbHammerTime_toggled(bool checked);
+
 private:
     void Clear_Chance_ComboBoxes();
     void Populate_Chance_ComboBoxes();

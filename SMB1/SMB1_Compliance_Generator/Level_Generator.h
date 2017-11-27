@@ -1,7 +1,7 @@
 #ifndef LEVEL_GENERATOR_H
 #define LEVEL_GENERATOR_H
 
-#include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Header_Writer.h"
 #include "Object_Writer.h"

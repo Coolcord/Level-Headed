@@ -1,8 +1,8 @@
 #ifndef ENEMY_SPAWNER_H
 #define ENEMY_SPAWNER_H
 
-#include "../Common SMB1 Files/Brick.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 #include <QFile>
 #include <QTextStream>
 

@@ -1,7 +1,7 @@
 #ifndef MIDPOINT_WRITER_H
 #define MIDPOINT_WRITER_H
 
-#include "../Common SMB1 Files/Level.h"
+#include "../Common_SMB1_Files/Level.h"
 #include "Binary_Manipulator.h"
 #include <QFile>
 

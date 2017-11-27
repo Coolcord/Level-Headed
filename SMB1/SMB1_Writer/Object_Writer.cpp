@@ -1,7 +1,7 @@
 #include "Object_Writer.h"
 #include "Header_Writer.h"
 #include "Room_ID_Handler.h"
-#include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
 #include <assert.h>
 
 bool Object_Writer::Write_Object(int x, int y, int objectByte) {

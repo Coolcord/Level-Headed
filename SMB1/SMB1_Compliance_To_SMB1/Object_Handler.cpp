@@ -1,7 +1,7 @@
 #include "Object_Handler.h"
-#include "../Common SMB1 Files/Scenery_String.h"
-#include "../Common SMB1 Files/Brick_String.h"
-#include "../Common SMB1 Files/Background_String.h"
+#include "../Common_SMB1_Files/Scenery_String.h"
+#include "../Common_SMB1_Files/Brick_String.h"
+#include "../Common_SMB1_Files/Background_String.h"
 #include <QStringList>
 #include <assert.h>
 

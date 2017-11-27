@@ -2,7 +2,7 @@
 #define COMMON_PATTERN_SPAWNER_H
 
 #include "Object_Spawner.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 
 class Common_Pattern_Spawner : public Object_Spawner
 {

@@ -1,8 +1,5 @@
-build-SMB1_Writer-Desktop_Qt_5_4_0_MinGW_32bit-*/
-build-SMB1_Compliance_Generator-Desktop_Qt_5_4_0_MinGW_32bit-*/
-build-Level-Headed-Desktop_Qt_5_4_0_MinGW_32bit-*/
-build-SMB1_Compliance_To_SMB1-Desktop_Qt_5_4_0_MinGW_32bit-*/
-build-Generator_Plugin_Tester-Desktop_Qt_5_4_0_MinGW_32bit-*/
-build-Plugin_Debugger-Desktop_Qt_5_4_0_MinGW_32bit-*/
+build-*/
 Plugin_Debugger/
 Generator_Plugin_Tester/
+*.pro.user
+*.pro.user.*

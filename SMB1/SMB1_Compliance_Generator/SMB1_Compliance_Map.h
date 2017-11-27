@@ -1,8 +1,8 @@
 #ifndef SMB1_COMPLIANCE_MAP_H
 #define SMB1_COMPLIANCE_MAP_H
 
-#include "../Common SMB1 Files/Object_Item.h"
-#include "../Common SMB1 Files/Enemy_Item.h"
+#include "../Common_SMB1_Files/Object_Item.h"
+#include "../Common_SMB1_Files/Enemy_Item.h"
 #include <QMap>
 #include <QString>
 

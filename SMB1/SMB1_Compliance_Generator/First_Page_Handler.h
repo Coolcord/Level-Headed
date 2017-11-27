@@ -1,8 +1,8 @@
 #ifndef FIRST_PAGE_HANDLER_H
 #define FIRST_PAGE_HANDLER_H
 
-#include "../Common SMB1 Files/Castle.h"
-#include "../Common SMB1 Files/Background.h"
+#include "../Common_SMB1_Files/Castle.h"
+#include "../Common_SMB1_Files/Background.h"
 
 class Object_Writer;
 

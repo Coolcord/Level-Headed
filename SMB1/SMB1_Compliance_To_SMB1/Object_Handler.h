@@ -2,9 +2,9 @@
 #define OBJECT_HANDLER_H
 
 #include "Item_Handler.h"
-#include "../Common SMB1 Files/Background.h"
-#include "../Common SMB1 Files/Brick.h"
-#include "../Common SMB1 Files/Scenery.h"
+#include "../Common_SMB1_Files/Background.h"
+#include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Scenery.h"
 #include <QMap>
 
 class Object_Handler : public Item_Handler

@@ -1,6 +1,6 @@
 #include "Enemy_Writer.h"
-#include "../Common SMB1 Files/Level_Attribute.h"
-#include "../Common SMB1 Files/Level_String.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Level_String.h"
 #include "Room_ID_Handler.h"
 #include <QDebug>
 #include <assert.h>

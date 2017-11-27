@@ -1,13 +1,13 @@
 #include "Header_Writer.h"
 #include <assert.h>
 #include "../../Level-Headed/Common_Strings.h"
-#include "../Common SMB1 Files/Level_Type_String.h"
-#include "../Common SMB1 Files/Header_String.h"
-#include "../Common SMB1 Files/Level_Attribute_String.h"
-#include "../Common SMB1 Files/Level_Compliment_String.h"
-#include "../Common SMB1 Files/Background_String.h"
-#include "../Common SMB1 Files/Scenery_String.h"
-#include "../Common SMB1 Files/Brick_String.h"
+#include "../Common_SMB1_Files/Level_Type_String.h"
+#include "../Common_SMB1_Files/Header_String.h"
+#include "../Common_SMB1_Files/Level_Attribute_String.h"
+#include "../Common_SMB1_Files/Level_Compliment_String.h"
+#include "../Common_SMB1_Files/Background_String.h"
+#include "../Common_SMB1_Files/Scenery_String.h"
+#include "../Common_SMB1_Files/Brick_String.h"
 #include <QTime>
 #include <QDate>
 #include <QDebug>

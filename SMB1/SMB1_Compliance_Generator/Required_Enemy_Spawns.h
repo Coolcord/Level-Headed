@@ -1,7 +1,7 @@
 #ifndef REQUIRED_ENEMY_SPAWNS_H
 #define REQUIRED_ENEMY_SPAWNS_H
 
-#include "../Common SMB1 Files/Enemy_Item.h"
+#include "../Common_SMB1_Files/Enemy_Item.h"
 #include "Extra_Enemy_Args.h"
 #include <QQueue>
 

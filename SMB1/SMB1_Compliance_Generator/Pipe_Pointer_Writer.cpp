@@ -1,8 +1,8 @@
 #include "Pipe_Pointer_Writer.h"
 #include "Enemy_Writer.h"
 #include "Object_Writer.h"
-#include "../Common SMB1 Files/Enemy_Item_String.h"
-#include "../Common SMB1 Files/Object_Item_String.h"
+#include "../Common_SMB1_Files/Enemy_Item_String.h"
+#include "../Common_SMB1_Files/Object_Item_String.h"
 #include "Physics.h"
 #include <assert.h>
 #include <QString>

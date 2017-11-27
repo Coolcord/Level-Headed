@@ -320,7 +320,7 @@ bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int 
 
     //Write the Buffer back to the ROM
     if (!this->file->seek(offset)) return false;
-    if (!this->file->write(byteBuffer.data(), byteBuffer.length()) == byteBuffer.length()) return false;
+    if (this->file->write(byteBuffer.data(), byteBuffer.length()) != byteBuffer.length()) return false;
     return this->roomAddressWriter->Fix_Level_Addresses(fromOffset, toOffset, numBytes);
 }
 

@@ -1,6 +1,6 @@
 #include "SMB1_Compliance_Map.h"
-#include "../Common SMB1 Files/Object_Item_String.h"
-#include "../Common SMB1 Files/Enemy_Item_String.h"
+#include "../Common_SMB1_Files/Object_Item_String.h"
+#include "../Common_SMB1_Files/Enemy_Item_String.h"
 
 SMB1_Compliance_Map::SMB1_Compliance_Map() {
     //Build the map for the Objects

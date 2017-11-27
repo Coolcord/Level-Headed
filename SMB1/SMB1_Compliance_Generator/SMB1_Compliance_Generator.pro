@@ -42,19 +42,19 @@ HEADERS += SMB1_Compliance_Generator.h \
     Enemy_Writer.h \
     Header_Writer.h \
     Item_Writer.h \
-    ../Common SMB1 Files/Level_Attribute.h \
-    ../Common SMB1 Files/Background.h \
-    ../Common SMB1 Files/Brick.h \
-    ../Common SMB1 Files/Scenery.h \
-    ../Common SMB1 Files/Enemy_Item.h \
-    ../Common SMB1 Files/Enemy_Item_String.h \
-    ../Common SMB1 Files/Object_Item.h \
-    ../Common SMB1 Files/Object_Item_String.h \
-    ../Common SMB1 Files/Level_Compliment.h \
-    ../Common SMB1 Files/Level_Type.h \
-    ../Common SMB1 Files/Level_Type_String.h \
-    ../Common SMB1 Files/Level_Compliment_String.h \
-    ../Common SMB1 Files/Level_Attribute_String.h \
+    ../Common_SMB1_Files/Level_Attribute.h \
+    ../Common_SMB1_Files/Background.h \
+    ../Common_SMB1_Files/Brick.h \
+    ../Common_SMB1_Files/Scenery.h \
+    ../Common_SMB1_Files/Enemy_Item.h \
+    ../Common_SMB1_Files/Enemy_Item_String.h \
+    ../Common_SMB1_Files/Object_Item.h \
+    ../Common_SMB1_Files/Object_Item_String.h \
+    ../Common_SMB1_Files/Level_Compliment.h \
+    ../Common_SMB1_Files/Level_Type.h \
+    ../Common_SMB1_Files/Level_Type_String.h \
+    ../Common_SMB1_Files/Level_Compliment_String.h \
+    ../Common_SMB1_Files/Level_Attribute_String.h \
     Level_Generator.h \
     Standard_Overworld_Generator.h \
     Pipe_Pointer_Writer.h \

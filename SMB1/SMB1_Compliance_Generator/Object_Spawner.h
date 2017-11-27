@@ -2,7 +2,7 @@
 #define OBJECT_SPAWNER_H
 
 #include "Object_Writer.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 
 class Object_Spawner
 {

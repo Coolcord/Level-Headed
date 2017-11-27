@@ -1,12 +1,12 @@
 #ifndef SMB1_WRITER_INTERFACE_H
 #define SMB1_WRITER_INTERFACE_H
 
-#include "../Common SMB1 Files/Level.h"
-#include "../Common SMB1 Files/Level_Compliment.h"
-#include "../Common SMB1 Files/Level_Attribute.h"
-#include "../Common SMB1 Files/Background.h"
-#include "../Common SMB1 Files/Brick.h"
-#include "../Common SMB1 Files/Scenery.h"
+#include "../Common_SMB1_Files/Level.h"
+#include "../Common_SMB1_Files/Level_Compliment.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Background.h"
+#include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Scenery.h"
 #include <QObject>
 #include <QtPlugin>
 #include <QString>

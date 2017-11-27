@@ -1,11 +1,11 @@
 #ifndef SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H
 #define SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H
 
-#include "../Common SMB1 Files/Background.h"
-#include "../Common SMB1 Files/Scenery.h"
-#include "../Common SMB1 Files/Level_Compliment.h"
-#include "../Common SMB1 Files/Castle.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Background.h"
+#include "../Common_SMB1_Files/Scenery.h"
+#include "../Common_SMB1_Files/Level_Compliment.h"
+#include "../Common_SMB1_Files/Castle.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 #include <QString>
 
 struct SMB1_Compliance_Generator_Arguments {

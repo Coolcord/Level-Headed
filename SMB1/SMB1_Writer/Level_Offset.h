@@ -2,7 +2,7 @@
 #define LEVEL_OFFSET_H
 
 #include "ROM_Type.h"
-#include "../Common SMB1 Files/Level.h"
+#include "../Common_SMB1_Files/Level.h"
 #include <QFile>
 #include <QByteArray>
 

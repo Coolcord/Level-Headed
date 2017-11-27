@@ -1,8 +1,8 @@
 #ifndef END_SPAWNER_H
 #define END_SPAWNER_H
 
-#include "../Common SMB1 Files/Castle.h"
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Castle.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 #include "End_Pattern.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Object_Spawner.h"

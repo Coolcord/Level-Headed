@@ -1,7 +1,7 @@
 #ifndef ITEM_SPAWNER_H
 #define ITEM_SPAWNER_H
 
-#include "../Common SMB1 Files/Level_Type.h"
+#include "../Common_SMB1_Files/Level_Type.h"
 
 class Object_Writer;
 

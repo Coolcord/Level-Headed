@@ -3,7 +3,7 @@
 #include "Required_Enemy_Spawns.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
-#include "../Common SMB1 Files/Level_Type_String.h"
+#include "../Common_SMB1_Files/Level_Type_String.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QTime>
 #include <QDebug>

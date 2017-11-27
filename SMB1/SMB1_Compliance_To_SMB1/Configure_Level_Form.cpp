@@ -2,6 +2,7 @@
 #include "ui_Configure_Level_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
+#include <QSound>
 #include <QMessageBox>
 #include <QDir>
 #include <assert.h>
@@ -149,6 +150,10 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     this->ui->comboBridge->setEnabled(enable);
     this->ui->comboIsland->setEnabled(enable);
 
+    //Toggle Hammer Time mod
+    this->ui->cbHammerTime->setEnabled(enable);
+    if (!enable) this->ui->cbHammerTime->setChecked(false);
+
     //Populate the appropriate ComboBoxes
     if (enable) {
         this->ui->comboLevelScripts->clear();
@@ -209,5 +214,11 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
         }
         this->Populate_Level_Scripts_ComboBox();
         this->Save_Settings();
+    }
+}
+
+void Configure_Level_Form::on_cbHammerTime_toggled(bool checked) {
+    if (checked) {
+        QSound::play("F:/Desktop/Hammer_Time.wav");
     }
 }

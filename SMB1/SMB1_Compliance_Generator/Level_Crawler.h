@@ -2,8 +2,8 @@
 #define LEVEL_CRAWLER_H
 
 #include "SMB1_Compliance_Map.h"
-#include "../Common SMB1 Files/Brick.h"
-#include "../Common SMB1 Files/Level_Attribute.h"
+#include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 
 class Level_Crawler : public SMB1_Compliance_Map
