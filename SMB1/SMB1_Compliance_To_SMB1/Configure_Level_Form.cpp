@@ -11,8 +11,10 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     QDialog(parent),
     ui(new Ui::Configure_Level_Form) {
     assert(pluginSettings);
+    this->parent = parent;
     this->pluginSettings = pluginSettings;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    this->applicationLocation = location;
     this->levelLocation = location + "/" + Common_Strings::LEVELS + "/" + Common_Strings::GAME_NAME;
     QDir dir(location + "/" + Common_Strings::LEVELS);
     if (!dir.exists(this->levelLocation)) dir.mkdir(this->levelLocation); //don't bother checking for success here
@@ -158,6 +160,7 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     if (enable) {
         this->ui->comboLevelScripts->clear();
         this->Populate_Chance_ComboBoxes();
+        this->ui->cbHammerTime->setChecked(this->pluginSettings->hammerTime);
     } else {
         this->Clear_Chance_ComboBoxes();
         this->Populate_Level_Scripts_ComboBox();
@@ -168,12 +171,14 @@ void Configure_Level_Form::Save_Settings() {
     this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
+        this->pluginSettings->hammerTime = false;
     } else {
         this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
         this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+        this->pluginSettings->hammerTime = this->ui->cbHammerTime->isChecked();
     }
 }
 
@@ -217,8 +222,19 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
     }
 }
 
-void Configure_Level_Form::on_cbHammerTime_toggled(bool checked) {
+void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
     if (checked) {
-        QSound::play("F:/Desktop/Hammer_Time.wav");
+        QSound::play(this->applicationLocation + "/Sounds/Hammer_Time.wav");
+        QMessageBox::StandardButton answer;
+        answer = QMessageBox::question(this, Common_Strings::LEVEL_HEADED,
+                                       "Each enemy that spawns will have about a 20% chance of being a hammer bro. "
+                                       "The levels created by the generator will not account for this, so expect "
+                                       "some unfair situations to arise. Do you have the courage to try this mode?",
+                                       QMessageBox::Yes | QMessageBox::No);
+        if (answer == QMessageBox::Yes) {
+            QSound::play(this->applicationLocation + "/Sounds/Break_It_Down.wav");
+        } else {
+            this->ui->cbHammerTime->setChecked(false);
+        }
     }
 }

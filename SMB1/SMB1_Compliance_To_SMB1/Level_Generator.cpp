@@ -134,6 +134,7 @@ bool Level_Generator::Generate_Levels() {
     for (int i = 0; i < numLevels; ++i) {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i);
+        args.hammerTime = this->pluginSettings->hammerTime;
 
         if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
             QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,

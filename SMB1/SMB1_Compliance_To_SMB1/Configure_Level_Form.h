@@ -25,7 +25,7 @@ private slots:
 
     void on_btnClearAllRandomLevelScripts_clicked();
 
-    void on_cbHammerTime_toggled(bool checked);
+    void on_cbHammerTime_clicked(bool checked);
 
 private:
     void Clear_Chance_ComboBoxes();
@@ -39,6 +39,8 @@ private:
     Ui::Configure_Level_Form *ui;
     Plugin_Settings *pluginSettings;
     QString levelLocation;
+    QString applicationLocation;
+    QWidget *parent;
 };
 
 #endif // CONFIGURE_LEVEL_FORM_H

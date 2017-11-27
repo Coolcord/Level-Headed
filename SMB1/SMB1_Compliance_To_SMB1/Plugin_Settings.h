@@ -31,6 +31,8 @@ struct Plugin_Settings {
     QString underwaterChance;
     QString bridgeChance;
     QString islandChance;
+
+    bool hammerTime; //bonus difficulty mod
 };
 
 #endif // PLUGIN_SETTINGS_H

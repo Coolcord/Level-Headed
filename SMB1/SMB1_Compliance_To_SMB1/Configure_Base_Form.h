@@ -15,7 +15,7 @@ class Configure_Base_Form : public QDialog
     Q_OBJECT
 
 public:
-    Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin);
+    Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location);
     ~Configure_Base_Form();
 
 private slots:
@@ -32,6 +32,8 @@ private:
     Ui::Configure_Base_Form *ui;
     Plugin_Settings *pluginSettings;
     SMB1_Writer_Interface *writerPlugin;
+    QString applicationLocation;
+    QWidget *parent;
 };
 
 #endif // CONFIGURE_BASE_FORM_H

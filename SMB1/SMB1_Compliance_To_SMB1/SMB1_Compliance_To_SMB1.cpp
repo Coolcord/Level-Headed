@@ -14,7 +14,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->writerPlugin = NULL;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
-    this->pluginSettings.numWorlds = 7;
+    this->pluginSettings.numWorlds = 4;
     this->pluginSettings.numLevelsPerWorld = 4;
     this->pluginSettings.noDuplicates = true;
     this->pluginSettings.baseROM = "";
@@ -25,6 +25,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.underwaterChance = STRING_UNCOMMON;
     this->pluginSettings.bridgeChance = STRING_UNCOMMON;
     this->pluginSettings.islandChance = STRING_UNCOMMON;
+    this->pluginSettings.hammerTime = false;
 }
 
 void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) {
@@ -71,7 +72,7 @@ int SMB1_Compliance_To_SMB1::Configure_Writer() {
         //TODO: Show an error here
         return 1;
     }
-    Configure_Base_Form form(this->parent, &this->pluginSettings, this->writerPlugin);
+    Configure_Base_Form form(this->parent, &this->pluginSettings, this->writerPlugin, this->applicationLocation);
     return form.exec();
 }
 

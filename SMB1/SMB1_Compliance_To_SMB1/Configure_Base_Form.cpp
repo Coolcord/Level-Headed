@@ -2,11 +2,13 @@
 #include "ui_Configure_Base_Form.h"
 #include <assert.h>
 
-Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin) :
+Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location) :
     QDialog(parent),
     ui(new Ui::Configure_Base_Form) {
     assert(pluginSettings);
     assert(writerPlugin);
+    this->parent = parent;
+    this->applicationLocation = location;
     this->pluginSettings = pluginSettings;
     this->writerPlugin = writerPlugin;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);

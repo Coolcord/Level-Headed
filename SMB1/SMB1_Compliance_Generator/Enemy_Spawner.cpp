@@ -9,7 +9,7 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType) {
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, bool hammerTime) {
     assert(file);
     assert(stream);
     assert(enemies);
@@ -21,6 +21,7 @@ Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *ene
     this->levelType = levelType;
     this->levelCrawler = new Level_Crawler(this->file);
     this->emergencySpawnMode = false;
+    this->hammerTime = hammerTime;
 }
 
 Enemy_Spawner::~Enemy_Spawner() {
@@ -404,55 +405,60 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
     int random = 0;
-    switch (this->levelType) {
-    case Level_Type::STANDARD_OVERWORLD:
-        random = (qrand()%10);
-        if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
-        else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
-        else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
-        else if (random < 10) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-        else assert(false);
-        break;
-    case Level_Type::BRIDGE:
-        switch (qrand()%5) {
-        case 0:
-        case 1:
-        case 2:
-            assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
-        case 3:
-            assert(this->enemies->Goomba(spawnX, tmpY)); break;
-        case 4:
-            assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+    //Hammer time mod... TODO: Remove this later
+    if (this->hammerTime && qrand()%4 == 0) {
+        assert(this->enemies->Hammer_Bro(spawnX, tmpY));
+    } else {
+        switch (this->levelType) {
+        case Level_Type::STANDARD_OVERWORLD:
+            random = (qrand()%10);
+            if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
+            else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
+            else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
+            else if (random < 10) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+            else assert(false);
+            break;
+        case Level_Type::BRIDGE:
+            switch (qrand()%5) {
+            case 0:
+            case 1:
+            case 2:
+                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+            case 3:
+                assert(this->enemies->Goomba(spawnX, tmpY)); break;
+            case 4:
+                assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+            default:
+                assert(false);
+            }
+            break;
+        case Level_Type::ISLAND:
+            switch (qrand()%6) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+            case 4:
+                assert(this->enemies->Goomba(spawnX, tmpY)); break;
+            case 5:
+                assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+            default:
+                assert(false);
+            }
+            break;
+        case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
+        case Level_Type::UNDERWATER:
+        case Level_Type::CASTLE:
+            random = (qrand()%7);
+            if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
+            else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
+            else if (random < 7) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+            else assert(false);
+            break;
         default:
-            assert(false);
+            assert(false); return 0;
         }
-        break;
-    case Level_Type::ISLAND:
-        switch (qrand()%6) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-            assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
-        case 4:
-            assert(this->enemies->Goomba(spawnX, tmpY)); break;
-        case 5:
-            assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
-        default:
-            assert(false);
-        }
-        break;
-    case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
-    case Level_Type::UNDERWATER:
-    case Level_Type::CASTLE:
-        random = (qrand()%7);
-        if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
-        else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
-        else if (random < 7) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-        else assert(false);
-        break;
-    default:
-        assert(false); return 0;
     }
     x = tmpX;
     y = tmpY;

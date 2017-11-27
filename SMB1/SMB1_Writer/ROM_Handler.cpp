@@ -132,7 +132,6 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         extensionFilter = "NES ROMs (*.nes *.fds)";
     }
     QString fileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
-    //if (fileLocation.split('.').last().toLower() != extension) fileLocation += "." + extension;
     qDebug() << "Saving at: " << fileLocation;
     if (fileLocation == NULL || fileLocation.isEmpty()) {
         cancel = true;

@@ -18,6 +18,7 @@ struct SMB1_Compliance_Generator_Arguments {
     Castle::Castle startCastle;
     Castle::Castle endCastle;
     Level_Type::Level_Type levelType;
+    bool hammerTime;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H
