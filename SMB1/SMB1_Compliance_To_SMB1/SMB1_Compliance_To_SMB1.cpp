@@ -16,7 +16,6 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginsLoaded = false;
     this->pluginSettings.numWorlds = 4;
     this->pluginSettings.numLevelsPerWorld = 4;
-    this->pluginSettings.noDuplicates = true;
     this->pluginSettings.baseROM = "";
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.levelScripts = "";

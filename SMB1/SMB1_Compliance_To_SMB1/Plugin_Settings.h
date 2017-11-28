@@ -23,7 +23,6 @@ struct Plugin_Settings {
     QString baseROM;
     int numWorlds;
     int numLevelsPerWorld;
-    bool noDuplicates;
     bool generateNewLevels;
     QString levelScripts;
     QString standardOverworldChance;

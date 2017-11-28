@@ -121,7 +121,7 @@ bool Level_Generator::Generate_Levels() {
 
     //Determine the number of levels to use
     int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
-    if (this->pluginSettings->noDuplicates && this->pluginSettings->numWorlds == 7) --numLevels; //TODO: this line will need to be refactored once item sending gets implemented
+    if (this->pluginSettings->numWorlds == 7) --numLevels; //TODO: this line will need to be refactored once item sending gets implemented
     assert(numLevels == levelOrder.size());
 
     //Determine the number of level types for each chance type
@@ -358,7 +358,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
-    else if (this->pluginSettings->noDuplicates && level == 3 && world == 7) args.levelType = Level_Type::CASTLE;
+    else if (level == 3 && world == 7) args.levelType = Level_Type::CASTLE;
     else args.levelType = this->Determine_Level_Type();
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:

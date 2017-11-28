@@ -20,14 +20,13 @@ public:
 
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
-    void on_cbDuplicateLevels_toggled(bool checked);
     void on_btnInstallNewROM_clicked();
 
     void on_sbNumLevelsPerWorld_valueChanged(int arg1);
 
 private:
     void Populate_Installed_ROMs();
-    void Fix_Max_Worlds(bool noDuplicates, int numLevelsPerWorld);
+    void Fix_Max_Worlds(int numLevelsPerWorld);
 
     Ui::Configure_Base_Form *ui;
     Plugin_Settings *pluginSettings;
