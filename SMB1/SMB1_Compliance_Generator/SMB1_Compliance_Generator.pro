@@ -42,6 +42,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Enemy_Writer.h \
     Header_Writer.h \
     Item_Writer.h \
+    ../../Common_Files/Random.h \
     ../Common_SMB1_Files/Level_Attribute.h \
     ../Common_SMB1_Files/Background.h \
     ../Common_SMB1_Files/Brick.h \

@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Level_Generator.h"
 #include <assert.h>
 
@@ -32,17 +33,17 @@ Level_Generator::~Level_Generator() {
 
 int Level_Generator::Get_Random_X() {
     //Aim for a lower value... but allow higher values to be possible
-    int random = qrand()%20;
+    int random = Random::Get_Num(19);
     if (random < 3) {
-        return (qrand()%0x06);
+        return Random::Get_Num(0x05);
     } else if (random < 10) {
-        return (qrand()%0x07)+1;
+        return Random::Get_Num(0x06)+1;
     } else if (random < 16) {
-        return (qrand()%0x08)+1;
+        return Random::Get_Num(0x07)+1;
     } else if (random < 19) {
-        return (qrand()%0x0A)+1;
+        return Random::Get_Num(0x09)+1;
     } else if (random < 20) {
-        return (qrand()%0x0F)+1;
+        return Random::Get_Num(0x0E)+1;
     } else {
         assert(false);
         return 0;

@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Midpoint_Handler.h"
 #include "Object_Writer.h"
 #include "Physics.h"
@@ -93,7 +94,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     if (absoluteX < 0x4) {
         //Place an island to ensure that the midpoint will be safe
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
-        if (!this->object->Island(x, Physics::GROUND_Y+1, (qrand()%3)+(6-absoluteX))) return false;
+        if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
         if (this->levelType == Level_Type::BRIDGE) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
@@ -106,16 +107,16 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     //Place some kind of object to push the x over to the midpoint
     if (absoluteX < 0xA && this->object->Get_Num_Objects_Available() > requiredObjects+1) {
         //Try to randomize the distance
-        int tmpX = x+(qrand()%4)+1;
+        int tmpX = x+Random::Get_Num(3)+1;
         if (tmpX > 0x10) tmpX = x;
         absoluteX = this->object->Get_Absolute_X(tmpX);
         //Determine the length
-        int length = (0xB-absoluteX)+(qrand()%3);
+        int length = (0xB-absoluteX)+Random::Get_Num(2);
         if (length < 3) length = 3;
         if (length > 7) length = 7;
         //Determine a y value
         int y = 0;
-        switch (qrand()%3) {
+        switch (Random::Get_Num(2)) {
         case 0:     y = 7; break;
         case 1:     y = 8; break;
         case 2:     y = Physics::GROUND_Y; break;

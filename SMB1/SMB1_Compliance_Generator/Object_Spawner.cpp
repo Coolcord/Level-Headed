@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Object_Spawner.h"
 #include "Physics.h"
 #include <assert.h>
@@ -11,7 +12,7 @@ Object_Spawner::Object_Spawner(Object_Writer *object) {
 int Object_Spawner::Get_Random_Number(int min, int max) {
     if (min == max) return min;
     assert(max > min);
-    return ((qrand() % (max+1-min)) + min);
+    return Random::Get_Num(max-min)+min;
 }
 
 int Object_Spawner::Get_Y_From_Height(int height) {
@@ -34,8 +35,8 @@ int Object_Spawner::Get_Safe_Random_Y(int x) {
     }
 
     //Go up or down
-    if (qrand()%2 == 0) y -= qrand()%(Physics::BASIC_JUMP_HEIGHT+1);
-    else y += qrand()%(Physics::BASIC_JUMP_HEIGHT+1);
+    if (Random::Get_Num(1) == 0) y -= Random::Get_Num(Physics::BASIC_JUMP_HEIGHT);
+    else y += Random::Get_Num(Physics::BASIC_JUMP_HEIGHT);
 
     //Make sure y is valid
     if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y;

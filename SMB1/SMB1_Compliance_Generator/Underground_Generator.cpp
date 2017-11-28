@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Underground_Generator.h"
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
@@ -22,7 +23,7 @@ bool Underground_Generator::Generate_Level() {
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
-            int random = qrand()%6;
+            int random = Random::Get_Num(5);
             if (random < 3) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else if (random < 4) assert(this->Brick_Pattern_Distraction(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
@@ -57,7 +58,7 @@ bool Underground_Generator::Brick_Pattern_Distraction(int x) {
 
     //Determine which kind of brick pattern to use
     Brick::Brick brick = Brick::SURFACE_AND_CEILING;
-    switch (qrand()%9) {
+    switch (Random::Get_Num(8)) {
     case 0:     brick = Brick::SURFACE_AND_CEILING_4; break;
     case 1:     brick = Brick::SURFACE_AND_CEILING_8; break;
     case 2:     brick = Brick::SURFACE_4_AND_CEILING; break;
@@ -73,7 +74,7 @@ bool Underground_Generator::Brick_Pattern_Distraction(int x) {
     --numObjectsAvailable;
 
     //The length of the brick pattern will be between 2 and 8
-    assert(this->object->Change_Brick_And_Scenery((qrand()%7)+2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(Random::Get_Num(6)+2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     --numObjectsAvailable;
 

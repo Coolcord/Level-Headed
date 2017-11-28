@@ -4,6 +4,7 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "../Common_SMB1_Files/Level_Type_String.h"
+#include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QTime>
 #include <QDebug>
@@ -193,7 +194,7 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
 }
 
 int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size) {
-    switch (qrand() % 4) {
+    switch (Random::Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -207,7 +208,7 @@ int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int
 }
 
 int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) {
-    switch (qrand() % 4) {
+    switch (Random::Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -226,7 +227,7 @@ int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
 }
 
 int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
-    switch (qrand() % 4) {
+    switch (Random::Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -241,7 +242,7 @@ int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
 
 int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
     //TODO: Add other paratroopa types
-    switch (qrand() % 4) {
+    switch (Random::Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -257,7 +258,7 @@ int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
 
 int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
     //TODO: Add other paratroopa types
-    switch (qrand() % 4) {
+    switch (Random::Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -291,7 +292,7 @@ int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEne
 }
 
 int Enemy_Spawner::Get_Random_X(int min) {
-    int random = qrand() % 0x11;
+    int random = Random::Get_Num(0x10);
     random += min;
     if (random > 0x10) random = 0x10;
     return random;
@@ -303,7 +304,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
 
     //Determine how many enemies to spawn
     int numEnemies = 0;
-    switch (qrand() % 2) {
+    switch (Random::Get_Num(1)) {
     case 0: numEnemies = 2; break;
     case 1: numEnemies = 3; break;
     default: assert(false);
@@ -311,7 +312,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
 
     //Determine the y to place the enemies at
     int tmpY = y;
-    switch (qrand() % 2) {
+    switch (Random::Get_Num(1)) {
     case 0: tmpY = 0x6; break;
     case 1: tmpY = 0xA; break;
     default: assert(false);
@@ -344,7 +345,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     assert(spawnX <= 16);
     assert(numEnemies == 2 || numEnemies == 3);
-    switch (qrand() % 2) {
+    switch (Random::Get_Num(1)) {
     case 0: //Goombas
         assert(this->enemies->Goomba_Group(spawnX, tmpY, numEnemies));
         break;
@@ -366,13 +367,13 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
 
     if (this->levelType == Level_Type::UNDERWATER) {
         int spawnX = x - lastX;
-        y = (qrand()%10)+1;
+        y = Random::Get_Num(9)+1;
         assert(this->enemies->Blooper(spawnX, y));
         return 1;
     }
 
     //Try to spawn a Green Paratroopa
-    if (qrand() % 5 == 0) {
+    if (Random::Get_Num(4) == 0) {
         bool spawnParatroopa = false;
         if (!this->levelCrawler->Find_Safe_Green_Leaping_Paratroopa_Coordinate(tmpX, tmpY, lastX)) {
             //Try again, but start closer to the last enemy
@@ -406,12 +407,12 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     int random = 0;
     //Hammer time mod... TODO: Remove this later
-    if (this->hammerTime && qrand()%4 == 0) {
+    if (this->hammerTime && Random::Get_Num(3) == 0) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
-            random = (qrand()%10);
+            random = Random::Get_Num(9);
             if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
             else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
             else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
@@ -419,7 +420,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
             else assert(false);
             break;
         case Level_Type::BRIDGE:
-            switch (qrand()%5) {
+            switch (Random::Get_Num(4)) {
             case 0:
             case 1:
             case 2:
@@ -433,7 +434,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
             }
             break;
         case Level_Type::ISLAND:
-            switch (qrand()%6) {
+            switch (Random::Get_Num(5)) {
             case 0:
             case 1:
             case 2:
@@ -450,7 +451,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
         case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
         case Level_Type::UNDERWATER:
         case Level_Type::CASTLE:
-            random = (qrand()%7);
+            random = (Random::Get_Num(6));
             if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
             else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
             else if (random < 7) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));

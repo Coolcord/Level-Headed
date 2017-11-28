@@ -26,6 +26,7 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
     ../../Level-Headed/Common_Strings.h \
+    ../../Common_Files/Random.h \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h \
     ../SMB1_Writer/SMB1_Writer_Interface.h \
     SMB1_Compliance_Parser.h \

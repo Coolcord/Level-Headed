@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "End_Spawner.h"
 #include "Enemy_Writer.h"
 #include "Required_Enemy_Spawns.h"
@@ -80,7 +81,7 @@ void End_Spawner::Determine_End() {
 }
 
 bool End_Spawner::Determine_Standard_Overworld_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
         this->endObjectCount = 2;
@@ -92,7 +93,7 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
 }
 
 bool End_Spawner::Determine_Underground_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
         this->endObjectCount = 3;
@@ -104,7 +105,7 @@ bool End_Spawner::Determine_Underground_End() {
 }
 
 bool End_Spawner::Determine_Underwater_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
         this->endObjectCount = 2;
@@ -116,7 +117,7 @@ bool End_Spawner::Determine_Underwater_End() {
 }
 
 bool End_Spawner::Determine_Castle_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_Castle;
         this->endObjectCount = 9;
@@ -129,7 +130,7 @@ bool End_Spawner::Determine_Castle_End() {
 }
 
 bool End_Spawner::Determine_Bridge_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::One_Block_Bridge;
         this->endObjectCount = 8;
@@ -141,7 +142,7 @@ bool End_Spawner::Determine_Bridge_End() {
 }
 
 bool End_Spawner::Determine_Island_End() {
-    switch (qrand()%1) {
+    switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
         this->endObjectCount = 3;
@@ -185,7 +186,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
     //Change to the surface brick pattern
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
-    x = (qrand()%7)+2;
+    x = Random::Get_Num(6)+2;
     return this->Shortest_End(x);
 }
 
@@ -226,15 +227,15 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     int y = Physics::GROUND_Y;
     int height = 0xD - y;
     assert(height == 3);
-    int bridgeLength = (qrand()%6)+5;
+    int bridgeLength = Random::Get_Num(5)+5;
     assert(this->object->Vertical_Blocks(x, y, height));
     assert(this->object->Bridge(1, y, bridgeLength));
     int distanceRemainingFromBridgeEnd = bridgeLength;
 
     //Spawn an Island
-    int islandLength = (qrand()%12)+3;
+    int islandLength = Random::Get_Num(11)+3;
     if (islandLength < 5) x = this->object->Get_Last_Object_Length();
-    else x = this->object->Get_Last_Object_Length()-(qrand()%(islandLength-4));
+    else x = this->object->Get_Last_Object_Length()-Random::Get_Num(islandLength-5);
     if (x < 0) x = 0; //TODO: Fix the else statement above to remove this line
     assert(this->object->Island(x, Physics::GROUND_Y+1, islandLength));
     distanceRemainingFromBridgeEnd -= x;
@@ -255,11 +256,11 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     else assert(this->object->Cancel_Spawner(0));
 
     //Change the brick type back to surface
-    x = (qrand()%5)+distanceRemainingFromIslandEnd; //increment to the end of the island
+    x = Random::Get_Num(4)+distanceRemainingFromIslandEnd; //increment to the end of the island
     if (x > 0x10) x = 0x10;
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
-    x = (qrand()%11)+2;
+    x = Random::Get_Num(10)+2;
     return this->Shortest_End(x);
 }
 

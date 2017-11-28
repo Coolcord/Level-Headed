@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Castle_Generator.h"
 #include "Physics.h"
 #include <assert.h>
@@ -22,7 +23,7 @@ bool Castle_Generator::Generate_Level() {
     while (!this->end->Is_End_Written()) {
         x = this->Get_Safe_Random_X();
         bool success = false;
-        switch (qrand()%7) {
+        switch (Random::Get_Num(6)) {
         case 0: success = this->Room_With_Single_Firebar_Pillar(x); break;
         case 1: success = this->Drop_Down_And_Climb_Up_U_Shape(x); break;
         case 2: success = this->Two_Object_Hole(x); break;
@@ -34,7 +35,7 @@ bool Castle_Generator::Generate_Level() {
         }
         if (!success) {
             if (this->object->Get_Num_Objects_Available() >= 2) {
-                if (qrand()%4==0) {
+                if (Random::Get_Num(3)==0) {
                     if (!this->Two_Object_Hole(x)) {
                         if (this->object->Get_Num_Objects_Available() > 0) this->object->Horizontal_Blocks(1, Physics::GROUND_Y, 1);
                     }
@@ -85,13 +86,13 @@ int Castle_Generator::Get_Random_Y() {
     int y = this->object->Get_Current_Y();
 
     //Determine whether to go up or down
-    if (y == Physics::HIGHEST_Y) y += (qrand()%5);
-    else if (y == Physics::GROUND_Y+1) y -= (qrand()%5);
+    if (y == Physics::HIGHEST_Y) y += Random::Get_Num(4);
+    else if (y == Physics::GROUND_Y+1) y -= Random::Get_Num(4);
     else {
-        if (qrand()%2 == 0) { //go up
-            y -= (qrand()%5);
+        if (Random::Get_Num(1) == 0) { //go up
+            y -= Random::Get_Num(4);
         } else { //go down
-            y += (qrand()%5);
+            y += Random::Get_Num(4);
         }
     }
     //Y values should be between the range of 1 at the highest and 11 at the lowest
@@ -105,8 +106,8 @@ bool Castle_Generator::Spawn_Firebar(int x, int y) {
     if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
         assert(this->object->Used_Block(x, y));
         Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
-        args.fast = static_cast<bool>(qrand()%2==0);
-        args.clockwise = static_cast<bool>(qrand()%2==0);
+        args.fast = static_cast<bool>(Random::Get_Num(1)==0);
+        args.clockwise = static_cast<bool>(Random::Get_Num(1)==0);
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, y));
         return true;
     }
@@ -136,27 +137,27 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
 
     //Spawn a hole
     if (this->brick != Brick::CEILING) assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%3)+3; //between 3 and 5
+    x = Random::Get_Num(2)+3; //between 3 and 5
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
     //Spawn a center platform with a possible firebar
-    x = (qrand()%2)+2; //between 2 and 3
+    x = Random::Get_Num(1)+2; //between 2 and 3
     if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
         assert(this->object->Used_Block(x, 8));
-        if (qrand()%6==0) {
+        if (Random::Get_Num(5)==0) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, 8));
         } else {
             Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
-            args.fast = static_cast<bool>(qrand()%2==0);
-            args.clockwise = static_cast<bool>(qrand()%2==0);
+            args.fast = static_cast<bool>(Random::Get_Num(1)==0);
+            args.clockwise = static_cast<bool>(Random::Get_Num(1)==0);
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, 8));
         }
     }
-    x = (qrand()%2)+1; //between 1 and 3
+    x = Random::Get_Num(1)+1; //between 1 and 3
 
     //Spawn another hole
     assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%3)+3; //between 3 and 5
+    x = Random::Get_Num(2)+3; //between 3 and 5
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING_3, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     this->brick = Brick::SURFACE_4_AND_CEILING_3;
@@ -169,39 +170,39 @@ bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
     if (numObjectsAvailable < 6) return false;
 
     //Spawn anywhere between 3 and 6 platforms
-    int numPlatforms = (qrand()%4)+3;
+    int numPlatforms = Random::Get_Num(3)+3;
     if (numObjectsAvailable-2 < numPlatforms) numPlatforms = numObjectsAvailable-2;
     assert(numPlatforms >= 3);
 
     //Make sure that there is a place to stand
     if (this->brick != Brick::SURFACE_4_AND_CEILING_3) {
         assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING_3, Scenery::NO_SCENERY));
-        x = (qrand()%4)+3; //between 3 and 6
+        x = Random::Get_Num(3)+3; //between 3 and 6
     }
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(1);
     this->object->Set_Current_Y(8);
     for (int i = numPlatforms; i > 0; --i) {
-        x = this->object->Get_Last_Object_Length()+(qrand()%4)+2; //between 2 and 5
-        int length = (qrand()%4)+2; //between 2 and 5
+        x = this->object->Get_Last_Object_Length()+Random::Get_Num(3)+2; //between 2 and 5
+        int length = Random::Get_Num(3)+2; //between 2 and 5
         int y = this->Get_Random_Y();;
         if (i == 1 && y < 5) y = 5;
         assert(this->object->Horizontal_Blocks(x, y, length));
 
         //Possibly spawn something on the platform
         if (this->object->Get_Num_Objects_Available()-(i+1) > 0) {
-            int random = qrand()%2;
+            int random = Random::Get_Num(1);
             if (random == 0) { //spawn a firebar
-                x = qrand()%length;
+                x = Random::Get_Num(length-1);
                 if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(x)) {
                     assert(this->object->Used_Block(x, y));
                     this->object->Set_Last_Object_Length(length-x);
-                    if (qrand()%6==0 && (y < 8 && y > 2)) {
+                    if (Random::Get_Num(5)==0 && (y < 8 && y > 2)) {
                         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, y));
                     } else {
                         Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
-                        args.fast = static_cast<bool>(qrand()%2==0);
-                        args.clockwise = static_cast<bool>(qrand()%2==0);
+                        args.fast = static_cast<bool>(Random::Get_Num(1)==0);
+                        args.clockwise = static_cast<bool>(Random::Get_Num(1)==0);
                         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, y));
                     }
                 }
@@ -213,7 +214,7 @@ bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
         }
     }
 
-    x = this->object->Get_Last_Object_Length()+(qrand()%3)+2; //between 2 and 4
+    x = this->object->Get_Last_Object_Length()+Random::Get_Num(2)+2; //between 2 and 4
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING_3, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     this->brick = Brick::SURFACE_4_AND_CEILING_3;
@@ -224,15 +225,15 @@ bool Castle_Generator::Drop_Down_And_Climb_Up_U_Shape(int x) {
     if (this->object->Get_Num_Objects_Available() < 6) return false;
 
     if (this->brick != Brick::SURFACE_4_AND_CEILING) assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%3)+2; //between 2 and 4
+    x = Random::Get_Num(2)+2; //between 2 and 4
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_8_AND_CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%3)+2; //between 2 and 4
+    x = Random::Get_Num(2)+2; //between 2 and 4
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%3)+2; //between 2 and 4
+    x = Random::Get_Num(2)+2; //between 2 and 4
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_AND_CEILING_8, Scenery::NO_SCENERY));
-    x = (qrand()%3)+2; //between 2 and 4
+    x = Random::Get_Num(2)+2; //between 2 and 4
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%4)+3; //between 3 and 6
+    x = Random::Get_Num(3)+3; //between 3 and 6
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING_3, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     this->brick = Brick::SURFACE_4_AND_CEILING_3;
@@ -243,10 +244,10 @@ bool Castle_Generator::Two_Object_Hole(int x) {
     if (this->object->Get_Num_Objects_Available() < 2) return false;
 
     assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
-    x = (qrand()%4)+2; //between 2 and 5
+    x = Random::Get_Num(3)+2; //between 2 and 5
     //Possibly add a Podoboo
-    if (qrand()%2 == 0) {
-        int podobooX = (qrand()%(x-1))+1;
+    if (Random::Get_Num(1) == 0) {
+        int podobooX = Random::Get_Num(x-2)+1;
         if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(podobooX)) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::PODOBOO, podobooX));
         }
@@ -263,29 +264,29 @@ bool Castle_Generator::Coin_Tease(int x) {
 
     if (this->brick != Brick::SURFACE) {
         assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, Scenery::NO_SCENERY));
-        x = (qrand()%5)+2; //between 2 and 6
+        x = Random::Get_Num(4)+2; //between 2 and 6
     }
 
     //Spawn the coins
-    int length = (qrand()%5)+3; //between 3 and 7
-    int fireBarY = (qrand()%4)+6; //between 6 and 9
-    assert(this->object->Horizontal_Coins(x, fireBarY-((qrand()%3)+1), length));
+    int length = Random::Get_Num(4)+3; //between 3 and 7
+    int fireBarY = Random::Get_Num(3)+6; //between 6 and 9
+    assert(this->object->Horizontal_Coins(x, fireBarY-(Random::Get_Num(2)+1), length));
     assert(this->object->Horizontal_Coins(0, Physics::GROUND_Y, length));
 
     //Spawn the firebar
     int usedBlockX = 0;
-    if (length%2 == 0) usedBlockX = (length/2)-(qrand()%2);
+    if (length%2 == 0) usedBlockX = (length/2)-Random::Get_Num(1);
     else usedBlockX = length/2;
     assert(this->object->Used_Block(usedBlockX, fireBarY));
-    if (qrand()%6==0 && (fireBarY < 8 && fireBarY > 2)) {
+    if (Random::Get_Num(5)==0 && (fireBarY < 8 && fireBarY > 2)) {
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LARGE_FIRE_BAR, 0, fireBarY));
     } else {
         Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
-        args.fast = static_cast<bool>(qrand()%2==0);
-        args.clockwise = static_cast<bool>(qrand()%2==0);
+        args.fast = static_cast<bool>(Random::Get_Num(1)==0);
+        args.clockwise = static_cast<bool>(Random::Get_Num(1)==0);
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::FIRE_BAR, args, 0, fireBarY));
     }
-    x = usedBlockX + (qrand()%5)+2; //between 2 and 6
+    x = usedBlockX + Random::Get_Num(4)+2; //between 2 and 6
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     return true;
@@ -295,7 +296,7 @@ bool Castle_Generator::Item_Tease(int x) {
     if (this->object->Get_Num_Objects_Available() < 6) return false;
 
     Brick::Brick brick;
-    switch (qrand()%5) {
+    switch (Random::Get_Num(4)) {
     case 0: brick = Brick::SURFACE_4_AND_CEILING; break;
     case 1: brick = Brick::SURFACE_5_AND_CEILING; break;
     case 2: brick = Brick::SURFACE; break;
@@ -306,18 +307,18 @@ bool Castle_Generator::Item_Tease(int x) {
     }
     if (this->brick != brick) {
         assert(this->object->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
-        x = (qrand()%4)+3; //between 3 and 6
+        x = Random::Get_Num(3)+3; //between 3 and 6
     }
     int y = this->Get_Lowest_Y_From_Brick(brick)-3;
 
-    if (qrand()%2 == 0) { //one firebar
-        bool uniform = !(static_cast<bool>((qrand()%4==0))); //75% chance
-        int length = (qrand()%3)+1; //between 1 and 3
+    if (Random::Get_Num(1) == 0) { //one firebar
+        bool uniform = !(static_cast<bool>((Random::Get_Num(3)==0))); //75% chance
+        int length = Random::Get_Num(2)+1; //between 1 and 3
         for (int i = 0; i < 2; ++i) {
             if (y == 3 || y == 7) {
-                if (!uniform) length = (qrand()%3)+1; //between 1 and 3
+                if (!uniform) length = Random::Get_Num(2)+1; //between 1 and 3
                 if (length == 1) {
-                    if (qrand()%2 == 0) {
+                    if (Random::Get_Num(1) == 0) {
                         assert(this->object->Question_Block_With_Coin(x, y));
                     } else {
                         assert(this->object->Question_Block_With_Mushroom(x, y));
@@ -326,14 +327,14 @@ bool Castle_Generator::Item_Tease(int x) {
                 } else {
                     assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
                     x = length;
-                    if (qrand()%2 == 0) {
-                        x = qrand()%length;
+                    if (Random::Get_Num(1) == 0) {
+                        x = Random::Get_Num(length-1);
                         if (this->object->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
                         else x = length;
                     }
                 }
             } else {
-                if (qrand()%2 == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
+                if (Random::Get_Num(1) == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
                 else assert(this->object->Question_Block_With_Coin(x, y));
                 x = 1;
             }
@@ -342,12 +343,12 @@ bool Castle_Generator::Item_Tease(int x) {
         }
     } else { //two firebars
         if (this->Spawn_Firebar(x, y)) x = 1;
-        else x = (qrand()%4)+3; //between 3 and 6
+        else x = Random::Get_Num(3)+3; //between 3 and 6
         int length = 1;
         if (y == 3 || y == 7) {
-            length += (qrand()%3);
+            length += Random::Get_Num(2);
             if (length == 1) {
-                if (qrand()%2 == 0) {
+                if (Random::Get_Num(1) == 0) {
                     assert(this->object->Question_Block_With_Coin(x, y));
                 } else {
                     assert(this->object->Question_Block_With_Mushroom(x, y));
@@ -356,20 +357,20 @@ bool Castle_Generator::Item_Tease(int x) {
             } else {
                 assert(this->object->Horizontal_Question_Blocks_With_Coins(x, y, length));
                 x = length;
-                if (qrand()%2 == 0) {
-                    x = qrand()%length;
+                if (Random::Get_Num(1) == 0) {
+                    x = Random::Get_Num(length-1);
                     if (this->object->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
                     else x = length;
                 }
             }
         } else {
-            if (qrand()%2 == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
+            if (Random::Get_Num(1) == 0) assert(this->object->Question_Block_With_Mushroom(x, y));
             else assert(this->object->Question_Block_With_Coin(x, y));
         }
         this->Spawn_Firebar(x, y);
     }
 
-    x = this->object->Get_Last_Object_Length()+(qrand()%3)+2; //between 2 and 5
+    x = this->object->Get_Last_Object_Length()+Random::Get_Num(2)+2; //between 2 and 5
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     return true;
@@ -379,8 +380,8 @@ bool Castle_Generator::Defense_Hole(int x) {
     if (this->object->Get_Num_Objects_Available() < 2 || this->brick == Brick::SURFACE_AND_CEILING) return false;
 
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
-    if (qrand()%3==0) x = (qrand()%4)+2; //between 2 and 5
-    else x = (qrand()%2)+2; //between 2 and 3
+    if (Random::Get_Num(2)==0) x = Random::Get_Num(3)+2; //between 2 and 5
+    else x = Random::Get_Num(1)+2; //between 2 and 3
     assert(this->object->Change_Brick_And_Scenery(x, this->brick, Scenery::NO_SCENERY));
     return true;
 }

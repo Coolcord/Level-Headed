@@ -1,5 +1,6 @@
 #include "Level_Generator.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Level_String.h"
 #include "../Common_SMB1_Files/Header_String.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
@@ -361,12 +362,12 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     else args.levelType = this->Determine_Level_Type();
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
-        if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
-        if (qrand()%2==0) args.headerScenery = Scenery::MOUNTAINS;
+        if (Random::Get_Num(1)==0) args.headerScenery = Scenery::MOUNTAINS;
         else args.headerScenery = Scenery::FENCES;
-        if (qrand()%3==0) {
-            int random = qrand()%120;
+        if (Random::Get_Num(2)==0) {
+            int random = Random::Get_Num(119);
             if (random < 40) args.headerBackground = Background::NIGHT;
             else if (random < 80) args.headerBackground = Background::SNOW;
             else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
@@ -376,11 +377,11 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         break;
     case Level_Type::BRIDGE:
     case Level_Type::ISLAND:
-        if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::ONLY_CLOUDS;
-        if (qrand()%2==0) {
-            int random = qrand()%170;
+        if (Random::Get_Num(1)==0) {
+            int random = Random::Get_Num(169);
             if (random < 50) args.headerBackground = Background::OVER_WATER;
             else if (random < 90) args.headerBackground = Background::NIGHT;
             else if (random < 130) args.headerBackground = Background::SNOW;
@@ -390,11 +391,11 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         } else args.headerBackground = Background::BLANK_BACKGROUND;
         break;
     case Level_Type::UNDERGROUND:
-        if (qrand()%5==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::NO_SCENERY;
-        if (args.levelCompliment == Level_Compliment::TREES && qrand()%4==0) {
-            if (qrand()%3==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        if (args.levelCompliment == Level_Compliment::TREES && Random::Get_Num(3)==0) {
+            if (Random::Get_Num(2)==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else args.headerBackground = Background::NIGHT_AND_SNOW;
         } else {
             args.headerBackground = Background::BLANK_BACKGROUND;
@@ -447,7 +448,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
     //Determine chance
     int veryCommonChance = 50*numVeryCommon; int commonChance = (30*numCommon)+veryCommonChance;
     int uncommonChance = (15*numUncommon)+commonChance; int rareChance = (5*numRare)+uncommonChance;
-    int random = (qrand()%rareChance);
+    int random = Random::Get_Num(rareChance-1);
     int index = 0;
 
     //Determine the level type by probability

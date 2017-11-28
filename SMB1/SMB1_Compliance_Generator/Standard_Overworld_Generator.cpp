@@ -1,3 +1,4 @@
+#include "../../Common_Files/Random.h"
 #include "Standard_Overworld_Generator.h"
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
@@ -20,7 +21,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
-            if (qrand() % 3 == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
+            if (Random::Get_Num(2) == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
