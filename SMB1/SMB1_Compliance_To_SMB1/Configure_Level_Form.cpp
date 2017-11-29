@@ -140,6 +140,21 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     this->ui->comboLevelScripts->setEnabled(!enable);
     this->ui->btnClearAllRandomLevelScripts->setEnabled(!enable);
 
+    //Toggle the spinboxes
+    this->ui->lblNumWorlds->setEnabled(enable);
+    this->ui->sbNumWorlds->setEnabled(enable);
+    if (enable) { //reset the values of the spinboxes
+        this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
+        this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
+        this->Fix_Max_Worlds(this->pluginSettings->numLevelsPerWorld);
+    } else {
+        this->ui->sbNumWorlds->clear();
+        this->ui->sbNumLevelsPerWorld->clear();
+    }
+    //this->ui->lblNumLevelsPerWorld->setEnabled(enable); //TODO: Leave this disabled until it is fully working
+    //this->ui->sbNumLevelsPerWorld->setEnabled(enable); //TODO: Leave this disabled until it is fully working
+
+
     //Toggle the comboboxes
     this->ui->lblStandardOverworld->setEnabled(enable);
     this->ui->lblUnderground->setEnabled(enable);
@@ -171,8 +186,9 @@ void Configure_Level_Form::Save_Settings() {
     this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
-        this->pluginSettings->hammerTime = false;
     } else {
+        this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
+        this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
         this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
         this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
@@ -237,4 +253,29 @@ void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
             this->ui->cbHammerTime->setChecked(false);
         }
     }
+}
+
+void Configure_Level_Form::Fix_Max_Worlds(int numLevelsPerWorld) {
+    switch (numLevelsPerWorld) {
+    default:
+        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this once item sending is implemented
+        break;
+    case 4:
+        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this once item sending is implemented
+        break;
+    case 5:
+        this->ui->sbNumWorlds->setMaximum(5);
+        break;
+    case 6:
+        this->ui->sbNumWorlds->setMaximum(4);
+        break;
+    case 7:
+    case 8:
+        this->ui->sbNumWorlds->setMaximum(3);
+        break;
+    }
+}
+
+void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int arg1) {
+    this->Fix_Max_Worlds(arg1);
 }

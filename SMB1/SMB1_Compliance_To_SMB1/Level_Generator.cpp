@@ -569,9 +569,9 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_2)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_1)) return false;
+    case 6:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_3)) return false;
     case 5:
-    case 6:
         if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;

@@ -16,9 +16,6 @@ Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *plugi
     //Setup the UI
     ui->setupUi(this);
     this->Populate_Installed_ROMs();
-    this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
-    this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
-    this->Fix_Max_Worlds(this->pluginSettings->numLevelsPerWorld);
 }
 
 Configure_Base_Form::~Configure_Base_Form() {
@@ -36,8 +33,6 @@ void Configure_Base_Form::on_buttonBox_clicked(QAbstractButton *button) {
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) {
         this->pluginSettings->baseROM = baseROM;
     }
-    this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
-    this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
     this->close();
 }
 
@@ -57,33 +52,8 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
     }
 }
 
-void Configure_Base_Form::Fix_Max_Worlds(int numLevelsPerWorld) {
-    switch (numLevelsPerWorld) {
-    default:
-        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this to 8 once item sending is implemented
-        break;
-    case 4:
-        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this once item sending is implemented
-        break;
-    case 5:
-        this->ui->sbNumWorlds->setMaximum(5);
-        break;
-    case 6:
-        this->ui->sbNumWorlds->setMaximum(4);
-        break;
-    case 7:
-    case 8:
-        this->ui->sbNumWorlds->setMaximum(3);
-        break;
-    }
-}
-
 void Configure_Base_Form::on_btnInstallNewROM_clicked() {
     if (!this->writerPlugin->Install_ROM().isEmpty()) {
         this->Populate_Installed_ROMs();
     }
-}
-
-void Configure_Base_Form::on_sbNumLevelsPerWorld_valueChanged(int arg1) {
-    this->Fix_Max_Worlds(arg1);
 }

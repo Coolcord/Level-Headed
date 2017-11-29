@@ -22,10 +22,10 @@ public:
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
     void on_cbGenerateNewLevels_toggled(bool checked);
-
     void on_btnClearAllRandomLevelScripts_clicked();
-
     void on_cbHammerTime_clicked(bool checked);
+
+    void on_sbNumLevelsPerWorld_valueChanged(int arg1);
 
 private:
     void Clear_Chance_ComboBoxes();
@@ -35,6 +35,7 @@ private:
     bool At_Least_One_Very_Common_Selected();
     void Enable_New_Level_ComboBoxes(bool enable);
     void Save_Settings();
+    void Fix_Max_Worlds(int numLevelsPerWorld);
 
     Ui::Configure_Level_Form *ui;
     Plugin_Settings *pluginSettings;
