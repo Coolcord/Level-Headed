@@ -2,7 +2,9 @@
 #include "ui_Configure_Level_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
+#include <QCryptographicHash>
 #include <QSound>
+#include <QTime>
 #include <QMessageBox>
 #include <QDir>
 #include <assert.h>
@@ -22,7 +24,7 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     //Setup the UI
     ui->setupUi(this);
     this->ui->cbGenerateNewLevels->setChecked(this->pluginSettings->generateNewLevels);
-    this->Enable_New_Level_ComboBoxes(this->pluginSettings->generateNewLevels);
+    this->Enable_New_Level_Options(this->pluginSettings->generateNewLevels);
 }
 
 Configure_Level_Form::~Configure_Level_Form() {
@@ -134,7 +136,7 @@ bool Configure_Level_Form::At_Least_One_Very_Common_Selected() {
     return false;
 }
 
-void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
+void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
     //Toggle the Level Scripts
     this->ui->lblLevelScripts->setEnabled(!enable);
     this->ui->comboLevelScripts->setEnabled(!enable);
@@ -167,6 +169,13 @@ void Configure_Level_Form::Enable_New_Level_ComboBoxes(bool enable) {
     this->ui->comboBridge->setEnabled(enable);
     this->ui->comboIsland->setEnabled(enable);
 
+    //Toggle the random seed
+    this->ui->lblRandomSeed->setEnabled(enable);
+    this->ui->sbRandomSeed->setEnabled(enable);
+    this->ui->btnNewRandomSeed->setEnabled(enable);
+    if (enable) this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
+    else this->ui->sbRandomSeed->clear();
+
     //Toggle Hammer Time mod
     this->ui->cbHammerTime->setEnabled(enable);
     if (!enable) this->ui->cbHammerTime->setChecked(false);
@@ -194,12 +203,13 @@ void Configure_Level_Form::Save_Settings() {
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+        this->pluginSettings->randomSeed = this->ui->sbRandomSeed->value();
         this->pluginSettings->hammerTime = this->ui->cbHammerTime->isChecked();
     }
 }
 
 void Configure_Level_Form::on_cbGenerateNewLevels_toggled(bool checked) {
-    this->Enable_New_Level_ComboBoxes(checked);
+    this->Enable_New_Level_Options(checked);
 }
 
 void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
@@ -278,4 +288,8 @@ void Configure_Level_Form::Fix_Max_Worlds(int numLevelsPerWorld) {
 
 void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int arg1) {
     this->Fix_Max_Worlds(arg1);
+}
+
+void Configure_Level_Form::on_btnNewRandomSeed_clicked() {
+    this->ui->sbRandomSeed->setValue(QTime::currentTime().msecsSinceStartOfDay());
 }

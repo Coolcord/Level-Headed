@@ -24,8 +24,8 @@ private slots:
     void on_cbGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
     void on_cbHammerTime_clicked(bool checked);
-
     void on_sbNumLevelsPerWorld_valueChanged(int arg1);
+    void on_btnNewRandomSeed_clicked();
 
 private:
     void Clear_Chance_ComboBoxes();
@@ -33,7 +33,7 @@ private:
     void Populate_Chance_ComboBox(QComboBox *comboBox);
     void Populate_Level_Scripts_ComboBox();
     bool At_Least_One_Very_Common_Selected();
-    void Enable_New_Level_ComboBoxes(bool enable);
+    void Enable_New_Level_Options(bool enable);
     void Save_Settings();
     void Fix_Max_Worlds(int numLevelsPerWorld);
 

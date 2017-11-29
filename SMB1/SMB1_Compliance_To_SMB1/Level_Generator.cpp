@@ -105,6 +105,17 @@ bool Level_Generator::Generate_Levels() {
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A."))) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_STANDARD_OVERWORLD_LEVELS_COMMONALITY + ": " + this->pluginSettings->standardOverworldChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERGROUND_LEVELS_COMMONALITY + ": " + this->pluginSettings->undergroundChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERWATER_LEVELS_COMMONALITY + ": " + this->pluginSettings->underwaterChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
+    if (this->pluginSettings->hammerTime) {
+        if (!this->Write_To_Map(mapStream, Header::STRING_HAMMER_TIME + ": " + Header::STRING_TRUE)) return false;
+    } else {
+        if (!this->Write_To_Map(mapStream, Header::STRING_HAMMER_TIME + ": " + Header::STRING_FALSE)) return false;
+    }
 
     //Write the Header of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
@@ -130,6 +141,9 @@ bool Level_Generator::Generate_Levels() {
     this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
     this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
     this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+
+    //Seed the random number generator... the location here is important
+    qsrand(this->pluginSettings->randomSeed);
 
     //Generate the Levels
     for (int i = 0; i < numLevels; ++i) {
@@ -185,6 +199,9 @@ bool Level_Generator::Generate_Levels() {
 
     mapStream.flush();
     map.close();
+
+    //Get a new seed for the next generation, since this one was successful
+    this->pluginSettings->randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     return true;
 }
 

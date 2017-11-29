@@ -6,6 +6,7 @@
 #include "Level_Generator.h"
 #include <QFile>
 #include <QMessageBox>
+#include <QTime>
 #include <QDebug>
 #include <assert.h>
 
@@ -24,6 +25,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.underwaterChance = STRING_UNCOMMON;
     this->pluginSettings.bridgeChance = STRING_UNCOMMON;
     this->pluginSettings.islandChance = STRING_UNCOMMON;
+    this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.hammerTime = false;
 }
 
