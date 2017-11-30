@@ -34,6 +34,8 @@ public:
     int Get_Num_Object_Bytes();
     int Get_Num_Enemy_Bytes();
     bool Set_Number_Of_Worlds(int value);
+    QString Get_Output_ROM_Location();
+    bool Set_Output_ROM_Location(const QString &location);
 
     //Header
     bool Header_Time(int value);
@@ -144,7 +146,7 @@ public:
 
 
 private:
-    bool Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler);
+    bool Load_ROM_Offsets(bool cancel);
     bool Create_ROM_Directory();
     bool Are_Buffers_Allocated();
     void Deallocate_Buffers();
@@ -169,6 +171,7 @@ private:
     Room_ID_Handler *roomIDHandler;
     Room_Order_Writer *roomOrderWriter;
     Room_Address_Writer *roomAddressWriter;
+    ROM_Handler *romHandler;
     QString applicationLocation;
     QString romFileName;
     QWidget *parent;

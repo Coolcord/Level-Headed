@@ -31,6 +31,7 @@ private:
     QPluginLoader *writerLoader;
     QWidget *parent;
     Plugin_Settings pluginSettings;
+    QString outputROMLocation;
 };
 
 #endif // SMB1_COMPLIANCE_TO_SMB1_H

@@ -27,6 +27,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.islandChance = STRING_UNCOMMON;
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.hammerTime = false;
+    this->outputROMLocation = QString();
 }
 
 void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) {
@@ -44,11 +45,19 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
+    //Set the output ROM location if a previous generation was performed
+    if (!this->outputROMLocation.isEmpty()) {
+        assert(this->writerPlugin->Set_Output_ROM_Location(this->outputROMLocation));
+    }
+
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
     bool success = false;
     if (this->pluginSettings.generateNewLevels) success = levelGenerator.Generate_Levels();
     else success = levelGenerator.Parse_Level_Map();
+
+    //Save the output ROM location for later
+    if (success) this->outputROMLocation = this->writerPlugin->Get_Output_ROM_Location();
 
     //Unload plugins
     this->Shutdown();

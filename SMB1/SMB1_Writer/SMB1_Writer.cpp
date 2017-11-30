@@ -30,6 +30,7 @@ SMB1_Writer::SMB1_Writer() {
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;
     this->midpointWriter = NULL;
+    this->romHandler = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
@@ -41,6 +42,7 @@ void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
+    this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);
 }
 
 void SMB1_Writer::Shutdown() {
@@ -64,21 +66,27 @@ void SMB1_Writer::Shutdown() {
         this->file->close();
     }
     delete this->file;
+    this->file = NULL;
     delete this->levelOffset;
+    this->levelOffset = NULL;
     delete this->midpointWriter;
+    this->midpointWriter = NULL;
     delete this->roomOrderWriter;
+    this->roomOrderWriter = NULL;
     delete this->roomIDHandler;
+    this->roomIDHandler = NULL;
     delete this->roomAddressWriter;
+    this->roomAddressWriter = NULL;
+    delete this->romHandler;
+    this->romHandler = NULL;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
-    ROM_Handler romHandler(this->parent, this->applicationLocation);
-    return romHandler.Get_Installed_ROMs();
+    return this->romHandler->Get_Installed_ROMs();
 }
 
 QString SMB1_Writer::Install_ROM() {
-    ROM_Handler romHandler(this->parent, this->applicationLocation);
-    return romHandler.Install_ROM();
+    return this->romHandler->Install_ROM();
 }
 
 bool SMB1_Writer::Create_ROM_Directory() {
@@ -94,35 +102,33 @@ bool SMB1_Writer::Load_ROM() {
                          " does not have proper read/write permissions. Cannot continue!");
         return false;
     }
-    ROM_Handler romHandler(this->parent, this->applicationLocation);
-    romHandler.Clean_ROM_Directory();
+    this->romHandler->Clean_ROM_Directory();
     bool cancel = false;
-    this->file = romHandler.Load_First_Local_ROM(cancel);
+    this->file = this->romHandler->Load_First_Local_ROM(cancel);
     //Request for a ROM if none exist
     if (!cancel && !this->file) {
         QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                  "It looks like this is your first time using the SMB1 Writer Plugin. In order to continue, please provide a clean SMB1 ROM to use as a base game.",
                                  Common_Strings::STRING_OK);
-        QString fileName = romHandler.Install_ROM();
+        QString fileName = this->romHandler->Install_ROM();
         if (fileName.isEmpty()) {
             return false;
         }
         return this->Load_ROM(fileName);
     }
-    return this->Load_ROM_Offsets(cancel, romHandler);
+    return this->Load_ROM_Offsets(cancel);
 }
 
 bool SMB1_Writer::Load_ROM(const QString &fileName) {
     if (!this->Create_ROM_Directory()) return false;
-    ROM_Handler romHandler(this->parent, this->applicationLocation);
     bool cancel = false;
-    this->file = romHandler.Load_Local_ROM(fileName, cancel);
-    return this->Load_ROM_Offsets(cancel, romHandler);
+    this->file = this->romHandler->Load_Local_ROM(fileName, cancel);
+    return this->Load_ROM_Offsets(cancel);
 }
 
-bool SMB1_Writer::Load_ROM_Offsets(bool cancel, const ROM_Handler &romHandler) {
+bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     if (!cancel && this->file) {
-        this->levelOffset = new Level_Offset(this->file, romHandler.Get_ROM_Type());
+        this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
         this->roomIDHandler = new Room_ID_Handler(this->file, this->levelOffset);
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
         if (!this->midpointWriter->Read_Midpoints()) return false;
@@ -197,6 +203,20 @@ int SMB1_Writer::Get_Num_Enemy_Bytes() {
 bool SMB1_Writer::Set_Number_Of_Worlds(int value) {
     if (!this->roomOrderWriter) return false;
     return this->roomOrderWriter->Set_Number_Of_Worlds(value);
+}
+
+QString SMB1_Writer::Get_Output_ROM_Location() {
+    if (this->romHandler) return this->romHandler->Get_Ouput_ROM_Location();
+    else return QString();
+}
+
+bool SMB1_Writer::Set_Output_ROM_Location(const QString &location) {
+    if (this->romHandler) {
+        this->romHandler->Set_Output_ROM_Location(location);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
