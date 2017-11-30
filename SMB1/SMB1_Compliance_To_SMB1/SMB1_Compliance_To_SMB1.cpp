@@ -26,6 +26,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.bridgeChance = STRING_UNCOMMON;
     this->pluginSettings.islandChance = STRING_UNCOMMON;
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
+    this->pluginSettings.randomNumWorlds = false;
     this->pluginSettings.hammerTime = false;
     this->outputROMLocation = QString();
 }

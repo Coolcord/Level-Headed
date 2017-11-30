@@ -24,6 +24,7 @@ private slots:
     void on_cbGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
     void on_cbHammerTime_clicked(bool checked);
+    void on_cbRandomNumWorlds_clicked(bool checked);
     void on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerWorld);
     void on_sbNumWorlds_valueChanged(int numWorlds);
     void on_btnNewRandomSeed_clicked();
@@ -41,6 +42,10 @@ private:
     Plugin_Settings *pluginSettings;
     QString levelLocation;
     QString applicationLocation;
+    int numWorlds;
+    int numLevelsPerWorld;
+    bool randomNumWorlds;
+    bool hammerTime;
     QWidget *parent;
 };
 

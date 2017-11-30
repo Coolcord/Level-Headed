@@ -52,8 +52,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>407</width>
-        <height>513</height>
+        <width>390</width>
+        <height>542</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -61,6 +61,16 @@
         <layout class="QVBoxLayout" name="layoutNewLevels">
          <item>
           <layout class="QVBoxLayout" name="layoutLevelNumberSettings">
+           <item>
+            <widget class="QCheckBox" name="cbRandomNumWorlds">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Random Number of Worlds</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="layoutNumWorlds">
              <item>

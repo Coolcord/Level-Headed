@@ -95,6 +95,18 @@ bool Level_Generator::Generate_Levels() {
     //Set up the parser
     SMB1_Compliance_Parser parser(this->writerPlugin);
 
+    //Seed the random number generator... the location here is important
+    qsrand(this->pluginSettings->randomSeed);
+
+    //Randomly determine the number of max levels and levels per world if specified
+    if (this->pluginSettings->randomNumWorlds) {
+        this->pluginSettings->numWorlds = Random::Get_Num(3)+2;
+        this->pluginSettings->numLevelsPerWorld = 8;
+        while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
+            --this->pluginSettings->numLevelsPerWorld;
+        }
+    }
+
     //Write the Number of Worlds
     if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
         qDebug() << "Failed to write the number of worlds to the ROM!";
@@ -138,9 +150,6 @@ bool Level_Generator::Generate_Levels() {
     this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
     this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
     this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
-
-    //Seed the random number generator... the location here is important
-    qsrand(this->pluginSettings->randomSeed);
 
     //Generate the Levels
     for (int i = 0; i < numLevels; ++i) {
@@ -372,7 +381,6 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
-    else if (level == 3 && world == 7) args.levelType = Level_Type::CASTLE;
     else args.levelType = this->Determine_Level_Type();
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:

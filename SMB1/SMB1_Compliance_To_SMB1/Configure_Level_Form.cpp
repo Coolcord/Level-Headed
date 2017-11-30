@@ -15,6 +15,10 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     assert(pluginSettings);
     this->parent = parent;
     this->pluginSettings = pluginSettings;
+    this->numWorlds = this->pluginSettings->numWorlds;
+    this->numLevelsPerWorld = this->pluginSettings->numLevelsPerWorld;
+    this->randomNumWorlds = this->pluginSettings->randomNumWorlds;
+    this->hammerTime = this->pluginSettings->hammerTime;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->applicationLocation = location;
     this->levelLocation = location + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
@@ -142,18 +146,29 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
     this->ui->comboLevelScripts->setEnabled(!enable);
     this->ui->btnClearAllRandomLevelScripts->setEnabled(!enable);
 
+    //Toggle the checkboxes
+    this->ui->cbRandomNumWorlds->setEnabled(enable);
+    this->ui->cbHammerTime->setEnabled(enable);
+    if (enable) {
+        this->ui->cbRandomNumWorlds->setChecked(this->randomNumWorlds);
+        this->ui->cbHammerTime->setChecked(this->hammerTime);
+    } else {
+        this->ui->cbRandomNumWorlds->setChecked(false);
+        this->ui->cbHammerTime->setChecked(false);
+    }
+
     //Toggle the spinboxes
-    this->ui->lblNumWorlds->setEnabled(enable);
-    this->ui->sbNumWorlds->setEnabled(enable);
-    if (enable) { //reset the values of the spinboxes
+    this->ui->lblNumWorlds->setEnabled(enable && !this->randomNumWorlds);
+    this->ui->sbNumWorlds->setEnabled(enable && !this->randomNumWorlds);
+    if (enable && !this->randomNumWorlds) { //reset the values of the spinboxes
         this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
         this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
     } else {
         this->ui->sbNumWorlds->clear();
         this->ui->sbNumLevelsPerWorld->clear();
     }
-    this->ui->lblNumLevelsPerWorld->setEnabled(enable);
-    this->ui->sbNumLevelsPerWorld->setEnabled(enable);
+    this->ui->lblNumLevelsPerWorld->setEnabled(enable && !this->randomNumWorlds);
+    this->ui->sbNumLevelsPerWorld->setEnabled(enable && !this->randomNumWorlds);
 
 
     //Toggle the comboboxes
@@ -175,15 +190,10 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
     if (enable) this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
     else this->ui->sbRandomSeed->clear();
 
-    //Toggle Hammer Time mod
-    this->ui->cbHammerTime->setEnabled(enable);
-    if (!enable) this->ui->cbHammerTime->setChecked(false);
-
     //Populate the appropriate ComboBoxes
     if (enable) {
         this->ui->comboLevelScripts->clear();
         this->Populate_Chance_ComboBoxes();
-        this->ui->cbHammerTime->setChecked(this->pluginSettings->hammerTime);
     } else {
         this->Clear_Chance_ComboBoxes();
         this->Populate_Level_Scripts_ComboBox();
@@ -195,15 +205,18 @@ void Configure_Level_Form::Save_Settings() {
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
     } else {
-        this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
-        this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
+        this->pluginSettings->randomNumWorlds = this->randomNumWorlds;
+        if (!this->randomNumWorlds) {
+            this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
+            this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
+        }
         this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
         this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
         this->pluginSettings->randomSeed = this->ui->sbRandomSeed->value();
-        this->pluginSettings->hammerTime = this->ui->cbHammerTime->isChecked();
+        this->pluginSettings->hammerTime = this->hammerTime;
     }
 }
 
@@ -262,6 +275,22 @@ void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
             this->ui->cbHammerTime->setChecked(false);
         }
     }
+    this->hammerTime = this->ui->cbHammerTime->isChecked();
+}
+
+void Configure_Level_Form::on_cbRandomNumWorlds_clicked(bool checked) {
+    this->ui->lblNumWorlds->setEnabled(!checked);
+    this->ui->sbNumWorlds->setEnabled(!checked);
+    this->ui->lblNumLevelsPerWorld->setEnabled(!checked);
+    this->ui->sbNumLevelsPerWorld->setEnabled(!checked);
+    if (checked) {
+        this->ui->sbNumWorlds->clear();
+        this->ui->sbNumLevelsPerWorld->clear();
+    } else {
+        this->ui->sbNumWorlds->setValue(this->numWorlds);
+        this->ui->sbNumLevelsPerWorld->setValue(this->numLevelsPerWorld);
+    }
+    this->randomNumWorlds = checked;
 }
 
 void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerWorld) {
@@ -270,6 +299,7 @@ void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerW
         --numWorlds;
     }
     this->ui->sbNumWorlds->setValue(numWorlds);
+    this->numLevelsPerWorld = numLevelsPerWorld;
 }
 
 void Configure_Level_Form::on_sbNumWorlds_valueChanged(int numWorlds) {
@@ -278,6 +308,7 @@ void Configure_Level_Form::on_sbNumWorlds_valueChanged(int numWorlds) {
         --numLevelsPerWorld;
     }
     this->ui->sbNumLevelsPerWorld->setValue(numLevelsPerWorld);
+    this->numWorlds = numWorlds;
 }
 
 void Configure_Level_Form::on_btnNewRandomSeed_clicked() {

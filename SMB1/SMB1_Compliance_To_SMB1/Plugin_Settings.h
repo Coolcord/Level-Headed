@@ -21,6 +21,7 @@ enum Chance {
 
 struct Plugin_Settings {
     QString baseROM;
+    bool randomNumWorlds;
     int numWorlds;
     int numLevelsPerWorld;
     bool generateNewLevels;
