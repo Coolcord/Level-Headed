@@ -22,12 +22,12 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
     this->pluginSettings = pluginSettings;
     this->generatorPlugin = generatorPlugin;
     this->writerPlugin = writerPlugin;
-    this->levelLocation = applicationLocation + "/" + Common_Strings::LEVELS + "/" + Common_Strings::GAME_NAME;
+    this->levelLocation = applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(applicationLocation);
-    if (!dir.exists(Common_Strings::LEVELS)) dir.mkdir(Common_Strings::LEVELS); //don't bother checking for success here
-    if (dir.cd(Common_Strings::LEVELS)) {
-        if (!dir.exists(Common_Strings::GAME_NAME)) {
-            dir.mkdir(Common_Strings::GAME_NAME);
+    if (!dir.exists(Common_Strings::STRING_LEVELS)) dir.mkdir(Common_Strings::STRING_LEVELS); //don't bother checking for success here
+    if (dir.cd(Common_Strings::STRING_LEVELS)) {
+        if (!dir.exists(Common_Strings::STRING_GAME_NAME)) {
+            dir.mkdir(Common_Strings::STRING_GAME_NAME);
         }
     }
     this->veryCommonLevels = new QVector<Level_Type::Level_Type>();
@@ -152,8 +152,8 @@ bool Level_Generator::Generate_Levels() {
         args.hammerTime = this->pluginSettings->hammerTime;
 
         if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
-            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::OK);
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
             return false;
         }
         args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
@@ -171,24 +171,24 @@ bool Level_Generator::Generate_Levels() {
             return false;
         case 0: break; //Parser ran fine
         case 1: //Unable to open the file
-            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                  "Unable to open " + args.fileName + "!", Common_Strings::OK);
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Unable to open " + args.fileName + "!", Common_Strings::STRING_OK);
             return false;
         case 2: //Syntax error
-            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                  "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
             return false;
         case 3: //Writer was unable to write an item
-            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                  "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::OK);
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
             return false;
         default:
             assert(false);
         }
 
         if (!this->writerPlugin->Write_Level()) {
-            QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                  "The writer plugin failed to write the ROM!", Common_Strings::OK);
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
             return false;
         }
 
@@ -321,8 +321,8 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
                 int lastIndex = file.fileName().lastIndexOf("/");
                 scriptName = file.fileName().remove(lastIndex, file.fileName().size()-lastIndex) + "/" + scriptName;
                 if (!this->writerPlugin->New_Level(currentLevel)) {
-                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "The writer plugin failed to allocate buffers for a new level!", Common_Strings::OK);
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
                     return false;
                 }
 
@@ -336,16 +336,16 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
                     return false;
                 case 0: break; //Parser ran fine
                 case 1: //Unable to open the file
-                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "Unable to open " + elements.at(1) + "!", Common_Strings::OK);
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "Unable to open " + elements.at(1) + "!", Common_Strings::STRING_OK);
                     return false;
                 case 2: //Syntax error
-                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "Syntax error on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::OK);
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "Syntax error on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::STRING_OK);
                     return false;
                 case 3: //Writer was unable to write an item
-                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "The writer plugin failed to write item on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::OK);
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "The writer plugin failed to write item on line " + QString::number(levelLineNum) + " in " + elements.at(1) + "!", Common_Strings::STRING_OK);
                     return false;
                 default:
                     assert(false);
@@ -354,8 +354,8 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
 
                 if (!this->writerPlugin->Write_Level()) {
                     errorCode = -1;
-                    QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                                          "The writer plugin failed to write the ROM!", Common_Strings::OK);
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
                     return false;
                 }
             }
@@ -628,7 +628,7 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
 }
 
 bool Level_Generator::Write_To_Map(QTextStream &mapStream, const QString &string) {
-    mapStream << string << Common_Strings::NEW_LINE;
+    mapStream << string << Common_Strings::STRING_NEW_LINE;
     if (mapStream.status() != QTextStream::Ok) {
         //TODO: Show a read/write error here
         return false;

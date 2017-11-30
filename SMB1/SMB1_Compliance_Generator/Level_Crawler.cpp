@@ -803,7 +803,7 @@ bool Level_Crawler::Draw_Map() {
                 stream << " ";
             }
         }
-        stream << Common_Strings::NEW_LINE;
+        stream << Common_Strings::STRING_NEW_LINE;
     }
 
     stream.flush();

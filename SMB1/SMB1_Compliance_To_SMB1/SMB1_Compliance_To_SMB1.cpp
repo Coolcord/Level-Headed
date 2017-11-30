@@ -39,8 +39,8 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         //TODO: Update this error
-        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED,
-                              "Something went wrong. Check debug info...", Common_Strings::OK);
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              "Something went wrong. Check debug info...", Common_Strings::STRING_OK);
         return false;
     }
 
@@ -53,8 +53,8 @@ bool SMB1_Compliance_To_SMB1::Run() {
     //Unload plugins
     this->Shutdown();
     if (success) {
-        QMessageBox::information(this->parent, Common_Strings::LEVEL_HEADED,
-                                 "Game successfully generated!", Common_Strings::OK);
+        QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                 "Game successfully generated!", Common_Strings::STRING_OK);
     }
     return success;
 }
@@ -93,9 +93,9 @@ void SMB1_Compliance_To_SMB1::Shutdown() {
 
 bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (this->pluginsLoaded) return true;
-    QString pluginLocation = this->applicationLocation + "/" + Common_Strings::PLUGINS + "/";
-    QString generatorLocation = pluginLocation + Common_Strings::GENERATORS + "/SMB1_Compliance_Generator" + Common_Strings::PLUGIN_EXTENSION;
-    QString writerLocation = pluginLocation + Common_Strings::WRITERS + "/SMB1_Writer" + Common_Strings::PLUGIN_EXTENSION;
+    QString pluginLocation = this->applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
+    QString generatorLocation = pluginLocation + Common_Strings::STRING_GENERATORS + "/SMB1_Compliance_Generator" + Common_Strings::STRING_PLUGIN_EXTENSION;
+    QString writerLocation = pluginLocation + Common_Strings::STRING_WRITERS + "/SMB1_Writer" + Common_Strings::STRING_PLUGIN_EXTENSION;
 
     if (!QFile(generatorLocation).exists()) return false; //TODO: Throw an error here
     if (!QFile(writerLocation).exists()) return false; //TODO: Throw an error here

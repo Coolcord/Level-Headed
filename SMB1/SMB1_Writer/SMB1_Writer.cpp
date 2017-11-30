@@ -83,14 +83,14 @@ QString SMB1_Writer::Install_ROM() {
 
 bool SMB1_Writer::Create_ROM_Directory() {
     if (this->applicationLocation.isEmpty()) return false;
-    QDir romDir(this->applicationLocation + "/" + Common_Strings::DATA);
-    if (!romDir.exists(Common_Strings::GAME_NAME) && !romDir.mkdir(Common_Strings::GAME_NAME)) return false;
+    QDir romDir(this->applicationLocation + "/" + Common_Strings::STRING_DATA);
+    if (!romDir.exists(Common_Strings::STRING_GAME_NAME) && !romDir.mkdir(Common_Strings::STRING_GAME_NAME)) return false;
     return true;
 }
 
 bool SMB1_Writer::Load_ROM() {
     if (!this->Create_ROM_Directory()) {
-        QMessageBox::critical(this->parent, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions. Cannot continue!");
         return false;
     }
@@ -100,9 +100,9 @@ bool SMB1_Writer::Load_ROM() {
     this->file = romHandler.Load_First_Local_ROM(cancel);
     //Request for a ROM if none exist
     if (!cancel && !this->file) {
-        QMessageBox::information(this->parent, Common_Strings::LEVEL_HEADED,
+        QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                  "It looks like this is your first time using the SMB1 Writer Plugin. In order to continue, please provide a clean SMB1 ROM to use as a base game.",
-                                 Common_Strings::OK);
+                                 Common_Strings::STRING_OK);
         QString fileName = romHandler.Install_ROM();
         if (fileName.isEmpty()) {
             return false;

@@ -23,7 +23,7 @@ bool Plugin_Handler::Create_Directories() {
     }
 
     //Make the data folder
-    QString dataPath = QApplication::applicationDirPath() + "/" + Common_Strings::DATA;
+    QString dataPath = QApplication::applicationDirPath() + "/" + Common_Strings::STRING_DATA;
     if (!dir.exists(dataPath)) {
         if (!dir.mkdir(dataPath)) {
             this->Show_Read_Write_Error();
@@ -32,7 +32,7 @@ bool Plugin_Handler::Create_Directories() {
     }
 
     //Make the levels folder
-    QString levelPath = QApplication::applicationDirPath() + "/" + Common_Strings::LEVELS;
+    QString levelPath = QApplication::applicationDirPath() + "/" + Common_Strings::STRING_LEVELS;
     if (!dir.exists(levelPath)) {
         if (!dir.mkdir(levelPath)) {
             this->Show_Read_Write_Error();
@@ -41,7 +41,7 @@ bool Plugin_Handler::Create_Directories() {
     }
 
     //Make the plugins folder
-    QString pluginPath = QApplication::applicationDirPath() + "/" + Common_Strings::PLUGINS;
+    QString pluginPath = QApplication::applicationDirPath() + "/" + Common_Strings::STRING_PLUGINS;
     if (!dir.exists(pluginPath)) {
         if (!dir.mkdir(pluginPath)) {
             this->Show_Read_Write_Error();
@@ -54,20 +54,20 @@ bool Plugin_Handler::Create_Directories() {
     }
 
     //Make the subdirectory folders
-    if (!dir.exists(pluginPath + "/" + Common_Strings::GENERATORS)) {
-        if (!dir.mkdir(pluginPath + "/" + Common_Strings::GENERATORS)) {
+    if (!dir.exists(pluginPath + "/" + Common_Strings::STRING_GENERATORS)) {
+        if (!dir.mkdir(pluginPath + "/" + Common_Strings::STRING_GENERATORS)) {
             this->Show_Read_Write_Error();
             return false;
         }
     }
-    if (!dir.exists(pluginPath + "/" + Common_Strings::INTERPRETERS)) {
-        if (!dir.mkdir(pluginPath + "/" + Common_Strings::INTERPRETERS)) {
+    if (!dir.exists(pluginPath + "/" + Common_Strings::STRING_INTERPRETERS)) {
+        if (!dir.mkdir(pluginPath + "/" + Common_Strings::STRING_INTERPRETERS)) {
             this->Show_Read_Write_Error();
             return false;
         }
     }
-    if (!dir.exists(pluginPath + "/" + Common_Strings::WRITERS)) {
-        if (!dir.mkdir(pluginPath + "/" + Common_Strings::WRITERS)) {
+    if (!dir.exists(pluginPath + "/" + Common_Strings::STRING_WRITERS)) {
+        if (!dir.mkdir(pluginPath + "/" + Common_Strings::STRING_WRITERS)) {
             this->Show_Read_Write_Error();
             return false;
         }
@@ -78,28 +78,28 @@ bool Plugin_Handler::Create_Directories() {
 
 QStringList Plugin_Handler::Get_Writer_Plugins() {
     //Get all of the available plugins
-    QStringList writerList = this->Get_Plugins_From_Folder(Common_Strings::WRITERS);
+    QStringList writerList = this->Get_Plugins_From_Folder(Common_Strings::STRING_WRITERS);
     if (writerList.empty()) return QStringList();
-    QStringList generatorList = this->Get_Plugins_From_Folder(Common_Strings::GENERATORS);
+    QStringList generatorList = this->Get_Plugins_From_Folder(Common_Strings::STRING_GENERATORS);
     if (generatorList.empty()) return QStringList();
-    QStringList interpreterList = this->Get_Plugins_From_Folder(Common_Strings::INTERPRETERS);
+    QStringList interpreterList = this->Get_Plugins_From_Folder(Common_Strings::STRING_INTERPRETERS);
     if (interpreterList.empty()) return QStringList();
 
     //Get all of the possible Generator and Writer Plugins
     QMap<QString, bool> generators;
     QMap<QString, bool> writers;
     foreach (QString generator, generatorList) {
-        generators.insert(generator.split(Common_Strings::GENERATOR_SPLIT).first(), false);
+        generators.insert(generator.split(Common_Strings::STRING_GENERATOR_SPLIT).first(), false);
     }
     foreach (QString writer, writerList) {
-        writers.insert(writer.split(Common_Strings::WRITER_SPLIT).first(), false);
+        writers.insert(writer.split(Common_Strings::STRING_WRITER_SPLIT).first(), false);
     }
 
     //Determine which writer plugins are valid
     QStringList validPlugins;
     foreach (QString interpreter, interpreterList) {
         interpreter.chop(interpreter.size()-interpreter.lastIndexOf('.'));
-        QStringList names = interpreter.split(Common_Strings::INTERPRETER_SPLIT);
+        QStringList names = interpreter.split(Common_Strings::STRING_INTERPRETER_SPLIT);
         QString generator = names.at(0);
         QString writer = names.at(1);
         if (generators.contains(generator) && writers.contains(writer)
@@ -114,22 +114,22 @@ QStringList Plugin_Handler::Get_Writer_Plugins() {
 
 QStringList Plugin_Handler::Get_Generator_Plugins(const QString &writerPlugin) {
     //Get all of the available plugins
-    QStringList generatorList = this->Get_Plugins_From_Folder(Common_Strings::GENERATORS);
+    QStringList generatorList = this->Get_Plugins_From_Folder(Common_Strings::STRING_GENERATORS);
     if (generatorList.empty()) return QStringList();
-    QStringList interpreterList = this->Get_Plugins_From_Folder(Common_Strings::INTERPRETERS);
+    QStringList interpreterList = this->Get_Plugins_From_Folder(Common_Strings::STRING_INTERPRETERS);
     if (interpreterList.empty()) return QStringList();
 
     //Get all of the possible Generator Plugins
     QMap<QString, bool> generators;
     foreach (QString generator, generatorList) {
-        generators.insert(generator.split(Common_Strings::GENERATOR_SPLIT).first(), false);
+        generators.insert(generator.split(Common_Strings::STRING_GENERATOR_SPLIT).first(), false);
     }
 
     //Determine which writer plugins are valid
     QStringList validPlugins;
     foreach (QString interpreter, interpreterList) {
         interpreter.chop(interpreter.size()-interpreter.lastIndexOf('.'));
-        QStringList names = interpreter.split(Common_Strings::INTERPRETER_SPLIT);
+        QStringList names = interpreter.split(Common_Strings::STRING_INTERPRETER_SPLIT);
         QString generator = names.at(0);
         QString writer = names.at(1);
         if (writerPlugin == writer && generators.contains(generator)
@@ -146,24 +146,24 @@ QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString gener
     if (writerPlugin == NULL || generatorPlugin == NULL || writerPlugin.isEmpty() || generatorPlugin.isEmpty()) {
         return QString(); //invalid arguments
     }
-    return generatorPlugin.replace(" ", "_") + Common_Strings::INTERPRETER_SPLIT
-            + writerPlugin.replace(" ", "_") + Common_Strings::PLUGIN_EXTENSION;
+    return generatorPlugin.replace(" ", "_") + Common_Strings::STRING_INTERPRETER_SPLIT
+            + writerPlugin.replace(" ", "_") + Common_Strings::STRING_PLUGIN_EXTENSION;
 }
 
 void Plugin_Handler::Show_Read_Write_Error() {
-    QMessageBox::critical(this->widget, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+    QMessageBox::critical(this->widget, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions. Cannot continue!",
-                          Common_Strings::OK);
+                          Common_Strings::STRING_OK);
 }
 
 QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
     //Only Windows uses .dll files
     QStringList filters;
-    filters.append("*" + Common_Strings::PLUGIN_EXTENSION);
+    filters.append("*" + Common_Strings::STRING_PLUGIN_EXTENSION);
 
     //Get all of the available plugins in the directory
     QDir dir(QApplication::applicationDirPath());
-    if (!dir.cd(Common_Strings::PLUGINS) || !dir.cd(folder)) {
+    if (!dir.cd(Common_Strings::STRING_PLUGINS) || !dir.cd(folder)) {
         this->Show_Read_Write_Error();
         return QStringList();
     }
@@ -171,10 +171,10 @@ QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
     if (pluginList.empty()) {
         QString pluginType = folder.toLower().trimmed();
         pluginType.chop(1);
-        QMessageBox::critical(this->widget, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED
+        QMessageBox::critical(this->widget, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED
                               + " could not find any " + pluginType + " plugins! Place compatible plugins in the "
                               + folder + " folder.",
-                              Common_Strings::OK);
+                              Common_Strings::STRING_OK);
         return QStringList(); //at least one plugin is necessary
     }
     if (!dir.cdUp()) {

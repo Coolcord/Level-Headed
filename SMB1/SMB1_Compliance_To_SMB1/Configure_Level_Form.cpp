@@ -17,8 +17,8 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->pluginSettings = pluginSettings;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->applicationLocation = location;
-    this->levelLocation = location + "/" + Common_Strings::LEVELS + "/" + Common_Strings::GAME_NAME;
-    QDir dir(location + "/" + Common_Strings::LEVELS);
+    this->levelLocation = location + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
+    QDir dir(location + "/" + Common_Strings::STRING_LEVELS);
     if (!dir.exists(this->levelLocation)) dir.mkdir(this->levelLocation); //don't bother checking for success here
 
     //Setup the UI
@@ -39,15 +39,15 @@ void Configure_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
         return;
     }
     if (!this->At_Least_One_Very_Common_Selected()) {
-        QMessageBox::critical(this, Common_Strings::LEVEL_HEADED,
+        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
                               "At least one level type must have a \"" + STRING_VERY_COMMON + "\" chance!",
-                              Common_Strings::OK);
+                              Common_Strings::STRING_OK);
         return;
     }
     if (this->ui->comboLevelScripts->currentText() == STRING_NO_LEVEL_SCRIPTS_FOUND) {
-        QMessageBox::critical(this, Common_Strings::LEVEL_HEADED,
+        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
                               "No level scripts could be found! Try generating new levels.",
-                              Common_Strings::OK);
+                              Common_Strings::STRING_OK);
         return;
     }
 
@@ -214,7 +214,7 @@ void Configure_Level_Form::on_cbGenerateNewLevels_toggled(bool checked) {
 
 void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
     QMessageBox::StandardButton answer;
-    answer = QMessageBox::question(this, Common_Strings::LEVEL_HEADED,
+    answer = QMessageBox::question(this, Common_Strings::STRING_LEVEL_HEADED,
                                    "This will delete all of your previously generated random level scripts! Are you sure that you want to do this?",
                                    QMessageBox::Yes | QMessageBox::No);
 
@@ -235,13 +235,13 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
 
         //Show a message for the status of the operation
         if (success) {
-            QMessageBox::information(this, Common_Strings::LEVEL_HEADED,
+            QMessageBox::information(this, Common_Strings::STRING_LEVEL_HEADED,
                                      "All previously generated random level scripts have been removed!",
-                                     Common_Strings::OK);
+                                     Common_Strings::STRING_OK);
         } else {
-            QMessageBox::critical(this, Common_Strings::LEVEL_HEADED, Common_Strings::LEVEL_HEADED +
+            QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                                   " could not delete all of the randomly generated level scripts!",
-                                  Common_Strings::OK);
+                                  Common_Strings::STRING_OK);
         }
         this->Populate_Level_Scripts_ComboBox();
         this->Save_Settings();
@@ -252,7 +252,7 @@ void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
     if (checked) {
         QSound::play(this->applicationLocation + "/Sounds/Hammer_Time.wav");
         QMessageBox::StandardButton answer;
-        answer = QMessageBox::question(this, Common_Strings::LEVEL_HEADED,
+        answer = QMessageBox::question(this, Common_Strings::STRING_LEVEL_HEADED,
                                        "Each enemy that spawns will have about a 20% chance of being a hammer bro. "
                                        "The levels created by the generator will not account for this, so expect "
                                        "some unfair situations to arise. Do you have the courage to try this mode?",

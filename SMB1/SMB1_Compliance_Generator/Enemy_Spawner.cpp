@@ -34,7 +34,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     if (this->stream->status() != QTextStream::Ok) return false;
 
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
-    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::NEW_LINE;
+    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::STRING_NEW_LINE;
     if (this->stream->status() != QTextStream::Ok) return false;
     int x = 16;
     int lastX = x;
@@ -131,7 +131,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
     }
 
     //Add a seperator at the end of the file
-    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::NEW_LINE;
+    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::STRING_NEW_LINE;
     if (this->stream->status() != QTextStream::Ok) return false;
     return true;
 }
