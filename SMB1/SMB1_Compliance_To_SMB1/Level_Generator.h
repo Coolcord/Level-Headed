@@ -35,7 +35,7 @@ private:
 
     //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
-    bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder);
+    bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder, int numLevels);
     bool Write_To_Map(QTextStream &mapStream, const QString &string);
     bool Write_To_Map(QTextStream &mapStream, Level::Level level, const QString &fileName = "");
 

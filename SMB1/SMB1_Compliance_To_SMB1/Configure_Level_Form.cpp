@@ -148,13 +148,12 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
     if (enable) { //reset the values of the spinboxes
         this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
         this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
-        this->Fix_Max_Worlds(this->pluginSettings->numLevelsPerWorld);
     } else {
         this->ui->sbNumWorlds->clear();
         this->ui->sbNumLevelsPerWorld->clear();
     }
-    //this->ui->lblNumLevelsPerWorld->setEnabled(enable); //TODO: Leave this disabled until it is fully working
-    //this->ui->sbNumLevelsPerWorld->setEnabled(enable); //TODO: Leave this disabled until it is fully working
+    this->ui->lblNumLevelsPerWorld->setEnabled(enable);
+    this->ui->sbNumLevelsPerWorld->setEnabled(enable);
 
 
     //Toggle the comboboxes
@@ -265,29 +264,20 @@ void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
     }
 }
 
-void Configure_Level_Form::Fix_Max_Worlds(int numLevelsPerWorld) {
-    switch (numLevelsPerWorld) {
-    default:
-        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this once item sending is implemented
-        break;
-    case 4:
-        this->ui->sbNumWorlds->setMaximum(7); //TODO: Change this once item sending is implemented
-        break;
-    case 5:
-        this->ui->sbNumWorlds->setMaximum(5);
-        break;
-    case 6:
-        this->ui->sbNumWorlds->setMaximum(4);
-        break;
-    case 7:
-    case 8:
-        this->ui->sbNumWorlds->setMaximum(3);
-        break;
+void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerWorld) {
+    int numWorlds = this->ui->sbNumWorlds->value();
+    while (numLevelsPerWorld*numWorlds > 20) {
+        --numWorlds;
     }
+    this->ui->sbNumWorlds->setValue(numWorlds);
 }
 
-void Configure_Level_Form::on_sbNumLevelsPerWorld_valueChanged(int arg1) {
-    this->Fix_Max_Worlds(arg1);
+void Configure_Level_Form::on_sbNumWorlds_valueChanged(int numWorlds) {
+    int numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
+    while (numLevelsPerWorld*numWorlds > 20) {
+        --numLevelsPerWorld;
+    }
+    this->ui->sbNumLevelsPerWorld->setValue(numLevelsPerWorld);
 }
 
 void Configure_Level_Form::on_btnNewRandomSeed_clicked() {

@@ -15,7 +15,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->writerPlugin = NULL;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
-    this->pluginSettings.numWorlds = 4;
+    this->pluginSettings.numWorlds = 5;
     this->pluginSettings.numLevelsPerWorld = 4;
     this->pluginSettings.baseROM = "";
     this->pluginSettings.generateNewLevels = true;

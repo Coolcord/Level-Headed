@@ -125,14 +125,11 @@ bool Level_Generator::Generate_Levels() {
     //Build the Room Order Map
     //TODO: With item sending implemented, this code will need to be refactored
     QVector<Level::Level> levelOrder;
-    if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder)) {
+    int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
+    if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder, numLevels)) {
         qDebug() << "Failed to rearrange the room order";
         return false;
     }
-
-    //Determine the number of levels to use
-    int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
-    if (this->pluginSettings->numWorlds == 7) --numLevels; //TODO: this line will need to be refactored once item sending gets implemented
     assert(numLevels == levelOrder.size());
 
     //Determine the number of level types for each chance type
@@ -578,52 +575,52 @@ bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Lev
     return true;
 }
 
-//TODO: This will be deprecated once item sending is implemented
-bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder) {
-    switch (this->pluginSettings->numWorlds) {
-    case 7:
-    case 8:
-        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_1)) return false;
-    case 6:
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_3)) return false;
-    case 5:
+bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder, int numLevels) {
+    assert(numLevels > 0 && numLevels <= 20);
+    switch (numLevels) { //Add easy levels to the beginning
+    case 20:
         if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
+    case 19:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
+    case 18:
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
+    case 17:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_4)) return false;
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-        if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_3)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_3)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_3)) return false;
-        if (this->pluginSettings->numWorlds == 1) break;
-        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_4)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_4)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_2)) return false;
-        if (this->pluginSettings->numWorlds == 2) break;
-        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_4)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_2)) return false;
-        if (this->pluginSettings->numWorlds == 3) break;
-        if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_4)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_3)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_4)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_2)) return false;
-        if (this->pluginSettings->numWorlds == 4 || this->pluginSettings->numWorlds == 5) break;
-        if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_1)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_2)) return false;
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_2)) return false; //ends at level 7-3
-        break;
     default:
-        assert(false); return false;
+        break;
     }
+    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_3)) return false;
+    if (numLevels == 1) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_1)) return false;
+    if (numLevels == 2) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_3)) return false;
+    if (numLevels == 3) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_3)) return false;
+    if (numLevels == 4) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_4)) return false;
+    if (numLevels == 5) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_1)) return false;
+    if (numLevels == 6) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_4)) return false;
+    if (numLevels == 7) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_2)) return false;
+    if (numLevels == 8) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_1)) return false;
+    if (numLevels == 9) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_4)) return false;
+    if (numLevels == 10) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_2)) return false;
+    if (numLevels == 11) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_2)) return false;
+    if (numLevels == 12) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_4)) return false;
+    if (numLevels == 13) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_3)) return false;
+    if (numLevels == 14) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_4)) return false;
+    if (numLevels == 15) return true;
+    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_2)) return false;
+    assert(numLevels >= 16);
     return true;
 }
 

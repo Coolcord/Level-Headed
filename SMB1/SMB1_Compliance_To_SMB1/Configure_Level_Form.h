@@ -24,7 +24,8 @@ private slots:
     void on_cbGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
     void on_cbHammerTime_clicked(bool checked);
-    void on_sbNumLevelsPerWorld_valueChanged(int arg1);
+    void on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerWorld);
+    void on_sbNumWorlds_valueChanged(int numWorlds);
     void on_btnNewRandomSeed_clicked();
 
 private:
@@ -35,7 +36,6 @@ private:
     bool At_Least_One_Very_Common_Selected();
     void Enable_New_Level_Options(bool enable);
     void Save_Settings();
-    void Fix_Max_Worlds(int numLevelsPerWorld);
 
     Ui::Configure_Level_Form *ui;
     Plugin_Settings *pluginSettings;
