@@ -100,7 +100,7 @@ bool Level_Generator::Generate_Levels() {
 
     //Randomly determine the number of max levels and levels per world if specified
     if (this->pluginSettings->randomNumWorlds) {
-        this->pluginSettings->numWorlds = Random::Get_Num(3)+2;
+        this->pluginSettings->numWorlds = Random::Get_Num(4)+2;
         this->pluginSettings->numLevelsPerWorld = 8;
         while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
             --this->pluginSettings->numLevelsPerWorld;
