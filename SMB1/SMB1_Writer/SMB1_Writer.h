@@ -36,6 +36,7 @@ public:
     bool Set_Number_Of_Worlds(int value);
     QString Get_Output_ROM_Location();
     bool Set_Output_ROM_Location(const QString &location);
+    bool Write_Watermark();
 
     //Header
     bool Header_Time(int value);

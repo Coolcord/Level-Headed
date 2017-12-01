@@ -62,9 +62,9 @@ bool Room_Order_Writer::Set_Number_Of_Worlds(int value) {
     worldByte.append(static_cast<char>(value));
 
     //Three different offsets must be patched for Number of Worlds to be set properly
-    if (!Write_Number_Of_Worlds_To_Offset(0x0438, worldByte)) return false;
-    if (!Write_Number_Of_Worlds_To_Offset(0x047A, worldByte)) return false;
-    if (!Write_Number_Of_Worlds_To_Offset(0x6A27, worldByte)) return false;
+    if (!Write_Bytes_To_Offset(0x0438, worldByte)) return false;
+    if (!Write_Bytes_To_Offset(0x047A, worldByte)) return false;
+    if (!Write_Bytes_To_Offset(0x6A27, worldByte)) return false;
 
     return true;
 }
@@ -80,10 +80,105 @@ QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(u
     return midpoints;
 }
 
-bool Room_Order_Writer::Write_Number_Of_Worlds_To_Offset(int offset, const QByteArray &worldByte) {
+//TODO: This function needs to be moved to its own class... maybe a hacks class?
+bool Room_Order_Writer::Write_Watermark() {
+    QByteArray watermarkBytes;
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x15));
+    watermarkBytes.append(static_cast<char>(0x0E));
+    watermarkBytes.append(static_cast<char>(0x1F));
+    watermarkBytes.append(static_cast<char>(0x0E));
+    watermarkBytes.append(static_cast<char>(0x15));
+    watermarkBytes.append(static_cast<char>(0x28));
+    watermarkBytes.append(static_cast<char>(0x11));
+    watermarkBytes.append(static_cast<char>(0x0E));
+    watermarkBytes.append(static_cast<char>(0x0A));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x0E));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x00));
+    watermarkBytes.append(static_cast<char>(0x25));
+    watermarkBytes.append(static_cast<char>(0xE3));
+    watermarkBytes.append(static_cast<char>(0x1B));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x1F));
+    watermarkBytes.append(static_cast<char>(0x12));
+    watermarkBytes.append(static_cast<char>(0x1C));
+    watermarkBytes.append(static_cast<char>(0x12));
+    watermarkBytes.append(static_cast<char>(0x1D));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x0C));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x15));
+    watermarkBytes.append(static_cast<char>(0x0C));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x1B));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x17));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x10));
+    watermarkBytes.append(static_cast<char>(0x12));
+    watermarkBytes.append(static_cast<char>(0x1D));
+    watermarkBytes.append(static_cast<char>(0x11));
+    watermarkBytes.append(static_cast<char>(0x1E));
+    watermarkBytes.append(static_cast<char>(0x0B));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x00));
+    watermarkBytes.append(static_cast<char>(0x26));
+    watermarkBytes.append(static_cast<char>(0x4A));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x0F));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x1B));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x1E));
+    watermarkBytes.append(static_cast<char>(0x19));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x0A));
+    watermarkBytes.append(static_cast<char>(0x1D));
+    watermarkBytes.append(static_cast<char>(0x0E));
+    watermarkBytes.append(static_cast<char>(0x1C));
+    watermarkBytes.append(static_cast<char>(0x2B));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x00));
+    watermarkBytes.append(static_cast<char>(0x26));
+    watermarkBytes.append(static_cast<char>(0x88));
+    watermarkBytes.append(static_cast<char>(0x11));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x28));
+    watermarkBytes.append(static_cast<char>(0x0C));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x15));
+    watermarkBytes.append(static_cast<char>(0x0C));
+    watermarkBytes.append(static_cast<char>(0x18));
+    watermarkBytes.append(static_cast<char>(0x1B));
+    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    return this->Write_Bytes_To_Offset(0x0DBB, watermarkBytes);
+}
+
+
+bool Room_Order_Writer::Write_Bytes_To_Offset(int offset, const QByteArray &bytes) {
     offset = this->levelOffset->Fix_Offset(offset);
     if (!this->file->seek(offset)) return false;
-    return (this->file->write(worldByte) == 1);
+    return (this->file->write(bytes) == bytes.size());
 }
 
 void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {

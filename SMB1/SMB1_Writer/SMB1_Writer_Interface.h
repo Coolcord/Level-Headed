@@ -27,6 +27,7 @@ public:
     virtual bool Set_Number_Of_Worlds(int value)=0;
     virtual QString Get_Output_ROM_Location()=0;
     virtual bool Set_Output_ROM_Location(const QString &location)=0;
+    virtual bool Write_Watermark()=0;
 
     //Header
     virtual bool Header_Time(int value)=0;

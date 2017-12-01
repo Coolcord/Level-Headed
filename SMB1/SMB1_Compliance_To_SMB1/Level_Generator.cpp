@@ -113,6 +113,12 @@ bool Level_Generator::Generate_Levels() {
         return false;
     }
 
+    //Write the watermark
+    if (!this->writerPlugin->Write_Watermark()) {
+        qDebug() << "Failed to write the watermark to the ROM!";
+        return false;
+    }
+
     //Write the Comment section of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
@@ -278,6 +284,12 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     int numWorlds = elements.at(1).toInt(&valid);
     if (!valid) return false; //unable to parse int
     if (!this->writerPlugin->Set_Number_Of_Worlds(numWorlds)) {
+        errorCode = 3;
+        return false;
+    }
+
+    //Write the watermark
+    if (!this->writerPlugin->Write_Watermark()) {
         errorCode = 3;
         return false;
     }

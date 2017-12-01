@@ -219,6 +219,11 @@ bool SMB1_Writer::Set_Output_ROM_Location(const QString &location) {
     }
 }
 
+bool SMB1_Writer::Write_Watermark() {
+    if (!this->roomOrderWriter) return false;
+    return this->roomOrderWriter->Write_Watermark();
+}
+
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
     assert(this->file);
     if (buffer == NULL) return false;
