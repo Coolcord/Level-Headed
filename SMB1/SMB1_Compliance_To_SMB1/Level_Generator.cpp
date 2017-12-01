@@ -134,8 +134,17 @@ bool Level_Generator::Generate_Levels() {
     if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
+    //Build the Move Objects Map
+    //TODO: Write this...
+
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+
+    //Build the Move Enemies Map
+    //TODO: Write this...
+
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+
     //Build the Room Order Map
-    //TODO: With item sending implemented, this code will need to be refactored
     QVector<Level::Level> levelOrder;
     int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
     if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder, numLevels)) {
@@ -231,11 +240,19 @@ bool Level_Generator::Parse_Level_Map() {
         return false;
     }
 
-    //Parse through the map file
+    //Parse through the map file starting with the header
     int lineNum = 0;
     int errorCode = 0;
     if (!this->Parse_Map_Header(mapFile, lineNum, errorCode)) return false;
     if (mapFile.atEnd()) return 2;
+
+    //Parse the Move Tables
+    if (!this->Parse_Move_Object_Table(mapFile, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return 2;
+    if (!this->Parse_Move_Enemy_Table(mapFile, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return 2;
+
+    //Parse the Levels
     if (!this->Parse_Levels(mapFile, lineNum, errorCode)) return false;
     if (!mapFile.atEnd()) return 2;
     mapFile.close();
@@ -249,14 +266,8 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     if (line != Header::STRING_MAP_NAME) return false;
 
     //Notes Section -- Look for 2 seperators
-    for (int i = 0; i < 2; ++i) {
-        do {
-            ++lineNum;
-            line = file.readLine().trimmed();
-            if (line.isEmpty()) continue;
-            if (file.atEnd()) return false; //TODO: Handle this error
-        } while (!line.startsWith("==="));
-    }
+    if (!this->Parse_To_Next_Seperator(file, lineNum)) return false; //TODO: Handle this error
+    if (!this->Parse_To_Next_Seperator(file, lineNum)) return false; //TODO: Handle this error
 
     //Parse the Number of Worlds
     line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_NUMBER_OF_WORLDS + ":", lineNum);
@@ -271,14 +282,25 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
         return false;
     }
 
-    //Seperator
-    do {
-        ++lineNum;
-        line = file.readLine().trimmed();
-        if (line.isEmpty()) continue;
-        if (file.atEnd()) return false; //TODO: Handle this error
-    } while (!line.startsWith("==="));
+    //Parse Seperator at the end
+    if (!this->Parse_To_Next_Seperator(file, lineNum)) return false; //TODO: Handle this error
 
+    return true;
+}
+
+bool Level_Generator::Parse_Move_Object_Table(QFile &file, int &lineNum, int &errorCode) {
+    //TODO: Write this...
+
+    //Parse Seperator at the end
+    if (!this->Parse_To_Next_Seperator(file, lineNum)) return false; //TODO: Handle this error
+    return true;
+}
+
+bool Level_Generator::Parse_Move_Enemy_Table(QFile &file, int &lineNum, int &errorCode) {
+    //TODO: Write this...
+
+    //Parse Seperator at the end
+    if (!this->Parse_To_Next_Seperator(file, lineNum)) return false; //TODO: Handle this error
     return true;
 }
 
@@ -575,6 +597,17 @@ void Level_Generator::Populate_Level_Map(QMap<QString, Level::Level> &levels) {
     levels.insert(Level::STRING_UNDERWATER_BONUS, Level::UNDERWATER_BONUS);
     levels.insert(Level::STRING_WARP_ZONE, Level::WARP_ZONE);
     levels.insert(Level::STRING_UNDERWATER_CASTLE, Level::UNDERWATER_CASTLE);
+}
+
+bool Level_Generator::Parse_To_Next_Seperator(QFile &file, int &lineNum) {
+    QString line = QString();
+    do {
+        ++lineNum;
+        line = file.readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (file.atEnd()) return false; //TODO: Handle this error
+    } while (!line.startsWith("==="));
+    return true;
 }
 
 bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Level level) {

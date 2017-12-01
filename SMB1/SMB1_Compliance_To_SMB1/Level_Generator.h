@@ -23,6 +23,8 @@ public:
     bool Generate_Levels();
     bool Parse_Level_Map();
     bool Parse_Map_Header(QFile &file, int &lineNum, int &errorCode);
+    bool Parse_Move_Object_Table(QFile &file, int &lineNum, int &errorCode);
+    bool Parse_Move_Enemy_Table(QFile &file, int &lineNum, int &errorCode);
     bool Parse_Levels(QFile &file, int &lineNum, int &errorCode);
 
 private:
@@ -32,6 +34,7 @@ private:
     QString Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum);
     bool Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum);
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
+    bool Parse_To_Next_Seperator(QFile &file, int &lineNum);
 
     //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
