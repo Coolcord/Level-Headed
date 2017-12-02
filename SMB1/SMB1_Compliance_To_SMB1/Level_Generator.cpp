@@ -249,13 +249,15 @@ bool Level_Generator::Parse_Level_Map() {
     if (mapFile.atEnd()) return 2;
 
     //Parse the Move Tables
-    if (!this->Parse_Move_Object_Table(mapFile, lineNum, errorCode)) return false;
+    QMap<QString, Level::Level> levels;
+    this->Populate_Level_Map(levels);
+    if (!this->Parse_Move_Object_Table(mapFile, levels, lineNum, errorCode)) return false;
     if (mapFile.atEnd()) return 2;
-    if (!this->Parse_Move_Enemy_Table(mapFile, lineNum, errorCode)) return false;
+    if (!this->Parse_Move_Enemy_Table(mapFile, levels, lineNum, errorCode)) return false;
     if (mapFile.atEnd()) return 2;
 
     //Parse the Levels
-    if (!this->Parse_Levels(mapFile, lineNum, errorCode)) return false;
+    if (!this->Parse_Levels(mapFile, levels, lineNum, errorCode)) return false;
     if (!mapFile.atEnd()) return 2;
     mapFile.close();
     return true;
@@ -296,7 +298,7 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     return true;
 }
 
-bool Level_Generator::Parse_Move_Object_Table(QFile &file, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Move_Object_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     //TODO: Write this...
 
     //Parse Seperator at the end
@@ -304,7 +306,7 @@ bool Level_Generator::Parse_Move_Object_Table(QFile &file, int &lineNum, int &er
     return true;
 }
 
-bool Level_Generator::Parse_Move_Enemy_Table(QFile &file, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Move_Enemy_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     //TODO: Write this...
 
     //Parse Seperator at the end
@@ -312,10 +314,7 @@ bool Level_Generator::Parse_Move_Enemy_Table(QFile &file, int &lineNum, int &err
     return true;
 }
 
-bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
-    QMap<QString, Level::Level> levels;
-    this->Populate_Level_Map(levels);
-
+bool Level_Generator::Parse_Levels(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     //Read the Level Lines
     bool success = false;
     do {
@@ -328,7 +327,7 @@ bool Level_Generator::Parse_Levels(QFile &file, int &lineNum, int &errorCode) {
             break;
         } else {
             QStringList elements = line.split(' ');
-            QMap<QString, Level::Level>::iterator iter = levels.find(elements.at(0));
+            const QMap<QString, Level::Level>::const_iterator iter = levels.find(elements.at(0));
             if (elements.size() > 2) {
                 //TODO: Make this a different error code?
                 errorCode = 2; //syntax error

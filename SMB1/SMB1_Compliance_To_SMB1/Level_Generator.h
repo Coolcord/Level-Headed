@@ -23,9 +23,9 @@ public:
     bool Generate_Levels();
     bool Parse_Level_Map();
     bool Parse_Map_Header(QFile &file, int &lineNum, int &errorCode);
-    bool Parse_Move_Object_Table(QFile &file, int &lineNum, int &errorCode);
-    bool Parse_Move_Enemy_Table(QFile &file, int &lineNum, int &errorCode);
-    bool Parse_Levels(QFile &file, int &lineNum, int &errorCode);
+    bool Parse_Move_Object_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Move_Enemy_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Levels(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum);
