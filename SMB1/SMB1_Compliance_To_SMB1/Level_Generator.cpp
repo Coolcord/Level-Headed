@@ -711,7 +711,34 @@ bool Level_Generator::Write_Move_Objects_Map(QTextStream &mapStream) {
 }
 
 bool Level_Generator::Write_Move_Enemies_Map(QTextStream &mapStream) {
-    //TODO: Write this...
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_2_LEVEL_1 + " " + Level::STRING_WORLD_6_LEVEL_3 + " " + QString::number(2))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_CLOUD_BONUS_1 + " " + Level::STRING_WORLD_3_LEVEL_4 + " " + QString::number(3))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_CLOUD_BONUS_2 + " " + Level::STRING_WORLD_3_LEVEL_4 + " " + QString::number(1))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_CLOUD_BONUS_2 + " " + Level::STRING_WORLD_4_LEVEL_3 + " " + QString::number(2))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_7_LEVEL_1 + " " + Level::STRING_WORLD_4_LEVEL_3 + " " + QString::number(4))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_7_LEVEL_1 + " " + Level::STRING_WORLD_3_LEVEL_1 + " " + QString::number(1))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_1 + " " + Level::STRING_WORLD_3_LEVEL_1 + " " + QString::number(5))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_3_LEVEL_3 + " " + Level::STRING_WORLD_5_LEVEL_2 + " " + QString::number(6))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_4 + " " + Level::STRING_WORLD_5_LEVEL_2 + " " + QString::number(4))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_4 + " " + Level::STRING_WORLD_2_LEVEL_4 + " " + QString::number(2))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_8_LEVEL_4 + " " + Level::STRING_WORLD_2_LEVEL_4 + " " + QString::number(7))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_UNDERGROUND_BONUS + " " + Level::STRING_WORLD_2_LEVEL_4 + " " + QString::number(1))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_UNDERGROUND_BONUS + " " + Level::STRING_WORLD_8_LEVEL_2 + " " + QString::number(11))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_4_LEVEL_1 + " " + Level::STRING_WORLD_8_LEVEL_2 + " " + QString::number(4))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_4_LEVEL_1 + " " + Level::STRING_WORLD_8_LEVEL_3 + " " + QString::number(9))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_UNDERWATER_CASTLE + " " + Level::STRING_WORLD_8_LEVEL_3 + " " + QString::number(7))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_UNDERWATER_CASTLE + " " + Level::STRING_WORLD_2_LEVEL_2 + " " + QString::number(12))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_3_LEVEL_2 + " " + Level::STRING_WORLD_2_LEVEL_2 + " " + QString::number(11))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_3_LEVEL_2 + " " + Level::STRING_WORLD_6_LEVEL_1 + " " + QString::number(25))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_3 + " " + Level::STRING_WORLD_6_LEVEL_1 + " " + QString::number(15))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_3 + " " + Level::STRING_WORLD_4_LEVEL_4 + " " + QString::number(13))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_5_LEVEL_1 + " " + Level::STRING_WORLD_4_LEVEL_4 + " " + QString::number(29))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_5_LEVEL_1 + " " + Level::STRING_WORLD_6_LEVEL_2 + " " + QString::number(6))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_2 + " " + Level::STRING_WORLD_6_LEVEL_2 + " " + QString::number(38))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_1_LEVEL_2 + " " + Level::STRING_WORLD_2_LEVEL_3 + " " + QString::number(6))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_4_LEVEL_2 + " " + Level::STRING_WORLD_2_LEVEL_3 + " " + QString::number(44))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_4_LEVEL_2 + " " + Level::STRING_WORLD_7_LEVEL_4 + " " + QString::number(1))) return false;
+    if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_8_LEVEL_1 + " " + Level::STRING_WORLD_7_LEVEL_4 + " " + QString::number(57))) return false;
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     return true;
 }
