@@ -36,4 +36,4 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  All code in this repository is released under the GPLv2 License.
  
- If you have any questions about Level-Headed, feel free to contact me at coolcord24@gmail.com
+ If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
