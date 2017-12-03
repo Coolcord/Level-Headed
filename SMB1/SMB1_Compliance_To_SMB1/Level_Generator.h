@@ -35,6 +35,7 @@ private:
     bool Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum);
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
     bool Parse_To_Next_Seperator(QFile &file, int &lineNum);
+    bool Parse_Move_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
 
     //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
