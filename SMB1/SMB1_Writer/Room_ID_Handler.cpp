@@ -441,7 +441,7 @@ bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Le
             bool pageFlag = false;
             if (!oldRoomIDs.contains(roomID)) {
                 roomID = (roomID^0x80); //try the other value
-                if (!oldRoomIDs.contains(roomID)) return false;
+                if (!oldRoomIDs.contains(roomID)) continue; //unknown room ID... just ignore it
             }
             if (roomID > 0x80) pageFlag = true;
             Level::Level key = oldRoomIDs.value(roomID);
