@@ -8,6 +8,7 @@
 #include <QVector>
 
 class Level_Offset;
+class Enemy_Bytes_Tracker;
 class Room_Order_Writer;
 class Room_Address_Writer;
 
@@ -18,6 +19,7 @@ public:
     ~Room_ID_Handler();
     void Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter);
     void Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter);
+    void Set_Enemy_Bytes_Tracker(Enemy_Bytes_Tracker *enemyBytesTracker);
     Level::Level Get_Current_Level();
     void Set_Current_Level(Level::Level level);
 
@@ -33,8 +35,6 @@ public:
     bool Change_Level_Attribute(Level::Level level, Level_Attribute::Level_Attribute attribute);
     bool Change_Room_Attribute(unsigned char oldRoomID, Level_Attribute::Level_Attribute attribute);
     unsigned char Get_Value_From_Attribute(Level_Attribute::Level_Attribute attribute);
-    bool Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
-    bool Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
     bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
     bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
 
@@ -51,6 +51,7 @@ private:
     QFile *file;
     Level::Level currentLevel;
     Level_Offset *levelOffset;
+    Enemy_Bytes_Tracker *enemyBytesTracker;
     QMap<Level::Level, unsigned char> *roomIDs;
     QMap<unsigned char, QVector<unsigned char>*> *midpointIndexes;
     Room_Order_Writer *roomOrderWriter;

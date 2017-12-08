@@ -4,6 +4,7 @@
 #include "Object_Writer.h"
 #include "Enemy_Writer.h"
 #include "Header_Writer.h"
+#include "Enemy_Bytes_Tracker.h"
 #include "Binary_Manipulator.h"
 #include "ROM_Handler.h"
 #include "Room_ID_Handler.h"
@@ -22,6 +23,7 @@ SMB1_Writer::SMB1_Writer() {
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
     this->enemiesBuffer = NULL;
+    this->enemyBytesTracker = NULL;
     this->levelOffset = NULL;
     this->objectWriter = NULL;
     this->enemyWriter = NULL;
@@ -34,7 +36,6 @@ SMB1_Writer::SMB1_Writer() {
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
-    this->numEnemyBytes = 0;
     this->parent = NULL;
 }
 
@@ -77,6 +78,8 @@ void SMB1_Writer::Shutdown() {
     this->roomIDHandler = NULL;
     delete this->roomAddressWriter;
     this->roomAddressWriter = NULL;
+    delete this->enemyBytesTracker;
+    this->enemyBytesTracker = NULL;
     delete this->romHandler;
     this->romHandler = NULL;
 }
@@ -128,6 +131,12 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
 
 bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     if (!cancel && this->file) {
+        delete this->levelOffset;
+        delete this->roomIDHandler;
+        delete this->midpointWriter;
+        delete this->roomOrderWriter;
+        delete this->roomIDHandler;
+        delete this->enemyBytesTracker;
         this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
         this->roomIDHandler = new Room_ID_Handler(this->file, this->levelOffset);
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
@@ -138,7 +147,10 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->roomAddressWriter = new Room_Address_Writer(this->file, this->levelOffset);
         this->roomIDHandler->Set_Room_Address_Writer(this->roomAddressWriter);
         this->levelOffset->Set_Extras(this->roomIDHandler, this->roomAddressWriter);
-        return this->roomAddressWriter->Read_Room_Address_Tables();
+        if (!this->roomAddressWriter->Read_Room_Address_Tables()) return false;
+        this->enemyBytesTracker = new Enemy_Bytes_Tracker(this->file, this->levelOffset);
+        this->roomIDHandler->Set_Enemy_Bytes_Tracker(this->enemyBytesTracker);
+        return this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels();
     } else {
         return false;
     }
@@ -197,7 +209,9 @@ int SMB1_Writer::Get_Num_Object_Bytes() {
 }
 
 int SMB1_Writer::Get_Num_Enemy_Bytes() {
-    return this->numEnemyBytes;
+    assert(this->enemyBytesTracker);
+    assert(this->roomIDHandler);
+    return this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(this->roomIDHandler->Get_Current_Level());
 }
 
 bool SMB1_Writer::Set_Number_Of_Worlds(int value) {
@@ -249,6 +263,7 @@ bool SMB1_Writer::Read_Objects() {
     assert(this->headerBuffer);
     assert(this->headerWriter);
     assert(!this->objectWriter);
+    assert(this->objectsBuffer->isEmpty());
     if (this->objectOffset == BAD_OFFSET || !this->objectsBuffer || this->objectWriter) return false;
     if (!this->file->seek(this->objectOffset)) return false;
 
@@ -270,27 +285,18 @@ bool SMB1_Writer::Read_Enemies() {
     assert(this->file);
     assert(this->headerBuffer);
     assert(this->headerWriter);
+    assert(this->enemyBytesTracker);
+    assert(this->roomIDHandler);
     assert(!this->enemyWriter);
+    assert(this->enemiesBuffer->isEmpty());
     if (this->enemyOffset == BAD_OFFSET || !this->enemiesBuffer || this->enemyWriter) return false;
     if (this->enemyOffset == 0) return true; //nothing to read
     if (!this->file->seek(this->enemyOffset)) return false;
 
     //Read the enemies from the level
-    this->numEnemyBytes = 0;
-    for (QByteArray coordinate = this->file->peek(1); !coordinate.isEmpty() &&
-         static_cast<unsigned char>(coordinate.data()[0]) != 0xFF; coordinate = this->file->peek(1)) {
-        if (Binary_Manipulator::Get_Second_Digit_From_Hex(static_cast<unsigned char>(coordinate[0])) == 0xE) { //pipe pointer
-            QByteArray buffer(3, ' ');
-            if (this->file->read(buffer.data(), 3) != 3) return false; //something went wrong...
-            this->enemiesBuffer->append(buffer);
-            this->numEnemyBytes += 3;
-        } else { //typical enemy
-            QByteArray buffer(2, ' ');
-            if (this->file->read(buffer.data(), 2) != 2) return false; //something went wrong...
-            this->enemiesBuffer->append(buffer);
-            this->numEnemyBytes += 2;
-        }
-    }
+    int bufferSize = this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(this->roomIDHandler->Get_Current_Level());
+    this->enemiesBuffer->append(this->file->read(bufferSize));
+    if (this->enemiesBuffer->size() != bufferSize) return false;
 
     this->enemyWriter = new Enemy_Writer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
     return true;
@@ -317,6 +323,5 @@ void SMB1_Writer::Deallocate_Buffers() {
     this->headerWriter = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
-    this->numEnemyBytes = 0;
     this->numObjectBytes = 0;
 }

@@ -472,18 +472,6 @@ bool SMB1_Writer::Enemy_Nothing(int x) {
     return this->enemyWriter->Nothing(x);
 }
 
-bool SMB1_Writer::Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
-    if (this->Are_Buffers_Allocated()) return false;
-    if (!this->roomIDHandler) return false;
-    return this->roomIDHandler->Send_Object_From_One_Level_To_Another(fromLevel, toLevel);
-}
-
-bool SMB1_Writer::Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
-    if (this->Are_Buffers_Allocated()) return false;
-    if (!this->roomIDHandler) return false;
-    return this->roomIDHandler->Send_Enemy_From_One_Level_To_Another(fromLevel, toLevel);
-}
-
 bool SMB1_Writer::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
     if (this->Are_Buffers_Allocated()) return false;
     if (!this->roomIDHandler) return false;

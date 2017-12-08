@@ -2,6 +2,7 @@
 #include "Room_Order_Writer.h"
 #include "Room_Address_Writer.h"
 #include "Level_Offset.h"
+#include "Enemy_Bytes_Tracker.h"
 #include "Binary_Manipulator.h"
 #include <assert.h>
 
@@ -11,9 +12,11 @@ Room_ID_Handler::Room_ID_Handler(QFile *file, Level_Offset *levelOffset) {
     this->file = file;
     this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->levelOffset = levelOffset;
+    this->enemyBytesTracker = enemyBytesTracker;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;
+    this->enemyBytesTracker = NULL;
     this->midpointIndexes = new QMap<unsigned char, QVector<unsigned char>*>();
     this->Populate_Room_IDs();
 }
@@ -28,11 +31,18 @@ Room_ID_Handler::~Room_ID_Handler() {
 }
 
 void Room_ID_Handler::Set_Room_Order_Writer(Room_Order_Writer *roomOrderWriter) {
+    assert(roomOrderWriter);
     this->roomOrderWriter = roomOrderWriter;
 }
 
 void Room_ID_Handler::Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter) {
+    assert(roomAddressWriter);
     this->roomAddressWriter = roomAddressWriter;
+}
+
+void Room_ID_Handler::Set_Enemy_Bytes_Tracker(Enemy_Bytes_Tracker *enemyBytesTracker) {
+    assert(enemyBytesTracker);
+    this->enemyBytesTracker = enemyBytesTracker;
 }
 
 Level::Level Room_ID_Handler::Get_Current_Level() {
@@ -233,25 +243,6 @@ unsigned char Room_ID_Handler::Get_Value_From_Attribute(Level_Attribute::Level_A
     }
 }
 
-bool Room_ID_Handler::Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
-    return this->Send_Object_Bytes_From_One_Level_To_Another(fromLevel, toLevel, 2);
-}
-
-bool Room_ID_Handler::Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel) {
-    //Determine the number of bytes that need to be sent
-    int offset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
-    unsigned char firstByte = 0;
-    if (!this->Read_First_Byte(offset, firstByte)) return false;
-
-    //Determine if the first byte is a pipe pointer
-    int numBytes = 0;
-    firstByte = firstByte&0xF;
-    if (firstByte == 0xE) numBytes = 3; //pipe pointers need 3 bytes
-    else numBytes = 2; //everything else need 2 bytes
-
-    return this->Send_Enemy_Bytes_From_One_Level_To_Another(fromLevel, toLevel, numBytes);
-}
-
 bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
     assert(this->file);
     assert(fromLevel != toLevel);
@@ -266,12 +257,24 @@ bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level f
 bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
     assert(this->file);
     assert(fromLevel != toLevel);
+    assert(this->enemyBytesTracker);
+
+    //Get the previous byte counts
+    int oldFromBytes = this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(fromLevel);
+    if (oldFromBytes - numBytes < 0) return false;
+    int oldToBytes = this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(toLevel);
 
     //Get the Level Offsets
     int fromOffset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
     int toOffset = this->levelOffset->Get_Level_Enemy_Offset(toLevel);
 
-    return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+    //Move the bytes
+    bool success = this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+    if (success) { //update the enemy bytes tracker with the updated values if the move is successful
+        this->enemyBytesTracker->Set_Enemy_Byte_Count_In_Level(fromLevel, oldFromBytes-numBytes);
+        this->enemyBytesTracker->Set_Enemy_Byte_Count_In_Level(toLevel, oldToBytes+numBytes);
+    }
+    return success;
 }
 
 bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes) {

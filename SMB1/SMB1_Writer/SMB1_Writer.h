@@ -11,6 +11,7 @@ class Midpoint_Writer;
 class Object_Writer;
 class Enemy_Writer;
 class Header_Writer;
+class Enemy_Bytes_Tracker;
 class ROM_Handler;
 class Room_ID_Handler;
 class Room_Order_Writer;
@@ -140,8 +141,6 @@ public:
     bool Enemy_Nothing(int x);
 
     //Transfer Bytes Between Levels
-    bool Send_Object_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
-    bool Send_Enemy_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel);
     bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
     bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
 
@@ -157,7 +156,6 @@ private:
     bool Read_Enemies();
 
     int numObjectBytes;
-    int numEnemyBytes;
     int objectOffset;
     int enemyOffset;
     QFile *file;
@@ -169,6 +167,7 @@ private:
     Object_Writer *objectWriter;
     Enemy_Writer *enemyWriter;
     Header_Writer *headerWriter;
+    Enemy_Bytes_Tracker *enemyBytesTracker;
     Room_ID_Handler *roomIDHandler;
     Room_Order_Writer *roomOrderWriter;
     Room_Address_Writer *roomAddressWriter;
