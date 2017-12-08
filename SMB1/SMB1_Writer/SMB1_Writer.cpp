@@ -169,13 +169,16 @@ bool SMB1_Writer::New_Level(Level::Level level) {
     this->objectsBuffer = new QByteArray();
     this->enemiesBuffer = new QByteArray();
 
+    Level::Level previousLevel = this->roomIDHandler->Get_Current_Level();
+    this->roomIDHandler->Set_Current_Level(level);
+
     //Read the Level
     if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {
         this->Deallocate_Buffers();
+        this->roomIDHandler->Set_Current_Level(previousLevel);
         return false;
     }
 
-    this->roomIDHandler->Set_Current_Level(level);
     return true;
 }
 
