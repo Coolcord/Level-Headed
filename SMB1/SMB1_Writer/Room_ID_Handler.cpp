@@ -251,7 +251,7 @@ bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level f
     int fromOffset = this->levelOffset->Get_Level_Object_Offset(fromLevel);
     int toOffset = this->levelOffset->Get_Level_Object_Offset(toLevel);
 
-    return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+    return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes, false);
 }
 
 bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
@@ -269,7 +269,7 @@ bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fr
     int toOffset = this->levelOffset->Get_Level_Enemy_Offset(toLevel);
 
     //Move the bytes
-    bool success = this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes);
+    bool success = this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes, true);
     if (success) { //update the enemy bytes tracker with the updated values if the move is successful
         this->enemyBytesTracker->Set_Enemy_Byte_Count_In_Level(fromLevel, oldFromBytes-numBytes);
         this->enemyBytesTracker->Set_Enemy_Byte_Count_In_Level(toLevel, oldToBytes+numBytes);
@@ -277,7 +277,7 @@ bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fr
     return success;
 }
 
-bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes) {
+bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes, bool enemies) {
     assert(this->file);
     assert(fromOffset != toOffset);
 
@@ -306,16 +306,20 @@ bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int 
 
     //Send the Bytes to the according level
     assert(numBytes < bufferSize);
-    QByteArray data = QByteArray(numBytes, ' ');
+    QByteArray data = QByteArray(numBytes, 0xFF);
     if (fromFirst) {
-        for (int i = 0; i < numBytes; ++i) {
-            data.data()[i] = byteBuffer.at(i);
+        if (!enemies) {
+            for (int i = 0; i < numBytes; ++i) {
+                data.data()[i] = byteBuffer.at(i);
+            }
         }
         byteBuffer = byteBuffer.remove(0, numBytes);
         byteBuffer.append(data);
     } else {
-        for (int i = 0; i < numBytes; ++i) {
-            data.data()[i] = byteBuffer.at((bufferSize-numBytes)+i);
+        if (!enemies) {
+            for (int i = 0; i < numBytes; ++i) {
+                data.data()[i] = byteBuffer.at((bufferSize-numBytes)+i);
+            }
         }
         byteBuffer = byteBuffer.remove(bufferSize-numBytes, numBytes);
         byteBuffer.prepend(data);

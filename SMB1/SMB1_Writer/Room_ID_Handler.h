@@ -44,7 +44,7 @@ private:
     bool Update_Pipe_Pointers(const QMap<unsigned char, Level::Level> &oldRoomIDs);
     bool Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, Level::Level level);
     void Populate_Room_IDs();
-    bool Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes);
+    bool Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes, bool enemies);
     bool Read_First_Byte(int offset, unsigned char &c);
     bool Fix_Level_Addresses(int fromOffset, int toOffset, int numBytes);
 
