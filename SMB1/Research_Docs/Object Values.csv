@@ -1,0 +1,127 @@
+Y Offset 0x0 - 0xB,,,,,,,,,,,,,,,,
+,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
+0x0X,? Block (Mushroom),? Block (Coin),Hidden Block (Coin),Hidden Block (1up Mushroom),Brick (Mushroom),Brick (Vine),Brick (Star),Brick (10 coins),Brick (1up Mushroom),Underwater Sideways Pipe (length 1),Used Block,Trampoline,INVALID,INVALID,INVALID,INVALID
+0x1X,Cannon (height 1),Cannon (height 2),"Island (length 3) OR
+Cannon (height 3)","Island (length 4) OR
+Cannon (height 4)","Island (length 5) OR
+Cannon (height 5)","Island (length 6) OR
+Cannon (height 6)","Island (length 7) OR
+Cannon (height 7)","Island (length 8) OR
+Cannon (height 8)","Island (length 9) OR
+Cannon (height 9)","Island (length 10) OR
+Cannon (height 10)","Island (length 11) OR
+Cannon (height 11)",Island (length 12),Island (length 13),Island (length 14),Island (length 15),Island (length 16)
+0x2X,Horizontal Brick (Seaplant) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x3X,Horizontal Block (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x4X,Horizontal Coins (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x5X,Vertical Brick (Seaplant) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),INVALID,INVALID,INVALID,INVALID
+0x6X,Vertical Block (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),INVALID,INVALID,INVALID,INVALID
+0x7X,Pipe (Not enterable) (height 2),Pipe (Not enterable) (height 3),Pipe (Not enterable) (height 4),Pipe (Not enterable) (height 5),Pipe (Not enterable) (height 6),Pipe (Not enterable) (height 7),Pipe (Not enterable) (height 8),Pipe (Not enterable) (height 9),Pipe (Enterable) (height 2),Pipe (Enterable) (height 3),Pipe (Enterable) (height 4),Pipe (Enterable) (height 5),Pipe (Enterable) (height 6),Pipe (Enterable) (height 7),Pipe (Enterable) (height 8),Pipe (Enterable) (height 9)
+,,,,,,,,,,,,,,,,
+Y Offset 0xC,,,,,,,,,,,,,,,,
+,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
+0x0X,Hole (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x1X,Balance Rope (Y = 0x0) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x2X,Bridge (Y = 0x7) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x3X,Bridge (Y = 0x8) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x4X,Bridge (Y = 0xA) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x5X,Hole Filled with Water (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x6X,Horizontal ? Blocks (with coins) (Y = 0x3) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+0x7X,Horizontal ? Blocks (with coins) (Y = 0x7) (length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15),(length 16)
+,,,,,,,,,,,,,,,,
+Y Offset 0xD,,,,,,,,,,,,,,,,
+,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
+0x0X,Page Skip (length 0),(length 1),(length 2),(length 3),(length 4),(length 5),(length 6),(length 7),(length 8),(length 9),(length 10),(length 11),(length 12),(length 13),(length 14),(length 15)
+0x1X,Page Skip (length 16),(length 17),(length 18),(length 19),(length 20),(length 21),(length 22),(length 23),(length 24),(length 25),(length 26),(length 27),(length 28),(length 29),(length 30),(length 31)
+0x2X,Page Skip (length 32),(length 33),(length 34),(length 35),(length 36),(length 37),(length 38),(length 39),(length 40),(length 41),(length 42),(length 43),(length 44),(length 45),(length 46),(length 47)
+0x3X,Page Skip (length 48),(length 49),(length 50),(length 51),(length 52),(length 53),(length 54),(length 55),(length 56),(length 57),(length 58),(length 59),(length 60),(length 61),(length 62),(length 63)
+0x4X,Reverse L Pipe,FlagPole,Axe (Y = 0x6),Rope (Y = 0x7),Bowser Bridge (Y = 0x8) (length 13),Scroll Stop (Warp Zone),Scroll Stop,Scroll Stop,Cheep-cheep Spawner (Red Jumping),Bullet Bill Spawner (Cheep-cheep for Underwater),Cancel Bullet Bill Spawner,Loop Command,INVALID,INVALID,INVALID,INVALID
+0x5X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x6X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x7X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+,,,,,,,,,,,,,,,,
+Y Offset 0xE,,,,,,,,,,,,,,,,
+,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
+0x0X,"Brick: None
+Scenery: None","Brick: Surface
+Scenery: None","Brick: Surface & Ceiling
+Scenery: None","Brick: Surface & Ceiling (3)
+Scenery: None","Brick: Surface & Ceiling (4)
+Scenery: None","Brick: Surface & Ceiling (8)
+Scenery: None","Brick: Surface (4) & Ceiling
+Scenery: None","Brick: Surface (4) & Ceiling (3)
+Scenery: None","Brick: Surface (4) & Ceiling (4)
+Scenery: None","Brick: Surface (5) & Ceiling
+Scenery: None","Brick: Ceiling
+Scenery: None","Brick: Surface (5) & Ceiling (4)
+Scenery: None","Brick: Surface (8) & Ceiling
+Scenery: None","Brick: Surface & Ceiling & Middle (5)
+Scenery: None","Brick: Surface & Ceiling & Middle (4)
+Scenery: None","Brick: All
+Scenery: None"
+0x1X,"Brick: None
+Scenery: Clouds","Brick: Surface
+Scenery: Clouds","Brick: Surface & Ceiling
+Scenery: Clouds","Brick: Surface & Ceiling (3)
+Scenery: Clouds","Brick: Surface & Ceiling (4)
+Scenery: Clouds","Brick: Surface & Ceiling (8)
+Scenery: Clouds","Brick: Surface (4) & Ceiling
+Scenery: Clouds","Brick: Surface (4) & Ceiling (3)
+Scenery: Clouds","Brick: Surface (4) & Ceiling (4)
+Scenery: Clouds","Brick: Surface (5) & Ceiling
+Scenery: Clouds","Brick: Ceiling
+Scenery: Clouds","Brick: Surface (5) & Ceiling (4)
+Scenery: Clouds","Brick: Surface (8) & Ceiling
+Scenery: Clouds","Brick: Surface & Ceiling & Middle (5)
+Scenery: Clouds","Brick: Surface & Ceiling & Middle (4)
+Scenery: Clouds","Brick: All
+Scenery: Clouds"
+0x2X,"Brick: None
+Scenery: Mountains","Brick: Surface
+Scenery: Mountains","Brick: Surface & Ceiling
+Scenery: Mountains","Brick: Surface & Ceiling (3)
+Scenery: Mountains","Brick: Surface & Ceiling (4)
+Scenery: Mountains","Brick: Surface & Ceiling (8)
+Scenery: Mountains","Brick: Surface (4) & Ceiling
+Scenery: Mountains","Brick: Surface (4) & Ceiling (3)
+Scenery: Mountains","Brick: Surface (4) & Ceiling (4)
+Scenery: Mountains","Brick: Surface (5) & Ceiling
+Scenery: Mountains","Brick: Ceiling
+Scenery: Mountains","Brick: Surface (5) & Ceiling (4)
+Scenery: Mountains","Brick: Surface (8) & Ceiling
+Scenery: Mountains","Brick: Surface & Ceiling & Middle (5)
+Scenery: Mountains","Brick: Surface & Ceiling & Middle (4)
+Scenery: Mountains","Brick: All
+Scenery: Mountains"
+0x3X,"Brick: None
+Scenery: Fences","Brick: Surface
+Scenery: Fences","Brick: Surface & Ceiling
+Scenery: Fences","Brick: Surface & Ceiling (3)
+Scenery: Fences","Brick: Surface & Ceiling (4)
+Scenery: Fences","Brick: Surface & Ceiling (8)
+Scenery: Fences","Brick: Surface (4) & Ceiling
+Scenery: Fences","Brick: Surface (4) & Ceiling (3)
+Scenery: Fences","Brick: Surface (4) & Ceiling (4)
+Scenery: Fences","Brick: Surface (5) & Ceiling
+Scenery: Fences","Brick: Ceiling
+Scenery: Fences","Brick: Surface (5) & Ceiling (4)
+Scenery: Fences","Brick: Surface (8) & Ceiling
+Scenery: Fences","Brick: Surface & Ceiling & Middle (5)
+Scenery: Fences","Brick: Surface & Ceiling & Middle (4)
+Scenery: Fences","Brick: All
+Scenery: Fences"
+0x4X,Change Background: Nothing,Change Background: In Water,Change Background: Castle Wall,Change Background: Over Water,Change Background: Night,Change Background: Snow,Change Background: Night and Snow,Change Background: Night and Freeze (Castle),INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x5X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x6X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x7X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+,,,,,,,,,,,,,,,,
+Y Offset 0xF,,,,,,,,,,,,,,,,
+,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
+0x0X,Lift Rope,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x1X,Balance Lift Vertical Rope (Y = 0x1) (length = 1),(length = 2),(length = 3),(length = 4),(length = 5),(length = 6),(length = 7),(length = 8),(length = 9),(length = 10),(length = 11),(length = 12),(length = 13),(length = 14),(length = 15),(length = 16)
+0x2X,Big Castle (Recommend: Change Background: Castle Wall 3 block prior),INVALID,INVALID,INVALID,INVALID,INVALID,Castle,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x3X,"Steps (width 1, height 1)","Steps (width 2, height 2)","Steps (width 3, height 3)","Steps (width 4, height 4)","Steps (width 5, height 5)","Steps (width 6, height 6)","Steps (width 7, height 7)","Steps (width 8, height 8)","Steps (width 9, height 8)",INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x4X,INVALID,INVALID,Tall Reverse L Pipe (Y = 0x2),Tall Reverse L Pipe (Y = 0x3),Tall Reverse L Pipe (Y = 0x4),Tall Reverse L Pipe (Y = 0x5),Tall Reverse L Pipe (Y = 0x6),Tall Reverse L Pipe (Y = 0x7),Tall Reverse L Pipe (Y = 0x8),Tall Reverse L Pipe (Y = 0x9),Tall Reverse L Pipe (Y = 0xA),INVALID,INVALID,INVALID,INVALID,Pipe Wall
+0x5X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x6X,Nothing,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
+0x7X,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID
