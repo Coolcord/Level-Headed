@@ -56,18 +56,6 @@ bool Level_Generator::Generate_Levels() {
     this->uncommonLevels->clear();
     this->rareLevels->clear();
 
-    //Load a ROM into the Writer Plugin
-    bool loaded = false;
-    if (this->pluginSettings->baseROM.isEmpty()) {
-        loaded = this->writerPlugin->Load_ROM();
-    } else {
-        loaded = this->writerPlugin->Load_ROM(this->pluginSettings->baseROM);
-    }
-    if (!loaded) {
-        qDebug() << "Failed to load the ROM!";
-        return false;
-    }
-
     //Make the folder to store the random generation in
     QString generationName = "Random " + QDate::currentDate().toString("yy-MM-dd-") + QTime::currentTime().toString("HH-mm-ss-zzz");
     QDir dir(this->levelLocation);
@@ -110,12 +98,6 @@ bool Level_Generator::Generate_Levels() {
     //Write the Number of Worlds
     if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
         qDebug() << "Failed to write the number of worlds to the ROM!";
-        return false;
-    }
-
-    //Write the watermark
-    if (!this->writerPlugin->Write_Watermark()) {
-        qDebug() << "Failed to write the watermark to the ROM!";
         return false;
     }
 
@@ -229,19 +211,6 @@ bool Level_Generator::Parse_Level_Map() {
         return false;
     }
 
-    //Load a ROM into the Writer Plugin
-    //TODO: This section is duplicate
-    bool loaded = false;
-    if (this->pluginSettings->baseROM.isEmpty()) {
-        loaded = this->writerPlugin->Load_ROM();
-    } else {
-        loaded = this->writerPlugin->Load_ROM(this->pluginSettings->baseROM);
-    }
-    if (!loaded) {
-        qDebug() << "Failed to load the ROM!";
-        return false;
-    }
-
     //Parse through the map file starting with the header
     int lineNum = 0;
     int errorCode = 0;
@@ -282,12 +251,6 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     int numWorlds = elements.at(1).toInt(&valid);
     if (!valid) return false; //unable to parse int
     if (!this->writerPlugin->Set_Number_Of_Worlds(numWorlds)) {
-        errorCode = 3;
-        return false;
-    }
-
-    //Write the watermark
-    if (!this->writerPlugin->Write_Watermark()) {
         errorCode = 3;
         return false;
     }

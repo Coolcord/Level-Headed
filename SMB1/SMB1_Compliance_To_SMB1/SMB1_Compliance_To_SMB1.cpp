@@ -4,6 +4,7 @@
 #include "Configure_Base_Form.h"
 #include "Configure_Level_Form.h"
 #include "Level_Generator.h"
+#include "Hacks_Handler.h"
 #include <QFile>
 #include <QMessageBox>
 #include <QTime>
@@ -28,9 +29,9 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.hammerTime = false;
-    this->pluginSettings.godMode = 0;
-    this->pluginSettings.lakituThrowArc = 0;
-    this->pluginSettings.enemySpeed = 1;
+    this->pluginSettings.godMode = Qt::Unchecked;
+    this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
+    this->pluginSettings.enemySpeed = 6;
     this->outputROMLocation = QString();
 }
 
@@ -53,6 +54,21 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (!this->outputROMLocation.isEmpty()) {
         assert(this->writerPlugin->Set_Output_ROM_Location(this->outputROMLocation));
     }
+
+    //Load a ROM into the Writer Plugin
+    bool loaded = false;
+    if (this->pluginSettings.baseROM.isEmpty()) {
+        loaded = this->writerPlugin->Load_ROM();
+    } else {
+        loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
+    }
+    if (!loaded) {
+        qDebug() << "Failed to load the ROM!";
+        return false;
+    }
+
+    //Apply Hacks
+    assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
 
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);

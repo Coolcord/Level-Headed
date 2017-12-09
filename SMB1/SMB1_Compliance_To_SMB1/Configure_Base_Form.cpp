@@ -51,8 +51,8 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
 
 void Configure_Base_Form::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
-    this->ui->cbGodMode->setCheckState(static_cast<Qt::CheckState>(this->pluginSettings->godMode));
-    this->ui->cbLakituThrowArc->setCheckState(static_cast<Qt::CheckState>(this->pluginSettings->lakituThrowArc));
+    this->ui->cbGodMode->setCheckState(this->pluginSettings->godMode);
+    this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
 }
 
