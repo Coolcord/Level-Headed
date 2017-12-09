@@ -69,12 +69,18 @@
              <property name="text">
               <string>Random Number of Worlds</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="layoutNumWorlds">
              <item>
               <widget class="QLabel" name="lblNumWorlds">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
                 <string>Number of Worlds:</string>
                </property>
@@ -82,6 +88,9 @@
              </item>
              <item>
               <widget class="QSpinBox" name="sbNumWorlds">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="minimum">
                 <number>1</number>
                </property>
@@ -100,7 +109,7 @@
              <item>
               <widget class="QLabel" name="lblNumLevelsPerWorld">
                <property name="enabled">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="text">
                 <string>Number of Levels per World: </string>
@@ -110,7 +119,7 @@
              <item>
               <widget class="QSpinBox" name="sbNumLevelsPerWorld">
                <property name="enabled">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="minimum">
                 <number>1</number>
