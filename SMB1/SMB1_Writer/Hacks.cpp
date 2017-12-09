@@ -122,7 +122,20 @@ bool Hacks::Star_Color_Mario() {
 }
 
 bool Hacks::Fix_Lakitu_Throw_Arc() {
-    return true;
+    QByteArray lakituThrowArcBytes;
+    lakituThrowArcBytes.append(static_cast<char>(0xA0));
+    lakituThrowArcBytes.append(static_cast<char>(0x02));
+    lakituThrowArcBytes.append(static_cast<char>(0x95));
+    lakituThrowArcBytes.append(static_cast<char>(0x58));
+    lakituThrowArcBytes.append(static_cast<char>(0xC9));
+    lakituThrowArcBytes.append(static_cast<char>(0x00));
+    lakituThrowArcBytes.append(static_cast<char>(0x30));
+    lakituThrowArcBytes.append(static_cast<char>(0x01));
+    lakituThrowArcBytes.append(static_cast<char>(0x88));
+    lakituThrowArcBytes.append(static_cast<char>(0x20));
+    lakituThrowArcBytes.append(static_cast<char>(0x46));
+    lakituThrowArcBytes.append(static_cast<char>(0xC3));
+    return this->Write_Bytes_To_Offset(0x4444, lakituThrowArcBytes);
 }
 
 bool Hacks::Fast_Enemies(int speed) {
