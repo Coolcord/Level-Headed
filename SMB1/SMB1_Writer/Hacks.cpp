@@ -108,19 +108,20 @@ bool Hacks::Write_Watermark() {
 }
 
 bool Hacks::Invincibility() {
-
+    if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0x46))) return false;
+    return this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xF9));
 }
 
 bool Hacks::Moon_Jump() {
-
+    return true;
 }
 
 bool Hacks::Star_Color_Mario() {
-
+    return true;
 }
 
 bool Hacks::Fix_Lakitu_Throw_Arc() {
-
+    return true;
 }
 
 bool Hacks::Fast_Enemies(int speed) {
