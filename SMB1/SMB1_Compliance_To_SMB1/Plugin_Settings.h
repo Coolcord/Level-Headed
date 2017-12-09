@@ -34,7 +34,7 @@ struct Plugin_Settings {
     uint randomSeed;
     int godMode;
     int lakituThrowArc;
-    QString enemySpeed;
+    int enemySpeed;
     bool hammerTime; //bonus difficulty mod
 };
 

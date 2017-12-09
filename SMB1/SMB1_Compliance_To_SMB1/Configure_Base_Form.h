@@ -24,6 +24,8 @@ private slots:
 
 private:
     void Populate_Installed_ROMs();
+    void Load_Settings();
+    void Save_Settings();
 
     Ui::Configure_Base_Form *ui;
     Plugin_Settings *pluginSettings;

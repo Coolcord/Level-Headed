@@ -16,6 +16,7 @@ Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *plugi
     //Setup the UI
     ui->setupUi(this);
     this->Populate_Installed_ROMs();
+    this->Load_Settings();
 }
 
 Configure_Base_Form::~Configure_Base_Form() {
@@ -29,11 +30,7 @@ void Configure_Base_Form::on_buttonBox_clicked(QAbstractButton *button) {
         this->close();
         return;
     }
-    QString baseROM = this->ui->comboBaseROM->currentText();
-    if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) {
-        this->pluginSettings->baseROM = baseROM;
-    }
-    this->close();
+    this->Save_Settings();
 }
 
 void Configure_Base_Form::Populate_Installed_ROMs() {
@@ -50,6 +47,22 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
     } else {
         this->ui->comboBaseROM->setCurrentIndex(0);
     }
+}
+
+void Configure_Base_Form::Load_Settings() {
+    if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
+    this->ui->cbGodMode->setCheckState(static_cast<Qt::CheckState>(this->pluginSettings->godMode));
+    this->ui->cbLakituThrowArc->setCheckState(static_cast<Qt::CheckState>(this->pluginSettings->lakituThrowArc));
+    this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
+}
+
+void Configure_Base_Form::Save_Settings() {
+    QString baseROM = this->ui->comboBaseROM->currentText();
+    if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
+    this->pluginSettings->godMode = this->ui->cbGodMode->checkState();
+    this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
+    this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
+    this->close();
 }
 
 void Configure_Base_Form::on_btnInstallNewROM_clicked() {
