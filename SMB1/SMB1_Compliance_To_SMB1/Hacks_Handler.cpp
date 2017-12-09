@@ -23,7 +23,7 @@ bool Hacks_Handler::Write_Hacks() {
 }
 
 bool Hacks_Handler::Handle_God_Mode() {
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->godMode)) {
+    if (this->pluginSettings->godMode) {
         return this->writerPlugin->Enable_God_Mode();
     }
     return true;
@@ -38,7 +38,7 @@ bool Hacks_Handler::Handle_Lakitu_Throw_Arc() {
 
 bool Hacks_Handler::Handle_Fast_Enemies() {
     int speed = this->pluginSettings->enemySpeed;
-    if (speed == 6) speed = Random::Get_Num(3)+1; //between 1 and 4. Don't use 5 (Ludicrous Speed!).
+    if (speed == 6) speed = Random::Get_Num(2)+1; //between 1 and 3. Don't use 4 (Turbo) or 5 (Ludicrous Speed!).
     return this->writerPlugin->Fast_Enemies(speed);
 }
 

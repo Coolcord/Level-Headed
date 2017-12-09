@@ -113,7 +113,8 @@ bool Hacks::Invincibility() {
 }
 
 bool Hacks::Moon_Jump() {
-    return true;
+    if (!this->Write_Bytes_To_Offset(0x2F78, QByteArray(1, 0x6A))) return false; //turbo button presses
+    return this->Write_Bytes_To_Offset(0x3497, QByteArray(1, 0x13)); //jump while in midair
 }
 
 bool Hacks::Star_Color_Mario() {

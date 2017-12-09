@@ -51,10 +51,10 @@
    <item>
     <widget class="QCheckBox" name="cbGodMode">
      <property name="text">
-      <string>God Mode</string>
+      <string>Demigod Mode</string>
      </property>
      <property name="tristate">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
    </item>

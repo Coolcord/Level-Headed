@@ -29,7 +29,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.hammerTime = false;
-    this->pluginSettings.godMode = Qt::Unchecked;
+    this->pluginSettings.godMode = false;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
     this->outputROMLocation = QString();
