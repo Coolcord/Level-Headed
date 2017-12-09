@@ -32,7 +32,9 @@ struct Plugin_Settings {
     QString bridgeChance;
     QString islandChance;
     uint randomSeed;
-
+    int godMode;
+    int lakituThrowArc;
+    QString enemySpeed;
     bool hammerTime; //bonus difficulty mod
 };
 

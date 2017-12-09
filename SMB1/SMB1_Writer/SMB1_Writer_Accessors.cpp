@@ -5,6 +5,7 @@
 #include "Midpoint_Writer.h"
 #include "Room_Order_Writer.h"
 #include "Room_ID_Handler.h"
+#include "Hacks.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -482,4 +483,26 @@ bool SMB1_Writer::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLe
     if (this->Are_Buffers_Allocated()) return false;
     if (!this->roomIDHandler) return false;
     return this->roomIDHandler->Send_Enemy_Bytes_From_One_Level_To_Another(fromLevel, toLevel, numBytes);
+}
+
+bool SMB1_Writer::Write_Watermark() {
+    if (!this->hacks) return false;
+    return this->hacks->Write_Watermark();
+}
+
+bool SMB1_Writer::Enable_God_Mode() {
+    if (!this->hacks) return false;
+    if (!this->hacks->Moon_Jump()) return false;
+    if (!this->hacks->Star_Color_Mario()) return false;
+    return this->hacks->Invincibility();
+}
+
+bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {
+    if (!this->hacks) return false;
+    return this->hacks->Fix_Lakitu_Throw_Arc();
+}
+
+bool SMB1_Writer::Fast_Enemies(int speed) {
+    if (!this->hacks) return false;
+    return this->hacks->Fast_Enemies(speed);
 }

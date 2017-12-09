@@ -19,7 +19,6 @@ public:
     bool Set_Next_Level(Level::Level level);
     bool Set_Number_Of_Worlds(int value);
     QVector<unsigned char> *Get_Midpoints_From_Room_Order_Table(unsigned char id);
-    bool Write_Watermark();
 
 private:
     bool Write_Bytes_To_Offset(int offset, const QByteArray &bytes);

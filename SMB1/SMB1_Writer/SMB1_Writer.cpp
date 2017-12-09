@@ -10,6 +10,7 @@
 #include "Room_ID_Handler.h"
 #include "Room_Order_Writer.h"
 #include "Room_Address_Writer.h"
+#include "Hacks.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QDir>
@@ -32,6 +33,7 @@ SMB1_Writer::SMB1_Writer() {
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;
     this->midpointWriter = NULL;
+    this->hacks = NULL;
     this->romHandler = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
@@ -82,6 +84,8 @@ void SMB1_Writer::Shutdown() {
     this->enemyBytesTracker = NULL;
     delete this->romHandler;
     this->romHandler = NULL;
+    delete this->hacks;
+    this->hacks = NULL;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
@@ -132,11 +136,19 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
 bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     if (!cancel && this->file) {
         delete this->levelOffset;
+        this->levelOffset = NULL;
         delete this->roomIDHandler;
+        this->roomIDHandler = NULL;
         delete this->midpointWriter;
+        this->midpointWriter = NULL;
         delete this->roomOrderWriter;
+        this->roomOrderWriter = NULL;
         delete this->roomIDHandler;
+        this->roomIDHandler = NULL;
         delete this->enemyBytesTracker;
+        this->enemyBytesTracker = NULL;
+        delete this->hacks;
+        this->hacks = NULL;
         this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
         this->roomIDHandler = new Room_ID_Handler(this->file, this->levelOffset);
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
@@ -150,7 +162,9 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         if (!this->roomAddressWriter->Read_Room_Address_Tables()) return false;
         this->enemyBytesTracker = new Enemy_Bytes_Tracker(this->file, this->levelOffset);
         this->roomIDHandler->Set_Enemy_Bytes_Tracker(this->enemyBytesTracker);
-        return this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels();
+        if (!this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels()) return false;
+        this->hacks = new Hacks(this->file, this->levelOffset);
+        return true;
     } else {
         return false;
     }
@@ -234,11 +248,6 @@ bool SMB1_Writer::Set_Output_ROM_Location(const QString &location) {
     } else {
         return false;
     }
-}
-
-bool SMB1_Writer::Write_Watermark() {
-    if (!this->roomOrderWriter) return false;
-    return this->roomOrderWriter->Write_Watermark();
 }
 
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {

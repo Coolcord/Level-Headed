@@ -16,6 +16,7 @@ class ROM_Handler;
 class Room_ID_Handler;
 class Room_Order_Writer;
 class Room_Address_Writer;
+class Hacks;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -37,7 +38,6 @@ public:
     bool Set_Number_Of_Worlds(int value);
     QString Get_Output_ROM_Location();
     bool Set_Output_ROM_Location(const QString &location);
-    bool Write_Watermark();
 
     //Header
     bool Header_Time(int value);
@@ -144,6 +144,11 @@ public:
     bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
     bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
 
+    //Hacks
+    bool Write_Watermark();
+    bool Enable_God_Mode();
+    bool Fix_Lakitu_Throw_Arc();
+    bool Fast_Enemies(int speed);
 
 private:
     bool Load_ROM_Offsets(bool cancel);
@@ -171,6 +176,7 @@ private:
     Room_ID_Handler *roomIDHandler;
     Room_Order_Writer *roomOrderWriter;
     Room_Address_Writer *roomAddressWriter;
+    Hacks *hacks;
     ROM_Handler *romHandler;
     QString applicationLocation;
     QString romFileName;

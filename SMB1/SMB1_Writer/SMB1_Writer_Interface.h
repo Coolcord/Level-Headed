@@ -27,7 +27,6 @@ public:
     virtual bool Set_Number_Of_Worlds(int value)=0;
     virtual QString Get_Output_ROM_Location()=0;
     virtual bool Set_Output_ROM_Location(const QString &location)=0;
-    virtual bool Write_Watermark()=0;
 
     //Header
     virtual bool Header_Time(int value)=0;
@@ -133,6 +132,12 @@ public:
     //Transfer Bytes Between Levels
     virtual bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes)=0;
     virtual bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes)=0;
+
+    //Hacks
+    virtual bool Write_Watermark()=0;
+    virtual bool Enable_God_Mode()=0;
+    virtual bool Fix_Lakitu_Throw_Arc()=0;
+    virtual bool Fast_Enemies(int speed)=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Writer_Interface, "SMB1_Writer_Interface")
