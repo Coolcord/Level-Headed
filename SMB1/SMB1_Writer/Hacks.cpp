@@ -108,8 +108,8 @@ bool Hacks::Write_Watermark() {
 }
 
 bool Hacks::Invincibility() {
-    if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0x46))) return false;
-    return this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xF9));
+    if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0xFF))) return false;
+    return this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xFF));
 }
 
 bool Hacks::Moon_Jump() {
@@ -117,7 +117,7 @@ bool Hacks::Moon_Jump() {
 }
 
 bool Hacks::Star_Color_Mario() {
-    return true;
+    return this->Write_Bytes_To_Offset(0x2F53, QByteArray(1, 0xE7));
 }
 
 bool Hacks::Fix_Lakitu_Throw_Arc() {
