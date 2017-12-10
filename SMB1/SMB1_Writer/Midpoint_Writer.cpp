@@ -9,7 +9,7 @@ Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_I
     assert(file);
     assert(levelOffsets);
     assert(roomIDHandler);
-    this->buffer = new QByteArray(16, ' ');
+    this->buffer = new QByteArray(16, 0x00);
     this->file = file;
     this->levelOffsets = levelOffsets;
     this->roomIDHandler = roomIDHandler;

@@ -58,7 +58,8 @@ bool Midpoint_Handler::Is_Midpoint_Written() {
 }
 
 int Midpoint_Handler::Get_Midpoint() {
-    return this->midpoint;
+    return 0; //midpoints are disabled for now. TODO: Fix this...
+    //return this->midpoint;
 }
 
 bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &page) {
