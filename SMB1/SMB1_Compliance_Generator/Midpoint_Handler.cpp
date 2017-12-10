@@ -58,7 +58,11 @@ bool Midpoint_Handler::Is_Midpoint_Written() {
 }
 
 int Midpoint_Handler::Get_Midpoint() {
-    return 0; //midpoints are disabled for now. TODO: Fix this...
+    //Midpoints have been scrapped due to limitations in the engine.
+    //Worlds with more than 4 levels end up breaking due to how the game counts levels.
+    //For example, level 1-1 and level 1-5 have the same midpoint.
+    //With this in mind, midpoints will always be set to 0 from now on.
+    return 0;
     //return this->midpoint;
 }
 
