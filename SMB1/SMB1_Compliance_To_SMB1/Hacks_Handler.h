@@ -15,7 +15,6 @@ public:
 private:
     bool Handle_God_Mode();
     bool Handle_Lakitu_Throw_Arc();
-    bool Handle_Fast_Enemies();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 
     SMB1_Writer_Interface *writerPlugin;

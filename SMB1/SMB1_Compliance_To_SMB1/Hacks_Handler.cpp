@@ -19,7 +19,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Write_Watermark()) return false;
     if (!this->Handle_God_Mode()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
-    return this->Handle_Fast_Enemies();
+    return this->writerPlugin->Fast_Enemies(this->pluginSettings->enemySpeed);
 }
 
 bool Hacks_Handler::Handle_God_Mode() {
@@ -34,10 +34,6 @@ bool Hacks_Handler::Handle_Lakitu_Throw_Arc() {
         return this->writerPlugin->Fix_Lakitu_Throw_Arc();
     }
     return true;
-}
-
-bool Hacks_Handler::Handle_Fast_Enemies() {
-    return this->writerPlugin->Fast_Enemies(this->pluginSettings->enemySpeed);
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {
