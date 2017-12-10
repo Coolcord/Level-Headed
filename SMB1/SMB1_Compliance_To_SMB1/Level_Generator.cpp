@@ -145,6 +145,7 @@ bool Level_Generator::Generate_Levels() {
     this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
 
     //Generate the Levels
+    if (!this->Write_To_Map(mapStream, Header::STRING_LEVEL_MAP_COMMENT)) return false;
     for (int i = 0; i < numLevels; ++i) {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i);
@@ -673,6 +674,7 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
 }
 
 bool Level_Generator::Write_Move_Objects_Map(QTextStream &mapStream) {
+    if (!this->Write_To_Map(mapStream, Header::STRING_OBJECT_MOVE_TABLE_COMMENT)) return false;
     if (!this->Write_To_Map(mapStream, Level::STRING_WARP_ZONE + " " + Level::STRING_WORLD_7_LEVEL_1 + " " + QString::number(14))) return false;
     if (!this->writerPlugin->Send_Object_Bytes_From_One_Level_To_Another(Level::WARP_ZONE, Level::WORLD_7_LEVEL_1, 14)) return false;
     if (!this->Write_To_Map(mapStream, Level::STRING_WARP_ZONE + " " + Level::STRING_WORLD_1_LEVEL_1 + " " + QString::number(10))) return false;
@@ -742,6 +744,7 @@ bool Level_Generator::Write_Move_Objects_Map(QTextStream &mapStream) {
 }
 
 bool Level_Generator::Write_Move_Enemies_Map(QTextStream &mapStream) {
+    if (!this->Write_To_Map(mapStream, Header::STRING_ENEMY_MOVE_TABLE_COMMENT)) return false;
     if (!this->Write_To_Map(mapStream, Level::STRING_WORLD_2_LEVEL_1 + " " + Level::STRING_WORLD_6_LEVEL_3 + " " + QString::number(2))) return false;
     if (!this->writerPlugin->Send_Enemy_Bytes_From_One_Level_To_Another(Level::WORLD_2_LEVEL_1, Level::WORLD_6_LEVEL_3, 2)) return false;
     if (!this->Write_To_Map(mapStream, Level::STRING_CLOUD_BONUS_1 + " " + Level::STRING_WORLD_3_LEVEL_4 + " " + QString::number(3))) return false;
