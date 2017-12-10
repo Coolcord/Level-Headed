@@ -151,6 +151,7 @@ bool Room_Order_Writer::Scan_Level_For_End_Objects(Level::Level level, bool &end
                 endOfWorld = false;
                 return true;
             }
+            break;
         //FlagPole
         case 0xC1:
         case 0x41:
@@ -158,6 +159,7 @@ bool Room_Order_Writer::Scan_Level_For_End_Objects(Level::Level level, bool &end
                 endOfWorld = false;
                 return true;
             }
+            break;
         //Axe
         case 0xC2:
         case 0x42:

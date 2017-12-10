@@ -629,10 +629,13 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
     switch (numLevels) { //Add easy levels to the beginning
     case 20:
         if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
+        //fall through
     case 19:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
+        //fall through
     case 18:
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
+        //fall through
     case 17:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_4)) return false;
     default:
