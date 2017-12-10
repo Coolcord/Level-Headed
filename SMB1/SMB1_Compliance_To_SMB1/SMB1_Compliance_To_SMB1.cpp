@@ -31,7 +31,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.hammerTime = false;
     this->pluginSettings.godMode = false;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
-    this->pluginSettings.enemySpeed = 6;
+    this->pluginSettings.enemySpeed = 2;
     this->outputROMLocation = QString();
 }
 

@@ -123,22 +123,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Faster</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Turbo</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>Ludicrous Speed!</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Random</string>
         </property>
        </item>
       </widget>
