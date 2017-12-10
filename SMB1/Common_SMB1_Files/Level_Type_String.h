@@ -12,6 +12,7 @@ namespace Level_Type {
     const static QString STRING_UNDERWATER = "Underwater";
     const static QString STRING_CASTLE = "Castle";
     const static QString STRING_BRIDGE = "Bridge";
+    const static QString STRING_PIPE_EXIT = "Pipe_Exit";
 }
 
 #endif // LEVEL_TYPE_STRING_H

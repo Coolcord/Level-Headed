@@ -5,6 +5,7 @@
 #include "Castle_Generator.h"
 #include "Bridge_Generator.h"
 #include "Island_Generator.h"
+#include "Pipe_Exit_Generator.h"
 #include <assert.h>
 #include <QDebug>
 #include <QTime>
@@ -53,6 +54,7 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     case Level_Type::ISLAND:
         success = this->Generate_Island_Level(&file, &args);
         break;
+    case Level_Type::PIPE_EXIT:
     default:
         assert(false);
     }
@@ -89,4 +91,9 @@ bool SMB1_Compliance_Generator::Generate_Bridge_Level(QFile *file, SMB1_Complian
 bool SMB1_Compliance_Generator::Generate_Island_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Island_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();
+}
+
+bool SMB1_Compliance_Generator::Generate_Pipe_Exit_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
+    Pipe_Exit_Generator pipeExitGenerator(file, args);
+    return pipeExitGenerator.Generate_Level();
 }

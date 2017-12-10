@@ -32,13 +32,17 @@ bool End_Spawner::Is_End_Written() {
 }
 
 bool End_Spawner::Handle_End(int x) {
+    return this->Handle_End(x, false);
+}
+
+bool End_Spawner::Handle_End(int x, bool forceWrite) {
     if (this->endWritten) return false; //can't write another end
     int numObjectsLeft = this->object->Get_Num_Objects_Left();
     assert(numObjectsLeft >= this->endObjectCount);
     assert(this->enemy->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_End_Bytes());
 
     //Handle each end pattern accordingly
-    if (numObjectsLeft == this->endObjectCount) {
+    if (forceWrite || numObjectsLeft == this->endObjectCount) {
         bool success = false;
         switch (this->endPattern) {
         case End_Pattern::Shortest:
@@ -60,6 +64,7 @@ bool End_Spawner::Handle_End(int x) {
 
 void End_Spawner::Determine_End() {
     switch (this->args->levelType) {
+    case Level_Type::PIPE_EXIT:
     case Level_Type::STANDARD_OVERWORLD:
         assert(this->Determine_Standard_Overworld_End()); break;
     case Level_Type::UNDERGROUND:

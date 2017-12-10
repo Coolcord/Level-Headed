@@ -8,7 +8,8 @@ namespace Level_Type {
         UNDERWATER,
         CASTLE,
         BRIDGE,
-        ISLAND
+        ISLAND,
+        PIPE_EXIT
     };
 }
 

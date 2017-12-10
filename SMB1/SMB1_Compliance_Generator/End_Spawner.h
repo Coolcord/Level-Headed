@@ -16,6 +16,7 @@ public:
     End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns);
     bool Is_End_Written();
     bool Handle_End(int x);
+    bool Handle_End(int x, bool forceWrite);
 
 private:
     End_Spawner(const End_Spawner&);
