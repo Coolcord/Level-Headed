@@ -29,6 +29,8 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.hammerTime = false;
+    this->pluginSettings.infiniteLives = false;
+    this->pluginSettings.numLives = 5;
     this->pluginSettings.godMode = false;
     this->pluginSettings.playAsLuigi = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;

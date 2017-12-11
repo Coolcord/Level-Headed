@@ -146,6 +146,8 @@ public:
 
     //Hacks
     bool Write_Watermark();
+    bool Infinite_Lives();
+    bool Set_Starting_Lives(int lives);
     bool Enable_God_Mode();
     bool Play_As_Luigi();
     bool Fix_Lakitu_Throw_Arc();

@@ -12,6 +12,8 @@ public:
     Hacks(QFile *file, Level_Offset *levelOffset);
     ~Hacks();
     bool Write_Watermark();
+    bool Infinite_Lives();
+    bool Set_Starting_Lives(int lives);
     bool Play_As_Luigi();
     bool Invincibility();
     bool Moon_Jump();

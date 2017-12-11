@@ -32,6 +32,8 @@ struct Plugin_Settings {
     QString bridgeChance;
     QString islandChance;
     uint randomSeed;
+    bool infiniteLives;
+    int numLives;
     bool godMode;
     Qt::CheckState playAsLuigi;
     Qt::CheckState lakituThrowArc;

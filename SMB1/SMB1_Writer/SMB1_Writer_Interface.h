@@ -135,6 +135,8 @@ public:
 
     //Hacks
     virtual bool Write_Watermark()=0;
+    virtual bool Infinite_Lives()=0;
+    virtual bool Set_Starting_Lives(int lives)=0;
     virtual bool Enable_God_Mode()=0;
     virtual bool Play_As_Luigi()=0;
     virtual bool Fix_Lakitu_Throw_Arc()=0;

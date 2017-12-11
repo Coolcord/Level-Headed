@@ -490,6 +490,16 @@ bool SMB1_Writer::Write_Watermark() {
     return this->hacks->Write_Watermark();
 }
 
+bool SMB1_Writer::Infinite_Lives() {
+    if (!this->hacks) return false;
+    return this->hacks->Infinite_Lives();
+}
+
+bool SMB1_Writer::Set_Starting_Lives(int lives) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Starting_Lives(lives);
+}
+
 bool SMB1_Writer::Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Moon_Jump()) return false;

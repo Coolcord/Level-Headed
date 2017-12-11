@@ -107,27 +107,39 @@ bool Hacks::Write_Watermark() {
     return this->Write_Bytes_To_Offset(0x0DBB, watermarkBytes);
 }
 
+bool Hacks::Infinite_Lives() {
+    return this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD)); //doesn't work? find out why...
+}
+
+bool Hacks::Set_Starting_Lives(int lives) {
+    if (lives <= 0 && lives > 0x80) return false;
+    return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
+}
+
 bool Hacks::Play_As_Luigi() {
     //Play as Luigi
     if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
     if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;
-    if (!this->Write_Bytes_To_Offset(0x875, QByteArray(1, 0x72))) return false;
     if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, 0x5A))) return false;
 
+    //if (!this->Write_Bytes_To_Offset(0x875, QByteArray(1, 0x72))) return false; //screws up the game over text
+    return true;
+
     //Change Castle Text
-    QByteArray castleText;
+    /*QByteArray castleText;
     castleText.append(static_cast<char>(0x15));
     castleText.append(static_cast<char>(0x1E));
     castleText.append(static_cast<char>(0x12));
     castleText.append(static_cast<char>(0x10));
     castleText.append(static_cast<char>(0x12));
-    return this->Write_Bytes_To_Offset(0xD71, castleText);
+    return this->Write_Bytes_To_Offset(0xD71, castleText);*/
 }
 
 bool Hacks::Invincibility() {
     if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0xFF))) return false;
     if (!this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xFF))) return false;
-    return this->Write_Bytes_To_Offset(0x119E, QByteArray(1, 0xC8)); //gives Mario Star Power, but it wears off after a while
+    if (!this->Write_Bytes_To_Offset(0x119E, QByteArray(1, 0xC8))) return false; //gives Mario Star Power, but it wears off after a while
+    return this->Write_Bytes_To_Offset(0x5945, QByteArray(1, 0x03)); //if Mario gets damaged, revert to Super Mario
 }
 
 bool Hacks::Moon_Jump() {

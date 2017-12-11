@@ -17,10 +17,20 @@ Hacks_Handler::~Hacks_Handler() {
 
 bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Write_Watermark()) return false;
+    if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
     if (!this->Handle_Play_As_Luigi()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     return this->writerPlugin->Fast_Enemies(this->pluginSettings->enemySpeed);
+}
+
+bool Hacks_Handler::Handle_Lives() {
+    if (this->pluginSettings->infiniteLives) {
+        return this->writerPlugin->Set_Starting_Lives(9);
+        return this->writerPlugin->Infinite_Lives();
+    } else {
+        return this->writerPlugin->Set_Starting_Lives(this->pluginSettings->numLives);
+    }
 }
 
 bool Hacks_Handler::Handle_God_Mode() {
