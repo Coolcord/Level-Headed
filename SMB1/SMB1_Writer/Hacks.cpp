@@ -121,18 +121,15 @@ bool Hacks::Play_As_Luigi() {
     if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
     if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;
     if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, 0x5A))) return false;
+    if (!this->Write_Bytes_To_Offset(0x42E, QByteArray(1, 0x70))) return false;
 
-    //if (!this->Write_Bytes_To_Offset(0x875, QByteArray(1, 0x72))) return false; //screws up the game over text
-    return true;
-
-    //Change Castle Text
-    /*QByteArray castleText;
-    castleText.append(static_cast<char>(0x15));
-    castleText.append(static_cast<char>(0x1E));
-    castleText.append(static_cast<char>(0x12));
-    castleText.append(static_cast<char>(0x10));
-    castleText.append(static_cast<char>(0x12));
-    return this->Write_Bytes_To_Offset(0xD71, castleText);*/
+    QByteArray luigiText;
+    luigiText.append(static_cast<char>(0x15));
+    luigiText.append(static_cast<char>(0x1E));
+    luigiText.append(static_cast<char>(0x12));
+    luigiText.append(static_cast<char>(0x10));
+    luigiText.append(static_cast<char>(0x12));
+    return this->Write_Bytes_To_Offset(0x765, luigiText); //change name above score
 }
 
 bool Hacks::Invincibility() {
