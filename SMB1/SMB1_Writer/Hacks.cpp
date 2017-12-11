@@ -109,7 +109,8 @@ bool Hacks::Write_Watermark() {
 
 bool Hacks::Invincibility() {
     if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0xFF))) return false;
-    return this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xFF));
+    if (!this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xFF))) return false;
+    return this->Write_Bytes_To_Offset(0x119E, QByteArray(1, 0xC8)); //gives Mario Star Power, but it wears off after a while
 }
 
 bool Hacks::Moon_Jump() {
