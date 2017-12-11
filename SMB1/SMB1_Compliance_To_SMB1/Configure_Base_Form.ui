@@ -194,7 +194,27 @@
        </item>
        <item>
         <property name="text">
+         <string>Speedy</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Turbo</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Ludicrous Speed!</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Random (Normal, Fast, Speedy)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Random All</string>
         </property>
        </item>
       </widget>

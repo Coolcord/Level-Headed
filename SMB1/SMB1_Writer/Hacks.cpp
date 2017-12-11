@@ -117,7 +117,6 @@ bool Hacks::Set_Starting_Lives(int lives) {
 }
 
 bool Hacks::Play_As_Luigi() {
-    //Play as Luigi
     if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
     if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;
     if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, 0x5A))) return false;
@@ -170,16 +169,33 @@ bool Hacks::Fix_Lakitu_Throw_Arc() {
 }
 
 bool Hacks::Fast_Enemies(int speed) {
-    if (speed < 0 || speed > 5) return false;
+    if (speed < 1 || speed > 8) return false;
+    QByteArray speedBytes;
     switch (speed) {
     default:    assert(false);
     case 1:
-    case 2:     break;
-    case 3:     speed = 0x8; break;
-    case 4:     speed = 0xD; break;
-    case 5:     speed = 0xB; break;
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x01)));
+    case 2:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x02)));
+    case 3:
+        speedBytes.append(0xE8);
+        speedBytes.append(0xE4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 4:
+        speedBytes.append(0xD8);
+        speedBytes.append(0xD4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 5:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x08)));
+    case 6:
+        speedBytes.append(0xC8);
+        speedBytes.append(0xC4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 7:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0D)));
+    case 8:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0B)));
     }
-    return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(speed)));
 }
 
 bool Hacks::Write_Bytes_To_Offset(int offset, const QByteArray &bytes) {
