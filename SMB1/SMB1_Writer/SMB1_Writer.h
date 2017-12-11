@@ -147,6 +147,7 @@ public:
     //Hacks
     bool Write_Watermark();
     bool Enable_God_Mode();
+    bool Play_As_Luigi();
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
 

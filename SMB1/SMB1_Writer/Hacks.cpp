@@ -90,21 +90,38 @@ bool Hacks::Write_Watermark() {
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
-    watermarkBytes.append(static_cast<char>(0x28));
-    watermarkBytes.append(static_cast<char>(0x0C));
-    watermarkBytes.append(static_cast<char>(0x18));
-    watermarkBytes.append(static_cast<char>(0x18));
-    watermarkBytes.append(static_cast<char>(0x15));
-    watermarkBytes.append(static_cast<char>(0x0C));
-    watermarkBytes.append(static_cast<char>(0x18));
-    watermarkBytes.append(static_cast<char>(0x1B));
-    watermarkBytes.append(static_cast<char>(0x0D));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
+    watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     watermarkBytes.append(static_cast<char>(0x24));
     return this->Write_Bytes_To_Offset(0x0DBB, watermarkBytes);
+}
+
+bool Hacks::Play_As_Luigi() {
+    //Play as Luigi
+    if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
+    if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;
+    if (!this->Write_Bytes_To_Offset(0x875, QByteArray(1, 0x72))) return false;
+    if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, 0x5A))) return false;
+
+    //Change Castle Text
+    QByteArray castleText;
+    castleText.append(static_cast<char>(0x15));
+    castleText.append(static_cast<char>(0x1E));
+    castleText.append(static_cast<char>(0x12));
+    castleText.append(static_cast<char>(0x10));
+    castleText.append(static_cast<char>(0x12));
+    return this->Write_Bytes_To_Offset(0xD71, castleText);
 }
 
 bool Hacks::Invincibility() {

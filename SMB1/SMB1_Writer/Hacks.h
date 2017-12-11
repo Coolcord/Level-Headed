@@ -12,6 +12,7 @@ public:
     Hacks(QFile *file, Level_Offset *levelOffset);
     ~Hacks();
     bool Write_Watermark();
+    bool Play_As_Luigi();
     bool Invincibility();
     bool Moon_Jump();
     bool Star_Color_Mario();

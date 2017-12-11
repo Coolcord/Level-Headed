@@ -33,6 +33,7 @@ struct Plugin_Settings {
     QString islandChance;
     uint randomSeed;
     bool godMode;
+    Qt::CheckState playAsLuigi;
     Qt::CheckState lakituThrowArc;
     int enemySpeed;
     bool hammerTime; //bonus difficulty mod

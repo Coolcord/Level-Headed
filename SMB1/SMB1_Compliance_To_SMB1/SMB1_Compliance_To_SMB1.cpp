@@ -30,6 +30,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.hammerTime = false;
     this->pluginSettings.godMode = false;
+    this->pluginSettings.playAsLuigi = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 2;
     this->outputROMLocation = QString();

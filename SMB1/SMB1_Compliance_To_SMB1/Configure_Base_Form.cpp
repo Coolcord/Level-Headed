@@ -52,6 +52,7 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
 void Configure_Base_Form::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
+    this->ui->cbPlayAsLuigi->setCheckState(this->pluginSettings->playAsLuigi);
     this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
 }
@@ -60,6 +61,7 @@ void Configure_Base_Form::Save_Settings() {
     QString baseROM = this->ui->comboBaseROM->currentText();
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
+    this->pluginSettings->playAsLuigi = this->ui->cbPlayAsLuigi->checkState();
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
     this->close();

@@ -498,6 +498,11 @@ bool SMB1_Writer::Enable_God_Mode() {
     return this->hacks->Invincibility();
 }
 
+bool SMB1_Writer::Play_As_Luigi() {
+    if (!this->hacks) return false;
+    return this->hacks->Play_As_Luigi();
+}
+
 bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

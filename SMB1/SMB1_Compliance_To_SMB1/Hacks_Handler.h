@@ -14,6 +14,7 @@ public:
 
 private:
     bool Handle_God_Mode();
+    bool Handle_Play_As_Luigi();
     bool Handle_Lakitu_Throw_Arc();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 
