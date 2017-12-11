@@ -108,7 +108,7 @@ bool Hacks::Write_Watermark() {
 }
 
 bool Hacks::Infinite_Lives() {
-    return this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD)); //doesn't work? find out why...
+    return this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD));
 }
 
 bool Hacks::Set_Starting_Lives(int lives) {

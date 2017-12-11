@@ -63,7 +63,7 @@ void Configure_Base_Form::Save_Settings() {
     QString baseROM = this->ui->comboBaseROM->currentText();
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
-    if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 9;
+    if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 1;
     else this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     this->pluginSettings->playAsLuigi = this->ui->cbPlayAsLuigi->checkState();

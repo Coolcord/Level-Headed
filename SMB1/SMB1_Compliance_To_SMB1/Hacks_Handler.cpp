@@ -25,12 +25,11 @@ bool Hacks_Handler::Write_Hacks() {
 }
 
 bool Hacks_Handler::Handle_Lives() {
+    if (!this->writerPlugin->Set_Starting_Lives(this->pluginSettings->numLives)) return false;
     if (this->pluginSettings->infiniteLives) {
-        return this->writerPlugin->Set_Starting_Lives(9);
         return this->writerPlugin->Infinite_Lives();
-    } else {
-        return this->writerPlugin->Set_Starting_Lives(this->pluginSettings->numLives);
     }
+    return true;
 }
 
 bool Hacks_Handler::Handle_God_Mode() {
