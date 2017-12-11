@@ -121,6 +121,10 @@ bool Hacks::Star_Color_Mario() {
     return this->Write_Bytes_To_Offset(0x2F53, QByteArray(1, 0xE7));
 }
 
+bool Hacks::Fireballs_Kill_Everything_Onscreen() {
+    return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, 0x8F));
+}
+
 bool Hacks::Fix_Lakitu_Throw_Arc() {
     QByteArray lakituThrowArcBytes;
     lakituThrowArcBytes.append(static_cast<char>(0xA0));
