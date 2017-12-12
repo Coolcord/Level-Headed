@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>385</height>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,203 +36,209 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_6">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+    <widget class="QScrollArea" name="scrollBaseGameSettings">
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="layoutLives">
-     <item>
-      <widget class="QCheckBox" name="cbInfiniteLives">
-       <property name="text">
-        <string>Infinite Lives</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="layoutNumLives">
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>355</width>
+        <height>259</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="lblLives">
+        <layout class="QVBoxLayout" name="layoutLives">
+         <item>
+          <widget class="QCheckBox" name="cbInfiniteLives">
+           <property name="text">
+            <string>Infinite Lives</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutNumLives">
+           <item>
+            <widget class="QLabel" name="lblLives">
+             <property name="text">
+              <string>Lives:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="sbLives">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbGodMode">
          <property name="text">
-          <string>Lives:</string>
+          <string>God Mode</string>
+         </property>
+         <property name="tristate">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="sbLives">
-         <property name="minimum">
-          <number>1</number>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="maximum">
-          <number>100</number>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
          </property>
-         <property name="value">
-          <number>5</number>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cb2PlayerGame">
+         <property name="text">
+          <string>2 Player Game</string>
+         </property>
+         <property name="tristate">
+          <bool>false</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbLakituThrowArc">
+         <property name="text">
+          <string>Fix Lakitu Throw Arc</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <property name="tristate">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="layoutEnemySpeed">
+         <item>
+          <widget class="QLabel" name="lblEnemySpeed">
+           <property name="text">
+            <string>Enemy Speed:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboEnemySpeed">
+           <item>
+            <property name="text">
+             <string>Normal</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Fast</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Speedy</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Turbo</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ludicrous Speed!</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Random (Normal, Fast, Speedy)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Random All</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbGodMode">
-     <property name="text">
-      <string>God Mode</string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
+     </widget>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cb2PlayerGame">
-     <property name="text">
-      <string>2 Player Game</string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_5">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbLakituThrowArc">
-     <property name="text">
-      <string>Fix Lakitu Throw Arc</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <property name="tristate">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="layoutEnemySpeed">
-     <item>
-      <widget class="QLabel" name="lblEnemySpeed">
-       <property name="text">
-        <string>Enemy Speed:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboEnemySpeed">
-       <item>
-        <property name="text">
-         <string>Normal</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Fast</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Speedy</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Turbo</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Ludicrous Speed!</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Random (Normal, Fast, Speedy)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Random All</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
