@@ -508,9 +508,14 @@ bool SMB1_Writer::Enable_God_Mode() {
     return this->hacks->Invincibility();
 }
 
-bool SMB1_Writer::Play_As_Luigi() {
+bool SMB1_Writer::Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
-    return this->hacks->Play_As_Luigi();
+    return this->hacks->Replace_Mario_With_Luigi();
+}
+
+bool SMB1_Writer::Add_Luigi_Game() {
+    if (!this->hacks) return false;
+    return this->hacks->Add_Luigi_Game();
 }
 
 bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {

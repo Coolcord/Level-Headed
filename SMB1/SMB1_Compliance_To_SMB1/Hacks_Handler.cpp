@@ -19,7 +19,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Write_Watermark()) return false;
     if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
-    if (!this->Handle_Play_As_Luigi()) return false;
+    if (this->pluginSettings->addLuigiGame && !this->writerPlugin->Add_Luigi_Game()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     return this->Handle_Enemy_Speed();
 }
@@ -35,13 +35,6 @@ bool Hacks_Handler::Handle_Lives() {
 bool Hacks_Handler::Handle_God_Mode() {
     if (this->pluginSettings->godMode) {
         return this->writerPlugin->Enable_God_Mode();
-    }
-    return true;
-}
-
-bool Hacks_Handler::Handle_Play_As_Luigi() {
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->playAsLuigi)) {
-        return this->writerPlugin->Play_As_Luigi();
     }
     return true;
 }

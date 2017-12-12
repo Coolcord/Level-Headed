@@ -35,7 +35,7 @@ struct Plugin_Settings {
     bool infiniteLives;
     int numLives;
     bool godMode;
-    Qt::CheckState playAsLuigi;
+    bool addLuigiGame;
     Qt::CheckState lakituThrowArc;
     int enemySpeed;
     bool hammerTime; //bonus difficulty mod

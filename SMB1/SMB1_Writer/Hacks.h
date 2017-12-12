@@ -14,7 +14,8 @@ public:
     bool Write_Watermark();
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
-    bool Play_As_Luigi();
+    bool Replace_Mario_With_Luigi();
+    bool Add_Luigi_Game();
     bool Invincibility();
     bool Moon_Jump();
     bool Star_Color_Mario();

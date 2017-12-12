@@ -54,7 +54,7 @@ void Configure_Base_Form::Load_Settings() {
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
-    this->ui->cbPlayAsLuigi->setCheckState(this->pluginSettings->playAsLuigi);
+    this->ui->cb2PlayerGame->setChecked(!this->pluginSettings->addLuigiGame);
     this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
 }
@@ -66,7 +66,7 @@ void Configure_Base_Form::Save_Settings() {
     if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 1;
     else this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
-    this->pluginSettings->playAsLuigi = this->ui->cbPlayAsLuigi->checkState();
+    this->pluginSettings->addLuigiGame = !this->ui->cb2PlayerGame->isChecked();
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
     this->close();

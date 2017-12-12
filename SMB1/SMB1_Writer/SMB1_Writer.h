@@ -149,7 +149,8 @@ public:
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
     bool Enable_God_Mode();
-    bool Play_As_Luigi();
+    bool Replace_Mario_With_Luigi();
+    bool Add_Luigi_Game();
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
 
