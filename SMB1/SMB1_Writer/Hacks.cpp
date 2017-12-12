@@ -2,18 +2,6 @@
 #include "Level_Offset.h"
 #include <assert.h>
 
-Hacks::Hacks(QFile *file, Level_Offset *levelOffset) {
-    assert(file);
-    assert(levelOffset);
-    this->file = file;
-    this->levelOffset = levelOffset;
-}
-
-Hacks::~Hacks() {
-    this->file = NULL;
-    this->levelOffset = NULL;
-}
-
 bool Hacks::Write_Watermark() {
     return this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()));
 }
@@ -117,10 +105,4 @@ bool Hacks::Fast_Enemies(int speed) {
     case 8:
         return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0B)));
     }
-}
-
-bool Hacks::Write_Bytes_To_Offset(int offset, const QByteArray &bytes) {
-    offset = this->levelOffset->Fix_Offset(offset);
-    if (!this->file->seek(offset)) return false;
-    return (this->file->write(bytes) == bytes.size());
 }

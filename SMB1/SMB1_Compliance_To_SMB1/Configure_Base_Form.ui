@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>441</height>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,10 +46,91 @@
         <x>0</x>
         <y>0</y>
         <width>355</width>
-        <height>297</height>
+        <height>422</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="layoutMusic">
+         <item>
+          <widget class="QLabel" name="lblMusic">
+           <property name="text">
+            <string>Music:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboMusic">
+           <item>
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Original</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Enigmario (by Dr. Floppy and Curly M.C.)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="lblGraphics">
+           <property name="text">
+            <string>Graphics:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboGraphics">
+           <item>
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Original</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <layout class="QVBoxLayout" name="layoutLives">
          <item>

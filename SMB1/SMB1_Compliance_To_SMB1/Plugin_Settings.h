@@ -32,6 +32,8 @@ struct Plugin_Settings {
     QString bridgeChance;
     QString islandChance;
     uint randomSeed;
+    int music;
+    int graphics;
     bool infiniteLives;
     int numLives;
     bool godMode;

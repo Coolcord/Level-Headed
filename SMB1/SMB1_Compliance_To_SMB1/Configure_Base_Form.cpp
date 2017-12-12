@@ -51,6 +51,8 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
 
 void Configure_Base_Form::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
+    this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
+    this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
@@ -64,6 +66,8 @@ void Configure_Base_Form::Save_Settings() {
     QString baseROM = this->ui->comboBaseROM->currentText();
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
+    this->pluginSettings->music = this->ui->comboMusic->currentIndex();
+    this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 1;
     else this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();

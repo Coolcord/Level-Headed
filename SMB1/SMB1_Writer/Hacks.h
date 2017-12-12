@@ -1,16 +1,13 @@
 #ifndef HACKS_H
 #define HACKS_H
 
-#include <QByteArray>
-#include <QFile>
+#include "Byte_Writer.h"
 
-class Level_Offset;
-
-class Hacks
+class Hacks : public Byte_Writer
 {
 public:
-    Hacks(QFile *file, Level_Offset *levelOffset);
-    ~Hacks();
+    Hacks(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    ~Hacks() {}
     bool Write_Watermark();
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
@@ -23,11 +20,6 @@ public:
     bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
-private:
-    bool Write_Bytes_To_Offset(int offset, const QByteArray &bytes);
-
-    QFile *file;
-    Level_Offset *levelOffset;
 };
 
 #endif // HACKS_H

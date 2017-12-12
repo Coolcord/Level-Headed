@@ -27,7 +27,9 @@ SOURCES += SMB1_Writer.cpp \
     Room_Address_Writer.cpp \
     Level_Offset.cpp \
     Enemy_Bytes_Tracker.cpp \
-    Hacks.cpp
+    Hacks.cpp \
+    Music.cpp \
+    Byte_Writer.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -55,7 +57,9 @@ HEADERS += SMB1_Writer.h \
     Room_ID_Handler.h \
     Room_Address_Writer.h \
     Enemy_Bytes_Tracker.h \
-    Hacks.h
+    Hacks.h \
+    Music.h \
+    Byte_Writer.h
 OTHER_FILES +=
 
 unix {

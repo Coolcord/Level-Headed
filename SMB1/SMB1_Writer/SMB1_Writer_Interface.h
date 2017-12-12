@@ -143,6 +143,9 @@ public:
     virtual bool Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Fix_Lakitu_Throw_Arc()=0;
     virtual bool Fast_Enemies(int speed)=0;
+
+    //Music
+    virtual bool Music_Enigmario()=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Writer_Interface, "SMB1_Writer_Interface")

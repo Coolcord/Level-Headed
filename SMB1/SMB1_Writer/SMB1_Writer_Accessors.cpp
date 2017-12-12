@@ -6,6 +6,7 @@
 #include "Room_Order_Writer.h"
 #include "Room_ID_Handler.h"
 #include "Hacks.h"
+#include "Music.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -531,4 +532,9 @@ bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {
 bool SMB1_Writer::Fast_Enemies(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Fast_Enemies(speed);
+}
+
+bool SMB1_Writer::Music_Enigmario() {
+    if (!this->music) return false;
+    return this->music->Enigmario();
 }

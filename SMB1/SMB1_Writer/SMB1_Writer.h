@@ -17,6 +17,7 @@ class Room_ID_Handler;
 class Room_Order_Writer;
 class Room_Address_Writer;
 class Hacks;
+class Music;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -155,6 +156,9 @@ public:
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
 
+    //Music
+    bool Music_Enigmario();
+
 private:
     bool Load_ROM_Offsets(bool cancel);
     bool Create_ROM_Directory();
@@ -182,6 +186,7 @@ private:
     Room_Order_Writer *roomOrderWriter;
     Room_Address_Writer *roomAddressWriter;
     Hacks *hacks;
+    Music *music;
     ROM_Handler *romHandler;
     QString applicationLocation;
     QString romFileName;

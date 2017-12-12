@@ -17,12 +17,28 @@ Hacks_Handler::~Hacks_Handler() {
 
 bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Write_Watermark()) return false;
+    if (!this->Handle_Music()) return false;
+    if (!this->Handle_Graphics()) return false;
     if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
     if (this->pluginSettings->addLuigiGame && !this->writerPlugin->Add_Luigi_Game()) return false;
     if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     return this->Handle_Enemy_Speed();
+}
+
+bool Hacks_Handler::Handle_Music() {
+    int music = this->pluginSettings->music;
+    if (music == 0) music = Random::Get_Num(1)+1;
+    switch (music) {
+    default: assert(false);
+    case 1: return true; //original music
+    case 2: return this->writerPlugin->Music_Enigmario();
+    }
+}
+
+bool Hacks_Handler::Handle_Graphics() {
+    return true; //nothing to do yet
 }
 
 bool Hacks_Handler::Handle_Lives() {

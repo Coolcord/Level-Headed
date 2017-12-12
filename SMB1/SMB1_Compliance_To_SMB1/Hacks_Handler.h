@@ -13,6 +13,8 @@ public:
     bool Write_Hacks();
 
 private:
+    bool Handle_Music();
+    bool Handle_Graphics();
     bool Handle_Lives();
     bool Handle_God_Mode();
     bool Handle_Damage();
