@@ -147,7 +147,7 @@
        <item>
         <widget class="QCheckBox" name="cbRevertToSuperMario">
          <property name="text">
-          <string>Revert to Super Mario After Taking Damage</string>
+          <string>Revert to Super Mario after taking damage</string>
          </property>
          <property name="tristate">
           <bool>true</bool>
