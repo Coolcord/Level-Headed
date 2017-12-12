@@ -29,7 +29,8 @@ SOURCES += SMB1_Writer.cpp \
     Enemy_Bytes_Tracker.cpp \
     Hacks.cpp \
     Music.cpp \
-    Byte_Writer.cpp
+    Byte_Writer.cpp \
+    Graphics.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -59,7 +60,8 @@ HEADERS += SMB1_Writer.h \
     Enemy_Bytes_Tracker.h \
     Hacks.h \
     Music.h \
-    Byte_Writer.h
+    Byte_Writer.h \
+    Graphics.h
 OTHER_FILES +=
 
 unix {

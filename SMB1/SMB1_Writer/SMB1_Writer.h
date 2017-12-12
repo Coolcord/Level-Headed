@@ -18,6 +18,7 @@ class Room_Order_Writer;
 class Room_Address_Writer;
 class Hacks;
 class Music;
+class Graphics;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -159,6 +160,9 @@ public:
     //Music
     bool Music_Enigmario();
 
+    //Graphics
+    bool Graphics_Pocket_Edition();
+
 private:
     bool Load_ROM_Offsets(bool cancel);
     bool Create_ROM_Directory();
@@ -187,6 +191,7 @@ private:
     Room_Address_Writer *roomAddressWriter;
     Hacks *hacks;
     Music *music;
+    Graphics *graphics;
     ROM_Handler *romHandler;
     QString applicationLocation;
     QString romFileName;

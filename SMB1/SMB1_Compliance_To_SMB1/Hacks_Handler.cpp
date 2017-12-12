@@ -38,7 +38,13 @@ bool Hacks_Handler::Handle_Music() {
 }
 
 bool Hacks_Handler::Handle_Graphics() {
-    return true; //nothing to do yet
+    int graphics = this->pluginSettings->graphics;
+    if (graphics == 0) graphics = Random::Get_Num(1)+1;
+    switch (graphics) {
+    default: assert(false);
+    case 1: return true; //original graphics
+    case 2: return this->writerPlugin->Graphics_Pocket_Edition();
+    }
 }
 
 bool Hacks_Handler::Handle_Lives() {

@@ -146,6 +146,9 @@ public:
 
     //Music
     virtual bool Music_Enigmario()=0;
+
+    //Graphics
+    virtual bool Graphics_Pocket_Edition()=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Writer_Interface, "SMB1_Writer_Interface")

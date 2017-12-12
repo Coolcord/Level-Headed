@@ -12,6 +12,7 @@
 #include "Room_Address_Writer.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Graphics.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QDir>
@@ -36,6 +37,7 @@ SMB1_Writer::SMB1_Writer() {
     this->midpointWriter = NULL;
     this->hacks = NULL;
     this->music = NULL;
+    this->graphics = NULL;
     this->romHandler = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
@@ -90,6 +92,8 @@ void SMB1_Writer::Shutdown() {
     this->hacks = NULL;
     delete this->music;
     this->music = NULL;
+    delete this->graphics;
+    this->graphics = NULL;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
@@ -155,6 +159,8 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->hacks = NULL;
         delete this->music;
         this->music = NULL;
+        delete this->graphics;
+        this->graphics = NULL;
         this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
         this->roomIDHandler = new Room_ID_Handler(this->file, this->levelOffset);
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
@@ -170,6 +176,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         if (!this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels()) return false;
         this->hacks = new Hacks(this->file, this->levelOffset);
         this->music = new Music(this->file, this->levelOffset);
+        this->graphics = new Graphics(this->file, this->levelOffset);
         return true;
     } else {
         return false;

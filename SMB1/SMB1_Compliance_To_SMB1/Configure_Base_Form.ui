@@ -114,6 +114,11 @@
              <string>Original</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>Pocket Edition (by Fantendo)</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>

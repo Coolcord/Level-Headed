@@ -7,6 +7,7 @@
 #include "Room_ID_Handler.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Graphics.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -537,4 +538,9 @@ bool SMB1_Writer::Fast_Enemies(int speed) {
 bool SMB1_Writer::Music_Enigmario() {
     if (!this->music) return false;
     return this->music->Enigmario();
+}
+
+bool SMB1_Writer::Graphics_Pocket_Edition() {
+    if (!this->graphics) return false;
+    return this->graphics->Pocket_Edition();
 }
