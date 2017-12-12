@@ -33,6 +33,7 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.numLives = 5;
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;
+    this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
     this->outputROMLocation = QString();

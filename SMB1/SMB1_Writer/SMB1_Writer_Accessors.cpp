@@ -518,6 +518,11 @@ bool SMB1_Writer::Add_Luigi_Game() {
     return this->hacks->Add_Luigi_Game();
 }
 
+bool SMB1_Writer::Taking_Damage_As_Fire_Reverts_To_Super() {
+    if (!this->hacks) return false;
+    return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
+}
+
 bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

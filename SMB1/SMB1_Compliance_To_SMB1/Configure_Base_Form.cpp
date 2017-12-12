@@ -55,6 +55,7 @@ void Configure_Base_Form::Load_Settings() {
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->cb2PlayerGame->setChecked(!this->pluginSettings->addLuigiGame);
+    this->ui->cbRevertToSuperMario->setCheckState(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
 }
@@ -67,6 +68,7 @@ void Configure_Base_Form::Save_Settings() {
     else this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     this->pluginSettings->addLuigiGame = !this->ui->cb2PlayerGame->isChecked();
+    this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
     this->close();

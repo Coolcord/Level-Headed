@@ -20,6 +20,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
     if (this->pluginSettings->addLuigiGame && !this->writerPlugin->Add_Luigi_Game()) return false;
+    if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     return this->Handle_Enemy_Speed();
 }
@@ -35,6 +36,13 @@ bool Hacks_Handler::Handle_Lives() {
 bool Hacks_Handler::Handle_God_Mode() {
     if (this->pluginSettings->godMode) {
         return this->writerPlugin->Enable_God_Mode();
+    }
+    return true;
+}
+
+bool Hacks_Handler::Handle_Damage() {
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->superMarioOnDamage)) {
+        return this->writerPlugin->Taking_Damage_As_Fire_Reverts_To_Super();
     }
     return true;
 }

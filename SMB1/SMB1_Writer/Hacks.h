@@ -20,6 +20,7 @@ public:
     bool Moon_Jump();
     bool Star_Color_Mario();
     bool Fireballs_Kill_Everything_Onscreen();
+    bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
 private:

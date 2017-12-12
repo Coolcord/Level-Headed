@@ -140,6 +140,7 @@ public:
     virtual bool Enable_God_Mode()=0;
     virtual bool Replace_Mario_With_Luigi()=0;
     virtual bool Add_Luigi_Game()=0;
+    virtual bool Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Fix_Lakitu_Throw_Arc()=0;
     virtual bool Fast_Enemies(int speed)=0;
 };

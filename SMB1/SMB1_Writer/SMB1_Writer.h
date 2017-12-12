@@ -151,6 +151,7 @@ public:
     bool Enable_God_Mode();
     bool Replace_Mario_With_Luigi();
     bool Add_Luigi_Game();
+    bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
 

@@ -78,21 +78,15 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, 0x8F));
 }
 
+bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
+    if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C45FC").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, 0xCE))) return false;
+    if (!this->Write_Bytes_To_Offset(0x791E, QByteArray::fromHex(QString("4B54644B").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x7C55, QByteArray::fromHex(QString("AD5607F005AD5407F0034C63B28D0B07A901851DA9C98D47076000000000000000000000000000000000000000").toLatin1()));
+}
+
 bool Hacks::Fix_Lakitu_Throw_Arc() {
-    QByteArray lakituThrowArcBytes;
-    lakituThrowArcBytes.append(static_cast<char>(0xA0));
-    lakituThrowArcBytes.append(static_cast<char>(0x02));
-    lakituThrowArcBytes.append(static_cast<char>(0x95));
-    lakituThrowArcBytes.append(static_cast<char>(0x58));
-    lakituThrowArcBytes.append(static_cast<char>(0xC9));
-    lakituThrowArcBytes.append(static_cast<char>(0x00));
-    lakituThrowArcBytes.append(static_cast<char>(0x30));
-    lakituThrowArcBytes.append(static_cast<char>(0x01));
-    lakituThrowArcBytes.append(static_cast<char>(0x88));
-    lakituThrowArcBytes.append(static_cast<char>(0x20));
-    lakituThrowArcBytes.append(static_cast<char>(0x46));
-    lakituThrowArcBytes.append(static_cast<char>(0xC3));
-    return this->Write_Bytes_To_Offset(0x4444, lakituThrowArcBytes);
+    return this->Write_Bytes_To_Offset(0x4444, QByteArray::fromHex(QString("A0029558C9003001882046C3").toLatin1()));
 }
 
 bool Hacks::Fast_Enemies(int speed) {
