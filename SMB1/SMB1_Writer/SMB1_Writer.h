@@ -162,6 +162,7 @@ public:
 
     //Graphics
     bool Graphics_Pocket_Edition();
+    bool Graphics_Super_Mario_Bros_DX();
 
 private:
     bool Load_ROM_Offsets(bool cancel);
