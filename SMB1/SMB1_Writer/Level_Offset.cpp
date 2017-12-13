@@ -52,12 +52,6 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 int Level_Offset::Fix_Offset(int offset) {
     switch (this->romType) {
     case ROM_Type::DEFAULT: return offset; //nothing to do
-    case ROM_Type::FDS:
-        if (offset < 0x0489) return offset + 0x2153;
-        if (offset < 0x11DD) return offset + 0x2157;
-        if (offset < 0x2EEB) return offset + 0x2155;
-        if (offset < 0x6A33) return offset + 0x2162;
-        else return offset + 0x2155; //increment for Famicom
     case ROM_Type::INVALID: //this should never happen
     default:
         assert(false);

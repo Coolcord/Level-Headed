@@ -198,10 +198,6 @@ QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
     fileNames.append(ROM_Filename::STRING_USA1);
-    fileNames.append(ROM_Filename::STRING_EUROPE);
-    fileNames.append(ROM_Filename::STRING_FDS);
-    fileNames.append(ROM_Filename::STRING_DUCK);
-    fileNames.append(ROM_Filename::STRING_TRACK);
 
     //Attempt to open each supported ROM
     foreach (QString fileName, fileNames) {
@@ -218,10 +214,6 @@ bool ROM_Handler::Clean_ROM_Directory() {
     QMap<QString, bool> fileNames;
     fileNames.insert(ROM_Filename::STRING_USA0, true);
     fileNames.insert(ROM_Filename::STRING_USA1, true);
-    fileNames.insert(ROM_Filename::STRING_EUROPE, true);
-    fileNames.insert(ROM_Filename::STRING_FDS, true);
-    fileNames.insert(ROM_Filename::STRING_DUCK, true);
-    fileNames.insert(ROM_Filename::STRING_TRACK, true);
 
     //Delete all folders
     QDir romFolder(this->romFolderLocation);
@@ -262,10 +254,6 @@ QStringList ROM_Handler::Get_Installed_ROMs() {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
     fileNames.append(ROM_Filename::STRING_USA1);
-    fileNames.append(ROM_Filename::STRING_EUROPE);
-    fileNames.append(ROM_Filename::STRING_FDS);
-    fileNames.append(ROM_Filename::STRING_DUCK);
-    fileNames.append(ROM_Filename::STRING_TRACK);
     QStringList installedROMs;
 
     //Attempt to open each supported ROM
