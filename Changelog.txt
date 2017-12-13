@@ -8,7 +8,7 @@ Hammer Time! (v0.2.0) Built on 12/13/17
 + Hard Mode activator bytes are now set: Basically, Bowser now throws hammers in the later castle stages
 + Play as Luigi (patch by Yy): Luigi can now be selected before starting a game (replacing Player 2 option). This patch also includes lost levels physics. 2 Player games can still be generated as well (and this patch will not be applied when doing so).
 + Set the number of starting lives: The default has been increased from 3 to 5, but it can be changed to anything from 1 to 99. You can also play with infinite lives.
-+ Added an option to revert to Super Mario after taking damage: 
++ Added an option to revert to Super Mario after taking damage (by w7m)
 + Added Music (Enigmario by Dr. Floppy and Curly M.C.)
 + Added Music ("Music 7" from U1's music pack)
 + Added Graphics (Pocket Edition by Fantendo)
