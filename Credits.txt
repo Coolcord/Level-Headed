@@ -1,4 +1,8 @@
-SMB1 Writer Plugin
+Programmed by Coolcord:
+Level-Headed.exe
+SMB1_Generator.dll
+SMB1_Compliance_To_SMB1.dll
+SMB1_Writer.dll
 ===========================================================================
 Graphics:
 Pocket Edition (by Fantendo)
