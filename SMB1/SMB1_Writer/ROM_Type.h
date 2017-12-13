@@ -4,8 +4,6 @@
 namespace ROM_Type {
     enum ROM_Type {
         DEFAULT,
-        EUROPE,
-        TRACK,
         FDS,
         INVALID
     };
