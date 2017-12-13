@@ -159,6 +159,7 @@ public:
 
     //Music
     bool Music_Enigmario();
+    bool Music_U1_7();
 
     //Graphics
     bool Graphics_Pocket_Edition();

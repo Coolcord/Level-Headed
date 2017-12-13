@@ -9,6 +9,7 @@ public:
     Music(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Music() {}
     bool Enigmario();
+    bool U1_7();
 };
 
 #endif // MUSIC_H

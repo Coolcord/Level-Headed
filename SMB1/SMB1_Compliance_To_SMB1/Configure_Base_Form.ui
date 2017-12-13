@@ -124,6 +124,11 @@
              <string>Enigmario (by Dr. Floppy and Curly M.C.)</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>&quot;Music 7&quot; (from U1 Music Pack)</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>

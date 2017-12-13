@@ -146,6 +146,7 @@ public:
 
     //Music
     virtual bool Music_Enigmario()=0;
+    virtual bool Music_U1_7()=0;
 
     //Graphics
     virtual bool Graphics_Pocket_Edition()=0;
