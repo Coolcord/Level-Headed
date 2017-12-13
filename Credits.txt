@@ -17,4 +17,7 @@ https://www.romhacking.net/hacks/361/
 Gameplay:
 Luigi Game v0.80 beta (by Yy)
 https://www.zophar.net/hacks/nes/super-mario-bros-12/Luigi-Game-256.html
+
+Fire Mario to Big Mario when hit (by w7n)
+http://www.romhacking.net/hacks/3570/
 ===========================================================================

@@ -70,6 +70,7 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
 }
 
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
+    //By w7n
     if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C45FC").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, 0xCE))) return false;
     if (!this->Write_Bytes_To_Offset(0x791E, QByteArray::fromHex(QString("4B54644B").toLatin1()))) return false;

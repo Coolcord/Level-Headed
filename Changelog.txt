@@ -1,0 +1,27 @@
+Hammer Time! (v0.2.0)
++ Hammer Time: When the level generator spawns an enemy, there is a 20% chance that it will be a hammer brother This tends to create unfair scenarios, so it is off by default. Turn it on to ramp up the difficulty!
++ Move tables (pseudo-difficulty scaling): This is the largest feature of this update. Levels are now resized to accommodate the level generator. Early levels are shorter and have few enemies, while later levels are longer and have a higher enemy density ratio.
++ Random Number of Levels per World: Castles are no longer always on the 4th level.
++ Improved RNG: Random numbers are now more uniform and more random. Seeds can now be specified and used.
++ God mode: An overpowered option just for fun. Be invincible. Jump in midair. Fireballs kill everything onscreen. You can basically fly when this is turned on.
++ Enemy Speeds (Normal, Fast, Speedy, Turbo, Ludicrous Speed!): Certain ground enemies will now move faster. Turbo and "Ludicrous Speed!" are disabled by default, but can be turned on for an extra challenge.
++ Hard Mode activator bytes are now set: Basically, Bowser now throws hammers in the later castle stages
++ Play as Luigi (patch by Yy): Luigi can now be selected before starting a game (replacing Player 2 option). This patch also includes lost levels physics. 2 Player games can still be generated as well (and this patch will not be applied when doing so).
++ Set the number of starting lives: The default has been increased from 3 to 5, but it can be changed to anything from 1 to 99. You can also play with infinite lives.
++ Added an option to revert to Super Mario after taking damage: 
++ Added Music (Enigmario by Dr. Floppy and Curly M.C.)
++ Added Music ("Music 7" from U1's music pack)
++ Added Graphics (Pocket Edition by Fantendo)
++ Added Graphics (Super Mario Bros. DX by flamepanther)
+- Removed Midpoints from Level Generator (due to game engine limitations)
+- Limited max level count to 20 (no more garbage levels!)
+- Removed support for combo carts and the famicom version (now only supporting PRG0 and PRG1)
+
+Water Vapor Build (v0.1.0)
++ Randomly generates new levels for platformer games (currently only supports Super Mario Bros. 1 on the NES)
++ Levels are written as text files that are human readable
++ Create level scripts by hand or use the generator to randomly generate levels
++ 6 Different Level Generators (Standard Overworld, Underground, Underwater, Island, Bridge, and Castle)
++ 4 World games are recommended... anything larger tends to create garbage levels
++ Supports 5 different SMB1 ROMs
+
