@@ -1,5 +1,7 @@
 Lakitu Update
 + Added an option to fix the Lakitu's throw arc: When this is turned on, Lakitus will throw their eggs with horizontal velocity
++ Added Music ("Music 1" from U1's music pack)
++ Added Music ("Music 3" and "Music 6" from U1's music pack)
 
 Hammer Time! (v0.2.0) Built on 12/13/17
 + Hammer Time: When the level generator spawns an enemy, there is a 20% chance that it will be a hammer brother This tends to create unfair scenarios, so it is off by default. Turn it on to ramp up the difficulty!
