@@ -131,6 +131,11 @@
            </item>
            <item>
             <property name="text">
+             <string>&quot;Music 3&quot; and &quot;Music 6&quot; (from U1's Music Pack)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>&quot;Music 7&quot; (from U1's Music Pack)</string>
             </property>
            </item>

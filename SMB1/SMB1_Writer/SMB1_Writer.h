@@ -160,6 +160,8 @@ public:
     //Music
     bool Music_Enigmario();
     bool Music_U1_1();
+    bool Music_U1_3();
+    bool Music_U1_6();
     bool Music_U1_7();
 
     //Graphics

@@ -10,6 +10,8 @@ public:
     ~Music() {}
     bool Enigmario();
     bool U1_1();
+    bool U1_3();
+    bool U1_6();
     bool U1_7();
 };
 
