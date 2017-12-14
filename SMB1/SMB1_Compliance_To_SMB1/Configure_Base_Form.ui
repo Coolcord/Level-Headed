@@ -126,7 +126,12 @@
            </item>
            <item>
             <property name="text">
-             <string>&quot;Music 7&quot; (from U1 Music Pack)</string>
+             <string>&quot;Music 1&quot; (from U1's Music Pack)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>&quot;Music 7&quot; (from U1's Music Pack)</string>
             </property>
            </item>
           </widget>

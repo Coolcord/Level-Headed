@@ -540,6 +540,11 @@ bool SMB1_Writer::Music_Enigmario() {
     return this->music->Enigmario();
 }
 
+bool SMB1_Writer::Music_U1_1() {
+    if (!this->music) return false;
+    return this->music->U1_1();
+}
+
 bool SMB1_Writer::Music_U1_7() {
     if (!this->music) return false;
     return this->music->U1_7();
