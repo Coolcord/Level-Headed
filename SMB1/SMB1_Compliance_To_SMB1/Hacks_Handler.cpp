@@ -29,15 +29,17 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(4)+1;
+    if (music == 0) music = Random::Get_Num(5)+1;
     switch (music) {
     default: assert(false);
     case 1: return true; //original music
     case 2: return this->writerPlugin->Music_Enigmario();
     case 3: return this->writerPlugin->Music_U1_1();
-    case 4: if (!this->writerPlugin->Music_U1_3()) return false;
-            return this->writerPlugin->Music_U1_6();
+    case 4: if (!this->writerPlugin->Music_U1_6()) return false;
+            return this->writerPlugin->Music_U1_3();
     case 5: return this->writerPlugin->Music_U1_7();
+    case 6: if (!this->writerPlugin->Music_U1_9()) return false;
+            return this->writerPlugin->Music_U1_3();
     }
 }
 

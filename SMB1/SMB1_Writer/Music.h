@@ -13,6 +13,7 @@ public:
     bool U1_3();
     bool U1_6();
     bool U1_7();
+    bool U1_9();
 };
 
 #endif // MUSIC_H

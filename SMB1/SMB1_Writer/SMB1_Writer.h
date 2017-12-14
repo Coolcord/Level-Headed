@@ -163,6 +163,7 @@ public:
     bool Music_U1_3();
     bool Music_U1_6();
     bool Music_U1_7();
+    bool Music_U1_9();
 
     //Graphics
     bool Graphics_Pocket_Edition();

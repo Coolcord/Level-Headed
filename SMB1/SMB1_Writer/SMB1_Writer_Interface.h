@@ -150,6 +150,7 @@ public:
     virtual bool Music_U1_3()=0;
     virtual bool Music_U1_6()=0;
     virtual bool Music_U1_7()=0;
+    virtual bool Music_U1_9()=0;
 
     //Graphics
     virtual bool Graphics_Pocket_Edition()=0;
