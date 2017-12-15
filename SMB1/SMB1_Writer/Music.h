@@ -15,6 +15,7 @@ public:
     bool U1_6();
     bool U1_7();
     bool U1_9();
+    bool U1_10();
 };
 
 #endif // MUSIC_H

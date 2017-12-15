@@ -570,6 +570,11 @@ bool SMB1_Writer::Music_U1_9() {
     return this->music->U1_9();
 }
 
+bool SMB1_Writer::Music_U1_10() {
+    if (!this->music) return false;
+    return this->music->U1_10();
+}
+
 bool SMB1_Writer::Graphics_Pocket_Edition() {
     if (!this->graphics) return false;
     return this->graphics->Pocket_Edition();

@@ -29,7 +29,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(6)+1;
+    if (music == 0) music = Random::Get_Num(7)+1;
     switch (music) {
     default: assert(false);
     case 1: return true; //original music
@@ -41,6 +41,7 @@ bool Hacks_Handler::Handle_Music() {
     case 6: return this->writerPlugin->Music_U1_7();
     case 7: if (!this->writerPlugin->Music_U1_9()) return false;
             return this->writerPlugin->Music_U1_3();
+    case 8: return this->writerPlugin->Music_U1_10();
     }
 }
 
