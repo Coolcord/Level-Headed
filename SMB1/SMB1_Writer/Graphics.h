@@ -10,6 +10,7 @@ public:
     ~Graphics() {}
     bool Pocket_Edition();
     bool Super_Mario_Bros_DX();
+    bool Super_Mario_S();
 };
 
 #endif // GRAPHICS_H

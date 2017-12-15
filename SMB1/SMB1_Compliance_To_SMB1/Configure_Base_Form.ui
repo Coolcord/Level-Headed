@@ -81,6 +81,11 @@
              <string>Super Mario Bros. DX (by flamepanther)</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>Super Mario S (by Sogun)</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>

@@ -33,9 +33,9 @@ bool Hacks_Handler::Handle_Music() {
     switch (music) {
     default: assert(false);
     case 1: return true; //original music
-    case 2: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1();
-    case 3: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2();
-    case 4: return this->writerPlugin->Music_Enigmario();
+    case 2: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1(); //by w7n
+    case 3: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2(); //by w7n
+    case 4: return this->writerPlugin->Music_Enigmario(); //by Dr. Floppy and Curly M.C.
     case 5: return this->writerPlugin->Music_U1_1();
     case 6: return this->writerPlugin->Music_U1_2();
     case 7: return this->writerPlugin->Music_U1_3();
@@ -57,12 +57,13 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Num(2)+1;
+    if (graphics == 0) graphics = Random::Get_Num(3)+1;
     switch (graphics) {
     default: assert(false);
     case 1: return true; //original graphics
     case 2: return this->writerPlugin->Graphics_Pocket_Edition(); //by Fantendo
     case 3: return this->writerPlugin->Graphics_Super_Mario_Bros_DX(); //by flamepanther
+    case 4: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
     }
 }
 
