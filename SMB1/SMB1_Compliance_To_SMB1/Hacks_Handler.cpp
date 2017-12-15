@@ -29,7 +29,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(13)+1;
+    if (music == 0) music = Random::Get_Num(14)+1;
     switch (music) {
     default: assert(false);
     case 1: return true; //original music
@@ -41,14 +41,15 @@ bool Hacks_Handler::Handle_Music() {
     case 7: return this->writerPlugin->Music_U1_4();
     case 8: if (!this->writerPlugin->Music_U1_4()) return false;
             return this->writerPlugin->Music_U1_3();
-    case 9: return this->writerPlugin->Music_U1_6();
-    case 10: if (!this->writerPlugin->Music_U1_6()) return false;
+    case 9: return this->writerPlugin->Music_U1_5();
+    case 10: return this->writerPlugin->Music_U1_6();
+    case 11: if (!this->writerPlugin->Music_U1_6()) return false;
             return this->writerPlugin->Music_U1_3();
-    case 11: return this->writerPlugin->Music_U1_7();
-    case 12: return this->writerPlugin->Music_U1_9();
-    case 13: if (!this->writerPlugin->Music_U1_9()) return false;
+    case 12: return this->writerPlugin->Music_U1_7();
+    case 13: return this->writerPlugin->Music_U1_9();
+    case 14: if (!this->writerPlugin->Music_U1_9()) return false;
             return this->writerPlugin->Music_U1_3();
-    case 14: return this->writerPlugin->Music_U1_10();
+    case 15: return this->writerPlugin->Music_U1_10();
     }
 }
 
