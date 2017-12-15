@@ -1,4 +1,4 @@
-Music Update
+Music Update (v0.2.1) Built on 12/14/17
 + Added Music (Alternative tone color for SQ1 and SQ2) (by w7m)
 + Added all music from U1's music pack
 + Added an option to fix the Lakitu's throw arc: When this is turned on, Lakitus will throw their eggs with horizontal velocity. This option only applies to scripted levels. The level generator does not use Lakitus as of yet.
