@@ -29,7 +29,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(8)+1;
+    if (music == 0) music = Random::Get_Num(11)+1;
     switch (music) {
     default: assert(false);
     case 1: return true; //original music
@@ -37,12 +37,15 @@ bool Hacks_Handler::Handle_Music() {
     case 3: return this->writerPlugin->Music_Enigmario();
     case 4: return this->writerPlugin->Music_U1_1();
     case 5: return this->writerPlugin->Music_U1_2();
-    case 6: if (!this->writerPlugin->Music_U1_6()) return false;
+    case 6: return this->writerPlugin->Music_U1_3();
+    case 7: return this->writerPlugin->Music_U1_6();
+    case 8: if (!this->writerPlugin->Music_U1_6()) return false;
             return this->writerPlugin->Music_U1_3();
-    case 7: return this->writerPlugin->Music_U1_7();
-    case 8: if (!this->writerPlugin->Music_U1_9()) return false;
+    case 9: return this->writerPlugin->Music_U1_7();
+    case 10: return this->writerPlugin->Music_U1_9();
+    case 11: if (!this->writerPlugin->Music_U1_9()) return false;
             return this->writerPlugin->Music_U1_3();
-    case 9: return this->writerPlugin->Music_U1_10();
+    case 12: return this->writerPlugin->Music_U1_10();
     }
 }
 
