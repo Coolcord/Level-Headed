@@ -17,6 +17,7 @@ public:
     bool U1_5();
     bool U1_6();
     bool U1_7();
+    bool U1_8();
     bool U1_9();
     bool U1_10();
 };
