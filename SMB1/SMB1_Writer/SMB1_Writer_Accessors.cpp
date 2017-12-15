@@ -545,6 +545,11 @@ bool SMB1_Writer::Music_U1_1() {
     return this->music->U1_1();
 }
 
+bool SMB1_Writer::Music_U1_2() {
+    if (!this->music) return false;
+    return this->music->U1_2();
+}
+
 bool SMB1_Writer::Music_U1_3() {
     if (!this->music) return false;
     return this->music->U1_3();

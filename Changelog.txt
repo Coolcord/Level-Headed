@@ -1,6 +1,7 @@
 Lakitu Update
 + Added an option to fix the Lakitu's throw arc: When this is turned on, Lakitus will throw their eggs with horizontal velocity
 + Added Music ("Music 1" from U1's music pack)
++ Added Music ("Music 2" from U1's music pack)
 + Added Music ("Music 6" and "Music 3" from U1's music pack)
 + Added Music ("Music 9" and "Music 3" from U1's music pack)
 

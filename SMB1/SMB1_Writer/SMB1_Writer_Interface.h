@@ -147,6 +147,7 @@ public:
     //Music
     virtual bool Music_Enigmario()=0;
     virtual bool Music_U1_1()=0;
+    virtual bool Music_U1_2()=0;
     virtual bool Music_U1_3()=0;
     virtual bool Music_U1_6()=0;
     virtual bool Music_U1_7()=0;
