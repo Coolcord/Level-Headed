@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>390</width>
-    <height>567</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>366</width>
-        <height>423</height>
+        <height>420</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -311,9 +311,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbLakituThrowArc">
+        <widget class="QCheckBox" name="cbRevertToSuperMario">
          <property name="text">
-          <string>Fix Lakitu Throw Arc</string>
+          <string>Revert to Super Mario after taking damage</string>
          </property>
          <property name="tristate">
           <bool>true</bool>
@@ -334,9 +334,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbRevertToSuperMario">
+        <widget class="QCheckBox" name="cbLakituThrowArc">
          <property name="text">
-          <string>Revert to Super Mario after taking damage</string>
+          <string>Fix Lakitu Throw Arc</string>
          </property>
          <property name="tristate">
           <bool>true</bool>
