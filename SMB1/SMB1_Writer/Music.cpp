@@ -1,5 +1,12 @@
 #include "Music.h"
 
+bool Music::Alternative_Tone_Color_For_SQ1_And_SQ2() {
+    //By w7m. Original file was "Different types of tone colours for SQ1 and SQ2_Type 2.ips"
+    if (!this->Write_Bytes_To_Offset(0x77C2, QByteArray(1, 0xFE))) return false;
+    if (!this->Write_Bytes_To_Offset(0x77FF, QByteArray::fromHex(QString("E7F88DB7072081F3A5F1D01FADB1072991D00EACB707F003CEB707B99AFF").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x78F2, QByteArray::fromHex(QString("06A928D002A908A282A07F60EAEAEAEAEAEAEAEAEAEAEAEAEAEAEAEAADB1072908F004B996").toLatin1()));
+}
+
 bool Music::Enigmario() {
     //By Dr. Floppy and Curly M.C.
     if (!this->Write_Bytes_To_Offset(0x7880, QByteArray(1, 0x7F))) return false;

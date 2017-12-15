@@ -17,6 +17,9 @@ http://www.romhacking.net/hacks/385/
 
 U1's Music Pack
 https://www.romhacking.net/hacks/361/
+
+Alternative tone color for SQ1 and SQ2 (by w7m)
+http://www.romhacking.net/documents/630/
 ===========================================================================
 Gameplay:
 Luigi Game v0.80 beta (by Yy)

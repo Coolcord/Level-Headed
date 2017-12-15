@@ -262,7 +262,7 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
 
 void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
     if (checked) {
-        QSound::play(this->applicationLocation + "/Sounds/Hammer_Time.wav");
+        QSound::play(this->applicationLocation + "/Audio/Hammer_Time.wav");
         QMessageBox::StandardButton answer;
         answer = QMessageBox::question(this, Common_Strings::STRING_LEVEL_HEADED,
                                        "Each enemy that spawns will have about a 20% chance of being a hammer bro. "
@@ -270,7 +270,7 @@ void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
                                        "some unfair situations to arise. Do you have the courage to try this mode?",
                                        QMessageBox::Yes | QMessageBox::No);
         if (answer == QMessageBox::Yes) {
-            QSound::play(this->applicationLocation + "/Sounds/Break_It_Down.wav");
+            QSound::play(this->applicationLocation + "/Audio/Break_It_Down.wav");
         } else {
             this->ui->cbHammerTime->setChecked(false);
         }

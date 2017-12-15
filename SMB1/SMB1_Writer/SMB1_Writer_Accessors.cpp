@@ -535,6 +535,11 @@ bool SMB1_Writer::Fast_Enemies(int speed) {
     return this->hacks->Fast_Enemies(speed);
 }
 
+bool SMB1_Writer::Music_Alternative_Tone_Color_For_SQ1_And_SQ2() {
+    if (!this->music) return false;
+    return this->music->Alternative_Tone_Color_For_SQ1_And_SQ2();
+}
+
 bool SMB1_Writer::Music_Enigmario() {
     if (!this->music) return false;
     return this->music->Enigmario();
