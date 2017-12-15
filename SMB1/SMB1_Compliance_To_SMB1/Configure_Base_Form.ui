@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>379</width>
+    <width>390</width>
     <height>567</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>355</width>
+        <width>366</width>
         <height>423</height>
        </rect>
       </property>
@@ -121,7 +121,12 @@
            </item>
            <item>
             <property name="text">
-             <string>Alternative tone color for SQ1 and SQ2 (by w7m)</string>
+             <string>Alternative tone color for SQ1 and SQ2 #1 (by w7m)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Alternative tone color for SQ1 and SQ2 #2 (by w7m)</string>
             </property>
            </item>
            <item>

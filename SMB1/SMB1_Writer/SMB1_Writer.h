@@ -158,7 +158,8 @@ public:
     bool Fast_Enemies(int speed);
 
     //Music
-    bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2();
+    bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1();
+    bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2();
     bool Music_Enigmario();
     bool Music_U1_1();
     bool Music_U1_2();

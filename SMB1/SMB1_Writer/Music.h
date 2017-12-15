@@ -8,7 +8,8 @@ class Music : public Byte_Writer
 public:
     Music(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Music() {}
-    bool Alternative_Tone_Color_For_SQ1_And_SQ2();
+    bool Alternative_Tone_Color_For_SQ1_And_SQ2_1();
+    bool Alternative_Tone_Color_For_SQ1_And_SQ2_2();
     bool Enigmario();
     bool U1_1();
     bool U1_2();
