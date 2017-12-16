@@ -8,7 +8,7 @@ class Object_Writer;
 class Midpoint_Handler
 {
 public:
-    Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType);
+    Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType, int difficulty);
     void Handle_Midpoint(int &x);
     bool Is_Midpoint_Written();
     int Get_Midpoint();
@@ -20,6 +20,7 @@ private:
     Level_Type::Level_Type levelType;
     bool midpointWritten;
     int midpoint;
+    int difficulty;
 };
 
 #endif // MIDPOINT_HANDLER_H

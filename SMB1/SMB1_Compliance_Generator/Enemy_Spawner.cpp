@@ -3,6 +3,7 @@
 #include "Required_Enemy_Spawns.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
+#include "Difficulty.h"
 #include "../Common_SMB1_Files/Level_Type_String.h"
 #include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
@@ -16,7 +17,7 @@ Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *ene
     assert(stream);
     assert(enemies);
     assert(requiredEnemySpawns);
-    assert(difficulty >= 1 && difficulty <= 10);
+    assert(difficulty >= Difficulty::DIFFICULTY_MIN && difficulty <= Difficulty::DIFFICULTY_MAX);
     this->file = file;
     this->stream = stream;
     this->enemies = enemies;
@@ -409,7 +410,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     int random = 0;
     //Spawn Hammer Bros. in later levels
-    if (this->difficulty >= 8 && Random::Get_Num(3) == 0) {
+    if (this->difficulty >= Difficulty::HAMMER_TIME && Random::Get_Num(3) == 0) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->levelType) {

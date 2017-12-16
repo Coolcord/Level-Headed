@@ -2,6 +2,7 @@
 #include "Bridge_Generator.h"
 #include "Physics.h"
 #include "Item_Spawner.h"
+#include "Difficulty.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -152,9 +153,11 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+Random::Get_Num(2);
     assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, bridgeLength));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
-    if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(1));
-    else assert(this->object->Flying_Cheep_Cheep_Spawner(0));
-    x = 1;
+    if (this->args->difficulty > Difficulty::BRIDGE_FLYING_CHEEP_CHEEPS) {
+        if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(1));
+        else assert(this->object->Flying_Cheep_Cheep_Spawner(0));
+        x = 1;
+    }
 
     return true;
 }

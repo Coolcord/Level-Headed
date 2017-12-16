@@ -2,13 +2,16 @@
 #include "Midpoint_Handler.h"
 #include "Object_Writer.h"
 #include "Physics.h"
+#include "Difficulty.h"
 #include <QDebug>
 #include <assert.h>
 
-Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType) {
+Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType, int difficulty) {
     assert(object);
+    assert(difficulty >= Difficulty::DIFFICULTY_MIN && difficulty <= Difficulty::DIFFICULTY_MAX);
     this->object = object;
     this->levelType = levelType;
+    this->difficulty = difficulty;
     this->midpointWritten = false;
     this->midpoint = 0;
 }
@@ -81,7 +84,7 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         ++page;
     }
 
-    if (this->levelType == Level_Type::UNDERWATER) {
+    if (this->levelType == Level_Type::UNDERWATER && this->difficulty >= Difficulty::UNDERWATER_CHEEP_CHEEPS) {
         assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
         x = 0;
     }
@@ -101,7 +104,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
-        if (this->levelType == Level_Type::BRIDGE) {
+        if (this->levelType == Level_Type::BRIDGE && this->difficulty >= Difficulty::BRIDGE_FLYING_CHEEP_CHEEPS) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }
@@ -143,7 +146,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         int length = 0x15-absoluteX;
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
-        if (this->levelType == Level_Type::BRIDGE) {
+        if (this->levelType == Level_Type::BRIDGE && this->difficulty >= Difficulty::BRIDGE_FLYING_CHEEP_CHEEPS) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }

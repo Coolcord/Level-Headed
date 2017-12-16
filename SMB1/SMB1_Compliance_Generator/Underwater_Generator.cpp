@@ -1,6 +1,7 @@
 #include "../../Common_Files/Random.h"
 #include "Underwater_Generator.h"
 #include "Physics.h"
+#include "Difficulty.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
@@ -55,8 +56,10 @@ int Underwater_Generator::Get_Underwater_X(int min) {
 
 bool Underwater_Generator::Spawn_Intro(int &x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
-    assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
-    x = 0;
+    if (this->args->difficulty >= Difficulty::UNDERWATER_CHEEP_CHEEPS) {
+        assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+        x = 0;
+    }
     return true;
 }
 

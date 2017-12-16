@@ -81,7 +81,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Required_Enemy_Spawns.h \
     Extra_Enemy_Args.h \
     Castle_Generator.h \
-    Pipe_Exit_Generator.h
+    Pipe_Exit_Generator.h \
+    Difficulty.h
 OTHER_FILES +=
 
 unix {
