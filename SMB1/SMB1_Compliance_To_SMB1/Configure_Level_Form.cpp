@@ -3,7 +3,6 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include <QCryptographicHash>
-#include <QSound>
 #include <QTime>
 #include <QMessageBox>
 #include <QDir>
@@ -18,7 +17,6 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->numWorlds = this->pluginSettings->numWorlds;
     this->numLevelsPerWorld = this->pluginSettings->numLevelsPerWorld;
     this->randomNumWorlds = this->pluginSettings->randomNumWorlds;
-    this->hammerTime = this->pluginSettings->hammerTime;
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->applicationLocation = location;
     this->levelLocation = location + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
@@ -148,14 +146,8 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
 
     //Toggle the checkboxes
     this->ui->cbRandomNumWorlds->setEnabled(enable);
-    this->ui->cbHammerTime->setEnabled(enable);
-    if (enable) {
-        this->ui->cbRandomNumWorlds->setChecked(this->randomNumWorlds);
-        this->ui->cbHammerTime->setChecked(this->hammerTime);
-    } else {
-        this->ui->cbRandomNumWorlds->setChecked(false);
-        this->ui->cbHammerTime->setChecked(false);
-    }
+    if (enable) this->ui->cbRandomNumWorlds->setChecked(this->randomNumWorlds);
+    else this->ui->cbRandomNumWorlds->setChecked(false);
 
     //Toggle the spinboxes
     this->ui->lblNumWorlds->setEnabled(enable && !this->randomNumWorlds);
@@ -216,7 +208,6 @@ void Configure_Level_Form::Save_Settings() {
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
         this->pluginSettings->randomSeed = this->ui->sbRandomSeed->value();
-        this->pluginSettings->hammerTime = this->hammerTime;
     }
 }
 
@@ -258,24 +249,6 @@ void Configure_Level_Form::on_btnClearAllRandomLevelScripts_clicked() {
         this->Populate_Level_Scripts_ComboBox();
         this->Save_Settings();
     }
-}
-
-void Configure_Level_Form::on_cbHammerTime_clicked(bool checked) {
-    if (checked) {
-        QSound::play(this->applicationLocation + "/Audio/Hammer_Time.wav");
-        QMessageBox::StandardButton answer;
-        answer = QMessageBox::question(this, Common_Strings::STRING_LEVEL_HEADED,
-                                       "Each enemy that spawns will have about a 20% chance of being a hammer bro. "
-                                       "The levels created by the generator will not account for this, so expect "
-                                       "some unfair situations to arise. Do you have the courage to try this mode?",
-                                       QMessageBox::Yes | QMessageBox::No);
-        if (answer == QMessageBox::Yes) {
-            QSound::play(this->applicationLocation + "/Audio/Break_It_Down.wav");
-        } else {
-            this->ui->cbHammerTime->setChecked(false);
-        }
-    }
-    this->hammerTime = this->ui->cbHammerTime->isChecked();
 }
 
 void Configure_Level_Form::on_cbRandomNumWorlds_clicked(bool checked) {

@@ -13,7 +13,7 @@ class Required_Enemy_Spawns;
 class Enemy_Spawner
 {
 public:
-    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, bool hammerTime);
+    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, int difficulty);
     ~Enemy_Spawner();
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
@@ -42,7 +42,7 @@ private:
     Level_Crawler *levelCrawler;
     Level_Type::Level_Type levelType;
     bool emergencySpawnMode;
-    bool hammerTime;
+    int difficulty;
 };
 
 #endif // ENEMY_SPAWNER_H

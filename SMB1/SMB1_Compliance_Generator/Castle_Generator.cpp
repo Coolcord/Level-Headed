@@ -56,7 +56,7 @@ bool Castle_Generator::Generate_Level() {
 
     //Write the header last
     return this->header->Write_Header(Level_Type::CASTLE, Level_Attribute::CASTLE, Brick::SURFACE_4_AND_CEILING_3, Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 

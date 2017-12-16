@@ -37,7 +37,7 @@ bool Island_Generator::Generate_Level() {
 
     //Write the header last
     return this->header->Write_Header(Level_Type::ISLAND, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->object->Get_Level_Length(),
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 

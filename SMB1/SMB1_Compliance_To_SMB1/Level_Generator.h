@@ -28,7 +28,7 @@ public:
     bool Parse_Levels(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
 
 private:
-    SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum);
+    SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
     Level_Type::Level_Type Determine_Level_Type();
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
     QString Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum);

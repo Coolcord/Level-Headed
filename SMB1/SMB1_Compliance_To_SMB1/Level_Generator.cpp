@@ -10,6 +10,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDebug>
+#include <math.h>
 #include <assert.h>
 
 Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
@@ -111,11 +112,6 @@ bool Level_Generator::Generate_Levels() {
     if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
-    if (this->pluginSettings->hammerTime) {
-        if (!this->Write_To_Map(mapStream, Header::STRING_HAMMER_TIME + ": " + Header::STRING_TRUE)) return false;
-    } else {
-        if (!this->Write_To_Map(mapStream, Header::STRING_HAMMER_TIME + ": " + Header::STRING_FALSE)) return false;
-    }
 
     //Write the Header of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
@@ -148,8 +144,7 @@ bool Level_Generator::Generate_Levels() {
     if (!this->Write_To_Map(mapStream, Header::STRING_LEVEL_MAP_COMMENT)) return false;
     for (int i = 0; i < numLevels; ++i) {
         //Prepare Arguments
-        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i);
-        args.hammerTime = this->pluginSettings->hammerTime;
+        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
 
         if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
@@ -350,7 +345,7 @@ bool Level_Generator::Parse_Levels(QFile &file, const QMap<QString, Level::Level
     return success;
 }
 
-SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QString &generationName, int levelNum) {
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QString &generationName, int levelNum, int numLevels) {
     int level = (levelNum%this->pluginSettings->numLevelsPerWorld)+1;
     int world = (levelNum/this->pluginSettings->numLevelsPerWorld)+1;
     SMB1_Compliance_Generator_Arguments args;
@@ -431,6 +426,10 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         else if (args.levelType == Level_Type::CASTLE) args.endCastle = Castle::NONE;
         else args.endCastle = Castle::SMALL;
     }
+
+    //Determine difficulty
+    args.difficulty = std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels));
+    assert(args.difficulty >= 1 && args.difficulty <= 10);
 
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();

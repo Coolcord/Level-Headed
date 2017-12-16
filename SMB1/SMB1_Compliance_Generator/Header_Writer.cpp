@@ -19,7 +19,7 @@ Header_Writer::Header_Writer(QFile *file) {
 }
 
 bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::Level_Attribute attribute, Brick::Brick brick, Background::Background background, Scenery::Scenery scenery, Level_Compliment::Level_Compliment compliment,
-                  int time, int halfwayPoint, int levelLength, int numObjects, int numEnemies, int numPipePointers) {
+                  int time, int halfwayPoint, int difficulty, int levelLength, int numObjects, int numEnemies, int numPipePointers) {
     if (this->written) return false; //cannot write the header twice
 
     //Prepare the buffer
@@ -41,6 +41,7 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Level_Type::CASTLE:                buffer += Level_Type::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
     default:                                return false;
     }
+    buffer += Header::STRING_DIFFICULTY + ": " + QString::number(difficulty) + Common_Strings::STRING_NEW_LINE;
     buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + Common_Strings::STRING_NEW_LINE;
     buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + Common_Strings::STRING_NEW_LINE;
     buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + Common_Strings::STRING_NEW_LINE;

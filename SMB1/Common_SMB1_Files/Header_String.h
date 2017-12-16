@@ -24,7 +24,7 @@ namespace Header {
     const static QString STRING_UNDERWATER_LEVELS_COMMONALITY = "Underwater Levels Commonality";
     const static QString STRING_BRIDGE_LEVELS_COMMONALITY = "Bridge Levels Commonality";
     const static QString STRING_ISLAND_LEVELS_COMMONALITY = "Island Levels Commonality";
-    const static QString STRING_HAMMER_TIME = "Hammer Time";
+    const static QString STRING_DIFFICULTY = "Difficulty";
     const static QString STRING_RANDOM_SEED = "Random Seed";
     const static QString STRING_LEVEL_LENGTH = "Level Length";
     const static QString STRING_NUMBER_OF_OBJECTS = "Number of Objects";

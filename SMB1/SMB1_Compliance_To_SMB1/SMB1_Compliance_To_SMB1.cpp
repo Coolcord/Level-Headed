@@ -28,7 +28,6 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->pluginSettings.islandChance = STRING_UNCOMMON;
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.randomNumWorlds = true;
-    this->pluginSettings.hammerTime = false;
     this->pluginSettings.music = 0;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.infiniteLives = false;

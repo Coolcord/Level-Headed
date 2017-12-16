@@ -10,11 +10,13 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, bool hammerTime) {
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies,
+                             Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, int difficulty) {
     assert(file);
     assert(stream);
     assert(enemies);
     assert(requiredEnemySpawns);
+    assert(difficulty >= 1 && difficulty <= 10);
     this->file = file;
     this->stream = stream;
     this->enemies = enemies;
@@ -22,7 +24,7 @@ Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *ene
     this->levelType = levelType;
     this->levelCrawler = new Level_Crawler(this->file);
     this->emergencySpawnMode = false;
-    this->hammerTime = hammerTime;
+    this->difficulty = difficulty;
 }
 
 Enemy_Spawner::~Enemy_Spawner() {
@@ -406,8 +408,8 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
     int random = 0;
-    //Hammer time mod... TODO: Remove this later
-    if (this->hammerTime && Random::Get_Num(3) == 0) {
+    //Spawn Hammer Bros. in later levels
+    if (this->difficulty >= 8 && Random::Get_Num(3) == 0) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->levelType) {

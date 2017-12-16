@@ -41,7 +41,6 @@ struct Plugin_Settings {
     Qt::CheckState superMarioOnDamage;
     Qt::CheckState lakituThrowArc;
     int enemySpeed;
-    bool hammerTime; //bonus difficulty mod
 };
 
 #endif // PLUGIN_SETTINGS_H
