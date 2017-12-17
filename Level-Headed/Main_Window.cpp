@@ -104,6 +104,15 @@ bool Main_Window::Populate_Generators(const QString &writerPlugin) {
     return true;
 }
 
+bool Main_Window::Load_Previous_Plugins() {
+    QString writerPlugin = QString();
+    QString generatorPlugin = QString();
+    if (!this->pluginHandler->Get_Previously_Loaded_Plugins(writerPlugin, generatorPlugin)) return false;
+    this->ui->comboBaseGame->setCurrentText(writerPlugin);
+    this->ui->comboLevelGenerator->setCurrentText(generatorPlugin);
+    return true;
+}
+
 void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
     if (arg1 == NULL || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Disable_All();
@@ -161,4 +170,13 @@ void Main_Window::Show_Unable_To_Load_Plugin_Error() {
                          " is unable to load the interpreter plugin! The plugin may not be valid.",
                           Common_Strings::STRING_OK);
     this->Disable_All();
+}
+
+void Main_Window::on_Main_Window_finished(int result) {
+    if (result == 0) {
+        //The output of this really doesn't matter at this point
+        this->pluginHandler->Save_Currently_Loaded_Plugins(this->ui->comboBaseGame->currentText(), this->ui->comboLevelGenerator->currentText());
+    }
+    delete this->pluginHandler;
+    this->pluginHandler = NULL;
 }

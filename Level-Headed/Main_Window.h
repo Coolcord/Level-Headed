@@ -22,17 +22,18 @@ public:
     bool Create_Directories();
     bool Populate_Writers();
     bool Populate_Generators(const QString &writerPlugin);
+    bool Load_Previous_Plugins();
 
 private slots:
     void Disable_All();
     void Enable_Generator();
     void Enable_Buttons();
-
     void on_comboBaseGame_currentIndexChanged(const QString &arg1);
     void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
     void on_btnConfigureBaseGame_clicked();
     void on_btnConfigureLevelGenerator_clicked();
     void on_btnGenerateGame_clicked();
+    void on_Main_Window_finished(int result);
 
 private:
     bool Load_Interpreter(const QString &fileLocation);

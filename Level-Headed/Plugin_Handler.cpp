@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QMap>
 #include <QDir>
+#include <QTextStream>
 #include <QApplication>
 #include <QMessageBox>
 #include <assert.h>
@@ -148,6 +149,47 @@ QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString gener
     }
     return generatorPlugin.replace(" ", "_") + Common_Strings::STRING_INTERPRETER_SPLIT
             + writerPlugin.replace(" ", "_") + Common_Strings::STRING_PLUGIN_EXTENSION;
+}
+
+bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, const QString &generatorPlugin) {
+    QFile settingsFile(QApplication::applicationDirPath() + "/plugins.cfg");
+    if (settingsFile.exists() && !settingsFile.remove()) { //delete the file if it already exists
+        this->Show_Read_Write_Error();
+        return false;
+    }
+    if (!settingsFile.open(QIODevice::ReadWrite)) { //create a new file
+        this->Show_Read_Write_Error();
+        return false;
+    }
+    QTextStream settingsStream(&settingsFile);
+    settingsStream << writerPlugin << Common_Strings::STRING_NEW_LINE;
+    settingsStream << generatorPlugin << Common_Strings::STRING_NEW_LINE;
+    settingsStream.flush();
+    settingsFile.flush();
+    settingsFile.close();
+    return true;
+}
+
+bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QString &generatorPlugin) {
+    QFile settingsFile(QApplication::applicationDirPath() + "/plugins.cfg");
+    if (!settingsFile.exists()) {
+        return true; //no error occurred... this is probably just the first startup
+    }
+    if (!settingsFile.open(QIODevice::ReadWrite)) {
+        this->Show_Read_Write_Error();
+        return false;
+    }
+
+    //Load the settings from plugins.cfg
+    writerPlugin = settingsFile.readLine().trimmed();
+    generatorPlugin = settingsFile.readLine().trimmed();
+    if (!settingsFile.atEnd() && !settingsFile.remove()) {
+        this->Show_Read_Write_Error();
+        writerPlugin = QString();
+        generatorPlugin = QString();
+        return false;
+    }
+    return true;
 }
 
 void Plugin_Handler::Show_Read_Write_Error() {

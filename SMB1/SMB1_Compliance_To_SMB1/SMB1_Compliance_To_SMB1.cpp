@@ -14,6 +14,8 @@
 SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
+    this->generatorLoader = NULL;
+    this->writerLoader = NULL;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
     this->pluginSettings.numWorlds = 5;

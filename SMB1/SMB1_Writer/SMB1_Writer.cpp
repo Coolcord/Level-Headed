@@ -23,6 +23,7 @@
 SMB1_Writer::SMB1_Writer() {
     //Set class variables
     this->applicationLocation = QString();
+    this->file = NULL;
     this->headerBuffer = NULL;
     this->objectsBuffer = NULL;
     this->enemiesBuffer = NULL;

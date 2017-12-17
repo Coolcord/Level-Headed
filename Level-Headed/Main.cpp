@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     if (!w.Populate_Writers()) return 1;
 
     w.show();
+    w.Load_Previous_Plugins();
 
     return a.exec();
 }
