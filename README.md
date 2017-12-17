@@ -35,9 +35,9 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  Q: What is hammer time mode?
  
  A: This is a new setting for the level generator that I may remove in the future. For now, this
- feature replaces about 20% of every individual enemy spawn (not including grouped enemies).
- This can make the game quite challenging in some cases. It's worth trying if you think the game
- is too easy.
+ feature replaces about 20% of every individual enemy spawn (not including grouped enemies) with
+ Hammer Bros. This can make the game quite challenging in some cases. It's worth trying if you
+ think the game is too easy.
  
  Q: What else is new in this update?
  
