@@ -22,6 +22,8 @@ public:
 private:
     void Shutdown();
     bool Load_Plugins();
+    bool Save_Plugin_Settings();
+    bool Load_Plugin_Settings();
     QString applicationLocation;
 
     bool pluginsLoaded;

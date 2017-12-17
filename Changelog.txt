@@ -2,7 +2,7 @@ Next Update
 + Added Graphics (Super Mario S by Sogun)
 + Cheep-cheep spawners are now tied to difficulty
 + Hammer Time now turns on automatically in later levels
-+ Level-Headed now loads previously selected plugins on startup
++ Level-Headed now saves and loads previous settings
 - Removed Hammer Time option under the level generator settings
 
 Music Update (v0.2.1) Built on 12/14/17

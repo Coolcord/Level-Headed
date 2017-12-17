@@ -1,13 +1,16 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Configure_Base_Form.h"
 #include "Configure_Level_Form.h"
 #include "Level_Generator.h"
 #include "Hacks_Handler.h"
+#include <QDir>
 #include <QFile>
 #include <QMessageBox>
 #include <QTime>
+#include <QTextStream>
 #include <QDebug>
 #include <assert.h>
 
@@ -46,6 +49,7 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) 
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
+    this->Load_Plugin_Settings();
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
@@ -114,6 +118,7 @@ int SMB1_Compliance_To_SMB1::Configure_Writer() {
 }
 
 void SMB1_Compliance_To_SMB1::Shutdown() {
+    this->Save_Plugin_Settings();
     if (this->generatorPlugin) this->generatorPlugin->Shutdown();
     if (this->writerPlugin) this->writerPlugin->Shutdown();
     if (this->generatorLoader) this->generatorLoader->unload();
@@ -155,5 +160,64 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     this->writerPlugin->Startup(this->parent, this->applicationLocation);
 
     this->pluginsLoaded = true;
+    return true;
+}
+
+bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
+    if (!QDir().mkpath(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG)) return false;
+    QFile file(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME);
+    if (file.exists() && !file.remove()) return false;
+    if (!file.open(QIODevice::ReadWrite)) return false;
+    QTextStream stream(&file);
+    stream << this->pluginSettings.baseROM << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.randomNumWorlds << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.numWorlds << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.numLevelsPerWorld << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.generateNewLevels << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.levelScripts << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.standardOverworldChance << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.undergroundChance << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.underwaterChance << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.bridgeChance << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.islandChance << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.music << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.graphics << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.infiniteLives << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.numLives << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.godMode << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.addLuigiGame << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.enemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream.flush();
+    file.close();
+    return true;
+}
+
+bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
+    QFile file(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME);
+    if (!file.exists()) return true; //first time running the plugin
+    if (!file.open(QIODevice::ReadWrite)) return false;
+    bool valid = true;
+    this->pluginSettings.baseROM = file.readLine().trimmed();
+    this->pluginSettings.randomNumWorlds = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.numWorlds = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.numLevelsPerWorld = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.generateNewLevels = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.levelScripts = file.readLine().trimmed();
+    this->pluginSettings.standardOverworldChance = file.readLine().trimmed();
+    this->pluginSettings.undergroundChance = file.readLine().trimmed();
+    this->pluginSettings.underwaterChance = file.readLine().trimmed();
+    this->pluginSettings.bridgeChance = file.readLine().trimmed();
+    this->pluginSettings.islandChance = file.readLine().trimmed();
+    this->pluginSettings.music = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.graphics = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.infiniteLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.numLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.godMode = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.addLuigiGame = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.superMarioOnDamage = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
+    this->pluginSettings.lakituThrowArc = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
+    this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
 }

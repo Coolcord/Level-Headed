@@ -173,6 +173,11 @@ void Main_Window::Show_Unable_To_Load_Plugin_Error() {
 }
 
 void Main_Window::on_Main_Window_finished(int result) {
+    if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
+    if (this->interpreterLoader) this->interpreterLoader->unload();
+    delete this->interpreterLoader;
+    this->interpreterLoader = NULL;
+    this->interpreterPlugin = NULL;
     if (result == 0) {
         //The output of this really doesn't matter at this point
         this->pluginHandler->Save_Currently_Loaded_Plugins(this->ui->comboBaseGame->currentText(), this->ui->comboLevelGenerator->currentText());

@@ -152,7 +152,8 @@ QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString gener
 }
 
 bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, const QString &generatorPlugin) {
-    QFile settingsFile(QApplication::applicationDirPath() + "/plugins.cfg");
+    if (!QDir().mkpath(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG)) return false;
+    QFile settingsFile(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME);
     if (settingsFile.exists() && !settingsFile.remove()) { //delete the file if it already exists
         this->Show_Read_Write_Error();
         return false;
@@ -171,10 +172,8 @@ bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, 
 }
 
 bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QString &generatorPlugin) {
-    QFile settingsFile(QApplication::applicationDirPath() + "/plugins.cfg");
-    if (!settingsFile.exists()) {
-        return true; //no error occurred... this is probably just the first startup
-    }
+    QFile settingsFile(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME);
+    if (!settingsFile.exists()) return true; //no error occurred... this is probably just the first startup
     if (!settingsFile.open(QIODevice::ReadWrite)) {
         this->Show_Read_Write_Error();
         return false;

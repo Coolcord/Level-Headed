@@ -67,7 +67,6 @@ void SMB1_Writer::Shutdown() {
         if (!this->roomAddressWriter->Write_Room_Address_Tables()) {
             qDebug() << "Unable to write the room address tables to the ROM!";
         }
-        //TODO: Fix midpoints on Famicom version
         if (!this->midpointWriter->Write_Midpoints()) {
             qDebug() << "Unable to write the midpoints to the ROM!";
         }

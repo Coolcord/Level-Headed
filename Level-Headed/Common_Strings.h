@@ -11,6 +11,8 @@ namespace Common_Strings {
     const static QString STRING_WRITERS = "Writers";
     const static QString STRING_LEVELS = "Levels";
     const static QString STRING_DATA = "Data";
+    const static QString STRING_CONFIG = "Config";
+    const static QString STRING_LEVEL_HEADED_SETTINGS_FILENAME = "Level-Headed.cfg";
     const static QString STRING_INTERPRETER_SPLIT = "_To_";
     const static QString STRING_GENERATOR_SPLIT = "_Generator";
     const static QString STRING_WRITER_SPLIT = "_Writer";

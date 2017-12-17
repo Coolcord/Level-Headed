@@ -40,7 +40,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Configure_Level_Form.h \
     Plugin_Settings.h \
     Level_Generator.h \
-    Hacks_Handler.h
+    Hacks_Handler.h \
+    SMB1_Compliance_To_SMB1_Strings.h
 
 OTHER_FILES +=
 
