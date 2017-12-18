@@ -6,7 +6,13 @@ bool Hacks::Write_Watermark() {
     //Change the text below the title
     if (!this->Write_Bytes_To_Offset(0x9FB5, QByteArray::fromHex(QString("2424150E1F0E1528110E0A0D0E0D").toLatin1()))) return false;
     //Change the end game text
-    return this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()))) return false;
+    return this->Start_Underwater_Castle_Brick_On_World(9); //disables underwater castle bricks
+}
+
+bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
+    if (world < 1 || world > 0xFF) return false;
+    return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, world-1));
 }
 
 bool Hacks::Infinite_Lives() {

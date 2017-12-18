@@ -9,6 +9,7 @@ public:
     Hacks(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Hacks() {}
     bool Write_Watermark();
+    bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
     bool Replace_Mario_With_Luigi();
