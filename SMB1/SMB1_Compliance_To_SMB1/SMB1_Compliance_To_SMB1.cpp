@@ -21,35 +21,14 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->writerLoader = NULL;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
-    this->pluginSettings.numWorlds = 5;
-    this->pluginSettings.numLevelsPerWorld = 4;
-    this->pluginSettings.baseROM = "";
-    this->pluginSettings.generateNewLevels = true;
-    this->pluginSettings.levelScripts = "";
-    this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;
-    this->pluginSettings.undergroundChance = STRING_COMMON;
-    this->pluginSettings.underwaterChance = STRING_UNCOMMON;
-    this->pluginSettings.bridgeChance = STRING_UNCOMMON;
-    this->pluginSettings.islandChance = STRING_UNCOMMON;
-    this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
-    this->pluginSettings.randomNumWorlds = true;
-    this->pluginSettings.music = 0;
-    this->pluginSettings.graphics = 0;
-    this->pluginSettings.infiniteLives = false;
-    this->pluginSettings.numLives = 5;
-    this->pluginSettings.godMode = false;
-    this->pluginSettings.addLuigiGame = true;
-    this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
-    this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
-    this->pluginSettings.enemySpeed = 6;
-    this->outputROMLocation = QString();
+    this->Load_Plugin_Default_Settings();
 }
 
 void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) {
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
-    this->Load_Plugin_Settings();
+    if (!this->Load_Plugin_Settings()) this->Load_Plugin_Default_Settings();
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
@@ -61,10 +40,9 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
-    //Set the output ROM location if a previous generation was performed
-    if (!this->outputROMLocation.isEmpty()) {
-        assert(this->writerPlugin->Set_Output_ROM_Location(this->outputROMLocation));
-    }
+    //Get a new output ROM location if necessary
+    this->Update_ROM_Output_Location();
+    this->writerPlugin->Set_Output_ROM_Location(this->pluginSettings.outputROMLocation);
 
     //Load a ROM into the Writer Plugin
     bool loaded = false;
@@ -87,8 +65,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (this->pluginSettings.generateNewLevels) success = levelGenerator.Generate_Levels();
     else success = levelGenerator.Parse_Level_Map();
 
-    //Save the output ROM location for later
-    if (success) this->outputROMLocation = this->writerPlugin->Get_Output_ROM_Location();
+    //Save the next output ROM location for later
+    if (success) {
+        this->pluginSettings.outputROMLocation = this->writerPlugin->Get_Output_ROM_Location();
+        this->Update_ROM_Output_Location();
+    }
 
     //Unload plugins
     this->Shutdown();
@@ -170,6 +151,8 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!file.open(QIODevice::ReadWrite)) return false;
     QTextStream stream(&file);
     stream << this->pluginSettings.baseROM << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.outputROMLocation << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.overwriteOuputROM << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.randomNumWorlds << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.numWorlds << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.numLevelsPerWorld << Common_Strings::STRING_NEW_LINE;
@@ -200,6 +183,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     if (!file.open(QIODevice::ReadWrite)) return false;
     bool valid = true;
     this->pluginSettings.baseROM = file.readLine().trimmed();
+    this->pluginSettings.outputROMLocation = file.readLine().trimmed();
+    this->pluginSettings.overwriteOuputROM = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.randomNumWorlds = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.numWorlds = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.numLevelsPerWorld = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -220,4 +205,98 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.lakituThrowArc = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
+}
+
+void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
+    this->pluginSettings.numWorlds = 5;
+    this->pluginSettings.numLevelsPerWorld = 4;
+    this->pluginSettings.baseROM = "";
+    this->pluginSettings.outputROMLocation = QString();
+    this->pluginSettings.overwriteOuputROM = false;
+    this->pluginSettings.generateNewLevels = true;
+    this->pluginSettings.levelScripts = "";
+    this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;
+    this->pluginSettings.undergroundChance = STRING_COMMON;
+    this->pluginSettings.underwaterChance = STRING_UNCOMMON;
+    this->pluginSettings.bridgeChance = STRING_UNCOMMON;
+    this->pluginSettings.islandChance = STRING_UNCOMMON;
+    this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
+    this->pluginSettings.randomNumWorlds = true;
+    this->pluginSettings.music = 0;
+    this->pluginSettings.graphics = 0;
+    this->pluginSettings.infiniteLives = false;
+    this->pluginSettings.numLives = 5;
+    this->pluginSettings.godMode = false;
+    this->pluginSettings.addLuigiGame = true;
+    this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
+    this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
+    this->pluginSettings.enemySpeed = 6;
+}
+
+void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {
+    if (!this->pluginSettings.overwriteOuputROM) {
+        while (QFileInfo(this->pluginSettings.outputROMLocation).exists()) {
+            this->pluginSettings.outputROMLocation = this->Append_Number_To_FileName(this->pluginSettings.outputROMLocation);
+        }
+    }
+}
+
+QString SMB1_Compliance_To_SMB1::Append_Number_To_FileName(const QString &oldFileName) {
+    bool hasExtension = false;
+    if (oldFileName.contains(".")) hasExtension = true;
+    QString newFileName = QString();
+
+    //Check to see if a number was previously appended
+    if (oldFileName.contains(" ")) {
+        QStringList strings = oldFileName.split(" ");
+        assert(!strings.isEmpty());
+        QStringList extensionStrings = strings.last().split(".");
+        if (extensionStrings.isEmpty()) hasExtension = false;
+        for (int i = 0; i < strings.size()-1; ++i) {
+            newFileName += strings.at(i)+" ";
+        }
+        if (hasExtension) {
+            assert(extensionStrings.size() >= 2);
+            for (int i = 0 ; i < extensionStrings.size()-2; ++i) {
+                newFileName += extensionStrings.at(i)+".";
+            }
+            bool valid = false;
+            int generationNumber = extensionStrings.at(extensionStrings.size()-2).toInt(&valid);
+            if (valid) {
+                newFileName += this->Get_Four_Digit_Minimum_From_Int(generationNumber+1) + ".";
+            } else {
+                newFileName += extensionStrings.at(extensionStrings.size()-2);
+                newFileName += " 0001.";
+            }
+            newFileName.append(extensionStrings.last());
+        } else { //no extension
+            bool valid = false;
+            int generationNumber = strings.last().toInt(&valid);
+            if (valid) newFileName += this->Get_Four_Digit_Minimum_From_Int(generationNumber+1);
+            else newFileName += "0001";
+        }
+    } else {
+        if (hasExtension) {
+            QStringList strings = oldFileName.split(".");
+            assert(!strings.isEmpty());
+            for (int i = 0 ; i < strings.size()-2; ++i) {
+                newFileName += strings.at(i)+".";
+            }
+            newFileName += strings.at(strings.size()-2);
+            newFileName += " 0001.";
+            newFileName += strings.last();
+        } else { //no extension
+            newFileName += " 0001";
+        }
+    }
+    return newFileName;
+}
+
+QString SMB1_Compliance_To_SMB1::Get_Four_Digit_Minimum_From_Int(int num) {
+    QString numString = QString();
+    if (num <= 999) numString.append("0");
+    if (num <= 99) numString.append("0");
+    if (num <= 9) numString.append("0");
+    numString.append(QString::number(num));
+    return numString;
 }

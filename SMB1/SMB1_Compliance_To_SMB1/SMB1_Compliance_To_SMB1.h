@@ -24,8 +24,12 @@ private:
     bool Load_Plugins();
     bool Save_Plugin_Settings();
     bool Load_Plugin_Settings();
-    QString applicationLocation;
+    void Load_Plugin_Default_Settings();
+    void Update_ROM_Output_Location();
+    QString Append_Number_To_FileName(const QString &oldFileName);
+    QString Get_Four_Digit_Minimum_From_Int(int num);
 
+    QString applicationLocation;
     bool pluginsLoaded;
     SMB1_Compliance_Generator_Interface *generatorPlugin;
     SMB1_Writer_Interface *writerPlugin;
@@ -33,7 +37,6 @@ private:
     QPluginLoader *writerLoader;
     QWidget *parent;
     Plugin_Settings pluginSettings;
-    QString outputROMLocation;
 };
 
 #endif // SMB1_COMPLIANCE_TO_SMB1_H

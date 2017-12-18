@@ -19,7 +19,6 @@ namespace Common_Strings {
     const static QString STRING_OK = "OK";
     const static QString STRING_SELECT_A_PLUGIN = "-- Select a Plugin --";
     const static QString STRING_GENERATE_A_GAME = "Generate a Game!";
-    const static QString STRING_GENERATE_ANOTHER = "Generate Another Game!";
     const static QString STRING_ON = "On";
     const static QString STRING_OFF = "Off";
 

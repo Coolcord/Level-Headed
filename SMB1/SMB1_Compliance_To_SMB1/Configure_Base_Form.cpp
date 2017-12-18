@@ -1,5 +1,6 @@
 #include "Configure_Base_Form.h"
 #include "ui_Configure_Base_Form.h"
+#include <QFileDialog>
 #include <assert.h>
 
 Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location) :
@@ -51,6 +52,8 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
 
 void Configure_Base_Form::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
+    this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
+    this->ui->cbOverwriteOutputROM->setChecked(this->pluginSettings->overwriteOuputROM);
     this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
@@ -65,6 +68,8 @@ void Configure_Base_Form::Load_Settings() {
 void Configure_Base_Form::Save_Settings() {
     QString baseROM = this->ui->comboBaseROM->currentText();
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
+    if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
+    this->pluginSettings->overwriteOuputROM = this->ui->cbOverwriteOutputROM->isChecked();
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
@@ -89,4 +94,17 @@ void Configure_Base_Form::on_cbInfiniteLives_toggled(bool checked) {
     if (checked) this->ui->sbLives->clear();
     else this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->sbLives->setEnabled(!checked);
+}
+
+void Configure_Base_Form::on_btnOutputROMLocation_clicked() {
+    QString extension = this->pluginSettings->baseROM.split('.').last().toLower();
+    QString extensionFilter = "";
+    if (extension == "fds") extensionFilter = "Famicom Images (*.fds)";
+    else if (extension == "nes") extensionFilter = "NES ROMs (*.nes)";
+    else extensionFilter = "NES ROMs (*.nes *.fds)";
+
+    //Ask the user where they want to save the output ROM
+    QString outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
+    if (outputROMLocation.isEmpty()) return;
+    else this->ui->leOutputROMLocation->setText(outputROMLocation);
 }

@@ -22,6 +22,7 @@ private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
     void on_btnInstallNewROM_clicked();
     void on_cbInfiniteLives_toggled(bool checked);
+    void on_btnOutputROMLocation_clicked();
 
 private:
     void Populate_Installed_ROMs();

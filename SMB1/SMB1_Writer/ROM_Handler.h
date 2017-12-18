@@ -25,8 +25,6 @@ public:
 
 private:
     void Show_Error(const QString &error);
-    QString Append_Number_To_FileName(const QString &oldFileName);
-    QString Get_Four_Digit_Minimum_From_Int(int num);
 
     ROM_Type::ROM_Type romType;
     ROM_Checksum *romChecksum;

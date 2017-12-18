@@ -21,7 +21,6 @@ ROM_Handler::ROM_Handler(QWidget *parent, const QString &applicationLocation) {
     this->romChecksum = new ROM_Checksum();
     this->applicationLocation = applicationLocation;
     this->romFolderLocation = this->applicationLocation + "/" + Common_Strings::STRING_DATA + "/" + Common_Strings::STRING_GAME_NAME;
-    this->outputROMLocation = QString();
 }
 
 ROM_Handler::~ROM_Handler() {
@@ -136,12 +135,6 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
     //Ask the user where they want to save the output ROM
     if (this->outputROMLocation.isEmpty()) {
         this->outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
-    } else { //use the previously specified filename, but append a number to it
-        QFileInfo outputROMLocationInfo = QFileInfo(this->outputROMLocation);
-        while (outputROMLocationInfo.exists()) {
-            this->outputROMLocation = this->Append_Number_To_FileName(this->outputROMLocation);
-            outputROMLocationInfo = QFileInfo(this->outputROMLocation);
-        }
     }
     qDebug() << "Saving at: " << this->outputROMLocation;
     if (this->outputROMLocation == NULL || this->outputROMLocation.isEmpty()) {
@@ -306,64 +299,4 @@ void ROM_Handler::Show_Error(const QString &error) {
     //Show the error
     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                           error, Common_Strings::STRING_OK);
-}
-
-QString ROM_Handler::Append_Number_To_FileName(const QString &oldFileName) {
-    bool hasExtension = false;
-    if (oldFileName.contains(".")) hasExtension = true;
-    QString newFileName = QString();
-
-    //Check to see if a number was previously appended
-    if (oldFileName.contains(" ")) {
-        QStringList strings = oldFileName.split(" ");
-        assert(!strings.isEmpty());
-        QStringList extensionStrings = strings.last().split(".");
-        if (extensionStrings.isEmpty()) hasExtension = false;
-        for (int i = 0; i < strings.size()-1; ++i) {
-            newFileName += strings.at(i)+" ";
-        }
-        if (hasExtension) {
-            assert(extensionStrings.size() >= 2);
-            for (int i = 0 ; i < extensionStrings.size()-2; ++i) {
-                newFileName += extensionStrings.at(i)+".";
-            }
-            bool valid = false;
-            int generationNumber = extensionStrings.at(extensionStrings.size()-2).toInt(&valid);
-            if (valid) {
-                newFileName += this->Get_Four_Digit_Minimum_From_Int(generationNumber+1) + ".";
-            } else {
-                newFileName += extensionStrings.at(extensionStrings.size()-2);
-                newFileName += " 0001.";
-            }
-            newFileName.append(extensionStrings.last());
-        } else { //no extension
-            bool valid = false;
-            int generationNumber = strings.last().toInt(&valid);
-            if (valid) newFileName += this->Get_Four_Digit_Minimum_From_Int(generationNumber+1);
-            else newFileName += "0001";
-        }
-    } else {
-        if (hasExtension) {
-            QStringList strings = oldFileName.split(".");
-            assert(!strings.isEmpty());
-            for (int i = 0 ; i < strings.size()-2; ++i) {
-                newFileName += strings.at(i)+".";
-            }
-            newFileName += strings.at(strings.size()-2);
-            newFileName += " 0001.";
-            newFileName += strings.last();
-        } else { //no extension
-            newFileName += " 0001";
-        }
-    }
-    return newFileName;
-}
-
-QString ROM_Handler::Get_Four_Digit_Minimum_From_Int(int num) {
-    QString numString = QString();
-    if (num <= 999) numString.append("0");
-    if (num <= 99) numString.append("0");
-    if (num <= 9) numString.append("0");
-    numString.append(QString::number(num));
-    return numString;
 }

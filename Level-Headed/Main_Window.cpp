@@ -147,7 +147,6 @@ void Main_Window::on_btnGenerateGame_clicked(){
     if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
     if (this->interpreterPlugin->Run()) {
         qDebug() << "Interpreter ran successfully";
-        this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_ANOTHER);
     } else {
         qDebug() << "Something went wrong. Check debug info...";
     }
