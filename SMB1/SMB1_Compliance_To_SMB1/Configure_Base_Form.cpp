@@ -1,6 +1,7 @@
 #include "Configure_Base_Form.h"
 #include "ui_Configure_Base_Form.h"
 #include <QFileDialog>
+#include <QDir>
 #include <assert.h>
 
 Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location) :
@@ -104,7 +105,9 @@ void Configure_Base_Form::on_btnOutputROMLocation_clicked() {
     else extensionFilter = "NES ROMs (*.nes *.fds)";
 
     //Ask the user where they want to save the output ROM
-    QString outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
+    QString openLocation = QFileInfo(this->ui->leOutputROMLocation->text()).absolutePath();
+    if (!QFileInfo(openLocation).exists()) openLocation = this->applicationLocation;
+    QString outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", openLocation, extensionFilter);
     if (outputROMLocation.isEmpty()) return;
     else this->ui->leOutputROMLocation->setText(outputROMLocation);
 }
