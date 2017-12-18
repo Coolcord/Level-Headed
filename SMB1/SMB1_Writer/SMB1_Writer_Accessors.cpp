@@ -601,6 +601,11 @@ bool SMB1_Writer::Music_U1_10() {
     return this->music->U1_10();
 }
 
+bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
+    if (!this->graphics) return false;
+    return this->graphics->Dream_Mario_Bros();
+}
+
 bool SMB1_Writer::Graphics_Lost_Levels() {
     if (!this->graphics) return false;
     return this->graphics->Lost_Levels();

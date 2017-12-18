@@ -121,7 +121,7 @@ void Configure_Level_Form::Populate_Level_Scripts_ComboBox() {
     }
 
     //Use the last selected level scripts
-    if (validLevelFolders.contains(this->pluginSettings->levelScripts)) {
+    if (validLevelFolders.contains(this->pluginSettings->levelScripts) || validRandomFolders.contains(this->pluginSettings->levelScripts)) {
         this->ui->comboLevelScripts->setCurrentText(this->pluginSettings->levelScripts);
     } else {
         this->ui->comboLevelScripts->setCurrentIndex(0);

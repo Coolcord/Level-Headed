@@ -143,6 +143,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Dream Mario Bros. (by TheSuperShow)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Lost Levels (by Captain Antonio Falcon)</string>
             </property>
            </item>

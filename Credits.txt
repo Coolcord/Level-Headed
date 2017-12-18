@@ -5,6 +5,9 @@ SMB1_Compliance_To_SMB1.dll
 SMB1_Writer.dll
 ===========================================================================
 Graphics:
+Dream Mario Bros. (by TheSuperShow)
+http://www.romhacking.net/hacks/3298/
+
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
 
