@@ -153,6 +153,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Super Mario MCB Color Edition (by MacBee)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Super Mario S (by Sogun)</string>
             </property>
            </item>

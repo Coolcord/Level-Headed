@@ -1,5 +1,6 @@
 Next Update
 + Added Graphics (Super Mario S by Sogun)
++ Added Graphics (Super Mario MCB by MacBee)
 + Cheep-cheep spawners are now tied to difficulty
 + Hammer Time now turns on automatically in later levels
 + Level-Headed now saves and loads previous settings

@@ -175,6 +175,7 @@ public:
     //Graphics
     bool Graphics_Pocket_Edition();
     bool Graphics_Super_Mario_Bros_DX();
+    bool Graphics_Super_Mario_MCB();
     bool Graphics_Super_Mario_S();
 
 private:

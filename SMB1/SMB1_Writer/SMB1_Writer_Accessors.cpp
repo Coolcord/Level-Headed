@@ -611,6 +611,11 @@ bool SMB1_Writer::Graphics_Super_Mario_Bros_DX() {
     return this->graphics->Super_Mario_Bros_DX();
 }
 
+bool SMB1_Writer::Graphics_Super_Mario_MCB() {
+    if (!this->graphics) return false;
+    return this->graphics->Super_Mario_MCB();
+}
+
 bool SMB1_Writer::Graphics_Super_Mario_S() {
     if (!this->graphics) return false;
     return this->graphics->Super_Mario_S();
