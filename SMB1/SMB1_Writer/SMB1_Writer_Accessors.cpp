@@ -507,6 +507,7 @@ bool SMB1_Writer::Enable_God_Mode() {
     if (!this->hacks->Moon_Jump()) return false;
     if (!this->hacks->Star_Color_Mario()) return false;
     if (!this->hacks->Fireballs_Kill_Everything_Onscreen()) return false;
+    if (!this->hacks->Unlimited_Time()) return false;
     return this->hacks->Invincibility();
 }
 

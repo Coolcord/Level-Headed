@@ -69,6 +69,10 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, 0x8F));
 }
 
+bool Hacks::Unlimited_Time() {
+    return this->Write_Bytes_To_Offset(0x0F97, QByteArray(1, 0xEE));
+}
+
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
     //By w7n
     if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C45FC").toLatin1()))) return false;

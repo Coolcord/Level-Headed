@@ -3,6 +3,7 @@ Next Update
 + Cheep-cheep spawners are now tied to difficulty
 + Hammer Time now turns on automatically in later levels
 + Level-Headed now saves and loads previous settings
++ God Mode now gives the player unlimited time
 - Removed Hammer Time option under the level generator settings
 
 Music Update (v0.2.1) Built on 12/14/17
