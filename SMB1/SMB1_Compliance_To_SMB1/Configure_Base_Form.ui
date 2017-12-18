@@ -143,6 +143,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Lost Levels (by Captain Antonio Falcon)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Pocket Edition (by Fantendo)</string>
             </property>
            </item>

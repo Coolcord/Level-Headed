@@ -601,6 +601,11 @@ bool SMB1_Writer::Music_U1_10() {
     return this->music->U1_10();
 }
 
+bool SMB1_Writer::Graphics_Lost_Levels() {
+    if (!this->graphics) return false;
+    return this->graphics->Lost_Levels();
+}
+
 bool SMB1_Writer::Graphics_Pocket_Edition() {
     if (!this->graphics) return false;
     return this->graphics->Pocket_Edition();

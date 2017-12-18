@@ -173,6 +173,7 @@ public:
     bool Music_U1_10();
 
     //Graphics
+    bool Graphics_Lost_Levels();
     bool Graphics_Pocket_Edition();
     bool Graphics_Super_Mario_Bros_DX();
     bool Graphics_Super_Mario_MCB();

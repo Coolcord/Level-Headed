@@ -160,6 +160,7 @@ public:
     virtual bool Music_U1_10()=0;
 
     //Graphics
+    virtual bool Graphics_Lost_Levels()=0;
     virtual bool Graphics_Pocket_Edition()=0;
     virtual bool Graphics_Super_Mario_Bros_DX()=0;
     virtual bool Graphics_Super_Mario_MCB()=0;
