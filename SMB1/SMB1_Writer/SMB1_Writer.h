@@ -193,7 +193,6 @@ private:
     int numObjectBytes;
     int objectOffset;
     int enemyOffset;
-    bool brokenAxeRope; //workaround for "Dream Mario Bros."
     QFile *file;
     QByteArray *headerBuffer;
     QByteArray *objectsBuffer;

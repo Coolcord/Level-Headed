@@ -44,7 +44,6 @@ SMB1_Writer::SMB1_Writer() {
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
     this->parent = NULL;
-    this->brokenAxeRope = false;
 }
 
 void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
@@ -52,7 +51,6 @@ void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
     this->parent = parent;
     this->applicationLocation = location;
     this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);
-    this->brokenAxeRope = false;
 }
 
 void SMB1_Writer::Shutdown() {
@@ -96,7 +94,6 @@ void SMB1_Writer::Shutdown() {
     this->music = NULL;
     delete this->graphics;
     this->graphics = NULL;
-    this->brokenAxeRope = false;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {

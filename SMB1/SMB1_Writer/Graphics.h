@@ -6,7 +6,7 @@
 class Graphics : public Byte_Writer
 {
 public:
-    Graphics(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    Graphics(QFile *file, Level_Offset *levelOffset);
     ~Graphics() {}
     bool Dream_Mario_Bros();
     bool Lost_Levels();
@@ -14,6 +14,10 @@ public:
     bool Super_Mario_Bros_DX();
     bool Super_Mario_MCB();
     bool Super_Mario_S();
+    bool Is_Axe_Rope_Broken();
+
+private:
+    bool brokenAxeRope;
 };
 
 #endif // GRAPHICS_H
