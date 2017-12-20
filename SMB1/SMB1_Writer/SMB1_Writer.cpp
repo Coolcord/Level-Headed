@@ -96,6 +96,7 @@ void SMB1_Writer::Shutdown() {
     this->music = NULL;
     delete this->graphics;
     this->graphics = NULL;
+    this->brokenAxeRope = false;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
