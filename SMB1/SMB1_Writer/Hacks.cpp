@@ -76,7 +76,7 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
 }
 
 bool Hacks::Unlimited_Time() {
-    return this->Write_Bytes_To_Offset(0x0F97, QByteArray(1, 0xEE));
+    return this->Write_Bytes_To_Offset(0x0F97, QByteArray(1, 0xE4));
 }
 
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
