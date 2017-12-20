@@ -222,6 +222,7 @@ bool SMB1_Writer::Object_Axe(int x) {
 
 bool SMB1_Writer::Object_Axe_Rope(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
+    if (this->brokenAxeRope) return this->objectWriter->Nothing(x);
     return this->objectWriter->Axe_Rope(x);
 }
 
@@ -603,7 +604,12 @@ bool SMB1_Writer::Music_U1_10() {
 
 bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
     if (!this->graphics) return false;
-    return this->graphics->Dream_Mario_Bros();
+    if (this->graphics->Dream_Mario_Bros()) {
+        this->brokenAxeRope = true;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool SMB1_Writer::Graphics_Lost_Levels() {
