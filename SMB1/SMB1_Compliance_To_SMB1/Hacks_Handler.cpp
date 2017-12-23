@@ -57,16 +57,17 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Num(6)+1;
+    if (graphics == 0) graphics = Random::Get_Num(7)+1;
     switch (graphics) {
     default: assert(false);
     case 1: return true; //original graphics
     case 2: return this->writerPlugin->Graphics_Dream_Mario_Bros(); //by TheSuperShow
     case 3: return this->writerPlugin->Graphics_Lost_Levels(); //by Captain Antonio Falcon
     case 4: return this->writerPlugin->Graphics_Pocket_Edition(); //by Fantendo
-    case 5: return this->writerPlugin->Graphics_Super_Mario_Bros_DX(); //by flamepanther
-    case 6: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
-    case 7: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
+    case 5: return this->writerPlugin->Graphics_Super_Duper_Mario_Bros(); //by Tabmok99
+    case 6: return this->writerPlugin->Graphics_Super_Mario_Bros_DX(); //by flamepanther
+    case 7: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
+    case 8: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
     }
 }
 

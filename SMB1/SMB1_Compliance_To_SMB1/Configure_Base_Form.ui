@@ -158,6 +158,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Super Duper Mario Bros. (by Tabmok99)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Super Mario Bros. DX (by flamepanther)</string>
             </property>
            </item>

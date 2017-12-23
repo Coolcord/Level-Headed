@@ -617,6 +617,11 @@ bool SMB1_Writer::Graphics_Pocket_Edition() {
     return this->graphics->Pocket_Edition();
 }
 
+bool SMB1_Writer::Graphics_Super_Duper_Mario_Bros() {
+    if (!this->graphics) return false;
+    return this->graphics->Super_Duper_Mario_Bros();
+}
+
 bool SMB1_Writer::Graphics_Super_Mario_Bros_DX() {
     if (!this->graphics) return false;
     return this->graphics->Super_Mario_Bros_DX();

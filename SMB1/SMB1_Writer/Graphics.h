@@ -11,6 +11,7 @@ public:
     bool Dream_Mario_Bros();
     bool Lost_Levels();
     bool Pocket_Edition();
+    bool Super_Duper_Mario_Bros();
     bool Super_Mario_Bros_DX();
     bool Super_Mario_MCB();
     bool Super_Mario_S();

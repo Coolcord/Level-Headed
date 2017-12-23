@@ -176,6 +176,7 @@ public:
     bool Graphics_Dream_Mario_Bros();
     bool Graphics_Lost_Levels();
     bool Graphics_Pocket_Edition();
+    bool Graphics_Super_Duper_Mario_Bros();
     bool Graphics_Super_Mario_Bros_DX();
     bool Graphics_Super_Mario_MCB();
     bool Graphics_Super_Mario_S();
