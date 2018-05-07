@@ -1,6 +1,7 @@
 Next Update
 + Added Graphics (Dream Mario Bros. by TheSuperShow)
 + Added Graphics (Lost Levels by Captain Antonio Falcon)
++ Added Graphics (Paradyce by Insectduel)
 + Added Graphics (Super Duper by Tabmok99)
 + Added Graphics (Super Mario MCB by MacBee)
 + Added Graphics (Super Mario S by Sogun)
@@ -8,6 +9,7 @@ Next Update
 + Hammer Time now turns on automatically in later levels
 + Level-Headed now saves and loads previous settings
 + God Mode now gives the player unlimited time
++ Island and Bridge level chances are now increased to "Common"
 - Removed Hammer Time option under the level generator settings
 
 Music Update (v0.2.1) Built on 12/14/17
