@@ -612,6 +612,11 @@ bool SMB1_Writer::Graphics_Lost_Levels() {
     return this->graphics->Lost_Levels();
 }
 
+bool SMB1_Writer::Graphics_Paradyce() {
+    if (!this->graphics) return false;
+    return this->graphics->Paradyce();
+}
+
 bool SMB1_Writer::Graphics_Pocket_Edition() {
     if (!this->graphics) return false;
     return this->graphics->Pocket_Edition();

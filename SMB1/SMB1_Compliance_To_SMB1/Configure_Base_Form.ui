@@ -153,6 +153,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Paradyce (by Insectduel)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Pocket Edition (by Fantendo)</string>
             </property>
            </item>
