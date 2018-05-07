@@ -39,12 +39,13 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  Hammer Bros. This can make the game quite challenging in some cases. It's worth trying if you
  think the game is too easy.
  
- Q: What else is new in this update?
+ Q: Where did hammer time mode go in v0.2.2? Was it removed?
  
- A: Most of the new features are under "Base Game" options. You can also check out the
- changelog for more information on what's new.
+ A: Nope. As of v0.2.2, some more primitive difficulty scaling has been implemented. Hammer time now is enabled
+ automatically for the last ~20% of a game. I'll likely add an option so users can adjust this in the next/future
+ update.
  
- Q: Has the level generator improved in this update?
+ Q: Has the level generator improved since the Water Vapor Build (v0.1.0)?
  
  A: Yup! Though not directly. Level-Headed makes use of patterns for the "SMB1_Compliance"
  generator. This update does not introduce any new patterns, so levels will still feel rather
@@ -70,3 +71,9 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  allow users to create their own. The second goal is to add support for another game that isn't a
  Nintendo property. Maybe Supertux? For now, I'm thinking about releasing smaller updates more
  often that slowly move towards these goals.
+ 
+ Q: Is Level-Headed dead? You haven't updated it in months!
+ 
+ A: No, it is far from dead. I tend to work on Level-Headed off and on when I have spare time and when
+ I have the interest. Consequently, development tends to be very slow and sporadic. However, I can't see
+ myself ever dropping this project completely.

@@ -1,4 +1,4 @@
-Next Update
+Graphics Update (v0.2.2) Built on 05/07/18
 + Added Graphics (Dream Mario Bros. by TheSuperShow)
 + Added Graphics (Lost Levels by Captain Antonio Falcon)
 + Added Graphics (Paradyce by Insectduel)
