@@ -168,7 +168,12 @@
            </item>
            <item>
             <property name="text">
-             <string>Super Mario Bros. DX (by flamepanther)</string>
+             <string>Super Mario Bros. DX v2.0 (by flamepanther)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Super Mario Bros. DX v3.4 (by flamepanther)</string>
             </property>
            </item>
            <item>

@@ -178,7 +178,8 @@ public:
     bool Graphics_Paradyce();
     bool Graphics_Pocket_Edition();
     bool Graphics_Super_Duper_Mario_Bros();
-    bool Graphics_Super_Mario_Bros_DX();
+    bool Graphics_Super_Mario_Bros_DX_v2();
+    bool Graphics_Super_Mario_Bros_DX_v3_4();
     bool Graphics_Super_Mario_MCB();
     bool Graphics_Super_Mario_S();
 

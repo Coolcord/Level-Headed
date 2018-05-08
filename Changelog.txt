@@ -1,4 +1,7 @@
-v0.2.3 Built on 05/07/18
+Next Update
++ Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)
+
+Difficulty Options (v0.2.3) Built on 05/07/18
 + Added a Difficulty Option under "Configure Level Generator" to change when Hammer Time is enabled and when Cheep-cheeps start spawning
 
 Graphics Update (v0.2.2) Built on 05/07/18
