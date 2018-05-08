@@ -3,6 +3,8 @@ Level-Headed
 
 Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the NES
 
+# [Download for Windows](https://github.com/Coolcord/Level-Headed/releases)
+
 -===========================- About Level-Headed -===========================-
 
  Level-Headed is an application that is still under development. Ultimately, I am
