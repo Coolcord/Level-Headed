@@ -41,11 +41,12 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  Hammer Bros. This can make the game quite challenging in some cases. It's worth trying if you
  think the game is too easy.
  
- Q: Where did hammer time mode go in v0.2.2? Was it removed?
+ Q: Where did hammer time mode go in v0.2.2 and beyond? Was it removed?
  
  A: Nope. As of v0.2.2, some more primitive difficulty scaling has been implemented. Hammer time now is enabled
- automatically for the last ~20% of a game. I'll likely add an option so users can adjust this in the next/future
- update.
+ automatically for the last ~20% of a game (now considered "Normal" difficulty). If you want hammer time to behave
+ like it did before v0.2.2, simply change the level difficulty setting to "Hard" under the "Configure Level Generator"
+ options.
  
  Q: Has the level generator improved since the Water Vapor Build (v0.1.0)?
  
