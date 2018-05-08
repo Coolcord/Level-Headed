@@ -12,20 +12,20 @@
 #include <assert.h>
 
 Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies,
-                             Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, int difficulty) {
+                             Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args) {
     assert(file);
     assert(stream);
     assert(enemies);
     assert(requiredEnemySpawns);
-    assert(difficulty >= Difficulty::DIFFICULTY_MIN && difficulty <= Difficulty::DIFFICULTY_MAX);
+    assert(args);
+    assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
     this->file = file;
     this->stream = stream;
     this->enemies = enemies;
     this->requiredEnemySpawns = requiredEnemySpawns;
-    this->levelType = levelType;
+    this->args = args;
     this->levelCrawler = new Level_Crawler(this->file);
     this->emergencySpawnMode = false;
-    this->difficulty = difficulty;
 }
 
 Enemy_Spawner::~Enemy_Spawner() {
@@ -76,7 +76,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         averageDistance = this->Calculate_Average_Distance(x, totalSpaces, this->Calculate_Number_Of_Enemies());
 
         //Determine what type of enemies to spawn
-        switch (this->levelType) {
+        switch (this->args->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
             size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
             break;
@@ -368,7 +368,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     assert(tmpX-lastX > 0);
     int tmpY = y;
 
-    if (this->levelType == Level_Type::UNDERWATER) {
+    if (this->args->levelType == Level_Type::UNDERWATER) {
         int spawnX = x - lastX;
         y = Random::Get_Num(9)+1;
         assert(this->enemies->Blooper(spawnX, y));
@@ -410,10 +410,10 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     int random = 0;
     //Spawn Hammer Bros. in later levels
-    if (this->difficulty >= Difficulty::HAMMER_TIME && Random::Get_Num(3) == 0) {
+    if (this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(3) == 0) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
-        switch (this->levelType) {
+        switch (this->args->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
             random = Random::Get_Num(9);
             if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));

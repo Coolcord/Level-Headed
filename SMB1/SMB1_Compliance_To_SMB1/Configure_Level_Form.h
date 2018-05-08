@@ -2,6 +2,7 @@
 #define CONFIGURE_LEVEL_FORM_H
 
 #include "Plugin_Settings.h"
+#include "Configure_Difficulty_Form.h"
 #include <QAbstractButton>
 #include <QComboBox>
 #include <QDialog>
@@ -28,6 +29,8 @@ private slots:
     void on_sbNumWorlds_valueChanged(int numWorlds);
     void on_btnNewRandomSeed_clicked();
 
+    void on_comboDifficulty_currentIndexChanged(int index);
+
 private:
     void Clear_Chance_ComboBoxes();
     void Populate_Chance_ComboBoxes();
@@ -41,9 +44,12 @@ private:
     Plugin_Settings *pluginSettings;
     QString levelLocation;
     QString applicationLocation;
+    Difficulty_Settings difficultySettings;
     int numWorlds;
     int numLevelsPerWorld;
     bool randomNumWorlds;
+    int difficultyComboIndex;
+    bool loading;
     QWidget *parent;
 };
 

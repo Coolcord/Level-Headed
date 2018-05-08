@@ -6,12 +6,12 @@
 #include <QDebug>
 #include <assert.h>
 
-Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType, int difficulty) {
+Midpoint_Handler::Midpoint_Handler(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
-    assert(difficulty >= Difficulty::DIFFICULTY_MIN && difficulty <= Difficulty::DIFFICULTY_MAX);
+    assert(args);
+    assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
+    this->args = args;
     this->object = object;
-    this->levelType = levelType;
-    this->difficulty = difficulty;
     this->midpointWritten = false;
     this->midpoint = 0;
 }
@@ -27,7 +27,7 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
     int tmpX = x;
     if (x < this->object->Get_Last_Object_Length()) x = this->object->Get_Last_Object_Length();
     if (this->object->Get_Num_Objects_Available() == 0) return; //midpoint may not be necessary
-    switch (this->levelType) {
+    switch (this->args->levelType) {
     case Level_Type::UNDERGROUND:
     case Level_Type::UNDERWATER:
     case Level_Type::STANDARD_OVERWORLD:
@@ -84,7 +84,7 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         ++page;
     }
 
-    if (this->levelType == Level_Type::UNDERWATER && this->difficulty >= Difficulty::UNDERWATER_CHEEP_CHEEPS) {
+    if (this->args->levelType == Level_Type::UNDERWATER && this->args->difficulty >= this->args->difficultyUnderwaterCheepCheeps) {
         assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
         x = 0;
     }
@@ -93,7 +93,7 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
 
 bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     int requiredObjects = 1;
-    if (this->levelType == Level_Type::BRIDGE) ++requiredObjects;
+    if (this->args->levelType == Level_Type::BRIDGE) ++requiredObjects;
     if (this->object->Get_Num_Objects_Available() < requiredObjects) return false;
 
     //Absolute coordinates 0x3 and 0x4 must be clear
@@ -104,7 +104,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
-        if (this->levelType == Level_Type::BRIDGE && this->difficulty >= Difficulty::BRIDGE_FLYING_CHEEP_CHEEPS) {
+        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyFlyingCheepCheeps) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }
@@ -130,7 +130,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         case 2:     y = Physics::GROUND_Y; break;
         default:    assert(false); return false;
         }
-        if (this->levelType == Level_Type::BRIDGE) {
+        if (this->args->levelType == Level_Type::BRIDGE) {
             //Spawn the bridge by itself
             if (!this->object->Bridge(tmpX, y, length)) return false;
         } else { //spawn a tree
@@ -146,7 +146,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         int length = 0x15-absoluteX;
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
-        if (this->levelType == Level_Type::BRIDGE && this->difficulty >= Difficulty::BRIDGE_FLYING_CHEEP_CHEEPS) {
+        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyFlyingCheepCheeps) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }

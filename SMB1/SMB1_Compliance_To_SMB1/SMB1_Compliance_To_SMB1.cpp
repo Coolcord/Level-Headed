@@ -158,6 +158,10 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.numLevelsPerWorld << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.generateNewLevels << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.levelScripts << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyComboIndex << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyHammerTime << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUnderwaterCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBridgeFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.standardOverworldChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.undergroundChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.underwaterChance << Common_Strings::STRING_NEW_LINE;
@@ -190,6 +194,10 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.numLevelsPerWorld = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.generateNewLevels = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.levelScripts = file.readLine().trimmed();
+    this->pluginSettings.difficultyComboIndex = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyHammerTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUnderwaterCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBridgeFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.standardOverworldChance = file.readLine().trimmed();
     this->pluginSettings.undergroundChance = file.readLine().trimmed();
     this->pluginSettings.underwaterChance = file.readLine().trimmed();
@@ -231,6 +239,10 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
+    this->pluginSettings.difficultyComboIndex = 2;
+    this->pluginSettings.difficultyHammerTime = 9;
+    this->pluginSettings.difficultyBridgeFlyingCheepCheeps = 3;
+    this->pluginSettings.difficultyUnderwaterCheepCheeps = 3;
 }
 
 void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {

@@ -430,6 +430,9 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     //Determine difficulty
     args.difficulty = std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels));
     assert(args.difficulty >= 1 && args.difficulty <= 10);
+    args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
+    args.difficultyUnderwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
+    args.difficultyFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
 
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();

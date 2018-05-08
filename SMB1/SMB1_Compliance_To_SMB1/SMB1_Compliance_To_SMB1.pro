@@ -22,7 +22,8 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Configure_Base_Form.cpp \
     Configure_Level_Form.cpp \
     Level_Generator.cpp \
-    Hacks_Handler.cpp
+    Hacks_Handler.cpp \
+    Configure_Difficulty_Form.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -41,7 +42,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Plugin_Settings.h \
     Level_Generator.h \
     Hacks_Handler.h \
-    SMB1_Compliance_To_SMB1_Strings.h
+    SMB1_Compliance_To_SMB1_Strings.h \
+    Configure_Difficulty_Form.h
 
 OTHER_FILES +=
 
@@ -52,4 +54,5 @@ unix {
 
 FORMS += \
     Configure_Base_Form.ui \
-    Configure_Level_Form.ui
+    Configure_Level_Form.ui \
+    Configure_Difficulty_Form.ui

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>691</height>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,7 +53,7 @@
         <x>0</x>
         <y>0</y>
         <width>407</width>
-        <height>518</height>
+        <height>573</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -177,6 +177,57 @@
             </layout>
            </item>
           </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="layoutDifficulty">
+         <item>
+          <widget class="QLabel" name="lblDifficulty">
+           <property name="text">
+            <string>Difficulty:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboDifficulty">
+           <property name="currentIndex">
+            <number>2</number>
+           </property>
+           <item>
+            <property name="text">
+             <string>Custom (Advanced)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Easy (No Hammer Time)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Normal (Default)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hard (Hammer Time Always On)</string>
+            </property>
+           </item>
+          </widget>
          </item>
         </layout>
        </item>

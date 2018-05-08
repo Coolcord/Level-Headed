@@ -2,13 +2,14 @@
 #define MIDPOINT_HANDLER_H
 
 #include "../Common_SMB1_Files/Level_Type.h"
+#include "SMB1_Compliance_Generator_Arguments.h"
 
 class Object_Writer;
 
 class Midpoint_Handler
 {
 public:
-    Midpoint_Handler(Object_Writer *object, Level_Type::Level_Type levelType, int difficulty);
+    Midpoint_Handler(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args);
     void Handle_Midpoint(int &x);
     bool Is_Midpoint_Written();
     int Get_Midpoint();
@@ -17,10 +18,9 @@ private:
     bool Increment_Past_Standard_Overworld_Midpoint(int &x, int &page);
     bool Increment_Past_Island_Midpoint(int &x, int &page);
     Object_Writer *object;
-    Level_Type::Level_Type levelType;
     bool midpointWritten;
     int midpoint;
-    int difficulty;
+    SMB1_Compliance_Generator_Arguments *args;
 };
 
 #endif // MIDPOINT_HANDLER_H

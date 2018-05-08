@@ -3,6 +3,7 @@
 
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Level_Type.h"
+#include "SMB1_Compliance_Generator_Arguments.h"
 #include <QFile>
 #include <QTextStream>
 
@@ -13,7 +14,7 @@ class Required_Enemy_Spawns;
 class Enemy_Spawner
 {
 public:
-    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, Level_Type::Level_Type levelType, int difficulty);
+    Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
     ~Enemy_Spawner();
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
@@ -40,9 +41,8 @@ private:
     Enemy_Writer *enemies;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Crawler *levelCrawler;
-    Level_Type::Level_Type levelType;
     bool emergencySpawnMode;
-    int difficulty;
+    SMB1_Compliance_Generator_Arguments *args;
 };
 
 #endif // ENEMY_SPAWNER_H

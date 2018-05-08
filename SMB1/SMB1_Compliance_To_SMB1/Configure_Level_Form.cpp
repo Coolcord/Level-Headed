@@ -8,6 +8,8 @@
 #include <QDir>
 #include <assert.h>
 
+#include <QDebug>
+
 Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *pluginSettings, const QString &location) :
     QDialog(parent),
     ui(new Ui::Configure_Level_Form) {
@@ -22,6 +24,13 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->levelLocation = location + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(location + "/" + Common_Strings::STRING_LEVELS);
     if (!dir.exists(this->levelLocation)) dir.mkdir(this->levelLocation); //don't bother checking for success here
+
+    //Prepare the Difficulty Settings
+    this->difficultyComboIndex = this->pluginSettings->difficultyComboIndex;
+    this->difficultySettings.save = false;
+    this->difficultySettings.hammerTime = this->pluginSettings->difficultyHammerTime;
+    this->difficultySettings.underwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
+    this->difficultySettings.flyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
 
     //Setup the UI
     ui->setupUi(this);
@@ -58,6 +67,7 @@ void Configure_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
 }
 
 void Configure_Level_Form::Clear_Chance_ComboBoxes() {
+    this->ui->comboDifficulty->setCurrentIndex(0);
     this->ui->comboStandardOverworld->clear();
     this->ui->comboUnderground->clear();
     this->ui->comboUnderwater->clear();
@@ -71,6 +81,7 @@ void Configure_Level_Form::Populate_Chance_ComboBoxes() {
     this->Populate_Chance_ComboBox(this->ui->comboUnderwater);
     this->Populate_Chance_ComboBox(this->ui->comboBridge);
     this->Populate_Chance_ComboBox(this->ui->comboIsland);
+    this->ui->comboDifficulty->setCurrentIndex(this->difficultyComboIndex);
     this->ui->comboStandardOverworld->setCurrentText(this->pluginSettings->standardOverworldChance);
     this->ui->comboUnderground->setCurrentText(this->pluginSettings->undergroundChance);
     this->ui->comboUnderwater->setCurrentText(this->pluginSettings->underwaterChance);
@@ -139,6 +150,8 @@ bool Configure_Level_Form::At_Least_One_Very_Common_Selected() {
 }
 
 void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
+    this->loading = true;
+
     //Toggle the Level Scripts
     this->ui->lblLevelScripts->setEnabled(!enable);
     this->ui->comboLevelScripts->setEnabled(!enable);
@@ -164,11 +177,13 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
 
 
     //Toggle the comboboxes
+    this->ui->lblDifficulty->setEnabled(enable);
     this->ui->lblStandardOverworld->setEnabled(enable);
     this->ui->lblUnderground->setEnabled(enable);
     this->ui->lblUnderwater->setEnabled(enable);
     this->ui->lblBridge->setEnabled(enable);
     this->ui->lblIsland->setEnabled(enable);
+    this->ui->comboDifficulty->setEnabled(enable);
     this->ui->comboStandardOverworld->setEnabled(enable);
     this->ui->comboUnderground->setEnabled(enable);
     this->ui->comboUnderwater->setEnabled(enable);
@@ -190,6 +205,7 @@ void Configure_Level_Form::Enable_New_Level_Options(bool enable) {
         this->Clear_Chance_ComboBoxes();
         this->Populate_Level_Scripts_ComboBox();
     }
+    this->loading = false;
 }
 
 void Configure_Level_Form::Save_Settings() {
@@ -208,6 +224,32 @@ void Configure_Level_Form::Save_Settings() {
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
         this->pluginSettings->randomSeed = this->ui->sbRandomSeed->value();
+
+        //Save the Difficulty Settings
+        this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
+        switch (this->pluginSettings->difficultyComboIndex) {
+        default: assert(false); break;
+        case 0: //Custom
+            this->pluginSettings->difficultyHammerTime = this->difficultySettings.hammerTime;
+            this->pluginSettings->difficultyUnderwaterCheepCheeps = this->difficultySettings.underwaterCheepCheeps;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->difficultySettings.flyingCheepCheeps;
+            break;
+        case 1: //Easy
+            this->pluginSettings->difficultyHammerTime = 11;
+            this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
+            break;
+        case 2: //Normal
+            this->pluginSettings->difficultyHammerTime = 9;
+            this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
+            break;
+        case 3: //Hard
+            this->pluginSettings->difficultyHammerTime = 1;
+            this->pluginSettings->difficultyUnderwaterCheepCheeps = 1;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 1;
+            break;
+        }
     }
 }
 
@@ -286,4 +328,18 @@ void Configure_Level_Form::on_sbNumWorlds_valueChanged(int numWorlds) {
 
 void Configure_Level_Form::on_btnNewRandomSeed_clicked() {
     this->ui->sbRandomSeed->setValue(QTime::currentTime().msecsSinceStartOfDay());
+}
+
+void Configure_Level_Form::on_comboDifficulty_currentIndexChanged(int index) {
+    if (this->loading) return;
+    if (index == 0) { //Custom
+        //Show the Difficulty Form
+        Configure_Difficulty_Form form(this, &this->difficultySettings, this->applicationLocation);
+        form.exec();
+        if (!this->difficultySettings.save) {
+            this->ui->comboDifficulty->setCurrentIndex(this->difficultyComboIndex);
+            return;
+        }
+    }
+    this->difficultyComboIndex = index;
 }
