@@ -239,7 +239,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
-    this->pluginSettings.difficultyComboIndex = 2;
+    this->pluginSettings.difficultyComboIndex = 3;
     this->pluginSettings.difficultyHammerTime = 9;
     this->pluginSettings.difficultyBridgeFlyingCheepCheeps = 3;
     this->pluginSettings.difficultyUnderwaterCheepCheeps = 3;

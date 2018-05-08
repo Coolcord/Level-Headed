@@ -234,17 +234,22 @@ void Configure_Level_Form::Save_Settings() {
             this->pluginSettings->difficultyUnderwaterCheepCheeps = this->difficultySettings.underwaterCheepCheeps;
             this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->difficultySettings.flyingCheepCheeps;
             break;
-        case 1: //Easy
+        case 1: //Random
+            this->pluginSettings->difficultyHammerTime = 0;
+            this->pluginSettings->difficultyUnderwaterCheepCheeps = 0;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 0;
+            break;
+        case 2: //Easy
             this->pluginSettings->difficultyHammerTime = 11;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
             this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
             break;
-        case 2: //Normal
+        case 3: //Normal
             this->pluginSettings->difficultyHammerTime = 9;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
             this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
             break;
-        case 3: //Hard
+        case 4: //Hard
             this->pluginSettings->difficultyHammerTime = 1;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 1;
             this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 1;

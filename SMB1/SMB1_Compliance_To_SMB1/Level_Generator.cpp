@@ -1,6 +1,7 @@
 #include "Level_Generator.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../../Common_Files/Random.h"
+#include "../SMB1_Compliance_Generator/Difficulty.h"
 #include "../Common_SMB1_Files/Level_String.h"
 #include "../Common_SMB1_Files/Header_String.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
@@ -94,6 +95,14 @@ bool Level_Generator::Generate_Levels() {
         while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
             --this->pluginSettings->numLevelsPerWorld;
         }
+    }
+
+    //Randomly determine the difficulty settings if specified
+    if (this->pluginSettings->difficultyComboIndex == 1) {
+        //Go 1 Higher than the Max Difficulty for a Chance to be Completely Disabled
+        this->pluginSettings->difficultyHammerTime = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
+        this->pluginSettings->difficultyUnderwaterCheepCheeps = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
+        this->pluginSettings->difficultyBridgeFlyingCheepCheeps = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
     }
 
     //Write the Number of Worlds
