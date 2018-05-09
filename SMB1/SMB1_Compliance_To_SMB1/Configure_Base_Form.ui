@@ -381,6 +381,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="cbGodMode">
+         <property name="toolTip">
+          <string>Invulnerability, mid-air jumps, unlimited time, and fireballs kill everything on-screen</string>
+         </property>
          <property name="text">
           <string>God Mode</string>
          </property>
@@ -404,6 +407,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="cb2PlayerGame">
+         <property name="toolTip">
+          <string>Disables Luigi game and reverts bounce physics to normal</string>
+         </property>
          <property name="text">
           <string>2 Player Game</string>
          </property>
@@ -427,6 +433,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="cbRevertToSuperMario">
+         <property name="toolTip">
+          <string>May cause issues with Enigmario's underground music</string>
+         </property>
          <property name="text">
           <string>Revert to Super Mario after taking damage</string>
          </property>
