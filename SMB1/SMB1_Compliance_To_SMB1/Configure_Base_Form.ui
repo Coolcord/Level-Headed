@@ -153,7 +153,12 @@
            </item>
            <item>
             <property name="text">
-             <string>Paradyce (by Insectduel)</string>
+             <string>Paradyce w/SMB1 Enemies (by Insectduel)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Paradyce w/SMB2 Enemies (by Insectduel)</string>
             </property>
            </item>
            <item>
