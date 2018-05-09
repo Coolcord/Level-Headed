@@ -29,6 +29,7 @@ private:
     bool Determine_Bridge_End();
     bool Determine_Island_End();
     bool Shortest_End(int x);
+    bool Shortest_End(int x, bool cancelSpawner);
     bool Shortest_With_Brick_End(int x);
     bool Shortest_Castle(int x);
     bool One_Block_Bridge_End(int x);

@@ -159,6 +159,10 @@ bool End_Spawner::Determine_Island_End() {
 }
 
 bool End_Spawner::Shortest_End(int x) {
+    return this->Shortest_End(x, true);
+}
+
+bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     //Minimum 3 objects with a standard castle
     if (this->object->Get_Num_Objects_Left() < Physics::MIN_END_OBJECTS) return false;
 
@@ -176,8 +180,12 @@ bool End_Spawner::Shortest_End(int x) {
 
     //Write the End Pattern
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
-    if (!this->object->Cancel_Spawner(x)) return false;
-    if (!this->object->End_Steps(0)) return false;
+    if (cancelSpawner) {
+        if (!this->object->Cancel_Spawner(x)) return false;
+        if (!this->object->End_Steps(0)) return false;
+    } else {
+        if (!this->object->End_Steps(x)) return false;
+    }
     if (!this->object->Flagpole(Physics::END_STAIRS_LENGTH+Physics::FLAGPOLE_DISTANCE)) return false;
     if (!this->Spawn_Castle()) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
@@ -267,7 +275,7 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
     x = Random::Get_Num(10)+2;
-    return this->Shortest_End(x);
+    return this->Shortest_End(x, false);
 }
 
 bool End_Spawner::Spawn_Castle() {

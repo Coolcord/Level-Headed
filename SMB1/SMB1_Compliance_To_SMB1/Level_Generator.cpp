@@ -445,12 +445,6 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyOffscreenBulletBills = this->pluginSettings->difficultyOffscreenBulletBills;
     args.difficultyUnderwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
 
-    qDebug() << "Current Difficulty: " << args.difficulty;
-    qDebug() << "Flying Cheep-cheeps: " << args.difficultyFlyingCheepCheeps;
-    qDebug() << "Hammer Time: " << args.difficultyHammerTime;
-    qDebug() << "Off-screen Bullet Bills: " << args.difficultyOffscreenBulletBills;
-    qDebug() << "Underwater Cheep-cheeps: " << args.difficultyUnderwaterCheepCheeps;
-
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
     return args;
