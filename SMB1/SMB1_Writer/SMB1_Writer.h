@@ -175,7 +175,8 @@ public:
     //Graphics
     bool Graphics_Dream_Mario_Bros();
     bool Graphics_Lost_Levels();
-    bool Graphics_Paradyce_SMB1();
+    bool Graphics_Paradyce_SMB1_Palette_1();
+    bool Graphics_Paradyce_SMB1_Palette_2();
     bool Graphics_Paradyce_SMB2();
     bool Graphics_Pocket_Edition();
     bool Graphics_Super_Duper_Mario_Bros();

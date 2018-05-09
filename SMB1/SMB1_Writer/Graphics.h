@@ -10,7 +10,8 @@ public:
     ~Graphics() {}
     bool Dream_Mario_Bros();
     bool Lost_Levels();
-    bool Paradyce_SMB1();
+    bool Paradyce_SMB1_Palette_1();
+    bool Paradyce_SMB1_Palette_2();
     bool Paradyce_SMB2();
     bool Pocket_Edition();
     bool Super_Duper_Mario_Bros();
