@@ -19,9 +19,10 @@ struct SMB1_Compliance_Generator_Arguments {
     Castle::Castle endCastle;
     Level_Type::Level_Type levelType;
     int difficulty;
-    int difficultyHammerTime;
-    int difficultyUnderwaterCheepCheeps;
     int difficultyFlyingCheepCheeps;
+    int difficultyHammerTime;
+    int difficultyOffscreenBulletBills;
+    int difficultyUnderwaterCheepCheeps;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H

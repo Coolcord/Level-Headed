@@ -89,7 +89,7 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 2;
+        this->endObjectCount = 3;
         return true;
     default:
         assert(false);
@@ -101,7 +101,7 @@ bool End_Spawner::Determine_Underground_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 3;
+        this->endObjectCount = 4;
         return true;
     default:
         assert(false);
@@ -113,7 +113,7 @@ bool End_Spawner::Determine_Underwater_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 2;
+        this->endObjectCount = 3;
         return true;
     default:
         assert(false);
@@ -150,7 +150,7 @@ bool End_Spawner::Determine_Island_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 3;
+        this->endObjectCount = 4;
         return true;
     default:
         assert(false);
@@ -176,7 +176,8 @@ bool End_Spawner::Shortest_End(int x) {
 
     //Write the End Pattern
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
-    if (!this->object->End_Steps(x)) return false;
+    if (!this->object->Cancel_Spawner(x)) return false;
+    if (!this->object->End_Steps(0)) return false;
     if (!this->object->Flagpole(Physics::END_STAIRS_LENGTH+Physics::FLAGPOLE_DISTANCE)) return false;
     if (!this->Spawn_Castle()) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety

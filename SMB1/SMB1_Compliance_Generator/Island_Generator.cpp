@@ -45,7 +45,11 @@ bool Island_Generator::Spawn_Intro(int &x) {
     //Decrement x a bit to match SMB1's style
     if (this->object->Get_First_Page_Safety()) x -= Random::Get_Num(4);
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
-    this->object->Set_Last_Object_Length(0);
+    if (this->args->difficulty >= this->args->difficultyOffscreenBulletBills) {
+        if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Bullet_Bill_Spawner(1));
+        else assert(this->object->Bullet_Bill_Spawner(0));
+    }
+    this->object->Set_Last_Object_Length(1);
     return true;
 }
 

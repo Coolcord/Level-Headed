@@ -44,8 +44,9 @@ struct Plugin_Settings {
     Qt::CheckState lakituThrowArc;
     int enemySpeed;
     int difficultyComboIndex;
+    int difficultyFlyingCheepCheeps;
     int difficultyHammerTime;
-    int difficultyBridgeFlyingCheepCheeps;
+    int difficultyOffscreenBulletBills;
     int difficultyUnderwaterCheepCheeps;
 };
 

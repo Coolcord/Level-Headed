@@ -31,14 +31,16 @@ void Configure_Difficulty_Form::on_buttonBox_clicked(QAbstractButton *button) {
 }
 
 void Configure_Difficulty_Form::Load_Settings() {
-    this->ui->sbHammerTime->setValue(this->difficultySettings->hammerTime);
-    this->ui->sbUnderwaterCheepCheeps->setValue(this->difficultySettings->underwaterCheepCheeps);
     this->ui->sbFlyingCheepCheeps->setValue(this->difficultySettings->flyingCheepCheeps);
+    this->ui->sbHammerTime->setValue(this->difficultySettings->hammerTime);
+    this->ui->sbOffscreenBulletBills->setValue(this->difficultySettings->offscreenBulletBills);
+    this->ui->sbUnderwaterCheepCheeps->setValue(this->difficultySettings->underwaterCheepCheeps);
 }
 
 void Configure_Difficulty_Form::Save_Settings() {
     this->difficultySettings->save = true;
-    this->difficultySettings->hammerTime = this->ui->sbHammerTime->value();
-    this->difficultySettings->underwaterCheepCheeps = this->ui->sbUnderwaterCheepCheeps->value();
     this->difficultySettings->flyingCheepCheeps = this->ui->sbFlyingCheepCheeps->value();
+    this->difficultySettings->hammerTime = this->ui->sbHammerTime->value();
+    this->difficultySettings->offscreenBulletBills = this->ui->sbOffscreenBulletBills->value();
+    this->difficultySettings->underwaterCheepCheeps = this->ui->sbUnderwaterCheepCheeps->value();
 }

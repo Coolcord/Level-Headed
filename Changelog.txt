@@ -2,6 +2,7 @@ Next Update
 + Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)
 + Added Graphics (Paradyce w/SMB1 Enemies (Palette 1) by Insectduel)
 + Added Graphics (Paradyce w/SMB1 Enemies (Palette 2) by Insectduel)
++ Added Off-screen Bullet Bill spawners to late Island levels (tied to difficulty)
 
 Difficulty Options (v0.2.3) Built on 05/07/18
 + Added a Difficulty Option under "Configure Level Generator" to change when Hammer Time is enabled and when Cheep-cheeps start spawning

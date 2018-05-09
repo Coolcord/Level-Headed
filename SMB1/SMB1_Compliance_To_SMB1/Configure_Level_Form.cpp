@@ -28,9 +28,10 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     //Prepare the Difficulty Settings
     this->difficultyComboIndex = this->pluginSettings->difficultyComboIndex;
     this->difficultySettings.save = false;
+    this->difficultySettings.flyingCheepCheeps = this->pluginSettings->difficultyFlyingCheepCheeps;
     this->difficultySettings.hammerTime = this->pluginSettings->difficultyHammerTime;
+    this->difficultySettings.offscreenBulletBills = this->pluginSettings->difficultyOffscreenBulletBills;
     this->difficultySettings.underwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
-    this->difficultySettings.flyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
 
     //Setup the UI
     ui->setupUi(this);
@@ -230,29 +231,34 @@ void Configure_Level_Form::Save_Settings() {
         switch (this->pluginSettings->difficultyComboIndex) {
         default: assert(false); break;
         case 0: //Custom
+            this->pluginSettings->difficultyFlyingCheepCheeps = this->difficultySettings.flyingCheepCheeps;
             this->pluginSettings->difficultyHammerTime = this->difficultySettings.hammerTime;
+            this->pluginSettings->difficultyOffscreenBulletBills = this->difficultySettings.offscreenBulletBills;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = this->difficultySettings.underwaterCheepCheeps;
-            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->difficultySettings.flyingCheepCheeps;
             break;
         case 1: //Random
+            this->pluginSettings->difficultyFlyingCheepCheeps = 0;
             this->pluginSettings->difficultyHammerTime = 0;
+            this->pluginSettings->difficultyOffscreenBulletBills = 0;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 0;
-            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 0;
             break;
         case 2: //Easy
+            this->pluginSettings->difficultyFlyingCheepCheeps = 3;
             this->pluginSettings->difficultyHammerTime = 11;
+            this->pluginSettings->difficultyOffscreenBulletBills = 6;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
-            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
             break;
         case 3: //Normal
+            this->pluginSettings->difficultyFlyingCheepCheeps = 3;
             this->pluginSettings->difficultyHammerTime = 9;
+            this->pluginSettings->difficultyOffscreenBulletBills = 6;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
-            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 3;
             break;
         case 4: //Hard
+            this->pluginSettings->difficultyFlyingCheepCheeps = 1;
             this->pluginSettings->difficultyHammerTime = 1;
+            this->pluginSettings->difficultyOffscreenBulletBills = 1;
             this->pluginSettings->difficultyUnderwaterCheepCheeps = 1;
-            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = 1;
             break;
         }
     }

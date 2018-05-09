@@ -100,9 +100,10 @@ bool Level_Generator::Generate_Levels() {
     //Randomly determine the difficulty settings if specified
     if (this->pluginSettings->difficultyComboIndex == 1) {
         //Go 1 Higher than the Max Difficulty for a Chance to be Completely Disabled
+        this->pluginSettings->difficultyFlyingCheepCheeps = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
         this->pluginSettings->difficultyHammerTime = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
+        this->pluginSettings->difficultyOffscreenBulletBills = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
         this->pluginSettings->difficultyUnderwaterCheepCheeps = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyBridgeFlyingCheepCheeps = Random::Get_Num(Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN)+Difficulty::DIFFICULTY_MIN+1;
     }
 
     //Write the Number of Worlds
@@ -439,9 +440,16 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     //Determine difficulty
     args.difficulty = std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels));
     assert(args.difficulty >= 1 && args.difficulty <= 10);
+    args.difficultyFlyingCheepCheeps = this->pluginSettings->difficultyFlyingCheepCheeps;
     args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
+    args.difficultyOffscreenBulletBills = this->pluginSettings->difficultyOffscreenBulletBills;
     args.difficultyUnderwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
-    args.difficultyFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
+
+    qDebug() << "Current Difficulty: " << args.difficulty;
+    qDebug() << "Flying Cheep-cheeps: " << args.difficultyFlyingCheepCheeps;
+    qDebug() << "Hammer Time: " << args.difficultyHammerTime;
+    qDebug() << "Off-screen Bullet Bills: " << args.difficultyOffscreenBulletBills;
+    qDebug() << "Underwater Cheep-cheeps: " << args.difficultyUnderwaterCheepCheeps;
 
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();

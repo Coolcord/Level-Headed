@@ -12,9 +12,10 @@ class Configure_Difficulty_Form;
 
 struct Difficulty_Settings {
     bool save;
-    int hammerTime;
-    int underwaterCheepCheeps;
     int flyingCheepCheeps;
+    int hammerTime;
+    int offscreenBulletBills;
+    int underwaterCheepCheeps;
 };
 
 class Configure_Difficulty_Form : public QDialog

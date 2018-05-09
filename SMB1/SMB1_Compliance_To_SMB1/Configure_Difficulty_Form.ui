@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>486</width>
-    <height>431</height>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>462</width>
-        <height>375</height>
+        <height>433</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -36,7 +36,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>230</height>
+             <height>250</height>
             </size>
            </property>
            <property name="html">
@@ -49,12 +49,13 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Examples:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 1 will be enabled for the entire game.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 5 will be enabled about half way through the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 6 will be enabled about half way through the game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 10 will be enabled on the last level of the game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 11 will never be enabled for the entire game.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Flying Cheep-Cheeps only affect bridge levels.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hammer Time replaces about every 1 in 5 enemies with a hammer bro.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Flying Cheep-Cheeps only affect bridge levels.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Off-screen Bullet Bills only affect island levels.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -72,6 +73,27 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblFlyingCheepCheeps">
+           <property name="text">
+            <string>Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="layoutHammerTime">
@@ -95,16 +117,16 @@ p, li { white-space: pre-wrap; }
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="layoutUnderwaterCheepCheeps">
+        <layout class="QHBoxLayout" name="layoutOffscreenBulletBills">
          <item>
-          <widget class="QLabel" name="lblUnderwaterCheepCheeps">
+          <widget class="QLabel" name="lblOffscreenBulletBills">
            <property name="text">
-            <string>Underwater Cheep-cheeps:</string>
+            <string>Off-screen Bullet Bills:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbUnderwaterCheepCheeps">
+          <widget class="QSpinBox" name="sbOffscreenBulletBills">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -116,16 +138,16 @@ p, li { white-space: pre-wrap; }
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="layoutFlyingCheepCheeps">
+        <layout class="QHBoxLayout" name="layoutUnderwaterCheepCheeps">
          <item>
-          <widget class="QLabel" name="lblFlyingCheepCheeps">
+          <widget class="QLabel" name="lblUnderwaterCheepCheeps">
            <property name="text">
-            <string>Flying Cheep-cheeps:</string>
+            <string>Underwater Cheep-cheeps:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbFlyingCheepCheeps">
+          <widget class="QSpinBox" name="sbUnderwaterCheepCheeps">
            <property name="minimum">
             <number>1</number>
            </property>
