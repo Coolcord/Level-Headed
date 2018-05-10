@@ -30,31 +30,9 @@ void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(con
 }
 
 Difficulty_Settings Difficulty_Configurations::Easy() {
-    Difficulty_Settings difficultySettings;
+    Difficulty_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = 11;
     difficultySettings.hammerTime = 11;
-    difficultySettings.bridgeFlyingCheepCheeps = 3;
-    difficultySettings.bridgeLakitus = 11;
-    difficultySettings.bridgeOffscreenBulletBills = 11;
-    difficultySettings.castleFlyingCheepCheeps = 11;
-    difficultySettings.castleLakitus = 11;
-    difficultySettings.castleOffscreenBulletBills = 11;
-    difficultySettings.islandFlyingCheepCheeps = 11;
-    difficultySettings.islandLakitus = 11;
-    difficultySettings.islandOffscreenBulletBills = 6;
-    difficultySettings.undergroundFlyingCheepCheeps = 11;
-    difficultySettings.undergroundLakitus = 11;
-    difficultySettings.undergroundOffscreenBulletBills = 11;
-    difficultySettings.underwaterFlyingCheepCheeps = 11;
-    difficultySettings.underwaterLakitus = 11;
-    difficultySettings.underwaterSwimmingCheepCheeps = 3;
-    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
-    difficultySettings.standardOverworldLakitus = 11;
-    difficultySettings.standardOverworldOffscreenBulletBills = 11;
-    difficultySettings.hammerTimeIntensity = 20;
-    difficultySettings.lakituSpawnChancePerLevel = 15;
-    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
-    difficultySettings.spawnerPriority = 1;
     return difficultySettings;
 }
 
@@ -84,7 +62,7 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 6;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
-    difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.hammerTimeIntensity = 25;
     difficultySettings.lakituSpawnChancePerLevel = 15;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
@@ -96,31 +74,12 @@ void Difficulty_Configurations::Normal(Plugin_Settings *pluginSettings) {
 }
 
 Difficulty_Settings Difficulty_Configurations::Hard() {
-    Difficulty_Settings difficultySettings;
+    Difficulty_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
     difficultySettings.bridgeFlyingCheepCheeps = 1;
-    difficultySettings.bridgeLakitus = 11;
-    difficultySettings.bridgeOffscreenBulletBills = 11;
-    difficultySettings.castleFlyingCheepCheeps = 11;
-    difficultySettings.castleLakitus = 11;
-    difficultySettings.castleOffscreenBulletBills = 11;
-    difficultySettings.islandFlyingCheepCheeps = 11;
-    difficultySettings.islandLakitus = 11;
     difficultySettings.islandOffscreenBulletBills = 1;
-    difficultySettings.undergroundFlyingCheepCheeps = 11;
-    difficultySettings.undergroundLakitus = 11;
-    difficultySettings.undergroundOffscreenBulletBills = 11;
-    difficultySettings.underwaterFlyingCheepCheeps = 11;
-    difficultySettings.underwaterLakitus = 11;
-    difficultySettings.underwaterSwimmingCheepCheeps = 11;
-    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 1;
-    difficultySettings.standardOverworldOffscreenBulletBills = 11;
-    difficultySettings.hammerTimeIntensity = 20;
-    difficultySettings.lakituSpawnChancePerLevel = 15;
-    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
-    difficultySettings.spawnerPriority = 1;
     return difficultySettings;
 }
 

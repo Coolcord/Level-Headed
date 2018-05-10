@@ -410,7 +410,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     int random = 0;
     //Spawn Hammer Bros. in later levels
-    if (this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(3) == 0) {
+    if (this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->args->levelType) {
