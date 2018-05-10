@@ -1,4 +1,4 @@
-Next Update
+Graphical Varients (v0.2.4) Built on 05/09/18
 + Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)
 + Added Graphics (Paradyce w/SMB1 Enemies (Palette 1) by Insectduel)
 + Added Graphics (Paradyce w/SMB1 Enemies (Palette 2) by Insectduel)
