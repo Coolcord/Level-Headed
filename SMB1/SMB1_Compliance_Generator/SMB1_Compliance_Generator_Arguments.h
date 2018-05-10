@@ -19,10 +19,30 @@ struct SMB1_Compliance_Generator_Arguments {
     Castle::Castle endCastle;
     Level_Type::Level_Type levelType;
     int difficulty;
-    int difficultyFlyingCheepCheeps;
+    int difficultyBulletTime;
     int difficultyHammerTime;
-    int difficultyOffscreenBulletBills;
-    int difficultyUnderwaterCheepCheeps;
+    int difficultyBridgeFlyingCheepCheeps;
+    int difficultyBridgeLakitus;
+    int difficultyBridgeOffscreenBulletBills;
+    int difficultyCastleFlyingCheepCheeps;
+    int difficultyCastleLakitus;
+    int difficultyCastleOffscreenBulletBills;
+    int difficultyIslandFlyingCheepCheeps;
+    int difficultyIslandLakitus;
+    int difficultyIslandOffscreenBulletBills;
+    int difficultyUndergroundFlyingCheepCheeps;
+    int difficultyUndergroundLakitus;
+    int difficultyUndergroundOffscreenBulletBills;
+    int difficultyUnderwaterFlyingCheepCheeps;
+    int difficultyUnderwaterLakitus;
+    int difficultyUnderwaterSwimmingCheepCheeps;
+    int difficultyStandardOverworldFlyingCheepCheeps;
+    int difficultyStandardOverworldLakitus;
+    int difficultyStandardOverworldOffscreenBulletBills;
+    int difficultyHammerTimeIntensity;
+    int difficultyLakituSpawnChancePerLevel;
+    bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    int difficultySpawnerPriority;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H

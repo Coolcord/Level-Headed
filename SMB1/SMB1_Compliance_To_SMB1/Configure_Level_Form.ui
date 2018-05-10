@@ -205,7 +205,7 @@
          <item>
           <widget class="QComboBox" name="comboDifficulty">
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <item>
             <property name="text">
@@ -219,7 +219,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Easy (No Hammer Time)</string>
+             <string>Easy</string>
             </property>
            </item>
            <item>
@@ -229,7 +229,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Hard (Hammer Time Always On)</string>
+             <string>Hard</string>
             </property>
            </item>
           </widget>

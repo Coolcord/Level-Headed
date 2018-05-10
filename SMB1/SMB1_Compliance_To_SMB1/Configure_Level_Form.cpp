@@ -2,6 +2,7 @@
 #include "ui_Configure_Level_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
+#include "Difficulty_Configurations.h"
 #include <QCryptographicHash>
 #include <QTime>
 #include <QMessageBox>
@@ -28,10 +29,30 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     //Prepare the Difficulty Settings
     this->difficultyComboIndex = this->pluginSettings->difficultyComboIndex;
     this->difficultySettings.save = false;
-    this->difficultySettings.flyingCheepCheeps = this->pluginSettings->difficultyFlyingCheepCheeps;
+    this->difficultySettings.bulletTime = this->pluginSettings->difficultyBulletTime;
     this->difficultySettings.hammerTime = this->pluginSettings->difficultyHammerTime;
-    this->difficultySettings.offscreenBulletBills = this->pluginSettings->difficultyOffscreenBulletBills;
-    this->difficultySettings.underwaterCheepCheeps = this->pluginSettings->difficultyUnderwaterCheepCheeps;
+    this->difficultySettings.bridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
+    this->difficultySettings.bridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
+    this->difficultySettings.bridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;
+    this->difficultySettings.castleFlyingCheepCheeps = this->pluginSettings->difficultyCastleFlyingCheepCheeps;
+    this->difficultySettings.castleLakitus = this->pluginSettings->difficultyCastleLakitus;
+    this->difficultySettings.castleOffscreenBulletBills = this->pluginSettings->difficultyCastleOffscreenBulletBills;
+    this->difficultySettings.islandFlyingCheepCheeps = this->pluginSettings->difficultyIslandFlyingCheepCheeps;
+    this->difficultySettings.islandLakitus = this->pluginSettings->difficultyIslandLakitus;
+    this->difficultySettings.islandOffscreenBulletBills = this->pluginSettings->difficultyIslandOffscreenBulletBills;
+    this->difficultySettings.undergroundFlyingCheepCheeps = this->pluginSettings->difficultyUndergroundFlyingCheepCheeps;
+    this->difficultySettings.undergroundLakitus = this->pluginSettings->difficultyUndergroundLakitus;
+    this->difficultySettings.undergroundOffscreenBulletBills = this->pluginSettings->difficultyUndergroundOffscreenBulletBills;
+    this->difficultySettings.underwaterFlyingCheepCheeps = this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps;
+    this->difficultySettings.underwaterLakitus = this->pluginSettings->difficultyUnderwaterLakitus;
+    this->difficultySettings.underwaterSwimmingCheepCheeps = this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps;
+    this->difficultySettings.standardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;
+    this->difficultySettings.standardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
+    this->difficultySettings.standardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
+    this->difficultySettings.hammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
+    this->difficultySettings.lakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
+    this->difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    this->difficultySettings.spawnerPriority = this->pluginSettings->difficultySpawnerPriority;
 
     //Setup the UI
     ui->setupUi(this);
@@ -231,34 +252,41 @@ void Configure_Level_Form::Save_Settings() {
         switch (this->pluginSettings->difficultyComboIndex) {
         default: assert(false); break;
         case 0: //Custom
-            this->pluginSettings->difficultyFlyingCheepCheeps = this->difficultySettings.flyingCheepCheeps;
+            this->pluginSettings->difficultyBulletTime = this->difficultySettings.bulletTime;
             this->pluginSettings->difficultyHammerTime = this->difficultySettings.hammerTime;
-            this->pluginSettings->difficultyOffscreenBulletBills = this->difficultySettings.offscreenBulletBills;
-            this->pluginSettings->difficultyUnderwaterCheepCheeps = this->difficultySettings.underwaterCheepCheeps;
+            this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->difficultySettings.bridgeFlyingCheepCheeps;
+            this->pluginSettings->difficultyBridgeLakitus = this->difficultySettings.bridgeLakitus;
+            this->pluginSettings->difficultyBridgeOffscreenBulletBills = this->difficultySettings.bridgeOffscreenBulletBills;
+            this->pluginSettings->difficultyCastleFlyingCheepCheeps = this->difficultySettings.castleFlyingCheepCheeps;
+            this->pluginSettings->difficultyCastleLakitus = this->difficultySettings.castleLakitus;
+            this->pluginSettings->difficultyCastleOffscreenBulletBills = this->difficultySettings.castleOffscreenBulletBills;
+            this->pluginSettings->difficultyIslandFlyingCheepCheeps = this->difficultySettings.islandFlyingCheepCheeps;
+            this->pluginSettings->difficultyIslandLakitus = this->difficultySettings.islandLakitus;
+            this->pluginSettings->difficultyIslandOffscreenBulletBills = this->difficultySettings.islandOffscreenBulletBills;
+            this->pluginSettings->difficultyUndergroundFlyingCheepCheeps = this->difficultySettings.undergroundFlyingCheepCheeps;
+            this->pluginSettings->difficultyUndergroundLakitus = this->difficultySettings.undergroundLakitus;
+            this->pluginSettings->difficultyUndergroundOffscreenBulletBills = this->difficultySettings.undergroundOffscreenBulletBills;
+            this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps = this->difficultySettings.underwaterFlyingCheepCheeps;
+            this->pluginSettings->difficultyUnderwaterLakitus = this->difficultySettings.underwaterLakitus;
+            this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = this->difficultySettings.underwaterSwimmingCheepCheeps;
+            this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = this->difficultySettings.standardOverworldFlyingCheepCheeps;
+            this->pluginSettings->difficultyStandardOverworldLakitus = this->difficultySettings.standardOverworldLakitus;
+            this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = this->difficultySettings.standardOverworldOffscreenBulletBills;
+            this->pluginSettings->difficultyHammerTimeIntensity = this->difficultySettings.hammerTimeIntensity;
+            this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->difficultySettings.lakituSpawnChancePerLevel;
+            this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
+            this->pluginSettings->difficultySpawnerPriority = this->difficultySettings.spawnerPriority;
             break;
         case 1: //Random
-            this->pluginSettings->difficultyFlyingCheepCheeps = 0;
-            this->pluginSettings->difficultyHammerTime = 0;
-            this->pluginSettings->difficultyOffscreenBulletBills = 0;
-            this->pluginSettings->difficultyUnderwaterCheepCheeps = 0;
             break;
         case 2: //Easy
-            this->pluginSettings->difficultyFlyingCheepCheeps = 3;
-            this->pluginSettings->difficultyHammerTime = 11;
-            this->pluginSettings->difficultyOffscreenBulletBills = 6;
-            this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
+            Difficulty_Configurations().Easy(this->pluginSettings);
             break;
         case 3: //Normal
-            this->pluginSettings->difficultyFlyingCheepCheeps = 3;
-            this->pluginSettings->difficultyHammerTime = 9;
-            this->pluginSettings->difficultyOffscreenBulletBills = 6;
-            this->pluginSettings->difficultyUnderwaterCheepCheeps = 3;
+            Difficulty_Configurations().Normal(this->pluginSettings);
             break;
         case 4: //Hard
-            this->pluginSettings->difficultyFlyingCheepCheeps = 1;
-            this->pluginSettings->difficultyHammerTime = 1;
-            this->pluginSettings->difficultyOffscreenBulletBills = 1;
-            this->pluginSettings->difficultyUnderwaterCheepCheeps = 1;
+            Difficulty_Configurations().Hard(this->pluginSettings);
             break;
         }
     }
@@ -341,7 +369,7 @@ void Configure_Level_Form::on_btnNewRandomSeed_clicked() {
     this->ui->sbRandomSeed->setValue(QTime::currentTime().msecsSinceStartOfDay());
 }
 
-void Configure_Level_Form::on_comboDifficulty_currentIndexChanged(int index) {
+void Configure_Level_Form::on_comboDifficulty_activated(int index) {
     if (this->loading) return;
     if (index == 0) { //Custom
         //Show the Difficulty Form

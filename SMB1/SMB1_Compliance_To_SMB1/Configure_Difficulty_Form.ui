@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>489</height>
+    <width>656</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>462</width>
-        <height>433</height>
+        <y>-599</y>
+        <width>615</width>
+        <height>1041</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -36,7 +36,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>260</height>
+             <height>200</height>
             </size>
            </property>
            <property name="html">
@@ -45,18 +45,14 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;How Difficulty Scaling Works:&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Each level has a difficulty rating from 1-10 where 1 is the easiest (first level) and 10 is the hardest (last 10% of the game). The settings below will be enabled once the generator reaches the specified difficulty rating.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Each level has a difficulty rating from 1-10 where 1 is the easiest (beginning of the game) and 10 is the hardest (end of the game). The settings below will be enabled once the generator reaches the specified difficulty rating.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Examples:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 1 will be enabled for the entire game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 2 will be enabled 10% into the game.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 6 will be enabled about half way through the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 6 will be enabled half way through the game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 10 will be enabled 90% into the game.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 11 will never be enabled for the entire game.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Flying Cheep-Cheeps only affect bridge levels.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hammer Time replaces about every 1 in 5 enemies with a hammer bro.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Off-screen Bullet Bills only affect island levels.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 11 will never be enabled for the entire game.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -76,16 +72,19 @@ p, li { white-space: pre-wrap; }
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="layoutFlyingCheepCheeps">
+        <layout class="QHBoxLayout" name="layoutBulletTime">
          <item>
-          <widget class="QLabel" name="lblFlyingCheepCheeps">
+          <widget class="QLabel" name="lblBulletTime">
+           <property name="toolTip">
+            <string>Replaces all vertical blocks with Bullet Bill Turrets (ignoring stairs)</string>
+           </property>
            <property name="text">
-            <string>Flying Cheep-cheeps:</string>
+            <string>Bullet Time:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbFlyingCheepCheeps">
+          <widget class="QSpinBox" name="sbBulletTime">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -100,6 +99,9 @@ p, li { white-space: pre-wrap; }
         <layout class="QHBoxLayout" name="layoutHammerTime">
          <item>
           <widget class="QLabel" name="lblHammerTime">
+           <property name="toolTip">
+            <string>Replaces some enemies with Hammer Bros.</string>
+           </property>
            <property name="text">
             <string>Hammer Time:</string>
            </property>
@@ -118,16 +120,16 @@ p, li { white-space: pre-wrap; }
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="layoutOffscreenBulletBills">
+        <layout class="QHBoxLayout" name="layoutBridgeFlyingCheepCheeps">
          <item>
-          <widget class="QLabel" name="lblOffscreenBulletBills">
+          <widget class="QLabel" name="lblBridgeFlyingCheepCheeps">
            <property name="text">
-            <string>Off-screen Bullet Bills:</string>
+            <string>Bridge Flying Cheep-cheeps:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbOffscreenBulletBills">
+          <widget class="QSpinBox" name="sbBridgeFlyingCheepCheeps">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -139,22 +141,444 @@ p, li { white-space: pre-wrap; }
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="layoutUnderwaterCheepCheeps">
+        <layout class="QHBoxLayout" name="layoutBridgeLakitus">
          <item>
-          <widget class="QLabel" name="lblUnderwaterCheepCheeps">
+          <widget class="QLabel" name="lblBridgeLakitus">
            <property name="text">
-            <string>Underwater Cheep-cheeps:</string>
+            <string>Bridge Lakitus:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbUnderwaterCheepCheeps">
+          <widget class="QSpinBox" name="sbBridgeLakitus">
            <property name="minimum">
             <number>1</number>
            </property>
            <property name="maximum">
             <number>11</number>
            </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutBridgeOffscreenBulletBills">
+         <item>
+          <widget class="QLabel" name="lblBridgeOffscreenBulletBills">
+           <property name="text">
+            <string>Bridge Off-screen Bullet Bills:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbBridgeOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutCastleFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblCastleFlyingCheepCheeps">
+           <property name="text">
+            <string>Castle Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbCastleFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutCastleLakitus">
+         <item>
+          <widget class="QLabel" name="lblCastleLakitus">
+           <property name="text">
+            <string>Castle Lakitus:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbCastleLakitus">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutCastleOffscreenBulletBills">
+         <item>
+          <widget class="QLabel" name="lblCastleOffscreenBulletBills">
+           <property name="text">
+            <string>Castle Off-screen Bullet Bills:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbCastleOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutIslandFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblIslandFlyingCheepCheeps">
+           <property name="text">
+            <string>Island Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbIslandFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutIslandLakitus">
+         <item>
+          <widget class="QLabel" name="lblIslandLakitus">
+           <property name="text">
+            <string>Island Lakitus:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbIslandLakitus">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutIslandOffscreenBulletBills">
+         <item>
+          <widget class="QLabel" name="lblIslandOffscreenBulletBills">
+           <property name="text">
+            <string>Island Off-screen Bullet Bills:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbIslandOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUndergroundFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblUndergroundFlyingCheepCheeps">
+           <property name="text">
+            <string>Underground Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUndergroundFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUndergroundLakitus">
+         <item>
+          <widget class="QLabel" name="lblUndergroundLakitus">
+           <property name="text">
+            <string>Underground Lakitus:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUndergroundLakitus">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUndergroundOffscreenBulletBills">
+         <item>
+          <widget class="QLabel" name="lblUndergroundOffscreenBulletBills">
+           <property name="text">
+            <string>Underground Off-screen Bullet Bills:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUndergroundOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUnderwaterFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblUnderwaterFlyingCheepCheeps">
+           <property name="text">
+            <string>Underwater Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUnderwaterFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUnderwaterLakitus">
+         <item>
+          <widget class="QLabel" name="lblUnderwaterLakitus">
+           <property name="text">
+            <string>Underwater Lakitus:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUnderwaterLakitus">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUnderwaterSwimmingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblUnderwaterSwimmingCheepCheeps">
+           <property name="text">
+            <string>Underwater Swimming Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUnderwaterSwimmingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutStandardOverworldFlyingCheepCheeps">
+         <item>
+          <widget class="QLabel" name="lblStandardOverworldFlyingCheepCheeps">
+           <property name="text">
+            <string>Standard Overworld Flying Cheep-cheeps:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbStandardOverworldFlyingCheepCheeps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutlblStandardOverworldLakitus">
+         <item>
+          <widget class="QLabel" name="lblStandardOverworldLakitus">
+           <property name="text">
+            <string>Standard Overworld Lakitus:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbStandardOverworldLakitus">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutStandardOverworldOffscreenBulletBills">
+         <item>
+          <widget class="QLabel" name="lblStandardOverworldOffscreenBulletBills">
+           <property name="text">
+            <string>Standard Overworld Off-screen Bullet Bills:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbStandardOverworldOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
+         <item>
+          <widget class="QLabel" name="lblHammerTimeIntensity">
+           <property name="text">
+            <string>Hammer Time Intensity:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbHammerTimeIntensity">
+           <property name="suffix">
+            <string>%</string>
+           </property>
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutLakituSpawnChancePerLevel">
+         <item>
+          <widget class="QLabel" name="lblLakituSpawnChancePerLevel">
+           <property name="text">
+            <string>Lakitu Spawn Chance Per Level:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbLakituSpawnChancePerLevel">
+           <property name="suffix">
+            <string>%</string>
+           </property>
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenALakituSpawns">
+         <property name="text">
+          <string>Disable all other enemies when a Lakitu spawns</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutSpawnerPriority">
+         <item>
+          <widget class="QLabel" name="lblSpawnerPriority">
+           <property name="text">
+            <string>Spawner Priority:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboSpawnerPriority">
+           <item>
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Lakitus &gt; Flying Cheep-cheeps &gt; Bullet Bills</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>

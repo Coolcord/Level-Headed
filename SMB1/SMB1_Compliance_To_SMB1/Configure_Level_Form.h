@@ -1,12 +1,15 @@
 #ifndef CONFIGURE_LEVEL_FORM_H
 #define CONFIGURE_LEVEL_FORM_H
 
+#include "Difficulty_Settings.h"
 #include "Plugin_Settings.h"
 #include "Configure_Difficulty_Form.h"
 #include <QAbstractButton>
 #include <QComboBox>
 #include <QDialog>
 #include <QString>
+
+struct Difficulty_Settings;
 
 namespace Ui {
 class Configure_Level_Form;
@@ -28,8 +31,7 @@ private slots:
     void on_sbNumLevelsPerWorld_valueChanged(int numLevelsPerWorld);
     void on_sbNumWorlds_valueChanged(int numWorlds);
     void on_btnNewRandomSeed_clicked();
-
-    void on_comboDifficulty_currentIndexChanged(int index);
+    void on_comboDifficulty_activated(int index);
 
 private:
     void Clear_Chance_ComboBoxes();

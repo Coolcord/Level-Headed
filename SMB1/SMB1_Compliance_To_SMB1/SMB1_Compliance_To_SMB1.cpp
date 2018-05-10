@@ -4,6 +4,7 @@
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Configure_Base_Form.h"
 #include "Configure_Level_Form.h"
+#include "Difficulty_Configurations.h"
 #include "Level_Generator.h"
 #include "Hacks_Handler.h"
 #include <QDir>
@@ -159,10 +160,30 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.generateNewLevels << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.levelScripts << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyComboIndex << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.difficultyFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBulletTime << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTime << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.difficultyOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.difficultyUnderwaterCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBridgeFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBridgeLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBridgeOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyCastleFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyCastleLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyCastleOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyIslandFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyIslandLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyIslandOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUndergroundFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUndergroundLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUndergroundOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUnderwaterLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyStandardOverworldLakitus << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultySpawnerPriority << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.standardOverworldChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.undergroundChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.underwaterChance << Common_Strings::STRING_NEW_LINE;
@@ -196,10 +217,30 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.generateNewLevels = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.levelScripts = file.readLine().trimmed();
     this->pluginSettings.difficultyComboIndex = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
-    this->pluginSettings.difficultyFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBulletTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
-    this->pluginSettings.difficultyOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
-    this->pluginSettings.difficultyUnderwaterCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBridgeFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBridgeLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBridgeOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyCastleFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyCastleLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyCastleOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyIslandFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyIslandLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyIslandOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUndergroundFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUndergroundLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUndergroundOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUnderwaterLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyStandardOverworldLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultySpawnerPriority = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.standardOverworldChance = file.readLine().trimmed();
     this->pluginSettings.undergroundChance = file.readLine().trimmed();
     this->pluginSettings.underwaterChance = file.readLine().trimmed();
@@ -242,10 +283,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
     this->pluginSettings.difficultyComboIndex = 3;
-    this->pluginSettings.difficultyFlyingCheepCheeps = 3;
-    this->pluginSettings.difficultyHammerTime = 9;
-    this->pluginSettings.difficultyOffscreenBulletBills = 6;
-    this->pluginSettings.difficultyUnderwaterCheepCheeps = 3;
+    Difficulty_Configurations().Normal(&this->pluginSettings);
 }
 
 void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {

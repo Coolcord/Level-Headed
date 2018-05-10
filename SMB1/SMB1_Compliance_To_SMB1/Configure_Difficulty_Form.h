@@ -1,6 +1,7 @@
 #ifndef CONFIGURE_DIFFICULTY_FORM_H
 #define CONFIGURE_DIFFICULTY_FORM_H
 
+#include "Difficulty_Settings.h"
 #include "Plugin_Settings.h"
 #include <QAbstractButton>
 #include <QDialog>
@@ -9,14 +10,6 @@
 namespace Ui {
 class Configure_Difficulty_Form;
 }
-
-struct Difficulty_Settings {
-    bool save;
-    int flyingCheepCheeps;
-    int hammerTime;
-    int offscreenBulletBills;
-    int underwaterCheepCheeps;
-};
 
 class Configure_Difficulty_Form : public QDialog
 {

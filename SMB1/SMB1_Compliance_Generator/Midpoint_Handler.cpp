@@ -84,7 +84,7 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         ++page;
     }
 
-    if (this->args->levelType == Level_Type::UNDERWATER && this->args->difficulty >= this->args->difficultyUnderwaterCheepCheeps) {
+    if (this->args->levelType == Level_Type::UNDERWATER && this->args->difficulty >= this->args->difficultyUnderwaterSwimmingCheepCheeps) {
         assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
         x = 0;
     }
@@ -104,7 +104,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
-        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyFlyingCheepCheeps) {
+        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyIslandFlyingCheepCheeps) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }
@@ -146,7 +146,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         int length = 0x15-absoluteX;
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
-        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyFlyingCheepCheeps) {
+        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyIslandFlyingCheepCheeps) {
             if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
                 if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
             }
