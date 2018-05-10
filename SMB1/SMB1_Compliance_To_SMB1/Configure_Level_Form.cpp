@@ -279,14 +279,41 @@ void Configure_Level_Form::Save_Settings() {
             break;
         case 1: //Random
             break;
-        case 2: //Easy
+        case 2: //Very Easy
+            //TODO: Write this...
+            break;
+        case 3: //Easy
             Difficulty_Configurations().Easy(this->pluginSettings);
             break;
-        case 3: //Normal
+        case 4: //Normal
             Difficulty_Configurations().Normal(this->pluginSettings);
             break;
-        case 4: //Hard
+        case 5: //Hard
             Difficulty_Configurations().Hard(this->pluginSettings);
+            break;
+        case 6: //Very Hard
+            //TODO: Write this...
+            break;
+        case 7: //Brutal
+            //TODO: Write this...
+            break;
+        case 8: //Walk in the Park
+            //TODO: Write this...
+            break;
+        case 9: //Bullet Time
+            //TODO: Write this...
+            break;
+        case 10: //Lakitu's Challenge
+            //TODO: Write this...
+            break;
+        case 11: //Cheep-Cheep Frenzy
+            //TODO: Write this...
+            break;
+        case 12: //Hammer Time
+            //TODO: Write this...
+            break;
+        case 13: //Extreme Hammer Time
+            //TODO: Write this...
             break;
         }
     }

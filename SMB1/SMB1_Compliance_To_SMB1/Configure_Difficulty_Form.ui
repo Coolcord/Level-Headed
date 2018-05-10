@@ -124,7 +124,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblBridgeFlyingCheepCheeps">
            <property name="text">
-            <string>Bridge Flying Cheep-cheeps:</string>
+            <string>Bridge Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -187,7 +187,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblCastleFlyingCheepCheeps">
            <property name="text">
-            <string>Castle Flying Cheep-cheeps:</string>
+            <string>Castle Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -250,7 +250,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblIslandFlyingCheepCheeps">
            <property name="text">
-            <string>Island Flying Cheep-cheeps:</string>
+            <string>Island Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -313,7 +313,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblUndergroundFlyingCheepCheeps">
            <property name="text">
-            <string>Underground Flying Cheep-cheeps:</string>
+            <string>Underground Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -376,7 +376,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblUnderwaterFlyingCheepCheeps">
            <property name="text">
-            <string>Underwater Flying Cheep-cheeps:</string>
+            <string>Underwater Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -418,7 +418,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblUnderwaterSwimmingCheepCheeps">
            <property name="text">
-            <string>Underwater Swimming Cheep-cheeps:</string>
+            <string>Underwater Swimming Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -439,7 +439,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblStandardOverworldFlyingCheepCheeps">
            <property name="text">
-            <string>Standard Overworld Flying Cheep-cheeps:</string>
+            <string>Standard Overworld Flying Cheep-Cheeps:</string>
            </property>
           </widget>
          </item>
@@ -501,6 +501,9 @@ p, li { white-space: pre-wrap; }
         <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
          <item>
           <widget class="QLabel" name="lblHammerTimeIntensity">
+           <property name="toolTip">
+            <string>100% won't replace every enemy. Only about 90% of them.</string>
+           </property>
            <property name="text">
             <string>Hammer Time Intensity:</string>
            </property>
@@ -576,7 +579,7 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <property name="text">
-             <string>Lakitus &gt; Flying Cheep-cheeps &gt; Bullet Bills</string>
+             <string>Lakitus &gt; Flying Cheep-Cheeps &gt; Bullet Bills</string>
             </property>
            </item>
           </widget>

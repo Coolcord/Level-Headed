@@ -124,7 +124,7 @@ bool Level_Generator::Generate_Levels() {
         this->pluginSettings->difficultyHammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
-        this->pluginSettings->difficultySpawnerPriority = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+        this->pluginSettings->difficultySpawnerPriority = 0; //0 is random here
     }
 
     //Write the Number of Worlds

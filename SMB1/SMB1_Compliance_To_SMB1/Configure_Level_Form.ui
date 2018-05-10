@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
-    <height>746</height>
+    <width>504</width>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,8 +52,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>407</width>
-        <height>573</height>
+        <width>480</width>
+        <height>591</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -219,17 +219,62 @@
            </item>
            <item>
             <property name="text">
-             <string>Easy</string>
+             <string>-----&gt; Very Easy</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Normal (Default)</string>
+             <string>-----&gt; Easy</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Hard</string>
+             <string>-----&gt; Normal (Default)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Hard</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Very Hard</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Brutal</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Walk in the Park (No enemies)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bullet Time (Bullet Bills on every level)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Lakitu's Challenge (Lakitus on every level)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Cheep-Cheep Frenzy (Flying Cheep-Cheeps on every level)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hammer Time (~20% enemies are replaced with Hammer Bros.)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Extreme Hammer Time (~90% enemies are replaced with Hammer Bros.)</string>
             </property>
            </item>
           </widget>
