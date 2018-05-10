@@ -66,7 +66,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  A: At this point, no. If you want to use these, you can try to generate a game with Level-Headed first
  and then applying the patch, but I can't guarentee that it'll work.
  
- Q: What's going to be in the next update?
+ Q: What's going to be in the next update?
  
  A: You can see what changes are going to be implemented by looking at the [changelog](https://github.com/Coolcord/Level-Headed/blob/master/Changelog.txt).
  
