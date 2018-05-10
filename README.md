@@ -66,9 +66,13 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  A: At this point, no. If you want to use these, you can try to generate a game with Level-Headed first
  and then applying the patch, but I can't guarentee that it'll work.
  
- Q: What's the plan for the next update?
+ Q: What's going to be in the next update?
  
- A: There are two major goals that I'm hoping to work towards. The first is a pattern database for the 
+ A: You can see what changes are going to be implemented by looking at the [changelog](https://github.com/Coolcord/Level-Headed/blob/master/Changelog.txt).
+ 
+ Q: What are you trying to work towards?
+ 
+ A: There are two major goals that I'm hoping to accomplish. The first is a pattern database for the 
  "SMB1_Compliance" generator. This should make it significantly easier to create new patterns and also
  allow users to create their own. The second goal is to add support for another game that isn't a
  Nintendo property. Maybe Supertux? For now, I'm thinking about releasing smaller updates more
