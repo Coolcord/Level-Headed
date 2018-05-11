@@ -4,8 +4,11 @@
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "../Common_SMB1_Files/Scenery_String.h"
 #include "Physics.h"
+#include <assert.h>
 
-Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {
+Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Compliance_Generator_Arguments *args) : Item_Writer(stream, numBytesLeft) {
+    assert(args);
+    this->args = args;
     this->lastObjectLength = 0;
     this->coinBlockZone = 0;
     this->powerupZone = 0;
@@ -336,6 +339,11 @@ bool Object_Writer::Vertical_Bricks(int x, int y, int height) {
 bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
+
+    //Bullet Time Mod
+    if (this->args->difficulty >= this->args->difficultyBulletTime && this->args->levelCompliment == Level_Compliment::BULLET_BILL_TURRETS) {
+        return this->Bullet_Bill_Turret(x, y, height);
+    }
     return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 

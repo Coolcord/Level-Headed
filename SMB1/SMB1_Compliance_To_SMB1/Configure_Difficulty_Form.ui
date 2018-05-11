@@ -23,7 +23,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-599</y>
+        <y>-196</y>
         <width>615</width>
         <height>1041</height>
        </rect>
@@ -76,7 +76,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblBulletTime">
            <property name="toolTip">
-            <string>Replaces all vertical blocks with Bullet Bill Turrets (ignoring stairs)</string>
+            <string>Replaces most vertical blocks with Bullet Bill Cannons</string>
            </property>
            <property name="text">
             <string>Bullet Time:</string>

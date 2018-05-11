@@ -280,7 +280,7 @@ void Configure_Level_Form::Save_Settings() {
         case 1: //Random
             break;
         case 2: //Very Easy
-            //TODO: Write this...
+            Difficulty_Configurations().Very_Easy(this->pluginSettings);
             break;
         case 3: //Easy
             Difficulty_Configurations().Easy(this->pluginSettings);
@@ -300,7 +300,7 @@ void Configure_Level_Form::Save_Settings() {
         case 8: //Walk in the Park
             //TODO: Write this...
             break;
-        case 9: //Bullet Time
+        case 9: //Riddled with Bullets
             //TODO: Write this...
             break;
         case 10: //Lakitu's Challenge

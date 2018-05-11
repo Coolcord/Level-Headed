@@ -382,82 +382,6 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     SMB1_Compliance_Generator_Arguments args;
     args.fileName = this->levelLocation + "/" + generationName + "/Level_" + QString::number(world) + "_" + QString::number(level) + ".lvl";
 
-    //Determine the level type. The last level of each world should be a castle
-    if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
-    else args.levelType = this->Determine_Level_Type();
-    switch (args.levelType) {
-    case Level_Type::STANDARD_OVERWORLD:
-        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
-        else args.levelCompliment = Level_Compliment::TREES;
-        if (Random::Get_Num(1)==0) args.headerScenery = Scenery::MOUNTAINS;
-        else args.headerScenery = Scenery::FENCES;
-        if (Random::Get_Num(2)==0) {
-            int random = Random::Get_Num(119);
-            if (random < 40) args.headerBackground = Background::NIGHT;
-            else if (random < 80) args.headerBackground = Background::SNOW;
-            else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
-            else if (random < 120) args.headerBackground = Background::NIGHT_AND_FREEZE;
-            else assert(false);
-        } else args.headerBackground = Background::BLANK_BACKGROUND;
-        break;
-    case Level_Type::BRIDGE:
-    case Level_Type::ISLAND:
-        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
-        else args.levelCompliment = Level_Compliment::TREES;
-        args.headerScenery = Scenery::ONLY_CLOUDS;
-        if (Random::Get_Num(1)==0) {
-            int random = Random::Get_Num(169);
-            if (random < 50) args.headerBackground = Background::OVER_WATER;
-            else if (random < 90) args.headerBackground = Background::NIGHT;
-            else if (random < 130) args.headerBackground = Background::SNOW;
-            else if (random < 155) args.headerBackground = Background::NIGHT_AND_SNOW;
-            else if (random < 170) args.headerBackground = Background::NIGHT_AND_FREEZE;
-            else assert(false);
-        } else args.headerBackground = Background::BLANK_BACKGROUND;
-        break;
-    case Level_Type::UNDERGROUND:
-        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
-        else args.levelCompliment = Level_Compliment::TREES;
-        args.headerScenery = Scenery::NO_SCENERY;
-        if (args.levelCompliment == Level_Compliment::TREES && Random::Get_Num(3)==0) {
-            if (Random::Get_Num(2)==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
-            else args.headerBackground = Background::NIGHT_AND_SNOW;
-        } else {
-            args.headerBackground = Background::BLANK_BACKGROUND;
-        }
-        break;
-    case Level_Type::UNDERWATER:
-        args.levelCompliment = Level_Compliment::TREES;
-        args.headerScenery = Scenery::NO_SCENERY;
-        args.headerBackground = Background::IN_WATER;
-        break;
-    case Level_Type::CASTLE:
-        args.levelCompliment = Level_Compliment::TREES;
-        args.headerScenery = Scenery::NO_SCENERY;
-        args.headerBackground = Background::OVER_WATER;
-        break;
-    default:
-        assert(false); return args;
-    }
-
-    //Determine the start castle
-    if (args.levelType == Level_Type::CASTLE || args.levelType == Level_Type::UNDERWATER || args.levelType == Level_Type::UNDERGROUND) {
-        args.startCastle = Castle::NONE;
-    } else {
-        if (levelNum == 0 || args.levelType == Level_Type::CASTLE) args.startCastle = Castle::NONE;
-        else if (level == 1) args.startCastle = Castle::BIG;
-        else args.startCastle = Castle::SMALL;
-    }
-
-    //Determine the end castle
-    if (args.levelType == Level_Type::CASTLE) {
-        args.endCastle = Castle::NONE;
-    } else {
-        if (level == this->pluginSettings->numLevelsPerWorld-1) args.endCastle = Castle::BIG;
-        else if (args.levelType == Level_Type::CASTLE) args.endCastle = Castle::NONE;
-        else args.endCastle = Castle::SMALL;
-    }
-
     //Determine difficulty
     args.difficulty = std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels));
     assert(args.difficulty >= 1 && args.difficulty <= 10);
@@ -485,6 +409,80 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
     args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
+
+    //Determine the level type. The last level of each world should be a castle
+    if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
+    else args.levelType = this->Determine_Level_Type();
+    args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
+    switch (args.levelType) {
+    case Level_Type::STANDARD_OVERWORLD:
+        if (args.difficulty < args.difficultyBulletTime && Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Num(1)==0) args.headerScenery = Scenery::MOUNTAINS;
+        else args.headerScenery = Scenery::FENCES;
+        if (Random::Get_Num(2)==0) {
+            int random = Random::Get_Num(119);
+            if (random < 40) args.headerBackground = Background::NIGHT;
+            else if (random < 80) args.headerBackground = Background::SNOW;
+            else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
+            else if (random < 120) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            else assert(false);
+        } else args.headerBackground = Background::BLANK_BACKGROUND;
+        break;
+    case Level_Type::BRIDGE:
+    case Level_Type::ISLAND:
+        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        else args.levelCompliment = Level_Compliment::TREES;
+        args.headerScenery = Scenery::ONLY_CLOUDS;
+        if (Random::Get_Num(1)==0) {
+            int random = Random::Get_Num(169);
+            if (random < 50) args.headerBackground = Background::OVER_WATER;
+            else if (random < 90) args.headerBackground = Background::NIGHT;
+            else if (random < 130) args.headerBackground = Background::SNOW;
+            else if (random < 155) args.headerBackground = Background::NIGHT_AND_SNOW;
+            else if (random < 170) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            else assert(false);
+        } else args.headerBackground = Background::BLANK_BACKGROUND;
+        break;
+    case Level_Type::UNDERGROUND:
+        if (args.difficulty < args.difficultyBulletTime && Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        args.headerScenery = Scenery::NO_SCENERY;
+        if (args.levelCompliment == Level_Compliment::BULLET_BILL_TURRETS && Random::Get_Num(3)==0) {
+            if (Random::Get_Num(2)==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            else args.headerBackground = Background::NIGHT_AND_SNOW;
+        } else {
+            args.headerBackground = Background::BLANK_BACKGROUND;
+        }
+        break;
+    case Level_Type::UNDERWATER:
+        args.levelCompliment = Level_Compliment::TREES;
+        args.headerScenery = Scenery::NO_SCENERY;
+        args.headerBackground = Background::IN_WATER;
+        break;
+    case Level_Type::CASTLE:
+        args.headerScenery = Scenery::NO_SCENERY;
+        args.headerBackground = Background::OVER_WATER;
+        break;
+    default:
+        assert(false); return args;
+    }
+
+    //Determine the start castle
+    if (args.levelType == Level_Type::CASTLE || args.levelType == Level_Type::UNDERWATER || args.levelType == Level_Type::UNDERGROUND) {
+        args.startCastle = Castle::NONE;
+    } else {
+        if (levelNum == 0 || args.levelType == Level_Type::CASTLE) args.startCastle = Castle::NONE;
+        else if (level == 1) args.startCastle = Castle::BIG;
+        else args.startCastle = Castle::SMALL;
+    }
+
+    //Determine the end castle
+    if (args.levelType == Level_Type::CASTLE) {
+        args.endCastle = Castle::NONE;
+    } else {
+        if (level == this->pluginSettings->numLevelsPerWorld-1) args.endCastle = Castle::BIG;
+        else if (args.levelType == Level_Type::CASTLE) args.endCastle = Castle::NONE;
+        else args.endCastle = Castle::SMALL;
+    }
 
     args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
     args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();

@@ -562,17 +562,6 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         this->Mark_Bad_Coordinate(x, y);
         this->Mark_Bad_Coordinate(x, y+1);
         return true;
-    case Object_Item::CANNON:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x, i);
-        }
-        return true;
     case Object_Item::ISLAND:
         valid = false;
         y = elements.at(2).toInt(&valid);
@@ -597,9 +586,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
             this->Mark_Bad_Coordinate(x+i, y);
         }
         return true;
+    case Object_Item::CANNON:
+    case Object_Item::CORRAL:
     case Object_Item::VERTICAL_BRICKS:
     case Object_Item::VERTICAL_BLOCKS:
-    case Object_Item::CORRAL:
         valid = false;
         y = elements.at(2).toInt(&valid);
         assert(valid);

@@ -4,12 +4,13 @@
 #include "../Common_SMB1_Files/Background.h"
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Scenery.h"
+#include "SMB1_Compliance_Generator_Arguments.h"
 #include "Item_Writer.h"
 
 class Object_Writer : public Item_Writer
 {
 public:
-    Object_Writer(QTextStream *stream, int numBytesLeft);
+    Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
     ~Object_Writer() {}
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
@@ -89,6 +90,7 @@ private:
     const static int MAX_COIN_BLOCK_ZONE = 24;
     const static int MAX_POWERUP_ZONE = 56;
 
+    SMB1_Compliance_Generator_Arguments *args;
     int lastObjectLength;
     bool lastObjectIsPlatform;
     int coinBlockZone;

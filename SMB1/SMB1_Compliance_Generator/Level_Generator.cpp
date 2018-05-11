@@ -8,7 +8,7 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
     this->args = args;
     this->header = new Header_Writer(file);
     this->stream = new QTextStream(file);
-    this->object = new Object_Writer(this->stream, this->args->numObjectBytes);
+    this->object = new Object_Writer(this->stream, this->args->numObjectBytes, this->args);
     this->enemy = new Enemy_Writer(this->stream, this->args->numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
     this->requiredEnemySpawns = new Required_Enemy_Spawns(this->object, this->enemy, this->pipePointer);
