@@ -1,5 +1,6 @@
-#include "../../Common_Files/Random.h"
 #include "Underground_Generator.h"
+#include "../../Common_Files/Random.h"
+#include "Continuous_Enemies_Spawner.h"
 #include "Simple_Object_Spawner.h"
 #include "Common_Pattern_Spawner.h"
 #include <assert.h>
@@ -46,7 +47,12 @@ bool Underground_Generator::Spawn_Intro(int &x) {
     this->object->Set_First_Page_Safety(false); //undground levels can ignore the first page safety
     assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE, Scenery::NO_SCENERY));
     assert(this->object->Change_Brick_And_Scenery(5, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
-    x = 4;
+    Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
+    if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
+        x = 16;
+    } else {
+        x = 4;
+    }
     return true;
 }
 
