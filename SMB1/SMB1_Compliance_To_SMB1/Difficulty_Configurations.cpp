@@ -47,7 +47,7 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     difficultySettings.undergroundOffscreenBulletBills = 11;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
     difficultySettings.underwaterLakitus = 11;
-    difficultySettings.underwaterSwimmingCheepCheeps = 6;
+    difficultySettings.underwaterSwimmingCheepCheeps = 3;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 6;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
