@@ -67,7 +67,7 @@ void Configure_Difficulty_Form::Save_Settings() {
     this->difficultySettings->bridgeOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();
     this->difficultySettings->castleFlyingCheepCheeps = this->ui->sbCastleFlyingCheepCheeps->value();
     this->difficultySettings->castleLakitus = this->ui->sbCastleLakitus->value();
-    this->difficultySettings->castleOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();
+    this->difficultySettings->castleOffscreenBulletBills = this->ui->sbCastleOffscreenBulletBills->value();
     this->difficultySettings->islandFlyingCheepCheeps = this->ui->sbIslandFlyingCheepCheeps->value();
     this->difficultySettings->islandLakitus = this->ui->sbIslandLakitus->value();
     this->difficultySettings->islandOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();

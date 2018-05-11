@@ -15,6 +15,8 @@
 #include <QFile>
 #include <QTextStream>
 
+class Continuous_Enemies_Spawner;
+
 class Level_Generator
 {
 public:
@@ -30,6 +32,7 @@ protected:
     Level_Generator(const Level_Generator&);
     Level_Generator& operator=(const Level_Generator&);
     QTextStream *stream;
+    Continuous_Enemies_Spawner *continuousEnemiesSpawner;
     Header_Writer *header;
     Object_Writer *object;
     Enemy_Writer *enemy;

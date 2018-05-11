@@ -15,7 +15,7 @@ Continuous_Enemies_Spawner::Continuous_Enemies_Spawner(SMB1_Compliance_Generator
     this->requiredEnemySpawns = requiredEnemySpawns;
 }
 
-bool Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spawner(int x) {
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spawner(int x) {
     //Pull these Values Based on the Level Type
     int flyingCheepCheeps = 0;
     int lakitus = 0;
@@ -54,12 +54,6 @@ bool Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spawner(int x) {
         break;
     }
 
-    //Try Lakitus First
-    if (this->args->difficulty >= lakitus && Random::Get_Num(99) <= this->args->difficultyLakituSpawnChancePerLevel-1) {
-        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, x, 0x2));
-        return true;
-    }
-
     //Get the Specified Spawner by Priority
     std::array<unsigned int, 3> order = {0,1,2};
     if (this->args->difficultySpawnerPriority == 0) std::random_shuffle(order.begin(), order.end()); //random priority
@@ -67,40 +61,46 @@ bool Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spawner(int x) {
         switch (order.at(i)) {
         default: assert(false);
         case 0:
-            if (this->Try_To_Create_Continuous_Lakitus(x, lakitus)) return true;
+            if (this->Try_To_Create_Continuous_Lakitus(x, lakitus) != Enemy_Item::NOTHING) return Enemy_Item::LAKITU;
             break;
         case 1:
-            if (this->Try_To_Create_Continuous_Flying_Cheep_Cheeps(x, flyingCheepCheeps)) return true;
+            if (this->Try_To_Create_Continuous_Flying_Cheep_Cheeps(x, flyingCheepCheeps) != Enemy_Item::NOTHING) return Enemy_Item::CHEEP_CHEEP_SPAWNER;
             break;
         case 2:
-            if (this->Try_To_Create_Continuous_Offscreen_Bullet_Bills(x, offscreenBulletBills)) return true;
+            if (this->Try_To_Create_Continuous_Offscreen_Bullet_Bills(x, offscreenBulletBills) != Enemy_Item::NOTHING) return Enemy_Item::BULLET_BILL_SPAWNER;
             break;
         }
     }
-    return false;
+    return Enemy_Item::NOTHING;
 }
 
-bool Continuous_Enemies_Spawner::Try_To_Create_Continuous_Flying_Cheep_Cheeps(int x, int expectedDifficulty) {
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Flying_Cheep_Cheeps(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty) {
         if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
         else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
+        return Enemy_Item::CHEEP_CHEEP_SPAWNER;
     }
-    return false; //nothing was created
+    return Enemy_Item::NOTHING; //nothing was created
 }
 
-bool Continuous_Enemies_Spawner::Try_To_Create_Continuous_Lakitus(int x, int expectedDifficulty) {
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Lakitus(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty && Random::Get_Num(99) <= this->args->difficultyLakituSpawnChancePerLevel-1) {
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, x, 0x2));
-        return true;
+        return Enemy_Item::LAKITU;
     }
-    return false; //nothing was created
+    return Enemy_Item::NOTHING; //nothing was created
 }
 
-bool Continuous_Enemies_Spawner::Try_To_Create_Continuous_Offscreen_Bullet_Bills(int x, int expectedDifficulty) {
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Offscreen_Bullet_Bills(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty) {
-        if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
-        else assert(this->object->Bullet_Bill_Spawner(x));
-        return true;
+        if (this->args->levelType == Level_Type::UNDERWATER) {
+            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
+            else assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+        } else {
+            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
+            else assert(this->object->Bullet_Bill_Spawner(x));
+        }
+        return Enemy_Item::BULLET_BILL_SPAWNER;
     }
-    return false; //nothing was created
+    return Enemy_Item::NOTHING; //nothing was created
 }

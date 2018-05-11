@@ -1,17 +1,20 @@
-#include "../../Common_Files/Random.h"
 #include "Midpoint_Handler.h"
+#include "../../Common_Files/Random.h"
+#include "Continuous_Enemies_Spawner.h"
 #include "Object_Writer.h"
 #include "Physics.h"
 #include "Difficulty.h"
 #include <QDebug>
 #include <assert.h>
 
-Midpoint_Handler::Midpoint_Handler(Object_Writer *object, SMB1_Compliance_Generator_Arguments *args) {
+Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Continuous_Enemies_Spawner *continuousEnemiesSpawner, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
+    assert(continuousEnemiesSpawner);
     assert(args);
     assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
     this->args = args;
     this->object = object;
+    this->continuousEnemiesSpawner = continuousEnemiesSpawner;
     this->midpointWritten = false;
     this->midpoint = 0;
 }
@@ -84,10 +87,8 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         ++page;
     }
 
-    if (this->args->levelType == Level_Type::UNDERWATER && this->args->difficulty >= this->args->difficultyUnderwaterSwimmingCheepCheeps) {
-        assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
-        x = 0;
-    }
+    this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
+    x = 1;
     return true;
 }
 
@@ -104,11 +105,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
-        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyIslandFlyingCheepCheeps) {
-            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
-                if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
-            }
-        }
+        this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
         return true;
     }
 
@@ -146,11 +143,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         int length = 0x15-absoluteX;
         if (x+(0x10-absoluteX) > 0x10) return false;
         if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
-        if (this->args->levelType == Level_Type::BRIDGE && this->args->difficulty >= this->args->difficultyIslandFlyingCheepCheeps) {
-            if (!this->object->Flying_Cheep_Cheep_Spawner(0)) {
-                if (!this->object->Flying_Cheep_Cheep_Spawner(1)) return false;
-            }
-        }
+        this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
         x = length;
         return true;
     }

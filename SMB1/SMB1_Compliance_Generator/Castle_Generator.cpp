@@ -1,5 +1,6 @@
-#include "../../Common_Files/Random.h"
 #include "Castle_Generator.h"
+#include "Continuous_Enemies_Spawner.h"
+#include "../../Common_Files/Random.h"
 #include "Physics.h"
 #include <assert.h>
 
@@ -52,7 +53,7 @@ bool Castle_Generator::Generate_Level() {
     }
 
     //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
+    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE_4_AND_CEILING_3));
 
     //Write the header last
     return this->header->Write_Header(Level_Type::CASTLE, Level_Attribute::CASTLE, Brick::SURFACE_4_AND_CEILING_3, Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
@@ -115,11 +116,16 @@ bool Castle_Generator::Spawn_Firebar(int x, int y) {
 }
 
 bool Castle_Generator::Spawn_Intro(int &x) {
-    if (this->object->Get_Num_Objects_Available() < 3) return false;
+    if (this->object->Get_Num_Objects_Available() < 4) return false;
     assert(this->object->Horizontal_Blocks(0, 5, 3));
     assert(this->object->Horizontal_Blocks(0, 6, 4));
     assert(this->object->Horizontal_Blocks(0, 7, 5));
-    this->object->Set_Last_Object_Length(16);
+    Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
+    if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
+        this->object->Set_Last_Object_Length(16);
+    } else {
+        this->object->Set_Last_Object_Length(1);
+    }
     x = 16;
     return true;
 }
@@ -129,7 +135,7 @@ void Castle_Generator::Handle_Bowser_Fire() {
         if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
         else assert(this->object->Cancel_Spawner(0));
         assert(this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()-4));
-        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 1));
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 4));
         this->bowserFireSpawned = true;
     }
 }

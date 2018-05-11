@@ -181,7 +181,10 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
 
 bool Required_Enemy_Spawns::Is_In_Range_Of_Required_Enemy(int x) {
     if (this->requiredEnemies->isEmpty()) return false;
-    assert(this->requiredEnemies->first().x >= x);
+    //assert(this->requiredEnemies->first().x >= x);
+    if (this->requiredEnemies->first().x < x) {
+        return false;
+    }
     return (this->requiredEnemies->first().x-x <= 0x10);
 }
 
