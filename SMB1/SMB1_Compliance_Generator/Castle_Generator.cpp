@@ -125,9 +125,11 @@ bool Castle_Generator::Spawn_Intro(int &x) {
 }
 
 void Castle_Generator::Handle_Bowser_Fire() {
-    if (!this->bowserFireSpawned && this->object->Get_Num_Objects_Available() < (this->args->numObjectBytes/8)) {
+    if (!this->bowserFireSpawned && this->object->Get_Num_Objects_Available() < (this->args->numObjectBytes/8)+2) {
+        if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
+        else assert(this->object->Cancel_Spawner(0));
         assert(this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()-4));
-        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 0));
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 1));
         this->bowserFireSpawned = true;
     }
 }
