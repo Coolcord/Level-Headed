@@ -1,7 +1,8 @@
+#include "Standard_Overworld_Generator.h"
 #include "../../Common_Files/Random.h"
+#include "../Common_SMB1_Files/Castle.h"
 #include "Common_Pattern_Spawner.h"
 #include "Continuous_Enemies_Spawner.h"
-#include "Standard_Overworld_Generator.h"
 #include "Simple_Object_Spawner.h"
 #include <assert.h>
 #include <QDebug>
@@ -16,11 +17,12 @@ bool Standard_Overworld_Generator::Generate_Level() {
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->object, Level_Type::STANDARD_OVERWORLD);
 
     //Spawn the Intro
-    this->Spawn_Intro();
+    int x = 0;
+    this->Spawn_Intro(x);
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        int x = this->object->Get_Last_Object_Length();
+        x = this->object->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
@@ -39,14 +41,12 @@ bool Standard_Overworld_Generator::Generate_Level() {
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 
-void Standard_Overworld_Generator::Spawn_Intro() {
-    int x = this->object->Get_Last_Object_Length();
+void Standard_Overworld_Generator::Spawn_Intro(int &x) {
     this->firstPageHandler->Handle_First_Page(x);
-
-    //int spawnerX = 16-x;
-    //if (spawnerX < 0) spawnerX = 0;
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
-        this->object->Set_Last_Object_Length(17);
+        if (args->startCastle == Castle::BIG) this->object->Set_Last_Object_Length(12);
+        else this->object->Set_Last_Object_Length(17);
     }
+    x = 17;
 }

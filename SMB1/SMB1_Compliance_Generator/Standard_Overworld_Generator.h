@@ -13,7 +13,7 @@ public:
     ~Standard_Overworld_Generator();
     bool Generate_Level();
 private:
-    void Spawn_Intro();
+    void Spawn_Intro(int &x);
 
     Standard_Overworld_Generator(const Standard_Overworld_Generator&);
     Standard_Overworld_Generator& operator=(const Standard_Overworld_Generator&);

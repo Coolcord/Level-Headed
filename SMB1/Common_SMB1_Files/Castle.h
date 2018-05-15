@@ -4,8 +4,8 @@
 namespace Castle {
     enum Castle {
         NONE,
-		SMALL,
-		BIG
+        SMALL,
+        BIG
     };
 }
 
