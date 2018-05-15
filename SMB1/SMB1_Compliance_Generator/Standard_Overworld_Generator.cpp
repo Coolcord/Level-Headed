@@ -42,6 +42,11 @@ bool Standard_Overworld_Generator::Generate_Level() {
 void Standard_Overworld_Generator::Spawn_Intro() {
     int x = this->object->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
-    this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
-    this->object->Set_Last_Object_Length(1);
+
+    //int spawnerX = 16-x;
+    //if (spawnerX < 0) spawnerX = 0;
+    Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
+    if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
+        this->object->Set_Last_Object_Length(17);
+    }
 }

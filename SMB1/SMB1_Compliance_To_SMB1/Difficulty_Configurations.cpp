@@ -160,6 +160,8 @@ Difficulty_Settings Difficulty_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.lakituSpawnChancePerLevel = 100;
     return difficultySettings;
 }
 
