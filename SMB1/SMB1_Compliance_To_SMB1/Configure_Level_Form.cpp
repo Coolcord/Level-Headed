@@ -278,6 +278,7 @@ void Configure_Level_Form::Save_Settings() {
             this->pluginSettings->difficultySpawnerPriority = this->difficultySettings.spawnerPriority;
             break;
         case 1: //Random
+            Difficulty_Configurations().Random(this->pluginSettings);
             break;
         case 2: //Very Easy
             Difficulty_Configurations().Very_Easy(this->pluginSettings);
@@ -292,28 +293,28 @@ void Configure_Level_Form::Save_Settings() {
             Difficulty_Configurations().Hard(this->pluginSettings);
             break;
         case 6: //Very Hard
-            //TODO: Write this...
+            Difficulty_Configurations().Very_Hard(this->pluginSettings);
             break;
         case 7: //Brutal
-            //TODO: Write this...
+            Difficulty_Configurations().Brutal(this->pluginSettings);
             break;
         case 8: //Walk in the Park
-            //TODO: Write this...
+            Difficulty_Configurations().Walk_In_The_Park(this->pluginSettings);
             break;
         case 9: //Riddled with Bullets
-            //TODO: Write this...
+            Difficulty_Configurations().Riddled_With_Bullets(this->pluginSettings);
             break;
         case 10: //Lakitu's Challenge
-            //TODO: Write this...
+            Difficulty_Configurations().Lakitus_Challenge(this->pluginSettings);
             break;
         case 11: //Cheep-Cheep Frenzy
-            //TODO: Write this...
+            Difficulty_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
             break;
         case 12: //Hammer Time
-            //TODO: Write this...
+            Difficulty_Configurations().Hammer_Time(this->pluginSettings);
             break;
         case 13: //Extreme Hammer Time
-            //TODO: Write this...
+            Difficulty_Configurations().Extreme_Hammer_Time(this->pluginSettings);
             break;
         }
     }

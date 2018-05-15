@@ -97,36 +97,6 @@ bool Level_Generator::Generate_Levels() {
         }
     }
 
-    //Randomly determine the difficulty settings if specified
-    if (this->pluginSettings->difficultyComboIndex == 1) {
-        //Go 1 Higher than the Max Difficulty for a Chance to be Completely Disabled
-        int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
-        this->pluginSettings->difficultyBulletTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyHammerTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyBridgeFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyBridgeLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyBridgeOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyCastleFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyCastleLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyCastleOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyIslandFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyIslandLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyIslandOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUndergroundFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUndergroundLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUndergroundOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUnderwaterLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyStandardOverworldLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyHammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyLakituSpawnChancePerLevel = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-        this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
-        this->pluginSettings->difficultySpawnerPriority = 0; //0 is random here
-    }
-
     //Write the Number of Worlds
     if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
         qDebug() << "Failed to write the number of worlds to the ROM!";

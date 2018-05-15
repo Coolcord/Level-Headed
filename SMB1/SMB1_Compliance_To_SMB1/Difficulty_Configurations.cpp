@@ -1,4 +1,6 @@
 #include "Difficulty_Configurations.h"
+#include "../../Common_Files/Random.h"
+#include "../SMB1_Compliance_Generator/Difficulty.h"
 #include <assert.h>
 
 void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Settings &difficultySettings, Plugin_Settings *pluginSettings) {
@@ -102,6 +104,132 @@ Difficulty_Settings Difficulty_Configurations::Hard() {
     return difficultySettings;
 }
 
+Difficulty_Settings Difficulty_Configurations::Very_Hard() {
+    //TODO: Write this...
+}
+
+Difficulty_Settings Difficulty_Configurations::Brutal() {
+    //TODO: Write this...
+}
+
+Difficulty_Settings Difficulty_Configurations::Walk_In_The_Park() {
+    //TODO: Write this...
+}
+
+Difficulty_Settings Difficulty_Configurations::Riddled_With_Bullets() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    difficultySettings.bulletTime = 1;
+    difficultySettings.bridgeFlyingCheepCheeps = 11;
+    difficultySettings.bridgeLakitus = 11;
+    difficultySettings.bridgeOffscreenBulletBills = 1;
+    difficultySettings.castleFlyingCheepCheeps = 11;
+    difficultySettings.castleLakitus = 11;
+    difficultySettings.castleOffscreenBulletBills = 1;
+    difficultySettings.islandFlyingCheepCheeps = 11;
+    difficultySettings.islandLakitus = 11;
+    difficultySettings.islandOffscreenBulletBills = 1;
+    difficultySettings.undergroundFlyingCheepCheeps = 11;
+    difficultySettings.undergroundLakitus = 11;
+    difficultySettings.undergroundOffscreenBulletBills = 1;
+    difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterLakitus = 11;
+    difficultySettings.underwaterSwimmingCheepCheeps = 1;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
+    difficultySettings.standardOverworldLakitus = 11;
+    difficultySettings.standardOverworldOffscreenBulletBills = 1;
+    return difficultySettings;
+}
+
+Difficulty_Settings Difficulty_Configurations::Lakitus_Challenge() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    difficultySettings.bridgeFlyingCheepCheeps = 11;
+    difficultySettings.bridgeLakitus = 1;
+    difficultySettings.bridgeOffscreenBulletBills = 11;
+    difficultySettings.castleFlyingCheepCheeps = 11;
+    difficultySettings.castleLakitus = 1;
+    difficultySettings.castleOffscreenBulletBills = 11;
+    difficultySettings.islandFlyingCheepCheeps = 11;
+    difficultySettings.islandLakitus = 1;
+    difficultySettings.islandOffscreenBulletBills = 11;
+    difficultySettings.undergroundFlyingCheepCheeps = 11;
+    difficultySettings.undergroundLakitus = 1;
+    difficultySettings.undergroundOffscreenBulletBills = 11;
+    difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterLakitus = 1;
+    difficultySettings.underwaterSwimmingCheepCheeps = 11;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
+    difficultySettings.standardOverworldLakitus = 1;
+    difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    return difficultySettings;
+}
+
+Difficulty_Settings Difficulty_Configurations::Cheep_Cheep_Frenzy() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    difficultySettings.bridgeFlyingCheepCheeps = 1;
+    difficultySettings.bridgeLakitus = 11;
+    difficultySettings.bridgeOffscreenBulletBills = 11;
+    difficultySettings.castleFlyingCheepCheeps = 1;
+    difficultySettings.castleLakitus = 11;
+    difficultySettings.castleOffscreenBulletBills = 11;
+    difficultySettings.islandFlyingCheepCheeps = 1;
+    difficultySettings.islandLakitus = 11;
+    difficultySettings.islandOffscreenBulletBills = 11;
+    difficultySettings.undergroundFlyingCheepCheeps = 1;
+    difficultySettings.undergroundLakitus = 11;
+    difficultySettings.undergroundOffscreenBulletBills = 11;
+    difficultySettings.underwaterFlyingCheepCheeps = 1;
+    difficultySettings.underwaterLakitus = 11;
+    difficultySettings.underwaterSwimmingCheepCheeps = 11;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 1;
+    difficultySettings.standardOverworldLakitus = 11;
+    difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    return difficultySettings;
+}
+
+Difficulty_Settings Difficulty_Configurations::Hammer_Time() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    difficultySettings.hammerTime = 1;
+    difficultySettings.hammerTimeIntensity = 25;
+    return difficultySettings;
+}
+
+Difficulty_Settings Difficulty_Configurations::Extreme_Hammer_Time() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    difficultySettings.hammerTime = 1;
+    difficultySettings.hammerTimeIntensity = 100;
+    return difficultySettings;
+}
+
+Difficulty_Settings Difficulty_Configurations::Random() {
+    Difficulty_Settings difficultySettings = this->Normal();
+    int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
+    difficultySettings.bulletTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.hammerTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.bridgeFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.bridgeLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.bridgeOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.castleFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.castleLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.castleOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.islandFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.islandLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.islandOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.undergroundFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.undergroundLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.undergroundOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.underwaterFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.underwaterLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.underwaterSwimmingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.standardOverworldLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
+    difficultySettings.spawnerPriority = 0; //0 is random here
+    return difficultySettings;
+}
+
 void Difficulty_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings);
 }
@@ -116,4 +244,40 @@ void Difficulty_Configurations::Normal(Plugin_Settings *pluginSettings) {
 
 void Difficulty_Configurations::Hard(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings);
+}
+
+void Difficulty_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings);
+}
+
+void Difficulty_Configurations::Brutal(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings);
+}
+
+void Difficulty_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);
+}
+
+void Difficulty_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);
+}
+
+void Difficulty_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings);
+}
+
+void Difficulty_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings);
+}
+
+void Difficulty_Configurations::Hammer_Time(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings);
+}
+
+void Difficulty_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings);
+}
+
+void Difficulty_Configurations::Random(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings);
 }
