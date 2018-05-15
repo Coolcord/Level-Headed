@@ -17,7 +17,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->object, Level_Type::STANDARD_OVERWORLD);
 
     //Spawn the Intro
-    int x = 0;
+    int x = this->object->Get_Last_Object_Length();
     this->Spawn_Intro(x);
 
     //Create the level
