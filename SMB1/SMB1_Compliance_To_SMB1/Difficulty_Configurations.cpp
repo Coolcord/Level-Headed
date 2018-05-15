@@ -226,7 +226,7 @@ Difficulty_Settings Difficulty_Configurations::Random() {
     difficultySettings.standardOverworldLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-    difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
     return difficultySettings;
