@@ -86,9 +86,6 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
         assert(this->object->Will_Page_Flag_Be_Tripped(x));
         ++page;
     }
-
-    this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
-    x = 1;
     return true;
 }
 

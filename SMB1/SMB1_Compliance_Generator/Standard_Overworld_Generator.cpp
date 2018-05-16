@@ -48,5 +48,4 @@ void Standard_Overworld_Generator::Spawn_Intro(int &x) {
         if (args->startCastle == Castle::BIG) this->object->Set_Last_Object_Length(12);
         else this->object->Set_Last_Object_Length(17);
     }
-    x = 17;
 }
