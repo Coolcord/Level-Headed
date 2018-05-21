@@ -23,6 +23,7 @@ struct Difficulty_Settings {
     int standardOverworldFlyingCheepCheeps;
     int standardOverworldLakitus;
     int standardOverworldOffscreenBulletBills;
+    bool noEnemies;
     int hammerTimeIntensity;
     int lakituSpawnChancePerLevel;
     bool disableAllOtherEnemiesWhenALakituSpawns;

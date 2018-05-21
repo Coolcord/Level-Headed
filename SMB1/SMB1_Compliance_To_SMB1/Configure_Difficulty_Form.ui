@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-196</y>
+        <y>-628</y>
         <width>615</width>
-        <height>1041</height>
+        <height>1070</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -496,6 +496,13 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbNoEnemies">
+         <property name="text">
+          <string>No enemies</string>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">

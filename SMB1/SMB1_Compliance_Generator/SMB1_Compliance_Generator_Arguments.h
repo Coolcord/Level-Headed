@@ -39,6 +39,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficultyStandardOverworldFlyingCheepCheeps;
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
+    bool difficultyNoEnemies;
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;

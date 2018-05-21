@@ -180,6 +180,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyStandardOverworldLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyNoEnemies << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns << Common_Strings::STRING_NEW_LINE;
@@ -237,6 +238,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyStandardOverworldLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyNoEnemies = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns = file.readLine().trimmed().toInt(&valid); if (!valid) return false;

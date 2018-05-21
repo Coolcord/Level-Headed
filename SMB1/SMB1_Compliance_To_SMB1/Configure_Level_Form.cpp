@@ -49,6 +49,7 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->difficultySettings.standardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;
     this->difficultySettings.standardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
     this->difficultySettings.standardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
+    this->difficultySettings.noEnemies = this->pluginSettings->difficultyNoEnemies;
     this->difficultySettings.hammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
     this->difficultySettings.lakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
     this->difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
@@ -272,6 +273,7 @@ void Configure_Level_Form::Save_Settings() {
             this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = this->difficultySettings.standardOverworldFlyingCheepCheeps;
             this->pluginSettings->difficultyStandardOverworldLakitus = this->difficultySettings.standardOverworldLakitus;
             this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = this->difficultySettings.standardOverworldOffscreenBulletBills;
+            this->pluginSettings->difficultyNoEnemies = this->difficultySettings.noEnemies;
             this->pluginSettings->difficultyHammerTimeIntensity = this->difficultySettings.hammerTimeIntensity;
             this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->difficultySettings.lakituSpawnChancePerLevel;
             this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;

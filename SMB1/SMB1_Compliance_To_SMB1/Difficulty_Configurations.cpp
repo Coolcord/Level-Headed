@@ -25,6 +25,7 @@ void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(con
     pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = difficultySettings.standardOverworldFlyingCheepCheeps;
     pluginSettings->difficultyStandardOverworldLakitus = difficultySettings.standardOverworldLakitus;
     pluginSettings->difficultyStandardOverworldOffscreenBulletBills = difficultySettings.standardOverworldOffscreenBulletBills;
+    pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
@@ -53,6 +54,7 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 4;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    difficultySettings.noEnemies = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
@@ -113,7 +115,9 @@ Difficulty_Settings Difficulty_Configurations::Brutal() {
 }
 
 Difficulty_Settings Difficulty_Configurations::Walk_In_The_Park() {
-    //TODO: Write this...
+    Difficulty_Settings difficultySettings = this->Very_Easy();
+    difficultySettings.noEnemies = true;
+    return difficultySettings;
 }
 
 Difficulty_Settings Difficulty_Configurations::Riddled_With_Bullets() {

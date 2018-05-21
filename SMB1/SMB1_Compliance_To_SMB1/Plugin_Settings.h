@@ -64,6 +64,7 @@ struct Plugin_Settings {
     int difficultyStandardOverworldFlyingCheepCheeps;
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
+    bool difficultyNoEnemies;
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;

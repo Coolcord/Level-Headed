@@ -375,6 +375,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyStandardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;
     args.difficultyStandardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
     args.difficultyStandardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
+    args.difficultyNoEnemies = this->pluginSettings->difficultyNoEnemies;
     args.difficultyHammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
     args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
     args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
