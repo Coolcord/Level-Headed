@@ -52,6 +52,7 @@ void Configure_Difficulty_Form::Load_Settings() {
     this->ui->sbStandardOverworldFlyingCheepCheeps->setValue(this->difficultySettings->standardOverworldFlyingCheepCheeps);
     this->ui->sbStandardOverworldLakitus->setValue(this->difficultySettings->standardOverworldLakitus);
     this->ui->sbStandardOverworldOffscreenBulletBills->setValue(this->difficultySettings->standardOverworldOffscreenBulletBills);
+    this->ui->cbNoEnemies->setChecked(this->difficultySettings->noEnemies);
     this->ui->sbHammerTimeIntensity->setValue(this->difficultySettings->hammerTimeIntensity);
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->difficultySettings->lakituSpawnChancePerLevel);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->difficultySettings->disableAllOtherEnemiesWhenALakituSpawns);
@@ -80,6 +81,7 @@ void Configure_Difficulty_Form::Save_Settings() {
     this->difficultySettings->standardOverworldFlyingCheepCheeps = this->ui->sbStandardOverworldFlyingCheepCheeps->value();
     this->difficultySettings->standardOverworldLakitus = this->ui->sbStandardOverworldLakitus->value();
     this->difficultySettings->standardOverworldOffscreenBulletBills = this->ui->sbStandardOverworldOffscreenBulletBills->value();
+    this->difficultySettings->noEnemies = this->ui->cbNoEnemies->isChecked();
     this->difficultySettings->hammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
     this->difficultySettings->lakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
     this->difficultySettings->disableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();

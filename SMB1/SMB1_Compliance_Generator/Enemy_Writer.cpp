@@ -5,6 +5,7 @@
 
 Enemy_Writer::Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {
     this->firstEnemy = true;
+    this->wasLakituSpawned = false;
 }
 
 bool Enemy_Writer::Get_First_Enemy() {
@@ -13,6 +14,10 @@ bool Enemy_Writer::Get_First_Enemy() {
 
 void Enemy_Writer::Set_First_Enemy(bool value) {
     this->firstEnemy = value;
+}
+
+bool Enemy_Writer::Was_Lakitu_Spawned() {
+    return this->wasLakituSpawned;
 }
 
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
@@ -137,7 +142,9 @@ bool Enemy_Writer::Pirana_Plant(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Lakitu(int x, int y, bool onlyHardMode) {
-    return this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LAKITU);
+    bool success = this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LAKITU);
+    if (success) this->wasLakituSpawned = true;
+    return success;
 }
 
 bool Enemy_Writer::Spiny(int x, int y, bool onlyHardMode) {

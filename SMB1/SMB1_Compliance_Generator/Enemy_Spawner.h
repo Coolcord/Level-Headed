@@ -22,19 +22,19 @@ private:
     bool Handle_Required_Enemies(int &lastX);
     bool Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX);
 
-    int Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size);
-    int Spawn_Underground_Enemy(int &x, int &y, int lastX, int size);
-    int Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size);
-    int Spawn_Castle_Enemy(int &x, int &y, int lastX, int size);
-    int Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size);
-    int Spawn_Island_Enemy(int &x, int &y, int lastX, int size);
+    int Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
+    int Spawn_Underground_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
+    int Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
+    int Spawn_Castle_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
+    int Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
+    int Spawn_Island_Enemy(int &x, int &y, int lastX, int size, bool noEnemies);
 
     int Calculate_Number_Of_Enemies();
     int Calculate_Average_Distance(int x, int totalSpaces, int numEnemies);
     bool Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount);
     int Get_Random_X(int min);
-    int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro);
-    int Multi_Enemy(int &x, int &y, int lastX, int lastSize);
+    int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies);
+    int Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies);
 
     QFile *file;
     QTextStream *stream;

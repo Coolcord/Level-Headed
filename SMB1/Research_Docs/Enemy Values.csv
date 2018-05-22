@@ -1,9 +1,9 @@
 Y Offset 0x0 - 0xD,,,,,,,,,,,,,,,,
 ,0xX0,0xX1,0xX2,0xX3,0xX4,0xX5,0xX6,0xX7,0xX8,0xX9,0xXA,0xXB,0xXC,0xXD,0xXE,0xXF
 0x0X,Koopa (Green),INVALID,Buzzy Beetle,Koopa (Red),Koopa (Green) (Stopped),Hammer Bro,Goomba,Blooper,Bullet Bill,Paratroopa (Green) (Stopped),Cheep-cheep (Green),Cheep-cheep (Red),Podoboo,Pirana Plant,Paratroopa (Green) (Jumping),Paratroopa (Red) (Up & Down)
-0x1X,Paratroopa (Green) (Left & Right),Lakitu,Spiny,INVALID,Cheep-cheep Spawner (Flying),Bowser's Fire Spawner,INVALID,Bullet Bill (Cheep-cheep) Spawner,INVALID,INVALID,INVALID,Fire Bar (Clockwise) (Slow),Fire Bar (Clockwise) (Fast),Fire Bar (Counter-clockwise) (Slow),Fire Bar (Counter-clockwise) (Fast),Long Fire Bar (Clockwise)
-0x2X,INVALID,INVALID,INVALID,Nothing,Balance Lift (Y must be +0x1 more than rope and X must be -0x1 less than rope),Lift (Up & Down),Lift Spawner (Up),Lift Spawner (Down),Lift (Left & Right),Lift (Fall),Lift (Surfing Right),Small Lift Spawner (Up),Small Lift Spawner (Down),Bowser,INVALID,INVALID
-0x3X,INVALID,INVALID,INVALID,INVALID,Warp Zone,Toad,INVALID,2 Goombas (Y must be 0xA),3 Goombas (Y must be 0xA),2 Goombas (Y must be 0x6),3 Goombas (Y must be 0x6),2 Koopas (Green) (Y must be 0xA),3 Koopas (Green) (Y must be 0xA),2 Koopas (Green) (Y must be 0x6),3 Koopas (Green) (Y must be 0x6),INVALID
+0x1X,Paratroopa (Green) (Left & Right),Lakitu,Spiny,INVALID (weird graphics),Cheep-cheep Spawner (Flying),Bowser's Fire Spawner,INVALID (crash),Bullet Bill (Cheep-cheep) Spawner,INVALID,INVALID,INVALID,Fire Bar (Clockwise) (Slow),Fire Bar (Clockwise) (Fast),Fire Bar (Counter-clockwise) (Slow),Fire Bar (Counter-clockwise) (Fast),Long Fire Bar (Clockwise)
+0x2X,INVALID,INVALID,INVALID (fire wall),INVALID (breaks flagpole),Balance Lift (Y must be +0x1 more than rope and X must be -0x1 less than rope),Lift (Up & Down),Lift Spawner (Up),Lift Spawner (Down),Lift (Left & Right),Lift (Fall),Lift (Surfing Right),Small Lift Spawner (Up),Small Lift Spawner (Down),Bowser,INVALID (makes beanstalk noise),INVALID (makes beanstalk noise)
+0x3X,INVALID,INVALID,INVALID,INVALID,Warp Zone,Toad,INVALID (crash),2 Goombas (Y must be 0xA),3 Goombas (Y must be 0xA),2 Goombas (Y must be 0x6),3 Goombas (Y must be 0x6),2 Koopas (Green) (Y must be 0xA),3 Koopas (Green) (Y must be 0xA),2 Koopas (Green) (Y must be 0x6),3 Koopas (Green) (Y must be 0x6),INVALID (crash)
 ,,,,,,,,,,,,,,,,
 Y Offset 0xE: Pipe Pointers – 3 Bytes,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,

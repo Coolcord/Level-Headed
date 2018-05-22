@@ -16,7 +16,7 @@ Enemy_Writer::~Enemy_Writer() {
 }
 
 bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
-    if (y > 0xD) return false; //enemies must exist between 0x0 and 0xD
+    if (y > 0xF || y == 0xE) return false; //enemies must exist between 0x0 and 0xD. 0xF is allowed for "Nothing"
     assert(enemyByte >= 0x0);
     if (onlyHardMode) {
         enemyByte += 64; //trigger the hard mode bit
@@ -331,7 +331,7 @@ bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
 }
 
 bool Enemy_Writer::Nothing(int x) {
-    return this->Write_Enemy(x, 0xD, 0x23, false);
+    return this->Write_Enemy(x, 0xF, 0x00, false); //acts as a page change
 }
 
 void Enemy_Writer::Populate_Level_Slots() {
