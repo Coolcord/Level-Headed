@@ -102,7 +102,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Num(2)+(6-absoluteX))) return false;
         x = this->object->Get_Last_Object_Length()+1;
-        this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
+        //this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
         return true;
     }
 
