@@ -43,6 +43,7 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->difficultySettings.undergroundFlyingCheepCheeps = this->pluginSettings->difficultyUndergroundFlyingCheepCheeps;
     this->difficultySettings.undergroundLakitus = this->pluginSettings->difficultyUndergroundLakitus;
     this->difficultySettings.undergroundOffscreenBulletBills = this->pluginSettings->difficultyUndergroundOffscreenBulletBills;
+    this->difficultySettings.underwaterBloopers = this->pluginSettings->difficultyUnderwaterBloopers;
     this->difficultySettings.underwaterFlyingCheepCheeps = this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps;
     this->difficultySettings.underwaterLakitus = this->pluginSettings->difficultyUnderwaterLakitus;
     this->difficultySettings.underwaterSwimmingCheepCheeps = this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps;
@@ -267,6 +268,7 @@ void Configure_Level_Form::Save_Settings() {
             this->pluginSettings->difficultyUndergroundFlyingCheepCheeps = this->difficultySettings.undergroundFlyingCheepCheeps;
             this->pluginSettings->difficultyUndergroundLakitus = this->difficultySettings.undergroundLakitus;
             this->pluginSettings->difficultyUndergroundOffscreenBulletBills = this->difficultySettings.undergroundOffscreenBulletBills;
+            this->pluginSettings->difficultyUnderwaterBloopers = this->difficultySettings.underwaterBloopers;
             this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps = this->difficultySettings.underwaterFlyingCheepCheeps;
             this->pluginSettings->difficultyUnderwaterLakitus = this->difficultySettings.underwaterLakitus;
             this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = this->difficultySettings.underwaterSwimmingCheepCheeps;

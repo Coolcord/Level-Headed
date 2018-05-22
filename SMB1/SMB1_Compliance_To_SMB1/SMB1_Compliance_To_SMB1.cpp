@@ -174,6 +174,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyUndergroundFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyUndergroundLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyUndergroundOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyUnderwaterBloopers << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyUnderwaterLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps << Common_Strings::STRING_NEW_LINE;
@@ -232,6 +233,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyUndergroundFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyUndergroundLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyUndergroundOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyUnderwaterBloopers = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyUnderwaterLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -265,7 +267,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.numLevelsPerWorld = 4;
     this->pluginSettings.baseROM = "";
     this->pluginSettings.outputROMLocation = QString();
-    this->pluginSettings.overwriteOuputROM = false;
+    this->pluginSettings.overwriteOuputROM = true;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.levelScripts = "";
     this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;
@@ -284,7 +286,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
-    this->pluginSettings.difficultyComboIndex = 3;
+    this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Configurations().Normal(&this->pluginSettings);
 }
 

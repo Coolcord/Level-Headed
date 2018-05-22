@@ -19,6 +19,7 @@ void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(con
     pluginSettings->difficultyUndergroundFlyingCheepCheeps = difficultySettings.undergroundFlyingCheepCheeps;
     pluginSettings->difficultyUndergroundLakitus = difficultySettings.undergroundLakitus;
     pluginSettings->difficultyUndergroundOffscreenBulletBills = difficultySettings.undergroundOffscreenBulletBills;
+    pluginSettings->difficultyUnderwaterBloopers = difficultySettings.underwaterBloopers;
     pluginSettings->difficultyUnderwaterFlyingCheepCheeps = difficultySettings.underwaterFlyingCheepCheeps;
     pluginSettings->difficultyUnderwaterLakitus = difficultySettings.underwaterLakitus;
     pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = difficultySettings.underwaterSwimmingCheepCheeps;
@@ -48,9 +49,10 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     difficultySettings.undergroundFlyingCheepCheeps = 11;
     difficultySettings.undergroundLakitus = 11;
     difficultySettings.undergroundOffscreenBulletBills = 11;
+    difficultySettings.underwaterBloopers = 4;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
-    difficultySettings.underwaterLakitus = 4;
-    difficultySettings.underwaterSwimmingCheepCheeps = 3;
+    difficultySettings.underwaterLakitus = 3;
+    difficultySettings.underwaterSwimmingCheepCheeps = 1;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 4;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
@@ -79,6 +81,7 @@ Difficulty_Settings Difficulty_Configurations::Very_Easy() {
     difficultySettings.undergroundFlyingCheepCheeps = 11;
     difficultySettings.undergroundLakitus = 11;
     difficultySettings.undergroundOffscreenBulletBills = 11;
+    difficultySettings.underwaterBloopers = 11;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.underwaterSwimmingCheepCheeps = 11;
@@ -223,6 +226,7 @@ Difficulty_Settings Difficulty_Configurations::Random() {
     difficultySettings.undergroundFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.undergroundLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.undergroundOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.underwaterBloopers = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterSwimmingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;

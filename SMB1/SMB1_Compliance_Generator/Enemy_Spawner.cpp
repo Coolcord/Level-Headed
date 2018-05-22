@@ -376,11 +376,16 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     assert(tmpX-lastX > 0);
     int tmpY = y;
 
-    if (!noEnemies && !forceHammerBro && this->args->levelType == Level_Type::UNDERWATER) {
-        int spawnX = x - lastX;
-        y = Random::Get_Num(9)+1;
-        assert(this->enemies->Blooper(spawnX, y));
-        return 1;
+    //Try to spawn a Blooper
+    if (this->args->levelType == Level_Type::UNDERWATER) {
+        bool canSpawnBlooper = this->args->difficulty >= this->args->difficultyUnderwaterBloopers;
+        if (!canSpawnBlooper) noEnemies = true;
+        if (!noEnemies && !forceHammerBro && canSpawnBlooper) {
+            int spawnX = x - lastX;
+            y = Random::Get_Num(9)+1;
+            assert(this->enemies->Blooper(spawnX, y));
+            return 1;
+        }
     }
 
     //Try to spawn a Green Paratroopa

@@ -58,6 +58,7 @@ struct Plugin_Settings {
     int difficultyUndergroundFlyingCheepCheeps;
     int difficultyUndergroundLakitus;
     int difficultyUndergroundOffscreenBulletBills;
+    int difficultyUnderwaterBloopers;
     int difficultyUnderwaterFlyingCheepCheeps;
     int difficultyUnderwaterLakitus;
     int difficultyUnderwaterSwimmingCheepCheeps;

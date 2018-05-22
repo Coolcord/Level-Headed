@@ -46,6 +46,7 @@ void Configure_Difficulty_Form::Load_Settings() {
     this->ui->sbUndergroundFlyingCheepCheeps->setValue(this->difficultySettings->undergroundFlyingCheepCheeps);
     this->ui->sbUndergroundLakitus->setValue(this->difficultySettings->undergroundLakitus);
     this->ui->sbUndergroundOffscreenBulletBills->setValue(this->difficultySettings->undergroundOffscreenBulletBills);
+    this->ui->sbUnderwaterBloopers->setValue(this->difficultySettings->underwaterBloopers);
     this->ui->sbUnderwaterFlyingCheepCheeps->setValue(this->difficultySettings->underwaterFlyingCheepCheeps);
     this->ui->sbUnderwaterLakitus->setValue(this->difficultySettings->underwaterLakitus);
     this->ui->sbUnderwaterSwimmingCheepCheeps->setValue(this->difficultySettings->underwaterSwimmingCheepCheeps);
@@ -75,6 +76,7 @@ void Configure_Difficulty_Form::Save_Settings() {
     this->difficultySettings->undergroundFlyingCheepCheeps = this->ui->sbBridgeFlyingCheepCheeps->value();
     this->difficultySettings->undergroundLakitus = this->ui->sbUndergroundLakitus->value();
     this->difficultySettings->undergroundOffscreenBulletBills = this->ui->sbUndergroundOffscreenBulletBills->value();
+    this->difficultySettings->underwaterBloopers = this->ui->sbUnderwaterBloopers->value();
     this->difficultySettings->underwaterFlyingCheepCheeps = this->ui->sbUnderwaterFlyingCheepCheeps->value();
     this->difficultySettings->underwaterLakitus = this->ui->sbUnderwaterLakitus->value();
     this->difficultySettings->underwaterSwimmingCheepCheeps = this->ui->sbUnderwaterSwimmingCheepCheeps->value();

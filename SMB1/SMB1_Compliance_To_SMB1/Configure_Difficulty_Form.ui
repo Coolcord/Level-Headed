@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-628</y>
+        <y>0</y>
         <width>615</width>
-        <height>1070</height>
+        <height>1104</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -361,6 +361,30 @@ p, li { white-space: pre-wrap; }
          </item>
          <item>
           <widget class="QSpinBox" name="sbUndergroundOffscreenBulletBills">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>11</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutUnderwaterBloopers">
+         <item>
+          <widget class="QLabel" name="lblUnderwaterBloopers">
+           <property name="toolTip">
+            <string>Replaces most vertical blocks with Bullet Bill Cannons</string>
+           </property>
+           <property name="text">
+            <string>Underwater Bloopers:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbUnderwaterBloopers">
            <property name="minimum">
             <number>1</number>
            </property>
