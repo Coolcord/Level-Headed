@@ -33,7 +33,7 @@ private:
     int Calculate_Average_Distance(int x, int totalSpaces, int numEnemies);
     bool Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount);
     int Get_Random_X(int min);
-    int Common_Enemy(int &x, int &y, int lastX, int lastSize);
+    int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize);
 
     QFile *file;

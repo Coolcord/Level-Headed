@@ -269,12 +269,12 @@
            </item>
            <item>
             <property name="text">
-             <string>Hammer Time (~20% enemies are replaced with Hammer Bros.)</string>
+             <string>Hammer Time (20% enemies are replaced with Hammer Bros.)</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Extreme Hammer Time (~90% enemies are replaced with Hammer Bros.)</string>
+             <string>Extreme Hammer Time (All enemies are replaced with Hammer Bros.)</string>
             </property>
            </item>
           </widget>

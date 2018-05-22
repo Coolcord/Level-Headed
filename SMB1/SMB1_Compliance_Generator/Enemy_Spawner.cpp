@@ -76,27 +76,32 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         averageDistance = this->Calculate_Average_Distance(x, totalSpaces, this->Calculate_Number_Of_Enemies());
 
         //Determine what type of enemies to spawn
-        switch (this->args->levelType) {
-        case Level_Type::STANDARD_OVERWORLD:
-            size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
-            break;
-        case Level_Type::UNDERGROUND:
-            size = this->Spawn_Underground_Enemy(x, y, lastX, size);
-            break;
-        case Level_Type::UNDERWATER:
-            size = this->Spawn_Underwater_Enemy(x, y, lastX, size);
-            break;
-        case Level_Type::CASTLE:
-            size = this->Spawn_Castle_Enemy(x, y, lastX, size);
-            break;
-        case Level_Type::BRIDGE:
-            size = this->Spawn_Bridge_Enemy(x, y, lastX, size);
-            break;
-        case Level_Type::ISLAND:
-            size = this->Spawn_Island_Enemy(x, y, lastX, size);
-            break;
-        default:
-            assert(false);
+        bool forceHammerBro = this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        if (forceHammerBro) {
+            size = this->Common_Enemy(x, y, lastX, size, true);
+        } else {
+            switch (this->args->levelType) {
+            case Level_Type::STANDARD_OVERWORLD:
+                size = this->Spawn_Standard_Overworld_Enemy(x, y, lastX, size);
+                break;
+            case Level_Type::UNDERGROUND:
+                size = this->Spawn_Underground_Enemy(x, y, lastX, size);
+                break;
+            case Level_Type::UNDERWATER:
+                size = this->Spawn_Underwater_Enemy(x, y, lastX, size);
+                break;
+            case Level_Type::CASTLE:
+                size = this->Spawn_Castle_Enemy(x, y, lastX, size);
+                break;
+            case Level_Type::BRIDGE:
+                size = this->Spawn_Bridge_Enemy(x, y, lastX, size);
+                break;
+            case Level_Type::ISLAND:
+                size = this->Spawn_Island_Enemy(x, y, lastX, size);
+                break;
+            default:
+                assert(false);
+            }
         }
 
         //TODO: Handle errors here... Maybe use a page change?
@@ -201,7 +206,7 @@ int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int
     case 0:
     case 1:
     case 2:
-        return this->Common_Enemy(x, y, lastX, size);
+        return this->Common_Enemy(x, y, lastX, size, false);
     case 3:
         return this->Multi_Enemy(x, y, lastX, size);
     default:
@@ -215,7 +220,7 @@ int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) 
     case 0:
     case 1:
     case 2:
-        return this->Common_Enemy(x, y, lastX, size);
+        return this->Common_Enemy(x, y, lastX, size, false);
     case 3:
         return this->Multi_Enemy(x, y, lastX, size);
     default:
@@ -226,7 +231,7 @@ int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size) 
 
 int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size) {
     //This should only be Bloopers. Cheep-cheeps will be handled via a spawner
-    return this->Common_Enemy(x, y, lastX, size);
+    return this->Common_Enemy(x, y, lastX, size, false);
 }
 
 int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
@@ -234,7 +239,7 @@ int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size) {
     case 0:
     case 1:
     case 2:
-        return this->Common_Enemy(x, y, lastX, size);
+        return this->Common_Enemy(x, y, lastX, size, false);
     case 3:
         return this->Multi_Enemy(x, y, lastX, size);
     default:
@@ -249,7 +254,7 @@ int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size) {
     case 0:
     case 1:
     case 2:
-        return this->Common_Enemy(x, y, lastX, size);
+        return this->Common_Enemy(x, y, lastX, size, false);
     case 3:
         return this->Multi_Enemy(x, y, lastX, size);
     default:
@@ -265,7 +270,7 @@ int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size) {
     case 0:
     case 1:
     case 2:
-        return this->Common_Enemy(x, y, lastX, size);
+        return this->Common_Enemy(x, y, lastX, size, false);
     case 3:
         return this->Multi_Enemy(x, y, lastX, size);
     default:
@@ -337,7 +342,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
                 if (tmpY == 0x6) tmpY = 0xA;
                 else tmpY = 0x6;
                 if (!this->levelCrawler->Find_Safe_Coordinate_At_Y(numEnemies+1, tmpX, tmpY, lastX, true)) {
-                    return this->Common_Enemy(x, y, lastX, lastSize); //give up and spawn a common enemy instead
+                    return this->Common_Enemy(x, y, lastX, lastSize, false); //give up and spawn a common enemy instead
                 }
             }
         }
@@ -363,12 +368,12 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize) {
     return numEnemies+1; //return the size the enemies take up
 }
 
-int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
+int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro) {
     int tmpX = x;
     assert(tmpX-lastX > 0);
     int tmpY = y;
 
-    if (this->args->levelType == Level_Type::UNDERWATER) {
+    if (!forceHammerBro && this->args->levelType == Level_Type::UNDERWATER) {
         int spawnX = x - lastX;
         y = Random::Get_Num(9)+1;
         assert(this->enemies->Blooper(spawnX, y));
@@ -376,7 +381,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     }
 
     //Try to spawn a Green Paratroopa
-    if (Random::Get_Num(4) == 0) {
+    if (!forceHammerBro && Random::Get_Num(4) == 0) {
         bool spawnParatroopa = false;
         if (!this->levelCrawler->Find_Safe_Green_Leaping_Paratroopa_Coordinate(tmpX, tmpY, lastX)) {
             //Try again, but start closer to the last enemy
@@ -410,7 +415,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize) {
     int spawnX = tmpX-lastX;
     int random = 0;
     //Spawn Hammer Bros. in later levels
-    if (this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1) {
+    if (forceHammerBro) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->args->levelType) {

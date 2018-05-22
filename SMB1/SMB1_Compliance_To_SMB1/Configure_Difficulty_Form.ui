@@ -509,7 +509,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblHammerTimeIntensity">
            <property name="toolTip">
-            <string>100% won't replace every enemy. Only about 90% of them.</string>
+            <string/>
            </property>
            <property name="text">
             <string>Hammer Time Intensity:</string>

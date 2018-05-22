@@ -102,7 +102,7 @@ Difficulty_Settings Difficulty_Configurations::Hard() {
     difficultySettings.bridgeFlyingCheepCheeps = 1;
     difficultySettings.islandOffscreenBulletBills = 1;
     difficultySettings.standardOverworldLakitus = 1;
-    difficultySettings.hammerTimeIntensity = 25;
+    difficultySettings.hammerTimeIntensity = 20;
     return difficultySettings;
 }
 
@@ -195,7 +195,7 @@ Difficulty_Settings Difficulty_Configurations::Cheep_Cheep_Frenzy() {
 Difficulty_Settings Difficulty_Configurations::Hammer_Time() {
     Difficulty_Settings difficultySettings = this->Normal();
     difficultySettings.hammerTime = 1;
-    difficultySettings.hammerTimeIntensity = 25;
+    difficultySettings.hammerTimeIntensity = 20;
     return difficultySettings;
 }
 
