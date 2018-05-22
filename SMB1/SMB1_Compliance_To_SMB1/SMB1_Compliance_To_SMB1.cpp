@@ -60,6 +60,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
     //Apply Hacks
     assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
 
+    //Handle the Difficulty Settings
+    if (this->pluginSettings.difficultyComboIndex == 1) {
+        Difficulty_Configurations().Random(&this->pluginSettings);
+    }
+
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
     bool success = false;

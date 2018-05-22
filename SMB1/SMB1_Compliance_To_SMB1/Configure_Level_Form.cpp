@@ -282,8 +282,7 @@ void Configure_Level_Form::Save_Settings() {
             this->pluginSettings->difficultySpawnerPriority = this->difficultySettings.spawnerPriority;
             break;
         case 1: //Random
-            Difficulty_Configurations().Random(this->pluginSettings);
-            break;
+            break; //do nothing for now
         case 2: //Very Easy
             Difficulty_Configurations().Very_Easy(this->pluginSettings);
             break;
