@@ -31,6 +31,7 @@ Configure_Level_Form::Configure_Level_Form(QWidget *parent, Plugin_Settings *plu
     this->difficultySettings.save = false;
     this->difficultySettings.bulletTime = this->pluginSettings->difficultyBulletTime;
     this->difficultySettings.hammerTime = this->pluginSettings->difficultyHammerTime;
+    this->difficultySettings.buzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
     this->difficultySettings.bridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
     this->difficultySettings.bridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
     this->difficultySettings.bridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;
@@ -256,6 +257,7 @@ void Configure_Level_Form::Save_Settings() {
         case 0: //Custom
             this->pluginSettings->difficultyBulletTime = this->difficultySettings.bulletTime;
             this->pluginSettings->difficultyHammerTime = this->difficultySettings.hammerTime;
+            this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas = this->difficultySettings.buzzyBeetlesReplaceLoneGoombas;
             this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->difficultySettings.bridgeFlyingCheepCheeps;
             this->pluginSettings->difficultyBridgeLakitus = this->difficultySettings.bridgeLakitus;
             this->pluginSettings->difficultyBridgeOffscreenBulletBills = this->difficultySettings.bridgeOffscreenBulletBills;

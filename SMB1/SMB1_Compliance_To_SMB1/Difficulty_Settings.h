@@ -5,6 +5,7 @@ struct Difficulty_Settings {
     bool save;
     int bulletTime;
     int hammerTime;
+    int buzzyBeetlesReplaceLoneGoombas;
     int bridgeFlyingCheepCheeps;
     int bridgeLakitus;
     int bridgeOffscreenBulletBills;

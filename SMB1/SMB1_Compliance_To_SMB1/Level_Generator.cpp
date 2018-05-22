@@ -357,6 +357,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     assert(args.difficulty >= 1 && args.difficulty <= 10);
     args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
     args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
+    args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
     args.difficultyBridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
     args.difficultyBridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
     args.difficultyBridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;

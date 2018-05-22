@@ -167,6 +167,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyComboIndex << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBulletTime << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTime << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBuzzyBeetlesReplaceLoneGoombas << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
@@ -226,6 +227,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyComboIndex = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBulletTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBuzzyBeetlesReplaceLoneGoombas = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;

@@ -34,6 +34,7 @@ void Configure_Difficulty_Form::on_buttonBox_clicked(QAbstractButton *button) {
 void Configure_Difficulty_Form::Load_Settings() {
     this->ui->sbBulletTime->setValue(this->difficultySettings->bulletTime);
     this->ui->sbHammerTime->setValue(this->difficultySettings->hammerTime);
+    this->ui->sbBuzzyBeetleReplaceLoneGoombas->setValue(this->difficultySettings->buzzyBeetlesReplaceLoneGoombas);
     this->ui->sbBridgeFlyingCheepCheeps->setValue(this->difficultySettings->bridgeFlyingCheepCheeps);
     this->ui->sbBridgeLakitus->setValue(this->difficultySettings->bridgeLakitus);
     this->ui->sbBridgeOffscreenBulletBills->setValue(this->difficultySettings->bridgeOffscreenBulletBills);
@@ -64,6 +65,7 @@ void Configure_Difficulty_Form::Save_Settings() {
     this->difficultySettings->save = true;
     this->difficultySettings->bulletTime = this->ui->sbBulletTime->value();
     this->difficultySettings->hammerTime = this->ui->sbHammerTime->value();
+    this->difficultySettings->buzzyBeetlesReplaceLoneGoombas = this->ui->sbBuzzyBeetleReplaceLoneGoombas->value();
     this->difficultySettings->bridgeFlyingCheepCheeps = this->ui->sbBridgeFlyingCheepCheeps->value();
     this->difficultySettings->bridgeLakitus = this->ui->sbBridgeLakitus->value();
     this->difficultySettings->bridgeOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();

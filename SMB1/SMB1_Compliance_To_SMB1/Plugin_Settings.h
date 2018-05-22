@@ -46,6 +46,7 @@ struct Plugin_Settings {
     int difficultyComboIndex;
     int difficultyBulletTime;
     int difficultyHammerTime;
+    int difficultyBuzzyBeetlesReplaceLoneGoombas;
     int difficultyBridgeFlyingCheepCheeps;
     int difficultyBridgeLakitus;
     int difficultyBridgeOffscreenBulletBills;

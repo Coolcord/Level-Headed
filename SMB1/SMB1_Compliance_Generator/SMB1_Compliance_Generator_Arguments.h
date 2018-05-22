@@ -21,6 +21,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficulty;
     int difficultyBulletTime;
     int difficultyHammerTime;
+    int difficultyBuzzyBeetlesReplaceLoneGoombas;
     int difficultyBridgeFlyingCheepCheeps;
     int difficultyBridgeLakitus;
     int difficultyBridgeOffscreenBulletBills;

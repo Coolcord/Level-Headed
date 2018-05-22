@@ -430,11 +430,12 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     } else {
         switch (this->args->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
-            random = Random::Get_Num(9);
-            if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
-            else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
+            random = Random::Get_Num(8);
+            if (random < 3) {
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemies->Goomba(spawnX, tmpY));
+            } else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
             else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
-            else if (random < 10) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
             else assert(false);
             break;
         case Level_Type::BRIDGE:
@@ -444,7 +445,9 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 2:
                 assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
             case 3:
-                assert(this->enemies->Goomba(spawnX, tmpY)); break;
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemies->Goomba(spawnX, tmpY));
+                break;
             case 4:
                 assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
             default:
@@ -459,7 +462,9 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 3:
                 assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
             case 4:
-                assert(this->enemies->Goomba(spawnX, tmpY)); break;
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemies->Goomba(spawnX, tmpY));
+                break;
             case 5:
                 assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
             default:
@@ -469,10 +474,11 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
         case Level_Type::UNDERWATER:
         case Level_Type::CASTLE:
-            random = (Random::Get_Num(6));
-            if (random < 3) assert(this->enemies->Goomba(spawnX, tmpY));
-            else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
-            else if (random < 7) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+            random = (Random::Get_Num(5));
+            if (random < 3) {
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemies->Goomba(spawnX, tmpY));
+            } else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
             else assert(false);
             break;
         default:

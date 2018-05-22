@@ -7,6 +7,7 @@ void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(con
     assert(pluginSettings);
     pluginSettings->difficultyBulletTime = difficultySettings.bulletTime;
     pluginSettings->difficultyHammerTime = difficultySettings.hammerTime;
+    pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas = difficultySettings.buzzyBeetlesReplaceLoneGoombas;
     pluginSettings->difficultyBridgeFlyingCheepCheeps = difficultySettings.bridgeFlyingCheepCheeps;
     pluginSettings->difficultyBridgeLakitus = difficultySettings.bridgeLakitus;
     pluginSettings->difficultyBridgeOffscreenBulletBills = difficultySettings.bridgeOffscreenBulletBills;
@@ -37,6 +38,7 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     Difficulty_Settings difficultySettings;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 6;
     difficultySettings.bridgeFlyingCheepCheeps = 3;
     difficultySettings.bridgeLakitus = 4;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -214,6 +216,7 @@ Difficulty_Settings Difficulty_Configurations::Random() {
     int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
     difficultySettings.bulletTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
