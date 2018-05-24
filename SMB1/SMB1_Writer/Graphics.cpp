@@ -4,6 +4,77 @@ Graphics::Graphics(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, l
     this->brokenAxeRope = false;
 }
 
+QByteArray Graphics::Convert_String_To_SMB_Bytes(const QString &string) {
+    QByteArray bytes(string.size(), 0x00);
+    for (int i = 0; i < string.size(); ++i) {
+        switch (string.at(i).toLower().toLatin1()) {
+        default:        bytes[i] = 0x24; break; //unsupported character. Simply use a space instead
+        case ' ':       bytes[i] = 0x24; break;
+        case '!':       bytes[i] = 0x2B; break;
+        case '.':       bytes[i] = 0xAF; break;
+        case '-':       bytes[i] = 0x28; break;
+        case '0':       bytes[i] = 0x00; break;
+        case '1':       bytes[i] = 0x01; break;
+        case '2':       bytes[i] = 0x02; break;
+        case '3':       bytes[i] = 0x03; break;
+        case '4':       bytes[i] = 0x04; break;
+        case '5':       bytes[i] = 0x05; break;
+        case '6':       bytes[i] = 0x06; break;
+        case '7':       bytes[i] = 0x07; break;
+        case '8':       bytes[i] = 0x08; break;
+        case '9':       bytes[i] = 0x09; break;
+        case 'a':       bytes[i] = 0x0A; break;
+        case 'b':       bytes[i] = 0x0B; break;
+        case 'c':       bytes[i] = 0x0C; break;
+        case 'd':       bytes[i] = 0x0D; break;
+        case 'e':       bytes[i] = 0x0E; break;
+        case 'f':       bytes[i] = 0x0F; break;
+        case 'g':       bytes[i] = 0x10; break;
+        case 'h':       bytes[i] = 0x11; break;
+        case 'i':       bytes[i] = 0x12; break;
+        case 'j':       bytes[i] = 0x13; break;
+        case 'k':       bytes[i] = 0x14; break;
+        case 'l':       bytes[i] = 0x15; break;
+        case 'm':       bytes[i] = 0x16; break;
+        case 'n':       bytes[i] = 0x17; break;
+        case 'o':       bytes[i] = 0x18; break;
+        case 'p':       bytes[i] = 0x19; break;
+        case 'q':       bytes[i] = 0x1A; break;
+        case 'r':       bytes[i] = 0x1B; break;
+        case 's':       bytes[i] = 0x1C; break;
+        case 't':       bytes[i] = 0x1D; break;
+        case 'u':       bytes[i] = 0x1E; break;
+        case 'v':       bytes[i] = 0x1F; break;
+        case 'w':       bytes[i] = 0x20; break;
+        case 'x':       bytes[i] = 0x21; break;
+        case 'y':       bytes[i] = 0x22; break;
+        case 'z':       bytes[i] = 0x23; break;
+        }
+    }
+    return bytes;
+}
+
+bool Graphics::Write_Title_Screen_Core() {
+    if (!this->Write_Bytes_To_Offset(0x9EC0, QByteArray::fromHex(QString("EFCD8901EFCD8901113377FF113377FF208702ABAD20894E45209702ABAD20A702ACAE20A94E2420B702ACAE20C74247"
+        "20C9C22420CA051C1E190E1B20CF482420D7424720E7424720E91024160A1B1218240B1B181CAF242447472107424721094E4521174247212752472147424721494E242157424721"
+        "6742472169C324216A0F150E1F0E1528110E0A0D0E0D2447472187424721894E242197424721A7424721A9422421AB0E").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x9F68, this->Convert_String_To_SMB_Bytes("v  0. 3. 0"));
+}
+
+bool Graphics::Write_Title_Screen_For_1_Player_Game() {
+    if (!this->Write_Title_Screen_Core()) return false;
+    return this->Write_Bytes_To_Offset(0x9F72, QByteArray::fromHex(QString("2424474721C702ABAD21C94E4521"
+        "D702ABAD21E702ACAE21E94E4721F702ACAE224B0A160A1B121824100A160E228B0A151E12101224100A160E22EC041D18192822F6010023C9565523E20499AAAAAA23EA0499AAAA"
+        "AA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFFFFFFFF").toLatin1()));
+}
+
+bool Graphics::Write_Title_Screen_For_2_Player_Game() {
+    if (!this->Write_Title_Screen_Core()) return false;
+    return this->Write_Bytes_To_Offset(0x9F72, QByteArray::fromHex(QString("2424474721C702ABAD21C94E4521"
+        "D702ABAD21E702ACAE21E94E4721F702ACAE224B0D012419150A220E1B24100A160E228B0D022419150A220E1B24100A160E22EC041D18192822F6010023C9565523E20499AAAAAA"
+        "23EA0499AAAAAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFFFFFFFF").toLatin1()));
+}
+
 bool Graphics::Dream_Mario_Bros() {
     //By TheSuperShow
     this->brokenAxeRope = true;

@@ -22,7 +22,12 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Music()) return false;
     if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
-    if (this->pluginSettings->addLuigiGame && !this->writerPlugin->Add_Luigi_Game()) return false;
+    if (this->pluginSettings->addLuigiGame) {
+        if (!this->writerPlugin->Add_Luigi_Game()) return false;
+        if (!this->writerPlugin->Graphics_Write_Title_Screen_For_1_Player_Game()) return false;
+    } else {
+        if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
+    }
     if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;

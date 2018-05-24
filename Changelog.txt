@@ -1,6 +1,7 @@
 Bullet Time (v0.3.0)
 + Bullet Time: Replaces most vertical blocks with Bullet Bill Cannons
 + Hammer Time intensity can now be adjusted
++ Title Screen is now replaced and shows the Level-Headed version
 
 Graphical Variants (v0.2.4) Built on 05/09/18
 + Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)

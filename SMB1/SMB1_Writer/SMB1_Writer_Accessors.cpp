@@ -602,6 +602,16 @@ bool SMB1_Writer::Music_U1_10() {
     return this->music->U1_10();
 }
 
+bool SMB1_Writer::Graphics_Write_Title_Screen_For_1_Player_Game() {
+    if (!this->graphics) return false;
+    return this->graphics->Write_Title_Screen_For_1_Player_Game();
+}
+
+bool SMB1_Writer::Graphics_Write_Title_Screen_For_2_Player_Game() {
+    if (!this->graphics) return false;
+    return this->graphics->Write_Title_Screen_For_2_Player_Game();
+}
+
 bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
     if (!this->graphics) return false;
     return this->graphics->Dream_Mario_Bros();
