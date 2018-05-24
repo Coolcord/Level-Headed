@@ -29,6 +29,7 @@ public:
 
 private:
     bool Write_Title_Screen_Core();
+    QByteArray Get_Version_Bytes();
 
     bool brokenAxeRope;
 };

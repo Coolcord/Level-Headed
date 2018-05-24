@@ -1,4 +1,6 @@
 #include "Graphics.h"
+#include "../../Common_Files/Version.h"
+#include <assert.h>
 
 Graphics::Graphics(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {
     this->brokenAxeRope = false;
@@ -58,7 +60,35 @@ bool Graphics::Write_Title_Screen_Core() {
     if (!this->Write_Bytes_To_Offset(0x9EC0, QByteArray::fromHex(QString("EFCD8901EFCD8901113377FF113377FF208702ABAD20894E45209702ABAD20A702ACAE20A94E2420B702ACAE20C74247"
         "20C9C22420CA051C1E190E1B20CF482420D7424720E7424720E91024160A1B1218240B1B181CAF242447472107424721094E4521174247212752472147424721494E242157424721"
         "6742472169C324216A0F150E1F0E1528110E0A0D0E0D2447472187424721894E242197424721A7424721A9422421AB0E").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x9F68, this->Convert_String_To_SMB_Bytes("v  0. 3. 0"));
+    return this->Write_Bytes_To_Offset(0x9F68, this->Get_Version_Bytes());
+}
+
+QByteArray Graphics::Get_Version_Bytes() {
+    QStringList versionNumbers = Version::VERSION_NUMBER.split('-').first().split('.');
+    assert(versionNumbers.size() == 3);
+
+    //Parse the Version Numbers
+    bool valid = false;
+    int significant = versionNumbers.at(0).toInt(&valid); assert(valid);
+    int major = versionNumbers.at(1).toInt(&valid); assert(valid);
+    int minor = versionNumbers.at(2).toInt(&valid); assert(valid);
+    QString significantString = "", majorString = "", minorString = "";
+    if (significant < 10) significantString = "  "+QString::number(significant);
+    else if (significant < 100) significantString = " "+QString::number(significant);
+    else if (significant < 1000) significantString = QString::number(significant);
+    else assert(false);
+    if (major < 10) majorString = " "+QString::number(major);
+    else if (major < 100) majorString = QString::number(major);
+    else assert(false);
+    if (minor < 10) minorString = " "+QString::number(minor);
+    else if (minor < 100) minorString = QString::number(minor);
+    else assert(false);
+
+    //Convert the string to SMB Bytes
+    QString version = "v"+significantString+"."+majorString+"."+minorString;
+    QByteArray bytes = this->Convert_String_To_SMB_Bytes(version);
+    assert(bytes.size() == 10);
+    return bytes;
 }
 
 bool Graphics::Write_Title_Screen_For_1_Player_Game() {

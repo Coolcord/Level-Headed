@@ -5,6 +5,7 @@
 #include <QWindow>
 #include <QFile>
 #include <QPluginLoader>
+#include "../Common_Files/Version.h"
 #include <QDebug>
 #include "Common_Strings.h"
 #include <QMessageBox>
@@ -14,6 +15,7 @@ Main_Window::Main_Window(QWidget *parent) :
     ui(new Ui::Main_Window)
 {
     ui->setupUi(this);
+    this->setWindowTitle(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION);
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
     this->pluginHandler = new Plugin_Handler(this);
     this->interpreterLoader = NULL;

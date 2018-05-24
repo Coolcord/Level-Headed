@@ -49,6 +49,7 @@ HEADERS += SMB1_Writer.h \
     ../Common_SMB1_Files/Background.h \
     ../Common_SMB1_Files/Brick.h \
     ../Common_SMB1_Files/Scenery.h \
+    ../../Common_Files/Version.h \
     SMB1_Writer_Interface.h \
     ../Common_SMB1_Files/Level.h \
     ROM_Handler.h \
