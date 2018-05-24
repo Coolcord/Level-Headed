@@ -12,6 +12,7 @@
 #include "Room_Address_Writer.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Text.h"
 #include "Graphics.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
@@ -176,7 +177,8 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         if (!this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels()) return false;
         this->hacks = new Hacks(this->file, this->levelOffset);
         this->music = new Music(this->file, this->levelOffset);
-        this->graphics = new Graphics(this->file, this->levelOffset);
+        this->text = new Text(this->file, this->levelOffset);
+        this->graphics = new Graphics(this->file, this->levelOffset, this->text);
         return true;
     } else {
         return false;

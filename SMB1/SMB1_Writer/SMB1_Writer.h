@@ -18,6 +18,7 @@ class Room_Order_Writer;
 class Room_Address_Writer;
 class Hacks;
 class Music;
+class Text;
 class Graphics;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
@@ -215,6 +216,7 @@ private:
     Room_Address_Writer *roomAddressWriter;
     Hacks *hacks;
     Music *music;
+    Text *text;
     Graphics *graphics;
     ROM_Handler *romHandler;
     QString applicationLocation;

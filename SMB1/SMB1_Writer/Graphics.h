@@ -3,14 +3,14 @@
 
 #include "Byte_Writer.h"
 #include <QByteArray>
-#include <QString>
+
+class Text;
 
 class Graphics : public Byte_Writer
 {
 public:
-    Graphics(QFile *file, Level_Offset *levelOffset);
+    Graphics(QFile *file, Level_Offset *levelOffset, Text *text);
     ~Graphics() {}
-    QByteArray Convert_String_To_SMB_Bytes(const QString &string);
 
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
@@ -32,6 +32,7 @@ private:
     QByteArray Get_Version_Bytes();
 
     bool brokenAxeRope;
+    Text *text;
 };
 
 #endif // GRAPHICS_H

@@ -30,7 +30,8 @@ SOURCES += SMB1_Writer.cpp \
     Hacks.cpp \
     Music.cpp \
     Byte_Writer.cpp \
-    Graphics.cpp
+    Graphics.cpp \
+    Text.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -62,7 +63,8 @@ HEADERS += SMB1_Writer.h \
     Hacks.h \
     Music.h \
     Byte_Writer.h \
-    Graphics.h
+    Graphics.h \
+    Text.h
 OTHER_FILES +=
 
 unix {
