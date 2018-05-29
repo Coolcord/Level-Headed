@@ -231,6 +231,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Disable Music</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Original (by Nintendo)</string>
             </property>
            </item>

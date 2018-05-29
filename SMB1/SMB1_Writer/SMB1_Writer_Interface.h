@@ -145,6 +145,7 @@ public:
     virtual bool Fast_Enemies(int speed)=0;
 
     //Music
+    virtual bool Music_Disable()=0;
     virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1()=0;
     virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2()=0;
     virtual bool Music_Enigmario()=0;

@@ -39,26 +39,27 @@ bool Hacks_Handler::Handle_Music() {
     if (music == 0) music = Random::Get_Num(16)+1;
     switch (music) {
     default: assert(false);
-    case 1: return true; //original music
-    case 2: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1(); //by w7n
-    case 3: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2(); //by w7n
-    case 4: return this->writerPlugin->Music_Enigmario(); //by Dr. Floppy and Curly M.C.
-    case 5: return this->writerPlugin->Music_U1_1();
-    case 6: return this->writerPlugin->Music_U1_2();
-    case 7: return this->writerPlugin->Music_U1_3();
-    case 8: return this->writerPlugin->Music_U1_4();
-    case 9: if (!this->writerPlugin->Music_U1_4()) return false;
-            return this->writerPlugin->Music_U1_3();
-    case 10: return this->writerPlugin->Music_U1_5();
-    case 11: return this->writerPlugin->Music_U1_6();
-    case 12: if (!this->writerPlugin->Music_U1_6()) return false;
-            return this->writerPlugin->Music_U1_3();
-    case 13: return this->writerPlugin->Music_U1_7();
-    case 14: return this->writerPlugin->Music_U1_8();
-    case 15: return this->writerPlugin->Music_U1_9();
-    case 16: if (!this->writerPlugin->Music_U1_9()) return false;
-            return this->writerPlugin->Music_U1_3();
-    case 17: return this->writerPlugin->Music_U1_10();
+    case 1: return this->writerPlugin->Music_Disable(); //no music (music is disabled)
+    case 2: return true; //original music
+    case 3: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1(); //by w7n
+    case 4: return this->writerPlugin->Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2(); //by w7n
+    case 5: return this->writerPlugin->Music_Enigmario(); //by Dr. Floppy and Curly M.C.
+    case 6: return this->writerPlugin->Music_U1_1();
+    case 7: return this->writerPlugin->Music_U1_2();
+    case 8: return this->writerPlugin->Music_U1_3();
+    case 9: return this->writerPlugin->Music_U1_4();
+    case 10: if (!this->writerPlugin->Music_U1_4()) return false;
+             return this->writerPlugin->Music_U1_3();
+    case 11: return this->writerPlugin->Music_U1_5();
+    case 12: return this->writerPlugin->Music_U1_6();
+    case 13: if (!this->writerPlugin->Music_U1_6()) return false;
+             return this->writerPlugin->Music_U1_3();
+    case 14: return this->writerPlugin->Music_U1_7();
+    case 15: return this->writerPlugin->Music_U1_8();
+    case 16: return this->writerPlugin->Music_U1_9();
+    case 17: if (!this->writerPlugin->Music_U1_9()) return false;
+             return this->writerPlugin->Music_U1_3();
+    case 18: return this->writerPlugin->Music_U1_10();
     }
 }
 
