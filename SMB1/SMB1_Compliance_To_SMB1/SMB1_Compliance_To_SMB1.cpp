@@ -4,7 +4,7 @@
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Configure_Base_Form.h"
 #include "Configure_Level_Form.h"
-#include "Difficulty_Configurations.h"
+#include "Difficulty_Level_Configurations.h"
 #include "Level_Generator.h"
 #include "Hacks_Handler.h"
 #include <QDir>
@@ -62,7 +62,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Handle the Difficulty Settings
     if (this->pluginSettings.difficultyComboIndex == 1) {
-        Difficulty_Configurations().Random(&this->pluginSettings);
+        Difficulty_Level_Configurations().Random(&this->pluginSettings);
     }
 
     //Generate the levels
@@ -294,7 +294,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 6;
     this->pluginSettings.difficultyComboIndex = 4;
-    Difficulty_Configurations().Normal(&this->pluginSettings);
+    Difficulty_Level_Configurations().Normal(&this->pluginSettings);
 }
 
 void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {

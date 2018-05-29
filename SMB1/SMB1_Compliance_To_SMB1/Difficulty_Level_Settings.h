@@ -1,7 +1,7 @@
-#ifndef DIFFICULTY_SETTINGS_H
-#define DIFFICULTY_SETTINGS_H
+#ifndef DIFFICULTY_LEVEL_SETTINGS_H
+#define DIFFICULTY_LEVEL_SETTINGS_H
 
-struct Difficulty_Settings {
+struct Difficulty_Level_Settings {
     bool save;
     int bulletTime;
     int hammerTime;
@@ -32,4 +32,4 @@ struct Difficulty_Settings {
     int spawnerPriority;
 };
 
-#endif // DIFFICULTY_SETTINGS_H
+#endif // DIFFICULTY_LEVEL_SETTINGS_H

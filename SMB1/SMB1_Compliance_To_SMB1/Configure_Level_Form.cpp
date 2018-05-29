@@ -2,7 +2,7 @@
 #include "ui_Configure_Level_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
-#include "Difficulty_Configurations.h"
+#include "Difficulty_Level_Configurations.h"
 #include <QCryptographicHash>
 #include <QTime>
 #include <QMessageBox>
@@ -286,40 +286,40 @@ void Configure_Level_Form::Save_Settings() {
         case 1: //Random
             break; //do nothing for now
         case 2: //Very Easy
-            Difficulty_Configurations().Very_Easy(this->pluginSettings);
+            Difficulty_Level_Configurations().Very_Easy(this->pluginSettings);
             break;
         case 3: //Easy
-            Difficulty_Configurations().Easy(this->pluginSettings);
+            Difficulty_Level_Configurations().Easy(this->pluginSettings);
             break;
         case 4: //Normal
-            Difficulty_Configurations().Normal(this->pluginSettings);
+            Difficulty_Level_Configurations().Normal(this->pluginSettings);
             break;
         case 5: //Hard
-            Difficulty_Configurations().Hard(this->pluginSettings);
+            Difficulty_Level_Configurations().Hard(this->pluginSettings);
             break;
         case 6: //Very Hard
-            Difficulty_Configurations().Very_Hard(this->pluginSettings);
+            Difficulty_Level_Configurations().Very_Hard(this->pluginSettings);
             break;
         case 7: //Brutal
-            Difficulty_Configurations().Brutal(this->pluginSettings);
+            Difficulty_Level_Configurations().Brutal(this->pluginSettings);
             break;
         case 8: //Walk in the Park
-            Difficulty_Configurations().Walk_In_The_Park(this->pluginSettings);
+            Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings);
             break;
         case 9: //Riddled with Bullets
-            Difficulty_Configurations().Riddled_With_Bullets(this->pluginSettings);
+            Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings);
             break;
         case 10: //Lakitu's Challenge
-            Difficulty_Configurations().Lakitus_Challenge(this->pluginSettings);
+            Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings);
             break;
         case 11: //Cheep-Cheep Frenzy
-            Difficulty_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
+            Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
             break;
         case 12: //Hammer Time
-            Difficulty_Configurations().Hammer_Time(this->pluginSettings);
+            Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings);
             break;
         case 13: //Extreme Hammer Time
-            Difficulty_Configurations().Extreme_Hammer_Time(this->pluginSettings);
+            Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings);
             break;
         }
     }
@@ -406,7 +406,7 @@ void Configure_Level_Form::on_comboDifficulty_activated(int index) {
     if (this->loading) return;
     if (index == 0) { //Custom
         //Show the Difficulty Form
-        Configure_Difficulty_Form form(this, &this->difficultySettings, this->applicationLocation);
+        Difficulty_Level_Form form(this, &this->difficultySettings, this->applicationLocation);
         form.exec();
         if (!this->difficultySettings.save) {
             this->ui->comboDifficulty->setCurrentIndex(this->difficultyComboIndex);

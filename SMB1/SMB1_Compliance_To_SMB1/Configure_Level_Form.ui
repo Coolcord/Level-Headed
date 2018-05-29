@@ -198,7 +198,7 @@
          <item>
           <widget class="QLabel" name="lblDifficulty">
            <property name="text">
-            <string>Difficulty:</string>
+            <string>Level Difficulty:</string>
            </property>
           </widget>
          </item>

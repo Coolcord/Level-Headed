@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>414</width>
-        <height>588</height>
+        <y>-55</y>
+        <width>397</width>
+        <height>643</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -439,7 +439,7 @@
        <item>
         <widget class="QCheckBox" name="cbRevertToSuperMario">
          <property name="toolTip">
-          <string>May cause issues with Enigmario's underground music</string>
+          <string>May cause issues with some music</string>
          </property>
          <property name="text">
           <string>Revert to Super Mario after taking damage</string>
@@ -529,6 +529,61 @@
            <item>
             <property name="text">
              <string>Random All</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="layoutBaseGameDifficulty">
+         <item>
+          <widget class="QLabel" name="lblBaseGameDifficulty">
+           <property name="text">
+            <string>Base Game Difficulty:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBaseGameDifficulty">
+           <item>
+            <property name="text">
+             <string>Custom</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Very Easy</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Easy</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Normal (Default)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Hard</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Very Hard</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>-----&gt; Brutal</string>
             </property>
            </item>
           </widget>

@@ -1,15 +1,15 @@
 #ifndef CONFIGURE_LEVEL_FORM_H
 #define CONFIGURE_LEVEL_FORM_H
 
-#include "Difficulty_Settings.h"
+#include "Difficulty_Level_Settings.h"
 #include "Plugin_Settings.h"
-#include "Configure_Difficulty_Form.h"
+#include "Difficulty_Level_Form.h"
 #include <QAbstractButton>
 #include <QComboBox>
 #include <QDialog>
 #include <QString>
 
-struct Difficulty_Settings;
+struct Difficulty_Level_Settings;
 
 namespace Ui {
 class Configure_Level_Form;
@@ -46,7 +46,7 @@ private:
     Plugin_Settings *pluginSettings;
     QString levelLocation;
     QString applicationLocation;
-    Difficulty_Settings difficultySettings;
+    Difficulty_Level_Settings difficultySettings;
     int numWorlds;
     int numLevelsPerWorld;
     bool randomNumWorlds;

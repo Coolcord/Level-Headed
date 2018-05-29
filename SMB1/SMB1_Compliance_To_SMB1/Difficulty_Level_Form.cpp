@@ -1,11 +1,11 @@
-#include "Configure_Difficulty_Form.h"
-#include "ui_Configure_Difficulty_Form.h"
-#include "Difficulty_Configurations.h"
+#include "Difficulty_Level_Form.h"
+#include "ui_Configure_Difficulty_Level_Form.h"
+#include "Difficulty_Level_Configurations.h"
 #include <assert.h>
 
-Configure_Difficulty_Form::Configure_Difficulty_Form(QWidget *parent, Difficulty_Settings *difficultySettings, const QString &location) :
+Difficulty_Level_Form::Difficulty_Level_Form(QWidget *parent, Difficulty_Level_Settings *difficultySettings, const QString &location) :
     QDialog(parent),
-    ui(new Ui::Configure_Difficulty_Form) {
+    ui(new Ui::Difficulty_Level_Form) {
     ui->setupUi(this);
     assert(difficultySettings);
     this->parent = parent;
@@ -15,11 +15,11 @@ Configure_Difficulty_Form::Configure_Difficulty_Form(QWidget *parent, Difficulty
     this->Load_Settings();
 }
 
-Configure_Difficulty_Form::~Configure_Difficulty_Form() {
+Difficulty_Level_Form::~Difficulty_Level_Form() {
     delete ui;
 }
 
-void Configure_Difficulty_Form::on_buttonBox_clicked(QAbstractButton *button) {
+void Difficulty_Level_Form::on_buttonBox_clicked(QAbstractButton *button) {
     assert(button);
     if (!this->ui->buttonBox->buttons().contains(button)) return; //ignore other buttons
     if (this->ui->buttonBox->buttonRole(button) != QDialogButtonBox::AcceptRole) {
@@ -31,7 +31,7 @@ void Configure_Difficulty_Form::on_buttonBox_clicked(QAbstractButton *button) {
     this->close();
 }
 
-void Configure_Difficulty_Form::Load_Settings() {
+void Difficulty_Level_Form::Load_Settings() {
     this->ui->sbBulletTime->setValue(this->difficultySettings->bulletTime);
     this->ui->sbHammerTime->setValue(this->difficultySettings->hammerTime);
     this->ui->sbBuzzyBeetleReplaceLoneGoombas->setValue(this->difficultySettings->buzzyBeetlesReplaceLoneGoombas);
@@ -61,7 +61,7 @@ void Configure_Difficulty_Form::Load_Settings() {
     this->ui->comboSpawnerPriority->setCurrentIndex(this->difficultySettings->spawnerPriority);
 }
 
-void Configure_Difficulty_Form::Save_Settings() {
+void Difficulty_Level_Form::Save_Settings() {
     this->difficultySettings->save = true;
     this->difficultySettings->bulletTime = this->ui->sbBulletTime->value();
     this->difficultySettings->hammerTime = this->ui->sbHammerTime->value();

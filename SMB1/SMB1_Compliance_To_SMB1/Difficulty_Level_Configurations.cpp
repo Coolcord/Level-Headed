@@ -1,9 +1,9 @@
-#include "Difficulty_Configurations.h"
+#include "Difficulty_Level_Configurations.h"
 #include "../../Common_Files/Random.h"
 #include "../SMB1_Compliance_Generator/Difficulty.h"
 #include <assert.h>
 
-void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Settings &difficultySettings, Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings) {
     assert(pluginSettings);
     pluginSettings->difficultyBulletTime = difficultySettings.bulletTime;
     pluginSettings->difficultyHammerTime = difficultySettings.hammerTime;
@@ -34,8 +34,8 @@ void Difficulty_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(con
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
 }
 
-Difficulty_Settings Difficulty_Configurations::Normal() {
-    Difficulty_Settings difficultySettings;
+Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
+    Difficulty_Level_Settings difficultySettings;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 6;
@@ -66,9 +66,9 @@ Difficulty_Settings Difficulty_Configurations::Normal() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Very_Easy() {
+Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     //Turn Everything Off for Very Easy
-    Difficulty_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = 11;
     difficultySettings.hammerTime = 11;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
@@ -93,15 +93,15 @@ Difficulty_Settings Difficulty_Configurations::Very_Easy() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Easy() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = difficultySettings.hammerTime; //activate bullet time where hammer time would be activated
     difficultySettings.hammerTime = 11; //disable hammer time
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Hard() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
     difficultySettings.bridgeFlyingCheepCheeps = 1;
@@ -111,22 +111,22 @@ Difficulty_Settings Difficulty_Configurations::Hard() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Very_Hard() {
+Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     //TODO: Write this...
 }
 
-Difficulty_Settings Difficulty_Configurations::Brutal() {
+Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     //TODO: Write this...
 }
 
-Difficulty_Settings Difficulty_Configurations::Walk_In_The_Park() {
-    Difficulty_Settings difficultySettings = this->Very_Easy();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
+    Difficulty_Level_Settings difficultySettings = this->Very_Easy();
     difficultySettings.noEnemies = true;
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Riddled_With_Bullets() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = 1;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 11;
@@ -149,8 +149,8 @@ Difficulty_Settings Difficulty_Configurations::Riddled_With_Bullets() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Lakitus_Challenge() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 1;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -174,8 +174,8 @@ Difficulty_Settings Difficulty_Configurations::Lakitus_Challenge() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Cheep_Cheep_Frenzy() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Cheep_Cheep_Frenzy() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bridgeFlyingCheepCheeps = 1;
     difficultySettings.bridgeLakitus = 11;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -197,22 +197,22 @@ Difficulty_Settings Difficulty_Configurations::Cheep_Cheep_Frenzy() {
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Hammer_Time() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Extreme_Hammer_Time() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
     return difficultySettings;
 }
 
-Difficulty_Settings Difficulty_Configurations::Random() {
-    Difficulty_Settings difficultySettings = this->Normal();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
     int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
     difficultySettings.bulletTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
@@ -243,54 +243,54 @@ Difficulty_Settings Difficulty_Configurations::Random() {
     return difficultySettings;
 }
 
-void Difficulty_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings);
 }
 
-void Difficulty_Configurations::Easy(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings);
 }
 
-void Difficulty_Configurations::Normal(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings);
 }
 
-void Difficulty_Configurations::Hard(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings);
 }
 
-void Difficulty_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings);
 }
 
-void Difficulty_Configurations::Brutal(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings);
 }
 
-void Difficulty_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);
 }
 
-void Difficulty_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);
 }
 
-void Difficulty_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings);
 }
 
-void Difficulty_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings);
 }
 
-void Difficulty_Configurations::Hammer_Time(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings);
 }
 
-void Difficulty_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings);
 }
 
-void Difficulty_Configurations::Random(Plugin_Settings *pluginSettings) {
+void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings);
 }
