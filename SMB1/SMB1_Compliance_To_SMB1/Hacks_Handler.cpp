@@ -36,7 +36,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(16)+1;
+    if (music == 0) music = Random::Get_Num(16)+2;
     switch (music) {
     default: assert(false);
     case 1: return this->writerPlugin->Music_Disable(); //no music (music is disabled)
