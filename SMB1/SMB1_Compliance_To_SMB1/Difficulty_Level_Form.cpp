@@ -1,5 +1,5 @@
 #include "Difficulty_Level_Form.h"
-#include "ui_Configure_Difficulty_Level_Form.h"
+#include "ui_Difficulty_Level_Form.h"
 #include "Difficulty_Level_Configurations.h"
 #include <assert.h>
 

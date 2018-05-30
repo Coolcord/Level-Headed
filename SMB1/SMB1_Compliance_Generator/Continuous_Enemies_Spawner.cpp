@@ -56,7 +56,19 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spa
 
     //Get the Specified Spawner by Priority
     std::array<unsigned int, 3> order = {0,1,2};
-    if (this->args->difficultySpawnerPriority == 0) std::random_shuffle(order.begin(), order.end()); //random priority
+    switch (this->args->difficultySpawnerPriority) {
+    case 0: //Random
+        std::random_shuffle(order.begin(), order.end());
+        break;
+    case 1: //Lakitus > Flying Cheep-Cheeps > Bullet Bills
+        order = {0,1,2};
+        break;
+    case 2: //Flying Cheep-Cheeps > Lakitus > Bullet Bills
+        order = {1,0,2};
+        break;
+    }
+
+    //Handle the Spawner After the Order Has Been Defined
     for (unsigned int i = 0; i < order.size(); ++i) {
         switch (order.at(i)) {
         default: assert(false);

@@ -23,7 +23,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-644</y>
         <width>685</width>
         <height>1138</height>
        </rect>
@@ -635,6 +635,11 @@ p, li { white-space: pre-wrap; }
            <item>
             <property name="text">
              <string>Lakitus &gt; Flying Cheep-Cheeps &gt; Bullet Bills</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Flying Cheep-Cheeps &gt; Lakitus &gt; Bullet Bills</string>
             </property>
            </item>
           </widget>
