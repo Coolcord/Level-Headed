@@ -31,7 +31,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
-    if (this->pluginSettings->autoscroll && !this->writerPlugin->Enable_Autoscroll()) return false;
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Enable_Autoscroll()) return false;
     return this->writerPlugin->Write_Watermark(); //write the watermark last
 }
 
