@@ -42,6 +42,7 @@ struct Plugin_Settings {
     bool addLuigiGame;
     Qt::CheckState superMarioOnDamage;
     Qt::CheckState lakituThrowArc;
+    Qt::CheckState autoscroll;
     int enemySpeed;
     int difficultyComboIndex;
     int difficultyBulletTime;

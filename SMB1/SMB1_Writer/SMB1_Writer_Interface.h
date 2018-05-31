@@ -143,6 +143,7 @@ public:
     virtual bool Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Fix_Lakitu_Throw_Arc()=0;
     virtual bool Fast_Enemies(int speed)=0;
+    virtual bool Enable_Autoscroll()=0;
 
     //Music
     virtual bool Music_Disable()=0;

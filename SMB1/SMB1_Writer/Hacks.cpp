@@ -10,6 +10,17 @@ bool Hacks::Write_Watermark() {
     return this->Start_Underwater_Castle_Brick_On_World(9); //disables underwater castle bricks
 }
 
+bool Hacks::Autoscroll() {
+    //By L
+    return this->Write_Bytes_To_Offset(0x2FA3, QByteArray::fromHex(QString("EAADC4032920D060A50EC90B"
+        "F05AA41DAD5507C003F014C908B008AD8507F0032058D9AD2307D0404CC2AFC9509039A001").toLatin1()));
+}
+
+bool Hacks::Disable_Intro_Demo() {
+    if (!this->Write_Bytes_To_Offset(0x0350, QByteArray(21, 0x00))) return false;
+    return this->Write_Bytes_To_Offset(0x0365, QByteArray(20, 0xFF));
+}
+
 bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
     if (world < 1 || world > 0xFF) return false;
     return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, world-1));

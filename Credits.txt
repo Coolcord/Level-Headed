@@ -3,7 +3,7 @@ Level-Headed.exe
 SMB1_Generator.dll
 SMB1_Compliance_To_SMB1.dll
 SMB1_Writer.dll
-===========================================================================
+==========================================================================================
 Graphics:
 Dream Mario Bros. (by TheSuperShow)
 https://www.romhacking.net/hacks/3298/
@@ -28,7 +28,7 @@ https://www.romhacking.net/hacks/3227/
 
 Super Mario S (by Sogun)
 https://www.romhacking.net/hacks/1267/
-===========================================================================
+==========================================================================================
 Music:
 Enigmario (by Dr. Floppy and Curly M.C.)
 https://www.romhacking.net/hacks/385/
@@ -38,11 +38,16 @@ https://www.romhacking.net/hacks/361/
 
 Alternative tone color for SQ1 and SQ2 (by w7m)
 https://www.romhacking.net/documents/630/
-===========================================================================
+==========================================================================================
 Gameplay:
 Luigi Game v0.80 beta (by Yy)
 https://www.zophar.net/hacks/nes/super-mario-bros-12/Luigi-Game-256.html
 
 Fire Mario to Big Mario when hit (by w7n)
 https://www.romhacking.net/hacks/3570/
-===========================================================================
+
+Autoscroll Screen (aka Scrolling Mario Bros. by L)
+http://l.j-factor.com/emulation/
+==========================================================================================
+Credit Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who made these!
+Hyper Mario

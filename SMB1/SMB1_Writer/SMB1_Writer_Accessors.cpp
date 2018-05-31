@@ -537,6 +537,11 @@ bool SMB1_Writer::Fast_Enemies(int speed) {
     return this->hacks->Fast_Enemies(speed);
 }
 
+bool SMB1_Writer::Enable_Autoscroll() {
+    if (!this->hacks) return false;
+    return this->hacks->Autoscroll();
+}
+
 bool SMB1_Writer::Music_Disable() {
     if (!this->music) return false;
     return this->music->Disable_Music();

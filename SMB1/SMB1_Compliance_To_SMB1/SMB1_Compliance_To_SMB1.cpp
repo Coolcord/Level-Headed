@@ -205,6 +205,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.addLuigiGame << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.enemySpeed << Common_Strings::STRING_NEW_LINE;
     stream.flush();
     file.close();
@@ -265,6 +266,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.addLuigiGame = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.superMarioOnDamage = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.lakituThrowArc = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
+    this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
 }
@@ -290,8 +292,9 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.numLives = 5;
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;
-    this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
-    this->pluginSettings.lakituThrowArc = Qt::PartiallyChecked;
+    this->pluginSettings.superMarioOnDamage = Qt::Unchecked;
+    this->pluginSettings.lakituThrowArc = Qt::Checked;
+    this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.enemySpeed = 6;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);
