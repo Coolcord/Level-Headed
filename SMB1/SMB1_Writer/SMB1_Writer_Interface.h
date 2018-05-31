@@ -165,6 +165,8 @@ public:
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;
     virtual bool Graphics_Write_Title_Screen_For_2_Player_Game()=0;
     virtual bool Graphics_Dream_Mario_Bros()=0;
+    virtual bool Graphics_Hyper_Mario_Rev_A()=0;
+    virtual bool Graphics_Hyper_Mario_Rev_B()=0;
     virtual bool Graphics_Lost_Levels()=0;
     virtual bool Graphics_Paradyce_SMB1_Palette_1()=0;
     virtual bool Graphics_Paradyce_SMB1_Palette_2()=0;

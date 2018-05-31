@@ -15,6 +15,8 @@ public:
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
     bool Dream_Mario_Bros();
+    bool Hyper_Mario_Rev_A();
+    bool Hyper_Mario_Rev_B();
     bool Lost_Levels();
     bool Paradyce_SMB1_Palette_1();
     bool Paradyce_SMB1_Palette_2();

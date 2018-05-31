@@ -148,6 +148,16 @@
            </item>
            <item>
             <property name="text">
+             <string>Hyper Mario (Rev A)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hyper Mario (Rev B)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Lost Levels (by Captain Antonio Falcon)</string>
             </property>
            </item>

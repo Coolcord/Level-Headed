@@ -627,6 +627,16 @@ bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
     return this->graphics->Dream_Mario_Bros();
 }
 
+bool SMB1_Writer::Graphics_Hyper_Mario_Rev_A() {
+    if (!this->graphics) return false;
+    return this->graphics->Hyper_Mario_Rev_A();
+}
+
+bool SMB1_Writer::Graphics_Hyper_Mario_Rev_B() {
+    if (!this->graphics) return false;
+    return this->graphics->Hyper_Mario_Rev_B();
+}
+
 bool SMB1_Writer::Graphics_Lost_Levels() {
     if (!this->graphics) return false;
     return this->graphics->Lost_Levels();

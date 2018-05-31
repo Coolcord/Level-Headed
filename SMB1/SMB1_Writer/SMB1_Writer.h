@@ -179,6 +179,8 @@ public:
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
     bool Graphics_Dream_Mario_Bros();
+    bool Graphics_Hyper_Mario_Rev_A();
+    bool Graphics_Hyper_Mario_Rev_B();
     bool Graphics_Lost_Levels();
     bool Graphics_Paradyce_SMB1_Palette_1();
     bool Graphics_Paradyce_SMB1_Palette_2();
