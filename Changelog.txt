@@ -5,6 +5,7 @@ Bullet Time (v0.3.0)
 + Music can now be disabled
 + Added an option to make the screen auto scroll (by L)
 + Added Graphics (Hyper Mario)
++ Added Graphics (Mario in: Time is Ticking by Googie)
 
 Graphical Variants (v0.2.4) Built on 05/09/18
 + Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)

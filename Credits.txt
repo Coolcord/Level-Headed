@@ -11,6 +11,9 @@ https://www.romhacking.net/hacks/3298/
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
 
+Mario in: Time is Ticking (by Googie)
+https://www.romhacking.net/hacks/306/
+
 Paradyce (by Insectduel)
 https://www.romhacking.net/hacks/222/
 
@@ -49,5 +52,6 @@ https://www.romhacking.net/hacks/3570/
 Autoscroll Screen (aka Scrolling Mario Bros. by L)
 http://l.j-factor.com/emulation/
 ==========================================================================================
-Credit Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who made these!
+Author Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who made these!
 Hyper Mario
+==========================================================================================

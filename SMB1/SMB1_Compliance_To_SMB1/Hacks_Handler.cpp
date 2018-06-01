@@ -66,7 +66,7 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Num(13)+1;
+    if (graphics == 0) graphics = Random::Get_Num(14)+1;
     switch (graphics) {
     default: assert(false);
     case 1: return true; //original graphics
@@ -74,15 +74,16 @@ bool Hacks_Handler::Handle_Graphics() {
     case 3: return this->writerPlugin->Graphics_Hyper_Mario_Rev_A(); //by Unknown
     case 4: return this->writerPlugin->Graphics_Hyper_Mario_Rev_B(); //by Unknown
     case 5: return this->writerPlugin->Graphics_Lost_Levels(); //by Captain Antonio Falcon
-    case 6: return this->writerPlugin->Graphics_Paradyce_SMB1_Palette_1(); //by Insectduel
-    case 7: return this->writerPlugin->Graphics_Paradyce_SMB1_Palette_2(); //by Insectduel
-    case 8: return this->writerPlugin->Graphics_Paradyce_SMB2(); //by Insectduel
-    case 9: return this->writerPlugin->Graphics_Pocket_Edition(); //by Fantendo
-    case 10: return this->writerPlugin->Graphics_Super_Duper_Mario_Bros(); //by Tabmok99
-    case 11: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v2(); //by flamepanther
-    case 12: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v3_4(); //by flamepanther
-    case 13: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
-    case 14: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
+    case 6: return this->writerPlugin->Graphics_Mario_In_Time_Is_Ticking(); //by Googie
+    case 7: return this->writerPlugin->Graphics_Paradyce_SMB1_Palette_1(); //by Insectduel
+    case 8: return this->writerPlugin->Graphics_Paradyce_SMB1_Palette_2(); //by Insectduel
+    case 9: return this->writerPlugin->Graphics_Paradyce_SMB2(); //by Insectduel
+    case 10: return this->writerPlugin->Graphics_Pocket_Edition(); //by Fantendo
+    case 11: return this->writerPlugin->Graphics_Super_Duper_Mario_Bros(); //by Tabmok99
+    case 12: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v2(); //by flamepanther
+    case 13: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v3_4(); //by flamepanther
+    case 14: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
+    case 15: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
     }
 }
 

@@ -182,6 +182,7 @@ public:
     bool Graphics_Hyper_Mario_Rev_A();
     bool Graphics_Hyper_Mario_Rev_B();
     bool Graphics_Lost_Levels();
+    bool Graphics_Mario_In_Time_Is_Ticking();
     bool Graphics_Paradyce_SMB1_Palette_1();
     bool Graphics_Paradyce_SMB1_Palette_2();
     bool Graphics_Paradyce_SMB2();
