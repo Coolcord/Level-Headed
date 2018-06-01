@@ -18,7 +18,8 @@ public:
     bool Hyper_Mario_Rev_A();
     bool Hyper_Mario_Rev_B();
     bool Lost_Levels();
-    bool Mario_In_Time_Is_Ticking();
+    bool Harmony7();
+    bool Harmony7_Googie();
     bool Paradyce_SMB1_Palette_1();
     bool Paradyce_SMB1_Palette_2();
     bool Paradyce_SMB2();

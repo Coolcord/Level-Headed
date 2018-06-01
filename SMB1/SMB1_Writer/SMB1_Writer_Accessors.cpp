@@ -642,9 +642,14 @@ bool SMB1_Writer::Graphics_Lost_Levels() {
     return this->graphics->Lost_Levels();
 }
 
-bool SMB1_Writer::Graphics_Mario_In_Time_Is_Ticking() {
+bool SMB1_Writer::Graphics_Harmony7() {
     if (!this->graphics) return false;
-    return this->graphics->Mario_In_Time_Is_Ticking();
+    return this->graphics->Harmony7();
+}
+
+bool SMB1_Writer::Graphics_Harmony7_Googie() {
+    if (!this->graphics) return false;
+    return this->graphics->Harmony7_Googie();
 }
 
 bool SMB1_Writer::Graphics_Paradyce_SMB1_Palette_1() {

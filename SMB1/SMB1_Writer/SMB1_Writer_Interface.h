@@ -168,7 +168,8 @@ public:
     virtual bool Graphics_Hyper_Mario_Rev_A()=0;
     virtual bool Graphics_Hyper_Mario_Rev_B()=0;
     virtual bool Graphics_Lost_Levels()=0;
-    virtual bool Graphics_Mario_In_Time_Is_Ticking()=0;
+    virtual bool Graphics_Harmony7()=0;
+    virtual bool Graphics_Harmony7_Googie()=0;
     virtual bool Graphics_Paradyce_SMB1_Palette_1()=0;
     virtual bool Graphics_Paradyce_SMB1_Palette_2()=0;
     virtual bool Graphics_Paradyce_SMB2()=0;

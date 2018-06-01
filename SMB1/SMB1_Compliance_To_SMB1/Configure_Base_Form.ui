@@ -148,6 +148,16 @@
            </item>
            <item>
             <property name="text">
+             <string>Harmony7</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Harmony7 (Googie's Mod)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Hyper Mario (Rev A)</string>
             </property>
            </item>
@@ -159,11 +169,6 @@
            <item>
             <property name="text">
              <string>Lost Levels (by Captain Antonio Falcon)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Mario in: Time is Ticking (by Googie)</string>
             </property>
            </item>
            <item>
