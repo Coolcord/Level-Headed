@@ -193,6 +193,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Super Bubba Bros.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Super Duper Mario Bros. (by Tabmok99)</string>
             </property>
            </item>

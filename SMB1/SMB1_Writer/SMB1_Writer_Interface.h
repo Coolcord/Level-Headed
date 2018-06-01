@@ -174,6 +174,7 @@ public:
     virtual bool Graphics_Paradyce_SMB1_Palette_2()=0;
     virtual bool Graphics_Paradyce_SMB2()=0;
     virtual bool Graphics_Pocket_Edition()=0;
+    virtual bool Graphics_Super_Bubba_Bros()=0;
     virtual bool Graphics_Super_Duper_Mario_Bros()=0;
     virtual bool Graphics_Super_Mario_Bros_DX_v2()=0;
     virtual bool Graphics_Super_Mario_Bros_DX_v3_4()=0;

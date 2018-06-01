@@ -66,7 +66,7 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Num(15)+1;
+    if (graphics == 0) graphics = Random::Get_Num(16)+1;
     switch (graphics) {
     default: assert(false);
     case 1: return true; //original graphics
@@ -80,11 +80,12 @@ bool Hacks_Handler::Handle_Graphics() {
     case 9: return this->writerPlugin->Graphics_Paradyce_SMB1_Palette_2(); //by Insectduel
     case 10: return this->writerPlugin->Graphics_Paradyce_SMB2(); //by Insectduel
     case 11: return this->writerPlugin->Graphics_Pocket_Edition(); //by Fantendo
-    case 12: return this->writerPlugin->Graphics_Super_Duper_Mario_Bros(); //by Tabmok99
-    case 13: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v2(); //by flamepanther
-    case 14: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v3_4(); //by flamepanther
-    case 15: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
-    case 16: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
+    case 12: return this->writerPlugin->Graphics_Super_Bubba_Bros(); //by Unknown
+    case 13: return this->writerPlugin->Graphics_Super_Duper_Mario_Bros(); //by Tabmok99
+    case 14: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v2(); //by flamepanther
+    case 15: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v3_4(); //by flamepanther
+    case 16: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
+    case 17: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
     }
 }
 
