@@ -88,7 +88,7 @@ private:
     bool Is_Coordinate_Valid(int coordinate);
 
     const static int MAX_COIN_BLOCK_ZONE = 24;
-    const static int MAX_POWERUP_ZONE = 56;
+    const static int MAX_POWERUP_ZONE = 24;
 
     SMB1_Compliance_Generator_Arguments *args;
     int lastObjectLength;
