@@ -8,6 +8,7 @@ Bullet Time (v0.3.0)
 + Added Graphics (Harmony7)
 + Added Graphics (Harmony7 modded by Googie)
 + Added Graphics (Super Bubba Bros.)
++ Added Music (Water Mario by Eden GT)
 
 Graphical Variants (v0.2.4) Built on 05/09/18
 + Added Graphics (Super Mario Bros. DX v3.4 by flamepanther)

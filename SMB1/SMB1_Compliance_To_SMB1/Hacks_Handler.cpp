@@ -37,7 +37,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(16)+2;
+    if (music == 0) music = Random::Get_Num(17)+2;
     switch (music) {
     default: assert(false);
     case 1: return this->writerPlugin->Music_Disable(); //no music (music is disabled)
@@ -61,6 +61,7 @@ bool Hacks_Handler::Handle_Music() {
     case 17: if (!this->writerPlugin->Music_U1_9()) return false;
              return this->writerPlugin->Music_U1_3();
     case 18: return this->writerPlugin->Music_U1_10();
+    case 19: return this->writerPlugin->Music_Water_Mario(); //by Eden GT
     }
 }
 

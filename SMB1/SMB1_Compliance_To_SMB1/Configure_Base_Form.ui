@@ -344,6 +344,11 @@
              <string>&quot;Music 10&quot; (from U1's Music Pack)</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>Water Mario (by Eden GT)</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>

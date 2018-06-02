@@ -160,6 +160,7 @@ public:
     virtual bool Music_U1_8()=0;
     virtual bool Music_U1_9()=0;
     virtual bool Music_U1_10()=0;
+    virtual bool Music_Water_Mario()=0;
 
     //Graphics
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;

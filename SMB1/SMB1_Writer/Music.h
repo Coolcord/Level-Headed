@@ -22,6 +22,7 @@ public:
     bool U1_8();
     bool U1_9();
     bool U1_10();
+    bool Water_Mario();
 };
 
 #endif // MUSIC_H

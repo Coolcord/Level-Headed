@@ -174,6 +174,7 @@ public:
     bool Music_U1_8();
     bool Music_U1_9();
     bool Music_U1_10();
+    bool Music_Water_Mario();
 
     //Graphics
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
