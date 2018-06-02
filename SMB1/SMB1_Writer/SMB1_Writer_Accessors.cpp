@@ -512,6 +512,11 @@ bool SMB1_Writer::Enable_God_Mode() {
     return this->hacks->Invincibility();
 }
 
+bool SMB1_Writer::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
+}
+
 bool SMB1_Writer::Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Fire_Flower_With_Hammer_Suit();
@@ -542,9 +547,9 @@ bool SMB1_Writer::Fast_Enemies(int speed) {
     return this->hacks->Fast_Enemies(speed);
 }
 
-bool SMB1_Writer::Enable_Autoscroll() {
+bool SMB1_Writer::Always_Autoscroll() {
     if (!this->hacks) return false;
-    return this->hacks->Autoscroll();
+    return this->hacks->Always_Autoscroll();
 }
 
 bool SMB1_Writer::Enable_Hitting_Underwater_Blocks() {

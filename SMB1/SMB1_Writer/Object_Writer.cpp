@@ -228,11 +228,7 @@ bool Object_Writer::Bowser_Bridge(int x) {
 bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
     if (this->currentX+x == 0xF) return false;
     if (warpZone) return this->Write_Object(x, 0xD, 0x45);
-    if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::CASTLE) {
-        return this->Write_Object(x, 0xD, 0x47);
-    } else {
-        return this->Write_Object(x, 0xD, 0x46);
-    }
+    return this->Write_Object(x, 0xD, 0x46);
 }
 
 bool Object_Writer::Flying_Cheep_Cheep_Spawner(int x) {

@@ -9,12 +9,13 @@ public:
     Hacks(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Hacks() {}
     bool Write_Watermark();
-    bool Autoscroll();
+    bool Always_Autoscroll();
     bool Enable_Hitting_Underwater_Blocks();
     bool Disable_Intro_Demo();
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
+    bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
     bool Add_Luigi_Game();

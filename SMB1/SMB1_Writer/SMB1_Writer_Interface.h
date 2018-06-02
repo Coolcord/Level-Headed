@@ -138,13 +138,14 @@ public:
     virtual bool Infinite_Lives()=0;
     virtual bool Set_Starting_Lives(int lives)=0;
     virtual bool Enable_God_Mode()=0;
+    virtual bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
     virtual bool Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Replace_Mario_With_Luigi()=0;
     virtual bool Add_Luigi_Game()=0;
     virtual bool Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Fix_Lakitu_Throw_Arc()=0;
     virtual bool Fast_Enemies(int speed)=0;
-    virtual bool Enable_Autoscroll()=0;
+    virtual bool Always_Autoscroll()=0;
     virtual bool Enable_Hitting_Underwater_Blocks()=0;
 
     //Music
