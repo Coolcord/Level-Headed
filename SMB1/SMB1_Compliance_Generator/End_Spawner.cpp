@@ -190,7 +190,7 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     if (!this->Spawn_Castle()) return false;
 
     //Handle the Scroll Stop
-    x = 0x0A;
+    x = 0x09;
     if (this->object->Get_Absolute_X(x) == 0xF) --x;
     if (!this->object->Scroll_Stop(x, false)) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
