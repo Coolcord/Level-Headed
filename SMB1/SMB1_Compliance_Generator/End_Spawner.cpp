@@ -89,7 +89,7 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 3;
+        this->endObjectCount = 4;
         return true;
     default:
         assert(false);
@@ -101,7 +101,7 @@ bool End_Spawner::Determine_Underground_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 4;
+        this->endObjectCount = 5;
         return true;
     default:
         assert(false);
@@ -113,7 +113,7 @@ bool End_Spawner::Determine_Underwater_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 3;
+        this->endObjectCount = 4;
         return true;
     default:
         assert(false);
@@ -138,7 +138,7 @@ bool End_Spawner::Determine_Bridge_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::One_Block_Bridge;
-        this->endObjectCount = 8;
+        this->endObjectCount = 9;
         return true;
     default:
         assert(false);
@@ -150,7 +150,7 @@ bool End_Spawner::Determine_Island_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 4;
+        this->endObjectCount = 5;
         return true;
     default:
         assert(false);
@@ -188,6 +188,11 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     }
     if (!this->object->Flagpole(Physics::END_STAIRS_LENGTH+Physics::FLAGPOLE_DISTANCE)) return false;
     if (!this->Spawn_Castle()) return false;
+
+    //Handle the Scroll Stop
+    x = 0x0A;
+    if (this->object->Get_Absolute_X(x) == 0xF) --x;
+    if (!this->object->Scroll_Stop(x, false)) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
 
     return true;
