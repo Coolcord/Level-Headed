@@ -32,6 +32,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Enable_Autoscroll()) return false;
+    if (!this->writerPlugin->Enable_Hitting_Underwater_Blocks()) return false;
     return this->writerPlugin->Write_Watermark(); //write the watermark last
 }
 

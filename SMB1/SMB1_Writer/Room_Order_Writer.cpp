@@ -62,7 +62,8 @@ bool Room_Order_Writer::Set_Number_Of_Worlds(int value) {
     QByteArray worldByte;
     worldByte.append(static_cast<char>(value));
 
-    //Three different offsets must be patched for Number of Worlds to be set properly
+    //These offsets must be patched for Number of Worlds to be set properly
+    if (!this->Write_Bytes_To_Offset(0x02B2, worldByte)) return false;
     if (!this->Write_Bytes_To_Offset(0x0438, worldByte)) return false;
     if (!this->Write_Bytes_To_Offset(0x047A, worldByte)) return false;
     if (!this->Write_Bytes_To_Offset(0x6A27, worldByte)) return false;

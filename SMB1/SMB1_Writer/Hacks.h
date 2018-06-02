@@ -10,6 +10,7 @@ public:
     ~Hacks() {}
     bool Write_Watermark();
     bool Autoscroll();
+    bool Enable_Hitting_Underwater_Blocks();
     bool Disable_Intro_Demo();
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Infinite_Lives();

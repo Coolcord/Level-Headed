@@ -158,6 +158,7 @@ public:
     bool Fix_Lakitu_Throw_Arc();
     bool Fast_Enemies(int speed);
     bool Enable_Autoscroll();
+    bool Enable_Hitting_Underwater_Blocks();
 
     //Music
     bool Music_Disable();

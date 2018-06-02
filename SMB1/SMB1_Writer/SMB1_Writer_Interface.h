@@ -144,6 +144,7 @@ public:
     virtual bool Fix_Lakitu_Throw_Arc()=0;
     virtual bool Fast_Enemies(int speed)=0;
     virtual bool Enable_Autoscroll()=0;
+    virtual bool Enable_Hitting_Underwater_Blocks()=0;
 
     //Music
     virtual bool Music_Disable()=0;

@@ -16,6 +16,10 @@ bool Hacks::Autoscroll() {
         "F05AA41DAD5507C003F014C908B008AD8507F0032058D9AD2307D0404CC2AFC9509039A001").toLatin1()));
 }
 
+bool Hacks::Enable_Hitting_Underwater_Blocks() {
+    return this->Write_Bytes_To_Offset(0x5CEA, QByteArray(5, 0xEA));
+}
+
 bool Hacks::Disable_Intro_Demo() {
     if (!this->Write_Bytes_To_Offset(0x0350, QByteArray(21, 0x00))) return false;
     return this->Write_Bytes_To_Offset(0x0365, QByteArray(20, 0xFF));

@@ -542,6 +542,11 @@ bool SMB1_Writer::Enable_Autoscroll() {
     return this->hacks->Autoscroll();
 }
 
+bool SMB1_Writer::Enable_Hitting_Underwater_Blocks() {
+    if (!this->hacks) return false;
+    return this->hacks->Enable_Hitting_Underwater_Blocks();
+}
+
 bool SMB1_Writer::Music_Disable() {
     if (!this->music) return false;
     return this->music->Disable_Music();
