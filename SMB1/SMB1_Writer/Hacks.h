@@ -15,6 +15,7 @@ public:
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
+    bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
     bool Add_Luigi_Game();
     bool Invincibility();

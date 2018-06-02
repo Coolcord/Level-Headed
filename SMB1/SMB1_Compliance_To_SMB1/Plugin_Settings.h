@@ -43,6 +43,7 @@ struct Plugin_Settings {
     Qt::CheckState superMarioOnDamage;
     Qt::CheckState lakituThrowArc;
     Qt::CheckState autoscroll;
+    Qt::CheckState replaceFireFlowerWithHammerSuit;
     int enemySpeed;
     int difficultyComboIndex;
     int difficultyBulletTime;

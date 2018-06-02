@@ -3,6 +3,7 @@ Bullet Time (v0.3.0)
 + Hammer Time intensity can now be adjusted
 + Universal Title Screen that works for all graphics packs
 + Music can now be disabled
++ Hammer Suit
 + Added an option to make the screen auto scroll (by L)
 + Added Graphics (Hyper Mario)
 + Added Graphics (Harmony7)

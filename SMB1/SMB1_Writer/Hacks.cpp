@@ -39,6 +39,23 @@ bool Hacks::Set_Starting_Lives(int lives) {
     return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
 }
 
+bool Hacks::Replace_Fire_Flower_With_Hammer_Suit() {
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("30270F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("27D8").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray::fromHex(QString("FB95A6A9079DA004D6248A18"
+        "6907AAA9508500A9468502A90020D7BF200FBFA608203BF12087F1202DE220F1E1ADD20329CCD00620D9D64CC8E1A900952460203BF14C61").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3CAD, QByteArray(4, 0xEA))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5735, QByteArray(2, 0xEA))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5764, QByteArray(4, 0xEA))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray::fromHex(QString("33F00AEAEAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61D8, QByteArray::fromHex(QString("BCF106ADBA03990002ADAF03"
+        "990302A5094A4A4829010A4980990102684A4AA903900209C099020260A900953A60FFFFFFFFFFFFFF").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x03))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("071F1F3F3F7A72300000000F18252D").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B00020006").toLatin1()));
+}
+
 bool Hacks::Replace_Mario_With_Luigi() {
     if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
     if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;

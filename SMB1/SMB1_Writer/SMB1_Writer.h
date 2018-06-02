@@ -152,6 +152,7 @@ public:
     bool Infinite_Lives();
     bool Set_Starting_Lives(int lives);
     bool Enable_God_Mode();
+    bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
     bool Add_Luigi_Game();
     bool Taking_Damage_As_Fire_Reverts_To_Super();

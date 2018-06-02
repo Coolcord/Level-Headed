@@ -64,6 +64,7 @@ void Configure_Base_Form::Load_Settings() {
     this->ui->cbRevertToSuperMario->setCheckState(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
+    this->ui->cbReplaceFireFlowerWithHammerSuit->setCheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
 }
 
@@ -82,6 +83,7 @@ void Configure_Base_Form::Save_Settings() {
     this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->autoscroll = this->ui->cbAutoscroll->checkState();
+    this->pluginSettings->replaceFireFlowerWithHammerSuit = this->ui->cbReplaceFireFlowerWithHammerSuit->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
     this->close();
 }

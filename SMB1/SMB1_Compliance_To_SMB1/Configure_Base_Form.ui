@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>397</width>
-        <height>672</height>
+        <height>701</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -506,6 +506,16 @@
         <widget class="QCheckBox" name="cbAutoscroll">
          <property name="text">
           <string>Auto Scroll Screen</string>
+         </property>
+         <property name="tristate">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbReplaceFireFlowerWithHammerSuit">
+         <property name="text">
+          <string>Replace Fire Flower with Hammer Suit</string>
          </property>
          <property name="tristate">
           <bool>true</bool>

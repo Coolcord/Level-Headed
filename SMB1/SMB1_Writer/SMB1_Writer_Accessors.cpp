@@ -512,6 +512,11 @@ bool SMB1_Writer::Enable_God_Mode() {
     return this->hacks->Invincibility();
 }
 
+bool SMB1_Writer::Replace_Fire_Flower_With_Hammer_Suit() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Fire_Flower_With_Hammer_Suit();
+}
+
 bool SMB1_Writer::Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Mario_With_Luigi();
