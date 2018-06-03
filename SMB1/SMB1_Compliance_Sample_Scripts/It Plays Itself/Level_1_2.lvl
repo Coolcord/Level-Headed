@@ -1,0 +1,31 @@
+SMB1_Compliance_Level
+======================================================================
+In this level, Mario falls onto the end axe and gets killed by a
+Lakitu before the player can do anything. This ends the demo.
+======================================================================
+Attribute: Underground
+Starting_Position: Underground
+Brick_Pattern: All
+Background: Night_And_Snow
+Scenery: No_Scenery
+Compliment: Trees
+Time: 400
+Midpoint: 0
+======================================================================
+Change_Brick_And_Scenery 0 Surface No_Scenery
+Vertical_Blocks 2 7 4
+Vertical_Blocks 1 7 4
+Axe 0
+Change_Brick_And_Scenery 4 Surface_And_Ceiling No_Scenery
+Vertical_Blocks 1 1 8
+Horizontal_Blocks 0 9 8
+Horizontal_Coins 0 10 10
+Horizontal_Blocks 8 9 15
+Scroll_Stop 4
+Horizontal_Blocks 11 9 15
+Vertical_Blocks 15 9 2
+Page_Change 5
+======================================================================
+Lakitu 21 10 Normal
+Page_Change 5
+======================================================================

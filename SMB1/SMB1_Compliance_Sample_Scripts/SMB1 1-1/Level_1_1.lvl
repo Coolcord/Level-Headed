@@ -1,0 +1,78 @@
+SMB1_Compliance_Level
+======================================================================
+SMB1 Level 1-1 on Level-Headed
+======================================================================
+Attribute: Overworld
+Starting_Position: Overworld
+Brick_Pattern: Surface
+Background: Blank_Background
+Scenery: Mountains
+Compliment: Trees
+Time: 400
+Midpoint: 5
+======================================================================
+Question_Block_With_Coin 16 7
+Horizontal_Bricks 4 7 5
+Question_Block_With_Mushroom 1 7
+Question_Block_With_Coin 1 3
+Question_Block_With_Coin 1 7
+Pipe 5 9 2
+Pipe 10 8 3
+Pipe 8 7 4
+Enterable_Pipe 11 7 4
+Hidden_Block_With_1up 7 6
+Hole 5 2
+Horizontal_Bricks 8 7 3
+Question_Block_With_Mushroom 1 7
+Horizontal_Bricks 2 3 8
+Hole 6 3
+Horizontal_Bricks 5 3 3
+Question_Block_With_Coin 3 3
+Brick_With_10_Coins 0 7
+Horizontal_Bricks 6 7 1
+Brick_With_Star 1 7
+Question_Block_With_Coin 5 7
+Question_Block_With_Mushroom 3 3
+Question_Block_With_Coin 0 7
+Question_Block_With_Coin 3 7
+Horizontal_Bricks 6 7 1
+Horizontal_Bricks 3 3 3
+Horizontal_Bricks 7 3 4
+Horizontal_Bricks 1 7 2
+Horizontal_Question_Blocks_With_Coins 0 3 2
+Steps 5 4
+Vertical_Blocks 6 7 4
+Vertical_Blocks 1 8 3
+Vertical_Blocks 1 9 2
+Vertical_Blocks 1 10 1
+Steps 5 4
+Vertical_Blocks 4 7 4
+Hole 1 2
+Vertical_Blocks 2 7 4
+Vertical_Blocks 1 8 3
+Vertical_Blocks 1 9 2
+Vertical_Blocks 1 10 1
+Pipe 5 9 2
+Horizontal_Bricks 5 7 2
+Question_Block_With_Coin 2 7
+Horizontal_Bricks 1 7 1
+Pipe 8 9 2
+End_Steps 2
+Flagpole 17
+Castle 4
+======================================================================
+Goomba 22 10 Normal
+Pipe_Pointer 0 Underground_Bonus 0
+Goomba 18 10 Normal
+Goomba_Group 11 10 2 Normal
+Page_Change 5
+Goomba 0 2 Normal
+Goomba 2 2 Normal
+Goomba_Group 15 10 2 Normal
+Green_Koopa 10 10 Moving Normal
+Goomba_Group 7 10 2 Normal
+Goomba_Group 10 10 2 Normal
+Goomba_Group 4 10 2 Normal
+Page_Change 10
+Goomba_Group 12 10 2 Normal
+======================================================================

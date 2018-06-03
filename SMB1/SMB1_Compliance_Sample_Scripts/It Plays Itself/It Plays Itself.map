@@ -1,0 +1,17 @@
+SMB1_Compliance_Level_Map
+========================================================================
+This is a simple demo for Level-Headed.
+
+Simply start the game and watch it go.
+It doesn't last very long, but it shows how to make some simple scripts.
+========================================================================
+Number_of_Worlds: 1
+======================================================================
+# Object Move Table
+======================================================================
+# Enemy Move Table
+======================================================================
+# Level Map
+World_1_Level_1 "Level_1_1.lvl"
+World_1_Level_2 "Level_1_2.lvl"
+========================================================================
