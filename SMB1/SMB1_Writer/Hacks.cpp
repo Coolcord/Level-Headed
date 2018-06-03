@@ -135,8 +135,6 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
 }
 
 bool Hacks::Unlimited_Time() {
-    if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, 0x04))) return false;
-    if (!this->Write_Bytes_To_Offset(0x1140, QByteArray(1, 0x02))) return false;
     if (!this->Write_Bytes_To_Offset(0x3776, QByteArray(1, 0xAD))) return false;
     return this->Write_Bytes_To_Offset(0x52FC, QByteArray(1, 0x4E));
 }
