@@ -148,19 +148,20 @@ public:
     bool Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);
 
     //Hacks
-    bool Write_Watermark();
-    bool Infinite_Lives();
-    bool Set_Starting_Lives(int lives);
-    bool Enable_God_Mode();
-    bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
-    bool Replace_Fire_Flower_With_Hammer_Suit();
-    bool Replace_Mario_With_Luigi();
-    bool Add_Luigi_Game();
-    bool Taking_Damage_As_Fire_Reverts_To_Super();
-    bool Fix_Lakitu_Throw_Arc();
-    bool Fast_Enemies(int speed);
-    bool Always_Autoscroll();
-    bool Enable_Hitting_Underwater_Blocks();
+    bool Hacks_Add_Luigi_Game();
+    bool Hacks_Always_Autoscroll();
+    bool Hacks_Enable_God_Mode();
+    bool Hacks_Enable_Hitting_Underwater_Blocks();
+    bool Hacks_Fast_Enemies(int speed);
+    bool Hacks_Fix_Lakitu_Throw_Arc();
+    bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
+    bool Hacks_Infinite_Lives();
+    bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
+    bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
+    bool Hacks_Replace_Mario_With_Luigi();
+    bool Hacks_Set_Starting_Lives(int lives);
+    bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
+    bool Hacks_Write_Watermark();
 
     //Music
     bool Music_Disable();

@@ -23,7 +23,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lives()) return false;
     if (!this->Handle_God_Mode()) return false;
     if (this->pluginSettings->addLuigiGame) {
-        if (!this->writerPlugin->Add_Luigi_Game()) return false;
+        if (!this->writerPlugin->Hacks_Add_Luigi_Game()) return false;
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_1_Player_Game()) return false;
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
@@ -31,13 +31,14 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Always_Autoscroll()) return false;
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Replace_Fire_Flower_With_Hammer_Suit()) return false;
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
 
     //The patches below are always applied
-    if (!this->writerPlugin->Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
-    if (!this->writerPlugin->Enable_Hitting_Underwater_Blocks()) return false;
-    return this->writerPlugin->Write_Watermark(); //write the watermark last
+    if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
+    if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
+    if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
+    return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 
 bool Hacks_Handler::Handle_Music() {
@@ -96,30 +97,30 @@ bool Hacks_Handler::Handle_Graphics() {
 }
 
 bool Hacks_Handler::Handle_Lives() {
-    if (!this->writerPlugin->Set_Starting_Lives(this->pluginSettings->numLives)) return false;
+    if (!this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives)) return false;
     if (this->pluginSettings->infiniteLives) {
-        return this->writerPlugin->Infinite_Lives();
+        return this->writerPlugin->Hacks_Infinite_Lives();
     }
     return true;
 }
 
 bool Hacks_Handler::Handle_God_Mode() {
     if (this->pluginSettings->godMode) {
-        return this->writerPlugin->Enable_God_Mode();
+        return this->writerPlugin->Hacks_Enable_God_Mode();
     }
     return true;
 }
 
 bool Hacks_Handler::Handle_Damage() {
     if (this->Get_Bool_From_CheckState(this->pluginSettings->superMarioOnDamage)) {
-        return this->writerPlugin->Taking_Damage_As_Fire_Reverts_To_Super();
+        return this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     }
     return true;
 }
 
 bool Hacks_Handler::Handle_Lakitu_Throw_Arc() {
     if (this->Get_Bool_From_CheckState(this->pluginSettings->lakituThrowArc)) {
-        return this->writerPlugin->Fix_Lakitu_Throw_Arc();
+        return this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc();
     }
     return true;
 }
@@ -131,7 +132,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     } else if (speed == 7) {
         speed = Random::Get_Num(4)+1; //random all
     }
-    return this->writerPlugin->Fast_Enemies(speed);
+    return this->writerPlugin->Hacks_Fast_Enemies(speed);
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {

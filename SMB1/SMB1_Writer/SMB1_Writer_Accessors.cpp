@@ -488,22 +488,17 @@ bool SMB1_Writer::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fromLe
     return this->roomIDHandler->Send_Enemy_Bytes_From_One_Level_To_Another(fromLevel, toLevel, numBytes);
 }
 
-bool SMB1_Writer::Write_Watermark() {
+bool SMB1_Writer::Hacks_Add_Luigi_Game() {
     if (!this->hacks) return false;
-    return this->hacks->Write_Watermark();
+    return this->hacks->Add_Luigi_Game();
 }
 
-bool SMB1_Writer::Infinite_Lives() {
+bool SMB1_Writer::Hacks_Always_Autoscroll() {
     if (!this->hacks) return false;
-    return this->hacks->Infinite_Lives();
+    return this->hacks->Always_Autoscroll();
 }
 
-bool SMB1_Writer::Set_Starting_Lives(int lives) {
-    if (!this->hacks) return false;
-    return this->hacks->Set_Starting_Lives(lives);
-}
-
-bool SMB1_Writer::Enable_God_Mode() {
+bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Moon_Jump()) return false;
     if (!this->hacks->Star_Color_Mario()) return false;
@@ -512,49 +507,59 @@ bool SMB1_Writer::Enable_God_Mode() {
     return this->hacks->Invincibility();
 }
 
-bool SMB1_Writer::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
+bool SMB1_Writer::Hacks_Enable_Hitting_Underwater_Blocks() {
     if (!this->hacks) return false;
-    return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
+    return this->hacks->Enable_Hitting_Underwater_Blocks();
 }
 
-bool SMB1_Writer::Replace_Fire_Flower_With_Hammer_Suit() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_Fire_Flower_With_Hammer_Suit();
-}
-
-bool SMB1_Writer::Replace_Mario_With_Luigi() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_Mario_With_Luigi();
-}
-
-bool SMB1_Writer::Add_Luigi_Game() {
-    if (!this->hacks) return false;
-    return this->hacks->Add_Luigi_Game();
-}
-
-bool SMB1_Writer::Taking_Damage_As_Fire_Reverts_To_Super() {
-    if (!this->hacks) return false;
-    return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
-}
-
-bool SMB1_Writer::Fix_Lakitu_Throw_Arc() {
-    if (!this->hacks) return false;
-    return this->hacks->Fix_Lakitu_Throw_Arc();
-}
-
-bool SMB1_Writer::Fast_Enemies(int speed) {
+bool SMB1_Writer::Hacks_Fast_Enemies(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Fast_Enemies(speed);
 }
 
-bool SMB1_Writer::Always_Autoscroll() {
+bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
-    return this->hacks->Always_Autoscroll();
+    return this->hacks->Fix_Lakitu_Throw_Arc();
 }
 
-bool SMB1_Writer::Enable_Hitting_Underwater_Blocks() {
+bool SMB1_Writer::Hacks_Hard_Mode_Does_Not_Affect_Lift_Size() {
     if (!this->hacks) return false;
-    return this->hacks->Enable_Hitting_Underwater_Blocks();
+    return this->hacks->Hard_Mode_Does_Not_Affect_Lift_Size();
+}
+
+bool SMB1_Writer::Hacks_Infinite_Lives() {
+    if (!this->hacks) return false;
+    return this->hacks->Infinite_Lives();
+}
+
+bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
+}
+
+bool SMB1_Writer::Hacks_Replace_Fire_Flower_With_Hammer_Suit() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Fire_Flower_With_Hammer_Suit();
+}
+
+bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Mario_With_Luigi();
+}
+
+bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Starting_Lives(lives);
+}
+
+bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
+    if (!this->hacks) return false;
+    return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
+}
+
+bool SMB1_Writer::Hacks_Write_Watermark() {
+    if (!this->hacks) return false;
+    return this->hacks->Write_Watermark();
 }
 
 bool SMB1_Writer::Music_Disable() {
