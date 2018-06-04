@@ -587,6 +587,11 @@ bool SMB1_Writer::Music_Enigmario() {
     return this->music->Enigmario();
 }
 
+bool SMB1_Writer::Music_Flower_Mario() {
+    if (!this->music) return false;
+    return this->music->Flower_Mario();
+}
+
 bool SMB1_Writer::Music_Super_Mario_Evolution_Mikamashi() {
     if (!this->music) return false;
     return this->music->Super_Mario_Evolution_Mikamashi();
