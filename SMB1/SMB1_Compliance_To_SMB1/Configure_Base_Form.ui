@@ -291,6 +291,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Super Mario 263 Shiki (by Fai Soft)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Super Mario Evolution (by Mikamashi)</string>
             </property>
            </item>

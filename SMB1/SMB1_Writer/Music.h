@@ -14,6 +14,7 @@ public:
     bool Enigmario();
     bool Flower_Mario();
     bool Star_Remix();
+    bool Super_Mario_263_Shiki();
     bool Super_Mario_Evolution_Mikamashi();
     bool Super_Mushroom();
     bool U1_1();

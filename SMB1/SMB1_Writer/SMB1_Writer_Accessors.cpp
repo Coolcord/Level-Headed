@@ -597,6 +597,11 @@ bool SMB1_Writer::Music_Star_Remix() {
     return this->music->Star_Remix();
 }
 
+bool SMB1_Writer::Music_Super_Mario_263_Shiki() {
+    if (!this->music) return false;
+    return this->music->Super_Mario_263_Shiki();
+}
+
 bool SMB1_Writer::Music_Super_Mario_Evolution_Mikamashi() {
     if (!this->music) return false;
     return this->music->Super_Mario_Evolution_Mikamashi();
