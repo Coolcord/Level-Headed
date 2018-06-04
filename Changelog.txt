@@ -10,6 +10,7 @@ Bullet Time (v0.3.0)
 + Added Graphics (Harmony7 modded by Googie)
 + Added Graphics (Super Bubba Bros.)
 + Added Music (Flower Mario by Garuna)
++ Added Music (Star Remix by Garuna)
 + Added Music (Super Mario Evolution by Mikamashi)
 + Added Music (Water Mario by Eden GT)
 

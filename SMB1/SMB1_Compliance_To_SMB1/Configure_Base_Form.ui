@@ -286,6 +286,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Star Remix (by Garuna)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Super Mario Evolution (by Mikamashi)</string>
             </property>
            </item>

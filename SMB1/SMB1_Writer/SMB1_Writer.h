@@ -170,6 +170,7 @@ public:
     bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2();
     bool Music_Enigmario();
     bool Music_Flower_Mario();
+    bool Music_Star_Remix();
     bool Music_Super_Mario_Evolution_Mikamashi();
     bool Music_U1_1();
     bool Music_U1_2();
