@@ -12,6 +12,7 @@ public:
     bool Alternative_Tone_Color_For_SQ1_And_SQ2_1();
     bool Alternative_Tone_Color_For_SQ1_And_SQ2_2();
     bool Enigmario();
+    bool Super_Mario_Evolution_Mikamashi();
     bool U1_1();
     bool U1_2();
     bool U1_3();
