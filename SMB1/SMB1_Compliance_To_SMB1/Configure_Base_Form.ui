@@ -296,6 +296,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Super Mushroom (by Garuna)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>&quot;Music 1&quot; (from U1's Music Pack)</string>
             </property>
            </item>

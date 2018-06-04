@@ -43,7 +43,7 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(20)+2;
+    if (music == 0) music = Random::Get_Num(21)+2;
     switch (music) {
     default: assert(false);
     case 1: return this->writerPlugin->Music_Disable(); //no music (music is disabled)
@@ -54,23 +54,24 @@ bool Hacks_Handler::Handle_Music() {
     case 6: return this->writerPlugin->Music_Flower_Mario(); //by Garuna
     case 7: return this->writerPlugin->Music_Star_Remix(); //by Garuna
     case 8: return this->writerPlugin->Music_Super_Mario_Evolution_Mikamashi(); //by Mikamashi
-    case 9: return this->writerPlugin->Music_U1_1();
-    case 10: return this->writerPlugin->Music_U1_2();
-    case 11: return this->writerPlugin->Music_U1_3();
-    case 12: return this->writerPlugin->Music_U1_4();
-    case 13: if (!this->writerPlugin->Music_U1_4()) return false;
+    case 9: return this->writerPlugin->Music_Super_Mushroom(); //by Garuna
+    case 10: return this->writerPlugin->Music_U1_1();
+    case 11: return this->writerPlugin->Music_U1_2();
+    case 12: return this->writerPlugin->Music_U1_3();
+    case 13: return this->writerPlugin->Music_U1_4();
+    case 14: if (!this->writerPlugin->Music_U1_4()) return false;
              return this->writerPlugin->Music_U1_3();
-    case 14: return this->writerPlugin->Music_U1_5();
-    case 15: return this->writerPlugin->Music_U1_6();
-    case 16: if (!this->writerPlugin->Music_U1_6()) return false;
+    case 15: return this->writerPlugin->Music_U1_5();
+    case 16: return this->writerPlugin->Music_U1_6();
+    case 17: if (!this->writerPlugin->Music_U1_6()) return false;
              return this->writerPlugin->Music_U1_3();
-    case 17: return this->writerPlugin->Music_U1_7();
-    case 18: return this->writerPlugin->Music_U1_8();
-    case 19: return this->writerPlugin->Music_U1_9();
-    case 20: if (!this->writerPlugin->Music_U1_9()) return false;
+    case 18: return this->writerPlugin->Music_U1_7();
+    case 19: return this->writerPlugin->Music_U1_8();
+    case 20: return this->writerPlugin->Music_U1_9();
+    case 21: if (!this->writerPlugin->Music_U1_9()) return false;
              return this->writerPlugin->Music_U1_3();
-    case 21: return this->writerPlugin->Music_U1_10();
-    case 22: return this->writerPlugin->Music_Water_Mario(); //by Eden GT
+    case 22: return this->writerPlugin->Music_U1_10();
+    case 23: return this->writerPlugin->Music_Water_Mario(); //by Eden GT
     }
 }
 

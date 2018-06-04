@@ -172,6 +172,7 @@ public:
     bool Music_Flower_Mario();
     bool Music_Star_Remix();
     bool Music_Super_Mario_Evolution_Mikamashi();
+    bool Music_Super_Mushroom();
     bool Music_U1_1();
     bool Music_U1_2();
     bool Music_U1_3();

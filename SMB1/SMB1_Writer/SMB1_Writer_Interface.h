@@ -158,6 +158,7 @@ public:
     virtual bool Music_Flower_Mario()=0;
     virtual bool Music_Star_Remix()=0;
     virtual bool Music_Super_Mario_Evolution_Mikamashi()=0;
+    virtual bool Music_Super_Mushroom()=0;
     virtual bool Music_U1_1()=0;
     virtual bool Music_U1_2()=0;
     virtual bool Music_U1_3()=0;
