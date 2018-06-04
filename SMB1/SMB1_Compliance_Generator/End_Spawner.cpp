@@ -290,7 +290,7 @@ bool End_Spawner::Spawn_Castle() {
     case 1:
         return this->object->Castle(Physics::CASTLE_DISTANCE);
     case 2:
-        if (!this->object->Change_Background(2, Background::CASTLE_WALL)) return false;
+        if (!this->object->Change_Background(3, Background::CASTLE_WALL)) return false;
         return this->object->Big_Castle(3);
     default:
         assert(false);
