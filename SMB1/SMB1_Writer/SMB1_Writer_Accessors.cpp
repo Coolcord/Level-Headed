@@ -512,6 +512,11 @@ bool SMB1_Writer::Hacks_Enable_Hitting_Underwater_Blocks() {
     return this->hacks->Enable_Hitting_Underwater_Blocks();
 }
 
+bool SMB1_Writer::Hacks_Enable_Piranha_Plants_On_First_Level() {
+    if (!this->hacks) return false;
+    return this->hacks->Enable_Piranha_Plants_On_First_Level();
+}
+
 bool SMB1_Writer::Hacks_Fast_Enemies(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Fast_Enemies(speed);

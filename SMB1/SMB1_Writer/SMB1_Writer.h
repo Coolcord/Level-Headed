@@ -152,6 +152,7 @@ public:
     bool Hacks_Always_Autoscroll();
     bool Hacks_Enable_God_Mode();
     bool Hacks_Enable_Hitting_Underwater_Blocks();
+    bool Hacks_Enable_Piranha_Plants_On_First_Level();
     bool Hacks_Fast_Enemies(int speed);
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();

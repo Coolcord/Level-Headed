@@ -34,6 +34,10 @@ bool Hacks::Enable_Hitting_Underwater_Blocks() {
     return this->Write_Bytes_To_Offset(0x5CEA, QByteArray(5, 0xEA));
 }
 
+bool Hacks::Enable_Piranha_Plants_On_First_Level() {
+    return this->Write_Bytes_To_Offset(0x1905, QByteArray(5, 0xEA));
+}
+
 bool Hacks::Fast_Enemies(int speed) {
     if (speed < 1 || speed > 8) return false;
     QByteArray speedBytes;

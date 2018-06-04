@@ -12,6 +12,7 @@ public:
     bool Always_Autoscroll();
     bool Disable_Intro_Demo();
     bool Enable_Hitting_Underwater_Blocks();
+    bool Enable_Piranha_Plants_On_First_Level();
     bool Fast_Enemies(int speed);
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
