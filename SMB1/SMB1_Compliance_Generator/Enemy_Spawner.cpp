@@ -107,7 +107,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         }
 
         //TODO: Handle errors here... Maybe use a page change?
-        if (size == 0) {
+        if (!noEnemies && size == 0) {
             qDebug() << "Looks like an enemy failed to spawn";
         } else {
             lastX = x;
