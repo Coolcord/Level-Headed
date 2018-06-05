@@ -544,16 +544,3 @@ bool Enemy_Handler::Page_Change(const QString &line, int &errorCode) {
         return true;
     }
 }
-
-bool Enemy_Handler::Nothing(const QString &line, int &errorCode) {
-    QStringList elements = line.split(' ');
-    if (elements.size() != 3) return false;
-    int x = 0;
-    if (!this->Parse_Num(elements.at(1), x)) return false;
-    if (!this->writerPlugin->Enemy_Nothing(x)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
-}

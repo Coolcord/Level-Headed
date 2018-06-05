@@ -424,7 +424,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     int random = 0;
     //Spawn Hammer Bros. in later levels
     if (noEnemies) {
-        assert(this->enemies->Nothing(spawnX));
+        return 0;
     } else if (forceHammerBro) {
         assert(this->enemies->Hammer_Bro(spawnX, tmpY));
     } else {

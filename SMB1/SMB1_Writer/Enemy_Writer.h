@@ -46,7 +46,6 @@ public:
     bool Page_Change(int page);
     bool Pipe_Pointer(int x, int room, int page);
     bool Pipe_Pointer(int x, const QString &levelSlot, int page);
-    bool Nothing(int x);
 
 private:
     Enemy_Writer(const Enemy_Writer&);

@@ -184,7 +184,6 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::GOOMBA_GROUP:          success = this->enemy->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::KOOPA_GROUP:           success = this->enemy->Koopa_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::PAGE_CHANGE:           assert(false); break; return false;
-    case Enemy_Item::NOTHING:               success = this->enemy->Nothing(x); break;
     default:                                assert(false); break; return false;
     }
     if (success) {

@@ -106,5 +106,4 @@ void SMB1_Compliance_Map::Populate_Enemy_Map() {
     this->enemies->insert(Enemy_Item::STRING_GOOMBA_GROUP, Enemy_Item::GOOMBA_GROUP);
     this->enemies->insert(Enemy_Item::STRING_KOOPA_GROUP, Enemy_Item::KOOPA_GROUP);
     this->enemies->insert(Enemy_Item::STRING_PAGE_CHANGE, Enemy_Item::PAGE_CHANGE);
-    this->enemies->insert(Enemy_Item::STRING_NOTHING, Enemy_Item::NOTHING);
 }

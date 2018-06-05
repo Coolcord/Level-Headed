@@ -264,7 +264,6 @@ bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line, int &errorCode) {
     case Enemy_Item::GOOMBA_GROUP:          return this->enemyHandler->Goomba_Group(line, errorCode);
     case Enemy_Item::KOOPA_GROUP:           return this->enemyHandler->Koopa_Group(line, errorCode);
     case Enemy_Item::PAGE_CHANGE:           return this->enemyHandler->Page_Change(line, errorCode);
-    case Enemy_Item::NOTHING:               return this->enemyHandler->Nothing(line, errorCode);
     default:                                return false; //invalid enemy
     }
 }

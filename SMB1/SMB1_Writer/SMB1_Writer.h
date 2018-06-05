@@ -141,7 +141,6 @@ public:
     bool Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Enemy_Page_Change(int page);
     bool Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page);
-    bool Enemy_Nothing(int x);
 
     //Transfer Bytes Between Levels
     bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes);

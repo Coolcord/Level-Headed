@@ -62,6 +62,7 @@ bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     //Set the member variables
     this->currentX = tmpX;
     this->currentY = y;
+    if (this->pageFlag != tmpPageFlag) ++this->currentPage;
     if (handlePageFlag) this->pageFlag = tmpPageFlag;
 
     QBitArray positionBits(8, false);

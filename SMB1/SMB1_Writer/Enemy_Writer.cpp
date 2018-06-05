@@ -87,7 +87,8 @@ int Enemy_Writer::Handle_Group_Page_Flag(int x) {
 
 bool Enemy_Writer::Fill_Buffer() {
     while (this->Is_Safe_To_Write_Item()) {
-        assert(this->Nothing(0));
+        assert(this->Write_Byte_To_Buffer(0xFF));
+        assert(this->Write_Byte_To_Buffer(0xFF));
     }
     if (this->How_Many_Bytes_Left() == 1) {
         assert(this->Write_Byte_To_Buffer(0xFF)); //fill the buffer with the terminator byte
@@ -306,6 +307,7 @@ bool Enemy_Writer::Page_Change(int page) {
     this->currentX = 0;
     this->currentY = 0;
     this->groupPageFlag = false;
+    this->pageFlag = true;
     return true;
 }
 
@@ -328,10 +330,6 @@ bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
     if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
     int room = static_cast<int>(roomID);
     return this->Pipe_Pointer(x, room, page);
-}
-
-bool Enemy_Writer::Nothing(int x) {
-    return this->Write_Enemy(x, 0xF, 0x00, false); //acts as a page change
 }
 
 void Enemy_Writer::Populate_Level_Slots() {

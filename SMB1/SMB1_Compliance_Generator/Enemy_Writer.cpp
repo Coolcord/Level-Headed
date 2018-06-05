@@ -276,7 +276,3 @@ bool Enemy_Writer::Page_Change(int page) {
         return false;
     }
 }
-
-bool Enemy_Writer::Nothing(int x) {
-    return this->Write_Enemy(x, false, Enemy_Item::STRING_NOTHING);
-}

@@ -40,7 +40,6 @@ public:
     bool Goomba_Group(const QString &line, int &errorCode);
     bool Koopa_Group(const QString &line, int &errorCode);
     bool Page_Change(const QString &line, int &errorCode);
-    bool Nothing(const QString &line, int &errorCode);
 
 private:
     bool Parse_Difficulty(const QString &value, bool &onlyHardMode);

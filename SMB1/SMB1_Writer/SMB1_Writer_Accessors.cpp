@@ -471,11 +471,6 @@ bool SMB1_Writer::Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page) 
     return this->enemyWriter->Pipe_Pointer(x, levelSlot, page);
 }
 
-bool SMB1_Writer::Enemy_Nothing(int x) {
-    if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Nothing(x);
-}
-
 bool SMB1_Writer::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
     if (this->Are_Buffers_Allocated()) return false;
     if (!this->roomIDHandler) return false;

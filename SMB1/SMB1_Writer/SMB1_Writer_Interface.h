@@ -127,7 +127,6 @@ public:
     virtual bool Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode = false)=0;
     virtual bool Enemy_Page_Change(int page)=0;
     virtual bool Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page)=0;
-    virtual bool Enemy_Nothing(int x)=0;
 
     //Transfer Bytes Between Levels
     virtual bool Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes)=0;
