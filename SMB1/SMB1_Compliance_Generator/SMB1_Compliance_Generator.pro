@@ -27,7 +27,6 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Level_Crawler.cpp \
     SMB1_Compliance_Map.cpp \
     Enemy_Spawner.cpp \
-    Midpoint_Handler.cpp \
     Bridge_Generator.cpp \
     First_Page_Handler.cpp \
     Island_Generator.cpp \
@@ -70,7 +69,6 @@ HEADERS += SMB1_Compliance_Generator.h \
     Level_Crawler.h \
     SMB1_Compliance_Map.h \
     Enemy_Spawner.h \
-    Midpoint_Handler.h \
     Bridge_Generator.h \
     First_Page_Handler.h \
     SMB1_Compliance_Generator_Arguments.h \
