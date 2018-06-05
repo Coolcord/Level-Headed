@@ -75,11 +75,12 @@ int Island_Generator::Get_Island_Y() {
     int y = this->object->Get_Current_Y();
 
     //Determine whether to go up or down
-    if (Random::Get_Num(1) == 0) { //go up
-        y -= Random::Get_Num(4);
-    } else { //go down
-        y += Random::Get_Num(4);
-    }
+    bool up = Random::Get_Num(1) == 0;
+    if (y <= 2) up = false;
+    else if (y >= Physics::GROUND_Y+1) up = true;
+    if (up) y -= Random::Get_Num(4);
+    else y += Random::Get_Num(4);
+
     //Y values should be between the range of 1 at the highest and 11 at the lowest
     if (y > Physics::GROUND_Y+1) y = Physics::GROUND_Y+1;
     if (y < 1) y = 1;
