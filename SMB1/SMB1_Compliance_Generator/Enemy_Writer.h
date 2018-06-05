@@ -11,6 +11,7 @@ public:
     ~Enemy_Writer() {}
     bool Get_First_Enemy();
     void Set_First_Enemy(bool value);
+    bool Is_Lakitu_Active();
     bool Was_Lakitu_Spawned();
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
@@ -56,6 +57,7 @@ private:
     bool Is_Coordinate_Valid(int coordinate);
 
     bool firstEnemy;
+    bool lakituIsActive;
     bool wasLakituSpawned;
 
     friend class Pipe_Pointer_Writer;

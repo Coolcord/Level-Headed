@@ -78,7 +78,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         //Determine what type of enemies to spawn
         bool forceHammerBro = this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         bool noEnemies = this->args->difficultyNoEnemies;
-        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Was_Lakitu_Spawned();
+        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
         if (forceHammerBro) {
             size = this->Common_Enemy(x, y, lastX, size, true, noEnemies);
         } else {
@@ -107,8 +107,8 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         }
 
         //TODO: Handle errors here... Maybe use a page change?
-        if (!noEnemies && size == 0) {
-            qDebug() << "Looks like an enemy failed to spawn";
+        if (size == 0) {
+            if (!noEnemies && !this->enemies->Was_Lakitu_Spawned()) qDebug() << "Looks like an enemy failed to spawn";
         } else {
             lastX = x;
         }

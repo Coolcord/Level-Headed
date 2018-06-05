@@ -5,6 +5,7 @@
 
 Enemy_Writer::Enemy_Writer(QTextStream *stream, int numBytesLeft) : Item_Writer(stream, numBytesLeft) {
     this->firstEnemy = true;
+    this->lakituIsActive = false;
     this->wasLakituSpawned = false;
 }
 
@@ -14,6 +15,10 @@ bool Enemy_Writer::Get_First_Enemy() {
 
 void Enemy_Writer::Set_First_Enemy(bool value) {
     this->firstEnemy = value;
+}
+
+bool Enemy_Writer::Is_Lakitu_Active() {
+    return this->lakituIsActive;
 }
 
 bool Enemy_Writer::Was_Lakitu_Spawned() {
@@ -143,7 +148,10 @@ bool Enemy_Writer::Pirana_Plant(int x, int y, bool onlyHardMode) {
 
 bool Enemy_Writer::Lakitu(int x, int y, bool onlyHardMode) {
     bool success = this->Write_Enemy(x, y, onlyHardMode, Enemy_Item::STRING_LAKITU);
-    if (success) this->wasLakituSpawned = true;
+    if (success) {
+        this->wasLakituSpawned = true;
+        this->lakituIsActive = true;
+    }
     return success;
 }
 
