@@ -3,9 +3,11 @@ Level-Headed
 
 Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the NES
 
-# [Download for Windows](https://github.com/Coolcord/Level-Headed/releases)
+[![GitHub release](https://img.shields.io/github/release/Coolcord/Level-Headed.svg)](https://GitHub.com/Coolcord/Level-Headed/releases)
+[![Github all releases](https://img.shields.io/github/downloads/Coolcord/Level-Headed/total.svg)](https://GitHub.com/Coolcord/Level-Headed/releases)
+[Download for Windows](https://github.com/Coolcord/Level-Headed/releases/download/v0.2.4/Level-Headed.v0.2.4.zip)
 
--===========================- About Level-Headed -===========================-
+## About Level-Headed
 
  Level-Headed is an application that is still under development. Ultimately, I am
  designing it to be a random level generator that will work across multiple platforming
@@ -15,24 +17,18 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  supported, but in the future, support for more games will be added.
  
  In order for Level-Headed to work properly, a base ROM must be supplied to Level-Headed.
- As of the "Hammer Time" Build (v0.2.0), the following 2 ROMs are supported:
+ The following 2 ROMs are supported:
+ * Super Mario Bros. (JU) (PRG0) [!].nes (MD5: 811B027EAF99C2DEF7B933C5208636DE)
+ * Super Mario Bros. (JU) (PRG1).nes (MD5: 94EDE9347C1416105F1C08EC26B5B73A)
  
- Super Mario Bros. (JU) (PRG0) [!].nes (MD5: 811B027EAF99C2DEF7B933C5208636DE)
- 
- Super Mario Bros. (JU) (PRG1).nes (MD5: 94EDE9347C1416105F1C08EC26B5B73A)
- 
- Check out "Level-Headed Water Vapor Build Readme.pdf" under the "Doc" folder for more
+ Check out [Level-Headed Water Vapor Build Readme.pdf](https://github.com/Coolcord/Level-Headed/blob/master/Doc/Level-Headed%20Water%20Vapor%20Build%20Readme.pdf) under the "Doc" folder for more
  information on how to use Level-Headed.
  
- If you're a Windows user, you can download the Windows build under the releases tab.
+ If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins through QtCreator.
  
- Linux and Mac users should compile the application and plugins through QtCreator.
- 
- All code in this repository is released under the GPLv2 License.
- 
- If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
+ All code in this repository is released under the GPLv2 License. If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
 
- -===========================- Hammer Time FAQ -===========================-
+ ## Hammer Time FAQ
  
  Q: What is hammer time mode?
  
@@ -83,3 +79,4 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  A: No, it is far from dead. I tend to work on Level-Headed off and on when I have spare time and when
  I have the interest. Consequently, development tends to be very slow and sporadic. However, I can't see
  myself ever dropping this project completely.
+ 
