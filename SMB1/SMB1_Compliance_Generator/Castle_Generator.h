@@ -15,6 +15,7 @@ private:
     Castle_Generator& operator=(const Castle_Generator&);
     Brick::Brick brick;
     Item_Spawner *itemSpawner;
+    bool bowserFireReadyToSpawn;
     bool bowserFireSpawned;
     int Get_Lowest_Y_From_Brick(Brick::Brick brick);
     int Get_Random_Y();

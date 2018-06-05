@@ -5,13 +5,15 @@
 #include <QDebug>
 #include <assert.h>
 
-Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer) {
+Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
     assert(enemy);
     assert(pipePointer);
+    assert(args);
     this->object = object;
     this->enemy = enemy;
     this->pipePointer = pipePointer;
+    this->args = args;
     this->numRequiredBytes = 0;
     this->numEndBytes = 0;
     this->requiredEnemies = new QQueue<Required_Enemy_Spawn>();
@@ -34,6 +36,21 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
 }
 
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y) {
+    //Skip the Enemy if No Enemies is Enabled
+    bool skipEnemy = this->args->difficultyNoEnemies;
+    switch (enemy) {
+    case Enemy_Item::BALANCE_LIFT:
+    case Enemy_Item::FALLING_LIFT:
+    case Enemy_Item::LIFT:
+    case Enemy_Item::LIFT_SPAWNER:
+    case Enemy_Item::SURFING_LIFT:
+    case Enemy_Item::PIPE_POINTER:
+    case Enemy_Item::TOAD:
+    case Enemy_Item::WARP_ZONE:     skipEnemy = false;
+    default:                        break;
+    }
+    if (skipEnemy) return true;
+
     int previousNumRequiredBytes = this->numRequiredBytes;
     bool disableCoordinateSafety = false;
     assert(Determine_Bytes_Required_For_Required_Enemy_Spawn(enemy, disableCoordinateSafety, x));
@@ -41,6 +58,7 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
         this->numRequiredBytes = previousNumRequiredBytes;
         return false;
     }
+
     Required_Enemy_Spawn enemySpawn;
     enemySpawn.enemy = enemy;
     enemySpawn.args = args;

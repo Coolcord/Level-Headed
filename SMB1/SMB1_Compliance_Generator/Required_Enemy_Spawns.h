@@ -2,6 +2,7 @@
 #define REQUIRED_ENEMY_SPAWNS_H
 
 #include "../Common_SMB1_Files/Enemy_Item.h"
+#include "SMB1_Compliance_Generator_Arguments.h"
 #include "Extra_Enemy_Args.h"
 #include <QQueue>
 
@@ -12,7 +13,7 @@ class Pipe_Pointer_Writer;
 class Required_Enemy_Spawns
 {
 public:
-    Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer);
+    Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y);
@@ -44,6 +45,7 @@ private:
 
     bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x);
 
+    SMB1_Compliance_Generator_Arguments *args;
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
     Object_Writer *object;
     Enemy_Writer *enemy;
