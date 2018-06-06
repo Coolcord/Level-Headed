@@ -27,7 +27,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins through QtCreator.
  
- All code in this repository is released under the GPLv2 License. If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
+ All code in this repository is released under the GPLv3 License. If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
 
  ## Hammer Time FAQ
  
