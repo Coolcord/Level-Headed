@@ -52,7 +52,9 @@ bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
-    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+    Hexagon_Error_Codes::Error_Code errorCode = Hexagon_Error_Codes::OK;
+    errorCode = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum);
+    return errorCode == Hexagon_Error_Codes::OK;
 }
 
 QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {

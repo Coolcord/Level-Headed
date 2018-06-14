@@ -70,7 +70,10 @@ void Configure_Base_Form::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
     this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
     this->ui->cbOverwriteOutputROM->setChecked(this->pluginSettings->overwriteOuputROM);
-    this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
+    if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
+    else this->ui->comboMusic->setCurrentIndex(2); //use original music
+    if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
+    else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
