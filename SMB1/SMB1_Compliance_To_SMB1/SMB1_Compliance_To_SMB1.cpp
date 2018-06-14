@@ -18,9 +18,14 @@
 SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
+    this->hexagonPlugin = NULL;
+    this->sequentialArchivePlugin = NULL;
     this->generatorLoader = NULL;
     this->writerLoader = NULL;
+    this->hexagonLoader = NULL;
+    this->sequentialArchiveLoader = NULL;
     this->applicationLocation = QString();
+    this->pluginLocation = QString();
     this->pluginsLoaded = false;
     this->Load_Plugin_Default_Settings();
 }
@@ -29,7 +34,13 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) 
     assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
+    this->pluginLocation = this->applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
     if (!this->Load_Plugin_Settings()) this->Load_Plugin_Default_Settings();
+
+    //Try to load all common plugins, but only complain once if some don't load
+    bool errorAlreadyDisplayed = false;
+    if (!this->Load_Hexagon_Plugin()) this->Show_Common_Plugin_Failed_To_Load_Error("Hexagon", errorAlreadyDisplayed);
+    if (!this->Load_Sequential_Archive_Plugin()) this->Show_Common_Plugin_Failed_To_Load_Error("Sequential Archive", errorAlreadyDisplayed);
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
@@ -105,6 +116,7 @@ int SMB1_Compliance_To_SMB1::Configure_Writer() {
 }
 
 void SMB1_Compliance_To_SMB1::Shutdown() {
+    //Unload the main plugins
     this->Save_Plugin_Settings();
     if (this->generatorPlugin) this->generatorPlugin->Shutdown();
     if (this->writerPlugin) this->writerPlugin->Shutdown();
@@ -116,14 +128,21 @@ void SMB1_Compliance_To_SMB1::Shutdown() {
     this->writerLoader = NULL;
     this->generatorPlugin = NULL;
     this->writerPlugin = NULL;
+
+    //Unload the common plugins
+    if (this->hexagonLoader) this->hexagonLoader->unload();
+    if (this->sequentialArchiveLoader) this->sequentialArchiveLoader->unload();
+    this->hexagonLoader = NULL;
+    this->sequentialArchiveLoader = NULL;
+    this->hexagonPlugin = NULL;
+    this->sequentialArchivePlugin = NULL;
     this->pluginsLoaded = false;
 }
 
 bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (this->pluginsLoaded) return true;
-    QString pluginLocation = this->applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
-    QString generatorLocation = pluginLocation + Common_Strings::STRING_GENERATORS + "/SMB1_Compliance_Generator" + Common_Strings::STRING_PLUGIN_EXTENSION;
-    QString writerLocation = pluginLocation + Common_Strings::STRING_WRITERS + "/SMB1_Writer" + Common_Strings::STRING_PLUGIN_EXTENSION;
+    QString generatorLocation = this->pluginLocation + Common_Strings::STRING_GENERATORS + "/SMB1_Compliance_Generator" + Common_Strings::STRING_PLUGIN_EXTENSION;
+    QString writerLocation = this->pluginLocation + Common_Strings::STRING_WRITERS + "/SMB1_Writer" + Common_Strings::STRING_PLUGIN_EXTENSION;
 
     if (!QFile(generatorLocation).exists()) return false; //TODO: Throw an error here
     if (!QFile(writerLocation).exists()) return false; //TODO: Throw an error here
@@ -301,6 +320,37 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.enemySpeed = 6;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);
+}
+
+bool SMB1_Compliance_To_SMB1::Load_Hexagon_Plugin() {
+    QString hexagonPluginLocation = this->pluginLocation + "Hexagon" + Common_Strings::STRING_PLUGIN_EXTENSION;
+    if (!QFile(hexagonPluginLocation).exists()) return false;
+
+    //Load the Hexagon Plugin
+    this->hexagonLoader = new QPluginLoader(hexagonPluginLocation);
+    QObject *validPlugin = this->hexagonLoader->instance();
+    if (!validPlugin) return false;
+    this->hexagonPlugin = qobject_cast<Hexagon_Interface*>(validPlugin);
+    return this->hexagonPlugin;
+}
+
+bool SMB1_Compliance_To_SMB1::Load_Sequential_Archive_Plugin() {
+    QString sequentialArchivePluginLocation = this->pluginLocation + "Sequential_Archive" + Common_Strings::STRING_PLUGIN_EXTENSION;
+    if (!QFile(sequentialArchivePluginLocation).exists()) return false;
+
+    //Load the Sequential Archive Plugin
+    this->sequentialArchiveLoader = new QPluginLoader(sequentialArchivePluginLocation);
+    QObject *validPlugin = this->sequentialArchiveLoader->instance();
+    if (!validPlugin) return false;
+    this->sequentialArchivePlugin = qobject_cast<Sequential_Archive_Interface*>(validPlugin);
+    return this->sequentialArchivePlugin;
+}
+
+void SMB1_Compliance_To_SMB1::Show_Common_Plugin_Failed_To_Load_Error(const QString &pluginName, bool &errorAlreadyDisplayed) {
+    if (errorAlreadyDisplayed) return;
+    else errorAlreadyDisplayed = true;
+    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                          "Unable to load the "+pluginName+" plugin! Make sure that it is in the plugins folder!", Common_Strings::STRING_OK);
 }
 
 void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {
