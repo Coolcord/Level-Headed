@@ -149,7 +149,12 @@ public:
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Write_Watermark()=0;
 
-    //Music
+    //Music Functions
+    virtual QStringList Music_Get_Music_Packs()=0;
+    virtual bool Music_Apply_Music_Pack(int index)=0;
+    virtual int Music_Get_Number_Of_Music_Packs()=0;
+
+    //Deprecated Music Functions
     virtual bool Music_Disable()=0;
     virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1()=0;
     virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2()=0;

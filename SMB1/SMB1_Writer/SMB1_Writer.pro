@@ -31,7 +31,8 @@ SOURCES += SMB1_Writer.cpp \
     Music.cpp \
     Byte_Writer.cpp \
     Graphics.cpp \
-    Text.cpp
+    Text.cpp \
+    Sequential_Archive_Handler.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -64,7 +65,8 @@ HEADERS += SMB1_Writer.h \
     Music.h \
     Byte_Writer.h \
     Graphics.h \
-    Text.h
+    Text.h \
+    Sequential_Archive_Handler.h
 OTHER_FILES +=
 
 unix {

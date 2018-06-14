@@ -8,6 +8,7 @@
 #include "Hacks.h"
 #include "Music.h"
 #include "Graphics.h"
+#include "Sequential_Archive_Handler.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -560,6 +561,21 @@ bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
 bool SMB1_Writer::Hacks_Write_Watermark() {
     if (!this->hacks) return false;
     return this->hacks->Write_Watermark();
+}
+
+QStringList SMB1_Writer::Music_Get_Music_Packs() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Music_Packs();
+}
+
+bool SMB1_Writer::Music_Apply_Music_Pack(int index) {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Music_Pack_At_Index(index);
+}
+
+int SMB1_Writer::Music_Get_Number_Of_Music_Packs() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Music_Packs();
 }
 
 bool SMB1_Writer::Music_Disable() {

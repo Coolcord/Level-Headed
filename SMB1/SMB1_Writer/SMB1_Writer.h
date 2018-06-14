@@ -18,6 +18,7 @@ class Room_Order_Writer;
 class Room_Address_Writer;
 class Hacks;
 class Music;
+class Sequential_Archive_Handler;
 class Text;
 class Graphics;
 
@@ -163,7 +164,12 @@ public:
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     bool Hacks_Write_Watermark();
 
-    //Music
+    //Music Functions
+    QStringList Music_Get_Music_Packs();
+    bool Music_Apply_Music_Pack(int index);
+    int Music_Get_Number_Of_Music_Packs();
+
+    //Deprecated Music Functions
     bool Music_Disable();
     bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1();
     bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2();
@@ -233,6 +239,7 @@ private:
     Room_Address_Writer *roomAddressWriter;
     Hacks *hacks;
     Music *music;
+    Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     Graphics *graphics;
     ROM_Handler *romHandler;

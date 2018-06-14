@@ -12,6 +12,7 @@
 #include "Room_Address_Writer.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Sequential_Archive_Handler.h"
 #include "Text.h"
 #include "Graphics.h"
 #include "SMB1_Writer_Strings.h"
@@ -40,6 +41,7 @@ SMB1_Writer::SMB1_Writer() {
     this->hacks = NULL;
     this->music = NULL;
     this->graphics = NULL;
+    this->sequentialArchiveHandler = NULL;
     this->romHandler = NULL;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
@@ -52,6 +54,7 @@ void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
     this->parent = parent;
     this->applicationLocation = location;
     this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);
+    this->sequentialArchiveHandler = new Sequential_Archive_Handler(location);
 }
 
 void SMB1_Writer::Shutdown() {
@@ -95,6 +98,8 @@ void SMB1_Writer::Shutdown() {
     this->music = NULL;
     delete this->graphics;
     this->graphics = NULL;
+    delete this->sequentialArchiveHandler;
+    this->sequentialArchiveHandler = NULL;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
@@ -179,6 +184,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->music = new Music(this->file, this->levelOffset);
         this->text = new Text(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->text);
+        this->sequentialArchiveHandler->Set_File(this->file);
         return true;
     } else {
         return false;

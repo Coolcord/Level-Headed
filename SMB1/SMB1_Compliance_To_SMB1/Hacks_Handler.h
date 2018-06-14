@@ -5,8 +5,7 @@
 
 class SMB1_Writer_Interface;
 
-class Hacks_Handler
-{
+class Hacks_Handler {
 public:
     Hacks_Handler(SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings);
     ~Hacks_Handler();

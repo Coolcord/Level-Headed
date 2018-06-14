@@ -1,6 +1,7 @@
 #include "Configure_Base_Form.h"
 #include "ui_Configure_Base_Form.h"
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QDir>
 #include <assert.h>
 
@@ -18,6 +19,7 @@ Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *plugi
     //Setup the UI
     ui->setupUi(this);
     this->Populate_Installed_ROMs();
+    this->Populate_Music_Packs();
     this->Load_Settings();
 }
 
@@ -49,6 +51,19 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
     } else {
         this->ui->comboBaseROM->setCurrentIndex(0);
     }
+}
+
+void Configure_Base_Form::Populate_Music_Packs() {
+    this->ui->comboMusic->clear();
+    QStringList packsWithExtension = this->writerPlugin->Music_Get_Music_Packs();
+    QStringList packs;
+    packs.append("Random");
+    packs.append("Disable Music");
+    packs.append("Original Music (by Nintendo)");
+    for (int i = 0; i < packsWithExtension.size(); ++i) {
+        packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
+    }
+    this->ui->comboMusic->addItems(packs);
 }
 
 void Configure_Base_Form::Load_Settings() {
