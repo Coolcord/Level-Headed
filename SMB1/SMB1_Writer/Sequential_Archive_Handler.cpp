@@ -30,6 +30,7 @@ void Sequential_Archive_Handler::Set_File(QFile *file) {
 }
 
 bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
+    if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
     assert(index < this->graphicsPackStrings.size());
     if (!this->file) return false;
     if (!this->Load_Plugins_If_Necessary()) return false;
@@ -44,6 +45,7 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
 #include <QDebug>
 
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
+    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     assert(index < this->musicPackStrings.size());
     if (!this->file) return false;
     if (!this->Load_Plugins_If_Necessary()) return false;
@@ -67,8 +69,8 @@ QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {
 }
 
 QString Sequential_Archive_Handler::Get_Graphics_Pack_At_Index(int index) {
-    assert(index < this->graphicsPackStrings.size());
     if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
+    assert(index < this->graphicsPackStrings.size());
     return this->graphicsPackStrings.at(index);
 }
 
@@ -82,8 +84,8 @@ QStringList Sequential_Archive_Handler::Get_Music_Packs() {
 }
 
 QString Sequential_Archive_Handler::Get_Music_Pack_At_Index(int index) {
-    assert(index < this->musicPackStrings.size());
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
+    assert(index < this->musicPackStrings.size());
     return this->musicPackStrings.at(index);
 }
 
