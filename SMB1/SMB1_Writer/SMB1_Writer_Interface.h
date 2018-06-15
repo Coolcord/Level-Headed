@@ -153,28 +153,7 @@ public:
     virtual QStringList Music_Get_Music_Packs()=0;
     virtual bool Music_Apply_Music_Pack(int index)=0;
     virtual int Music_Get_Number_Of_Music_Packs()=0;
-
-    //Deprecated Music Functions
     virtual bool Music_Disable()=0;
-    virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1()=0;
-    virtual bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2()=0;
-    virtual bool Music_Enigmario()=0;
-    virtual bool Music_Flower_Mario()=0;
-    virtual bool Music_Star_Remix()=0;
-    virtual bool Music_Super_Mario_263_Shiki()=0;
-    virtual bool Music_Super_Mario_Evolution_Mikamashi()=0;
-    virtual bool Music_Super_Mushroom()=0;
-    virtual bool Music_U1_1()=0;
-    virtual bool Music_U1_2()=0;
-    virtual bool Music_U1_3()=0;
-    virtual bool Music_U1_4()=0;
-    virtual bool Music_U1_5()=0;
-    virtual bool Music_U1_6()=0;
-    virtual bool Music_U1_7()=0;
-    virtual bool Music_U1_8()=0;
-    virtual bool Music_U1_9()=0;
-    virtual bool Music_U1_10()=0;
-    virtual bool Music_Water_Mario()=0;
 
     //Graphics
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;

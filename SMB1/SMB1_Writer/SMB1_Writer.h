@@ -168,28 +168,7 @@ public:
     QStringList Music_Get_Music_Packs();
     bool Music_Apply_Music_Pack(int index);
     int Music_Get_Number_Of_Music_Packs();
-
-    //Deprecated Music Functions
     bool Music_Disable();
-    bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_1();
-    bool Music_Alternative_Tone_Color_For_SQ1_And_SQ2_2();
-    bool Music_Enigmario();
-    bool Music_Flower_Mario();
-    bool Music_Star_Remix();
-    bool Music_Super_Mario_263_Shiki();
-    bool Music_Super_Mario_Evolution_Mikamashi();
-    bool Music_Super_Mushroom();
-    bool Music_U1_1();
-    bool Music_U1_2();
-    bool Music_U1_3();
-    bool Music_U1_4();
-    bool Music_U1_5();
-    bool Music_U1_6();
-    bool Music_U1_7();
-    bool Music_U1_8();
-    bool Music_U1_9();
-    bool Music_U1_10();
-    bool Music_Water_Mario();
 
     //Graphics
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
