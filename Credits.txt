@@ -51,6 +51,9 @@ https://www.romhacking.net/hacks/2004/
 Mr. Sandman! (by The Eadernator)
 https://www.romhacking.net/hacks/535/
 
+PeCaMARIO (by 4Jouhan)
+https://www.romhacking.net/hacks/3410/
+
 Star Remix (by Garuna)
 https://www.romhacking.net/hacks/2005/
 
@@ -89,5 +92,6 @@ Author Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who mad
 Hammer Suit
 Hyper Mario
 Super Bubba Bros.
+Super Mario Bros. Nonstop
 Techno! Mario Bros
 ==========================================================================================
