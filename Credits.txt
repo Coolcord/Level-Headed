@@ -33,8 +33,14 @@ Super Mario S (by Sogun)
 https://www.romhacking.net/hacks/1267/
 ==========================================================================================
 Music:
+007 - You Only Live 2wice (by emask)
+https://www.romhacking.net/hacks/3506/
+
 Alternative tone color for SQ1 and SQ2 (by w7m)
 https://www.romhacking.net/documents/630/
+
+Borat (Tone Color) (by CKY-9K)
+http://acmlm.kafuka.org/board/thread.php?id=1779
 
 Enb_1 and Enb_2 (Tone Colors) (by YudaiDhun)
 N/A
