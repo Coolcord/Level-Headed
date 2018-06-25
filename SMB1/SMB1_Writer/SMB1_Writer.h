@@ -169,6 +169,16 @@ public:
     bool Music_Apply_Music_Pack(int index);
     int Music_Get_Number_Of_Music_Packs();
     bool Music_Disable();
+    bool Music_Tone_Color_1();
+    bool Music_Tone_Color_2();
+    bool Music_Tone_Color_3();
+    bool Music_Tone_Color_4();
+    bool Music_Tone_Color_5();
+    bool Music_Tone_Color_6();
+    bool Music_Tone_Color_7();
+    bool Music_Tone_Color_8();
+    bool Music_Tone_Color_9();
+    bool Music_Tone_Color_10();
 
     //Graphics
     bool Graphics_Write_Title_Screen_For_1_Player_Game();

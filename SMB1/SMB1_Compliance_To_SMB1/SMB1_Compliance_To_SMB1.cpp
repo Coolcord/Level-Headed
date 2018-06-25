@@ -198,6 +198,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.bridgeChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.islandChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.music << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.toneColor << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.graphics << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.infiniteLives << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.numLives << Common_Strings::STRING_NEW_LINE;
@@ -260,6 +261,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.bridgeChance = file.readLine().trimmed();
     this->pluginSettings.islandChance = file.readLine().trimmed();
     this->pluginSettings.music = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.toneColor = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.graphics = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.infiniteLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.numLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -289,6 +291,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.music = 0;
+    this->pluginSettings.toneColor = 0;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.numLives = 5;

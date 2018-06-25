@@ -44,11 +44,33 @@ bool Hacks_Handler::Write_Hacks() {
 bool Hacks_Handler::Handle_Music() {
     int music = this->pluginSettings->music;
     if (music == 0) music = Random::Get_Num(this->writerPlugin->Music_Get_Number_Of_Music_Packs())+2;
+    bool success = false;
     switch (music) {
-    case 1:     return this->writerPlugin->Music_Disable(); //no music (music is disabled)
-    case 2:     return true; //original music
-    default:    return this->writerPlugin->Music_Apply_Music_Pack(music-3);
+    case 1:     success = this->writerPlugin->Music_Disable(); break; //no music (music is disabled)
+    case 2:     success = true; break; //original music
+    default:    success = this->writerPlugin->Music_Apply_Music_Pack(music-3); break;
     }
+    if (!success) return false;
+
+    //Handle the Tone Color
+    int toneColor = this->pluginSettings->toneColor;
+    if (toneColor == 0) toneColor = Random::Get_Num(10)+1;
+    qDebug().noquote() << "Using tone color " << toneColor-1;
+    switch (toneColor) {
+    default: assert(false);
+    case 1:     success = true; break;
+    case 2:     success = this->writerPlugin->Music_Tone_Color_1(); break;
+    case 3:     success = this->writerPlugin->Music_Tone_Color_2(); break;
+    case 4:     success = this->writerPlugin->Music_Tone_Color_3(); break;
+    case 5:     success = this->writerPlugin->Music_Tone_Color_4(); break;
+    case 6:     success = this->writerPlugin->Music_Tone_Color_5(); break;
+    case 7:     success = this->writerPlugin->Music_Tone_Color_6(); break;
+    case 8:     success = this->writerPlugin->Music_Tone_Color_7(); break;
+    case 9:     success = this->writerPlugin->Music_Tone_Color_8(); break;
+    case 10:    success = this->writerPlugin->Music_Tone_Color_9(); break;
+    case 11:    success = this->writerPlugin->Music_Tone_Color_10(); break;
+    }
+    return success;
 }
 
 bool Hacks_Handler::Handle_Graphics() {

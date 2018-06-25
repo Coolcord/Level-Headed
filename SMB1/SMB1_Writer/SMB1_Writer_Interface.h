@@ -154,6 +154,16 @@ public:
     virtual bool Music_Apply_Music_Pack(int index)=0;
     virtual int Music_Get_Number_Of_Music_Packs()=0;
     virtual bool Music_Disable()=0;
+    virtual bool Music_Tone_Color_1()=0;
+    virtual bool Music_Tone_Color_2()=0;
+    virtual bool Music_Tone_Color_3()=0;
+    virtual bool Music_Tone_Color_4()=0;
+    virtual bool Music_Tone_Color_5()=0;
+    virtual bool Music_Tone_Color_6()=0;
+    virtual bool Music_Tone_Color_7()=0;
+    virtual bool Music_Tone_Color_8()=0;
+    virtual bool Music_Tone_Color_9()=0;
+    virtual bool Music_Tone_Color_10()=0;
 
     //Graphics
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;

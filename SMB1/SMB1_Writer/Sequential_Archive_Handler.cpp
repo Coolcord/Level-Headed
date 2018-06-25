@@ -3,6 +3,8 @@
 #include "SMB1_Writer_Strings.h"
 #include <assert.h>
 
+#include <QDebug>
+
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
     this->file = NULL;
     this->hexagonPlugin = NULL;
@@ -41,6 +43,7 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     int lineNum = 0;
     return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
 }
+
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     assert(index < this->musicPackStrings.size());
@@ -48,6 +51,7 @@ bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
     if (!this->Load_Plugins_If_Necessary()) return false;
     if (!this->sequentialArchivePlugin->Open(this->musicPacksArchiveLocation)) return false;
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+this->musicPackStrings.at(index));
+    qDebug() << "Using music pack " << this->musicPackStrings.at(index);
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;

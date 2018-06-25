@@ -583,6 +583,56 @@ bool SMB1_Writer::Music_Disable() {
     return this->music->Disable_Music();
 }
 
+bool SMB1_Writer::Music_Tone_Color_1() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_1();
+}
+
+bool SMB1_Writer::Music_Tone_Color_2() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_2();
+}
+
+bool SMB1_Writer::Music_Tone_Color_3() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_3();
+}
+
+bool SMB1_Writer::Music_Tone_Color_4() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_4();
+}
+
+bool SMB1_Writer::Music_Tone_Color_5() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_5();
+}
+
+bool SMB1_Writer::Music_Tone_Color_6() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_6();
+}
+
+bool SMB1_Writer::Music_Tone_Color_7() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_7();
+}
+
+bool SMB1_Writer::Music_Tone_Color_8() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_8();
+}
+
+bool SMB1_Writer::Music_Tone_Color_9() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_9();
+}
+
+bool SMB1_Writer::Music_Tone_Color_10() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_10();
+}
+
 bool SMB1_Writer::Graphics_Write_Title_Screen_For_1_Player_Game() {
     if (!this->graphics) return false;
     return this->graphics->Write_Title_Screen_For_1_Player_Game();

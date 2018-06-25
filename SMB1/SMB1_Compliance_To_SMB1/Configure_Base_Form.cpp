@@ -69,6 +69,7 @@ void Configure_Base_Form::Load_Settings() {
     this->ui->cbOverwriteOutputROM->setChecked(this->pluginSettings->overwriteOuputROM);
     if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
     else this->ui->comboMusic->setCurrentIndex(2); //use original music
+    this->ui->comboTone->setCurrentIndex(this->pluginSettings->toneColor);
     if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
@@ -90,6 +91,7 @@ void Configure_Base_Form::Save_Settings() {
     this->pluginSettings->overwriteOuputROM = this->ui->cbOverwriteOutputROM->isChecked();
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
+    this->pluginSettings->toneColor = this->ui->comboTone->currentIndex();
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 1;
     else this->pluginSettings->numLives = this->ui->sbLives->value();
