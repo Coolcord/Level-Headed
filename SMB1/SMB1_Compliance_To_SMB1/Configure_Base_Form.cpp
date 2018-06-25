@@ -54,12 +54,8 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
 }
 
 void Configure_Base_Form::Populate_Music_Packs() {
-    this->ui->comboMusic->clear();
     QStringList packsWithExtension = this->writerPlugin->Music_Get_Music_Packs();
     QStringList packs;
-    packs.append("Random");
-    packs.append("Disable Music");
-    packs.append("Original Music (by Nintendo)");
     for (int i = 0; i < packsWithExtension.size(); ++i) {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
     }
