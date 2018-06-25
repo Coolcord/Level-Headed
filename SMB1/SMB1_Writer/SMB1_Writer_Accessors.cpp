@@ -568,6 +568,11 @@ QStringList SMB1_Writer::Music_Get_Music_Packs() {
     return this->sequentialArchiveHandler->Get_Music_Packs();
 }
 
+QStringList SMB1_Writer::Music_Get_Compatible_Music_Packs_At_Index(int index) {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Compatible_Music_Packs_At_Index(index);
+}
+
 bool SMB1_Writer::Music_Apply_Music_Pack(int index) {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Apply_Music_Pack_At_Index(index);

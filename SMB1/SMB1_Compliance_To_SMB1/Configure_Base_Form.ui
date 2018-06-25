@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>538</width>
-        <height>701</height>
+        <height>741</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -243,7 +243,7 @@
          <item row="0" column="1">
           <widget class="QLabel" name="lblMix">
            <property name="text">
-            <string>Mixed With:</string>
+            <string>Additional:</string>
            </property>
           </widget>
          </item>
@@ -287,7 +287,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboMix">
+          <widget class="QComboBox" name="comboAdditionalMusic">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>

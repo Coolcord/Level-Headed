@@ -60,7 +60,7 @@ void Configure_Base_Form::Populate_Music_Packs() {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
     }
     this->ui->comboMusic->addItems(packs);
-    this->ui->comboMix->addItems(packs); //TODO: Remove this... it's debug code
+    this->ui->comboAdditionalMusic->addItems(packs); //TODO: Remove this... it's debug code
 }
 
 void Configure_Base_Form::Load_Settings() {
