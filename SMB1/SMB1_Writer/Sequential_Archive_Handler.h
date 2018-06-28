@@ -16,18 +16,20 @@ public:
     QStringList Get_Graphics_Packs();
     QString Get_Graphics_Pack_At_Index(int index);
     QStringList Get_Music_Packs();
-    QStringList Get_Compatible_Music_Packs_At_Index(int index);
     QString Get_Music_Pack_At_Index(int index);
     int Get_Number_Of_Graphics_Packs();
     int Get_Number_Of_Music_Packs();
 
 private:
+    bool Apply_Secondary_Music_Patches(const QString &patches);
+    QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);
     bool Load_Plugins_If_Necessary();
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();
     QByteArray Read_Music_Pack(const QString &musicPackString);
 
     QFile *file;
+    bool combineMusicPacks;
     Hexagon_Interface *hexagonPlugin;
     Sequential_Archive_Interface *sequentialArchivePlugin;
     QPluginLoader *hexagonLoader;

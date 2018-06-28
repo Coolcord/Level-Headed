@@ -1,4 +1,5 @@
 #include "Sequential_Archive_Handler.h"
+#include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
@@ -10,6 +11,7 @@
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible with:";
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
+    this->combineMusicPacks = false;
     this->file = NULL;
     this->hexagonPlugin = NULL;
     this->sequentialArchivePlugin = NULL;
@@ -56,7 +58,16 @@ bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
     qDebug() << "Using music pack " << this->musicPackStrings.at(index);
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
-    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+
+    //Apply the base patch
+    if (this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) != Hexagon_Error_Codes::OK) return false;
+
+    //Possibly apply additional patches
+    if (!this->combineMusicPacks) return true;
+    QStringList compatiblePacks = this->Get_Compatible_Music_Packs(patchBytes);
+    int secondaryIndex = Random::Get_Num(compatiblePacks.size());
+    if (secondaryIndex == compatiblePacks.size()) return true; //don't apply anything
+    return this->Apply_Secondary_Music_Patches(compatiblePacks.at(secondaryIndex));
 }
 
 QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {
@@ -83,8 +94,27 @@ QStringList Sequential_Archive_Handler::Get_Music_Packs() {
     return this->musicPackStrings;
 }
 
-QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs_At_Index(int index) {
-    QByteArray patchBytes = this->Read_Music_Pack(this->Get_Music_Pack_At_Index(index));
+QString Sequential_Archive_Handler::Get_Music_Pack_At_Index(int index) {
+    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
+    assert(index < this->musicPackStrings.size());
+    return this->musicPackStrings.at(index);
+}
+
+int Sequential_Archive_Handler::Get_Number_Of_Graphics_Packs() {
+    if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
+    return this->graphicsPackStrings.size();
+}
+
+int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
+    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
+    return this->musicPackStrings.size();
+}
+
+bool Sequential_Archive_Handler::Apply_Secondary_Music_Patches(const QString &patches) {
+    //TODO: Write this...
+}
+
+QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteArray &patchBytes) {
     if (patchBytes.isEmpty()) return QStringList();
 
     //Read the patch file to get the compatible patch files
@@ -104,22 +134,6 @@ QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs_At_Index(int 
         }
     }
     return compatibleMusicPacks;
-}
-
-QString Sequential_Archive_Handler::Get_Music_Pack_At_Index(int index) {
-    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
-    assert(index < this->musicPackStrings.size());
-    return this->musicPackStrings.at(index);
-}
-
-int Sequential_Archive_Handler::Get_Number_Of_Graphics_Packs() {
-    if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
-    return this->graphicsPackStrings.size();
-}
-
-int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
-    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
-    return this->musicPackStrings.size();
 }
 
 bool Sequential_Archive_Handler::Load_Plugins_If_Necessary() {

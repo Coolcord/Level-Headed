@@ -166,7 +166,6 @@ public:
 
     //Music Functions
     QStringList Music_Get_Music_Packs();
-    QStringList Music_Get_Compatible_Music_Packs_At_Index(int index);
     bool Music_Apply_Music_Pack(int index);
     int Music_Get_Number_Of_Music_Packs();
     bool Music_Disable();

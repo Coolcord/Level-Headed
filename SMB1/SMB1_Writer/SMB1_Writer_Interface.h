@@ -151,7 +151,6 @@ public:
 
     //Music Functions
     virtual QStringList Music_Get_Music_Packs()=0;
-    virtual QStringList Music_Get_Compatible_Music_Packs_At_Index(int index)=0;
     virtual bool Music_Apply_Music_Pack(int index)=0;
     virtual int Music_Get_Number_Of_Music_Packs()=0;
     virtual bool Music_Disable()=0;

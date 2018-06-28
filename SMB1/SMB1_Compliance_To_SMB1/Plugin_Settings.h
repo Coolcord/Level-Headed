@@ -35,6 +35,7 @@ struct Plugin_Settings {
     QString islandChance;
     uint randomSeed;
     int music;
+    bool combineMusicWithOtherPacks;
     int toneColor;
     int graphics;
     bool infiniteLives;
