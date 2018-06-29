@@ -42,6 +42,8 @@ bool Hacks_Handler::Write_Hacks() {
 }
 
 bool Hacks_Handler::Handle_Music() {
+    assert(this->writerPlugin->Music_Set_Combine_Music_Packs(this->pluginSettings->combineMusicWithOtherPacks));
+
     int music = this->pluginSettings->music;
     if (music == 0) music = Random::Get_Num(this->writerPlugin->Music_Get_Number_Of_Music_Packs())+2;
     bool success = false;

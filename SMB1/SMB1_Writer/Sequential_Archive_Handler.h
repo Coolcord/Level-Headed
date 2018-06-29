@@ -10,6 +10,7 @@ class Sequential_Archive_Handler {
 public:
     Sequential_Archive_Handler(const QString &applicationLocation);
     ~Sequential_Archive_Handler();
+    void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Music_Pack_At_Index(int index);
@@ -21,7 +22,9 @@ public:
     int Get_Number_Of_Music_Packs();
 
 private:
-    bool Apply_Secondary_Music_Patches(const QString &patches);
+    bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch);
+    bool Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch);
+    bool Apply_Secondary_Music_Patches(const QString &patchList);
     QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);
     bool Load_Plugins_If_Necessary();
     bool Load_Hexagon_Plugin();

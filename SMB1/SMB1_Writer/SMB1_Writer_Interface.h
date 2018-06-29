@@ -154,6 +154,7 @@ public:
     virtual bool Music_Apply_Music_Pack(int index)=0;
     virtual int Music_Get_Number_Of_Music_Packs()=0;
     virtual bool Music_Disable()=0;
+    virtual bool Music_Set_Combine_Music_Packs(bool combineMusicPacks)=0;
     virtual bool Music_Tone_Color_1()=0;
     virtual bool Music_Tone_Color_2()=0;
     virtual bool Music_Tone_Color_3()=0;

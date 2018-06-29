@@ -169,6 +169,7 @@ public:
     bool Music_Apply_Music_Pack(int index);
     int Music_Get_Number_Of_Music_Packs();
     bool Music_Disable();
+    bool Music_Set_Combine_Music_Packs(bool combineMusicPacks);
     bool Music_Tone_Color_1();
     bool Music_Tone_Color_2();
     bool Music_Tone_Color_3();

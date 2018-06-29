@@ -583,6 +583,12 @@ bool SMB1_Writer::Music_Disable() {
     return this->music->Disable_Music();
 }
 
+bool SMB1_Writer::Music_Set_Combine_Music_Packs(bool combineMusicPacks) {
+    if (!this->sequentialArchiveHandler) return false;
+    this->sequentialArchiveHandler->Set_Combine_Music_Packs(combineMusicPacks);
+    return true;
+}
+
 bool SMB1_Writer::Music_Tone_Color_1() {
     if (!this->music) return false;
     return this->music->Tone_Color_1();
