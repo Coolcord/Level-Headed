@@ -8,6 +8,7 @@
 
 #include <QDebug>
 
+const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Invalid Tones: ";
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
@@ -19,6 +20,7 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->sequentialArchiveLoader = NULL;
     this->graphicsPackStrings = QStringList();
     this->musicPackStrings = QStringList();
+    this->invalidTones = new QSet<int>();
     this->pluginLocation = applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
     this->graphicsPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
     this->musicPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
@@ -31,6 +33,8 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->sequentialArchiveLoader = NULL;
     this->hexagonPlugin = NULL;
     this->sequentialArchivePlugin = NULL;
+    delete this->invalidTones;
+    this->invalidTones = NULL;
 }
 
 void Sequential_Archive_Handler::Set_Combine_Music_Packs(bool combineMusicPacks) {
@@ -98,12 +102,19 @@ int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
     return this->musicPackStrings.size();
 }
 
+bool Sequential_Archive_Handler::Is_Tone_Invalid(int tone) {
+    return this->invalidTones->contains(tone);
+}
+
 bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch) {
     if (!this->file) return false;
     QByteArray patchBytes = this->Read_Music_Pack(musicPack);
     qDebug() << "Using music pack " << musicPack;
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
+
+    //Read the invalid tones
+    if (!this->Get_Invalid_Tones(patchBytes, isSecondaryPatch)) return false;
 
     //Apply the base patch
     if (this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) != Hexagon_Error_Codes::OK) return false;
@@ -153,6 +164,31 @@ QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteAr
         }
     }
     return compatibleMusicPacks;
+}
+
+bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes, bool isSecondaryPatch) {
+    if (!isSecondaryPatch) this->invalidTones->clear();
+    if (patchBytes.isEmpty()) return true; //nothing to do
+
+    //Read the patch file to get the invalid tones
+    QTextStream stream(patchBytes);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (line.startsWith(Patch_Strings::STRING_CHECKSUM)) return true;
+        if (line.startsWith(STRING_COMPATIBLE_SECTION)) return true;
+        if (line.startsWith(STRING_INVALID_TONES)) {
+            line = line.remove(0, STRING_INVALID_TONES.size()).trimmed();
+            QStringList tones = line.split(',');
+            for (int i = 0; i < tones.size(); ++i) {
+                bool valid = false;
+                int tone = tones.at(i).toInt(&valid);
+                if (!valid) return false;
+                this->invalidTones->insert(tone);
+            }
+        }
+    }
+    return true;
 }
 
 bool Sequential_Archive_Handler::Load_Plugins_If_Necessary() {

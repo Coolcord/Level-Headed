@@ -181,7 +181,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->roomIDHandler->Set_Enemy_Bytes_Tracker(this->enemyBytesTracker);
         if (!this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels()) return false;
         this->hacks = new Hacks(this->file, this->levelOffset);
-        this->music = new Music(this->file, this->levelOffset);
+        this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->text = new Text(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->text);
         this->sequentialArchiveHandler->Set_File(this->file);
