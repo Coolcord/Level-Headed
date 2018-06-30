@@ -639,6 +639,21 @@ bool SMB1_Writer::Music_Tone_Color_10() {
     return this->music->Tone_Color_10();
 }
 
+QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Graphics_Packs();
+}
+
+bool SMB1_Writer::Graphics_Apply_Graphic_Pack(int index) {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index);
+}
+
+int SMB1_Writer::Graphics_Get_Number_Of_Graphic_Packs() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
+}
+
 bool SMB1_Writer::Graphics_Write_Title_Screen_For_1_Player_Game() {
     if (!this->graphics) return false;
     return this->graphics->Write_Title_Screen_For_1_Player_Game();
@@ -649,6 +664,7 @@ bool SMB1_Writer::Graphics_Write_Title_Screen_For_2_Player_Game() {
     return this->graphics->Write_Title_Screen_For_2_Player_Game();
 }
 
+/* Deprecated Functions
 bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
     if (!this->graphics) return false;
     return this->graphics->Dream_Mario_Bros();
@@ -727,4 +743,4 @@ bool SMB1_Writer::Graphics_Super_Mario_MCB() {
 bool SMB1_Writer::Graphics_Super_Mario_S() {
     if (!this->graphics) return false;
     return this->graphics->Super_Mario_S();
-}
+}*/

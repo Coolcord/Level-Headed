@@ -19,6 +19,7 @@ Configure_Base_Form::Configure_Base_Form(QWidget *parent, Plugin_Settings *plugi
     //Setup the UI
     ui->setupUi(this);
     this->Populate_Installed_ROMs();
+    this->Populate_Graphics_Packs();
     this->Populate_Music_Packs();
     this->Load_Settings();
 }
@@ -51,6 +52,15 @@ void Configure_Base_Form::Populate_Installed_ROMs() {
     } else {
         this->ui->comboBaseROM->setCurrentIndex(0);
     }
+}
+
+void Configure_Base_Form::Populate_Graphics_Packs() {
+    QStringList packsWithExtension = this->writerPlugin->Graphics_Get_Graphic_Packs();
+    QStringList packs;
+    for (int i = 0; i < packsWithExtension.size(); ++i) {
+        packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
+    }
+    this->ui->comboGraphics->addItems(packs);
 }
 
 void Configure_Base_Form::Populate_Music_Packs() {

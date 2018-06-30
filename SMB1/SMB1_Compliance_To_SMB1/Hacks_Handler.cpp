@@ -77,6 +77,17 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
+    if (graphics == 0) graphics = Random::Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphic_Packs())+1;
+    bool success = false;
+    switch (graphics) {
+    case 1:     success = true; break; //original graphics
+    default:    success = this->writerPlugin->Graphics_Apply_Graphic_Pack(graphics-2); break;
+    }
+    return success;
+
+
+    /* Deprecated Code
+    int graphics = this->pluginSettings->graphics;
     if (graphics == 0) graphics = Random::Get_Num(16)+1;
     switch (graphics) {
     default: assert(false);
@@ -97,7 +108,7 @@ bool Hacks_Handler::Handle_Graphics() {
     case 15: return this->writerPlugin->Graphics_Super_Mario_Bros_DX_v3_4(); //by flamepanther
     case 16: return this->writerPlugin->Graphics_Super_Mario_MCB(); //by MacBee
     case 17: return this->writerPlugin->Graphics_Super_Mario_S(); //by Sogun
-    }
+    }*/
 }
 
 bool Hacks_Handler::Handle_Lives() {

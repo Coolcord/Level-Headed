@@ -26,6 +26,7 @@ private slots:
 
 private:
     void Populate_Installed_ROMs();
+    void Populate_Graphics_Packs();
     void Populate_Music_Packs();
     void Load_Settings();
     void Save_Settings();

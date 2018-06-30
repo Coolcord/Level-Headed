@@ -182,8 +182,13 @@ public:
     bool Music_Tone_Color_10();
 
     //Graphics
+    QStringList Graphics_Get_Graphic_Packs();
+    bool Graphics_Apply_Graphic_Pack(int index);
+    int Graphics_Get_Number_Of_Graphic_Packs();
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
+
+    /* Deprecated Functions
     bool Graphics_Dream_Mario_Bros();
     bool Graphics_Hyper_Mario_Rev_A();
     bool Graphics_Hyper_Mario_Rev_B();
@@ -199,7 +204,7 @@ public:
     bool Graphics_Super_Mario_Bros_DX_v2();
     bool Graphics_Super_Mario_Bros_DX_v3_4();
     bool Graphics_Super_Mario_MCB();
-    bool Graphics_Super_Mario_S();
+    bool Graphics_Super_Mario_S();*/
 
 private:
     bool Load_ROM_Offsets(bool cancel);
