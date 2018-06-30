@@ -146,12 +146,15 @@ void Main_Window::on_btnConfigureLevelGenerator_clicked(){
 }
 
 void Main_Window::on_btnGenerateGame_clicked(){
+    this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATING);
+    this->ui->btnGenerateGame->repaint();
     if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
     if (this->interpreterPlugin->Run()) {
         qDebug() << "Interpreter ran successfully";
     } else {
         qDebug() << "Something went wrong. Check debug info...";
     }
+    this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
     //TODO: Add threading?
     //If threading is added, the other components of the UI will need to be locked down until the generation is complete
 }
