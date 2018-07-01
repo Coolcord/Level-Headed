@@ -174,7 +174,6 @@ public:
     virtual bool Graphics_Write_Title_Screen_For_2_Player_Game()=0;
 
     /* Deprecated Functions
-    virtual bool Graphics_Dream_Mario_Bros()=0;
     virtual bool Graphics_Hyper_Mario_Rev_A()=0;
     virtual bool Graphics_Hyper_Mario_Rev_B()=0;
     virtual bool Graphics_Lost_Levels()=0;
@@ -186,8 +185,6 @@ public:
     virtual bool Graphics_Pocket_Edition()=0;
     virtual bool Graphics_Super_Bubba_Bros()=0;
     virtual bool Graphics_Super_Duper_Mario_Bros()=0;
-    virtual bool Graphics_Super_Mario_Bros_DX_v2()=0;
-    virtual bool Graphics_Super_Mario_Bros_DX_v3_4()=0;
     virtual bool Graphics_Super_Mario_MCB()=0;
     virtual bool Graphics_Super_Mario_S()=0;*/
 };

@@ -26,17 +26,12 @@ public:
     bool Pocket_Edition();
     bool Super_Bubba_Bros();
     bool Super_Duper_Mario_Bros();
-    bool Super_Mario_Bros_DX_v2();
-    bool Super_Mario_Bros_DX_v3_4();
     bool Super_Mario_MCB();
     bool Super_Mario_S();
-    bool Is_Axe_Rope_Broken();
 
 private:
     bool Write_Title_Screen_Core();
     QByteArray Get_Version_Bytes();
-
-    bool brokenAxeRope;
     Text *text;
 };
 

@@ -223,7 +223,6 @@ bool SMB1_Writer::Object_Axe(int x) {
 
 bool SMB1_Writer::Object_Axe_Rope(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    if (this->graphics && this->graphics->Is_Axe_Rope_Broken()) return this->objectWriter->Nothing(x);
     return this->objectWriter->Axe_Rope(x);
 }
 
