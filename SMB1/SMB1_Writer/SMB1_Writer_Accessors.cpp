@@ -719,21 +719,6 @@ bool SMB1_Writer::Graphics_Super_Bubba_Bros() {
     return this->graphics->Super_Bubba_Bros();
 }
 
-bool SMB1_Writer::Graphics_Super_Duper_Mario_Bros() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Duper_Mario_Bros();
-}
-
-bool SMB1_Writer::Graphics_Super_Mario_Bros_DX_v2() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Mario_Bros_DX_v2();
-}
-
-bool SMB1_Writer::Graphics_Super_Mario_Bros_DX_v3_4() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Mario_Bros_DX_v3_4();
-}
-
 bool SMB1_Writer::Graphics_Super_Mario_MCB() {
     if (!this->graphics) return false;
     return this->graphics->Super_Mario_MCB();

@@ -25,7 +25,6 @@ public:
     bool Paradyce_SMB2();
     bool Pocket_Edition();
     bool Super_Bubba_Bros();
-    bool Super_Duper_Mario_Bros();
     bool Super_Mario_MCB();
     bool Super_Mario_S();
 
