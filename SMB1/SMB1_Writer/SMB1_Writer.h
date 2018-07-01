@@ -184,24 +184,11 @@ public:
     //Graphics
     QStringList Graphics_Get_Graphic_Packs();
     bool Graphics_Apply_Graphic_Pack(int index);
+    bool Graphics_Apply_Hammer_Suit_Fix();
+    bool Graphics_Apply_Title_Screen_Fix();
     int Graphics_Get_Number_Of_Graphic_Packs();
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
-
-    /* Deprecated Functions
-    bool Graphics_Dream_Mario_Bros();
-    bool Graphics_Hyper_Mario_Rev_A();
-    bool Graphics_Hyper_Mario_Rev_B();
-    bool Graphics_Lost_Levels();
-    bool Graphics_Harmony7();
-    bool Graphics_Harmony7_Googie();
-    bool Graphics_Paradyce_SMB1_Palette_1();
-    bool Graphics_Paradyce_SMB1_Palette_2();
-    bool Graphics_Paradyce_SMB2();
-    bool Graphics_Pocket_Edition();
-    bool Graphics_Super_Bubba_Bros();
-    bool Graphics_Super_Mario_MCB();
-    bool Graphics_Super_Mario_S();*/
 
 private:
     bool Load_ROM_Offsets(bool cancel);

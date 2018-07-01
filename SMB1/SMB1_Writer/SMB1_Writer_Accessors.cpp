@@ -648,6 +648,16 @@ bool SMB1_Writer::Graphics_Apply_Graphic_Pack(int index) {
     return this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index);
 }
 
+bool SMB1_Writer::Graphics_Apply_Hammer_Suit_Fix() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Hammer_Suit_Fix();
+}
+
+bool SMB1_Writer::Graphics_Apply_Title_Screen_Fix() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Title_Screen_Fix();
+}
+
 int SMB1_Writer::Graphics_Get_Number_Of_Graphic_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
@@ -662,69 +672,3 @@ bool SMB1_Writer::Graphics_Write_Title_Screen_For_2_Player_Game() {
     if (!this->graphics) return false;
     return this->graphics->Write_Title_Screen_For_2_Player_Game();
 }
-
-/* Deprecated Functions
-bool SMB1_Writer::Graphics_Dream_Mario_Bros() {
-    if (!this->graphics) return false;
-    return this->graphics->Dream_Mario_Bros();
-}
-
-bool SMB1_Writer::Graphics_Hyper_Mario_Rev_A() {
-    if (!this->graphics) return false;
-    return this->graphics->Hyper_Mario_Rev_A();
-}
-
-bool SMB1_Writer::Graphics_Hyper_Mario_Rev_B() {
-    if (!this->graphics) return false;
-    return this->graphics->Hyper_Mario_Rev_B();
-}
-
-bool SMB1_Writer::Graphics_Lost_Levels() {
-    if (!this->graphics) return false;
-    return this->graphics->Lost_Levels();
-}
-
-bool SMB1_Writer::Graphics_Harmony7() {
-    if (!this->graphics) return false;
-    return this->graphics->Harmony7();
-}
-
-bool SMB1_Writer::Graphics_Harmony7_Googie() {
-    if (!this->graphics) return false;
-    return this->graphics->Harmony7_Googie();
-}
-
-bool SMB1_Writer::Graphics_Paradyce_SMB1_Palette_1() {
-    if (!this->graphics) return false;
-    return this->graphics->Paradyce_SMB1_Palette_1();
-}
-
-bool SMB1_Writer::Graphics_Paradyce_SMB1_Palette_2() {
-    if (!this->graphics) return false;
-    return this->graphics->Paradyce_SMB1_Palette_2();
-}
-
-bool SMB1_Writer::Graphics_Paradyce_SMB2() {
-    if (!this->graphics) return false;
-    return this->graphics->Paradyce_SMB2();
-}
-
-bool SMB1_Writer::Graphics_Pocket_Edition() {
-    if (!this->graphics) return false;
-    return this->graphics->Pocket_Edition();
-}
-
-bool SMB1_Writer::Graphics_Super_Bubba_Bros() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Bubba_Bros();
-}
-
-bool SMB1_Writer::Graphics_Super_Mario_MCB() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Mario_MCB();
-}
-
-bool SMB1_Writer::Graphics_Super_Mario_S() {
-    if (!this->graphics) return false;
-    return this->graphics->Super_Mario_S();
-}*/

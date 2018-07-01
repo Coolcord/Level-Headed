@@ -10,6 +10,8 @@
 
 const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Invalid Tones: ";
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
+const static QString STRING_HAMMER_SUIT = "Hammer Suit";
+const static QString STRING_TITLE_SCREEN = "Title Screen";
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
     this->combineMusicPacks = false;
@@ -18,6 +20,7 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->sequentialArchivePlugin = NULL;
     this->hexagonLoader = NULL;
     this->sequentialArchiveLoader = NULL;
+    this->lastAppliedGraphicsPack = QString();
     this->graphicsPackStrings = QStringList();
     this->musicPackStrings = QStringList();
     this->invalidTones = new QSet<int>();
@@ -55,7 +58,17 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
-    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+    bool success = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+    if (success) this->lastAppliedGraphicsPack = this->graphicsPackStrings.at(index);
+    return success;
+}
+
+bool Sequential_Archive_Handler::Apply_Hammer_Suit_Fix() {
+    return this->Apply_Graphics_Fix(STRING_HAMMER_SUIT);
+}
+
+bool Sequential_Archive_Handler::Apply_Title_Screen_Fix() {
+    return this->Apply_Graphics_Fix(STRING_TITLE_SCREEN);
 }
 
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
@@ -75,6 +88,10 @@ QString Sequential_Archive_Handler::Get_Graphics_Pack_At_Index(int index) {
     if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
     assert(index < this->graphicsPackStrings.size());
     return this->graphicsPackStrings.at(index);
+}
+
+QString Sequential_Archive_Handler::Get_Last_Applied_Graphics_Pack() {
+    return this->lastAppliedGraphicsPack;
 }
 
 QStringList Sequential_Archive_Handler::Get_Music_Packs() {
@@ -104,6 +121,18 @@ int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
 
 bool Sequential_Archive_Handler::Is_Tone_Invalid(int tone) {
     return this->invalidTones->contains(tone);
+}
+
+bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName) {
+    if (!this->file || !this->Load_Plugins_If_Necessary()) return false;
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return false;
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+fixName+"/"+this->lastAppliedGraphicsPack);
+    this->sequentialArchivePlugin->Close();
+    if (patchBytes.isEmpty()) return true; //no fix to apply
+
+    //Apply the fix patch
+    int lineNum = 0;
+    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
 }
 
 bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch) {

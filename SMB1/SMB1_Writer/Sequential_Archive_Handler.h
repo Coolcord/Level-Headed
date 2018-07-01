@@ -14,9 +14,12 @@ public:
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
     bool Apply_Graphics_Pack_At_Index(int index);
+    bool Apply_Hammer_Suit_Fix();
+    bool Apply_Title_Screen_Fix();
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Graphics_Packs();
     QString Get_Graphics_Pack_At_Index(int index);
+    QString Get_Last_Applied_Graphics_Pack();
     QStringList Get_Music_Packs();
     QString Get_Music_Pack_At_Index(int index);
     int Get_Number_Of_Graphics_Packs();
@@ -24,6 +27,7 @@ public:
     bool Is_Tone_Invalid(int tone);
 
 private:
+    bool Apply_Graphics_Fix(const QString &fixName);
     bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch);
     bool Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch);
     bool Apply_Secondary_Music_Patches(const QString &patchList);
@@ -46,6 +50,7 @@ private:
     QString pluginLocation;
     QString graphicsPacksArchiveLocation;
     QString musicPacksArchiveLocation;
+    QString lastAppliedGraphicsPack;
 };
 
 #endif // SEQUENTIAL_ARCHIVE_HANDLER_H
