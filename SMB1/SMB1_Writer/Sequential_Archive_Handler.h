@@ -15,7 +15,6 @@ public:
     void Set_File(QFile *file);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Hammer_Suit_Fix();
-    bool Apply_Title_Screen_Fix();
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Graphics_Packs();
     QString Get_Graphics_Pack_At_Index(int index);

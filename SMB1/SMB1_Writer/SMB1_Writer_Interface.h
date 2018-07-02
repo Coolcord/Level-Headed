@@ -169,8 +169,6 @@ public:
     //Graphics
     virtual QStringList Graphics_Get_Graphic_Packs()=0;
     virtual bool Graphics_Apply_Graphic_Pack(int index)=0;
-    virtual bool Graphics_Apply_Hammer_Suit_Fix()=0;
-    virtual bool Graphics_Apply_Title_Screen_Fix()=0;
     virtual int Graphics_Get_Number_Of_Graphic_Packs()=0;
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;
     virtual bool Graphics_Write_Title_Screen_For_2_Player_Game()=0;

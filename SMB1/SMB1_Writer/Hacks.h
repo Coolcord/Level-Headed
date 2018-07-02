@@ -3,10 +3,11 @@
 
 #include "Byte_Writer.h"
 
-class Hacks : public Byte_Writer
-{
+class Sequential_Archive_Handler;
+
+class Hacks : public Byte_Writer {
 public:
-    Hacks(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
     ~Hacks() {}
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
@@ -29,6 +30,9 @@ public:
     bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Unlimited_Time();
     bool Write_Watermark();
+
+private:
+    Sequential_Archive_Handler *sequentialArchiveHandler;
 };
 
 #endif // HACKS_H

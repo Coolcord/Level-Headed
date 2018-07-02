@@ -1,6 +1,12 @@
 #include "Hacks.h"
 #include "Level_Offset.h"
+#include "Sequential_Archive_Handler.h"
 #include <assert.h>
+
+Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
+    assert(sequentialArchiveHandler);
+    this->sequentialArchiveHandler = sequentialArchiveHandler;
+}
 
 bool Hacks::Add_Luigi_Game() {
     //Based on the patch by Yy
@@ -140,7 +146,8 @@ bool Hacks::Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x03))) return false;
     if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("071F1F3F3F7A72300000000F18252D").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B00020006").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B00020006").toLatin1()))) return false;
+    return this->sequentialArchiveHandler->Apply_Hammer_Suit_Fix();
 }
 
 bool Hacks::Replace_Mario_With_Luigi() {

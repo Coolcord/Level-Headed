@@ -28,12 +28,11 @@ bool Hacks_Handler::Write_Hacks() {
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
     }
-    if (!this->writerPlugin->Graphics_Apply_Title_Screen_Fix()) return false;
     if (!this->Handle_Damage()) return false;
     if (!this->Handle_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
-    if (!this->Handler_Hammer_Suit()) return false;
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
 
     //The patches below are always applied
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
@@ -114,13 +113,6 @@ bool Hacks_Handler::Handle_Lakitu_Throw_Arc() {
         return this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc();
     }
     return true;
-}
-
-bool Hacks_Handler::Handler_Hammer_Suit() {
-    bool useHammerSuit = this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit);
-    if (!useHammerSuit) return true;
-    if (!this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
-    return this->writerPlugin->Graphics_Apply_Hammer_Suit_Fix();
 }
 
 bool Hacks_Handler::Handle_Enemy_Speed() {

@@ -184,8 +184,6 @@ public:
     //Graphics
     QStringList Graphics_Get_Graphic_Packs();
     bool Graphics_Apply_Graphic_Pack(int index);
-    bool Graphics_Apply_Hammer_Suit_Fix();
-    bool Graphics_Apply_Title_Screen_Fix();
     int Graphics_Get_Number_Of_Graphic_Packs();
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();

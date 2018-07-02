@@ -1,13 +1,10 @@
 #include "Graphics.h"
 #include "../../Common_Files/Version.h"
-#include "Sequential_Archive_Handler.h"
 #include "Text.h"
 #include <assert.h>
 
-Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
-    assert(sequentialArchiveHandler);
+Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Text *text) : Byte_Writer(file, levelOffset) {
     assert(text);
-    this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->text = text;
 }
 
