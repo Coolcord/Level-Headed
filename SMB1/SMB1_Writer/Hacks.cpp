@@ -188,6 +188,7 @@ bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
 }
 
 bool Hacks::Unlimited_Time() {
+    if (!this->Write_Bytes_To_Offset(0x0774, QByteArray::fromHex(QString("24242424").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3776, QByteArray(1, 0xAD))) return false;
     return this->Write_Bytes_To_Offset(0x52FC, QByteArray(1, 0x4E));
 }
