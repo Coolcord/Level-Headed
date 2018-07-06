@@ -180,11 +180,11 @@ bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
 }
 
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
-    //By w7n
-    if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C45FC").toLatin1()))) return false;
+    //JMP $C114
+    if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C14C1").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, 0xCE))) return false;
-    if (!this->Write_Bytes_To_Offset(0x791E, QByteArray::fromHex(QString("4B54644B").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x7C55, QByteArray::fromHex(QString("AD5607F005AD5407F0034C63B28D0B07A901851DA9C98D47076000000000000000000000000000000000000000").toLatin1()));
+    //$C114
+    return this->Write_Bytes_To_Offset(0x4124, QByteArray::fromHex(QString("AD5607F005AD5407F0034C63B28D0B07A901851DA9C98D470760").toLatin1()));
 }
 
 bool Hacks::Unlimited_Time() {
@@ -194,8 +194,6 @@ bool Hacks::Unlimited_Time() {
 }
 
 bool Hacks::Write_Watermark() {
-    //Change the text below the title
-    //if (!this->Write_Bytes_To_Offset(0x9FB5, QByteArray::fromHex(QString("2424150E1F0E1528110E0A0D0E0D").toLatin1()))) return false;
     //Change the end game text
     if (!this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()))) return false;
     return this->Start_Underwater_Castle_Brick_On_World(9); //disables underwater castle bricks
