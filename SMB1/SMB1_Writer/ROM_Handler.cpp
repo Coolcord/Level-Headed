@@ -55,6 +55,7 @@ QString ROM_Handler::Install_ROM() {
     }
 
     //Check if the current ROM is already installed
+    QDir().mkdir(this->romFolderLocation); //make the dir if it doesn't exist
     QString fileName = this->romChecksum->Get_ROM_Filename_From_Checksum(checksum);
     QFile installedFile(this->romFolderLocation + "/" + fileName);
     if (installedFile.exists()) {
