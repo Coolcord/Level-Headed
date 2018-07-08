@@ -91,7 +91,9 @@ bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
 }
 
 bool Hacks::Infinite_Lives() {
-    return this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD));
+    if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD))) return false;
+    return this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()));
 }
 
 bool Hacks::Invincibility() {
