@@ -15,6 +15,8 @@ public:
     void Set_File(QFile *file);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Hammer_Suit_Fix();
+    bool Apply_Title_Screen_1P_Fix(qint64 &versionOffset);
+    bool Apply_Title_Screen_2P_Fix(qint64 &versionOffset);
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Graphics_Packs();
     QString Get_Graphics_Pack_At_Index(int index);
@@ -27,14 +29,17 @@ public:
 
 private:
     bool Apply_Graphics_Fix(const QString &fixName);
+    bool Apply_Graphics_Fix(const QByteArray &patchBytes);
     bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch);
     bool Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch);
     bool Apply_Secondary_Music_Patches(const QString &patchList);
     QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);
     bool Get_Invalid_Tones(const QByteArray &patchBytes, bool isSecondaryPatch);
+    void Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchBytes, qint64 &versionOffset);
     bool Load_Plugins_If_Necessary();
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();
+    QByteArray Read_Graphics_Fix(const QString &fixName);
     QByteArray Read_Music_Pack(const QString &musicPackString);
 
     QFile *file;

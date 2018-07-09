@@ -183,7 +183,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->hacks = new Hacks(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->text = new Text(this->file, this->levelOffset);
-        this->graphics = new Graphics(this->file, this->levelOffset, this->text);
+        this->graphics = new Graphics(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
         this->sequentialArchiveHandler->Set_File(this->file);
         return true;
     } else {
