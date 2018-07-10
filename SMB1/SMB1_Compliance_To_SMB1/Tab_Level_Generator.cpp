@@ -20,11 +20,13 @@ Tab_Level_Generator::Tab_Level_Generator(QWidget *parent, const QString &applica
 }
 
 void Tab_Level_Generator::Load_Settings() {
-    this->ui->cbGenerateNewLevels->setChecked(this->pluginSettings->generateNewLevels);
+    if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
+    else this->ui->radioUseLevelScripts->setChecked(true);
+    this->Enable_New_Level_Options(this->pluginSettings->generateNewLevels);
 }
 
 void Tab_Level_Generator::Save_Settings() {
-    this->pluginSettings->generateNewLevels = this->ui->cbGenerateNewLevels->isChecked();
+    this->pluginSettings->generateNewLevels = this->ui->radioGenerateNewLevels->isChecked();
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
     } else {
@@ -152,7 +154,7 @@ void Tab_Level_Generator::Populate_Level_Scripts_ComboBox() {
 }
 
 bool Tab_Level_Generator::At_Least_One_Very_Common_Selected() {
-    if (!this->ui->cbGenerateNewLevels->isChecked()) return true;
+    if (!this->ui->radioGenerateNewLevels->isChecked()) return true;
     if (this->ui->comboStandardOverworld->currentText() == STRING_VERY_COMMON) return true;
     if (this->ui->comboUnderground->currentText() == STRING_VERY_COMMON) return true;
     if (this->ui->comboUnderwater->currentText() == STRING_VERY_COMMON) return true;
@@ -162,6 +164,14 @@ bool Tab_Level_Generator::At_Least_One_Very_Common_Selected() {
 }
 
 void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
+    if (enable) {
+        this->ui->layoutGenerateNewLevelsWidget->show();
+        this->ui->layoutLevelScriptsWidget->hide();
+    } else {
+        this->ui->layoutGenerateNewLevelsWidget->hide();
+        this->ui->layoutLevelScriptsWidget->show();
+    }
+
     //Toggle the Level Scripts
     this->ui->lblLevelScripts->setEnabled(!enable);
     this->ui->comboLevelScripts->setEnabled(!enable);

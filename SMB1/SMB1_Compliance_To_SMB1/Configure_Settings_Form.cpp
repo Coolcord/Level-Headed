@@ -13,14 +13,13 @@
 #include <QDir>
 #include <assert.h>
 
-Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location) :
+Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings) :
     QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint),
     ui(new Ui::Configure_Settings_Form)
 {
-    assert(pluginSettings);
-    assert(writerPlugin);
+    assert(parent); assert(writerPlugin); assert(pluginSettings);
     this->parent = parent;
-    this->applicationLocation = location;
+    this->applicationLocation = applicationLocation;
     this->pluginSettings = pluginSettings;
     this->writerPlugin = writerPlugin;
     ui->setupUi(this);
@@ -94,7 +93,7 @@ void Configure_Settings_Form::on_buttonBox_clicked(QAbstractButton *button) {
     this->close();
 }
 
-void Configure_Settings_Form::on_cbGenerateNewLevels_toggled(bool checked) {
+void Configure_Settings_Form::on_radioGenerateNewLevels_toggled(bool checked) {
     this->tabLevelGenerator->Enable_New_Level_Options(checked);
 }
 

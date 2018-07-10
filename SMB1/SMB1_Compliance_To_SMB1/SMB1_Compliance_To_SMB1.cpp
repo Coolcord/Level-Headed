@@ -90,7 +90,7 @@ int SMB1_Compliance_To_SMB1::Configure_Settings() {
         //TODO: Show an error here
         return 1;
     }
-    Configure_Settings_Form form(this->parent, &this->pluginSettings, this->writerPlugin, this->applicationLocation);
+    Configure_Settings_Form form(this->parent, this->applicationLocation, this->writerPlugin, &this->pluginSettings);
     return form.exec();
 }
 

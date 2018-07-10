@@ -20,7 +20,7 @@ class Configure_Settings_Form : public QDialog {
     Q_OBJECT
 
 public:
-    Configure_Settings_Form(QWidget *parent, Plugin_Settings *pluginSettings, SMB1_Writer_Interface *writerPlugin, const QString &location);
+    Configure_Settings_Form(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings);
     ~Configure_Settings_Form();
 
 private slots:
@@ -30,7 +30,7 @@ private slots:
     void on_btnOutputROMLocation_clicked();
 
     //Level Generator Tab
-    void on_cbGenerateNewLevels_toggled(bool checked);
+    void on_radioGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
     void on_cbRandomNumWorlds_clicked(bool checked);
     void on_sbNumLevelsPerWorld_valueChanged();
