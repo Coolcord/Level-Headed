@@ -11,9 +11,10 @@
 #include <QMessageBox>
 
 Main_Window::Main_Window(QWidget *parent) :
-    QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint),
+    QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint),
     ui(new Ui::Main_Window)
 {
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->setupUi(this);
     this->setWindowTitle(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION);
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
