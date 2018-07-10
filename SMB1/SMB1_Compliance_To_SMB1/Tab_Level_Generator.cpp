@@ -17,11 +17,22 @@ Tab_Level_Generator::Tab_Level_Generator(QWidget *parent, const QString &applica
     this->levelLocation = this->applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(this->applicationLocation + "/" + Common_Strings::STRING_LEVELS);
     if (!dir.exists(this->levelLocation)) dir.mkdir(this->levelLocation); //don't bother checking for success here
+
+    this->Populate_Chance_ComboBoxes();
+    this->Populate_Level_Scripts_ComboBox();
 }
 
 void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
+    this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
+    this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
+    this->Enable_Random_Number_Of_Worlds(this->pluginSettings->randomNumWorlds);
+    this->ui->comboStandardOverworld->setCurrentText(this->pluginSettings->standardOverworldChance);
+    this->ui->comboUnderground->setCurrentText(this->pluginSettings->undergroundChance);
+    this->ui->comboUnderwater->setCurrentText(this->pluginSettings->underwaterChance);
+    this->ui->comboBridge->setCurrentText(this->pluginSettings->bridgeChance);
+    this->ui->comboIsland->setCurrentText(this->pluginSettings->islandChance);
     this->Enable_New_Level_Options(this->pluginSettings->generateNewLevels);
 }
 
@@ -95,12 +106,6 @@ void Tab_Level_Generator::Populate_Chance_ComboBoxes() {
     this->Populate_Chance_ComboBox(this->ui->comboUnderwater);
     this->Populate_Chance_ComboBox(this->ui->comboBridge);
     this->Populate_Chance_ComboBox(this->ui->comboIsland);
-    this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
-    this->ui->comboStandardOverworld->setCurrentText(this->pluginSettings->standardOverworldChance);
-    this->ui->comboUnderground->setCurrentText(this->pluginSettings->undergroundChance);
-    this->ui->comboUnderwater->setCurrentText(this->pluginSettings->underwaterChance);
-    this->ui->comboBridge->setCurrentText(this->pluginSettings->bridgeChance);
-    this->ui->comboIsland->setCurrentText(this->pluginSettings->islandChance);
 }
 
 void Tab_Level_Generator::Populate_Chance_ComboBox(QComboBox *comboBox) {
@@ -172,6 +177,7 @@ void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
         this->ui->layoutLevelScriptsWidget->show();
     }
 
+    /*
     //Toggle the Level Scripts
     this->ui->lblLevelScripts->setEnabled(!enable);
     this->ui->comboLevelScripts->setEnabled(!enable);
@@ -224,7 +230,7 @@ void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
     } else {
         this->Clear_Chance_ComboBoxes();
         this->Populate_Level_Scripts_ComboBox();
-    }
+    }*/
 }
 
 void Tab_Level_Generator::Enable_Random_Number_Of_Worlds(bool enable) {

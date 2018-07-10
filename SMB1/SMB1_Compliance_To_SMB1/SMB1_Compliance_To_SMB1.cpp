@@ -146,6 +146,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (file.exists() && !file.remove()) return false;
     if (!file.open(QIODevice::ReadWrite)) return false;
     QTextStream stream(&file);
+    stream << this->pluginSettings.tab << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.baseROM << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.outputROMLocation << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.overwriteOuputROM << Common_Strings::STRING_NEW_LINE;
@@ -210,6 +211,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     if (!file.exists()) return true; //first time running the plugin
     if (!file.open(QIODevice::ReadWrite)) return false;
     bool valid = true;
+    this->pluginSettings.tab = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.baseROM = file.readLine().trimmed();
     this->pluginSettings.outputROMLocation = file.readLine().trimmed();
     this->pluginSettings.overwriteOuputROM = file.readLine().trimmed().toInt(&valid); if (!valid) return false;

@@ -12,6 +12,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
+    this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
     this->ui->sbBuzzyBeetleReplaceLoneGoombas->setValue(this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas);

@@ -28,9 +28,11 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     this->tabLevelGenerator = new Tab_Level_Generator(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->Load_Settings();
+    this->ui->tabWidget->setCurrentIndex(this->pluginSettings->tab);
 }
 
 Configure_Settings_Form::~Configure_Settings_Form() {
+    this->pluginSettings->tab = this->ui->tabWidget->currentIndex();
     delete this->tabBaseGame;
     delete this->tabDifficulty;
     delete this->tabLevelGenerator;

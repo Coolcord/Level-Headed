@@ -20,6 +20,7 @@ enum Chance {
 };
 
 struct Plugin_Settings {
+    int tab;
     QString baseROM;
     QString outputROMLocation;
     bool overwriteOuputROM;

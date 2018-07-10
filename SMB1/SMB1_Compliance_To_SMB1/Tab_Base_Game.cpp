@@ -14,7 +14,8 @@ Tab_Base_Game::Tab_Base_Game(QWidget *parent, const QString &applicationLocation
 void Tab_Base_Game::Load_Settings() {
     if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
     this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
-    this->ui->cbOverwriteOutputROM->setChecked(this->pluginSettings->overwriteOuputROM);
+    if (this->pluginSettings->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
+    else this->ui->radioAppendNumberToFilename->setChecked(true);
     if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
     else this->ui->comboMusic->setCurrentIndex(2); //use original music
     this->ui->cbCombineWithOtherMusicPacks->setChecked(this->pluginSettings->combineMusicWithOtherPacks);
@@ -29,7 +30,7 @@ void Tab_Base_Game::Save_Settings() {
     QString baseROM = this->ui->comboBaseROM->currentText();
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
-    this->pluginSettings->overwriteOuputROM = this->ui->cbOverwriteOutputROM->isChecked();
+    this->pluginSettings->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
