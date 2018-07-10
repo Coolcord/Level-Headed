@@ -10,8 +10,6 @@ public:
     Text(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Text() {}
     QByteArray Convert_String_To_SMB_Bytes(const QString &string);
-    bool Replace_But_Our_Princess_Is_In_Another_Castle_With_Random_Phrase();
-    bool Replace_But_Our_Princess_Is_In_Another_Castle(const QString &string);
 
 };
 

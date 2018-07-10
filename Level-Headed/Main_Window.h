@@ -12,8 +12,7 @@ namespace Ui {
 class Main_Window;
 }
 
-class Main_Window : public QDialog
-{
+class Main_Window : public QDialog {
     Q_OBJECT
 
 public:
@@ -30,8 +29,7 @@ private slots:
     void Enable_Buttons();
     void on_comboBaseGame_currentIndexChanged(const QString &arg1);
     void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
-    void on_btnConfigureBaseGame_clicked();
-    void on_btnConfigureLevelGenerator_clicked();
+    void on_btnConfigureSettings_clicked();
     void on_btnGenerateGame_clicked();
     void on_Main_Window_finished(int result);
 

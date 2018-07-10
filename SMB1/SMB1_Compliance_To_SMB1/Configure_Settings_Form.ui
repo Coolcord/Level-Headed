@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Configure_Settings_Form</class>
+ <widget class="QDialog" name="Configure_Settings_Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>719</width>
+    <height>646</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Configure Settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabBaseGame">
+      <attribute name="title">
+       <string>Base Game</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <widget class="QScrollArea" name="scrollBaseGame">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>652</width>
+            <height>653</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QVBoxLayout" name="layoutBaseROM">
+             <item>
+              <widget class="QLabel" name="lblBaseROM">
+               <property name="text">
+                <string>Base ROM:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBaseROM"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnInstallNewROM">
+               <property name="text">
+                <string>Install a new ROM</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="lblOutputROMLocation">
+                 <property name="text">
+                  <string>Output ROM location:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="leOutputROMLocation"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnOutputROMLocation">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbOverwriteOutputROM">
+               <property name="text">
+                <string>Overwrite previously generated ROM</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QLabel" name="lblGraphics">
+               <property name="text">
+                <string>Graphics:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboGraphics">
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original (by Nintendo)</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="layoutMusic">
+             <item row="1" column="0">
+              <widget class="QComboBox" name="comboMusic">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Disable Music</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original (by Nintendo)</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lblTone">
+               <property name="text">
+                <string>Tone:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="comboTone">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QLabel" name="lblMusic">
+                 <property name="text">
+                  <string>Music:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbCombineWithOtherMusicPacks">
+                 <property name="text">
+                  <string>Combine with Other Music Packs</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutLives">
+             <item>
+              <widget class="QCheckBox" name="cbInfiniteLives">
+               <property name="text">
+                <string>Infinite Lives</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="layoutNumLives">
+               <item>
+                <widget class="QLabel" name="lblLives">
+                 <property name="text">
+                  <string>Lives:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="sbLives">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>99</number>
+                 </property>
+                 <property name="value">
+                  <number>5</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbGodMode">
+             <property name="toolTip">
+              <string>Invulnerability, mid-air jumps, unlimited time, and fireballs kill everything on-screen</string>
+             </property>
+             <property name="text">
+              <string>God Mode</string>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cb2PlayerGame">
+             <property name="toolTip">
+              <string>Disables Luigi game and reverts bounce physics to normal</string>
+             </property>
+             <property name="text">
+              <string>2 Player Game</string>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbRevertToSuperMario">
+             <property name="toolTip">
+              <string>May cause issues with some music</string>
+             </property>
+             <property name="text">
+              <string>Revert to Super Mario after taking damage</string>
+             </property>
+             <property name="tristate">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbLakituThrowArc">
+             <property name="text">
+              <string>Fix Lakitu throw arc</string>
+             </property>
+             <property name="tristate">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbAutoscroll">
+             <property name="text">
+              <string>Auto Scroll Screen</string>
+             </property>
+             <property name="tristate">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbReplaceFireFlowerWithHammerSuit">
+             <property name="text">
+              <string>Replace Fire Flower with Hammer Suit</string>
+             </property>
+             <property name="tristate">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutEnemySpeed">
+             <item>
+              <widget class="QLabel" name="lblEnemySpeed">
+               <property name="text">
+                <string>Enemy Speed:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboEnemySpeed">
+               <item>
+                <property name="text">
+                 <string>Normal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Fast</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Speedy</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Turbo</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Ludicrous Speed!</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Random (Normal, Fast, Speedy)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Random All</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabLevelGenerator">
+      <attribute name="title">
+       <string>Level Generator</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <widget class="QScrollArea" name="scrollLevelGenerator">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_5">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>652</width>
+            <height>686</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <spacer name="verticalSpacer_21">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutLevelScripts">
+             <item>
+              <widget class="QLabel" name="lblLevelScripts">
+               <property name="text">
+                <string>Level Scripts:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboLevelScripts"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearAllRandomLevelScripts">
+               <property name="text">
+                <string>Clear All Random Level Scripts</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbGenerateNewLevels">
+               <property name="text">
+                <string>Generate New Levels</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutRandomSeed">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLabel" name="lblRandomSeed">
+                 <property name="text">
+                  <string>Random Seed:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="sbRandomSeed">
+                 <property name="maximum">
+                  <number>999999999</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnNewRandomSeed">
+               <property name="text">
+                <string>Get Seed from Clock</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutNewLevels">
+             <item>
+              <layout class="QVBoxLayout" name="layoutLevelNumberSettings">
+               <item>
+                <widget class="QCheckBox" name="cbRandomNumWorlds">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="text">
+                  <string>Random Number of Worlds</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="layoutNumWorlds">
+                 <item>
+                  <widget class="QLabel" name="lblNumWorlds">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>Number of Worlds:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="sbNumWorlds">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>8</number>
+                   </property>
+                   <property name="value">
+                    <number>5</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="layoutNumLevelsPerWorld">
+                 <item>
+                  <widget class="QLabel" name="lblNumLevelsPerWorld">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>Number of Levels per World: </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="sbNumLevelsPerWorld">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>9</number>
+                   </property>
+                   <property name="value">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_22">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutDifficulty">
+             <item>
+              <widget class="QLabel" name="lblDifficulty">
+               <property name="text">
+                <string>Level Difficulty:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboDifficulty">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Custom (Advanced)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Very Easy</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Easy</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Normal (Default)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Hard</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Very Hard</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-----&gt; Brutal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Walk in the Park (No enemies)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Riddled with Bullets (Bullet Bills on every level)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Lakitu's Challenge (Lakitus on every level)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cheep-Cheep Frenzy (Flying Cheep-Cheeps on every level)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Hammer Time (20% enemies are replaced with Hammer Bros.)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Extreme Hammer Time (All enemies are replaced with Hammer Bros.)</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_23">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutStandardOverworldLevels">
+             <item>
+              <widget class="QLabel" name="lblStandardOverworld">
+               <property name="text">
+                <string>Standard Overworld Levels:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboStandardOverworld"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_24">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutUndergroundLevels">
+             <item>
+              <widget class="QLabel" name="lblUnderground">
+               <property name="text">
+                <string>Underground Levels:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboUnderground"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_25">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutUnderwaterLevels">
+             <item>
+              <widget class="QLabel" name="lblUnderwater">
+               <property name="text">
+                <string>Underwater Levels:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboUnderwater"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_26">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutBridgeLevels">
+             <item>
+              <widget class="QLabel" name="lblBridge">
+               <property name="text">
+                <string>Bridge Levels:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBridge"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_27">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutIslandLevels">
+             <item>
+              <widget class="QLabel" name="lblIsland">
+               <property name="text">
+                <string>Island Levels:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboIsland"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabDifficulty">
+      <attribute name="title">
+       <string>Difficulty</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_14">
+       <item>
+        <widget class="QScrollArea" name="scrollDifficulty">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>652</width>
+            <height>1138</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QTextBrowser" name="txtExplanation">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="html">
+                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;How Difficulty Scaling Works:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Each level has a difficulty rating from 1-10 where 1 is the easiest (beginning of the game) and 10 is the hardest (end of the game). The settings below will be enabled once the generator reaches the specified difficulty rating.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Examples:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 1 will be enabled for the entire game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 2 will be enabled 10% into the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 6 will be enabled half way through the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 10 will be enabled 90% into the game.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 11 will never be enabled for the entire game.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_28">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutBulletTime">
+             <item>
+              <widget class="QLabel" name="lblBulletTime">
+               <property name="toolTip">
+                <string>Replaces most vertical blocks with Bullet Bill Cannons</string>
+               </property>
+               <property name="text">
+                <string>Bullet Time:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbBulletTime">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutHammerTime">
+             <item>
+              <widget class="QLabel" name="lblHammerTime">
+               <property name="toolTip">
+                <string>Replaces some enemies with Hammer Bros.</string>
+               </property>
+               <property name="text">
+                <string>Hammer Time:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbHammerTime">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutBuzzyBeetleReplaceLoneGoombas">
+             <item>
+              <widget class="QLabel" name="lblBuzzyBeetleReplaceLoneGoombas">
+               <property name="toolTip">
+                <string>Replaces most vertical blocks with Bullet Bill Cannons</string>
+               </property>
+               <property name="text">
+                <string>Buzzy Beetles replace lone Goombas:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbBuzzyBeetleReplaceLoneGoombas">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutBridgeFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblBridgeFlyingCheepCheeps">
+               <property name="text">
+                <string>Bridge Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbBridgeFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutBridgeLakitus">
+             <item>
+              <widget class="QLabel" name="lblBridgeLakitus">
+               <property name="text">
+                <string>Bridge Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbBridgeLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutBridgeOffscreenBulletBills">
+             <item>
+              <widget class="QLabel" name="lblBridgeOffscreenBulletBills">
+               <property name="text">
+                <string>Bridge Off-screen Bullet Bills:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbBridgeOffscreenBulletBills">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutCastleFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblCastleFlyingCheepCheeps">
+               <property name="text">
+                <string>Castle Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbCastleFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutCastleLakitus">
+             <item>
+              <widget class="QLabel" name="lblCastleLakitus">
+               <property name="text">
+                <string>Castle Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbCastleLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutCastleOffscreenBulletBills">
+             <item>
+              <widget class="QLabel" name="lblCastleOffscreenBulletBills">
+               <property name="text">
+                <string>Castle Off-screen Bullet Bills:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbCastleOffscreenBulletBills">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutIslandFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblIslandFlyingCheepCheeps">
+               <property name="text">
+                <string>Island Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbIslandFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutIslandLakitus">
+             <item>
+              <widget class="QLabel" name="lblIslandLakitus">
+               <property name="text">
+                <string>Island Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbIslandLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutIslandOffscreenBulletBills">
+             <item>
+              <widget class="QLabel" name="lblIslandOffscreenBulletBills">
+               <property name="text">
+                <string>Island Off-screen Bullet Bills:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbIslandOffscreenBulletBills">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUndergroundFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblUndergroundFlyingCheepCheeps">
+               <property name="text">
+                <string>Underground Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUndergroundFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUndergroundLakitus">
+             <item>
+              <widget class="QLabel" name="lblUndergroundLakitus">
+               <property name="text">
+                <string>Underground Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUndergroundLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUndergroundOffscreenBulletBills">
+             <item>
+              <widget class="QLabel" name="lblUndergroundOffscreenBulletBills">
+               <property name="text">
+                <string>Underground Off-screen Bullet Bills:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUndergroundOffscreenBulletBills">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUnderwaterBloopers">
+             <item>
+              <widget class="QLabel" name="lblUnderwaterBloopers">
+               <property name="toolTip">
+                <string>Replaces most vertical blocks with Bullet Bill Cannons</string>
+               </property>
+               <property name="text">
+                <string>Underwater Bloopers:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUnderwaterBloopers">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUnderwaterFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblUnderwaterFlyingCheepCheeps">
+               <property name="text">
+                <string>Underwater Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUnderwaterFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUnderwaterLakitus">
+             <item>
+              <widget class="QLabel" name="lblUnderwaterLakitus">
+               <property name="text">
+                <string>Underwater Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUnderwaterLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutUnderwaterSwimmingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblUnderwaterSwimmingCheepCheeps">
+               <property name="text">
+                <string>Underwater Swimming Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbUnderwaterSwimmingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutStandardOverworldFlyingCheepCheeps">
+             <item>
+              <widget class="QLabel" name="lblStandardOverworldFlyingCheepCheeps">
+               <property name="text">
+                <string>Standard Overworld Flying Cheep-Cheeps:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbStandardOverworldFlyingCheepCheeps">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutlblStandardOverworldLakitus">
+             <item>
+              <widget class="QLabel" name="lblStandardOverworldLakitus">
+               <property name="text">
+                <string>Standard Overworld Lakitus:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbStandardOverworldLakitus">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutStandardOverworldOffscreenBulletBills">
+             <item>
+              <widget class="QLabel" name="lblStandardOverworldOffscreenBulletBills">
+               <property name="text">
+                <string>Standard Overworld Off-screen Bullet Bills:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbStandardOverworldOffscreenBulletBills">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>11</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbNoEnemies">
+             <property name="text">
+              <string>No enemies</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
+             <item>
+              <widget class="QLabel" name="lblHammerTimeIntensity">
+               <property name="toolTip">
+                <string/>
+               </property>
+               <property name="text">
+                <string>Hammer Time Intensity:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbHammerTimeIntensity">
+               <property name="suffix">
+                <string>%</string>
+               </property>
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutLakituSpawnChancePerLevel">
+             <item>
+              <widget class="QLabel" name="lblLakituSpawnChancePerLevel">
+               <property name="text">
+                <string>Lakitu Spawn Chance Per Level:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="sbLakituSpawnChancePerLevel">
+               <property name="suffix">
+                <string>%</string>
+               </property>
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenALakituSpawns">
+             <property name="text">
+              <string>Disable all other enemies when a Lakitu spawns</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutSpawnerPriority">
+             <item>
+              <widget class="QLabel" name="lblSpawnerPriority">
+               <property name="text">
+                <string>Spawner Priority:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboSpawnerPriority">
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Lakitus &gt; Flying Cheep-Cheeps &gt; Bullet Bills</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Flying Cheep-Cheeps &gt; Lakitus &gt; Bullet Bills</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabAbout">
+      <attribute name="title">
+       <string>About</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QScrollArea" name="scrollAbout">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>669</width>
+            <height>533</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Configure_Settings_Form</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Configure_Settings_Form</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -35,9 +35,7 @@ void Main_Window::Disable_All() {
     this->ui->lblLevelGenerator->setEnabled(false);
     this->ui->comboLevelGenerator->clear();
     this->ui->comboLevelGenerator->setEnabled(false);
-    this->ui->lblConfigurePlugins->setEnabled(false);
-    this->ui->btnConfigureLevelGenerator->setEnabled(false);
-    this->ui->btnConfigureBaseGame->setEnabled(false);
+    this->ui->btnConfigureSettings->setEnabled(false);
     this->ui->btnGenerateGame->setEnabled(false);
     if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
     if (this->interpreterLoader) this->interpreterLoader->unload();
@@ -50,9 +48,7 @@ void Main_Window::Disable_All() {
 void Main_Window::Enable_Generator() {
     this->ui->lblLevelGenerator->setEnabled(true);
     this->ui->comboLevelGenerator->setEnabled(true);
-    this->ui->lblConfigurePlugins->setEnabled(false);
-    this->ui->btnConfigureBaseGame->setEnabled(false);
-    this->ui->btnConfigureLevelGenerator->setEnabled(false);
+    this->ui->btnConfigureSettings->setEnabled(false);
     this->ui->btnGenerateGame->setEnabled(false);
     if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
     if (this->interpreterLoader) this->interpreterLoader->unload();
@@ -62,9 +58,7 @@ void Main_Window::Enable_Generator() {
 }
 
 void Main_Window::Enable_Buttons() {
-    this->ui->lblConfigurePlugins->setEnabled(true);
-    this->ui->btnConfigureBaseGame->setEnabled(true);
-    this->ui->btnConfigureLevelGenerator->setEnabled(true);
+    this->ui->btnConfigureSettings->setEnabled(true);
     this->ui->btnGenerateGame->setEnabled(true);
     QString fileLocation = this->pluginHandler->Get_Interpreter_Name(this->ui->comboBaseGame->currentText(),
                                                                           this->ui->comboLevelGenerator->currentText());
@@ -135,14 +129,9 @@ void Main_Window::on_comboLevelGenerator_currentIndexChanged(const QString &arg1
     }
 }
 
-void Main_Window::on_btnConfigureBaseGame_clicked(){
+void Main_Window::on_btnConfigureSettings_clicked() {
     if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
-    this->interpreterPlugin->Configure_Writer();
-}
-
-void Main_Window::on_btnConfigureLevelGenerator_clicked(){
-    if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
-    this->interpreterPlugin->Configure_Generator();
+    this->interpreterPlugin->Configure_Settings();
 }
 
 void Main_Window::on_btnGenerateGame_clicked(){
@@ -155,8 +144,6 @@ void Main_Window::on_btnGenerateGame_clicked(){
         qDebug() << "Something went wrong. Check debug info...";
     }
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
-    //TODO: Add threading?
-    //If threading is added, the other components of the UI will need to be locked down until the generation is complete
 }
 
 bool Main_Window::Load_Interpreter(const QString &fileLocation) {

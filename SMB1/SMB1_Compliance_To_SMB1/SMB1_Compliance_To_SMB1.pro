@@ -19,13 +19,11 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     SMB1_Compliance_Parser.cpp \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp \
     Header_Handler.cpp \
-    Configure_Base_Form.cpp \
     Level_Generator.cpp \
     Hacks_Handler.cpp \
     Difficulty_Level_Configurations.cpp \
-    Configure_Level_Form.cpp \
-    Difficulty_Base_Form.cpp \
-    Difficulty_Level_Form.cpp
+    Difficulty_Level_Form.cpp \
+    Configure_Settings_Form.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     ../../Level-Headed/Interpreter_Interface.h \
@@ -39,16 +37,14 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Item_Handler.h \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.h \
     Header_Handler.h \
-    Configure_Base_Form.h \
-    Configure_Level_Form.h \
     Plugin_Settings.h \
     Level_Generator.h \
     Hacks_Handler.h \
     SMB1_Compliance_To_SMB1_Strings.h \
     Difficulty_Level_Configurations.h \
     Difficulty_Level_Settings.h \
-    Difficulty_Base_Form.h \
-    Difficulty_Level_Form.h
+    Difficulty_Level_Form.h \
+    Configure_Settings_Form.h
 
 OTHER_FILES +=
 
@@ -58,7 +54,5 @@ unix {
 }
 
 FORMS += \
-    Configure_Base_Form.ui \
-    Configure_Level_Form.ui \
-    Difficulty_Base_Form.ui \
-    Difficulty_Level_Form.ui
+    Difficulty_Level_Form.ui \
+    Configure_Settings_Form.ui

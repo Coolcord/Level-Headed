@@ -2,8 +2,7 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
-#include "Configure_Base_Form.h"
-#include "Configure_Level_Form.h"
+#include "Configure_Settings_Form.h"
 #include "Difficulty_Level_Configurations.h"
 #include "Level_Generator.h"
 #include "Hacks_Handler.h"
@@ -86,21 +85,12 @@ bool SMB1_Compliance_To_SMB1::Run() {
     return success;
 }
 
-int SMB1_Compliance_To_SMB1::Configure_Generator() {
+int SMB1_Compliance_To_SMB1::Configure_Settings() {
     if (!this->Load_Plugins()) {
         //TODO: Show an error here
         return 1;
     }
-    Configure_Level_Form form(this->parent, &this->pluginSettings, this->applicationLocation);
-    return form.exec();
-}
-
-int SMB1_Compliance_To_SMB1::Configure_Writer() {
-    if (!this->Load_Plugins()) {
-        //TODO: Show an error here
-        return 1;
-    }
-    Configure_Base_Form form(this->parent, &this->pluginSettings, this->writerPlugin, this->applicationLocation);
+    Configure_Settings_Form form(this->parent, &this->pluginSettings, this->writerPlugin, this->applicationLocation);
     return form.exec();
 }
 

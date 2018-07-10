@@ -16,8 +16,7 @@ public:
     SMB1_Compliance_To_SMB1();
     void Startup(QWidget *parent, const QString &location);
     bool Run();
-    int Configure_Generator();
-    int Configure_Writer();
+    int Configure_Settings();
 
 private:
     void Shutdown();

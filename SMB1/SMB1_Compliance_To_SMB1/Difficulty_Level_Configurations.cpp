@@ -113,10 +113,12 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     //TODO: Write this...
+    return this->Hard();
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     //TODO: Write this...
+    return this->Hard();
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {

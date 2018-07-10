@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>212</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,45 +89,17 @@
     </spacer>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="layoutConfigurePlugins">
-     <item>
-      <widget class="QLabel" name="lblConfigurePlugins">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Configure Your Plugins:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="layoutConfigureButtons">
-       <item>
-        <widget class="QPushButton" name="btnConfigureBaseGame">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Configure Base Game</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnConfigureLevelGenerator">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Configure Level Generator</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="btnConfigureSettings">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Configure Settings</string>
+     </property>
+    </widget>
    </item>
    <item>
-    <spacer name="bottomSpacer">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -156,8 +128,6 @@
   <tabstop>comboBaseGame</tabstop>
   <tabstop>comboLevelGenerator</tabstop>
   <tabstop>btnGenerateGame</tabstop>
-  <tabstop>btnConfigureBaseGame</tabstop>
-  <tabstop>btnConfigureLevelGenerator</tabstop>
  </tabstops>
  <resources/>
  <connections/>

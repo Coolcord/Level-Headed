@@ -11,8 +11,7 @@ public:
     virtual void Startup(QWidget *parent, const QString &location)=0;
     virtual void Shutdown()=0;
     virtual bool Run()=0;
-    virtual int Configure_Generator()=0;
-    virtual int Configure_Writer()=0;
+    virtual int Configure_Settings()=0;
 };
 
 Q_DECLARE_INTERFACE(Interpreter_Interface, "Interpreter_Interface")
