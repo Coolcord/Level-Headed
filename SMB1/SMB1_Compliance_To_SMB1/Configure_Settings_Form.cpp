@@ -1,5 +1,6 @@
 #include "Configure_Settings_Form.h"
 #include "ui_Configure_Settings_Form.h"
+#include "../../Common_Files/Version.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "Tab_Base_Game.h"
@@ -13,6 +14,9 @@
 #include <QDir>
 #include <assert.h>
 
+const static QString STRING_UPDATES_LINK = "https://github.com/Coolcord/Level-Headed/releases";
+const static QString STRING_SOURCE_CODE_LINK = "https://github.com/Coolcord/Level-Headed";
+
 Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings) :
     QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint),
     ui(new Ui::Configure_Settings_Form)
@@ -23,6 +27,16 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     this->pluginSettings = pluginSettings;
     this->writerPlugin = writerPlugin;
     ui->setupUi(this);
+
+    //Set the About Text
+    this->ui->textAbout->setHtml(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
+        "SMB1 Compliance for SMB1"+Common_Strings::STRING_HTML_NEW_LINE+
+        "A Random Level Generator for Super Mario Bros. 1 on the NES"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
+        "Created by Coolcord"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
+        "<a href="+STRING_UPDATES_LINK+">Get Updates</a>"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
+        "<a href="+STRING_SOURCE_CODE_LINK+">Source Code</a>"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE);
+    this->ui->textAbout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
     this->tabBaseGame = new Tab_Base_Game(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
     this->tabDifficulty = new Tab_Difficulty(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
     this->tabLevelGenerator = new Tab_Level_Generator(this, applicationLocation, writerPlugin, this->ui, pluginSettings);

@@ -23,6 +23,7 @@ namespace Common_Strings {
     const static QString STRING_ON = "On";
     const static QString STRING_OFF = "Off";
     const static QString STRING_LEVELS_EXTENSION = ".lvls";
+    const static QString STRING_HTML_NEW_LINE = "<br/>";
 
     #ifdef Q_OS_WIN32
     const static QString STRING_PLUGIN_EXTENSION = ".dll"; //Windows uses .dll files
