@@ -112,13 +112,33 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
-    //TODO: Write this...
-    return this->Hard();
+    Difficulty_Level_Settings difficultySettings = this->Riddled_With_Bullets();
+    difficultySettings.bulletTime = 1;
+    difficultySettings.hammerTime = 1;
+    difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.lakituSpawnChancePerLevel = 50;
+    difficultySettings.bridgeLakitus = 1;
+    difficultySettings.standardOverworldLakitus = 1;
+    difficultySettings.islandLakitus = 1;
+    difficultySettings.undergroundLakitus = 1;
+    difficultySettings.underwaterLakitus = 11;
+    return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
-    //TODO: Write this...
-    return this->Hard();
+    Difficulty_Level_Settings difficultySettings = this->Cheep_Cheep_Frenzy();
+    difficultySettings.bulletTime = 1;
+    difficultySettings.hammerTime = 1;
+    difficultySettings.hammerTimeIntensity = 100;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.lakituSpawnChancePerLevel = 25;
+    difficultySettings.bridgeLakitus = 1;
+    difficultySettings.standardOverworldLakitus = 1;
+    difficultySettings.islandLakitus = 1;
+    difficultySettings.undergroundLakitus = 1;
+    difficultySettings.underwaterLakitus = 11;
+    return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
