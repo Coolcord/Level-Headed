@@ -39,6 +39,9 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     //Skip the Enemy if No Enemies is Enabled
     bool skipEnemy = this->args->difficultyNoEnemies;
     switch (enemy) {
+    case Enemy_Item::FIRE_BAR:
+    case Enemy_Item::LARGE_FIRE_BAR:    if (this->args->difficulty < this->args->difficultyCastleFireBars) skipEnemy = true;
+                                        break;
     case Enemy_Item::BALANCE_LIFT:
     case Enemy_Item::FALLING_LIFT:
     case Enemy_Item::LIFT:
@@ -46,8 +49,8 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     case Enemy_Item::SURFING_LIFT:
     case Enemy_Item::PIPE_POINTER:
     case Enemy_Item::TOAD:
-    case Enemy_Item::WARP_ZONE:     skipEnemy = false;
-    default:                        break;
+    case Enemy_Item::WARP_ZONE:         skipEnemy = false;
+    default:                            break;
     }
     if (skipEnemy) return true;
 

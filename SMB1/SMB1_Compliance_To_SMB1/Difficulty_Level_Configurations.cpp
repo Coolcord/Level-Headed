@@ -11,6 +11,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBridgeFlyingCheepCheeps = difficultySettings.bridgeFlyingCheepCheeps;
     pluginSettings->difficultyBridgeLakitus = difficultySettings.bridgeLakitus;
     pluginSettings->difficultyBridgeOffscreenBulletBills = difficultySettings.bridgeOffscreenBulletBills;
+    pluginSettings->difficultyCastleFireBars = difficultySettings.castleFireBars;
     pluginSettings->difficultyCastleFlyingCheepCheeps = difficultySettings.castleFlyingCheepCheeps;
     pluginSettings->difficultyCastleLakitus = difficultySettings.castleLakitus;
     pluginSettings->difficultyCastleOffscreenBulletBills = difficultySettings.castleOffscreenBulletBills;
@@ -44,6 +45,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bridgeFlyingCheepCheeps = 3;
     difficultySettings.bridgeLakitus = 4;
     difficultySettings.bridgeOffscreenBulletBills = 11;
+    difficultySettings.castleFireBars = 3;
     difficultySettings.castleFlyingCheepCheeps = 11;
     difficultySettings.castleLakitus = 11;
     difficultySettings.castleOffscreenBulletBills = 11;
@@ -78,6 +80,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 11;
     difficultySettings.bridgeOffscreenBulletBills = 11;
+    difficultySettings.castleFireBars = 11;
     difficultySettings.castleFlyingCheepCheeps = 11;
     difficultySettings.castleLakitus = 11;
     difficultySettings.castleOffscreenBulletBills = 11;
@@ -111,6 +114,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
     difficultySettings.bridgeFlyingCheepCheeps = 1;
+    difficultySettings.castleFireBars = 1;
     difficultySettings.islandOffscreenBulletBills = 1;
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.hammerTimeIntensity = 20;
@@ -250,6 +254,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bridgeFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.castleFireBars = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.castleFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.castleLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.castleOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;

@@ -211,6 +211,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyBridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
     args.difficultyBridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
     args.difficultyBridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;
+    args.difficultyCastleFireBars = this->pluginSettings->difficultyCastleFireBars;
     args.difficultyCastleFlyingCheepCheeps = this->pluginSettings->difficultyCastleFlyingCheepCheeps;
     args.difficultyCastleLakitus = this->pluginSettings->difficultyCastleLakitus;
     args.difficultyCastleOffscreenBulletBills = this->pluginSettings->difficultyCastleOffscreenBulletBills;

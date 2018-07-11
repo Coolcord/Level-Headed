@@ -9,6 +9,7 @@ struct Difficulty_Level_Settings {
     int bridgeFlyingCheepCheeps;
     int bridgeLakitus;
     int bridgeOffscreenBulletBills;
+    int castleFireBars;
     int castleFlyingCheepCheeps;
     int castleLakitus;
     int castleOffscreenBulletBills;

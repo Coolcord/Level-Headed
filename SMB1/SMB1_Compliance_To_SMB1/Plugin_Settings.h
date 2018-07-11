@@ -55,6 +55,7 @@ struct Plugin_Settings {
     int difficultyBridgeFlyingCheepCheeps;
     int difficultyBridgeLakitus;
     int difficultyBridgeOffscreenBulletBills;
+    int difficultyCastleFireBars;
     int difficultyCastleFlyingCheepCheeps;
     int difficultyCastleLakitus;
     int difficultyCastleOffscreenBulletBills;

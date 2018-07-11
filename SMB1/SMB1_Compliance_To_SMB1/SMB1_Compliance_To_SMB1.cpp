@@ -162,6 +162,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyBridgeFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyCastleFireBars << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyCastleFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyCastleLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyCastleOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
@@ -227,6 +228,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyBridgeFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyCastleFireBars = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyCastleFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyCastleLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyCastleOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -296,7 +298,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = Qt::Checked;
     this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.replaceFireFlowerWithHammerSuit = Qt::PartiallyChecked;
-    this->pluginSettings.enemySpeed = 6;
+    this->pluginSettings.enemySpeed = 0;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);
 }

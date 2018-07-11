@@ -19,6 +19,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbBridgeFlyingCheepCheeps->setValue(this->pluginSettings->difficultyBridgeFlyingCheepCheeps);
     this->ui->sbBridgeLakitus->setValue(this->pluginSettings->difficultyBridgeLakitus);
     this->ui->sbBridgeOffscreenBulletBills->setValue(this->pluginSettings->difficultyBridgeOffscreenBulletBills);
+    this->ui->sbCastleFireBars->setValue(this->pluginSettings->difficultyCastleFireBars);
     this->ui->sbCastleFlyingCheepCheeps->setValue(this->pluginSettings->difficultyCastleFlyingCheepCheeps);
     this->ui->sbCastleLakitus->setValue(this->pluginSettings->difficultyCastleLakitus);
     this->ui->sbCastleOffscreenBulletBills->setValue(this->pluginSettings->difficultyCastleOffscreenBulletBills);
@@ -62,6 +63,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->ui->sbBridgeFlyingCheepCheeps->value();
         this->pluginSettings->difficultyBridgeLakitus = this->ui->sbBridgeLakitus->value();
         this->pluginSettings->difficultyBridgeOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();
+        this->pluginSettings->difficultyCastleFireBars = this->ui->sbCastleFireBars->value();
         this->pluginSettings->difficultyCastleFlyingCheepCheeps = this->ui->sbCastleFlyingCheepCheeps->value();
         this->pluginSettings->difficultyCastleLakitus = this->ui->sbCastleLakitus->value();
         this->pluginSettings->difficultyCastleOffscreenBulletBills = this->ui->sbCastleOffscreenBulletBills->value();
