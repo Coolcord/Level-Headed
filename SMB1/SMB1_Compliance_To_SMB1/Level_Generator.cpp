@@ -20,10 +20,14 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
     assert(pluginSettings);
     assert(generatorPlugin);
     assert(writerPlugin);
+    this->applicationLocation = applicationLocation;
     this->parent = parent;
     this->pluginSettings = pluginSettings;
     this->generatorPlugin = generatorPlugin;
     this->writerPlugin = writerPlugin;
+    this->sequentialArchiveLoaded = false;
+    this->sequentialArchiveLoader = NULL;
+    this->sequentialArchivePlugin = NULL;
     this->levelLocation = applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(applicationLocation);
     if (!dir.exists(Common_Strings::STRING_LEVELS)) dir.mkdir(Common_Strings::STRING_LEVELS); //don't bother checking for success here
@@ -45,6 +49,9 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
 }
 
 Level_Generator::~Level_Generator() {
+    if (this->sequentialArchiveLoader) this->sequentialArchiveLoader->unload();
+    this->sequentialArchiveLoader = NULL;
+    this->sequentialArchivePlugin = NULL;
     delete this->chances;
     delete this->veryCommonLevels;
     delete this->commonLevels;
@@ -53,152 +60,11 @@ Level_Generator::~Level_Generator() {
 }
 
 bool Level_Generator::Generate_Levels() {
-    this->veryCommonLevels->clear();
-    this->commonLevels->clear();
-    this->uncommonLevels->clear();
-    this->rareLevels->clear();
-
-    //Make the folder to store the random generation in
-    QString generationName = "Random " + QDate::currentDate().toString("yy-MM-dd-") + QTime::currentTime().toString("HH-mm-ss-zzz");
-    QDir dir(this->levelLocation);
-    if (!dir.exists(generationName)) {
-        if (!dir.mkdir(generationName)) {
-            //TODO: Show a read/write error here
-            return false;
-        }
-    } else {
-        if (!dir.cd(generationName) || !dir.removeRecursively()) {
-            //TODO: Show a read/write error here
-            return false;
-        }
-    }
-
-    //Create a new map file
-    QFile map(this->levelLocation + "/" + generationName + "/" + generationName + ".map");
-    if (!map.open(QFile::ReadWrite | QFile::Truncate)) {
-        //TODO: Show a read/write error here
-        return false;
-    }
-    QTextStream mapStream(&map);
-    if (!this->Write_To_Map(mapStream, Header::STRING_MAP_NAME)) return false;
-
-    //Set up the parser
-    SMB1_Compliance_Parser parser(this->writerPlugin);
-
-    //Seed the random number generator... the location here is important
-    qsrand(this->pluginSettings->randomSeed);
-
-    //Randomly determine the number of max levels and levels per world if specified
-    if (this->pluginSettings->randomNumWorlds) {
-        this->pluginSettings->numWorlds = Random::Get_Num(4)+2; //max out at 6 worlds
-        this->pluginSettings->numLevelsPerWorld = 9;
-        while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
-            --this->pluginSettings->numLevelsPerWorld;
-        }
-    }
-
-    //Write the Number of Worlds
-    if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
-        qDebug() << "Failed to write the number of worlds to the ROM!";
-        return false;
-    }
-
-    //Write the Comment section of the map file
-    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A."))) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_STANDARD_OVERWORLD_LEVELS_COMMONALITY + ": " + this->pluginSettings->standardOverworldChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERGROUND_LEVELS_COMMONALITY + ": " + this->pluginSettings->undergroundChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERWATER_LEVELS_COMMONALITY + ": " + this->pluginSettings->underwaterChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
-
-    //Write the Header of the map file
-    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
-    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
-
-    //Build the Move Objects Map
-    if (!this->Write_Move_Objects_Map(mapStream)) return false;
-
-    //Build the Move Enemies Map
-    if (!this->Write_Move_Enemies_Map(mapStream)) return false;
-
-    //Build the Room Order Map
-    QVector<Level::Level> levelOrder;
-    int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
-    if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder, numLevels)) {
-        qDebug() << "Failed to rearrange the room order";
-        return false;
-    }
-    assert(numLevels == levelOrder.size());
-
-    //Determine the number of level types for each chance type
-    this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
-    this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
-    this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
-    this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
-    this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
-
-    //Generate the Levels
-    if (!this->Write_To_Map(mapStream, Header::STRING_LEVEL_MAP_COMMENT)) return false;
-    for (int i = 0; i < numLevels; ++i) {
-        //Prepare Arguments
-        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
-
-        if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
-            return false;
-        }
-        args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
-        args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
-
-        if (!this->generatorPlugin->Generate_Level(args)) {
-            qDebug() << "Looks like the generator blew up";
-            return false;
-        }
-
-        int lineNum = 0;
-        int errorCode = parser.Parse_Level(args.fileName, lineNum);
-        switch (errorCode) {
-        case -1: //An error occurred and was handled within the parser
-            return false;
-        case 0: break; //Parser ran fine
-        case 1: //Unable to open the file
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "Unable to open " + args.fileName + "!", Common_Strings::STRING_OK);
-            return false;
-        case 2: //Syntax error
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
-            return false;
-        case 3: //Writer was unable to write an item
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
-            return false;
-        default:
-            assert(false);
-        }
-
-        if (!this->writerPlugin->Write_Level()) {
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
-            return false;
-        }
-
-        //Write the level to the map
-        if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
-    }
-    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
-
-    mapStream.flush();
-    map.close();
-
-    //Get a new seed for the next generation, since this one was successful
-    this->pluginSettings->randomSeed = QTime::currentTime().msecsSinceStartOfDay();
-    return true;
+    QString folderLocation = QString();
+    bool success = this->Generate_Levels_And_Pack(folderLocation);
+    QDir dir(folderLocation);
+    dir.removeRecursively();
+    return success;
 }
 
 bool Level_Generator::Parse_Level_Map() {
@@ -495,6 +361,168 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
         levelType = this->rareLevels->at(index);
     } else assert(false);
     return levelType;
+}
+
+bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
+    this->veryCommonLevels->clear();
+    this->commonLevels->clear();
+    this->uncommonLevels->clear();
+    this->rareLevels->clear();
+
+    //Make the folder to store the random generation in
+    QString generationName = "Random " + QDate::currentDate().toString("yy-MM-dd-") + QTime::currentTime().toString("HH-mm-ss-zzz");
+    folderLocation = this->levelLocation + "/" + generationName;
+    QDir dir(this->levelLocation);
+    if (!dir.exists(generationName)) {
+        if (!dir.mkdir(generationName)) {
+            //TODO: Show a read/write error here
+            return false;
+        }
+    } else {
+        if (!dir.cd(generationName) || !dir.removeRecursively()) {
+            //TODO: Show a read/write error here
+            return false;
+        }
+    }
+
+    //Create a new map file
+    QFile map(this->levelLocation + "/" + generationName + "/" + generationName + ".map");
+    if (!map.open(QFile::ReadWrite | QFile::Truncate)) {
+        //TODO: Show a read/write error here
+        return false;
+    }
+    QTextStream mapStream(&map);
+    if (!this->Write_To_Map(mapStream, Header::STRING_MAP_NAME)) return false;
+
+    //Set up the parser
+    SMB1_Compliance_Parser parser(this->writerPlugin);
+
+    //Seed the random number generator... the location here is important
+    qsrand(this->pluginSettings->randomSeed);
+
+    //Randomly determine the number of max levels and levels per world if specified
+    if (this->pluginSettings->randomNumWorlds) {
+        this->pluginSettings->numWorlds = Random::Get_Num(4)+2; //max out at 6 worlds
+        this->pluginSettings->numLevelsPerWorld = 9;
+        while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
+            --this->pluginSettings->numLevelsPerWorld;
+        }
+    }
+
+    //Write the Number of Worlds
+    if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
+        qDebug() << "Failed to write the number of worlds to the ROM!";
+        return false;
+    }
+
+    //Write the Comment section of the map file
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A."))) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_STANDARD_OVERWORLD_LEVELS_COMMONALITY + ": " + this->pluginSettings->standardOverworldChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERGROUND_LEVELS_COMMONALITY + ": " + this->pluginSettings->undergroundChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERWATER_LEVELS_COMMONALITY + ": " + this->pluginSettings->underwaterChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
+
+    //Write the Header of the map file
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+
+    //Build the Move Objects Map
+    if (!this->Write_Move_Objects_Map(mapStream)) return false;
+
+    //Build the Move Enemies Map
+    if (!this->Write_Move_Enemies_Map(mapStream)) return false;
+
+    //Build the Room Order Map
+    QVector<Level::Level> levelOrder;
+    int numLevels = this->pluginSettings->numWorlds*this->pluginSettings->numLevelsPerWorld;
+    if (!this->Rearrange_Levels_From_Short_To_Long(levelOrder, numLevels)) {
+        qDebug() << "Failed to rearrange the room order";
+        return false;
+    }
+    assert(numLevels == levelOrder.size());
+
+    //Determine the number of level types for each chance type
+    this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
+    this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
+    this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+    this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
+    this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+
+    //Generate the Levels
+    if (!this->Write_To_Map(mapStream, Header::STRING_LEVEL_MAP_COMMENT)) return false;
+    for (int i = 0; i < numLevels; ++i) {
+        //Prepare Arguments
+        SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
+
+        if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
+            return false;
+        }
+        args.numObjectBytes = this->writerPlugin->Get_Num_Object_Bytes();
+        args.numEnemyBytes = this->writerPlugin->Get_Num_Enemy_Bytes();
+
+        if (!this->generatorPlugin->Generate_Level(args)) {
+            qDebug() << "Looks like the generator blew up";
+            return false;
+        }
+
+        int lineNum = 0;
+        int errorCode = parser.Parse_Level(args.fileName, lineNum);
+        switch (errorCode) {
+        case -1: //An error occurred and was handled within the parser
+            return false;
+        case 0: break; //Parser ran fine
+        case 1: //Unable to open the file
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Unable to open " + args.fileName + "!", Common_Strings::STRING_OK);
+            return false;
+        case 2: //Syntax error
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Syntax error on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
+            return false;
+        case 3: //Writer was unable to write an item
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to write item on line " + QString::number(lineNum) + "!", Common_Strings::STRING_OK);
+            return false;
+        default:
+            assert(false);
+        }
+
+        if (!this->writerPlugin->Write_Level()) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
+            return false;
+        }
+
+        //Write the level to the map
+        if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
+    }
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
+
+    mapStream.flush();
+    map.close();
+
+    //Get a new seed for the next generation, since this one was successful
+    this->pluginSettings->randomSeed = QTime::currentTime().msecsSinceStartOfDay();
+
+    //Pack the Levels into a Sequential Archive
+    if (!this->Load_Sequential_Archive_Plugin()) {
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
+        return false;
+    }
+    if (this->sequentialArchivePlugin->Pack(folderLocation) != 0) {
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              "Unable to pack levels into a sequential archive!", Common_Strings::STRING_OK);
+        return false;
+    }
+    return true;
 }
 
 void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType) {
@@ -885,4 +913,19 @@ bool Level_Generator::Write_To_Map(QTextStream &mapStream, Level::Level level, c
 
     if (fileName.size() > 0) line += " \"" + fileName + "\"";
     return this->Write_To_Map(mapStream, line);
+}
+
+bool Level_Generator::Load_Sequential_Archive_Plugin() {
+    if (this->sequentialArchiveLoaded) return true;
+    QString sequentialArchivePluginLocation = this->applicationLocation+"/"+Common_Strings::STRING_PLUGINS+"/Sequential_Archive"+Common_Strings::STRING_PLUGIN_EXTENSION;
+    if (!QFile(sequentialArchivePluginLocation).exists()) return false;
+
+    //Load the Sequential Archive Plugin
+    this->sequentialArchiveLoader = new QPluginLoader(sequentialArchivePluginLocation);
+    QObject *validPlugin = this->sequentialArchiveLoader->instance();
+    if (!validPlugin) return false;
+    this->sequentialArchivePlugin = qobject_cast<Sequential_Archive_Interface*>(validPlugin);
+    bool success = static_cast<bool>(this->sequentialArchivePlugin);
+    this->sequentialArchiveLoaded = success;
+    return success;
 }

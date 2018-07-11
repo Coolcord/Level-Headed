@@ -1,6 +1,7 @@
 #ifndef LEVEL_GENERATOR_H
 #define LEVEL_GENERATOR_H
 
+#include "../../../Sequential_Archive/Sequential_Archive/Sequential_Archive_Interface.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h"
 #include "../SMB1_Writer/SMB1_Writer_Interface.h"
 #include "../Common_SMB1_Files/Level.h"
@@ -8,6 +9,7 @@
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "Plugin_Settings.h"
 #include <QFile>
+#include <QPluginLoader>
 #include <QTextStream>
 #include <QWidget>
 #include <QMap>
@@ -30,22 +32,23 @@ public:
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
     Level_Type::Level_Type Determine_Level_Type();
+    bool Generate_Levels_And_Pack(QString &folderLocation);
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
     QString Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum);
     bool Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum);
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
     bool Parse_To_Next_Seperator(QFile &file, int &lineNum);
     bool Parse_Move_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
-
-    //These functions will be depreciated soon
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
     bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder, int numLevels);
     bool Write_Move_Objects_Map(QTextStream &mapStream);
     bool Write_Move_Enemies_Map(QTextStream &mapStream);
     bool Write_To_Map(QTextStream &mapStream, const QString &string);
     bool Write_To_Map(QTextStream &mapStream, Level::Level level, const QString &fileName = "");
+    bool Load_Sequential_Archive_Plugin();
 
     QWidget *parent;
+    QString applicationLocation;
     Plugin_Settings *pluginSettings;
     SMB1_Compliance_Generator_Interface *generatorPlugin;
     SMB1_Writer_Interface *writerPlugin;
@@ -55,6 +58,9 @@ private:
     QVector<Level_Type::Level_Type> *commonLevels;
     QVector<Level_Type::Level_Type> *uncommonLevels;
     QVector<Level_Type::Level_Type> *rareLevels;
+    Sequential_Archive_Interface *sequentialArchivePlugin;
+    QPluginLoader *sequentialArchiveLoader;
+    bool sequentialArchiveLoaded;
 };
 
 #endif // LEVEL_GENERATOR_H
