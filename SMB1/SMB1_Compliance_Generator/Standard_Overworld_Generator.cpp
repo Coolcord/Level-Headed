@@ -44,7 +44,7 @@ void Standard_Overworld_Generator::Spawn_Intro(int &x) {
     this->firstPageHandler->Handle_First_Page(x);
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
-        if (args->startCastle == Castle::BIG) this->object->Set_Last_Object_Length(12);
+        if (args->startCastle == Castle::BIG) this->object->Set_Last_Object_Length(10);
         else this->object->Set_Last_Object_Length(17);
     }
 }
