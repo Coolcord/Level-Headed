@@ -16,8 +16,6 @@ private:
     bool Handle_Graphics();
     bool Handle_Lives();
     bool Handle_God_Mode();
-    bool Handle_Damage();
-    bool Handle_Lakitu_Throw_Arc();
     bool Handle_Enemy_Speed();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 

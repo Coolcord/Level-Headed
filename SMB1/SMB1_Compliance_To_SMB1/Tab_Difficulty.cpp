@@ -8,8 +8,8 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->cb2PlayerGame->setChecked(!this->pluginSettings->addLuigiGame);
-    this->ui->cbRevertToSuperMario->setCheckState(this->pluginSettings->superMarioOnDamage);
-    this->ui->cbLakituThrowArc->setCheckState(this->pluginSettings->lakituThrowArc);
+    this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
+    this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
@@ -43,8 +43,7 @@ void Tab_Difficulty::Load_Settings() {
 }
 
 void Tab_Difficulty::Save_Settings() {
-    if (this->pluginSettings->infiniteLives) this->pluginSettings->numLives = 1;
-    else this->pluginSettings->numLives = this->ui->sbLives->value();
+    this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     this->pluginSettings->addLuigiGame = !this->ui->cb2PlayerGame->isChecked();
     this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
@@ -82,6 +81,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
+        this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
         break;

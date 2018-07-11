@@ -30,8 +30,10 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
+    pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
+    pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -61,8 +63,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.noEnemies = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.lakituSpawnChancePerLevel = 35;
+    difficultySettings.lakituThrowArc = true;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
+    difficultySettings.superMarioOnDamage = true;
     return difficultySettings;
 }
 
@@ -90,6 +94,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    difficultySettings.lakituThrowArc = false;
     return difficultySettings;
 }
 
@@ -97,6 +102,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.bulletTime = difficultySettings.hammerTime; //activate bullet time where hammer time would be activated
     difficultySettings.hammerTime = 11; //disable hammer time
+    difficultySettings.lakituThrowArc = false;
     return difficultySettings;
 }
 
@@ -108,6 +114,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.islandOffscreenBulletBills = 1;
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.superMarioOnDamage = false;
     return difficultySettings;
 }
 
@@ -148,7 +156,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets() {
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.bulletTime = 1;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 11;
@@ -172,7 +180,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets(
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 1;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -197,7 +205,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Cheep_Cheep_Frenzy() {
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.bridgeFlyingCheepCheeps = 1;
     difficultySettings.bridgeLakitus = 11;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -220,14 +228,14 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Cheep_Cheep_Frenzy() 
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time() {
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
     return difficultySettings;
@@ -260,8 +268,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
+    difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
+    difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Num(1));
     return difficultySettings;
 }
 

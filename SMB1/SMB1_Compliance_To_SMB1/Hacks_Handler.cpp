@@ -28,8 +28,8 @@ bool Hacks_Handler::Write_Hacks() {
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
     }
-    if (!this->Handle_Damage()) return false;
-    if (!this->Handle_Lakitu_Throw_Arc()) return false;
+    if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
+    if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
@@ -87,9 +87,11 @@ bool Hacks_Handler::Handle_Graphics() {
 }
 
 bool Hacks_Handler::Handle_Lives() {
-    if (!this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives)) return false;
     if (this->pluginSettings->infiniteLives) {
+        if (!this->writerPlugin->Hacks_Set_Starting_Lives(1)) return false;
         return this->writerPlugin->Hacks_Infinite_Lives();
+    } else {
+        if (!this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives)) return false;
     }
     return true;
 }
@@ -97,20 +99,6 @@ bool Hacks_Handler::Handle_Lives() {
 bool Hacks_Handler::Handle_God_Mode() {
     if (this->pluginSettings->godMode) {
         return this->writerPlugin->Hacks_Enable_God_Mode();
-    }
-    return true;
-}
-
-bool Hacks_Handler::Handle_Damage() {
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->superMarioOnDamage)) {
-        return this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
-    }
-    return true;
-}
-
-bool Hacks_Handler::Handle_Lakitu_Throw_Arc() {
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->lakituThrowArc)) {
-        return this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc();
     }
     return true;
 }

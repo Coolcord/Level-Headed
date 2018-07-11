@@ -28,8 +28,10 @@ struct Difficulty_Level_Settings {
     bool noEnemies;
     int hammerTimeIntensity;
     int lakituSpawnChancePerLevel;
+    bool lakituThrowArc;
     bool disableAllOtherEnemiesWhenALakituSpawns;
     int spawnerPriority;
+    bool superMarioOnDamage;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

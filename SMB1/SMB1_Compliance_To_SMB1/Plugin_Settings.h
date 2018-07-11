@@ -43,8 +43,8 @@ struct Plugin_Settings {
     int numLives;
     bool godMode;
     bool addLuigiGame;
-    Qt::CheckState superMarioOnDamage;
-    Qt::CheckState lakituThrowArc;
+    bool superMarioOnDamage;
+    bool lakituThrowArc;
     Qt::CheckState autoscroll;
     Qt::CheckState replaceFireFlowerWithHammerSuit;
     int enemySpeed;

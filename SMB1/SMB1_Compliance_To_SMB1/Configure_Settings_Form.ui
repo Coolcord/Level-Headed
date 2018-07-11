@@ -337,8 +337,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>669</width>
-            <height>603</height>
+            <width>652</width>
+            <height>639</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -609,12 +609,15 @@
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1460</height>
+            <height>1431</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QVBoxLayout" name="layoutLives">
+            <layout class="QHBoxLayout" name="layoutLives">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
              <item>
               <widget class="QCheckBox" name="cbInfiniteLives">
                <property name="text">
@@ -623,28 +626,36 @@
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="layoutNumLives">
-               <item>
-                <widget class="QLabel" name="lblLives">
-                 <property name="text">
-                  <string>Lives:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="sbLives">
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>99</number>
-                 </property>
-                 <property name="value">
-                  <number>5</number>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QWidget" name="layoutNumLivesWidget" native="true">
+               <layout class="QHBoxLayout" name="layoutNumLives">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetDefaultConstraint</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="lblLives">
+                  <property name="text">
+                   <string>Lives:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbLives">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>99</number>
+                  </property>
+                  <property name="value">
+                   <number>5</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
            </item>
@@ -662,32 +673,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbRevertToSuperMario">
-             <property name="toolTip">
-              <string>May cause issues with some music</string>
-             </property>
-             <property name="text">
-              <string>Revert to Super Mario after taking damage</string>
-             </property>
-             <property name="tristate">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QCheckBox" name="cbAutoscroll">
              <property name="text">
               <string>Auto Scroll Screen</string>
-             </property>
-             <property name="tristate">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cbLakituThrowArc">
-             <property name="text">
-              <string>Fix Lakitu throw arc</string>
              </property>
              <property name="tristate">
               <bool>true</bool>
@@ -1367,6 +1355,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbLakituThrowArc">
+                <property name="text">
+                 <string>Fix Lakitu throw arc</string>
+                </property>
+                <property name="tristate">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenALakituSpawns">
                 <property name="text">
                  <string>Disable all other enemies when a Lakitu spawns</string>
@@ -1451,6 +1449,19 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbRevertToSuperMario">
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="text">
+                 <string>Revert to Super Mario after taking damage</string>
+                </property>
+                <property name="tristate">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="verticalSpacer_28">

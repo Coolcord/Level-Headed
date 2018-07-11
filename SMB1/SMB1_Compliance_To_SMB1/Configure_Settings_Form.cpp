@@ -120,10 +120,8 @@ void Configure_Settings_Form::on_btnNewRandomSeed_clicked() {
 }
 
 void Configure_Settings_Form::on_cbInfiniteLives_toggled(bool checked) {
-    this->ui->lblLives->setEnabled(!checked);
-    if (checked) this->ui->sbLives->clear();
-    else this->ui->sbLives->setValue(this->pluginSettings->numLives);
-    this->ui->sbLives->setEnabled(!checked);
+    if (checked) this->ui->layoutNumLivesWidget->hide();
+    else this->ui->layoutNumLivesWidget->show();
 }
 
 void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) {
