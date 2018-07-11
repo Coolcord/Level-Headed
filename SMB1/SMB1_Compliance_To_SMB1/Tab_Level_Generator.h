@@ -21,9 +21,6 @@ public:
     void Update_Worlds();
 
 private:
-    int numWorlds;
-    int numLevelsPerWorld;
-    bool randomNumWorlds;
     QString levelLocation;
 };
 

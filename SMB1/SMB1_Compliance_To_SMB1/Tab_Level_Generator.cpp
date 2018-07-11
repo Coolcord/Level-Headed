@@ -9,10 +9,6 @@
 
 Tab_Level_Generator::Tab_Level_Generator(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings)
     : Tab_Interface(parent, applicationLocation, writerPlugin, ui, pluginSettings) {
-    this->numWorlds = this->pluginSettings->numWorlds;
-    this->numLevelsPerWorld = this->pluginSettings->numLevelsPerWorld;
-    this->randomNumWorlds = this->pluginSettings->randomNumWorlds;
-
     //Get the Level Scripts Location
     this->levelLocation = this->applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(this->applicationLocation + "/" + Common_Strings::STRING_LEVELS);
@@ -41,11 +37,9 @@ void Tab_Level_Generator::Save_Settings() {
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
     } else {
-        this->pluginSettings->randomNumWorlds = this->randomNumWorlds;
-        if (!this->randomNumWorlds) {
-            this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
-            this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
-        }
+        this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
+        this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
+        this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
         this->pluginSettings->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
         this->pluginSettings->undergroundChance = this->ui->comboUnderground->currentText();
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
@@ -172,76 +166,11 @@ void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
         this->ui->layoutGenerateNewLevelsWidget->hide();
         this->ui->layoutLevelScriptsWidget->show();
     }
-
-    /*
-    //Toggle the Level Scripts
-    this->ui->lblLevelScripts->setEnabled(!enable);
-    this->ui->comboLevelScripts->setEnabled(!enable);
-    this->ui->btnClearAllRandomLevelScripts->setEnabled(!enable);
-
-    //Toggle the checkboxes
-    this->ui->cbRandomNumWorlds->setEnabled(enable);
-    if (enable) this->ui->cbRandomNumWorlds->setChecked(this->randomNumWorlds);
-    else this->ui->cbRandomNumWorlds->setChecked(false);
-
-    //Toggle the spinboxes
-    this->ui->lblNumWorlds->setEnabled(enable && !this->randomNumWorlds);
-    this->ui->sbNumWorlds->setEnabled(enable && !this->randomNumWorlds);
-    if (enable && !this->randomNumWorlds) { //reset the values of the spinboxes
-        this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
-        this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
-    } else {
-        this->ui->sbNumWorlds->clear();
-        this->ui->sbNumLevelsPerWorld->clear();
-    }
-    this->ui->lblNumLevelsPerWorld->setEnabled(enable && !this->randomNumWorlds);
-    this->ui->sbNumLevelsPerWorld->setEnabled(enable && !this->randomNumWorlds);
-
-
-    //Toggle the comboboxes
-    this->ui->lblDifficulty->setEnabled(enable);
-    this->ui->lblStandardOverworld->setEnabled(enable);
-    this->ui->lblUnderground->setEnabled(enable);
-    this->ui->lblUnderwater->setEnabled(enable);
-    this->ui->lblBridge->setEnabled(enable);
-    this->ui->lblIsland->setEnabled(enable);
-    this->ui->comboDifficulty->setEnabled(enable);
-    this->ui->comboStandardOverworld->setEnabled(enable);
-    this->ui->comboUnderground->setEnabled(enable);
-    this->ui->comboUnderwater->setEnabled(enable);
-    this->ui->comboBridge->setEnabled(enable);
-    this->ui->comboIsland->setEnabled(enable);
-
-    //Toggle the random seed
-    this->ui->lblRandomSeed->setEnabled(enable);
-    this->ui->sbRandomSeed->setEnabled(enable);
-    this->ui->btnNewRandomSeed->setEnabled(enable);
-    if (enable) this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
-    else this->ui->sbRandomSeed->clear();
-
-    //Populate the appropriate ComboBoxes
-    if (enable) {
-        this->ui->comboLevelScripts->clear();
-        this->Populate_Chance_ComboBoxes();
-    } else {
-        this->Clear_Chance_ComboBoxes();
-        this->Populate_Level_Scripts_ComboBox();
-    }*/
 }
 
 void Tab_Level_Generator::Enable_Random_Number_Of_Worlds(bool enable) {
-    this->ui->lblNumWorlds->setEnabled(!enable);
-    this->ui->sbNumWorlds->setEnabled(!enable);
-    this->ui->lblNumLevelsPerWorld->setEnabled(!enable);
-    this->ui->sbNumLevelsPerWorld->setEnabled(!enable);
-    if (enable) {
-        this->ui->sbNumWorlds->clear();
-        this->ui->sbNumLevelsPerWorld->clear();
-    } else {
-        this->ui->sbNumWorlds->setValue(this->numWorlds);
-        this->ui->sbNumLevelsPerWorld->setValue(this->numLevelsPerWorld);
-    }
-    this->randomNumWorlds = enable;
+    if (enable) this->ui->layoutNumWorldsWidget->hide();
+    else this->ui->layoutNumWorldsWidget->show();
 }
 
 void Tab_Level_Generator::Update_Worlds() {
@@ -251,5 +180,4 @@ void Tab_Level_Generator::Update_Worlds() {
         --numLevelsPerWorld;
     }
     this->ui->sbNumLevelsPerWorld->setValue(numLevelsPerWorld);
-    this->numWorlds = numWorlds;
 }
