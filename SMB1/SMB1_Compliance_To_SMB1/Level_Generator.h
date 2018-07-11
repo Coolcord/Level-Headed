@@ -24,21 +24,22 @@ public:
     ~Level_Generator();
     bool Generate_Levels();
     bool Parse_Level_Map();
-    bool Parse_Map_Header(QFile &file, int &lineNum, int &errorCode);
-    bool Parse_Move_Object_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
-    bool Parse_Move_Enemy_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
-    bool Parse_Levels(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Map_Header(QTextStream &file, int &lineNum, int &errorCode);
+    bool Parse_Move_Object_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Move_Enemy_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
     Level_Type::Level_Type Determine_Level_Type();
     bool Generate_Levels_And_Pack(QString &folderLocation);
+    bool Handle_Map_File();
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
-    QString Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum);
-    bool Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum);
+    QString Parse_Through_Comments_Until_First_Word(QTextStream &file, const QString &word, int &lineNum);
+    bool Parse_Through_Comments_Until_String(QTextStream &file, const QString &value, int &lineNum);
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
-    bool Parse_To_Next_Seperator(QFile &file, int &lineNum);
-    bool Parse_Move_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
+    bool Parse_To_Next_Seperator(QTextStream &file, int &lineNum);
+    bool Parse_Move_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
     bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder, int numLevels);
     bool Write_Move_Objects_Map(QTextStream &mapStream);

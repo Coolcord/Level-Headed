@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QDate>
+#include <QTextStream>
 #include <QTime>
 #include <QDebug>
 #include <math.h>
@@ -68,34 +69,18 @@ bool Level_Generator::Generate_Levels() {
 }
 
 bool Level_Generator::Parse_Level_Map() {
-    QFile mapFile(this->levelLocation + "/" + this->pluginSettings->levelScripts + "/" + this->pluginSettings->levelScripts + ".map");
-    if (!mapFile.exists() || !mapFile.open(QFile::ReadOnly)) {
-        //TODO: Show an error here
+    if (!this->Load_Sequential_Archive_Plugin()) {
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
         return false;
     }
-
-    //Parse through the map file starting with the header
-    int lineNum = 0;
-    int errorCode = 0;
-    if (!this->Parse_Map_Header(mapFile, lineNum, errorCode)) return false;
-    if (mapFile.atEnd()) return 2;
-
-    //Parse the Move Tables
-    QMap<QString, Level::Level> levels;
-    this->Populate_Level_Map(levels);
-    if (!this->Parse_Move_Object_Table(mapFile, levels, lineNum, errorCode)) return false;
-    if (mapFile.atEnd()) return 2;
-    if (!this->Parse_Move_Enemy_Table(mapFile, levels, lineNum, errorCode)) return false;
-    if (mapFile.atEnd()) return 2;
-
-    //Parse the Levels
-    if (!this->Parse_Levels(mapFile, levels, lineNum, errorCode)) return false;
-    if (!mapFile.atEnd()) return 2;
-    mapFile.close();
-    return true;
+    if (!this->sequentialArchivePlugin->Open(this->levelLocation + "/" + this->pluginSettings->levelScripts + Common_Strings::STRING_LEVELS_EXTENSION)) return false;
+    bool success = this->Handle_Map_File();
+    this->sequentialArchivePlugin->Close();
+    return success;
 }
 
-bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Map_Header(QTextStream &file, int &lineNum, int &errorCode) {
     //Level Name
     QString line;
     line = file.readLine().trimmed();
@@ -124,15 +109,15 @@ bool Level_Generator::Parse_Map_Header(QFile &file, int &lineNum, int &errorCode
     return true;
 }
 
-bool Level_Generator::Parse_Move_Object_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Move_Object_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     return this->Parse_Move_Table(file, levels, lineNum, errorCode, true);
 }
 
-bool Level_Generator::Parse_Move_Enemy_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Move_Enemy_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     return this->Parse_Move_Table(file, levels, lineNum, errorCode, false);
 }
 
-bool Level_Generator::Parse_Levels(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
     //Read the Level Lines
     bool success = false;
     do {
@@ -166,8 +151,6 @@ bool Level_Generator::Parse_Levels(QFile &file, const QMap<QString, Level::Level
                     return false;
                 }
                 scriptName.chop(1); scriptName = scriptName.remove(0, 1);
-                int lastIndex = file.fileName().lastIndexOf("/");
-                scriptName = file.fileName().remove(lastIndex, file.fileName().size()-lastIndex) + "/" + scriptName;
                 if (!this->writerPlugin->New_Level(currentLevel)) {
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                           "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
@@ -177,7 +160,8 @@ bool Level_Generator::Parse_Levels(QFile &file, const QMap<QString, Level::Level
                 //TODO: Make these error messages file specific
                 SMB1_Compliance_Parser parser(this->writerPlugin);
                 int levelLineNum = 0;
-                int levelErrorCode = parser.Parse_Level(scriptName, levelLineNum);
+                QTextStream levelStream(this->sequentialArchivePlugin->Read_File("/" + scriptName), QIODevice::ReadOnly);
+                int levelErrorCode = parser.Parse_Level(&levelStream, levelLineNum);
                 errorCode = -1;
                 switch (levelErrorCode) {
                 case -1: //An error occurred and was handled within the parser
@@ -473,7 +457,11 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         }
 
         int lineNum = 0;
-        int errorCode = parser.Parse_Level(args.fileName, lineNum);
+        QFile levelFile(args.fileName);
+        if (!levelFile.open(QIODevice::ReadOnly)) return false;
+        QTextStream levelStream(&levelFile);
+        int errorCode = parser.Parse_Level(&levelStream, lineNum);
+        levelFile.close();
         switch (errorCode) {
         case -1: //An error occurred and was handled within the parser
             return false;
@@ -517,11 +505,36 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
                               "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
         return false;
     }
-    if (this->sequentialArchivePlugin->Pack(folderLocation) != 0) {
+    if (this->sequentialArchivePlugin->Pack(folderLocation, folderLocation+Common_Strings::STRING_LEVELS_EXTENSION) != 0) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               "Unable to pack levels into a sequential archive!", Common_Strings::STRING_OK);
         return false;
     }
+    return true;
+}
+
+bool Level_Generator::Handle_Map_File() {
+    assert(this->sequentialArchivePlugin->Is_Open());
+    QTextStream mapFile(this->sequentialArchivePlugin->Read_File("/" + this->pluginSettings->levelScripts + ".map"), QIODevice::ReadOnly);
+    if (mapFile.atEnd()) return false;
+
+    //Parse through the map file starting with the header
+    int lineNum = 0;
+    int errorCode = 0;
+    if (!this->Parse_Map_Header(mapFile, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return false;
+
+    //Parse the Move Tables
+    QMap<QString, Level::Level> levels;
+    this->Populate_Level_Map(levels);
+    if (!this->Parse_Move_Object_Table(mapFile, levels, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return false;
+    if (!this->Parse_Move_Enemy_Table(mapFile, levels, lineNum, errorCode)) return false;
+    if (mapFile.atEnd()) return false;
+
+    //Parse the Levels
+    if (!this->Parse_Levels(mapFile, levels, lineNum, errorCode)) return false;
+    if (!mapFile.atEnd()) return false;
     return true;
 }
 
@@ -540,7 +553,7 @@ void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level
 }
 
 //TODO: This is a duplicate of the Header Handler function. Refactor so that there is only one
-QString Level_Generator::Parse_Through_Comments_Until_First_Word(QFile &file, const QString &word, int &lineNum) {
+QString Level_Generator::Parse_Through_Comments_Until_First_Word(QTextStream &file, const QString &word, int &lineNum) {
     do {
         ++lineNum;
         QString line = file.readLine().trimmed();
@@ -553,7 +566,7 @@ QString Level_Generator::Parse_Through_Comments_Until_First_Word(QFile &file, co
 }
 
 //TODO: This is a duplicate of the Header Handler function. Refactor so that there is only one
-bool Level_Generator::Parse_Through_Comments_Until_String(QFile &file, const QString &value, int &lineNum) {
+bool Level_Generator::Parse_Through_Comments_Until_String(QTextStream &file, const QString &value, int &lineNum) {
     do {
         ++lineNum;
         QString line = file.readLine().trimmed();
@@ -607,7 +620,7 @@ void Level_Generator::Populate_Level_Map(QMap<QString, Level::Level> &levels) {
     levels.insert(Level::STRING_UNDERWATER_CASTLE, Level::UNDERWATER_CASTLE);
 }
 
-bool Level_Generator::Parse_To_Next_Seperator(QFile &file, int &lineNum) {
+bool Level_Generator::Parse_To_Next_Seperator(QTextStream &file, int &lineNum) {
     QString line = QString();
     do {
         ++lineNum;
@@ -618,7 +631,7 @@ bool Level_Generator::Parse_To_Next_Seperator(QFile &file, int &lineNum) {
     return true;
 }
 
-bool Level_Generator::Parse_Move_Table(QFile &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects) {
+bool Level_Generator::Parse_Move_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects) {
     bool success = false;
     do {
         ++lineNum;

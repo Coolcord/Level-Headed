@@ -9,7 +9,7 @@
 #include "../Common_SMB1_Files/Level_Compliment_String.h"
 #include <assert.h>
 
-Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file) : Item_Handler(writerPlugin) {
+Header_Handler::Header_Handler(SMB1_Writer_Interface *writerPlugin, QTextStream *file) : Item_Handler(writerPlugin) {
     assert(writerPlugin);
     assert(file);
     this->writerPlugin = writerPlugin;

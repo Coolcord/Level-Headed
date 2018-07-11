@@ -67,11 +67,12 @@ void Tab_Level_Generator::Clear_All_Random_Level_Scripts() {
         bool success = true;
         if (dir.exists()) {
             //Scan for valid level scripts
-            QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+            QStringList filters; filters.append("*"+Common_Strings::STRING_LEVELS_EXTENSION);
+            QStringList levelFolders = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
             foreach (QString level, levelFolders) {
-                if (level.size() == 28 && level.startsWith("Random ")) {
-                    QDir levelDir(dir.path() + "/" + level);
-                    if (!levelDir.removeRecursively()) success = false;
+                if (level.size() == 33 && level.startsWith("Random ")) {
+                    QFile levelFile(dir.path() + "/" + level);
+                    if (!levelFile.remove()) success = false;
                 }
             }
         }
@@ -127,19 +128,14 @@ void Tab_Level_Generator::Populate_Level_Scripts_ComboBox() {
     }
 
     //Scan for valid level scripts
-    QStringList levelFolders = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    QStringList filters; filters.append("*"+Common_Strings::STRING_LEVELS_EXTENSION);
+    QStringList levelFolders = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
     QStringList validLevelFolders;
     QStringList validRandomFolders;
     foreach (QString level, levelFolders) {
-        if (!dir.cd(level)) continue;
-        if (dir.exists(level + ".map")) {
-            if (level.startsWith("Random ")) validRandomFolders.append(level);
-            else validLevelFolders.append(level);
-        }
-        if (!dir.cdUp()) {
-            this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
-            return; //this shouldn't happen unless the parent directory is removed
-        }
+        level.chop(Common_Strings::STRING_LEVELS_EXTENSION.size());
+        if (level.startsWith("Random ")) validRandomFolders.append(level);
+        else validLevelFolders.append(level);
     }
 
     //Add the valid folders to the ComboBox

@@ -27,36 +27,33 @@ SMB1_Compliance_Parser::~SMB1_Compliance_Parser() {
     delete this->enemyHandler;
 }
 
-int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation) {
+int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream) {
     int lineNum = 1;
-    return this->Parse_Level(fileLocation, lineNum);
+    return this->Parse_Level(stream, lineNum);
 }
 
-int SMB1_Compliance_Parser::Parse_Level(const QString &fileLocation, int &lineNum) {
+int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, int &lineNum) {
     //Open the file for reading
-    QFile file(fileLocation);
-    if (!file.open(QFile::ReadOnly)) {
-        return 1;
-    }
+    if (stream->atEnd()) return 1;
     lineNum = 1;
     int errorCode = 2;
 
     //Parse the Header
-    if (!this->Parse_Header(&file, lineNum, errorCode)) return errorCode;
+    if (!this->Parse_Header(stream, lineNum, errorCode)) return errorCode;
 
     //Make sure that there are objects to parse
-    if (file.atEnd()) return 2;
+    if (stream->atEnd()) return 2;
 
     //Parse all of the Objects and Enemies
-    if (!this->Parse_Items(&file, lineNum, errorCode)) return errorCode;
+    if (!this->Parse_Items(stream, lineNum, errorCode)) return errorCode;
 
     //Make sure everything was parsed
-    if (!file.atEnd()) return 2;
+    if (!stream->atEnd()) return 2;
 
     return 0;
 }
 
-bool SMB1_Compliance_Parser::Parse_Header(QFile *file, int &lineNum, int &errorCode) {
+bool SMB1_Compliance_Parser::Parse_Header(QTextStream *file, int &lineNum, int &errorCode) {
     assert(file);
     Header_Handler headerHandler(this->writerPlugin, file);
     if (!headerHandler.Parse_Header(lineNum, errorCode)) return false;
@@ -64,9 +61,9 @@ bool SMB1_Compliance_Parser::Parse_Header(QFile *file, int &lineNum, int &errorC
     return true;
 }
 
-bool SMB1_Compliance_Parser::Parse_Items(QFile *file, int &lineNum, int &errorCode) {
+bool SMB1_Compliance_Parser::Parse_Items(QTextStream *file, int &lineNum, int &errorCode) {
     assert(file);
-    QByteArray line;
+    QString line = QString();
 
     //Read the Objects
     bool success = false;

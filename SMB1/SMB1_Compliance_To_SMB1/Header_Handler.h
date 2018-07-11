@@ -8,13 +8,13 @@
 #include "../Common_SMB1_Files/Background.h"
 #include "../Common_SMB1_Files/Scenery.h"
 #include "../Common_SMB1_Files/Level_Compliment.h"
-#include <QFile>
+#include <QTextStream>
 #include <QMap>
 
 class Header_Handler : public Item_Handler
 {
 public:
-    Header_Handler(SMB1_Writer_Interface *writerPlugin, QFile *file);
+    Header_Handler(SMB1_Writer_Interface *writerPlugin, QTextStream *file);
     ~Header_Handler();
     bool Parse_Header(int &lineNum, int &errorCode);
 
@@ -29,7 +29,7 @@ private:
 
     bool Parse_Ignored_Line(const QString &name, int &lineNum);
 
-    QFile *file;
+    QTextStream *file;
     QMap<QString, Level_Attribute::Level_Attribute> *attributes;
     QMap<QString, Brick::Brick> *bricks;
     QMap<QString, Background::Background> *backgrounds;
