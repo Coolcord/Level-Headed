@@ -172,7 +172,6 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     //Handle the problem case of spawning at the edge of a page
     if (absoluteX == 0xF) {
         if (x < 0x10) ++x;
-        else if (x < this->object->Get_Last_Object_Length()+1) ++x;
         else --x;
     }
     absoluteX = this->object->Get_Absolute_X(x);
