@@ -638,6 +638,11 @@ bool SMB1_Writer::Music_Tone_Color_10() {
     return this->music->Tone_Color_10();
 }
 
+bool SMB1_Writer::Music_Tone_Color_11() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_11();
+}
+
 QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {
     if (!this->sequentialArchiveHandler) return QStringList();
     return this->sequentialArchiveHandler->Get_Graphics_Packs();

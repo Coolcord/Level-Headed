@@ -73,3 +73,11 @@ bool Music::Tone_Color_10() {
     if (this->sequentialArchiveHandler->Is_Tone_Invalid(10)) return true;
     return this->Write_Bytes_To_Offset(0x77B7, QByteArray(1, 0x10));
 }
+
+bool Music::Tone_Color_11() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(11)) return true;
+    if (!this->Write_Bytes_To_Offset(0x7F17, QByteArray(1, 0xCF))) return false;
+    if (!this->Write_Bytes_To_Offset(0x7F2D, QByteArray(1, 0x67))) return false;
+    if (!this->Write_Bytes_To_Offset(0x7F45, QByteArray(1, 0xB3))) return false;
+    return this->Write_Bytes_To_Offset(0x7F72, QByteArray::fromHex(QString("021A").toLatin1()));
+}

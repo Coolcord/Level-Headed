@@ -165,6 +165,7 @@ public:
     virtual bool Music_Tone_Color_8()=0;
     virtual bool Music_Tone_Color_9()=0;
     virtual bool Music_Tone_Color_10()=0;
+    virtual bool Music_Tone_Color_11()=0;
 
     //Graphics
     virtual QStringList Graphics_Get_Graphic_Packs()=0;

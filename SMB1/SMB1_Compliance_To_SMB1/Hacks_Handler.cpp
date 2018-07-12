@@ -56,7 +56,7 @@ bool Hacks_Handler::Handle_Music() {
 
     //Handle the Tone Color
     int toneColor = this->pluginSettings->toneColor;
-    if (toneColor == 0) toneColor = Random::Get_Num(10)+1;
+    if (toneColor == 0) toneColor = Random::Get_Num(11)+1;
     qDebug().noquote() << "Using tone color " << toneColor-1;
     switch (toneColor) {
     default: assert(false);
@@ -71,6 +71,7 @@ bool Hacks_Handler::Handle_Music() {
     case 9:     success = this->writerPlugin->Music_Tone_Color_8(); break;
     case 10:    success = this->writerPlugin->Music_Tone_Color_9(); break;
     case 11:    success = this->writerPlugin->Music_Tone_Color_10(); break;
+    case 12:    success = this->writerPlugin->Music_Tone_Color_11(); break;
     }
     return success;
 }

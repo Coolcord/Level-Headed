@@ -258,6 +258,11 @@
                  <string>10</string>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string>11</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item row="0" column="0">
@@ -338,7 +343,7 @@
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>653</height>
+            <height>673</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -637,7 +642,7 @@
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1465</height>
+            <height>1485</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

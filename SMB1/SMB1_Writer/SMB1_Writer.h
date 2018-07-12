@@ -180,6 +180,7 @@ public:
     bool Music_Tone_Color_8();
     bool Music_Tone_Color_9();
     bool Music_Tone_Color_10();
+    bool Music_Tone_Color_11();
 
     //Graphics
     QStringList Graphics_Get_Graphic_Packs();
