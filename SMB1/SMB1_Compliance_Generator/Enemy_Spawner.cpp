@@ -106,11 +106,13 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
             }
         }
 
-        //TODO: Handle errors here... Maybe use a page change?
-        if (size == 0) {
-            if (!noEnemies && !this->enemies->Was_Lakitu_Spawned()) qDebug() << "Looks like an enemy failed to spawn";
-        } else {
+        if (size != 0) {
             lastX = x;
+        } else {
+            if (!noEnemies && !this->enemies->Was_Lakitu_Spawned() && this->args->levelType != Level_Type::UNDERWATER) {
+                //TODO: Handle errors here... Maybe use a page change?
+                qDebug() << "Looks like an enemy failed to spawn";
+            }
         }
 
         //Spawn a page change if necessary
