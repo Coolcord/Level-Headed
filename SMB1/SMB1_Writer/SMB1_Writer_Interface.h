@@ -142,6 +142,7 @@ public:
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
+    virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
     virtual bool Hacks_Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
@@ -165,7 +166,6 @@ public:
     virtual bool Music_Tone_Color_8()=0;
     virtual bool Music_Tone_Color_9()=0;
     virtual bool Music_Tone_Color_10()=0;
-    virtual bool Music_Tone_Color_11()=0;
 
     //Graphics
     virtual QStringList Graphics_Get_Graphic_Packs()=0;

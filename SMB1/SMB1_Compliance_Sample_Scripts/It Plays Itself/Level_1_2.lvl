@@ -9,7 +9,7 @@ Brick_Pattern: All
 Background: Night_And_Snow
 Scenery: No_Scenery
 Compliment: Trees
-Time: 400
+Time: 300
 Midpoint: 0
 ======================================================================
 Change_Brick_And_Scenery 0 Surface No_Scenery

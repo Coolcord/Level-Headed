@@ -157,6 +157,7 @@ public:
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
+    bool Hacks_Real_Time();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();
@@ -180,7 +181,6 @@ public:
     bool Music_Tone_Color_8();
     bool Music_Tone_Color_9();
     bool Music_Tone_Color_10();
-    bool Music_Tone_Color_11();
 
     //Graphics
     QStringList Graphics_Get_Graphic_Packs();

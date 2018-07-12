@@ -20,7 +20,6 @@ public:
     bool Tone_Color_8();
     bool Tone_Color_9();
     bool Tone_Color_10();
-    bool Tone_Color_11();
 
 private:
     Sequential_Archive_Handler *sequentialArchiveHandler;

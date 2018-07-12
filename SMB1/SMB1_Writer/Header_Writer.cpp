@@ -144,13 +144,14 @@ Brick::Brick Header_Writer::Get_Brick() {
 }
 
 bool Header_Writer::Set_Time(int value) {
+    if (value > 300) value = 300;
     //Determine what to write
     int hexDigit = 0x0;
     switch (value) {
     case 0:     hexDigit = 0x0; break;
-    case 400:   hexDigit = 0x1; break;
-    case 300:   hexDigit = 0x2; break;
-    case 200:   hexDigit = 0x3; break;
+    case 300:   hexDigit = 0x1; break;
+    case 200:   hexDigit = 0x2; break;
+    case 100:   hexDigit = 0x3; break;
     default:    return false;
     }
 

@@ -21,6 +21,7 @@ public:
     bool Infinite_Lives();
     bool Invincibility();
     bool Moon_Jump();
+    bool Real_Time();
     bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();

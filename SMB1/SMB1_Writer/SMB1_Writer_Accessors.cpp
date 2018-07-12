@@ -532,6 +532,11 @@ bool SMB1_Writer::Hacks_Infinite_Lives() {
     return this->hacks->Infinite_Lives();
 }
 
+bool SMB1_Writer::Hacks_Real_Time() {
+    if (!this->hacks) return false;
+    return this->hacks->Real_Time();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
@@ -636,11 +641,6 @@ bool SMB1_Writer::Music_Tone_Color_9() {
 bool SMB1_Writer::Music_Tone_Color_10() {
     if (!this->music) return false;
     return this->music->Tone_Color_10();
-}
-
-bool SMB1_Writer::Music_Tone_Color_11() {
-    if (!this->music) return false;
-    return this->music->Tone_Color_11();
 }
 
 QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {

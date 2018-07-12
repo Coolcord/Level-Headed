@@ -108,6 +108,12 @@ bool Hacks::Moon_Jump() {
     return this->Write_Bytes_To_Offset(0x3497, QByteArray(1, 0x13)); //jump while in midair
 }
 
+bool Hacks::Real_Time() {
+    if (!this->Write_Bytes_To_Offset(0x113E, QByteArray::fromHex(QString("030201").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3784, QByteArray::fromHex(QString("ADF807D00DADF907C904D006ADFA074C0BC1A940").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x411B, QByteArray::fromHex(QString("D004A94085FC4C86B7").toLatin1()));
+}
+
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     //Make sure the speed values are valid
     const int MAX_SPEED = 3;

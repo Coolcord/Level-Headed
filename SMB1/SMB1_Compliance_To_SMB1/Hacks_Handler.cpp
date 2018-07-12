@@ -35,6 +35,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
 
     //The patches below are always applied
+    if (!this->writerPlugin->Hacks_Real_Time()) return false;
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
     if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
@@ -56,7 +57,7 @@ bool Hacks_Handler::Handle_Music() {
 
     //Handle the Tone Color
     int toneColor = this->pluginSettings->toneColor;
-    if (toneColor == 0) toneColor = Random::Get_Num(11)+1;
+    if (toneColor == 0) toneColor = Random::Get_Num(10)+1;
     qDebug().noquote() << "Using tone color " << toneColor-1;
     switch (toneColor) {
     default: assert(false);
@@ -71,7 +72,6 @@ bool Hacks_Handler::Handle_Music() {
     case 9:     success = this->writerPlugin->Music_Tone_Color_8(); break;
     case 10:    success = this->writerPlugin->Music_Tone_Color_9(); break;
     case 11:    success = this->writerPlugin->Music_Tone_Color_10(); break;
-    case 12:    success = this->writerPlugin->Music_Tone_Color_11(); break;
     }
     return success;
 }
