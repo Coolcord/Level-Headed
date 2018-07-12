@@ -298,7 +298,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = Qt::Checked;
     this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.replaceFireFlowerWithHammerSuit = Qt::PartiallyChecked;
-    this->pluginSettings.enemySpeed = 0;
+    this->pluginSettings.enemySpeed = 1;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);
 }
