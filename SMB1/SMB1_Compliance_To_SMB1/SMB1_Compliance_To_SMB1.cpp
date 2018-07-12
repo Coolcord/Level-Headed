@@ -158,6 +158,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyComboIndex << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBulletTime << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTime << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyWalkingHammerBros << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBuzzyBeetlesReplaceLoneGoombas << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeFlyingCheepCheeps << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBridgeLakitus << Common_Strings::STRING_NEW_LINE;
@@ -184,6 +185,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpawnerPriority << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyPiranhaPlantType << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.standardOverworldChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.undergroundChance << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.underwaterChance << Common_Strings::STRING_NEW_LINE;
@@ -224,6 +226,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyComboIndex = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBulletTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyWalkingHammerBros = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBuzzyBeetlesReplaceLoneGoombas = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeFlyingCheepCheeps = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBridgeLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -250,6 +253,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpawnerPriority = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyPiranhaPlantType = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.standardOverworldChance = file.readLine().trimmed();
     this->pluginSettings.undergroundChance = file.readLine().trimmed();
     this->pluginSettings.underwaterChance = file.readLine().trimmed();

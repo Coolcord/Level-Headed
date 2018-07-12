@@ -15,6 +15,7 @@ private:
     bool Handle_Music();
     bool Handle_Graphics();
     bool Handle_Lives();
+    bool Handle_Piranha_Plants();
     bool Handle_God_Mode();
     bool Handle_Enemy_Speed();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);

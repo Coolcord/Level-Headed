@@ -55,25 +55,6 @@ bool Room_Order_Writer::Set_Next_Level(Level::Level level) {
     return true;
 }
 
-bool Room_Order_Writer::Set_Number_Of_Worlds(int value) {
-    if (value < 0 || value > 8) return false;
-    int startHardModeOnWorld = value/2;
-    --value; //value should be 0 based
-    QByteArray worldByte;
-    worldByte.append(static_cast<char>(value));
-
-    //These offsets must be patched for Number of Worlds to be set properly
-    if (!this->Write_Bytes_To_Offset(0x02B2, worldByte)) return false;
-    if (!this->Write_Bytes_To_Offset(0x0438, worldByte)) return false;
-    if (!this->Write_Bytes_To_Offset(0x047A, worldByte)) return false;
-    if (!this->Write_Bytes_To_Offset(0x6A27, worldByte)) return false;
-
-    //Correct hard mode activator
-    if (!this->Write_Bytes_To_Offset(0x1054, QByteArray(1, 0x00))) return false;
-    if (!this->Write_Bytes_To_Offset(0x104B, QByteArray(1, startHardModeOnWorld))) return false;
-    return this->Write_Bytes_To_Offset(0x512B, QByteArray(1, startHardModeOnWorld));
-}
-
 QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(unsigned char id) {
     QVector<unsigned char> *midpoints = new QVector<unsigned char>();
     int midpointIndex = 0;

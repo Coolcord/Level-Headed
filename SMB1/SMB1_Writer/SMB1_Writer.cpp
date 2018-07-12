@@ -252,11 +252,6 @@ int SMB1_Writer::Get_Num_Enemy_Bytes() {
     return this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(this->roomIDHandler->Get_Current_Level());
 }
 
-bool SMB1_Writer::Set_Number_Of_Worlds(int value) {
-    if (!this->roomOrderWriter) return false;
-    return this->roomOrderWriter->Set_Number_Of_Worlds(value);
-}
-
 QString SMB1_Writer::Get_Output_ROM_Location() {
     if (this->romHandler) return this->romHandler->Get_Ouput_ROM_Location();
     else return QString();

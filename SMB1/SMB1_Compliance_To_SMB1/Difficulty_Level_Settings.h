@@ -5,6 +5,7 @@ struct Difficulty_Level_Settings {
     bool save;
     int bulletTime;
     int hammerTime;
+    int walkingHammerBros;
     int buzzyBeetlesReplaceLoneGoombas;
     int bridgeFlyingCheepCheeps;
     int bridgeLakitus;
@@ -33,6 +34,7 @@ struct Difficulty_Level_Settings {
     bool disableAllOtherEnemiesWhenALakituSpawns;
     int spawnerPriority;
     bool superMarioOnDamage;
+    int piranhaPlantType;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

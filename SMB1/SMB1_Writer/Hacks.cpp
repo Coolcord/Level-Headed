@@ -2,10 +2,12 @@
 #include "Level_Offset.h"
 #include "Sequential_Archive_Handler.h"
 #include <assert.h>
+#include <cmath>
 
 Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
     assert(sequentialArchiveHandler);
     this->sequentialArchiveHandler = sequentialArchiveHandler;
+    this->difficultyWalkingHammerBros = 11;
 }
 
 bool Hacks::Add_Luigi_Game() {
@@ -21,19 +23,26 @@ bool Hacks::Add_Luigi_Game() {
     if (!this->Write_Bytes_To_Offset(0x5348, QByteArray::fromHex(QString("205F8FA9044C36BCEAEAEAEAEAEAEAEAEAEAEAEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x59BF, QByteArray(1, 0xFA))) return false;
     if (!this->Write_Bytes_To_Offset(0x5A02, QByteArray(1, 0xFA))) return false;
-    //return this->Write_Bytes_To_Offset(0x9FC6, QByteArray::fromHex(QString("160A1B121824100A160E242424228B0D151E12101224100A160E242424").toLatin1()));
-    return true; //the line above is no longer necessary with the new title screen
+    return true;
 }
 
 bool Hacks::Always_Autoscroll() {
     //By L
     return this->Write_Bytes_To_Offset(0x2FA3, QByteArray::fromHex(QString("EAADC4032920D060A50EC90B"
-        "F05AA41DAD5507C003F014C908B008AD8507F0032058D9AD2307D0404CC2AFC9509039A001").toLatin1()));
+                                                                           "F05AA41DAD5507C003F014C908B008AD8507F0032058D9AD2307D0404CC2AFC9509039A001").toLatin1()));
+}
+
+bool Hacks::Black_Piranha_Plants() {
+    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
+    if (!this->Write_Bytes_To_Offset(0x53EB, QByteArray(1, 0xFA))) return false;
+    if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23));
 }
 
 bool Hacks::Disable_Intro_Demo() {
-    if (!this->Write_Bytes_To_Offset(0x0350, QByteArray(21, 0x00))) return false;
-    return this->Write_Bytes_To_Offset(0x0365, QByteArray(20, 0xFF));
+    if (!this->Write_Bytes_To_Offset(0x277, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x289, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x2D0, QByteArray::fromHex(QString("EAEAEA").toLatin1()));
 }
 
 bool Hacks::Enable_Hitting_Underwater_Blocks() {
@@ -42,6 +51,12 @@ bool Hacks::Enable_Hitting_Underwater_Blocks() {
 
 bool Hacks::Enable_Piranha_Plants_On_First_Level() {
     return this->Write_Bytes_To_Offset(0x1905, QByteArray(5, 0xEA));
+}
+
+bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
+    if (difficulty < 1 || difficulty > 11) return false;
+    this->difficultyWalkingHammerBros = difficulty;
+    return true; //this patch will be applied when the number of worlds is set
 }
 
 bool Hacks::Fast_Enemies(int speed) {
@@ -114,6 +129,12 @@ bool Hacks::Real_Time() {
     return this->Write_Bytes_To_Offset(0x411B, QByteArray::fromHex(QString("D004A94085FC4C86B7").toLatin1()));
 }
 
+bool Hacks::Red_Piranha_Plants() {
+    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
+    if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x22));
+}
+
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     //Make sure the speed values are valid
     const int MAX_SPEED = 3;
@@ -173,6 +194,34 @@ bool Hacks::Replace_Mario_With_Luigi() {
     return this->Write_Bytes_To_Offset(0x765, luigiText); //change name above score
 }
 
+bool Hacks::Set_Number_Of_Worlds(int value) {
+    if (value < 0 || value > 8) return false;
+    int numWorlds = value;
+    int startHardModeOnWorld = value/2;
+    --value; //value should be 0 based
+    QByteArray worldByte;
+    worldByte.append(static_cast<char>(value));
+
+    //These offsets must be patched for Number of Worlds to be set properly
+    if (!this->Write_Bytes_To_Offset(0x02B2, worldByte)) return false;
+    if (!this->Write_Bytes_To_Offset(0x0438, worldByte)) return false;
+    if (!this->Write_Bytes_To_Offset(0x047A, worldByte)) return false;
+    if (!this->Write_Bytes_To_Offset(0x6A27, worldByte)) return false;
+
+    //Correct hard mode activator
+    if (!this->Write_Bytes_To_Offset(0x1054, QByteArray(1, 0x00))) return false;
+    if (!this->Write_Bytes_To_Offset(0x104B, QByteArray(1, startHardModeOnWorld))) return false;
+    if (!this->Write_Bytes_To_Offset(0x512B, QByteArray(1, startHardModeOnWorld))) return false;
+
+    //Apply the Walking Hammer Bros patch
+    assert(this->difficultyWalkingHammerBros >= 1 && this->difficultyWalkingHammerBros <= 11);
+    if (this->difficultyWalkingHammerBros == 11) return true;
+    int walkingHammerBrosWorld = 0;
+    assert(this->Convert_Difficulty_To_World(this->difficultyWalkingHammerBros, numWorlds, walkingHammerBrosWorld));
+    assert(walkingHammerBrosWorld >= 1 && walkingHammerBrosWorld <= 8);
+    return this->Enable_Walking_Hammer_Bros_In_World(walkingHammerBrosWorld);
+}
+
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 && lives > 0x80) return false;
     return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
@@ -205,4 +254,21 @@ bool Hacks::Write_Watermark() {
     //Change the end game text
     if (!this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()))) return false;
     return this->Start_Underwater_Castle_Brick_On_World(9); //disables underwater castle bricks
+}
+
+bool Hacks::Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world) {
+    if (difficulty < 1 || difficulty > 10) return false;
+    if (difficulty == 1) {
+        world = 1;
+        return true;
+    }
+    double difficultyDouble = static_cast<double>(difficulty)/10.0, numWorldsDouble = static_cast<double>(numWorlds);
+    world = static_cast<int>(std::round(difficultyDouble*numWorldsDouble));
+    return true;
+}
+
+bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
+    --world;
+    if (world < 0 || world > 0xF) return false;
+    return this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()));
 }

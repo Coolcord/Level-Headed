@@ -30,12 +30,14 @@ bool Hacks_Handler::Write_Hacks() {
     }
     if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
     if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
+    if (!this->Handle_Piranha_Plants()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
 
     //The patches below are always applied
     if (!this->writerPlugin->Hacks_Real_Time()) return false;
+    if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
     if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
@@ -95,6 +97,17 @@ bool Hacks_Handler::Handle_Lives() {
         if (!this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives)) return false;
     }
     return true;
+}
+
+bool Hacks_Handler::Handle_Piranha_Plants() {
+    int piranhaPlantType = this->pluginSettings->difficultyPiranhaPlantType;
+    if (piranhaPlantType == 0) piranhaPlantType = Random::Get_Num(2)+1;
+    switch (piranhaPlantType) {
+    default:    assert(false);
+    case 1:     return true;
+    case 2:     return this->writerPlugin->Hacks_Red_Piranha_Plants();
+    case 3:     return this->writerPlugin->Hacks_Black_Piranha_Plants();
+    }
 }
 
 bool Hacks_Handler::Handle_God_Mode() {

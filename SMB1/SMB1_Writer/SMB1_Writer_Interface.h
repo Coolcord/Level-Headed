@@ -24,7 +24,6 @@ public:
     virtual bool Write_Level()=0;
     virtual int Get_Num_Object_Bytes()=0;
     virtual int Get_Num_Enemy_Bytes()=0;
-    virtual bool Set_Number_Of_Worlds(int value)=0;
     virtual QString Get_Output_ROM_Location()=0;
     virtual bool Set_Output_ROM_Location(const QString &location)=0;
 
@@ -42,7 +41,6 @@ public:
 
     //Room Table
     virtual bool Room_Table_Set_Next_Level(Level::Level level)=0;
-    virtual bool Room_Table_Set_Number_Of_Worlds(int value)=0;
 
     //Objects
     virtual bool Object_Question_Block_With_Mushroom(int x, int y)=0;
@@ -135,17 +133,21 @@ public:
     //Hacks
     virtual bool Hacks_Add_Luigi_Game()=0;
     virtual bool Hacks_Always_Autoscroll()=0;
+    virtual bool Hacks_Black_Piranha_Plants()=0;
     virtual bool Hacks_Enable_God_Mode()=0;
     virtual bool Hacks_Enable_Hitting_Underwater_Blocks()=0;
     virtual bool Hacks_Enable_Piranha_Plants_On_First_Level()=0;
+    virtual bool Hacks_Enable_Walking_Hammer_Bros(int difficulty)=0;
     virtual bool Hacks_Fast_Enemies(int speed)=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Real_Time()=0;
+    virtual bool Hacks_Red_Piranha_Plants()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
     virtual bool Hacks_Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
+    virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Write_Watermark()=0;

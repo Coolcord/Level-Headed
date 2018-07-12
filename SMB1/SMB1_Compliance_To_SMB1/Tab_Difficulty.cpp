@@ -15,6 +15,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
+    this->ui->sbWalkingHammerBros->setValue(this->pluginSettings->difficultyWalkingHammerBros);
     this->ui->sbBuzzyBeetleReplaceLoneGoombas->setValue(this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas);
     this->ui->sbBridgeFlyingCheepCheeps->setValue(this->pluginSettings->difficultyBridgeFlyingCheepCheeps);
     this->ui->sbBridgeLakitus->setValue(this->pluginSettings->difficultyBridgeLakitus);
@@ -41,6 +42,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
     this->ui->comboSpawnerPriority->setCurrentIndex(this->pluginSettings->difficultySpawnerPriority);
+    this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
 }
 
 void Tab_Difficulty::Save_Settings() {
@@ -59,6 +61,7 @@ void Tab_Difficulty::Save_Settings() {
     case 0: //Custom
         this->pluginSettings->difficultyBulletTime = this->ui->sbBulletTime->value();
         this->pluginSettings->difficultyHammerTime = this->ui->sbHammerTime->value();
+        this->pluginSettings->difficultyWalkingHammerBros = this->ui->sbWalkingHammerBros->value();
         this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas = this->ui->sbBuzzyBeetleReplaceLoneGoombas->value();
         this->pluginSettings->difficultyBridgeFlyingCheepCheeps = this->ui->sbBridgeFlyingCheepCheeps->value();
         this->pluginSettings->difficultyBridgeLakitus = this->ui->sbBridgeLakitus->value();
@@ -86,6 +89,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
+        this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
         break;
     case 1: //Random
         break; //do nothing for now

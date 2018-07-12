@@ -66,11 +66,6 @@ bool SMB1_Writer::Room_Table_Set_Next_Level(Level::Level level) {
     return this->roomOrderWriter->Set_Next_Level(level);
 }
 
-bool SMB1_Writer::Room_Table_Set_Number_Of_Worlds(int value) {
-    if (!this->roomOrderWriter) return false;
-    return this->roomOrderWriter->Set_Number_Of_Worlds(value);
-}
-
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->objectWriter->Question_Block_With_Mushroom(x, y);
@@ -493,6 +488,11 @@ bool SMB1_Writer::Hacks_Always_Autoscroll() {
     return this->hacks->Always_Autoscroll();
 }
 
+bool SMB1_Writer::Hacks_Black_Piranha_Plants() {
+    if (!this->hacks) return false;
+    return this->hacks->Black_Piranha_Plants();
+}
+
 bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Moon_Jump()) return false;
@@ -510,6 +510,11 @@ bool SMB1_Writer::Hacks_Enable_Hitting_Underwater_Blocks() {
 bool SMB1_Writer::Hacks_Enable_Piranha_Plants_On_First_Level() {
     if (!this->hacks) return false;
     return this->hacks->Enable_Piranha_Plants_On_First_Level();
+}
+
+bool SMB1_Writer::Hacks_Enable_Walking_Hammer_Bros(int difficulty) {
+    if (!this->hacks) return false;
+    return this->hacks->Enable_Walking_Hammer_Bros(difficulty);
 }
 
 bool SMB1_Writer::Hacks_Fast_Enemies(int speed) {
@@ -537,6 +542,11 @@ bool SMB1_Writer::Hacks_Real_Time() {
     return this->hacks->Real_Time();
 }
 
+bool SMB1_Writer::Hacks_Red_Piranha_Plants() {
+    if (!this->hacks) return false;
+    return this->hacks->Red_Piranha_Plants();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
@@ -550,6 +560,11 @@ bool SMB1_Writer::Hacks_Replace_Fire_Flower_With_Hammer_Suit() {
 bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Mario_With_Luigi();
+}
+
+bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Number_Of_Worlds(value);
 }
 
 bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {

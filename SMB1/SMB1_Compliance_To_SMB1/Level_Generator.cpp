@@ -98,7 +98,7 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &lineNum, int &err
     bool valid = false;
     int numWorlds = elements.at(1).toInt(&valid);
     if (!valid) return false; //unable to parse int
-    if (!this->writerPlugin->Set_Number_Of_Worlds(numWorlds)) {
+    if (!this->writerPlugin->Hacks_Set_Number_Of_Worlds(numWorlds)) {
         errorCode = 3;
         return false;
     }
@@ -396,7 +396,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     }
 
     //Write the Number of Worlds
-    if (!this->writerPlugin->Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
+    if (!this->writerPlugin->Hacks_Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
         qDebug() << "Failed to write the number of worlds to the ROM!";
         return false;
     }

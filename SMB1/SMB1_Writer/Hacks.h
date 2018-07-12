@@ -11,9 +11,11 @@ public:
     ~Hacks() {}
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
+    bool Black_Piranha_Plants();
     bool Disable_Intro_Demo();
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();
+    bool Enable_Walking_Hammer_Bros(int difficulty);
     bool Fast_Enemies(int speed);
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
@@ -22,9 +24,11 @@ public:
     bool Invincibility();
     bool Moon_Jump();
     bool Real_Time();
+    bool Red_Piranha_Plants();
     bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
+    bool Set_Number_Of_Worlds(int value);
     bool Set_Starting_Lives(int lives);
     bool Star_Color_Mario();
     bool Start_Underwater_Castle_Brick_On_World(int world);
@@ -33,7 +37,11 @@ public:
     bool Write_Watermark();
 
 private:
+    bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
+    bool Enable_Walking_Hammer_Bros_In_World(int world);
+
     Sequential_Archive_Handler *sequentialArchiveHandler;
+    int difficultyWalkingHammerBros;
 };
 
 #endif // HACKS_H

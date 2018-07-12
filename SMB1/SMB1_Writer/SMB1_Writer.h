@@ -39,7 +39,6 @@ public:
     bool Write_Level();
     int Get_Num_Object_Bytes();
     int Get_Num_Enemy_Bytes();
-    bool Set_Number_Of_Worlds(int value);
     QString Get_Output_ROM_Location();
     bool Set_Output_ROM_Location(const QString &location);
 
@@ -57,7 +56,6 @@ public:
 
     //Room Table
     bool Room_Table_Set_Next_Level(Level::Level level);
-    bool Room_Table_Set_Number_Of_Worlds(int value);
 
     //Objects
     bool Object_Question_Block_With_Mushroom(int x, int y);
@@ -150,17 +148,21 @@ public:
     //Hacks
     bool Hacks_Add_Luigi_Game();
     bool Hacks_Always_Autoscroll();
+    bool Hacks_Black_Piranha_Plants();
     bool Hacks_Enable_God_Mode();
     bool Hacks_Enable_Hitting_Underwater_Blocks();
     bool Hacks_Enable_Piranha_Plants_On_First_Level();
+    bool Hacks_Enable_Walking_Hammer_Bros(int difficulty);
     bool Hacks_Fast_Enemies(int speed);
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
     bool Hacks_Real_Time();
+    bool Hacks_Red_Piranha_Plants();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();
+    bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     bool Hacks_Write_Watermark();

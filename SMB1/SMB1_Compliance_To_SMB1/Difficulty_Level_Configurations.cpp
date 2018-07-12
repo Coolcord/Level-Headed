@@ -7,6 +7,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     assert(pluginSettings);
     pluginSettings->difficultyBulletTime = difficultySettings.bulletTime;
     pluginSettings->difficultyHammerTime = difficultySettings.hammerTime;
+    pluginSettings->difficultyWalkingHammerBros = difficultySettings.walkingHammerBros;
     pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas = difficultySettings.buzzyBeetlesReplaceLoneGoombas;
     pluginSettings->difficultyBridgeFlyingCheepCheeps = difficultySettings.bridgeFlyingCheepCheeps;
     pluginSettings->difficultyBridgeLakitus = difficultySettings.bridgeLakitus;
@@ -35,12 +36,14 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
+    pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     Difficulty_Level_Settings difficultySettings;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
+    difficultySettings.walkingHammerBros = 11;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 6;
     difficultySettings.bridgeFlyingCheepCheeps = 3;
     difficultySettings.bridgeLakitus = 4;
@@ -69,6 +72,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
+    difficultySettings.piranhaPlantType = 1;
     return difficultySettings;
 }
 
@@ -120,6 +124,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
+    difficultySettings.piranhaPlantType = 2; //red
     return difficultySettings;
 }
 
@@ -128,6 +133,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.walkingHammerBros = 8;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.lakituSpawnChancePerLevel = 50;
     difficultySettings.bridgeLakitus = 1;
@@ -135,6 +141,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.islandLakitus = 1;
     difficultySettings.undergroundLakitus = 1;
     difficultySettings.underwaterLakitus = 11;
+    difficultySettings.piranhaPlantType = 3; //black
     return difficultySettings;
 }
 
@@ -143,6 +150,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
+    difficultySettings.walkingHammerBros = 1;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.lakituSpawnChancePerLevel = 25;
     difficultySettings.bridgeLakitus = 1;
@@ -150,6 +158,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.islandLakitus = 1;
     difficultySettings.undergroundLakitus = 1;
     difficultySettings.underwaterLakitus = 11;
+    difficultySettings.piranhaPlantType = 3; //black
     return difficultySettings;
 }
 
@@ -250,6 +259,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
     difficultySettings.bulletTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTime = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.walkingHammerBros = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.bridgeLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
@@ -277,6 +287,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Num(1));
+    difficultySettings.piranhaPlantType = 0; //0 is random here
     return difficultySettings;
 }
 
