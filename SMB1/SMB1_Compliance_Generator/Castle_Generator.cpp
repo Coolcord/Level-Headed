@@ -15,7 +15,8 @@ Castle_Generator::~Castle_Generator() {
 bool Castle_Generator::Generate_Level() {
     this->bowserFireReadyToSpawn = false;
     this->bowserFireSpawned = false;
-    this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()+4);
+    //Allocate space for Bowser's Fire, Bowser, Toad, and 2 possible page changes
+    this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()+8);
     int x = 0;
     assert(this->Spawn_Intro(x));
     this->brick = Brick::SURFACE_4_AND_CEILING_3;
@@ -133,7 +134,7 @@ bool Castle_Generator::Spawn_Intro(int &x) {
 void Castle_Generator::Handle_Bowser_Fire() {
     if (this->bowserFireReadyToSpawn) {
         if (!this->bowserFireSpawned) {
-            assert(this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()-2));
+            assert(this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()-4));
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER_FIRE_SPAWNER, 0));
             this->bowserFireSpawned = true;
         }
