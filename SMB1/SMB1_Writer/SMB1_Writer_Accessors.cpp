@@ -552,6 +552,21 @@ bool SMB1_Writer::Hacks_Remove_Vertical_Object_Limit() {
     return this->hacks->Remove_Vertical_Object_Limit();
 }
 
+bool SMB1_Writer::Hacks_Replace_1UP_With_Poison_Mushroom() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_1UP_With_Poison_Mushroom();
+}
+
+bool SMB1_Writer::Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
+}
+
+bool SMB1_Writer::Hacks_Replace_1UP_With_Swimming_Mushroom() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_1UP_With_Swimming_Mushroom();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
@@ -575,6 +590,11 @@ bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
 bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
     if (!this->hacks) return false;
     return this->hacks->Set_Starting_Lives(lives);
+}
+
+bool SMB1_Writer::Hacks_Start_With_Fire_Flower_On_Room_Change() {
+    if (!this->hacks) return false;
+    return this->hacks->Start_With_Fire_Flower_On_Room_Change();
 }
 
 bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
@@ -676,6 +696,11 @@ bool SMB1_Writer::Graphics_Apply_Graphic_Pack(int index) {
 int SMB1_Writer::Graphics_Get_Number_Of_Graphic_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
+}
+
+bool SMB1_Writer::Graphics_Change_1UP_Palette(int palette) {
+    if (!this->graphics) return false;
+    return this->graphics->Change_1UP_Palette(palette);
 }
 
 bool SMB1_Writer::Graphics_Write_Title_Screen_For_1_Player_Game() {

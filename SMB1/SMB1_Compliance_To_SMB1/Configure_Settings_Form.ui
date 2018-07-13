@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -277,6 +277,51 @@
                 </widget>
                </item>
               </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutSecondaryMushroom">
+             <item>
+              <widget class="QLabel" name="lblSecondaryMushroom">
+               <property name="text">
+                <string>Secondary Mushroom:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboSecondaryMushroom">
+               <item>
+                <property name="text">
+                 <string>Random (1-UP, Poison, Swimming)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Random All</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1-Up Mushroom</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Poison Mushroom</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Swimming Mushroom</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mystery Mushroom</string>
+                </property>
+               </item>
+              </widget>
              </item>
             </layout>
            </item>
@@ -635,9 +680,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-883</y>
+            <y>0</y>
             <width>652</width>
-            <height>1552</height>
+            <height>1581</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1558,6 +1603,13 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="tristate">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbStartWithFireFlowerOnRoomChange">
+                <property name="text">
+                 <string>Start with Fire Flower on room change</string>
                 </property>
                </widget>
               </item>

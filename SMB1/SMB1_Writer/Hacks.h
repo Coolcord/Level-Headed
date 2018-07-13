@@ -26,6 +26,9 @@ public:
     bool Real_Time();
     bool Red_Piranha_Plants();
     bool Remove_Vertical_Object_Limit();
+    bool Replace_1UP_With_Poison_Mushroom();
+    bool Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
+    bool Replace_1UP_With_Swimming_Mushroom();
     bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
@@ -33,6 +36,7 @@ public:
     bool Set_Starting_Lives(int lives);
     bool Star_Color_Mario();
     bool Start_Underwater_Castle_Brick_On_World(int world);
+    bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Unlimited_Time();
     bool Write_Watermark();

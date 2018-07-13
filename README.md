@@ -61,8 +61,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  **Q: Do you plan to add support for custom patches (.ips, .ppf, etc)?**
  
- A: At this point, no. If you want to use these, you can try to generate a game with Level-Headed first
- and then applying the patch, but I can't guarentee that it'll work.
+ A: [Hexagon](https://github.com/Coolcord/Hexagon) patches will be supported in v0.3.0+ for graphics and music packs.
  
  **Q: What's going to be in the next update?**
  

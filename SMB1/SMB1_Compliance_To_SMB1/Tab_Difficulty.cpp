@@ -12,6 +12,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
+    this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
@@ -38,6 +39,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbStandardOverworldLakitus->setValue(this->pluginSettings->difficultyStandardOverworldLakitus);
     this->ui->sbStandardOverworldOffscreenBulletBills->setValue(this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills);
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
+    this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
@@ -53,6 +55,7 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->autoscroll = this->ui->cbAutoscroll->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
+    this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
@@ -84,6 +87,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyStandardOverworldLakitus = this->ui->sbStandardOverworldLakitus->value();
         this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = this->ui->sbStandardOverworldOffscreenBulletBills->value();
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
+        this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();

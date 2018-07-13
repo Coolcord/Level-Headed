@@ -160,11 +160,15 @@ public:
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();
+    bool Hacks_Replace_1UP_With_Poison_Mushroom();
+    bool Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
+    bool Hacks_Replace_1UP_With_Swimming_Mushroom();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Starting_Lives(int lives);
+    bool Hacks_Start_With_Fire_Flower_On_Room_Change();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     bool Hacks_Write_Watermark();
 
@@ -189,6 +193,7 @@ public:
     QStringList Graphics_Get_Graphic_Packs();
     bool Graphics_Apply_Graphic_Pack(int index);
     int Graphics_Get_Number_Of_Graphic_Packs();
+    bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
 

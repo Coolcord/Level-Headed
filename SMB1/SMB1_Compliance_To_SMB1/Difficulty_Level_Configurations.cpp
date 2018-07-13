@@ -30,6 +30,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyStandardOverworldLakitus = difficultySettings.standardOverworldLakitus;
     pluginSettings->difficultyStandardOverworldOffscreenBulletBills = difficultySettings.standardOverworldOffscreenBulletBills;
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
+    pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
@@ -66,6 +67,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.standardOverworldLakitus = 4;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.noEnemies = false;
+    difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituThrowArc = true;
@@ -102,6 +104,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.startWithFireFlowerOnRoomChange = true;
     return difficultySettings;
 }
 

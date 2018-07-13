@@ -12,6 +12,7 @@ class Graphics : public Byte_Writer
 public:
     Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
     ~Graphics() {}
+    bool Change_1UP_Palette(int palette);
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
 

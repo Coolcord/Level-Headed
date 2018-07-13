@@ -13,6 +13,11 @@ Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Ha
     this->text = text;
 }
 
+bool Graphics::Change_1UP_Palette(int palette) {
+    if (palette < 0 || palette > 3) return false;
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<unsigned char>(palette)));
+}
+
 bool Graphics::Write_Title_Screen_Core() {
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     return this->Write_Bytes_To_Offset(0x9ED1, QByteArray::fromHex(QString("8702ABAD20894E452097"

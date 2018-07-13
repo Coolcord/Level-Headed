@@ -29,11 +29,13 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
     }
     if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
+    if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
     if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Piranha_Plants()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
+    if (!this->Handle_Secondary_Mushroom()) return false;
 
     //The patches below are always applied
     if (!this->writerPlugin->Hacks_Real_Time()) return false;
@@ -125,6 +127,35 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
         speed = Random::Get_Num(4)+1; //random all
     }
     return this->writerPlugin->Hacks_Fast_Enemies(speed);
+}
+
+bool Hacks_Handler::Handle_Secondary_Mushroom() {
+    //Handle random values first
+    int secondaryMushroom = this->pluginSettings->secondaryMushroom;
+    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Num(2)+2; //1-Up, Poison, Swimming
+    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Num(3)+2; //1-Up, Poison, Swimming, Mystery
+
+    //Handle the Mystery Mushroom
+    bool randomPalette = false;
+    if (secondaryMushroom == 5) {
+        randomPalette = true;
+        secondaryMushroom = Random::Get_Num(3)+2; //1-Up, Poison, Swimming, Poison or 1-Up
+    }
+
+    //Apply the necessary patch
+    bool success = false;
+    switch (secondaryMushroom) {
+    default:    assert(false);
+    case 2:     success = true; break; //1-Up
+    case 3:     success = this->writerPlugin->Hacks_Replace_1UP_With_Poison_Mushroom(); break;
+    case 4:     success = this->writerPlugin->Hacks_Replace_1UP_With_Swimming_Mushroom(); break;
+    case 5:     success = this->writerPlugin->Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario(); break;
+    }
+    if (!success) return false;
+    if (!randomPalette) return true;
+
+    //Change the palette if it is a Mystery Mushroom
+    return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Num(3));
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {

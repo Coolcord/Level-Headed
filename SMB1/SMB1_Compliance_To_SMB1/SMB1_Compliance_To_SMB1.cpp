@@ -181,6 +181,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyStandardOverworldLakitus << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyNoEnemies << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns << Common_Strings::STRING_NEW_LINE;
@@ -204,6 +205,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.replaceFireFlowerWithHammerSuit << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.enemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.secondaryMushroom << Common_Strings::STRING_NEW_LINE;
     stream.flush();
     file.close();
     return true;
@@ -249,6 +251,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyStandardOverworldLakitus = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyNoEnemies = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -272,6 +275,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.replaceFireFlowerWithHammerSuit = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.secondaryMushroom = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
 }
 
@@ -303,6 +307,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.replaceFireFlowerWithHammerSuit = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 1;
+    this->pluginSettings.secondaryMushroom = 0;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);
 }

@@ -28,6 +28,7 @@ struct Difficulty_Level_Settings {
     int standardOverworldLakitus;
     int standardOverworldOffscreenBulletBills;
     bool noEnemies;
+    bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
     int lakituSpawnChancePerLevel;
     bool lakituThrowArc;

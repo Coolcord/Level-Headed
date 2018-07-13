@@ -162,6 +162,36 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     return this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()));
 }
 
+bool Hacks::Replace_1UP_With_Poison_Mushroom() {
+    //by YY
+    if (!this->Write_Bytes_To_Offset(0x5813, QByteArray::fromHex(QString("A539C903F033A9062011DAA92085FEA539C902900AA9238D9F07A94085FB60AD5607F019C901D021"
+            "A608A9028D560720F185A608A90C4C47D84CF2D7").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, 0x03));
+}
+
+bool Hacks::Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
+    //by MHS
+    if (!this->Write_Bytes_To_Offset(0x2254, QByteArray::fromHex(QString("CF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x2280, QByteArray::fromHex(QString("CF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x239F, QByteArray::fromHex(QString("7F7B5E8E7F7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x23AD, QByteArray::fromHex(QString("BF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x23CF, QByteArray::fromHex(QString("DF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x23DF, QByteArray::fromHex(QString("DF7BCE86DF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x241E, QByteArray::fromHex(QString("4F7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x2436, QByteArray::fromHex(QString("EF7B").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x245A, QByteArray::fromHex(QString("3FFB").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AD5607F004C901D0034CF2D7A9062011DAA92085FEA90B9D100160").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5813, QByteArray::fromHex(QString("A539C903F033A9062011DAA92085FEA539C902900AA9238D9F07A94085FB60AD5607F019C901D021"
+            "A608A9028D560720F185A608A90C4C47D84C6BC0").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, 0x03));
+}
+
+bool Hacks::Replace_1UP_With_Swimming_Mushroom() {
+    if (!this->Write_Bytes_To_Offset(0xD7A, QByteArray::fromHex(QString("AD0407F006CE04074CED90EE04074C1BD8").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x584A, QByteArray::fromHex(QString("4C6A8D").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, 0x00));
+}
+
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     //Make sure the speed values are valid
     const int MAX_SPEED = 3;
@@ -263,6 +293,13 @@ bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
     return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, world-1));
 }
 
+bool Hacks::Start_With_Fire_Flower_On_Room_Change() {
+    if (!this->Write_Bytes_To_Offset(0x5B4, QByteArray(1, 0x02))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5C1, QByteArray(1, 0xAD))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1072, QByteArray::fromHex(QString("008D5707AD").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x1278, QByteArray(1, 0x00));
+}
+
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
     //JMP $C114
     if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C14C1").toLatin1()))) return false;
@@ -295,6 +332,7 @@ bool Hacks::Convert_Difficulty_To_World(int difficulty, int numWorlds, int &worl
 }
 
 bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
+    //by YY
     --world;
     if (world < 0 || world > 0xF) return false;
     return this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()));

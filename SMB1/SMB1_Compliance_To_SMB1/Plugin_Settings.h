@@ -48,6 +48,7 @@ struct Plugin_Settings {
     Qt::CheckState autoscroll;
     Qt::CheckState replaceFireFlowerWithHammerSuit;
     int enemySpeed;
+    int secondaryMushroom;
     int difficultyComboIndex;
     int difficultyBulletTime;
     int difficultyHammerTime;
@@ -74,6 +75,7 @@ struct Plugin_Settings {
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
     bool difficultyNoEnemies;
+    bool difficultyStartWithFireFlowerOnRoomChange;
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
