@@ -23,6 +23,8 @@ void Tab_Level_Generator::Load_Settings() {
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
     this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
+    this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
+    this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
     this->Enable_Random_Number_Of_Worlds(this->pluginSettings->randomNumWorlds);
     this->ui->comboStandardOverworld->setCurrentText(this->pluginSettings->standardOverworldChance);
     this->ui->comboUnderground->setCurrentText(this->pluginSettings->undergroundChance);
