@@ -33,6 +33,7 @@ public:
     bool Replace_Fire_Flower_With_Hammer_Suit();
     bool Replace_Mario_With_Luigi();
     bool Set_Number_Of_Worlds(int value);
+    bool Set_Lakitu_Respawn_Speed(int value);
     bool Set_Starting_Lives(int lives);
     bool Star_Color_Mario();
     bool Start_Underwater_Castle_Brick_On_World(int world);

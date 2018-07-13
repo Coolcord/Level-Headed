@@ -78,6 +78,7 @@ struct Plugin_Settings {
     bool difficultyStartWithFireFlowerOnRoomChange;
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;
+    int difficultyLakituRespawnSpeed;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     int difficultySpawnerPriority;
     int difficultyPiranhaPlantType;

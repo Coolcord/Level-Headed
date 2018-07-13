@@ -33,6 +33,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
+    pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
@@ -70,6 +71,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.lakituSpawnChancePerLevel = 35;
+    difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
@@ -104,6 +106,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
     return difficultySettings;
 }
@@ -113,21 +116,41 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.bulletTime = difficultySettings.hammerTime; //activate bullet time where hammer time would be activated
     difficultySettings.hammerTime = 11; //disable hammer time
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.lakituRespawnSpeed = 3;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
-    difficultySettings.bulletTime = 1;
-    difficultySettings.hammerTime = 1;
-    difficultySettings.bridgeFlyingCheepCheeps = 1;
+    difficultySettings.bulletTime = 5;
+    difficultySettings.hammerTime = 7;
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 4;
+    difficultySettings.walkingHammerBros = 11;
+    difficultySettings.bridgeFlyingCheepCheeps = 2;
+    difficultySettings.bridgeLakitus = 11;
+    difficultySettings.bridgeOffscreenBulletBills = 11;
     difficultySettings.castleFireBars = 1;
-    difficultySettings.islandOffscreenBulletBills = 1;
-    difficultySettings.standardOverworldLakitus = 1;
+    difficultySettings.castleFlyingCheepCheeps = 10;
+    difficultySettings.castleLakitus = 10;
+    difficultySettings.castleOffscreenBulletBills = 11;
+    difficultySettings.islandFlyingCheepCheeps = 8;
+    difficultySettings.islandLakitus = 6;
+    difficultySettings.islandOffscreenBulletBills = 3;
+    difficultySettings.undergroundFlyingCheepCheeps = 11;
+    difficultySettings.undergroundLakitus = 6;
+    difficultySettings.undergroundOffscreenBulletBills = 8;
+    difficultySettings.underwaterBloopers = 2;
+    difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterLakitus = 6;
+    difficultySettings.underwaterSwimmingCheepCheeps = 1;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
+    difficultySettings.standardOverworldLakitus = 3;
+    difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
+    difficultySettings.lakituRespawnSpeed = 5;
     return difficultySettings;
 }
 
@@ -142,6 +165,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.bridgeLakitus = 1;
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.islandLakitus = 1;
+    difficultySettings.underwaterBloopers = 1;
     difficultySettings.undergroundLakitus = 1;
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.piranhaPlantType = 3; //black
@@ -216,6 +240,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     return difficultySettings;
 }

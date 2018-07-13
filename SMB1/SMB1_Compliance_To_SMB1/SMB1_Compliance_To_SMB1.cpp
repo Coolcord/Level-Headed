@@ -184,6 +184,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyLakituRespawnSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpawnerPriority << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyPiranhaPlantType << Common_Strings::STRING_NEW_LINE;
@@ -254,6 +255,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyLakituRespawnSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpawnerPriority = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyPiranhaPlantType = file.readLine().trimmed().toInt(&valid); if (!valid) return false;

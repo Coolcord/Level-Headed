@@ -32,6 +32,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
     if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Piranha_Plants()) return false;
+    if (!this->Handle_Lakitu_Respawn_Speed()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
@@ -89,6 +90,19 @@ bool Hacks_Handler::Handle_Graphics() {
     default:    success = this->writerPlugin->Graphics_Apply_Graphic_Pack(graphics-2); break;
     }
     return success;
+}
+
+bool Hacks_Handler::Handle_Lakitu_Respawn_Speed() {
+    int lakituRespawnSpeed = this->pluginSettings->difficultyLakituRespawnSpeed;
+    switch (lakituRespawnSpeed) {
+    default:    assert(false);
+    case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Num(0x8));
+    case 1:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x10);
+    case 2:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0xF);
+    case 3:     return true; //nothing to do... default value should be 0x7
+    case 4:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x4);
+    case 5:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x0);
+    }
 }
 
 bool Hacks_Handler::Handle_Lives() {

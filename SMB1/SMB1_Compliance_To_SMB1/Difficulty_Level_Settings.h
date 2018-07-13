@@ -31,6 +31,7 @@ struct Difficulty_Level_Settings {
     bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
     int lakituSpawnChancePerLevel;
+    int lakituRespawnSpeed;
     bool lakituThrowArc;
     bool disableAllOtherEnemiesWhenALakituSpawns;
     int spawnerPriority;

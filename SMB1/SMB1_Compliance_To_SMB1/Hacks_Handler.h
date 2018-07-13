@@ -14,6 +14,7 @@ public:
 private:
     bool Handle_Music();
     bool Handle_Graphics();
+    bool Handle_Lakitu_Respawn_Speed();
     bool Handle_Lives();
     bool Handle_Piranha_Plants();
     bool Handle_God_Mode();

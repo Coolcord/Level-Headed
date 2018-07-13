@@ -166,6 +166,7 @@ public:
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();
+    bool Hacks_Set_Lakitu_Respawn_Speed(int value);
     bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Start_With_Fire_Flower_On_Room_Change();

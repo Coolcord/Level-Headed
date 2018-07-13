@@ -279,6 +279,13 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
     return this->Enable_Walking_Hammer_Bros_In_World(walkingHammerBrosWorld);
 }
 
+bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
+    //A value of 0x10 will disable respawn completely
+    if (value < 0 || value > 0x10) return false;
+    if (value == 0x10) return this->Write_Bytes_To_Offset(0x43D4, QByteArray::fromHex(QString("38EAB0").toLatin1()));
+    else return this->Write_Bytes_To_Offset(0x43D5, QByteArray(1, static_cast<unsigned char>(value)));
+}
+
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 && lives > 0x80) return false;
     return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));

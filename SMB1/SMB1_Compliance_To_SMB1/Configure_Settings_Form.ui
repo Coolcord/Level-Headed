@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -680,9 +680,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-904</y>
             <width>652</width>
-            <height>1581</height>
+            <height>1614</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1507,6 +1507,51 @@ p, li { white-space: pre-wrap; }
                   <property name="value">
                    <number>0</number>
                   </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutLakituRespawnSpeed">
+                <item>
+                 <widget class="QLabel" name="lblLakituRespawnSpeed">
+                  <property name="text">
+                   <string>Lakitu Respawn Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboLakituRespawnSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>No Respawn</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Delayed</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Quick</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ASAP</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>

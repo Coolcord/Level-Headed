@@ -582,6 +582,11 @@ bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
     return this->hacks->Replace_Mario_With_Luigi();
 }
 
+bool SMB1_Writer::Hacks_Set_Lakitu_Respawn_Speed(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Lakitu_Respawn_Speed(value);
+}
+
 bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Number_Of_Worlds(value);
