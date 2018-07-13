@@ -59,7 +59,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  A: Sure, I'll consider it! The graphics and music help make each game feel slightly more unique. Over time,
  I'd like to collect as many as I can to help add more variety.
  
- **Q: Do you plan to add support for custom patches (.ips, .ppf, etc)?**
+ **Q: Do you plan to add support for custom patches?**
  
  A: [Hexagon](https://github.com/Coolcord/Hexagon) patches will be supported in v0.3.0+ for graphics and music packs.
  
@@ -72,8 +72,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  A: There are two major goals that I'm hoping to accomplish. The first is a pattern database for the 
  "SMB1_Compliance" generator. This should make it significantly easier to create new patterns and also
  allow users to create their own. The second goal is to add support for another game that isn't a
- Nintendo property. Maybe Supertux? For now, I'm thinking about releasing smaller updates more
- often that slowly move towards these goals.
+ Nintendo property. Maybe Supertux?
  
  **Q: Is Level-Headed dead? You haven't updated it in months!**
  
