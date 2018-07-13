@@ -159,6 +159,7 @@ public:
     bool Hacks_Infinite_Lives();
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
+    bool Hacks_Remove_Vertical_Object_Limit();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();

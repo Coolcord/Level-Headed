@@ -135,6 +135,33 @@ bool Hacks::Red_Piranha_Plants() {
     return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x22));
 }
 
+bool Hacks::Remove_Vertical_Object_Limit() {
+    //by Chacky
+    if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, 0x00))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1140, QByteArray(1, 0x01))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1519, QByteArray(1, 0x0A))) return false;
+    if (!this->Write_Bytes_To_Offset(0x152B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1584, QByteArray::fromHex(QString("85043003DE8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x15A6, QByteArray::fromHex(QString("85043003BC5704").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1629, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x166A, QByteArray::fromHex(QString("5704").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x16D6, QByteArray::fromHex(QString("5704").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1760, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1768, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1790, QByteArray::fromHex(QString("85044A9DF404").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x179E, QByteArray::fromHex(QString("8504F01EBDF404").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x17D3, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1823, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1849, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1883, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x18C8, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x190B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1BC0, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()));
+}
+
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     //Make sure the speed values are valid
     const int MAX_SPEED = 3;

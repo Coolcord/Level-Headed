@@ -547,6 +547,11 @@ bool SMB1_Writer::Hacks_Red_Piranha_Plants() {
     return this->hacks->Red_Piranha_Plants();
 }
 
+bool SMB1_Writer::Hacks_Remove_Vertical_Object_Limit() {
+    if (!this->hacks) return false;
+    return this->hacks->Remove_Vertical_Object_Limit();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);

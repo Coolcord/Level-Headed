@@ -635,7 +635,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-134</y>
+            <y>-883</y>
             <width>652</width>
             <height>1552</height>
            </rect>
@@ -960,36 +960,6 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="maximum">
                    <number>11</number>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
-                <item>
-                 <widget class="QLabel" name="lblHammerTimeIntensity">
-                  <property name="toolTip">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string>Hammer Time Intensity:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="sbHammerTimeIntensity">
-                  <property name="suffix">
-                   <string>%</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
                   </property>
                  </widget>
                 </item>
@@ -1434,6 +1404,36 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="maximum">
                    <number>11</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
+                <item>
+                 <widget class="QLabel" name="lblHammerTimeIntensity">
+                  <property name="toolTip">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string>Hammer Time Intensity:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbHammerTimeIntensity">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
                   </property>
                  </widget>
                 </item>

@@ -144,6 +144,7 @@ public:
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Red_Piranha_Plants()=0;
+    virtual bool Hacks_Remove_Vertical_Object_Limit()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
     virtual bool Hacks_Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
