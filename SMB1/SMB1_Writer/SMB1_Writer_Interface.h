@@ -146,11 +146,7 @@ public:
     virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Red_Piranha_Plants()=0;
     virtual bool Hacks_Remove_Vertical_Object_Limit()=0;
-    virtual bool Hacks_Replace_1UP_With_Poison_Mushroom()=0;
-    virtual bool Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario()=0;
-    virtual bool Hacks_Replace_1UP_With_Swimming_Mushroom()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
-    virtual bool Hacks_Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
     virtual bool Hacks_Set_Lakitu_Respawn_Speed(int value)=0;
     virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
@@ -175,6 +171,12 @@ public:
     virtual bool Music_Tone_Color_8()=0;
     virtual bool Music_Tone_Color_9()=0;
     virtual bool Music_Tone_Color_10()=0;
+
+    //Powerups
+    virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
+    virtual bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario()=0;
+    virtual bool Powerups_Replace_1UP_With_Swimming_Mushroom()=0;
+    virtual bool Powerups_Replace_Fire_Flower_With_Hammer_Suit()=0;
 
     //Graphics
     virtual QStringList Graphics_Get_Graphic_Packs()=0;

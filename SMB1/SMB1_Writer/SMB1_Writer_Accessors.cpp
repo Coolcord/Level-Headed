@@ -7,6 +7,7 @@
 #include "Room_ID_Handler.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Powerups.h"
 #include "Graphics.h"
 #include "Sequential_Archive_Handler.h"
 #include <QDebug>
@@ -557,29 +558,9 @@ bool SMB1_Writer::Hacks_Remove_Vertical_Object_Limit() {
     return this->hacks->Remove_Vertical_Object_Limit();
 }
 
-bool SMB1_Writer::Hacks_Replace_1UP_With_Poison_Mushroom() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_1UP_With_Poison_Mushroom();
-}
-
-bool SMB1_Writer::Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
-}
-
-bool SMB1_Writer::Hacks_Replace_1UP_With_Swimming_Mushroom() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_1UP_With_Swimming_Mushroom();
-}
-
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
-}
-
-bool SMB1_Writer::Hacks_Replace_Fire_Flower_With_Hammer_Suit() {
-    if (!this->hacks) return false;
-    return this->hacks->Replace_Fire_Flower_With_Hammer_Suit();
 }
 
 bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
@@ -691,6 +672,26 @@ bool SMB1_Writer::Music_Tone_Color_9() {
 bool SMB1_Writer::Music_Tone_Color_10() {
     if (!this->music) return false;
     return this->music->Tone_Color_10();
+}
+
+bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_1UP_With_Poison_Mushroom();
+}
+
+bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
+}
+
+bool SMB1_Writer::Powerups_Replace_1UP_With_Swimming_Mushroom() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_1UP_With_Swimming_Mushroom();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Hammer_Suit() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Hammer_Suit();
 }
 
 QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {

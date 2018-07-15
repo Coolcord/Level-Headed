@@ -21,6 +21,7 @@ class Music;
 class Sequential_Archive_Handler;
 class Text;
 class Graphics;
+class Powerups;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
     Q_OBJECT
@@ -161,11 +162,7 @@ public:
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();
-    bool Hacks_Replace_1UP_With_Poison_Mushroom();
-    bool Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
-    bool Hacks_Replace_1UP_With_Swimming_Mushroom();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
-    bool Hacks_Replace_Fire_Flower_With_Hammer_Suit();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Lakitu_Respawn_Speed(int value);
     bool Hacks_Set_Number_Of_Worlds(int value);
@@ -190,6 +187,12 @@ public:
     bool Music_Tone_Color_8();
     bool Music_Tone_Color_9();
     bool Music_Tone_Color_10();
+
+    //Powerups
+    bool Powerups_Replace_1UP_With_Poison_Mushroom();
+    bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
+    bool Powerups_Replace_1UP_With_Swimming_Mushroom();
+    bool Powerups_Replace_Fire_Flower_With_Hammer_Suit();
 
     //Graphics
     QStringList Graphics_Get_Graphic_Packs();
@@ -230,6 +233,7 @@ private:
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     Graphics *graphics;
+    Powerups *powerups;
     ROM_Handler *romHandler;
     QString applicationLocation;
     QString romFileName;

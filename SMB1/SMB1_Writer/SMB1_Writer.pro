@@ -32,7 +32,8 @@ SOURCES += SMB1_Writer.cpp \
     Byte_Writer.cpp \
     Graphics.cpp \
     Text.cpp \
-    Sequential_Archive_Handler.cpp
+    Sequential_Archive_Handler.cpp \
+    Powerups.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -66,7 +67,8 @@ HEADERS += SMB1_Writer.h \
     Byte_Writer.h \
     Graphics.h \
     Text.h \
-    Sequential_Archive_Handler.h
+    Sequential_Archive_Handler.h \
+    Powerups.h
 OTHER_FILES +=
 
 unix {

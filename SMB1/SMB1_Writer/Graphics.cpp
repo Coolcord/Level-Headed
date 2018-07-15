@@ -1,16 +1,40 @@
 #include "Graphics.h"
 #include "../../Common_Files/Version.h"
+#include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
 #include <assert.h>
+#include <QTextStream>
 
 const static qint64 DEFAULT_VERSION_OFFSET = 0x9F68;
+const static QString STRING_VERSION_OFFSET = Patch_Strings::STRING_COMMENT+" Version Offset: ";
+const static QString STRING_HAMMER_SUIT = "Hammer Suit";
+const static QString STRING_TITLE_SCREEN_1P = "Title Screen 1P";
+const static QString STRING_TITLE_SCREEN_2P = "Title Screen 2P";
 
 Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
     assert(text); assert(sequentialArchiveHandler);
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->text = text;
+}
+
+bool Graphics::Apply_Hammer_Suit_Fix() {
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_HAMMER_SUIT);
+}
+
+bool Graphics::Apply_Title_Screen_1P_Fix(qint64 &versionOffset) {
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P);
+    if (patchBytes.isEmpty()) return true; //nothing to do
+    this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
+}
+
+bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P);
+    if (patchBytes.isEmpty()) return true; //nothing to do
+    this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
 }
 
 bool Graphics::Change_1UP_Palette(int palette) {
@@ -63,12 +87,35 @@ bool Graphics::Write_Title_Screen_For_1_Player_Game() {
     if (!this->Write_Title_Screen_Core()) return false;
     if (!this->Write_Bytes_To_Offset(0x9F94, QByteArray::fromHex(QString("0A160A1B121824100A160E228B0A151E12101224100A160E22EC041D18192822F6010023C9565523"
             "E20499AAAAAA23EA0499AAAAAA000000000000").toLatin1()))) return false;
-    if (!this->sequentialArchiveHandler->Apply_Title_Screen_1P_Fix(this->versionOffset)) return false;
+    if (!this->Apply_Title_Screen_1P_Fix(this->versionOffset)) return false;
     return this->Write_Bytes_To_Offset(this->versionOffset, this->Get_Version_Bytes());
 }
 
 bool Graphics::Write_Title_Screen_For_2_Player_Game() {
     if (!this->Write_Title_Screen_Core()) return false;
-    if (!this->sequentialArchiveHandler->Apply_Title_Screen_2P_Fix(this->versionOffset)) return false;
+    if (!this->Apply_Title_Screen_2P_Fix(this->versionOffset)) return false;
     return this->Write_Bytes_To_Offset(this->versionOffset, this->Get_Version_Bytes());
+}
+
+void Graphics::Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchBytes, qint64 &versionOffset) {
+    QTextStream stream(patchBytes);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (line.startsWith(Patch_Strings::STRING_CHECKSUM)) return;
+        if (line.startsWith(STRING_VERSION_OFFSET)) { //attempt to parse the offset
+            line = line.remove(0, STRING_VERSION_OFFSET.size());
+            bool isHex = false, valid = false;
+            if (line.startsWith(Patch_Strings::STRING_HEX_IDENTIFIER)) {
+                line = line.remove(0, Patch_Strings::STRING_HEX_IDENTIFIER.size());
+                isHex = true;
+            }
+            qint64 num = 0;
+            if (isHex) num = line.toULongLong(&valid, 0x10);
+            else num = line.toULongLong(&valid, 10);
+            if (valid) {
+                versionOffset = num;
+                return;
+            }
+        }
+    }
 }

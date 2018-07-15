@@ -35,7 +35,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lakitu_Respawn_Speed()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Hacks_Replace_Fire_Flower_With_Hammer_Suit()) return false;
+    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Powerups_Replace_Fire_Flower_With_Hammer_Suit()) return false;
     if (!this->Handle_Secondary_Mushroom()) return false;
 
     //The patches below are always applied
@@ -163,9 +163,9 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     switch (secondaryMushroom) {
     default:    assert(false);
     case 2:     success = true; break; //1-Up
-    case 3:     success = this->writerPlugin->Hacks_Replace_1UP_With_Poison_Mushroom(); break;
-    case 4:     success = this->writerPlugin->Hacks_Replace_1UP_With_Swimming_Mushroom(); break;
-    case 5:     success = this->writerPlugin->Hacks_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario(); break;
+    case 3:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
+    case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
+    case 5:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario(); break;
     }
     if (!success) return false;
     if (!randomPalette) return true;
