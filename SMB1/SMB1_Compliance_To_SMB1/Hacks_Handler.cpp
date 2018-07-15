@@ -96,12 +96,13 @@ bool Hacks_Handler::Handle_Lakitu_Respawn_Speed() {
     int lakituRespawnSpeed = this->pluginSettings->difficultyLakituRespawnSpeed;
     switch (lakituRespawnSpeed) {
     default:    assert(false);
-    case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Num(0x8));
-    case 1:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x10);
-    case 2:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0xF);
-    case 3:     return true; //nothing to do... default value should be 0x7
-    case 4:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x4);
-    case 5:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x0);
+    case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Num(0xA));
+    case 1:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x10); //Disabled
+    case 2:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0xF); //Delayed
+    case 3:     return true; //Normal (0x7)
+    case 4:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x4); //Quick
+    case 5:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x2); //Very Quick
+    case 6:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x0); //ASAP
     }
 }
 

@@ -169,6 +169,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.undergroundLakitus = 1;
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.piranhaPlantType = 3; //black
+    difficultySettings.lakituRespawnSpeed = 6;
     return difficultySettings;
 }
 
@@ -186,6 +187,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.undergroundLakitus = 1;
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.piranhaPlantType = 3; //black
+    difficultySettings.lakituRespawnSpeed = 6;
     return difficultySettings;
 }
 
@@ -240,7 +242,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
-    difficultySettings.lakituRespawnSpeed = 5;
+    difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     return difficultySettings;
 }
@@ -312,6 +314,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Num(1));
+    difficultySettings.lakituRespawnSpeed = 0; //0 is random here
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Num(1));
