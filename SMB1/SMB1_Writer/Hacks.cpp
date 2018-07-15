@@ -112,10 +112,12 @@ bool Hacks::Infinite_Lives() {
 }
 
 bool Hacks::Invincibility() {
-    if (!this->Write_Bytes_To_Offset(0x399D, QByteArray(1, 0xFF))) return false;
-    if (!this->Write_Bytes_To_Offset(0x589B, QByteArray(1, 0xFF))) return false;
-    if (!this->Write_Bytes_To_Offset(0x119E, QByteArray(1, 0xC8))) return false; //gives Mario Star Power, but it wears off after a while
-    return this->Write_Bytes_To_Offset(0x5945, QByteArray(1, 0x03)); //if Mario gets damaged, revert to Super Mario
+    if (!this->Write_Bytes_To_Offset(0x2F54, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false; //there's a bug here that causes Mario to walk slowly during the Pipe Intro
+    if (!this->Write_Bytes_To_Offset(0x2F67, QByteArray::fromHex(QString("38EA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4E20, QByteArray::fromHex(QString("18EAEA90").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5802, QByteArray(1, 0x60))) return false;
+    if (!this->Write_Bytes_To_Offset(0x582B, QByteArray(1, 0x60))) return false;
+    return this->Write_Bytes_To_Offset(0x589D, QByteArray::fromHex(QString("EAEA").toLatin1()));
 }
 
 bool Hacks::Moon_Jump() {
@@ -289,10 +291,6 @@ bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 && lives > 0x80) return false;
     return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
-}
-
-bool Hacks::Star_Color_Mario() {
-    return this->Write_Bytes_To_Offset(0x2F53, QByteArray(1, 0xE7));
 }
 
 bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {

@@ -495,8 +495,8 @@ bool SMB1_Writer::Hacks_Black_Piranha_Plants() {
 
 bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
+    if (!this->hacks->Start_With_Fire_Flower_On_Room_Change()) return false;
     if (!this->hacks->Moon_Jump()) return false;
-    if (!this->hacks->Star_Color_Mario()) return false;
     if (!this->hacks->Fireballs_Kill_Everything_Onscreen()) return false;
     if (!this->hacks->Unlimited_Time()) return false;
     return this->hacks->Invincibility();
