@@ -97,6 +97,18 @@ bool Hacks::Fix_Lakitu_Throw_Arc() {
     return this->Write_Bytes_To_Offset(0x4444, QByteArray::fromHex(QString("A0029558C9003001882046C3").toLatin1()));
 }
 
+bool Hacks::Fix_Life_Counter_Bugs() {
+    //Allow for 2 digits on screen
+    if (!this->Write_Bytes_To_Offset(0x7A4, QByteArray::fromHex(QString("240124").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x852, QByteArray::fromHex(QString("A000C90A90054C92E3EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x63A2, QByteArray::fromHex(QString("E90A18C88C08034C4488").toLatin1()))) return false;
+
+    //Fix the 127 overflow bug
+    if (!this->Write_Bytes_To_Offset(0x4F6, QByteArray::fromHex(QString("2001C1").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("2001C1").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x4111, QByteArray::fromHex(QString("EE5A071003CE5A0760").toLatin1()));
+}
+
 bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
     //By w7n
     if (!this->Write_Bytes_To_Offset(0x47F6, QByteArray(2, 0xEA))) return false;

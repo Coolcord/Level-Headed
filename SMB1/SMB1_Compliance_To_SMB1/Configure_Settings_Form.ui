@@ -34,8 +34,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>464</width>
-            <height>418</height>
+            <width>669</width>
+            <height>635</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -382,7 +382,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>306</width>
+            <width>652</width>
             <height>673</height>
            </rect>
           </property>
@@ -680,7 +680,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-979</y>
+            <y>0</y>
             <width>652</width>
             <height>1614</height>
            </rect>
@@ -720,7 +720,7 @@
                    <number>1</number>
                   </property>
                   <property name="maximum">
-                   <number>99</number>
+                   <number>128</number>
                   </property>
                   <property name="value">
                    <number>5</number>

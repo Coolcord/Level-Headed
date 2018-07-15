@@ -44,6 +44,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
     if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
+    if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 

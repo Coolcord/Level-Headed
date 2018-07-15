@@ -140,6 +140,7 @@ public:
     virtual bool Hacks_Enable_Walking_Hammer_Bros(int difficulty)=0;
     virtual bool Hacks_Fast_Enemies(int speed)=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
+    virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Real_Time()=0;

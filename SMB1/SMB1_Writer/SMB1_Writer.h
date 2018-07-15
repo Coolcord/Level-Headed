@@ -155,6 +155,7 @@ public:
     bool Hacks_Enable_Walking_Hammer_Bros(int difficulty);
     bool Hacks_Fast_Enemies(int speed);
     bool Hacks_Fix_Lakitu_Throw_Arc();
+    bool Hacks_Fix_Life_Counter_Bugs();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
     bool Hacks_Real_Time();
