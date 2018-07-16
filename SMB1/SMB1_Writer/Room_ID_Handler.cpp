@@ -12,7 +12,7 @@ Room_ID_Handler::Room_ID_Handler(QFile *file, Level_Offset *levelOffset) {
     this->file = file;
     this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->levelOffset = levelOffset;
-    this->enemyBytesTracker = enemyBytesTracker;
+    this->enemyBytesTracker = NULL;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
     this->roomOrderWriter = NULL;
     this->roomAddressWriter = NULL;

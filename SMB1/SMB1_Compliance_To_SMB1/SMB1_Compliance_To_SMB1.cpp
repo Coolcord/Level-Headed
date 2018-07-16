@@ -304,8 +304,8 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.numLives = 5;
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;
-    this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
-    this->pluginSettings.lakituThrowArc = Qt::Checked;
+    this->pluginSettings.superMarioOnDamage = true;
+    this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.enemySpeed = 1;
     this->pluginSettings.powerup = 0;
