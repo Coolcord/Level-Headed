@@ -48,7 +48,7 @@ bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("1C06038383C77E3C000C06064E7E3C003860C0C1C1E37E3C00306060727E3C00070F1F3C78F0E0E0"
             "0003070F1F3C78780001070F1C38307000000007071F1C1C0000000003070E0C").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x869D, QByteArray::fromHex(QString("010307").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("1C06038383C77F3D000C06064E7E3C00").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0502018383C57E3D1D0F07064E7F3B01").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("C1B1596D353B1F03004020100804").toLatin1()))) return false;
     return this->graphics->Apply_Cutter_Flower_Fix();
 }
@@ -112,6 +112,9 @@ bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, 0x01))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D8, QByteArray(1, 0x08))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579E, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA9F8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x03))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, 0x03))) return false;
@@ -126,6 +129,9 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
     if (!this->Write_Bytes_To_Offset(0x26A4, QByteArray::fromHex(QString("77A4870193").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3660, QByteArray::fromHex(QString("0885FE").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("7F80").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579E, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61FB, QByteArray(1, 0xFC))) return false;
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x02))) return false;
@@ -141,6 +147,9 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("10F0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579E, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA900").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, 0x01))) return false;
     if (!this->Write_Bytes_To_Offset(0x8652, QByteArray::fromHex(QString("E3C1E1F37E3C00001C3E1E0C00003C7EF7E3C3C3663C0000081C3C").toLatin1()))) return false;
@@ -154,6 +163,9 @@ bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, 0x05))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D6, QByteArray(1, 0x07))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray(1, 0x15))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579E, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA9F9").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x03))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, 0x03))) return false;
