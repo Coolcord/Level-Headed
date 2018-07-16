@@ -23,7 +23,8 @@ void Tab_Base_Game::Load_Settings() {
     if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
-    this->ui->cbReplaceFireFlowerWithHammerSuit->setCheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit);
+    this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
+    this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
 }
 
 void Tab_Base_Game::Save_Settings() {
@@ -36,7 +37,8 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
     this->pluginSettings->toneColor = this->ui->comboTone->currentIndex();
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
-    this->pluginSettings->replaceFireFlowerWithHammerSuit = this->ui->cbReplaceFireFlowerWithHammerSuit->checkState();
+    this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
+    this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
 }
 
 void Tab_Base_Game::Install_New_ROM() {

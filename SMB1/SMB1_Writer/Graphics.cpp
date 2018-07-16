@@ -8,7 +8,14 @@
 
 const static qint64 DEFAULT_VERSION_OFFSET = 0x9F68;
 const static QString STRING_VERSION_OFFSET = Patch_Strings::STRING_COMMENT+" Version Offset: ";
+const static QString STRING_CUTTER_FLOWER = "Cutter Flower";
+const static QString STRING_DOUBLE_JUMP_STAR = "Double Jump Star";
+const static QString STRING_FIRE_STAR = "Fire Star";
 const static QString STRING_HAMMER_SUIT = "Hammer Suit";
+const static QString STRING_POISON_BUBBLES = "Poison Bubbles";
+const static QString STRING_POWER_WAND = "Power Wand";
+const static QString STRING_SLIME_FLOWER = "Slime Flower";
+const static QString STRING_SPINBALL_FLOWER = "Spinball Flower";
 const static QString STRING_TITLE_SCREEN_1P = "Title Screen 1P";
 const static QString STRING_TITLE_SCREEN_2P = "Title Screen 2P";
 
@@ -19,9 +26,14 @@ Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Ha
     this->text = text;
 }
 
-bool Graphics::Apply_Hammer_Suit_Fix() {
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_HAMMER_SUIT);
-}
+bool Graphics::Apply_Cutter_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_CUTTER_FLOWER); }
+bool Graphics::Apply_Double_Jump_Star_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_DOUBLE_JUMP_STAR); }
+bool Graphics::Apply_Fire_Star_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_STAR); }
+bool Graphics::Apply_Hammer_Suit_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_HAMMER_SUIT); }
+bool Graphics::Apply_Poison_Bubbles_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_POISON_BUBBLES); }
+bool Graphics::Apply_Power_Wand_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_POWER_WAND); }
+bool Graphics::Apply_Slime_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SLIME_FLOWER); }
+bool Graphics::Apply_Spinball_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINBALL_FLOWER); }
 
 bool Graphics::Apply_Title_Screen_1P_Fix(qint64 &versionOffset) {
     QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P);

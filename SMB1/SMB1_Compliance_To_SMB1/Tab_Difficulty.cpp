@@ -12,7 +12,6 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
-    this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
@@ -56,7 +55,6 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->autoscroll = this->ui->cbAutoscroll->checkState();
     this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
-    this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();

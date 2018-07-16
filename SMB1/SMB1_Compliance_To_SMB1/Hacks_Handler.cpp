@@ -35,7 +35,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lakitu_Respawn_Speed()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->replaceFireFlowerWithHammerSuit) && !this->writerPlugin->Powerups_Replace_Fire_Flower_With_Hammer_Suit()) return false;
+    if (!this->Handle_Powerup()) return false;
     if (!this->Handle_Secondary_Mushroom()) return false;
 
     //The patches below are always applied
@@ -143,6 +143,23 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
         speed = Random::Get_Num(4)+1; //random all
     }
     return this->writerPlugin->Hacks_Fast_Enemies(speed);
+}
+
+bool Hacks_Handler::Handle_Powerup() {
+    int powerup = this->pluginSettings->powerup;
+    if (powerup == 0) powerup = Random::Get_Num(8)+1;
+    switch (powerup) {
+    default:    assert(false);
+    case 1:     return true; //Fire Flower
+    case 2:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Cutter_Flower();
+    case 3:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
+    case 4:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Fire_Star();
+    case 5:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Hammer_Suit();
+    case 6:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Poison_Bubbles();
+    case 7:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Power_Wand();
+    case 8:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Slime_Flower();
+    case 9:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Spinball_Flower();
+    }
 }
 
 bool Hacks_Handler::Handle_Secondary_Mushroom() {

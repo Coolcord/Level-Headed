@@ -689,9 +689,44 @@ bool SMB1_Writer::Powerups_Replace_1UP_With_Swimming_Mushroom() {
     return this->powerups->Replace_1UP_With_Swimming_Mushroom();
 }
 
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Cutter_Flower() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Cutter_Flower();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Double_Jump_Star() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Double_Jump_Star();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Fire_Star() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Fire_Star();
+}
+
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Hammer_Suit();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Poison_Bubbles() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Poison_Bubbles();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Power_Wand() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Power_Wand();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Slime_Flower() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Slime_Flower();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Spinball_Flower() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Spinball_Flower();
 }
 
 QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {

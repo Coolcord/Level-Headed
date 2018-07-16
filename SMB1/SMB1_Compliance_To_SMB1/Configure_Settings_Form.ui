@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -281,6 +281,71 @@
             </layout>
            </item>
            <item>
+            <layout class="QVBoxLayout" name="layoutPowerup">
+             <item>
+              <widget class="QLabel" name="lblPowerup">
+               <property name="text">
+                <string>Powerup:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboPowerup">
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Fire Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cutter Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Double Jump Star</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Fire Star</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Hammer Suit</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Poison Bubbles</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Power Wand</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Slime Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Spinball Flower</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QVBoxLayout" name="layoutSecondaryMushroom">
              <item>
               <widget class="QLabel" name="lblSecondaryMushroom">
@@ -335,16 +400,6 @@
              </property>
              <property name="tristate">
               <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cbReplaceFireFlowerWithHammerSuit">
-             <property name="text">
-              <string>Replace Fire Flower with Hammer Suit</string>
-             </property>
-             <property name="tristate">
-              <bool>true</bool>
              </property>
             </widget>
            </item>

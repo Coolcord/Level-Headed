@@ -204,8 +204,8 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.replaceFireFlowerWithHammerSuit << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.enemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.powerup << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.secondaryMushroom << Common_Strings::STRING_NEW_LINE;
     stream.flush();
     file.close();
@@ -275,8 +275,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.superMarioOnDamage = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.lakituThrowArc = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
-    this->pluginSettings.replaceFireFlowerWithHammerSuit = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.powerup = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.secondaryMushroom = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
 }
@@ -307,8 +307,8 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = Qt::PartiallyChecked;
     this->pluginSettings.lakituThrowArc = Qt::Checked;
     this->pluginSettings.autoscroll = Qt::Unchecked;
-    this->pluginSettings.replaceFireFlowerWithHammerSuit = Qt::PartiallyChecked;
     this->pluginSettings.enemySpeed = 1;
+    this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings);

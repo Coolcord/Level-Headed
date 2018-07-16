@@ -19,6 +19,7 @@ private:
     bool Handle_Piranha_Plants();
     bool Handle_God_Mode();
     bool Handle_Enemy_Speed();
+    bool Handle_Powerup();
     bool Handle_Secondary_Mushroom();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 
