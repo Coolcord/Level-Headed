@@ -152,7 +152,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x579E, QByteArray(1, 0x15))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA900").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x8652, QByteArray::fromHex(QString("E3C1E1F37E3C00001C3E1E0C00003C7EF7E3C3C3663C0000081C3C").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("3C7EE3C1E1F37E3C00001C3E1E0C00003C7EF7E3C3C3663C0000081C3C3C1800").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("00000F1F1F0F00000F1F3F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("71FDC9C1F17D1F070000000000000000").toLatin1()))) return false;
     return this->graphics->Apply_Slime_Flower_Fix();

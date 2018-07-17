@@ -132,6 +132,19 @@
             </spacer>
            </item>
            <item>
+            <widget class="QCheckBox" name="cb2PlayerGame">
+             <property name="toolTip">
+              <string>Disables Luigi game and reverts bounce physics to normal</string>
+             </property>
+             <property name="text">
+              <string>2 Player Game</string>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
               <widget class="QLabel" name="lblGraphics">
@@ -389,19 +402,6 @@
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cb2PlayerGame">
-             <property name="toolTip">
-              <string>Disables Luigi game and reverts bounce physics to normal</string>
-             </property>
-             <property name="text">
-              <string>2 Player Game</string>
-             </property>
-             <property name="tristate">
-              <bool>false</bool>
-             </property>
-            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_2">
