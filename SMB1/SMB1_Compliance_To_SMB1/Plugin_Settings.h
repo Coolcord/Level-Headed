@@ -46,7 +46,6 @@ struct Plugin_Settings {
     bool superMarioOnDamage;
     bool lakituThrowArc;
     Qt::CheckState autoscroll;
-    int enemySpeed;
     int powerup;
     int secondaryMushroom;
     int difficultyComboIndex;
@@ -82,6 +81,8 @@ struct Plugin_Settings {
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     int difficultySpawnerPriority;
     int difficultyPiranhaPlantType;
+    int difficultyBasicEnemySpeed;
+    bool difficultySpeedyObjectsAndEnemies;
 };
 
 #endif // PLUGIN_SETTINGS_H

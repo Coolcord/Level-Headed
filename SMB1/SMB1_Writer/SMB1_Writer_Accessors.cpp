@@ -518,9 +518,9 @@ bool SMB1_Writer::Hacks_Enable_Walking_Hammer_Bros(int difficulty) {
     return this->hacks->Enable_Walking_Hammer_Bros(difficulty);
 }
 
-bool SMB1_Writer::Hacks_Fast_Enemies(int speed) {
+bool SMB1_Writer::Hacks_Fast_Basic_Enemies(int speed) {
     if (!this->hacks) return false;
-    return this->hacks->Fast_Enemies(speed);
+    return this->hacks->Fast_Basic_Enemies(speed);
 }
 
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
@@ -581,6 +581,11 @@ bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
 bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
     if (!this->hacks) return false;
     return this->hacks->Set_Starting_Lives(lives);
+}
+
+bool SMB1_Writer::Hacks_Speedy_Objects_And_Enemies() {
+    if (!this->hacks) return false;
+    return this->hacks->Speedy_Objects_And_Enemies();
 }
 
 bool SMB1_Writer::Hacks_Start_With_Fire_Flower_On_Room_Change() {

@@ -138,7 +138,7 @@ public:
     virtual bool Hacks_Enable_Hitting_Underwater_Blocks()=0;
     virtual bool Hacks_Enable_Piranha_Plants_On_First_Level()=0;
     virtual bool Hacks_Enable_Walking_Hammer_Bros(int difficulty)=0;
-    virtual bool Hacks_Fast_Enemies(int speed)=0;
+    virtual bool Hacks_Fast_Basic_Enemies(int speed)=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
@@ -151,6 +151,7 @@ public:
     virtual bool Hacks_Set_Lakitu_Respawn_Speed(int value)=0;
     virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
+    virtual bool Hacks_Speedy_Objects_And_Enemies()=0;
     virtual bool Hacks_Start_With_Fire_Flower_On_Room_Change()=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Write_Watermark()=0;

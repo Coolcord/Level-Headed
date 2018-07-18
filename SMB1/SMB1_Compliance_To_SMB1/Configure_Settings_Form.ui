@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -735,9 +735,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-985</y>
             <width>652</width>
-            <height>1614</height>
+            <height>1620</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -809,56 +809,6 @@
               <bool>true</bool>
              </property>
             </widget>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="layoutEnemySpeed">
-             <item>
-              <widget class="QLabel" name="lblEnemySpeed">
-               <property name="text">
-                <string>Enemy Speed:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboEnemySpeed">
-               <item>
-                <property name="text">
-                 <string>Normal</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Fast</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Speedy</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Turbo</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Ludicrous Speed!</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Random (Normal, Fast, Speedy)</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Random All</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-            </layout>
            </item>
            <item>
             <layout class="QVBoxLayout" name="layoutDifficulty">
@@ -1680,6 +1630,53 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutBasicEnemySpeed">
+                <item>
+                 <widget class="QLabel" name="lblBasicEnemySpeed">
+                  <property name="text">
+                   <string>Basic Enemy Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBasicEnemySpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Speedy</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbSpeedyObjectsAndEnemies">
+                <property name="text">
+                 <string>Speedy Objects and Enemies</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbLakituThrowArc">

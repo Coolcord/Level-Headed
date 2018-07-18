@@ -11,7 +11,8 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
-    this->ui->comboEnemySpeed->setCurrentIndex(this->pluginSettings->enemySpeed-1);
+    this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
+    this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
@@ -51,10 +52,7 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     this->pluginSettings->addLuigiGame = !this->ui->cb2PlayerGame->isChecked();
-    this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
-    this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
     this->pluginSettings->autoscroll = this->ui->cbAutoscroll->checkState();
-    this->pluginSettings->enemySpeed = this->ui->comboEnemySpeed->currentIndex()+1;
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
@@ -94,6 +92,10 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
+        this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
+        this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
+        this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
+        this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();
         break;
     case 1: //Random
         break; //do nothing for now

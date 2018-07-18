@@ -16,7 +16,7 @@ public:
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();
     bool Enable_Walking_Hammer_Bros(int difficulty);
-    bool Fast_Enemies(int speed);
+    bool Fast_Basic_Enemies(int speed);
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
@@ -36,6 +36,7 @@ public:
     bool Set_Number_Of_Worlds(int value);
     bool Set_Lakitu_Respawn_Speed(int value);
     bool Set_Starting_Lives(int lives);
+    bool Speedy_Objects_And_Enemies();
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();

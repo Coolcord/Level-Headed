@@ -204,7 +204,8 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.enemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBasicEnemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultySpeedyObjectsAndEnemies << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.powerup << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.secondaryMushroom << Common_Strings::STRING_NEW_LINE;
     stream.flush();
@@ -272,10 +273,11 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.numLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.godMode = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.addLuigiGame = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
-    this->pluginSettings.superMarioOnDamage = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
-    this->pluginSettings.lakituThrowArc = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
+    this->pluginSettings.superMarioOnDamage = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
+    this->pluginSettings.lakituThrowArc = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
-    this->pluginSettings.enemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBasicEnemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultySpeedyObjectsAndEnemies = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.powerup = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.secondaryMushroom = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     return true;
@@ -307,7 +309,8 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = true;
     this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.autoscroll = Qt::Unchecked;
-    this->pluginSettings.enemySpeed = 1;
+    this->pluginSettings.difficultyBasicEnemySpeed = 1;
+    this->pluginSettings.difficultySpeedyObjectsAndEnemies = false;
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
     this->pluginSettings.difficultyComboIndex = 4;

@@ -37,6 +37,8 @@ struct Difficulty_Level_Settings {
     int spawnerPriority;
     bool superMarioOnDamage;
     int piranhaPlantType;
+    int basicEnemySpeed;
+    bool speedyObjectsAndEnemies;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

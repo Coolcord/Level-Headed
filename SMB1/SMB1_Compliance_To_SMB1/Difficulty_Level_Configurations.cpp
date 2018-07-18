@@ -39,6 +39,8 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
+    pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
+    pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -77,6 +79,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
+    difficultySettings.basicEnemySpeed = 1;
+    difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
 }
 
@@ -151,6 +155,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.lakituRespawnSpeed = 5;
+    difficultySettings.basicEnemySpeed = 2; //fast
     return difficultySettings;
 }
 
@@ -170,6 +175,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.lakituRespawnSpeed = 6;
+    difficultySettings.speedyObjectsAndEnemies = true;
+    difficultySettings.basicEnemySpeed = 3; //speedy
     return difficultySettings;
 }
 
@@ -177,7 +184,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     Difficulty_Level_Settings difficultySettings = this->Cheep_Cheep_Frenzy();
     difficultySettings.bulletTime = 1;
     difficultySettings.hammerTime = 1;
-    difficultySettings.hammerTimeIntensity = 100;
+    difficultySettings.hammerTimeIntensity = 50;
     difficultySettings.walkingHammerBros = 1;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.lakituSpawnChancePerLevel = 25;
@@ -188,6 +195,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.lakituRespawnSpeed = 6;
+    difficultySettings.basicEnemySpeed = 4; //ludicrous
+    difficultySettings.speedyObjectsAndEnemies = true;
     return difficultySettings;
 }
 
@@ -319,6 +328,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.spawnerPriority = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.piranhaPlantType = 0; //0 is random here
+    difficultySettings.basicEnemySpeed = 0; //0 is random here
+    difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Num(1));
     return difficultySettings;
 }
 

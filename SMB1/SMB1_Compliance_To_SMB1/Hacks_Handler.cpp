@@ -136,13 +136,12 @@ bool Hacks_Handler::Handle_God_Mode() {
 }
 
 bool Hacks_Handler::Handle_Enemy_Speed() {
-    int speed = this->pluginSettings->enemySpeed;
-    if (speed == 6) {
-        speed = Random::Get_Num(2)+1; //don't get ludicrous speed or turbo
-    } else if (speed == 7) {
-        speed = Random::Get_Num(4)+1; //random all
-    }
-    return this->writerPlugin->Hacks_Fast_Enemies(speed);
+    int speed = this->pluginSettings->difficultyBasicEnemySpeed;
+    if (speed == 0) speed = Random::Get_Num(3)+1; //random all
+    if (speed == 4) speed = 5; //increase speed for ludicrous setting
+    if (!this->writerPlugin->Hacks_Fast_Basic_Enemies(speed)) return false;
+    if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
+    return true;
 }
 
 bool Hacks_Handler::Handle_Powerup() {
