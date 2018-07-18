@@ -34,9 +34,8 @@ bool Hacks::Always_Autoscroll() {
 
 bool Hacks::Black_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
-    if (!this->Write_Bytes_To_Offset(0x53EB, QByteArray(1, 0xFA))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, 0x01))) return false; //reduce inactive timer to 1
+    if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, 0x00))) return false; //reduce inactive timer to 0
     return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23));
 }
 

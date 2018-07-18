@@ -88,30 +88,19 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     //Turn Everything Off for Very Easy
-    Difficulty_Level_Settings difficultySettings = this->Normal();
+    Difficulty_Level_Settings difficultySettings = this->Easy();
     difficultySettings.bulletTime = 11;
-    difficultySettings.hammerTime = 11;
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 10;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
-    difficultySettings.bridgeLakitus = 11;
-    difficultySettings.bridgeOffscreenBulletBills = 11;
-    difficultySettings.castleFireBars = 11;
-    difficultySettings.castleFlyingCheepCheeps = 11;
-    difficultySettings.castleLakitus = 11;
-    difficultySettings.castleOffscreenBulletBills = 11;
-    difficultySettings.islandFlyingCheepCheeps = 11;
+    difficultySettings.bridgeLakitus = 8;
+    difficultySettings.bridgeOffscreenBulletBills = 8;
+    difficultySettings.castleFireBars = 10;
     difficultySettings.islandLakitus = 11;
-    difficultySettings.islandOffscreenBulletBills = 11;
-    difficultySettings.undergroundFlyingCheepCheeps = 11;
-    difficultySettings.undergroundLakitus = 11;
-    difficultySettings.undergroundOffscreenBulletBills = 11;
-    difficultySettings.underwaterBloopers = 11;
-    difficultySettings.underwaterFlyingCheepCheeps = 11;
-    difficultySettings.underwaterLakitus = 11;
-    difficultySettings.underwaterSwimmingCheepCheeps = 1;
-    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
-    difficultySettings.standardOverworldLakitus = 11;
-    difficultySettings.standardOverworldOffscreenBulletBills = 11;
-    difficultySettings.lakituThrowArc = false;
+    difficultySettings.islandOffscreenBulletBills = 8;
+    difficultySettings.underwaterBloopers = 9;
+    difficultySettings.underwaterLakitus = 5;
+    difficultySettings.underwaterSwimmingCheepCheeps = 2;
+    difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
@@ -120,10 +109,11 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
-    difficultySettings.bulletTime = difficultySettings.hammerTime; //activate bullet time where hammer time would be activated
+    difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
     difficultySettings.lakituThrowArc = false;
     difficultySettings.lakituRespawnSpeed = 3;
+    difficultySettings.spawnerPriority = 2;
     return difficultySettings;
 }
 
@@ -164,19 +154,19 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
-    Difficulty_Level_Settings difficultySettings = this->Riddled_With_Bullets();
-    difficultySettings.bulletTime = 1;
-    difficultySettings.hammerTime = 1;
+    Difficulty_Level_Settings difficultySettings = this->Hard();
+    difficultySettings.bulletTime = 2;
+    difficultySettings.hammerTime = 3;
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.walkingHammerBros = 8;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.lakituSpawnChancePerLevel = 50;
-    difficultySettings.bridgeLakitus = 1;
-    difficultySettings.standardOverworldLakitus = 1;
-    difficultySettings.islandLakitus = 1;
-    difficultySettings.underwaterBloopers = 1;
-    difficultySettings.undergroundLakitus = 1;
-    difficultySettings.underwaterLakitus = 11;
+    difficultySettings.castleFlyingCheepCheeps = 7;
+    difficultySettings.castleLakitus = 5;
+    difficultySettings.castleOffscreenBulletBills = 2;
+    difficultySettings.standardOverworldLakitus = 3;
+    difficultySettings.undergroundLakitus = 3;
+    difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.speedyObjectsAndEnemies = true;
@@ -186,23 +176,32 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
-    Difficulty_Level_Settings difficultySettings = this->Cheep_Cheep_Frenzy();
-    difficultySettings.bulletTime = 1;
-    difficultySettings.hammerTime = 1;
-    difficultySettings.hammerTimeIntensity = 50;
-    difficultySettings.walkingHammerBros = 1;
-    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
-    difficultySettings.lakituSpawnChancePerLevel = 25;
-    difficultySettings.bridgeLakitus = 1;
-    difficultySettings.standardOverworldLakitus = 1;
-    difficultySettings.islandLakitus = 1;
-    difficultySettings.undergroundLakitus = 1;
-    difficultySettings.underwaterLakitus = 11;
+    Difficulty_Level_Settings difficultySettings = this->Very_Hard();
+    difficultySettings.hammerTimeIntensity = 40;
+    difficultySettings.walkingHammerBros = 6;
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 1;
+    difficultySettings.lakituSpawnChancePerLevel = 100;
+    difficultySettings.castleFlyingCheepCheeps = 6;
+    difficultySettings.castleLakitus = 2;
+    difficultySettings.castleOffscreenBulletBills = 7;
+    difficultySettings.bridgeFlyingCheepCheeps = 6;
+    difficultySettings.bridgeLakitus = 2;
+    difficultySettings.bridgeOffscreenBulletBills = 7;
+    difficultySettings.islandFlyingCheepCheeps = 6;
+    difficultySettings.islandLakitus = 2;
+    difficultySettings.islandOffscreenBulletBills = 7;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 6;
+    difficultySettings.standardOverworldLakitus = 2;
+    difficultySettings.standardOverworldOffscreenBulletBills = 7;
+    difficultySettings.undergroundFlyingCheepCheeps = 6;
+    difficultySettings.undergroundLakitus = 2;
+    difficultySettings.undergroundOffscreenBulletBills = 7;
+    difficultySettings.underwaterFlyingCheepCheeps = 6;
+    difficultySettings.underwaterLakitus = 2;
     difficultySettings.piranhaPlantType = 3; //black
-    difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
-    difficultySettings.speedyObjectsAndEnemies = true;
+    difficultySettings.spawnerPriority = 0; //random
     return difficultySettings;
 }
 
