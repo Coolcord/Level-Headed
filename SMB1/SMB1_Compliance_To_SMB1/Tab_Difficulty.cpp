@@ -12,6 +12,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
+    this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
@@ -95,6 +96,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
+        this->pluginSettings->difficultyBulletBillSpeed = this->ui->comboBulletBillSpeed->currentIndex();
         this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();
         break;
     case 1: //Random

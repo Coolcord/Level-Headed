@@ -136,10 +136,18 @@ bool Hacks_Handler::Handle_God_Mode() {
 }
 
 bool Hacks_Handler::Handle_Enemy_Speed() {
+    //Handle basic enemy speed
     int speed = this->pluginSettings->difficultyBasicEnemySpeed;
     if (speed == 0) speed = Random::Get_Num(3)+1; //random all
     if (speed == 4) speed = 5; //increase speed for ludicrous setting
-    if (!this->writerPlugin->Hacks_Fast_Basic_Enemies(speed)) return false;
+    if (!this->writerPlugin->Hacks_Set_Basic_Enemy_Speed(speed)) return false;
+
+    //Handle bullet bill speed
+    speed = this->pluginSettings->difficultyBulletBillSpeed;
+    if (speed == 0) speed = Random::Get_Num(4)+1;
+    if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Speed(speed)) return false;
+
+    //Handle the speedy enemies patch
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;
 }

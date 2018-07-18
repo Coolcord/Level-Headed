@@ -735,9 +735,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-985</y>
+            <y>-1018</y>
             <width>652</width>
-            <height>1620</height>
+            <height>1653</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1645,6 +1645,51 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Speedy</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutBulletBillSpeed">
+                <item>
+                 <widget class="QLabel" name="lblBulletBillSpeed">
+                  <property name="text">
+                   <string>Bullet Bill Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBulletBillSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Slow</string>
                    </property>
                   </item>
                   <item>

@@ -40,6 +40,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
+    pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
 }
 
@@ -80,6 +81,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
     difficultySettings.basicEnemySpeed = 1;
+    difficultySettings.bulletBillSpeed = 2;
     difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
 }
@@ -105,12 +107,13 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.underwaterBloopers = 11;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
     difficultySettings.underwaterLakitus = 11;
-    difficultySettings.underwaterSwimmingCheepCheeps = 11;
+    difficultySettings.underwaterSwimmingCheepCheeps = 1;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.lakituRespawnSpeed = 2;
+    difficultySettings.bulletBillSpeed = 1;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
     return difficultySettings;
 }
@@ -156,6 +159,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.basicEnemySpeed = 2; //fast
+    difficultySettings.bulletBillSpeed = 3; //fast
     return difficultySettings;
 }
 
@@ -177,6 +181,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
+    difficultySettings.bulletBillSpeed = 4; //speedy
     return difficultySettings;
 }
 
@@ -196,6 +201,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
+    difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.speedyObjectsAndEnemies = true;
     return difficultySettings;
 }
@@ -227,6 +233,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets(
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 1;
+    difficultySettings.bulletBillSpeed = 4; //speedy
     return difficultySettings;
 }
 
@@ -329,6 +336,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.piranhaPlantType = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
+    difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Num(1));
     return difficultySettings;
 }

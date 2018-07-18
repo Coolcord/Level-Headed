@@ -60,36 +60,6 @@ bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
     return true; //this patch will be applied when the number of worlds is set
 }
 
-bool Hacks::Fast_Basic_Enemies(int speed) {
-    if (speed < 1 || speed > 8) return false;
-    QByteArray speedBytes;
-    switch (speed) {
-    default:    assert(false);
-    case 1:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x01)));
-    case 2:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x02)));
-    case 3:
-        speedBytes.append(0xE8);
-        speedBytes.append(0xE4);
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 4:
-        speedBytes.append(0xD8);
-        speedBytes.append(0xD4);
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 5:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x08)));
-    case 6:
-        speedBytes.append(0xC8);
-        speedBytes.append(0xC4);
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 7:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0D)));
-    case 8:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0B)));
-    }
-}
-
 bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, 0x8F));
 }
@@ -219,6 +189,52 @@ bool Hacks::Replace_Mario_With_Luigi() {
     return this->Write_Bytes_To_Offset(0x765, luigiText); //change name above score
 }
 
+bool Hacks::Set_Basic_Enemy_Speed(int speed) {
+    if (speed < 1 || speed > 8) return false;
+    QByteArray speedBytes;
+    switch (speed) {
+    default:    assert(false);
+    case 1:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x01)));
+    case 2:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x02)));
+    case 3:
+        speedBytes.append(0xE8);
+        speedBytes.append(0xE4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 4:
+        speedBytes.append(0xD8);
+        speedBytes.append(0xD4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 5:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x08)));
+    case 6:
+        speedBytes.append(0xC8);
+        speedBytes.append(0xC4);
+        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
+    case 7:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0D)));
+    case 8:
+        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0B)));
+    }
+}
+
+bool Hacks::Set_Bullet_Bill_Speed(int speed) {
+    int speedValue = 0;
+    switch (speed) {
+    default: return false;
+    case 1: speedValue = 0x10; break; //Slow
+    case 2: speedValue = 0x18; break; //Normal (Original)
+    case 3: speedValue = 0x20; break; //Fast
+    case 4: speedValue = 0x28; break; //Speedy
+    case 5: speedValue = 0x50; break; //Ludicrous
+    }
+    int invertedSpeedValue = 0x100-speedValue;
+    if (!this->Write_Bytes_To_Offset(0x3A41, QByteArray(1, static_cast<char>(speedValue)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3A42, QByteArray(1, static_cast<char>(invertedSpeedValue)))) return false;
+    return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
+}
+
 bool Hacks::Set_Number_Of_Worlds(int value) {
     if (value < 0 || value > 8) return false;
     int numWorlds = value;
@@ -263,7 +279,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     //by L
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("50B0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D4, QByteArray(1, 0x60))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3A41, QByteArray::fromHex(QString("28D8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, 0x20))) return false;
     if (!this->Write_Bytes_To_Offset(0x3CD4, QByteArray(1, 0x20))) return false;
@@ -289,7 +304,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x4B5C, QByteArray(1, 0x01))) return false;
     if (!this->Write_Bytes_To_Offset(0x4C07, QByteArray(1, 0x02))) return false;
     if (!this->Write_Bytes_To_Offset(0x4C27, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, 0xD8))) return false;
     if (!this->Write_Bytes_To_Offset(0x4C7C, QByteArray(1, 0x01))) return false;
     if (!this->Write_Bytes_To_Offset(0x4F01, QByteArray(1, 0x1E))) return false;
     if (!this->Write_Bytes_To_Offset(0x50D4, QByteArray(1, 0x10))) return false;

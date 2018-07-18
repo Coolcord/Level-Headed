@@ -518,11 +518,6 @@ bool SMB1_Writer::Hacks_Enable_Walking_Hammer_Bros(int difficulty) {
     return this->hacks->Enable_Walking_Hammer_Bros(difficulty);
 }
 
-bool SMB1_Writer::Hacks_Fast_Basic_Enemies(int speed) {
-    if (!this->hacks) return false;
-    return this->hacks->Fast_Basic_Enemies(speed);
-}
-
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();
@@ -566,6 +561,16 @@ bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworld
 bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Mario_With_Luigi();
+}
+
+bool SMB1_Writer::Hacks_Set_Basic_Enemy_Speed(int speed) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Basic_Enemy_Speed(speed);
+}
+
+bool SMB1_Writer::Hacks_Set_Bullet_Bill_Speed(int speed) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Bullet_Bill_Speed(speed);
 }
 
 bool SMB1_Writer::Hacks_Set_Lakitu_Respawn_Speed(int value) {

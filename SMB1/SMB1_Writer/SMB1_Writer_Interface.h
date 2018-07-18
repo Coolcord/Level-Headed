@@ -138,7 +138,6 @@ public:
     virtual bool Hacks_Enable_Hitting_Underwater_Blocks()=0;
     virtual bool Hacks_Enable_Piranha_Plants_On_First_Level()=0;
     virtual bool Hacks_Enable_Walking_Hammer_Bros(int difficulty)=0;
-    virtual bool Hacks_Fast_Basic_Enemies(int speed)=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
@@ -148,6 +147,8 @@ public:
     virtual bool Hacks_Remove_Vertical_Object_Limit()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
+    virtual bool Hacks_Set_Basic_Enemy_Speed(int speed)=0;
+    virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;
     virtual bool Hacks_Set_Lakitu_Respawn_Speed(int value)=0;
     virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;

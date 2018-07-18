@@ -154,7 +154,6 @@ public:
     bool Hacks_Enable_Hitting_Underwater_Blocks();
     bool Hacks_Enable_Piranha_Plants_On_First_Level();
     bool Hacks_Enable_Walking_Hammer_Bros(int difficulty);
-    bool Hacks_Fast_Basic_Enemies(int speed);
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Fix_Life_Counter_Bugs();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
@@ -164,6 +163,8 @@ public:
     bool Hacks_Remove_Vertical_Object_Limit();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
     bool Hacks_Replace_Mario_With_Luigi();
+    bool Hacks_Set_Basic_Enemy_Speed(int speed);
+    bool Hacks_Set_Bullet_Bill_Speed(int speed);
     bool Hacks_Set_Lakitu_Respawn_Speed(int value);
     bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Starting_Lives(int lives);

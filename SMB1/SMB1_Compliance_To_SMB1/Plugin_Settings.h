@@ -82,6 +82,7 @@ struct Plugin_Settings {
     int difficultySpawnerPriority;
     int difficultyPiranhaPlantType;
     int difficultyBasicEnemySpeed;
+    int difficultyBulletBillSpeed;
     bool difficultySpeedyObjectsAndEnemies;
 };
 

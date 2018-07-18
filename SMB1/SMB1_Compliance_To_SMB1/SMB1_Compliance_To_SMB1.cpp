@@ -205,6 +205,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBasicEnemySpeed << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyBulletBillSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpeedyObjectsAndEnemies << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.powerup << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.secondaryMushroom << Common_Strings::STRING_NEW_LINE;
@@ -277,6 +278,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.lakituThrowArc = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.difficultyBasicEnemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyBulletBillSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpeedyObjectsAndEnemies = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.powerup = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.secondaryMushroom = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -310,6 +312,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.difficultyBasicEnemySpeed = 1;
+    this->pluginSettings.difficultyBasicEnemySpeed = 2;
     this->pluginSettings.difficultySpeedyObjectsAndEnemies = false;
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
