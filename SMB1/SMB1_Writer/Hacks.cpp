@@ -355,7 +355,8 @@ bool Hacks::Convert_Difficulty_To_World(int difficulty, int numWorlds, int &worl
         return true;
     }
     double difficultyDouble = static_cast<double>(difficulty)/10.0, numWorldsDouble = static_cast<double>(numWorlds);
-    world = static_cast<int>(std::round(difficultyDouble*numWorldsDouble));
+    world = static_cast<int>(std::ceil(difficultyDouble*numWorldsDouble));
+    assert(world <= numWorlds);
     return true;
 }
 
