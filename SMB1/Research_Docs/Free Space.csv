@@ -1,8 +1,8 @@
 Used Space,Name
 0x4057-0x413E,Castle Loop Mazes
-0x406D-0x40FD,Autoscroll Object (Incompatible with Fire Bros)
+0x406D-0x40FC,Autoscroll Object (Incompatible with Fire Bros)
 0x406D-0x40A9,Fire Bros. (Incompatible with Autoscroll)
-0x40FE-0x410D,Unused
+0x40FD-0x410D,Bouncy Spiny Eggs
 0x410E-0x411A,Life Overflow Fix
 0x411B-0x4123,Real Time
 0x4124-0x413E,Taking Damage As Fire Reverts To Super

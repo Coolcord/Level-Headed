@@ -12,6 +12,7 @@ public:
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();
+    bool Bouncy_Spiny_Eggs();
     bool Disable_Intro_Demo();
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();

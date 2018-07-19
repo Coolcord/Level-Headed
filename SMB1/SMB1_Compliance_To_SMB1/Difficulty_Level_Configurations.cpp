@@ -35,6 +35,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
+    pluginSettings->difficultySpinyEggBehavior = difficultySettings.spinyEggBehavior;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
@@ -76,6 +77,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
+    difficultySettings.spinyEggBehavior = 0;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
@@ -329,6 +331,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Num(1));
+    difficultySettings.spinyEggBehavior = 0; //0 is random here
     difficultySettings.lakituRespawnSpeed = 0; //0 is random here
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here

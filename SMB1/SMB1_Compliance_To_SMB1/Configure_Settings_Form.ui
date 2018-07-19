@@ -737,7 +737,7 @@
             <x>0</x>
             <y>-1018</y>
             <width>652</width>
-            <height>1653</height>
+            <height>1686</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1560,6 +1560,36 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>ASAP</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutSpinyEggBehavior">
+                <item>
+                 <widget class="QLabel" name="lblSpinyEggBehavior">
+                  <property name="text">
+                   <string>Spiny Egg Behavior:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboSpinyEggBehavior">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Bouncy</string>
                    </property>
                   </item>
                  </widget>

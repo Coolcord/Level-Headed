@@ -39,6 +39,11 @@ bool Hacks::Black_Piranha_Plants() {
     return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23));
 }
 
+bool Hacks::Bouncy_Spiny_Eggs() {
+    if (!this->Write_Bytes_To_Offset(0x40FD, QByteArray::fromHex(QString("D0034CE2E0B416C012D0034CD9DF4CFADF").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x6005, QByteArray::fromHex(QString("4CEDC0EAEA").toLatin1()));
+}
+
 bool Hacks::Disable_Intro_Demo() {
     if (!this->Write_Bytes_To_Offset(0x277, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x289, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;

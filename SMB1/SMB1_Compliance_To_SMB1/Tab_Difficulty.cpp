@@ -45,6 +45,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->comboLakituRespawnSpeed->setCurrentIndex(this->pluginSettings->difficultyLakituRespawnSpeed);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
+    this->ui->comboSpinyEggBehavior->setCurrentIndex(this->pluginSettings->difficultySpinyEggBehavior);
     this->ui->comboSpawnerPriority->setCurrentIndex(this->pluginSettings->difficultySpawnerPriority);
     this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
 }
@@ -90,6 +91,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->difficultyLakituRespawnSpeed = this->ui->comboLakituRespawnSpeed->currentIndex();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
+        this->pluginSettings->difficultySpinyEggBehavior = this->ui->comboSpinyEggBehavior->currentIndex();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();

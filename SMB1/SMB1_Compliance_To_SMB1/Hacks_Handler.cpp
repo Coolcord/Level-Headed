@@ -30,9 +30,8 @@ bool Hacks_Handler::Write_Hacks() {
     }
     if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
     if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
-    if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
     if (!this->Handle_Piranha_Plants()) return false;
-    if (!this->Handle_Lakitu_Respawn_Speed()) return false;
+    if (!this->Handle_Lakitus()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
     if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (!this->Handle_Powerup()) return false;
@@ -93,7 +92,22 @@ bool Hacks_Handler::Handle_Graphics() {
     return success;
 }
 
-bool Hacks_Handler::Handle_Lakitu_Respawn_Speed() {
+bool Hacks_Handler::Handle_Lakitus() {
+    //Handle the Throw Arc
+    if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
+
+    //Handle the Spiny Egg Behavior
+    int spinyEggBehavior = this->pluginSettings->difficultySpinyEggBehavior;
+    if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Num(1)+1;
+    bool success = false;
+    switch (spinyEggBehavior) {
+    default:    assert(false);
+    case 1:     success = true; break; //Normal
+    case 2:     success = this->writerPlugin->Hacks_Bouncy_Spiny_Eggs(); break; //Bouncy
+    }
+    if (!success) return false;
+
+    //Handle the Respawn Speed
     int lakituRespawnSpeed = this->pluginSettings->difficultyLakituRespawnSpeed;
     switch (lakituRespawnSpeed) {
     default:    assert(false);
