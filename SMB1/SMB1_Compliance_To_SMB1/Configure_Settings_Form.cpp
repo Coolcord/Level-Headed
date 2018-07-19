@@ -29,13 +29,12 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     ui->setupUi(this);
 
     //Set the About Text
-    this->ui->textAbout->setHtml(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
-        "SMB1 Compliance for SMB1"+Common_Strings::STRING_HTML_NEW_LINE+
-        "A Random Level Generator for Super Mario Bros. 1 on the NES"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
-        "Created by Coolcord"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
-        "<a href="+STRING_UPDATES_LINK+">Get Updates</a>"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE+
-        "<a href="+STRING_SOURCE_CODE_LINK+">Source Code</a>"+Common_Strings::STRING_HTML_NEW_LINE+Common_Strings::STRING_HTML_NEW_LINE);
-    this->ui->textAbout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    this->ui->textAbout->setHtml("<p align=\"center\">"+Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION+Common_Strings::STRING_HTML_NEW_LINE+
+                                 "Using SMB1 Compliance Generator for SMB1</p>"+this->ui->textAbout->toHtml());
+    int numberOfLines = 15;
+    int height = QFontMetrics(this->ui->textAbout->font()).height()*numberOfLines;
+    this->ui->textAbout->setMinimumHeight(height);
+    this->ui->textAbout->setMaximumHeight(height);
 
     this->tabBaseGame = new Tab_Base_Game(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
     this->tabDifficulty = new Tab_Difficulty(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
