@@ -75,7 +75,7 @@ bool Hacks::Fix_Lakitu_Throw_Arc() {
 bool Hacks::Fix_Life_Counter_Bugs() {
     //Allow for 2 digits on screen
     if (!this->Write_Bytes_To_Offset(0x7A4, QByteArray::fromHex(QString("240124").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x852, QByteArray::fromHex(QString("A000C90A90054C92E3EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x852, QByteArray::fromHex(QString("A000C90A90054C92E3").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x63A2, QByteArray::fromHex(QString("E90A18C88C08034C4488").toLatin1()))) return false;
 
     //Limit to 99 lives
@@ -176,6 +176,19 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int u
     if (!this->Write_Bytes_To_Offset(0x40B8, QByteArray(1, static_cast<char>(undergroundSpeed)))) return false;
     if (!this->Write_Bytes_To_Offset(0x40B9, QByteArray(1, static_cast<char>(castleSpeed)))) return false;
     return true;
+}
+
+bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
+    if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("1CE4").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, 0x38))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3B01, QByteArray::fromHex(QString("73C0A90495AC206BC0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, 0x60))) return false;
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("A92085FFB91E00608A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB"
+            "4C28BBEAEAEAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, 0x02))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8811, QByteArray::fromHex(QString("0000003C7E77FB0000000000183C0E9F5F8E20").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x8828, QByteArray::fromHex(QString("0E0400000000000005020803070707030000000001030100C0E0F0F0B070E0C000004060E0C080").toLatin1()));
 }
 
 bool Hacks::Replace_Mario_With_Luigi() {

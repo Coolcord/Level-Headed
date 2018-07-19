@@ -3,6 +3,7 @@
 
 struct Difficulty_Level_Settings {
     bool save;
+    int autoScroll;
     int bulletTime;
     int hammerTime;
     int walkingHammerBros;
@@ -30,6 +31,9 @@ struct Difficulty_Level_Settings {
     bool noEnemies;
     bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
+    int replaceCastleLoops;
+    int autoScrollChancePerLevel;
+    int autoScrollSpeed;
     int lakituSpawnChancePerLevel;
     int lakituRespawnSpeed;
     bool lakituThrowArc;

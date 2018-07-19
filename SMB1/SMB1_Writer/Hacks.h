@@ -31,7 +31,7 @@ public:
     bool Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
     bool Replace_1UP_With_Swimming_Mushroom();
     bool Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
-    bool Replace_Fire_Flower_With_Hammer_Suit();
+    bool Replace_Castle_Loop_With_Fire_Bros();
     bool Replace_Mario_With_Luigi();
     bool Set_Basic_Enemy_Speed(int speed);
     bool Set_Bullet_Bill_Speed(int speed);

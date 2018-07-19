@@ -156,6 +156,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.generateNewLevels << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.levelScripts << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyComboIndex << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyAutoScroll << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBulletTime << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTime << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyWalkingHammerBros << Common_Strings::STRING_NEW_LINE;
@@ -183,6 +184,9 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyNoEnemies << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyReplaceCastleLoops << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyAutoScrollChancePerLevel << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.difficultyAutoScrollSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituRespawnSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpinyEggBehavior << Common_Strings::STRING_NEW_LINE;
@@ -204,7 +208,6 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.addLuigiGame << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.autoscroll << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBasicEnemySpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyBulletBillSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpeedyObjectsAndEnemies << Common_Strings::STRING_NEW_LINE;
@@ -230,6 +233,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.generateNewLevels = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.levelScripts = file.readLine().trimmed();
     this->pluginSettings.difficultyComboIndex = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyAutoScroll = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBulletTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTime = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyWalkingHammerBros = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -257,6 +261,9 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyNoEnemies = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyReplaceCastleLoops = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyAutoScrollChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.difficultyAutoScrollSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituRespawnSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpinyEggBehavior = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
@@ -278,7 +285,6 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.addLuigiGame = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.superMarioOnDamage = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.lakituThrowArc = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
-    this->pluginSettings.autoscroll = static_cast<Qt::CheckState>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.difficultyBasicEnemySpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyBulletBillSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpeedyObjectsAndEnemies = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
@@ -312,7 +318,6 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.addLuigiGame = true;
     this->pluginSettings.superMarioOnDamage = true;
     this->pluginSettings.lakituThrowArc = true;
-    this->pluginSettings.autoscroll = Qt::Unchecked;
     this->pluginSettings.difficultyBasicEnemySpeed = 1;
     this->pluginSettings.difficultyBasicEnemySpeed = 2;
     this->pluginSettings.difficultySpeedyObjectsAndEnemies = false;

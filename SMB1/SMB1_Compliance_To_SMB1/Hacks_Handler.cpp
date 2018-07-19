@@ -33,18 +33,29 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Piranha_Plants()) return false;
     if (!this->Handle_Lakitus()) return false;
     if (!this->Handle_Enemy_Speed()) return false;
-    if (this->Get_Bool_From_CheckState(this->pluginSettings->autoscroll) && !this->writerPlugin->Hacks_Always_Autoscroll()) return false;
     if (!this->Handle_Powerup()) return false;
     if (!this->Handle_Secondary_Mushroom()) return false;
+    if (!this->Handle_Replace_Castle_Loop()) return false;
 
     //The patches below are always applied
     if (!this->writerPlugin->Hacks_Real_Time()) return false;
     if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
-    if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(1, 1, 1, 1)) return false;
     if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
+}
+
+bool Hacks_Handler::Handle_Auto_Scroll() {
+    int overworldSpeed = this->pluginSettings->difficultyAutoScrollSpeed, undergroundSpeed= this->pluginSettings->difficultyAutoScrollSpeed,
+        underwaterSpeed = this->pluginSettings->difficultyAutoScrollSpeed, castleSpeed = this->pluginSettings->difficultyAutoScrollSpeed;
+    if (this->pluginSettings->difficultyAutoScrollSpeed == 0) {
+        overworldSpeed = Random::Get_Num(2)+1;
+        undergroundSpeed = Random::Get_Num(2)+1;
+        underwaterSpeed = Random::Get_Num(2)+1;
+        castleSpeed = Random::Get_Num(2)+1;
+    }
+    return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
 }
 
 bool Hacks_Handler::Handle_Music() {
@@ -210,6 +221,18 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
 
     //Change the palette if it is a Mystery Mushroom
     return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Num(3));
+}
+
+bool Hacks_Handler::Handle_Replace_Castle_Loop() {
+    this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
+    if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(1)+1;
+    }
+    switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
+    default:    assert(false);
+    case 1:     return this->Handle_Auto_Scroll();
+    case 2:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
+    }
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {

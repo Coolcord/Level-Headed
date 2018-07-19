@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -737,7 +737,7 @@
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1686</height>
+            <height>1791</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -797,16 +797,6 @@
              </property>
              <property name="tristate">
               <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cbAutoscroll">
-             <property name="text">
-              <string>Auto Scroll Screen</string>
-             </property>
-             <property name="tristate">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -938,6 +928,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 6 will be enabled half way through the game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 10 will be enabled 90% into the game.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A value of 11 will never be enabled for the entire game.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutAutoScroll">
+                <item>
+                 <widget class="QLabel" name="lblAutoScroll">
+                  <property name="text">
+                   <string>Auto Scroll:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbAutoScroll">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>11</number>
                   </property>
                  </widget>
                 </item>
@@ -1460,6 +1471,27 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutAutoScrollChancePerLevel">
+                <item>
+                 <widget class="QLabel" name="lblAutoScrollChancePerLevel">
+                  <property name="text">
+                   <string>Auto Scroll Chance Per Level:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbAutoScrollChancePerLevel">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutHammerTimeIntensity">
                 <item>
                  <widget class="QLabel" name="lblHammerTimeIntensity">
@@ -1517,16 +1549,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutLakituRespawnSpeed">
+               <layout class="QHBoxLayout" name="layoutAutoScrollSpeed">
                 <item>
-                 <widget class="QLabel" name="lblLakituRespawnSpeed">
+                 <widget class="QLabel" name="lblAutoScrollSpeed">
                   <property name="text">
-                   <string>Lakitu Respawn Speed:</string>
+                   <string>Auto Scroll Speed:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboLakituRespawnSpeed">
+                 <widget class="QComboBox" name="comboAutoScrollSpeed">
                   <item>
                    <property name="text">
                     <string>Random</string>
@@ -1534,12 +1566,7 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>No Respawn</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Delayed</string>
+                    <string>Slow</string>
                    </property>
                   </item>
                   <item>
@@ -1549,112 +1576,12 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>Quick</string>
+                    <string>Fast</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Very Quick</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>ASAP</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutSpinyEggBehavior">
-                <item>
-                 <widget class="QLabel" name="lblSpinyEggBehavior">
-                  <property name="text">
-                   <string>Spiny Egg Behavior:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboSpinyEggBehavior">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Normal</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Bouncy</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutSpawnerPriority">
-                <item>
-                 <widget class="QLabel" name="lblSpawnerPriority">
-                  <property name="text">
-                   <string>Spawner Priority:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboSpawnerPriority">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Lakitus &gt; Flying Cheep-Cheeps &gt; Bullet Bills</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Flying Cheep-Cheeps &gt; Lakitus &gt; Bullet Bills</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutPiranhaPlantTYpe">
-                <item>
-                 <widget class="QLabel" name="lblPiranhaPlantType">
-                  <property name="text">
-                   <string>Piranha Plant Type:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboPiranhaPlantType">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Green</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Red</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Black</string>
+                    <string>Ludicrous Speed!</string>
                    </property>
                   </item>
                  </widget>
@@ -1740,6 +1667,181 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutLakituRespawnSpeed">
+                <item>
+                 <widget class="QLabel" name="lblLakituRespawnSpeed">
+                  <property name="text">
+                   <string>Lakitu Respawn Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboLakituRespawnSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>No Respawn</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Delayed</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Quick</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Quick</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ASAP</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutPiranhaPlantTYpe">
+                <item>
+                 <widget class="QLabel" name="lblPiranhaPlantType">
+                  <property name="text">
+                   <string>Piranha Plant Type:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboPiranhaPlantType">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Green</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Red</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Black</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutReplaceCastleLoops">
+                <item>
+                 <widget class="QLabel" name="lblReplaceCastleLoops">
+                  <property name="text">
+                   <string>Replace Castle Loops With:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboReplaceCastleLoops">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Auto Scroll</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fire Bros.</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutSpawnerPriority">
+                <item>
+                 <widget class="QLabel" name="lblSpawnerPriority">
+                  <property name="text">
+                   <string>Spawner Priority:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboSpawnerPriority">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Lakitus &gt; Flying Cheep-Cheeps &gt; Bullet Bills</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Flying Cheep-Cheeps &gt; Lakitus &gt; Bullet Bills</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutSpinyEggBehavior">
+                <item>
+                 <widget class="QLabel" name="lblSpinyEggBehavior">
+                  <property name="text">
+                   <string>Spiny Egg Behavior:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboSpinyEggBehavior">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Bouncy</string>
                    </property>
                   </item>
                  </widget>

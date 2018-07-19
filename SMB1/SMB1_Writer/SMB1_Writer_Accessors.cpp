@@ -563,6 +563,11 @@ bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworld
     return this->hacks->Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
 }
 
+bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Fire_Bros() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Fire_Bros();
+}
+
 bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Mario_With_Luigi();

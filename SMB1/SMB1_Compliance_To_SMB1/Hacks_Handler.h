@@ -12,6 +12,7 @@ public:
     bool Write_Hacks();
 
 private:
+    bool Handle_Auto_Scroll();
     bool Handle_Music();
     bool Handle_Graphics();
     bool Handle_Lakitus();
@@ -21,6 +22,7 @@ private:
     bool Handle_Enemy_Speed();
     bool Handle_Powerup();
     bool Handle_Secondary_Mushroom();
+    bool Handle_Replace_Castle_Loop();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 
     SMB1_Writer_Interface *writerPlugin;

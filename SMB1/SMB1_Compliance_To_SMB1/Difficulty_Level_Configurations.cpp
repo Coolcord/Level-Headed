@@ -5,6 +5,7 @@
 
 void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings) {
     assert(pluginSettings);
+    pluginSettings->difficultyAutoScroll = difficultySettings.autoScroll;
     pluginSettings->difficultyBulletTime = difficultySettings.bulletTime;
     pluginSettings->difficultyHammerTime = difficultySettings.hammerTime;
     pluginSettings->difficultyWalkingHammerBros = difficultySettings.walkingHammerBros;
@@ -32,6 +33,9 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
+    pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
+    pluginSettings->difficultyAutoScrollChancePerLevel = difficultySettings.autoScrollChancePerLevel;
+    pluginSettings->difficultyAutoScrollSpeed = difficultySettings.autoScrollSpeed;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
@@ -47,6 +51,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     Difficulty_Level_Settings difficultySettings;
+    difficultySettings.autoScroll = 5;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
     difficultySettings.walkingHammerBros = 11;
@@ -74,6 +79,9 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.noEnemies = false;
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
+    difficultySettings.replaceCastleLoops = 0;
+    difficultySettings.autoScrollChancePerLevel = 15;
+    difficultySettings.autoScrollSpeed = 2;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
@@ -111,6 +119,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
+    difficultySettings.autoScroll = 7;
     difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
     difficultySettings.lakituThrowArc = false;
@@ -122,6 +131,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
+    difficultySettings.autoScroll = 3;
     difficultySettings.bulletTime = 5;
     difficultySettings.hammerTime = 7;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 4;
@@ -329,7 +339,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-    difficultySettings.hammerTimeIntensity = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.hammerTimeIntensity = Random::Get_Num(100);
+    difficultySettings.replaceCastleLoops = 0; //0 is random here
+    difficultySettings.autoScrollChancePerLevel = Random::Get_Num(100);
+    difficultySettings.autoScrollSpeed = 0; //0 is random here
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spinyEggBehavior = 0; //0 is random here

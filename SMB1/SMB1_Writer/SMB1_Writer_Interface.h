@@ -147,6 +147,7 @@ public:
     virtual bool Hacks_Red_Piranha_Plants()=0;
     virtual bool Hacks_Remove_Vertical_Object_Limit()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed)=0;
+    virtual bool Hacks_Replace_Castle_Loop_With_Fire_Bros()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
     virtual bool Hacks_Set_Basic_Enemy_Speed(int speed)=0;
     virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;

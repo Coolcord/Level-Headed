@@ -31,7 +31,7 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     //Set the About Text
     this->ui->textAbout->setHtml("<p align=\"center\">"+Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION+Common_Strings::STRING_HTML_NEW_LINE+
                                  "Using SMB1 Compliance Generator for SMB1</p>"+this->ui->textAbout->toHtml());
-    int numberOfLines = 15;
+    int numberOfLines = 15; //necessary for determining the QTextBrowser height
     int height = QFontMetrics(this->ui->textAbout->font()).height()*numberOfLines;
     this->ui->textAbout->setMinimumHeight(height);
     this->ui->textAbout->setMaximumHeight(height);

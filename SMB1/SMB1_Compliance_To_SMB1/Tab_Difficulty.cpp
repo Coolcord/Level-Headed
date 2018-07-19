@@ -7,14 +7,13 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
-    this->ui->cb2PlayerGame->setChecked(!this->pluginSettings->addLuigiGame);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
-    this->ui->cbAutoscroll->setCheckState(this->pluginSettings->autoscroll);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
     this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
+    this->ui->sbAutoScroll->setValue(this->pluginSettings->difficultyAutoScroll);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
     this->ui->sbWalkingHammerBros->setValue(this->pluginSettings->difficultyWalkingHammerBros);
@@ -42,6 +41,9 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
     this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
+    this->ui->comboReplaceCastleLoops->setCurrentIndex(this->pluginSettings->difficultyReplaceCastleLoops);
+    this->ui->sbAutoScrollChancePerLevel->setValue(this->pluginSettings->difficultyAutoScrollChancePerLevel);
+    this->ui->comboAutoScrollSpeed->setCurrentIndex(this->pluginSettings->difficultyAutoScrollSpeed);
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->comboLakituRespawnSpeed->setCurrentIndex(this->pluginSettings->difficultyLakituRespawnSpeed);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
@@ -51,16 +53,16 @@ void Tab_Difficulty::Load_Settings() {
 }
 
 void Tab_Difficulty::Save_Settings() {
+    this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
-    this->pluginSettings->addLuigiGame = !this->ui->cb2PlayerGame->isChecked();
-    this->pluginSettings->autoscroll = this->ui->cbAutoscroll->checkState();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
     switch (this->pluginSettings->difficultyComboIndex) {
     default: assert(false); break;
     case 0: //Custom
+        this->pluginSettings->difficultyAutoScroll = this->ui->sbAutoScroll->value();
         this->pluginSettings->difficultyBulletTime = this->ui->sbBulletTime->value();
         this->pluginSettings->difficultyHammerTime = this->ui->sbHammerTime->value();
         this->pluginSettings->difficultyWalkingHammerBros = this->ui->sbWalkingHammerBros->value();
@@ -88,6 +90,9 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
+        this->pluginSettings->difficultyReplaceCastleLoops = this->ui->comboReplaceCastleLoops->currentIndex();
+        this->pluginSettings->difficultyAutoScrollChancePerLevel = this->ui->sbAutoScrollChancePerLevel->value();
+        this->pluginSettings->difficultyAutoScrollSpeed = this->ui->comboAutoScrollSpeed->currentIndex();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->difficultyLakituRespawnSpeed = this->ui->comboLakituRespawnSpeed->currentIndex();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();

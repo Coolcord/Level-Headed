@@ -45,10 +45,10 @@ struct Plugin_Settings {
     bool addLuigiGame;
     bool superMarioOnDamage;
     bool lakituThrowArc;
-    Qt::CheckState autoscroll;
     int powerup;
     int secondaryMushroom;
     int difficultyComboIndex;
+    int difficultyAutoScroll;
     int difficultyBulletTime;
     int difficultyHammerTime;
     int difficultyWalkingHammerBros;
@@ -76,6 +76,10 @@ struct Plugin_Settings {
     bool difficultyNoEnemies;
     bool difficultyStartWithFireFlowerOnRoomChange;
     int difficultyHammerTimeIntensity;
+    int difficultyReplaceCastleLoops;
+    int difficultyReplaceCastleLoopsCurrent;
+    int difficultyAutoScrollChancePerLevel;
+    int difficultyAutoScrollSpeed;
     int difficultyLakituSpawnChancePerLevel;
     int difficultyLakituRespawnSpeed;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
