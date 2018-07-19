@@ -114,6 +114,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
     return difficultySettings;
