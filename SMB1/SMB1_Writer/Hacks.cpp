@@ -183,8 +183,7 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, 0x38))) return false;
     if (!this->Write_Bytes_To_Offset(0x3B01, QByteArray::fromHex(QString("73C0A90495AC206BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, 0x60))) return false;
-    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("A92085FFB91E00608A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB"
-            "4C28BBEAEAEAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("A92085FFB91E00608A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB4C28BB").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, 0x02))) return false;
     if (!this->Write_Bytes_To_Offset(0x8811, QByteArray::fromHex(QString("0000003C7E77FB0000000000183C0E9F5F8E20").toLatin1()))) return false;
