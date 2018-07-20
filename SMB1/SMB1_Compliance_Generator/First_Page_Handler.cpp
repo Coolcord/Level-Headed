@@ -2,12 +2,13 @@
 #include "Object_Writer.h"
 #include <assert.h>
 
-First_Page_Handler::First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle) {
+First_Page_Handler::First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle, bool useAutoScroll) {
     assert(object);
     this->object = object;
     this->headerBackground = headerBackground;
     this->castle = castle;
     this->firstPageWritten = false;
+    this->useAutoScroll = useAutoScroll;
 }
 
 void First_Page_Handler::Handle_First_Page(int &x) {
@@ -27,6 +28,12 @@ void First_Page_Handler::Handle_First_Page(int &x) {
         break;
     default:
         assert(false);
+    }
+    if (this->useAutoScroll) {
+        int tmpX = 0;
+        if (this->object->Get_Absolute_X(tmpX) == 0xF) tmpX = 1;
+        assert(this->object->Toggle_Auto_Scroll(tmpX));
+        x += tmpX;
     }
     this->object->Set_First_Page_Safety(true);
     this->firstPageWritten = true;

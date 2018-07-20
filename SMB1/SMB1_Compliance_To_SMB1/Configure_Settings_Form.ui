@@ -34,8 +34,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>669</width>
-            <height>635</height>
+            <width>464</width>
+            <height>445</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -437,7 +437,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>652</width>
+            <width>306</width>
             <height>673</height>
            </rect>
           </property>
@@ -735,7 +735,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-995</y>
             <width>652</width>
             <height>1791</height>
            </rect>
@@ -1567,11 +1567,6 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Slow</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Normal</string>
                    </property>
                   </item>
                   <item>

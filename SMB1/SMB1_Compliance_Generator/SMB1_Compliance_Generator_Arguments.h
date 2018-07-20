@@ -18,6 +18,7 @@ struct SMB1_Compliance_Generator_Arguments {
     Castle::Castle startCastle;
     Castle::Castle endCastle;
     Level_Type::Level_Type levelType;
+    bool useAutoScroll;
     int difficulty;
     int difficultyBulletTime;
     int difficultyHammerTime;

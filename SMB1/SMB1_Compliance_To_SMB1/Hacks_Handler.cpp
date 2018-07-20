@@ -47,13 +47,13 @@ bool Hacks_Handler::Write_Hacks() {
 }
 
 bool Hacks_Handler::Handle_Auto_Scroll() {
-    int overworldSpeed = this->pluginSettings->difficultyAutoScrollSpeed, undergroundSpeed= this->pluginSettings->difficultyAutoScrollSpeed,
-        underwaterSpeed = this->pluginSettings->difficultyAutoScrollSpeed, castleSpeed = this->pluginSettings->difficultyAutoScrollSpeed;
-    if (this->pluginSettings->difficultyAutoScrollSpeed == 0) {
-        overworldSpeed = Random::Get_Num(2)+1;
-        undergroundSpeed = Random::Get_Num(2)+1;
-        underwaterSpeed = Random::Get_Num(2)+1;
-        castleSpeed = Random::Get_Num(2)+1;
+    int speed = this->pluginSettings->difficultyAutoScrollSpeed-1;
+    int overworldSpeed = speed, undergroundSpeed = speed, underwaterSpeed = speed, castleSpeed = speed;
+    if (speed == -1) { //Random
+        overworldSpeed = Random::Get_Num(1);
+        undergroundSpeed = Random::Get_Num(1);
+        underwaterSpeed = Random::Get_Num(1);
+        castleSpeed = Random::Get_Num(1);
     }
     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
 }

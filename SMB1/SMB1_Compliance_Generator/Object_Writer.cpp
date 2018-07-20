@@ -15,6 +15,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Complia
     this->endObjectCount = Physics::MIN_END_OBJECTS;
     this->totalBytes = numBytesLeft;
     this->firstPageSafety = false;
+    this->autoScrollActive = false;
 }
 
 int Object_Writer::Get_Last_Object_Length() {
@@ -39,6 +40,10 @@ int Object_Writer::Get_Num_Objects_Left() {
 
 int Object_Writer::Get_Num_Objects_Available() {
     return (this->Get_Num_Objects_Left()-this->endObjectCount);
+}
+
+bool Object_Writer::Is_Auto_Scroll_Active() {
+    return this->autoScrollActive;
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
@@ -436,6 +441,16 @@ bool Object_Writer::Scroll_Stop(int x, bool warpZone) {
         return this->Write_Object(x, Object_Item::STRING_SCROLL_STOP_WARP_ZONE, false);
     } else {
         return this->Write_Object(x, Object_Item::STRING_SCROLL_STOP, false);
+    }
+}
+
+bool Object_Writer::Toggle_Auto_Scroll(int x) {
+    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Write_Object(x, Object_Item::STRING_TOGGLE_AUTO_SCROLL, false)) {
+        this->autoScrollActive = !this->autoScrollActive;
+        return true;
+    } else {
+        return false;
     }
 }
 

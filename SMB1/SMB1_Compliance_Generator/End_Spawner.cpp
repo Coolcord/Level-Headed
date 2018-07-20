@@ -5,7 +5,7 @@
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns) : Object_Spawner(object) {
+End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(object) {
     assert(object);
     assert(enemy);
     assert(args);
@@ -15,6 +15,7 @@ End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compli
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
+    this->endObjectCount = 0;
     switch (args->endCastle) {
     case Castle::NONE:  this->castleObjectCount = 0; break;
     case Castle::SMALL: this->castleObjectCount = 1; break;
@@ -24,7 +25,10 @@ End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compli
 
     //Determine the amount of objects that need to be allocated for the end
     this->Determine_End();
-    this->object->Set_End_Object_Count(this->endObjectCount);
+
+    //TODO: Write this!!!
+    //this->useAutoScroll = useAutoScroll;
+    //if (useAutoScroll) ++this->endObjectCount;
 }
 
 bool End_Spawner::Is_End_Written() {
@@ -43,6 +47,7 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
 
     //Handle each end pattern accordingly
     if (forceWrite || numObjectsLeft == this->endObjectCount) {
+        //this->Handle_Auto_Scroll();
         bool success = false;
         switch (this->endPattern) {
         case End_Pattern::Shortest:
@@ -155,6 +160,16 @@ bool End_Spawner::Determine_Island_End() {
     default:
         assert(false);
         return false;
+    }
+}
+
+void End_Spawner::Handle_Auto_Scroll() {
+    if (this->useAutoScroll) {
+        --this->endObjectCount;
+        if (!this->object->Is_Auto_Scroll_Active()) return; //don't bother deactivating if it isn't active
+        int tmpX = 0;
+        if (this->object->Get_Absolute_X(tmpX) == 0xF) ++tmpX;
+        assert(this->object->Toggle_Auto_Scroll(tmpX));
     }
 }
 

@@ -532,6 +532,19 @@ bool Object_Handler::Scroll_Stop(const QString &line, bool warpZone, int &errorC
     }
 }
 
+bool Object_Handler::Toggle_Auto_Scroll(const QString &line, int &errorCode) {
+    QStringList elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    int x = 0;
+    if (!this->Parse_Num(elements.at(1), x)) return false;
+    if (!this->writerPlugin->Object_Toggle_Auto_Scroll(x)) {
+        errorCode = 3;
+        return false;
+    } else {
+        return true;
+    }
+}
+
 bool Object_Handler::Flying_Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 2) return false;

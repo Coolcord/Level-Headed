@@ -9,7 +9,7 @@ class Object_Writer;
 class First_Page_Handler
 {
 public:
-    First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle);
+    First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle, bool useAutoScroll);
     void Handle_First_Page(int &x);
     Background::Background Get_Header_Background();
 
@@ -18,6 +18,7 @@ private:
     Castle::Castle castle;
     Background::Background headerBackground;
     bool firstPageWritten;
+    bool useAutoScroll;
 };
 
 #endif // FIRST_PAGE_HANDLER_H

@@ -232,6 +232,11 @@ bool SMB1_Writer::Object_Scroll_Stop(int x, bool warpZone) {
     return this->objectWriter->Scroll_Stop(x, warpZone);
 }
 
+bool SMB1_Writer::Object_Toggle_Auto_Scroll(int x) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->objectWriter->Toggle_Auto_Scroll(x);
+}
+
 bool SMB1_Writer::Object_Flying_Cheep_Cheep_Spawner(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->objectWriter->Flying_Cheep_Cheep_Spawner(x);

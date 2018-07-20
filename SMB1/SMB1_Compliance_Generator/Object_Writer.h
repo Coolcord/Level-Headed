@@ -18,6 +18,7 @@ public:
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
+    bool Is_Auto_Scroll_Active();
     bool Is_Midpoint_Ready();
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
@@ -58,6 +59,7 @@ public:
     bool Axe_Rope(int x);
     bool Bowser_Bridge(int x);
     bool Scroll_Stop(int x, bool warpZone);
+    bool Toggle_Auto_Scroll(int x);
     bool Flying_Cheep_Cheep_Spawner(int x);
     bool Swimming_Cheep_Cheep_Spawner(int x);
     bool Bullet_Bill_Spawner(int x);
@@ -98,6 +100,7 @@ private:
     int endObjectCount;
     int totalBytes;
     bool firstPageSafety;
+    bool autoScrollActive;
 
     friend class Pipe_Pointer_Writer;
 };

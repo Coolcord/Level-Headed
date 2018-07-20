@@ -40,6 +40,7 @@ namespace Object_Item {
     const static QString STRING_BOWSER_BRIDGE = "Bowser_Bridge";
     const static QString STRING_SCROLL_STOP = "Scroll_Stop";
 	const static QString STRING_SCROLL_STOP_WARP_ZONE = "Scroll_Stop_Warp_Zone";
+    const static QString STRING_TOGGLE_AUTO_SCROLL = "Toggle_Auto_Scroll";
     const static QString STRING_FLYING_CHEEP_CHEEP_SPAWNER = "Flying_Cheep_Cheep_Spawner";
     const static QString STRING_SWIMMING_CHEEP_CHEEP_SPAWNER = "Swimming_Cheep_Cheep_Spawner";
     const static QString STRING_BULLET_BILL_SPAWNER = "Bullet_Bill_Spawner";

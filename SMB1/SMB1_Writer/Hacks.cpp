@@ -164,9 +164,10 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int u
     if (!this->Write_Bytes_To_Offset(0x16C9, QByteArray::fromHex(QString("E6C0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2F46, QByteArray::fromHex(QString("6BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2FAD, QByteArray::fromHex(QString("20B7C0F0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x406D, QByteArray::fromHex(QString("2FC168290FA8B90F00D00295"
-        "0F6020AAC0D01DA50EC908D017AC4E07BEA6C0D007A5094AB00AA2018AA820C4AF206FAF4C4FB704856DAD250738E9048D2507AD1A0738E9048D1A07"
-        "AD01010101AD2307D005A541C90160A9FD6020AAC0F002C9FD6020A1DFB02120BDDEF01B4820AAC0D014A586290FC90BB00CAD5507C902B005A2002058D9681860A5414901854160").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x406D, QByteArray::fromHex(QString("2FC1").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("20AAC0D01DA50EC908D017AC4E07BEA6C0D007A5094AB00AA2018AA820C4AF206FAF4C4FB7").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x40B6, QByteArray::fromHex(QString("00010203AD2307D005A541C90160A9FD6020AAC0F002C9FD6020A1DFB02120BDDEF01B4820AAC0D0"
+            "14A586290FC90BB00CAD5507C902B005A2002058D9681860A5414901854160").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x41B9, QByteArray::fromHex(QString("2FC1").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5DBA, QByteArray::fromHex(QString("BFC0").toLatin1()))) return false;
 

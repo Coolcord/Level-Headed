@@ -13,7 +13,7 @@ class Required_Enemy_Spawns;
 class End_Spawner : public Object_Spawner
 {
 public:
-    End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns);
+    End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
     bool Is_End_Written();
     bool Handle_End(int x);
     bool Handle_End(int x, bool forceWrite);
@@ -28,6 +28,7 @@ private:
     bool Determine_Castle_End();
     bool Determine_Bridge_End();
     bool Determine_Island_End();
+    void Handle_Auto_Scroll();
     bool Shortest_End(int x);
     bool Shortest_End(int x, bool cancelSpawner);
     bool Shortest_With_Brick_End(int x);
@@ -42,6 +43,7 @@ private:
     int castleObjectCount;
     int endObjectCount;
     bool endWritten;
+    bool useAutoScroll;
 };
 
 #endif // END_SPAWNER_H

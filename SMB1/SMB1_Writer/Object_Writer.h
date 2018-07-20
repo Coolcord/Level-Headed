@@ -45,6 +45,7 @@ public:
     bool Axe_Rope(int x);
     bool Bowser_Bridge(int x);
     bool Scroll_Stop(int x, bool warpZone = false);
+    bool Toggle_Auto_Scroll(int x);
     bool Flying_Cheep_Cheep_Spawner(int x);
     bool Swimming_Cheep_Cheep_Spawner(int x);
     bool Bullet_Bill_Spawner(int x);

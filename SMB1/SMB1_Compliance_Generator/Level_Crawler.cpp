@@ -731,6 +731,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
     case Object_Item::SCROLL_STOP:
     case Object_Item::SCROLL_STOP_WARP_ZONE:
+    case Object_Item::TOGGLE_AUTO_SCROLL:
     case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:
     case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:
     case Object_Item::BULLET_BILL_SPAWNER:

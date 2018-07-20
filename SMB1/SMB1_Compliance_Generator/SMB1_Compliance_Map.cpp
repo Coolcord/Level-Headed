@@ -56,6 +56,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_BOWSER_BRIDGE, Object_Item::BOWSER_BRIDGE);
     this->objects->insert(Object_Item::STRING_SCROLL_STOP, Object_Item::SCROLL_STOP);
     this->objects->insert(Object_Item::STRING_SCROLL_STOP_WARP_ZONE, Object_Item::SCROLL_STOP_WARP_ZONE);
+    this->objects->insert(Object_Item::STRING_TOGGLE_AUTO_SCROLL, Object_Item::TOGGLE_AUTO_SCROLL);
     this->objects->insert(Object_Item::STRING_FLYING_CHEEP_CHEEP_SPAWNER, Object_Item::FLYING_CHEEP_CHEEP_SPAWNER);
     this->objects->insert(Object_Item::STRING_SWIMMING_CHEEP_CHEEP_SPAWNER, Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER);
     this->objects->insert(Object_Item::STRING_BULLET_BILL_SPAWNER, Object_Item::BULLET_BILL_SPAWNER);

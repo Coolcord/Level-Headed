@@ -76,6 +76,7 @@ public:
     virtual bool Object_Axe_Rope(int x)=0;
     virtual bool Object_Bowser_Bridge(int x)=0;
     virtual bool Object_Scroll_Stop(int x, bool warpZone = false)=0;
+    virtual bool Object_Toggle_Auto_Scroll(int x)=0;
     virtual bool Object_Flying_Cheep_Cheep_Spawner(int x)=0;
     virtual bool Object_Swimming_Cheep_Cheep_Spawner(int x)=0;
     virtual bool Object_Bullet_Bill_Spawner(int x)=0;

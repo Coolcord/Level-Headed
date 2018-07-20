@@ -46,6 +46,7 @@ public:
     bool Axe_Rope(const QString &line, int &errorCode);
     bool Bowser_Bridge(const QString &line, int &errorCode);
     bool Scroll_Stop(const QString &line, bool warpZone, int &errorCode);
+    bool Toggle_Auto_Scroll(const QString &line, int &errorCode);
     bool Flying_Cheep_Cheep_Spawner(const QString &line, int &errorCode);
     bool Swimming_Cheep_Cheep_Spawner(const QString &line, int &errorCode);
     bool Bullet_Bill_Spawner(const QString &line, int &errorCode);

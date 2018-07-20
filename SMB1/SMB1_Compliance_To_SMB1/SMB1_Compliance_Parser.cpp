@@ -189,6 +189,8 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Scroll_Stop(line, false, errorCode);
     case Object_Item::SCROLL_STOP_WARP_ZONE:
         return this->objectHandler->Scroll_Stop(line, true, errorCode);
+    case Object_Item::TOGGLE_AUTO_SCROLL:
+        return this->objectHandler->Toggle_Auto_Scroll(line, errorCode);
     case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:
         return this->objectHandler->Flying_Cheep_Cheep_Spawner(line, errorCode);
     case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:
