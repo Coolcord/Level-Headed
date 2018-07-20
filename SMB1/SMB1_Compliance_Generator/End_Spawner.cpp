@@ -15,6 +15,7 @@ End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compli
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
+    this->useAutoScroll = useAutoScroll;
     this->endObjectCount = 0;
     switch (args->endCastle) {
     case Castle::NONE:  this->castleObjectCount = 0; break;
@@ -25,10 +26,6 @@ End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compli
 
     //Determine the amount of objects that need to be allocated for the end
     this->Determine_End();
-
-    //TODO: Write this!!!
-    //this->useAutoScroll = useAutoScroll;
-    //if (useAutoScroll) ++this->endObjectCount;
 }
 
 bool End_Spawner::Is_End_Written() {
@@ -47,7 +44,7 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
 
     //Handle each end pattern accordingly
     if (forceWrite || numObjectsLeft == this->endObjectCount) {
-        //this->Handle_Auto_Scroll();
+        this->Handle_Auto_Scroll();
         bool success = false;
         switch (this->endPattern) {
         case End_Pattern::Shortest:
@@ -86,6 +83,7 @@ void End_Spawner::Determine_End() {
         assert(false); return;
     }
     this->endObjectCount += this->castleObjectCount;
+    if (useAutoScroll) ++this->endObjectCount;
     this->object->Set_End_Object_Count(this->endObjectCount);
     assert(this->object->Get_Num_Bytes_Left() > this->endObjectCount);
 }

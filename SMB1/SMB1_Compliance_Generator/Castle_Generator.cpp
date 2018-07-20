@@ -121,6 +121,8 @@ bool Castle_Generator::Spawn_Intro(int &x) {
     assert(this->object->Horizontal_Blocks(0, 5, 3));
     assert(this->object->Horizontal_Blocks(0, 6, 4));
     assert(this->object->Horizontal_Blocks(0, 7, 5));
+    int autoScrollX = 4;
+    this->Handle_Auto_Scroll_Start(autoScrollX);
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
         this->object->Set_Last_Object_Length(16);

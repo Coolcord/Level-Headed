@@ -62,3 +62,10 @@ int Level_Generator::Get_Random_X(int min, bool firstPage) {
 int Level_Generator::Get_Safe_Random_X() {
     return this->Get_Random_X(this->object->Get_Last_Object_Length());
 }
+
+void Level_Generator::Handle_Auto_Scroll_Start(int &x) {
+    if (this->args->useAutoScroll) {
+        if (this->object->Get_Absolute_X(x) == 0xF) ++x;
+        assert(this->object->Toggle_Auto_Scroll(x));
+    }
+}

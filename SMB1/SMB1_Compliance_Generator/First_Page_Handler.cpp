@@ -29,12 +29,6 @@ void First_Page_Handler::Handle_First_Page(int &x) {
     default:
         assert(false);
     }
-    if (this->useAutoScroll) {
-        int tmpX = 0;
-        if (this->object->Get_Absolute_X(tmpX) == 0xF) tmpX = 1;
-        assert(this->object->Toggle_Auto_Scroll(tmpX));
-        x += tmpX;
-    }
     this->object->Set_First_Page_Safety(true);
     this->firstPageWritten = true;
 }

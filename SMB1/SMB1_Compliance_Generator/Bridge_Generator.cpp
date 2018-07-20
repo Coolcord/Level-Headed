@@ -99,6 +99,11 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     //Decrement x a bit to match SMB1's style
     if (this->object->Get_First_Page_Safety()) x -= Random::Get_Num(8);
 
+    //Handle Auto Scrolling Levels
+    int autoScrollX = 4;
+    this->Handle_Auto_Scroll_Start(autoScrollX);
+    x -= autoScrollX;
+
     //Possibly spawn a hole between the steps and the castle
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
     x = Random::Get_Num(Physics::WALKING_JUMP_LENGTH)+1;

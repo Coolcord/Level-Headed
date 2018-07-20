@@ -46,6 +46,8 @@ bool Underground_Generator::Spawn_Intro(int &x) {
     this->object->Set_First_Page_Safety(false); //undground levels can ignore the first page safety
     assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE, Scenery::NO_SCENERY));
     assert(this->object->Change_Brick_And_Scenery(5, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    int autoScrollX = 0;
+    this->Handle_Auto_Scroll_Start(autoScrollX);
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
         x = 16;

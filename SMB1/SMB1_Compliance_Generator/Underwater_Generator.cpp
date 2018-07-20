@@ -56,6 +56,8 @@ int Underwater_Generator::Get_Underwater_X(int min) {
 
 bool Underwater_Generator::Spawn_Intro(int &x) {
     if (this->object->Get_Num_Objects_Available() < 1) return false;
+    int autoScrollX = 4;
+    this->Handle_Auto_Scroll_Start(autoScrollX);
     Enemy_Item::Enemy_Item enemyItem = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
     if (enemyItem == Enemy_Item::LAKITU || enemyItem == Enemy_Item::NOTHING) x = 16;
     else x = 1;

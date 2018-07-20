@@ -47,6 +47,8 @@ bool Island_Generator::Spawn_Intro(int &x) {
     this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
     this->object->Set_Last_Object_Length(1);
     assert(this->object->Get_Absolute_X(0) == 0x00);
+    int autoScrollX = 4;
+    this->Handle_Auto_Scroll_Start(autoScrollX);
     return true;
 }
 

@@ -27,6 +27,7 @@ protected:
     int Get_Random_X();
     int Get_Random_X(int min, bool firstPage = false);
     int Get_Safe_Random_X();
+    void Handle_Auto_Scroll_Start(int &x);
 
     Level_Generator(const Level_Generator&);
     Level_Generator& operator=(const Level_Generator&);
