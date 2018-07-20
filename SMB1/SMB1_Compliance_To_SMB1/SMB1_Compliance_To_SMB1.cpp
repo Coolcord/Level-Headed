@@ -186,7 +186,6 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.difficultyHammerTimeIntensity << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyReplaceCastleLoops << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyAutoScrollChancePerLevel << Common_Strings::STRING_NEW_LINE;
-    stream << this->pluginSettings.difficultyAutoScrollSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituSpawnChancePerLevel << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultyLakituRespawnSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.difficultySpinyEggBehavior << Common_Strings::STRING_NEW_LINE;
@@ -263,7 +262,6 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.difficultyHammerTimeIntensity = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyReplaceCastleLoops = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyAutoScrollChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
-    this->pluginSettings.difficultyAutoScrollSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituSpawnChancePerLevel = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultyLakituRespawnSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.difficultySpinyEggBehavior = file.readLine().trimmed().toInt(&valid); if (!valid) return false;

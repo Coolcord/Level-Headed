@@ -34,8 +34,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>464</width>
-            <height>445</height>
+            <width>669</width>
+            <height>635</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -437,7 +437,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>306</width>
+            <width>652</width>
             <height>673</height>
            </rect>
           </property>
@@ -735,9 +735,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-995</y>
+            <y>-947</y>
             <width>652</width>
-            <height>1791</height>
+            <height>1758</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1544,41 +1544,6 @@ p, li { white-space: pre-wrap; }
                   <property name="value">
                    <number>0</number>
                   </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutAutoScrollSpeed">
-                <item>
-                 <widget class="QLabel" name="lblAutoScrollSpeed">
-                  <property name="text">
-                   <string>Auto Scroll Speed:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboAutoScrollSpeed">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Slow</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Fast</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Ludicrous Speed!</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>

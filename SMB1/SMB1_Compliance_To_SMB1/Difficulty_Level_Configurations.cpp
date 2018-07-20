@@ -36,7 +36,6 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyAutoScrollChancePerLevel = difficultySettings.autoScrollChancePerLevel;
-    pluginSettings->difficultyAutoScrollSpeed = difficultySettings.autoScrollSpeed;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
@@ -82,7 +81,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 0;
     difficultySettings.autoScrollChancePerLevel = 15;
-    difficultySettings.autoScrollSpeed = 1; //slow
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
@@ -161,7 +159,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
-    difficultySettings.autoScrollSpeed = 2; //fast
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
@@ -344,7 +341,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.hammerTimeIntensity = Random::Get_Num(100);
     difficultySettings.replaceCastleLoops = 0; //0 is random here
     difficultySettings.autoScrollChancePerLevel = Random::Get_Num(100);
-    difficultySettings.autoScrollSpeed = 0; //0 is random here
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Num(1));
     difficultySettings.spinyEggBehavior = 0; //0 is random here

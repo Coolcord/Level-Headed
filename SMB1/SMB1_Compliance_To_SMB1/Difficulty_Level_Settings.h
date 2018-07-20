@@ -33,7 +33,6 @@ struct Difficulty_Level_Settings {
     int hammerTimeIntensity;
     int replaceCastleLoops;
     int autoScrollChancePerLevel;
-    int autoScrollSpeed;
     int lakituSpawnChancePerLevel;
     int lakituRespawnSpeed;
     bool lakituThrowArc;

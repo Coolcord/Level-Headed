@@ -163,7 +163,7 @@ public:
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();
-    bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed);
+    bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
     bool Hacks_Replace_Castle_Loop_With_Fire_Bros();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Basic_Enemy_Speed(int speed);

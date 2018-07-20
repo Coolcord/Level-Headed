@@ -43,7 +43,6 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
     this->ui->comboReplaceCastleLoops->setCurrentIndex(this->pluginSettings->difficultyReplaceCastleLoops);
     this->ui->sbAutoScrollChancePerLevel->setValue(this->pluginSettings->difficultyAutoScrollChancePerLevel);
-    this->ui->comboAutoScrollSpeed->setCurrentIndex(this->pluginSettings->difficultyAutoScrollSpeed);
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->comboLakituRespawnSpeed->setCurrentIndex(this->pluginSettings->difficultyLakituRespawnSpeed);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
@@ -92,7 +91,6 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyReplaceCastleLoops = this->ui->comboReplaceCastleLoops->currentIndex();
         this->pluginSettings->difficultyAutoScrollChancePerLevel = this->ui->sbAutoScrollChancePerLevel->value();
-        this->pluginSettings->difficultyAutoScrollSpeed = this->ui->comboAutoScrollSpeed->currentIndex();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->difficultyLakituRespawnSpeed = this->ui->comboLakituRespawnSpeed->currentIndex();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();

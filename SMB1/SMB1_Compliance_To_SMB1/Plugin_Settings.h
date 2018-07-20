@@ -79,7 +79,6 @@ struct Plugin_Settings {
     int difficultyReplaceCastleLoops;
     int difficultyReplaceCastleLoopsCurrent;
     int difficultyAutoScrollChancePerLevel;
-    int difficultyAutoScrollSpeed;
     int difficultyLakituSpawnChancePerLevel;
     int difficultyLakituRespawnSpeed;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;

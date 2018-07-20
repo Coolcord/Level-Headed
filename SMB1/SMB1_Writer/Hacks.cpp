@@ -152,30 +152,17 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     return this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()));
 }
 
-bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object(int overworldSpeed, int undergroundSpeed, int underwaterSpeed, int castleSpeed) {
-    //Make sure the speed values are valid
-    const int MAX_SPEED = 3;
-    if (overworldSpeed < 0 || overworldSpeed > MAX_SPEED) return false;
-    if (undergroundSpeed < 0 || undergroundSpeed > MAX_SPEED) return false;
-    if (underwaterSpeed < 0 || underwaterSpeed > MAX_SPEED) return false;
-    if (castleSpeed < 0 || castleSpeed > MAX_SPEED) return false;
-
+bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
     //By ATA
     if (!this->Write_Bytes_To_Offset(0x16C9, QByteArray::fromHex(QString("E6C0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2F46, QByteArray::fromHex(QString("6BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2FAD, QByteArray::fromHex(QString("20B7C0F0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x406D, QByteArray::fromHex(QString("2FC1").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("20AAC0D01DA50EC908D017AC4E07BEA6C0D007A5094AB00AA2018AA820C4AF206FAF4C4FB7").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x40B6, QByteArray::fromHex(QString("00010203AD2307D005A541C90160A9FD6020AAC0F002C9FD6020A1DFB02120BDDEF01B4820AAC0D0"
+    if (!this->Write_Bytes_To_Offset(0x40B6, QByteArray::fromHex(QString("01010101AD2307D005A541C90160A9FD6020AAC0F002C9FD6020A1DFB02120BDDEF01B4820AAC0D0"
             "14A586290FC90BB00CAD5507C902B005A2002058D9681860A5414901854160").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x41B9, QByteArray::fromHex(QString("2FC1").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5DBA, QByteArray::fromHex(QString("BFC0").toLatin1()))) return false;
-
-    //Patch the speeds
-    if (!this->Write_Bytes_To_Offset(0x40B6, QByteArray(1, static_cast<char>(underwaterSpeed)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x40B7, QByteArray(1, static_cast<char>(overworldSpeed)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x40B8, QByteArray(1, static_cast<char>(undergroundSpeed)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x40B9, QByteArray(1, static_cast<char>(castleSpeed)))) return false;
     return true;
 }
 

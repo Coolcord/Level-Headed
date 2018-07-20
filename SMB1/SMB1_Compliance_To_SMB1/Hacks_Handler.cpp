@@ -46,18 +46,6 @@ bool Hacks_Handler::Write_Hacks() {
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 
-bool Hacks_Handler::Handle_Auto_Scroll() {
-    int speed = this->pluginSettings->difficultyAutoScrollSpeed-1;
-    int overworldSpeed = speed, undergroundSpeed = speed, underwaterSpeed = speed, castleSpeed = speed;
-    if (speed == -1) { //Random
-        overworldSpeed = Random::Get_Num(1);
-        undergroundSpeed = Random::Get_Num(1);
-        underwaterSpeed = Random::Get_Num(1);
-        castleSpeed = Random::Get_Num(1);
-    }
-    return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object(overworldSpeed, undergroundSpeed, underwaterSpeed, castleSpeed);
-}
-
 bool Hacks_Handler::Handle_Music() {
     assert(this->writerPlugin->Music_Set_Combine_Music_Packs(this->pluginSettings->combineMusicWithOtherPacks));
 
@@ -230,7 +218,7 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     }
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
     default:    assert(false);
-    case 1:     return this->Handle_Auto_Scroll();
+    case 1:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
     case 2:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
     }
 }
