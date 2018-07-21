@@ -100,9 +100,10 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     if (this->object->Get_First_Page_Safety()) x -= Random::Get_Num(8);
 
     //Handle Auto Scrolling Levels
-    int autoScrollX = 4;
+    int autoScrollX = 2;
     this->Handle_Auto_Scroll_Start(autoScrollX);
     x -= autoScrollX;
+    assert(x >= 0);
 
     //Possibly spawn a hole between the steps and the castle
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));

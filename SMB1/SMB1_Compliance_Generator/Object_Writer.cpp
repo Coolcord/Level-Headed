@@ -39,7 +39,6 @@ int Object_Writer::Get_Num_Objects_Left() {
 }
 
 int Object_Writer::Get_Num_Objects_Available() {
-    int numObjectsAvailable = (this->Get_Num_Objects_Left()-this->endObjectCount);
     return (this->Get_Num_Objects_Left()-this->endObjectCount);
 }
 
