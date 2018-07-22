@@ -102,7 +102,7 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     //Handle Auto Scrolling Levels
     int autoScrollX = 2;
     this->Handle_Auto_Scroll_Start(autoScrollX);
-    x -= autoScrollX;
+    if (this->object->Is_Auto_Scroll_Active()) x -= autoScrollX;
     assert(x >= 0);
 
     //Possibly spawn a hole between the steps and the castle

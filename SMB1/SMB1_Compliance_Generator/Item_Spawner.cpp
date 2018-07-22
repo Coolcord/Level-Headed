@@ -37,6 +37,7 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
         if (this->levelType == Level_Type::BRIDGE) y = groundLevelY-(Random::Get_Num(2)+3);
         else y = groundLevelY-(Random::Get_Num(4)+1);
         if (y < minY) y = minY;
+        if (groundLevelY == 2 && y == 0) y = 1; //this works around a bug in the engine that can cause Mario to fall through the floor
         assert(this->object->Horizontal_Coins(x, y, length));
     }
     amountIncremented += x;

@@ -169,7 +169,7 @@ bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA9F9").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, 0x03))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, 0x03))) return false;
-    if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("00183C7E7E3C1800000018080000000000183C7E7E3C180000000030200000").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("00183C7E7E3C1800000018080000000000183C7E7E3C18000000003020000000").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0000000000000000000F1F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("010131393D1F0F030000000000000000").toLatin1()))) return false;
     return this->graphics->Apply_Spinball_Flower_Fix();
