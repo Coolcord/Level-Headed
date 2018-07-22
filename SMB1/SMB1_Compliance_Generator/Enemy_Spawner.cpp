@@ -1,5 +1,6 @@
 #include "Enemy_Spawner.h"
 #include "Enemy_Writer.h"
+#include "Object_Writer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
@@ -11,16 +12,13 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Enemy_Writer *enemies,
+Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Object_Writer *objects, Enemy_Writer *enemies,
                              Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args) {
-    assert(file);
-    assert(stream);
-    assert(enemies);
-    assert(requiredEnemySpawns);
-    assert(args);
-    assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
+    assert(file); assert(stream); assert(objects); assert(enemies); assert(requiredEnemySpawns);
+    assert(args); assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
     this->file = file;
     this->stream = stream;
+    this->objects = objects;
     this->enemies = enemies;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->args = args;
@@ -76,7 +74,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         averageDistance = this->Calculate_Average_Distance(x, totalSpaces, this->Calculate_Number_Of_Enemies());
 
         //Determine what type of enemies to spawn
-        bool forceHammerBro = this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        bool forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         bool noEnemies = this->args->difficultyNoEnemies;
         if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
         if (forceHammerBro) {

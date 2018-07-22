@@ -19,6 +19,7 @@ public:
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
     bool Is_Auto_Scroll_Active();
+    bool Was_Auto_Scroll_Used();
     bool Is_Midpoint_Ready();
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
@@ -101,6 +102,7 @@ private:
     int totalBytes;
     bool firstPageSafety;
     bool autoScrollActive;
+    bool wasAutoScrollUsed;
 
     friend class Pipe_Pointer_Writer;
 };
