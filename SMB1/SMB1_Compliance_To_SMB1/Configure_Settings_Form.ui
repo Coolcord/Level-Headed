@@ -735,7 +735,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-947</y>
+            <y>-1062</y>
             <width>652</width>
             <height>1758</height>
            </rect>
@@ -1719,36 +1719,6 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutReplaceCastleLoops">
-                <item>
-                 <widget class="QLabel" name="lblReplaceCastleLoops">
-                  <property name="text">
-                   <string>Replace Castle Loops With:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboReplaceCastleLoops">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Auto Scroll</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Fire Bros.</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="layoutSpawnerPriority">
                 <item>
                  <widget class="QLabel" name="lblSpawnerPriority">
@@ -1802,6 +1772,41 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Bouncy</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutReplaceCastleLoops">
+                <item>
+                 <widget class="QLabel" name="lblReplaceCastleLoops">
+                  <property name="text">
+                   <string>Complimentary Hack:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboReplaceCastleLoops">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>None</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Auto Scroll</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fire Bros.</string>
                    </property>
                   </item>
                  </widget>

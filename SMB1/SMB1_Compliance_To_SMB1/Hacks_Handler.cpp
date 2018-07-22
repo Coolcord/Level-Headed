@@ -214,12 +214,13 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(1)+1;
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(2)+1;
     }
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
     default:    assert(false);
-    case 1:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
-    case 2:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
+    case 1:     return true; //no complimentary hack
+    case 2:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
+    case 3:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
     }
 }
 

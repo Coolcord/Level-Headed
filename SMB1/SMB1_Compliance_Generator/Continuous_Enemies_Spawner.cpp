@@ -96,7 +96,8 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Flyi
 }
 
 Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Lakitus(int x, int expectedDifficulty) {
-    if (this->args->difficulty >= expectedDifficulty && Random::Get_Num(99) <= this->args->difficultyLakituSpawnChancePerLevel-1) {
+    if (!this->object->Is_Auto_Scroll_Active() && this->args->difficulty >= expectedDifficulty &&
+            Random::Get_Num(99)+1 <= this->args->difficultyLakituSpawnChancePerLevel) {
         assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, x, 0x0));
         return Enemy_Item::LAKITU;
     }

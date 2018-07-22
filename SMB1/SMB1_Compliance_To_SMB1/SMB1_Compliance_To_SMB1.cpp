@@ -311,7 +311,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.toneColor = 0;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.infiniteLives = false;
-    this->pluginSettings.numLives = 5;
+    this->pluginSettings.numLives = 7;
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;
     this->pluginSettings.superMarioOnDamage = true;

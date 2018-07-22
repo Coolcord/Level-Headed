@@ -51,7 +51,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     Difficulty_Level_Settings difficultySettings;
-    difficultySettings.autoScroll = 5;
+    difficultySettings.autoScroll = 4;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
     difficultySettings.walkingHammerBros = 11;
@@ -80,7 +80,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 0;
-    difficultySettings.autoScrollChancePerLevel = 20;
+    difficultySettings.autoScrollChancePerLevel = 25;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
@@ -172,6 +172,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.walkingHammerBros = 8;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.autoScrollChancePerLevel = 35;
     difficultySettings.lakituSpawnChancePerLevel = 50;
     difficultySettings.castleFlyingCheepCheeps = 7;
     difficultySettings.castleLakitus = 5;
@@ -191,6 +192,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     Difficulty_Level_Settings difficultySettings = this->Very_Hard();
     difficultySettings.hammerTimeIntensity = 40;
     difficultySettings.walkingHammerBros = 6;
+    difficultySettings.autoScroll = 2;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 1;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     difficultySettings.castleFlyingCheepCheeps = 4;

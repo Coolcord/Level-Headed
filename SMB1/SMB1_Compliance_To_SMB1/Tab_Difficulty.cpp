@@ -51,6 +51,8 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
 }
 
+#include <QDebug>
+
 void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
