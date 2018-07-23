@@ -159,7 +159,12 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
     if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+Random::Get_Num(2);
     assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, bridgeLength));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
-    Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
+
+    //Create the Continuous Enemies Spawner
+    int spawnerX = 16-this->object->Get_Level_Length();
+    if (spawnerX < 0) spawnerX = 0;
+    Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(spawnerX);
+    x += spawnerX;
     if (spawner == Enemy_Item::CHEEP_CHEEP_SPAWNER || spawner == Enemy_Item::BULLET_BILL_SPAWNER) x = 1;
 
     return true;
@@ -271,9 +276,9 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
 
     //Spawn the Lone Bridge Series
     assert(this->Spawn_Lone_Bridge(x, y, length));
-    if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
+    if (uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length());
     for (int i = 1; i < numBridges; ++i) {
-        if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length()+1);
+        if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length());
         if (!uniformHeight) y = this->Get_Bridge_Y();
         if (!uniformLength) length = Random::Get_Num(2)+2;
         assert(this->Spawn_Lone_Bridge(x, y, length));
