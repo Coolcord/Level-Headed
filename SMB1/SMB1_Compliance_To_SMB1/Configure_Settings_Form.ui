@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabBaseGame">
       <attribute name="title">
@@ -735,7 +735,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1062</y>
+            <y>0</y>
             <width>652</width>
             <height>1758</height>
            </rect>
@@ -1943,7 +1943,7 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; vertical-align:middle;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/Coolcord/Level-Headed/releases&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4; vertical-align:middle;&quot;&gt;Get Updates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; vertical-align:middle;&quot;&gt;	&lt;/span&gt;&lt;a href=&quot;https://github.com/Coolcord/Level-Headed&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4; vertical-align:middle;&quot;&gt;Source Code&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline; color:#007af4; vertical-align:middle;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; vertical-align:middle;&quot;&gt;Level-Headed is far from complete. Consider it an alpha. However, the levels it generates should be very playable. If you find a bug, please report it &lt;/span&gt;&lt;a href=&quot;https://github.com/Coolcord/Level-Headed/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; vertical-align:middle;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; vertical-align:middle;&quot;&gt;Level-Headed is far from complete and is still under development. However, the levels it generates should be very playable. If you find a bug, please report it &lt;/span&gt;&lt;a href=&quot;https://github.com/Coolcord/Level-Headed/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; vertical-align:middle;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="overwriteMode">
           <bool>false</bool>

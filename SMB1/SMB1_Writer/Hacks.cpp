@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <cmath>
 
+const static QString STRING_FIRE_BROS = "Fire Bros";
+
 Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
     assert(sequentialArchiveHandler);
     this->sequentialArchiveHandler = sequentialArchiveHandler;
@@ -176,8 +178,9 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, 0x02))) return false;
     if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, 0x02))) return false; //red palette for Bowser
-    return this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
-            "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
+            "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS);
 }
 
 bool Hacks::Replace_Mario_With_Luigi() {
