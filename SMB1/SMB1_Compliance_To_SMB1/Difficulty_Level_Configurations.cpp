@@ -225,6 +225,14 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
     return difficultySettings;
 }
 
+Difficulty_Level_Settings Difficulty_Level_Configurations::Just_Keep_Scrolling() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
+    difficultySettings.autoScroll = 1;
+    difficultySettings.autoScrollChancePerLevel = 100;
+    difficultySettings.replaceCastleLoops = 2;
+    return difficultySettings;
+}
+
 Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.bulletTime = 1;
@@ -303,13 +311,27 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.replaceCastleLoops = 1;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time() {
-    Difficulty_Level_Settings difficultySettings = this->Hard();
+    Difficulty_Level_Settings difficultySettings = this->Very_Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
+    difficultySettings.replaceCastleLoops = 1;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Turn_Up_The_Heat() {
+    Difficulty_Level_Settings difficultySettings = this->Hammer_Time();
+    difficultySettings.replaceCastleLoops = 3;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Too_Hot_To_Handle() {
+    Difficulty_Level_Settings difficultySettings = this->Extreme_Hammer_Time();
+    difficultySettings.replaceCastleLoops = 3;
     return difficultySettings;
 }
 
@@ -385,6 +407,10 @@ void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSe
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);
 }
 
+void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings);
+}
+
 void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);
 }
@@ -403,6 +429,14 @@ void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSetting
 
 void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {
     this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings);
+}
+
+void Difficulty_Level_Configurations::Turn_Up_The_Heat(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Turn_Up_The_Heat(), pluginSettings);
+}
+
+void Difficulty_Level_Configurations::Too_Hot_To_Handle(Plugin_Settings *pluginSettings) {
+    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Too_Hot_To_Handle(), pluginSettings);
 }
 
 void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings) {

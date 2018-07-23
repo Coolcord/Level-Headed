@@ -861,6 +861,11 @@
                </item>
                <item>
                 <property name="text">
+                 <string>Just Keep Scrolling (All levels auto scroll)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>Riddled with Bullets (Bullet Bills on every level)</string>
                 </property>
                </item>
@@ -882,6 +887,16 @@
                <item>
                 <property name="text">
                  <string>Extreme Hammer Time (All enemies are replaced with Hammer Bros.)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Turn up the Heat (20% enemies are replaced with Fire Bros.)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Too Hot to Handle (All enemies are replaced with Fire Bros.)</string>
                 </property>
                </item>
               </widget>

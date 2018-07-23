@@ -127,20 +127,29 @@ void Tab_Difficulty::Save_Settings() {
     case 8: //Walk in the Park
         Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings);
         break;
-    case 9: //Riddled with Bullets
+    case 9: //Just Keep Scrolling
+        Difficulty_Level_Configurations().Just_Keep_Scrolling(this->pluginSettings);
+        break;
+    case 10: //Riddled with Bullets
         Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings);
         break;
-    case 10: //Lakitu's Challenge
+    case 11: //Lakitu's Challenge
         Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings);
         break;
-    case 11: //Cheep-Cheep Frenzy
+    case 12: //Cheep-Cheep Frenzy
         Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
         break;
-    case 12: //Hammer Time
+    case 13: //Hammer Time
         Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings);
         break;
-    case 13: //Extreme Hammer Time
+    case 14: //Extreme Hammer Time
         Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings);
+        break;
+    case 15: //Turn up the Heat
+        Difficulty_Level_Configurations().Turn_Up_The_Heat(this->pluginSettings);
+        break;
+    case 16: //Too Hot to Handle
+        Difficulty_Level_Configurations().Too_Hot_To_Handle(this->pluginSettings);
         break;
     }
 }
