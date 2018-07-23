@@ -98,6 +98,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     //Turn Everything Off for Very Easy
     Difficulty_Level_Settings difficultySettings = this->Easy();
+    difficultySettings.autoScroll = 11;
+    difficultySettings.autoScrollChancePerLevel = 0;
     difficultySettings.bulletTime = 11;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 10;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
@@ -113,6 +115,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
+    difficultySettings.replaceCastleLoops = 1;
     return difficultySettings;
 }
 
@@ -121,10 +124,12 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.autoScroll = 7;
     difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
+    difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
+    difficultySettings.replaceCastleLoops = 2;
     return difficultySettings;
 }
 
