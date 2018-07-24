@@ -219,14 +219,14 @@ bool Enemy_Handler::Podoboo(const QString &line, int &errorCode) {
     }
 }
 
-bool Enemy_Handler::Pirana_Plant(const QString &line, int &errorCode) {
+bool Enemy_Handler::Piranha_Plant(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() != 4) return false;
     int x = 0; int y = 0; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Pirana_Plant(x, y, onlyHardMode)) {
+    if (!this->writerPlugin->Enemy_Piranha_Plant(x, y, onlyHardMode)) {
         errorCode = 3;
         return false;
     } else {

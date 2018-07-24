@@ -106,7 +106,7 @@ public:
     virtual bool Enemy_Green_Cheep_Cheep(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Podoboo(int x, bool onlyHardMode = false)=0;
-    virtual bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false)=0;
+    virtual bool Enemy_Piranha_Plant(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Spiny(int x, int y, bool onlyHardMode = false)=0;
     virtual bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false)=0;

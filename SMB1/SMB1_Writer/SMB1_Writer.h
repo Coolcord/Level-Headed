@@ -122,7 +122,7 @@ public:
     bool Enemy_Green_Cheep_Cheep(int x, int y, bool onlyHardMode = false);
     bool Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode = false);
     bool Enemy_Podoboo(int x, bool onlyHardMode = false);
-    bool Enemy_Pirana_Plant(int x, int y, bool onlyHardMode = false);
+    bool Enemy_Piranha_Plant(int x, int y, bool onlyHardMode = false);
     bool Enemy_Lakitu(int x, int y, bool onlyHardMode = false);
     bool Enemy_Spiny(int x, int y, bool onlyHardMode = false);
     bool Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode = false);

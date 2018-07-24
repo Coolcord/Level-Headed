@@ -15,7 +15,7 @@ namespace Enemy_Item {
         GREEN_CHEEP_CHEEP,
         RED_CHEEP_CHEEP,
         PODOBOO,
-        PIRANA_PLANT,
+        PIRANHA_PLANT,
         LAKITU,
         SPINY,
         BOWSER_FIRE_SPAWNER,

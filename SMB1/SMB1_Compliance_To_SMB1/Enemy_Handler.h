@@ -20,7 +20,7 @@ public:
     bool Green_Cheep_Cheep(const QString &line, int &errorCode);
     bool Red_Cheep_Cheep(const QString &line, int &errorCode);
     bool Podoboo(const QString &line, int &errorCode);
-    bool Pirana_Plant(const QString &line, int &errorCode);
+    bool Piranha_Plant(const QString &line, int &errorCode);
     bool Lakitu(const QString &line, int &errorCode);
     bool Spiny(const QString &line, int &errorCode);
     bool Bowser_Fire_Spawner(const QString &line, int &errorCode);

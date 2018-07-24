@@ -243,7 +243,7 @@ bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line, int &errorCode) {
     case Enemy_Item::GREEN_CHEEP_CHEEP:     return this->enemyHandler->Green_Cheep_Cheep(line, errorCode);
     case Enemy_Item::RED_CHEEP_CHEEP:       return this->enemyHandler->Red_Cheep_Cheep(line, errorCode);
     case Enemy_Item::PODOBOO:               return this->enemyHandler->Podoboo(line, errorCode);
-    case Enemy_Item::PIRANA_PLANT:          return this->enemyHandler->Pirana_Plant(line, errorCode);
+    case Enemy_Item::PIRANHA_PLANT:          return this->enemyHandler->Piranha_Plant(line, errorCode);
     case Enemy_Item::LAKITU:                return this->enemyHandler->Lakitu(line, errorCode);
     case Enemy_Item::SPINY:                 return this->enemyHandler->Spiny(line, errorCode);
     case Enemy_Item::BOWSER_FIRE_SPAWNER:   return this->enemyHandler->Bowser_Fire_Spawner(line, errorCode);

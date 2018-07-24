@@ -156,7 +156,7 @@ bool Enemy_Writer::Podoboo(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0xC, 0x0C, onlyHardMode);
 }
 
-bool Enemy_Writer::Pirana_Plant(int x, int y, bool onlyHardMode) {
+bool Enemy_Writer::Piranha_Plant(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0D, onlyHardMode);
 }
 

@@ -17,7 +17,7 @@ namespace Enemy_Item {
     const static QString STRING_GREEN_CHEEP_CHEEP = "Green_Cheep_Cheep";
     const static QString STRING_RED_CHEEP_CHEEP = "Red_Cheep_Cheep";
     const static QString STRING_PODOBOO = "Podoboo";
-    const static QString STRING_PIRANA_PLANT = "Pirana_Plant";
+    const static QString STRING_PIRANHA_PLANT = "Piranha_Plant";
     const static QString STRING_LAKITU = "Lakitu";
     const static QString STRING_SPINY = "Spiny";
     const static QString STRING_BOWSER_FIRE_SPAWNER = "Bowser_Fire_Spawner";

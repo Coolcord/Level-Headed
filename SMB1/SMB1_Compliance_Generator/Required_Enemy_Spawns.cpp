@@ -167,7 +167,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::GREEN_CHEEP_CHEEP:     success = this->enemy->Green_Cheep_Cheep(x, y, args.onlyHardMode); break;
     case Enemy_Item::RED_CHEEP_CHEEP:       success = this->enemy->Red_Cheep_Cheep(x, y, args.onlyHardMode); break;
     case Enemy_Item::PODOBOO:               success = this->enemy->Podoboo(x, args.onlyHardMode); break;
-    case Enemy_Item::PIRANA_PLANT:          success = this->enemy->Pirana_Plant(x, y, args.onlyHardMode); break;
+    case Enemy_Item::PIRANHA_PLANT:          success = this->enemy->Piranha_Plant(x, y, args.onlyHardMode); break;
     case Enemy_Item::LAKITU:                success = this->enemy->Lakitu(x, y, args.onlyHardMode); break;
     case Enemy_Item::SPINY:                 success = this->enemy->Spiny(x, y, args.onlyHardMode); break;
     case Enemy_Item::BOWSER_FIRE_SPAWNER:   success = this->enemy->Bowser_Fire_Spawner(x, args.onlyHardMode); break;

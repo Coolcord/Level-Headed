@@ -372,9 +372,9 @@ bool SMB1_Writer::Enemy_Podoboo(int x, bool onlyHardMode) {
     return this->enemyWriter->Podoboo(x, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Pirana_Plant(int x, int y, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Piranha_Plant(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Pirana_Plant(x, y, onlyHardMode);
+    return this->enemyWriter->Piranha_Plant(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Lakitu(int x, int y, bool onlyHardMode) {

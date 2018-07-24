@@ -87,7 +87,7 @@ void SMB1_Compliance_Map::Populate_Enemy_Map() {
     this->enemies->insert(Enemy_Item::STRING_GREEN_CHEEP_CHEEP, Enemy_Item::GREEN_CHEEP_CHEEP);
     this->enemies->insert(Enemy_Item::STRING_RED_CHEEP_CHEEP, Enemy_Item::RED_CHEEP_CHEEP);
     this->enemies->insert(Enemy_Item::STRING_PODOBOO, Enemy_Item::PODOBOO);
-    this->enemies->insert(Enemy_Item::STRING_PIRANA_PLANT, Enemy_Item::PIRANA_PLANT);
+    this->enemies->insert(Enemy_Item::STRING_PIRANHA_PLANT, Enemy_Item::PIRANHA_PLANT);
     this->enemies->insert(Enemy_Item::STRING_LAKITU, Enemy_Item::LAKITU);
     this->enemies->insert(Enemy_Item::STRING_SPINY, Enemy_Item::SPINY);
     this->enemies->insert(Enemy_Item::STRING_BOWSER_FIRE_SPAWNER, Enemy_Item::BOWSER_FIRE_SPAWNER);
