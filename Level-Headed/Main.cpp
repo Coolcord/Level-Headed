@@ -4,8 +4,8 @@
 #include <QApplication>
 #include <QTime>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    QApplication::setStyle("plastique");
     QApplication a(argc, argv);
     Main_Window w;
 
