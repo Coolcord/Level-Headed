@@ -1,14 +1,14 @@
 Bullet Time (v0.3.0)
-+ Bullet Time: Replaces most vertical blocks with Bullet Bill Cannons
-+ Hammer Time intensity can now be adjusted
-+ Lakitus now have a chance of spawning in some levels
++ Added Bullet Bills and Lakitus
++ Lakitu's eggs have a chance at either bouncing or breaking into Spinies
 + Added more difficulties (Very Easy, Easy, Normal, Hard, Very Hard, Brutal)
 + Added some gimmicky difficulties (e.g. Lakitu's Challenge where every level has a Lakitu)
-+ Universal Title Screen that works for all graphics packs
-+ Hammer Suit
-+ Added an option to make the screen auto scroll (by L)
++ Significantly more options for Custom Difficulties (e.g. any enemy spawner can be placed on any level)
++ 8 Different Powerups that can replace the Fire Flower
 + 1-Up mushrooms can now be replaced with Poison, Swimming, and Mystery Mushrooms
-+ More aggressive Piranha Plant variants can be seen at higher difficulties (Hard, Very Hard, Brutal)
++ Added some complimentary hacks (Auto Scrolling Levels and Fire Bros.)
++ More aggressive Piranha Plant variants (Red and Black) can be seen at higher difficulties (Hard, Very Hard, Brutal)
++ Universal Title Screen that works for all graphics packs
 + Graphics and Music patches are now loaded externally, allowing users to add their own patches
 + Added Graphics (Hyper Mario)
 + Added Graphics (Harmony7)
