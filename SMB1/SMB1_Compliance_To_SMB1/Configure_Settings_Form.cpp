@@ -52,6 +52,23 @@ Configure_Settings_Form::~Configure_Settings_Form() {
     delete ui;
 }
 
+void Configure_Settings_Form::accept() {
+    if (!this->tabLevelGenerator->At_Least_One_Very_Common_Selected()) {
+        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
+                              "At least one level type must have a \"" + STRING_VERY_COMMON + "\" chance!",
+                              Common_Strings::STRING_OK);
+        return;
+    }
+    if (this->ui->radioUseLevelScripts->isChecked() && this->ui->comboLevelScripts->currentText() == STRING_NO_LEVEL_SCRIPTS_FOUND) {
+        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
+                              "No level scripts could be found! Try generating new levels.",
+                              Common_Strings::STRING_OK);
+        return;
+    }
+
+    this->Save_Settings();
+}
+
 void Configure_Settings_Form::Load_Settings() {
     this->tabBaseGame->Load_Settings();
     this->tabLevelGenerator->Load_Settings();
@@ -82,30 +99,6 @@ void Configure_Settings_Form::on_btnOutputROMLocation_clicked() {
     QString outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", openLocation, extensionFilter);
     if (outputROMLocation.isEmpty()) return;
     else this->ui->leOutputROMLocation->setText(outputROMLocation);
-}
-
-void Configure_Settings_Form::on_buttonBox_clicked(QAbstractButton *button) {
-    assert(button);
-    if (!this->ui->buttonBox->buttons().contains(button)) return; //ignore other buttons
-    if (this->ui->buttonBox->buttonRole(button) != QDialogButtonBox::AcceptRole) {
-        this->close();
-        return;
-    }
-    if (!this->tabLevelGenerator->At_Least_One_Very_Common_Selected()) {
-        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
-                              "At least one level type must have a \"" + STRING_VERY_COMMON + "\" chance!",
-                              Common_Strings::STRING_OK);
-        return;
-    }
-    if (this->ui->comboLevelScripts->currentText() == STRING_NO_LEVEL_SCRIPTS_FOUND) {
-        QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
-                              "No level scripts could be found! Try generating new levels.",
-                              Common_Strings::STRING_OK);
-        return;
-    }
-
-    this->Save_Settings();
-    this->close();
 }
 
 void Configure_Settings_Form::on_radioGenerateNewLevels_toggled(bool checked) {

@@ -22,10 +22,10 @@ class Configure_Settings_Form : public QDialog {
 public:
     Configure_Settings_Form(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings);
     ~Configure_Settings_Form();
+    void accept();
 
 private slots:
     //Base Game Tab
-    void on_buttonBox_clicked(QAbstractButton *button);
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
 
