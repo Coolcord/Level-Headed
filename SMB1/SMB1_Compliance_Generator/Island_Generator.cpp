@@ -136,6 +136,7 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
     bool incremented = false;
     if (x+topLength < bottomLength) {
         this->object->Increment_Last_Object_Length(bottomLength-(x+topLength));
+        incremented = true;
     }
     int lastObjectLength = this->object->Get_Last_Object_Length();
     int randomItemX = this->itemSpawner->Spawn_Random_Item(0, topLength-1, y, Physics::HIGHEST_Y, 0);
