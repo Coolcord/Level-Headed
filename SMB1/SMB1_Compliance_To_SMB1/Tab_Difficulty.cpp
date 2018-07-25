@@ -4,8 +4,10 @@
 #include "ui_Configure_Settings_Form.h"
 
 void Tab_Difficulty::Load_Settings() {
+    if (this->pluginSettings->infiniteLives) this->ui->radioInfiniteLives->setChecked(true);
+    else if (this->pluginSettings->permadeath) this->ui->radioPermadeath->setChecked(true);
+    else this->ui->radioStartingLives->setChecked(true);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
-    this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->comboTimerSpeed->setCurrentIndex(this->pluginSettings->timerSpeed);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
@@ -53,7 +55,8 @@ void Tab_Difficulty::Load_Settings() {
 }
 
 void Tab_Difficulty::Save_Settings() {
-    this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
+    this->pluginSettings->infiniteLives = this->ui->radioInfiniteLives->isChecked();
+    this->pluginSettings->permadeath = this->ui->radioPermadeath->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     this->pluginSettings->timerSpeed = this->ui->comboTimerSpeed->currentIndex();

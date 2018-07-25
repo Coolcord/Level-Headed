@@ -38,8 +38,9 @@ private slots:
     void on_btnNewRandomSeed_clicked();
 
     //Difficulty Tab
-    void on_cbInfiniteLives_toggled(bool checked);
     void on_comboDifficulty_currentIndexChanged(int index);
+
+    void on_radioStartingLives_toggled(bool checked);
 
 private:
     void Load_Settings();

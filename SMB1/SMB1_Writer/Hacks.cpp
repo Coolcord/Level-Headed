@@ -95,9 +95,10 @@ bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
 }
 
 bool Hacks::Infinite_Lives() {
-    if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x11E9, QByteArray(1, 0xAD))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
+    if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
+    if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
+    if (!this->Write_Bytes_To_Offset(0x11E9, QByteArray::fromHex(QString("EAEA1890").toLatin1()))) return false; //prevent decrementing
+    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     return this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1())); //skip the lives screen
 }
 
@@ -113,6 +114,14 @@ bool Hacks::Invincibility() {
 bool Hacks::Moon_Jump() {
     //if (!this->Write_Bytes_To_Offset(0x2F78, QByteArray(1, 0x6A))) return false; //turbo button presses
     return this->Write_Bytes_To_Offset(0x3497, QByteArray(1, 0x13)); //jump while in midair
+}
+
+bool Hacks::Permadeath() {
+    if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
+    if (!this->Write_Bytes_To_Offset(0x02ED,  QByteArray(1, 0x18))) return false; //disable the A+Start continue cheat code
+    if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
+    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
+    return this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1())); //skip the lives screen
 }
 
 bool Hacks::Real_Time() {
@@ -281,7 +290,8 @@ bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
 
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 && lives > 0x80) return false;
-    return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
+    if (!this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)))) return false;
+    return this->Fix_Life_Counter_Bugs();
 }
 
 bool Hacks::Speedy_Objects_And_Enemies() {

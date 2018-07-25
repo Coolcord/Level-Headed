@@ -42,7 +42,6 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
-    if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 
@@ -121,13 +120,9 @@ bool Hacks_Handler::Handle_Lakitus() {
 }
 
 bool Hacks_Handler::Handle_Lives() {
-    if (this->pluginSettings->infiniteLives) {
-        if (!this->writerPlugin->Hacks_Set_Starting_Lives(1)) return false;
-        return this->writerPlugin->Hacks_Infinite_Lives();
-    } else {
-        if (!this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives)) return false;
-    }
-    return true;
+    if (this->pluginSettings->infiniteLives) return this->writerPlugin->Hacks_Infinite_Lives();
+    else if (this->pluginSettings->permadeath) return this->writerPlugin->Hacks_Permadeath();
+    else return this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives);
 }
 
 bool Hacks_Handler::Handle_Piranha_Plants() {

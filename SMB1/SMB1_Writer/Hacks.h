@@ -24,6 +24,7 @@ public:
     bool Infinite_Lives();
     bool Invincibility();
     bool Moon_Jump();
+    bool Permadeath();
     bool Real_Time();
     bool Red_Piranha_Plants();
     bool Remove_Vertical_Object_Limit();

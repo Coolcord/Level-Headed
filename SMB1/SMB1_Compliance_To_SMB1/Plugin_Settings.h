@@ -40,6 +40,7 @@ struct Plugin_Settings {
     int toneColor;
     int graphics;
     bool infiniteLives;
+    bool permadeath;
     int numLives;
     bool godMode;
     int timerSpeed;

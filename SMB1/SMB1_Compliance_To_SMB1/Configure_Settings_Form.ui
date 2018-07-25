@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -52,6 +52,9 @@
           <font>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: none;</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -241,13 +244,7 @@ p, li { white-space: pre-wrap; }
             </spacer>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupPatches">
-             <property name="title">
-              <string/>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
+            <widget class="QWidget" name="groupPatches" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_11">
               <property name="leftMargin">
                <number>0</number>
@@ -579,35 +576,44 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1814</height>
+            <height>1822</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QHBoxLayout" name="layoutLives">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetDefaultConstraint</enum>
+            <widget class="QWidget" name="groupLives" native="true">
+             <property name="autoFillBackground">
+              <bool>false</bool>
              </property>
-             <item>
-              <widget class="QCheckBox" name="cbInfiniteLives">
-               <property name="text">
-                <string>Infinite Lives</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="layoutNumLivesWidget" native="true">
-               <layout class="QHBoxLayout" name="layoutNumLives">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetDefaultConstraint</enum>
-                </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: none;
+</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <property name="spacing">
+               <number>7</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="QLabel" name="lblLives">
+                 <widget class="QRadioButton" name="radioStartingLives">
                   <property name="text">
-                   <string>Lives:</string>
+                   <string>Set Starting Lives</string>
                   </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  <property name="checked">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -625,21 +631,39 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                </layout>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cbGodMode">
-             <property name="toolTip">
-              <string>Invulnerability, mid-air jumps, unlimited time, and fireballs kill everything on-screen</string>
-             </property>
-             <property name="text">
-              <string>God Mode</string>
-             </property>
-             <property name="tristate">
-              <bool>false</bool>
-             </property>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <widget class="QRadioButton" name="radioInfiniteLives">
+                  <property name="text">
+                   <string>Infinite Lives</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioPermadeath">
+                  <property name="text">
+                   <string>Permadeath</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbGodMode">
+                <property name="toolTip">
+                 <string>Invulnerability, mid-air jumps, unlimited time, and fireballs kill everything on-screen</string>
+                </property>
+                <property name="text">
+                 <string>God Mode</string>
+                </property>
+                <property name="tristate">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>

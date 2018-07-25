@@ -125,12 +125,12 @@ void Configure_Settings_Form::on_btnNewRandomSeed_clicked() {
     this->ui->sbRandomSeed->setValue(QTime::currentTime().msecsSinceStartOfDay());
 }
 
-void Configure_Settings_Form::on_cbInfiniteLives_toggled(bool checked) {
-    if (checked) this->ui->layoutNumLivesWidget->hide();
-    else this->ui->layoutNumLivesWidget->show();
-}
-
 void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) {
     if (index==0) this->ui->layoutCustomDifficultyWidget->show();
     else this->ui->layoutCustomDifficultyWidget->hide();
+}
+
+void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
+    if (checked) this->ui->sbLives->show();
+    else this->ui->sbLives->hide();
 }
