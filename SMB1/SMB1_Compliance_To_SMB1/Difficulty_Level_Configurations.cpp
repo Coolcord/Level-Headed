@@ -367,7 +367,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldLakitus = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-    difficultySettings.hammerTimeIntensity = Random::Get_Num(100);
+    difficultySettings.hammerTimeIntensity = Random::Get_Num(50); //limit to 50%
     difficultySettings.replaceCastleLoops = 0; //0 is random here
     difficultySettings.autoScrollChancePerLevel = Random::Get_Num(100);
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Num(100);
