@@ -236,10 +236,12 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Original() {
 Difficulty_Level_Settings Difficulty_Level_Configurations::Original_With_Auto_Scroll() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
+    difficultySettings.walkingHammerBros = 11;
     difficultySettings.replaceCastleLoops = 2; //auto scroll
     difficultySettings.piranhaPlantType = 1; //green
     difficultySettings.lakituRespawnSpeed = 3; //normal
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.superMarioOnDamage = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     return difficultySettings;
 }
