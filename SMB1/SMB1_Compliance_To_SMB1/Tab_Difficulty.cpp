@@ -7,6 +7,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbInfiniteLives->setChecked(this->pluginSettings->infiniteLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
+    this->ui->comboTimerSpeed->setCurrentIndex(this->pluginSettings->timerSpeed);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
@@ -55,6 +56,7 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->infiniteLives = this->ui->cbInfiniteLives->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
+    this->pluginSettings->timerSpeed = this->ui->comboTimerSpeed->currentIndex();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
@@ -124,31 +126,37 @@ void Tab_Difficulty::Save_Settings() {
     case 7: //Brutal
         Difficulty_Level_Configurations().Brutal(this->pluginSettings);
         break;
-    case 8: //Walk in the Park
+    case 8: //Original
+        Difficulty_Level_Configurations().Original(this->pluginSettings);
+        break;
+    case 9: //Original with Auto Scroll
+        Difficulty_Level_Configurations().Original_With_Auto_Scroll(this->pluginSettings);
+        break;
+    case 10: //Walk in the Park
         Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings);
         break;
-    case 9: //Just Keep Scrolling
+    case 11: //Just Keep Scrolling
         Difficulty_Level_Configurations().Just_Keep_Scrolling(this->pluginSettings);
         break;
-    case 10: //Riddled with Bullets
+    case 12: //Riddled with Bullets
         Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings);
         break;
-    case 11: //Lakitu's Challenge
+    case 13: //Lakitu's Challenge
         Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings);
         break;
-    case 12: //Cheep-Cheep Frenzy
+    case 14: //Cheep-Cheep Frenzy
         Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
         break;
-    case 13: //Hammer Time
+    case 15: //Hammer Time
         Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings);
         break;
-    case 14: //Extreme Hammer Time
+    case 16: //Extreme Hammer Time
         Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings);
         break;
-    case 15: //Turn up the Heat
+    case 17: //Turn up the Heat
         Difficulty_Level_Configurations().Turn_Up_The_Heat(this->pluginSettings);
         break;
-    case 16: //Too Hot to Handle
+    case 18: //Too Hot to Handle
         Difficulty_Level_Configurations().Too_Hot_To_Handle(this->pluginSettings);
         break;
     }

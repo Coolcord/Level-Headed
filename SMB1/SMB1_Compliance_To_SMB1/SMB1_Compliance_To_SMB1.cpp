@@ -204,6 +204,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << this->pluginSettings.infiniteLives << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.numLives << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.godMode << Common_Strings::STRING_NEW_LINE;
+    stream << this->pluginSettings.timerSpeed << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.addLuigiGame << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.superMarioOnDamage << Common_Strings::STRING_NEW_LINE;
     stream << this->pluginSettings.lakituThrowArc << Common_Strings::STRING_NEW_LINE;
@@ -280,6 +281,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.infiniteLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.numLives = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.godMode = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
+    this->pluginSettings.timerSpeed = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.addLuigiGame = file.readLine().trimmed().toInt(&valid); if (!valid) return false;
     this->pluginSettings.superMarioOnDamage = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
     this->pluginSettings.lakituThrowArc = static_cast<bool>(file.readLine().trimmed().toInt(&valid)); if (!valid) return false;
@@ -313,6 +315,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.numLives = 7;
     this->pluginSettings.godMode = false;
+    this->pluginSettings.timerSpeed = 0;
     this->pluginSettings.addLuigiGame = true;
     this->pluginSettings.superMarioOnDamage = true;
     this->pluginSettings.lakituThrowArc = true;

@@ -579,7 +579,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1758</height>
+            <height>1814</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -643,6 +643,31 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QLabel" name="lblTimerSpeed">
+               <property name="text">
+                <string>Timer Speed:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboTimerSpeed">
+               <item>
+                <property name="text">
+                 <string>Seconds</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QVBoxLayout" name="layoutDifficulty">
              <item>
               <widget class="QLabel" name="lblDifficulty">
@@ -694,6 +719,16 @@ p, li { white-space: pre-wrap; }
                <item>
                 <property name="text">
                  <string>-----&gt; Brutal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original (No behavior changes)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original with Auto Scroll</string>
                 </property>
                </item>
                <item>

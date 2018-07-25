@@ -15,6 +15,8 @@ public:
     Difficulty_Level_Settings Hard();
     Difficulty_Level_Settings Very_Hard();
     Difficulty_Level_Settings Brutal();
+    Difficulty_Level_Settings Original();
+    Difficulty_Level_Settings Original_With_Auto_Scroll();
     Difficulty_Level_Settings Walk_In_The_Park();
     Difficulty_Level_Settings Just_Keep_Scrolling();
     Difficulty_Level_Settings Riddled_With_Bullets();
@@ -33,6 +35,8 @@ public:
     void Hard(Plugin_Settings *pluginSettings);
     void Very_Hard(Plugin_Settings *pluginSettings);
     void Brutal(Plugin_Settings *pluginSettings);
+    void Original(Plugin_Settings *pluginSettings);
+    void Original_With_Auto_Scroll(Plugin_Settings *pluginSettings);
     void Walk_In_The_Park(Plugin_Settings *pluginSettings);
     void Just_Keep_Scrolling(Plugin_Settings *pluginSettings);
     void Riddled_With_Bullets(Plugin_Settings *pluginSettings);

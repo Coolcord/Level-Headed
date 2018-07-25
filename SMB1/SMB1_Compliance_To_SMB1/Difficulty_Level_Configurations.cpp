@@ -84,7 +84,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
-    difficultySettings.spinyEggBehavior = 0;
+    difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
@@ -161,6 +161,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.standardOverworldLakitus = 3;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.spinyEggBehavior = 0;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
@@ -221,6 +222,25 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.spawnerPriority = 0; //random
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Original() {
+    Difficulty_Level_Settings difficultySettings = this->Original_With_Auto_Scroll();
+    difficultySettings.replaceCastleLoops = 1; //nothing
+    difficultySettings.autoScroll = 11;
+    difficultySettings.autoScrollChancePerLevel = 0;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Original_With_Auto_Scroll() {
+    Difficulty_Level_Settings difficultySettings = this->Normal();
+    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
+    difficultySettings.replaceCastleLoops = 2; //auto scroll
+    difficultySettings.piranhaPlantType = 1; //green
+    difficultySettings.lakituRespawnSpeed = 3; //normal
+    difficultySettings.lakituThrowArc = false;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     return difficultySettings;
 }
 
@@ -384,66 +404,21 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     return difficultySettings;
 }
 
-void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Turn_Up_The_Heat(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Turn_Up_The_Heat(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Too_Hot_To_Handle(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Too_Hot_To_Handle(), pluginSettings);
-}
-
-void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings) {
-    this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings);
-}
+void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings);}
+void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings);}
+void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings);}
+void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings);}
+void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings);}
+void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings);}
+void Difficulty_Level_Configurations::Original(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Original(), pluginSettings);}
+void Difficulty_Level_Configurations::Original_With_Auto_Scroll(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Original_With_Auto_Scroll(), pluginSettings);}
+void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);}
+void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings);}
+void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);}
+void Difficulty_Level_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings);}
+void Difficulty_Level_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings);}
+void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings);}
+void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings);}
+void Difficulty_Level_Configurations::Turn_Up_The_Heat(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Turn_Up_The_Heat(), pluginSettings);}
+void Difficulty_Level_Configurations::Too_Hot_To_Handle(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Too_Hot_To_Handle(), pluginSettings);}
+void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings);}
