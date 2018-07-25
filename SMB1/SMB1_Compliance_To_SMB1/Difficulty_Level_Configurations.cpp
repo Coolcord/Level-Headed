@@ -164,7 +164,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
-    difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
     return difficultySettings;
@@ -186,7 +185,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.undergroundLakitus = 3;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
-    difficultySettings.lakituRespawnSpeed = 6;
+    difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
     difficultySettings.bulletBillSpeed = 4; //speedy
@@ -218,6 +217,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.underwaterFlyingCheepCheeps = 5;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
+    difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.spawnerPriority = 0; //random
