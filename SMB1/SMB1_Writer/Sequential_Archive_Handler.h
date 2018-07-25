@@ -33,6 +33,7 @@ private:
     bool Apply_Secondary_Music_Patches(const QString &patchList);
     QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);
     bool Get_Invalid_Tones(const QByteArray &patchBytes, bool isSecondaryPatch);
+    QStringList Get_HEXP_Files_From_File_List(const QStringList &fileList);
     bool Load_Plugins_If_Necessary();
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();

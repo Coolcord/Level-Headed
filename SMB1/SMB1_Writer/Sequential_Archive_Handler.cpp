@@ -80,7 +80,7 @@ QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {
     if (!this->graphicsPackStrings.isEmpty()) return this->graphicsPackStrings;
     if (!this->Load_Plugins_If_Necessary()) return this->graphicsPackStrings;
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return this->graphicsPackStrings;
-    this->graphicsPackStrings = this->sequentialArchivePlugin->Get_Files();
+    this->graphicsPackStrings = this->Get_HEXP_Files_From_File_List(this->sequentialArchivePlugin->Get_Files());
     this->sequentialArchivePlugin->Close();
     return this->graphicsPackStrings;
 }
@@ -99,7 +99,7 @@ QStringList Sequential_Archive_Handler::Get_Music_Packs() {
     if (!this->musicPackStrings.isEmpty()) return this->musicPackStrings;
     if (!this->Load_Plugins_If_Necessary()) return this->musicPackStrings;
     if (!this->sequentialArchivePlugin->Open(this->musicPacksArchiveLocation)) return this->musicPackStrings;
-    this->musicPackStrings = this->sequentialArchivePlugin->Get_Files();
+    this->musicPackStrings = this->Get_HEXP_Files_From_File_List(this->sequentialArchivePlugin->Get_Files());
     this->sequentialArchivePlugin->Close();
     return this->musicPackStrings;
 }
@@ -215,6 +215,14 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
         }
     }
     return true;
+}
+
+QStringList Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(const QStringList &fileList) {
+    QStringList hexpFiles;
+    for (QString file : fileList) {
+        if (file.toLower().endsWith(".hexp")) hexpFiles.append(file);
+    }
+    return hexpFiles;
 }
 
 bool Sequential_Archive_Handler::Load_Plugins_If_Necessary() {
