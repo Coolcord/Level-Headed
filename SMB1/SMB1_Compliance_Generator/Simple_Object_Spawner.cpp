@@ -26,7 +26,7 @@ int Simple_Object_Spawner::Get_Random_Length() {
 }
 
 int Simple_Object_Spawner::Get_Random_Hole_Length() {
-    return Random::Get_Num(Physics::RUNNING_JUMP_LENGTH-1)+1;
+    return Random::Get_Num(Physics::RUNNING_JUMP_LENGTH-2)+1;
 }
 
 int Simple_Object_Spawner::Get_Random_Steps_Size() {
