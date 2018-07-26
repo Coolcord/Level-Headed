@@ -129,37 +129,49 @@ void Tab_Difficulty::Save_Settings() {
     case 7: //Brutal
         Difficulty_Level_Configurations().Brutal(this->pluginSettings);
         break;
-    case 8: //Original
-        Difficulty_Level_Configurations().Original(this->pluginSettings);
+    case 8: //Purist
+        Difficulty_Level_Configurations().Purist(this->pluginSettings);
         break;
-    case 9: //Original with Auto Scroll
-        Difficulty_Level_Configurations().Original_With_Auto_Scroll(this->pluginSettings);
+    case 9: //Purist + Auto Scroll
+        Difficulty_Level_Configurations().Purist_And_Auto_Scroll(this->pluginSettings);
         break;
-    case 10: //Walk in the Park
+    case 10: //Purist + No Hammer Bros.
+        Difficulty_Level_Configurations().Purist_And_No_Hammer_Bros(this->pluginSettings);
+        break;
+    case 11: //Purist + Lakitu Throw Arc
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc(this->pluginSettings);
+        break;
+    case 12: //Purist + Lakitu Throw Arc + Auto Scrolling
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(this->pluginSettings);
+        break;
+    case 13: //Purist + Lakitu Throw Arc + No Hammer Bros.
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(this->pluginSettings);
+        break;
+    case 14: //Walk in the Park
         Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings);
         break;
-    case 11: //Just Keep Scrolling
+    case 15: //Just Keep Scrolling
         Difficulty_Level_Configurations().Just_Keep_Scrolling(this->pluginSettings);
         break;
-    case 12: //Riddled with Bullets
+    case 16: //Riddled with Bullets
         Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings);
         break;
-    case 13: //Lakitu's Challenge
+    case 17: //Lakitu's Challenge
         Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings);
         break;
-    case 14: //Cheep-Cheep Frenzy
+    case 18: //Cheep-Cheep Frenzy
         Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
         break;
-    case 15: //Hammer Time
+    case 19: //Hammer Time
         Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings);
         break;
-    case 16: //Extreme Hammer Time
+    case 20: //Extreme Hammer Time
         Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings);
         break;
-    case 17: //Turn up the Heat
+    case 21: //Turn up the Heat
         Difficulty_Level_Configurations().Turn_Up_The_Heat(this->pluginSettings);
         break;
-    case 18: //Too Hot to Handle
+    case 22: //Too Hot to Handle
         Difficulty_Level_Configurations().Too_Hot_To_Handle(this->pluginSettings);
         break;
     }

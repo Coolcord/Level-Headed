@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -747,12 +747,32 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <property name="text">
-                 <string>Original (No behavior changes)</string>
+                 <string>-&gt; Purist (Only original behaviors)</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Original with some Auto Scrolling</string>
+                 <string>-&gt; Purist + Auto Scroll</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + No Hammer Bros.</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc + Auto Scroll</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc + No Hammer Bros.</string>
                 </property>
                </item>
                <item>

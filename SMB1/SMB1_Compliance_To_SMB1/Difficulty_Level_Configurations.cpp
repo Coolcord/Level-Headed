@@ -225,15 +225,15 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Original() {
-    Difficulty_Level_Settings difficultySettings = this->Original_With_Auto_Scroll();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_Auto_Scroll();
     difficultySettings.replaceCastleLoops = 1; //nothing
     difficultySettings.autoScroll = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Original_With_Auto_Scroll() {
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scroll() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
     difficultySettings.walkingHammerBros = 11;
@@ -243,6 +243,32 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Original_With_Auto_Sc
     difficultySettings.lakituThrowArc = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros() {
+    Difficulty_Level_Settings difficultySettings = this->Purist();
+    difficultySettings.hammerTime = 11;
+    difficultySettings.walkingHammerBros = 11;
+    difficultySettings.hammerTimeIntensity = 0;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc() {
+    Difficulty_Level_Settings difficultySettings = this->Purist();
+    difficultySettings.lakituThrowArc = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_Auto_Scroll();
+    difficultySettings.lakituThrowArc = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_No_Hammer_Bros();
+    difficultySettings.lakituThrowArc = true;
     return difficultySettings;
 }
 
@@ -406,14 +432,19 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     return difficultySettings;
 }
 
+//Wrappers
 void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings);}
 void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings);}
 void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings);}
 void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings);}
 void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings);}
 void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings);}
-void Difficulty_Level_Configurations::Original(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Original(), pluginSettings);}
-void Difficulty_Level_Configurations::Original_With_Auto_Scroll(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Original_With_Auto_Scroll(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Auto_Scroll(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_No_Hammer_Bros(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(), pluginSettings);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(), pluginSettings);}
 void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings);}
 void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings);}
 void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings);}

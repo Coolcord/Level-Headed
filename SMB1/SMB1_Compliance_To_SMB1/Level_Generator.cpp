@@ -384,7 +384,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     }
 
     //Create a new map file
-    QFile map(this->levelLocation + "/" + generationName + "/" + generationName + ".map");
+    QFile map(this->levelLocation + "/" + generationName + "/" + Common_Strings::STRING_GAME_NAME + ".map");
     if (!map.open(QFile::ReadWrite | QFile::Truncate)) {
         //TODO: Show a read/write error here
         return false;
@@ -423,6 +423,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     if (!this->Write_To_Map(mapStream, Header::STRING_UNDERWATER_LEVELS_COMMONALITY + ": " + this->pluginSettings->underwaterChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_DIFFICULTY + ": " + QString::number(this->pluginSettings->difficultyComboIndex))) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
 
     //Write the Header of the map file
@@ -530,7 +531,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
 
 bool Level_Generator::Handle_Map_File() {
     assert(this->sequentialArchivePlugin->Is_Open());
-    QTextStream mapFile(this->sequentialArchivePlugin->Read_File("/" + this->pluginSettings->levelScripts + ".map"), QIODevice::ReadOnly);
+    QTextStream mapFile(this->sequentialArchivePlugin->Read_File("/" + Common_Strings::STRING_GAME_NAME + ".map"), QIODevice::ReadOnly);
     if (mapFile.atEnd()) return false;
 
     //Parse through the map file starting with the header

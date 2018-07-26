@@ -2,6 +2,7 @@ Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus
 + Lakitu's eggs have a chance at either bouncing or breaking into Spinies
 + Added more difficulties (Very Easy, Easy, Normal, Hard, Very Hard, Brutal)
++ Added some difficulties for Purists that won't use any ASM hacks or behavior changes
 + Added some gimmicky difficulties (e.g. Lakitu's Challenge where every level has a Lakitu)
 + Significantly more options for Custom Difficulties (e.g. any enemy spawner can be placed on any level)
 + Added Permadeath
