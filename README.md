@@ -58,14 +58,7 @@ If you're interested in testing the next update of Level-Headed, you can join in
  
  **Q: I set a level type to uncommon, but I got it multiple times in a row! Is this a bug?**
  
- A: Technically, no. Each commonality is associated with a weight like so:
- * Very Common = 50 points
- * Common = 30 points
- * Uncommon = 15 points
- * Rare = 5 points
- * None = 0 points
- 
- When the level generator goes to generate a new level, it does not care what kind of level came before or what will come after. All it cares about is the percentage chance that it calculates based upon the weights the user provides. Think of this like rolling a dice. There's nothing stopping you from rolling four 1's in a row, though it's unlikely to happen. To get an idea of the numbers, using the default settings, each level has a 32.26% chance of being a Standard Overworld level and a 9.68% chance of being an Underwater level. Personally, this issue doesn't bother me at all, as the numbers seem to always work themselves out when playing multiple games in sequence. However, I may rework this system in the future, as many people seem to expect it to work differently. For now, just try dropping what you don't like to "Rare" as that'll make a big difference.
+ A: Technically, no. For now, when the level generator goes to generate a new level, it does not care what kind of level came before or what will come after. All it cares about is the percentage chance that it calculates based upon the weights the user provides. Think of this like rolling a dice. There's nothing stopping you from rolling four 1's in a row, though it's unlikely to happen. You can read more about commonalities [here](https://github.com/Coolcord/Level-Headed/wiki/How-Level%E2%80%90Headed-Works#commonalities). I may rework this system in the future, as many people seem to expect it to work differently. For now, just try dropping what you don't like to "Rare" as that'll make a difference.
  
  **Q: There's no variety!**
  
