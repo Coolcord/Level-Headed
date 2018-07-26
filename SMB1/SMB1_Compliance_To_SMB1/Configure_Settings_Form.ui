@@ -60,7 +60,7 @@
           <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
+          <enum>QFrame::Plain</enum>
          </property>
          <property name="lineWidth">
           <number>0</number>
@@ -263,7 +263,7 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QRadioButton" name="radioAddLuigiGame">
                   <property name="text">
-                   <string>Add Luigi Game (with SMB2J bounce physics)</string>
+                   <string>Add Luigi Game (with SMB2J physics)</string>
                   </property>
                   <property name="checked">
                    <bool>true</bool>
@@ -273,7 +273,7 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QRadioButton" name="radio2PlayerGame">
                   <property name="text">
-                   <string>2 Player Game (with SMB1 bounce physics)</string>
+                   <string>2 Player Game (with SMB1 physics)</string>
                   </property>
                  </widget>
                 </item>

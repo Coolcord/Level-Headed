@@ -15,6 +15,11 @@
 #include <math.h>
 #include <assert.h>
 
+const static int VERY_COMMON_POINTS = 16;
+const static int COMMON_POINTS = 8;
+const static int UNCOMMON_POINTS = 4;
+const static int RARE_POINTS = 2;
+
 Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                                  SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin) {
     assert(parent);
@@ -329,27 +334,27 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
     int numRare = this->rareLevels->size();
 
     //Determine chance
-    int veryCommonChance = 50*numVeryCommon; int commonChance = (30*numCommon)+veryCommonChance;
-    int uncommonChance = (15*numUncommon)+commonChance; int rareChance = (5*numRare)+uncommonChance;
+    int veryCommonChance = VERY_COMMON_POINTS*numVeryCommon; int commonChance = (COMMON_POINTS*numCommon)+veryCommonChance;
+    int uncommonChance = (UNCOMMON_POINTS*numUncommon)+commonChance; int rareChance = (RARE_POINTS*numRare)+uncommonChance;
     int random = Random::Get_Num(rareChance-1);
     int index = 0;
 
     //Determine the level type by probability
     Level_Type::Level_Type levelType = Level_Type::STANDARD_OVERWORLD;
     if (random < veryCommonChance) { //very common
-        index = (random)/50;
+        index = (random)/VERY_COMMON_POINTS;
         assert(index < this->veryCommonLevels->size());
         levelType = this->veryCommonLevels->at(index);
     } else if (random < commonChance) { //common
-        index = (random-veryCommonChance)/30;
+        index = (random-veryCommonChance)/COMMON_POINTS;
         assert(index < this->commonLevels->size());
         levelType = this->commonLevels->at(index);
     } else if (random < uncommonChance) { //uncommon
-        index = (random-commonChance)/15;
+        index = (random-commonChance)/UNCOMMON_POINTS;
         assert(index < this->uncommonLevels->size());
         levelType = this->uncommonLevels->at(index);
     } else if (random < rareChance) { //rare
-        index = (random-uncommonChance)/5;
+        index = (random-uncommonChance)/RARE_POINTS;
         assert(index < this->rareLevels->size());
         levelType = this->rareLevels->at(index);
     } else assert(false);
