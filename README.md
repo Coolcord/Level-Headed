@@ -9,7 +9,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
 # [Download v0.2.4 Stable for Windows](https://github.com/Coolcord/Level-Headed/releases/download/v0.2.4/Level-Headed.v0.2.4.zip)
 
-## The Hunt for Bugs is on in v0.3.0 Release Candidate 2!
+## The Hunt for Bugs is on in v0.3.0 Release Candidate 3!
 If you're interested in testing the next update of Level-Headed, you can join in and download the public beta update [here](https://github.com/Coolcord/Level-Headed/releases). Be prepared for bugs and unbalanced gameplay (yes, even more than usual!). As usual, feedback is appreciated and encouraged!
 
 ## About Level-Headed
