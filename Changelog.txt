@@ -4,6 +4,7 @@ Bullet Time (v0.3.0)
 + Added more difficulties (Very Easy, Easy, Normal, Hard, Very Hard, Brutal)
 + Added some gimmicky difficulties (e.g. Lakitu's Challenge where every level has a Lakitu)
 + Significantly more options for Custom Difficulties (e.g. any enemy spawner can be placed on any level)
++ Added Permadeath
 + 8 Different Powerups that can replace the Fire Flower
 + 1-Up mushrooms can now be replaced with Poison, Swimming, and Mystery Mushrooms
 + Added some complimentary hacks (Auto Scrolling Levels and Fire Bros.)

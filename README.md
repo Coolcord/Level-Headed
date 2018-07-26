@@ -28,11 +28,15 @@ If you're interested in testing the next update of Level-Headed, you can join in
  
  Check out the [Level-Headed Wiki](https://github.com/Coolcord/Level-Headed/wiki) for more information and tutorials on how to use Level-Headed.
  
- If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins through QtCreator.
+ If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins through Qt Creator.
  
  If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
 
  ## FAQ
+ 
+ **Q: What's new in Bullet Time (v0.3.0)?**
+ 
+ A: The Bullet Time update mostly focuses on enemies and difficulty settings. Expect to see Lakitus, Bullet Bill Cannons, as well as a few other surprises. Difficulty settings currently only affect enemies and gameplay settings, but there is now a lot more options than there were in v0.2.4. A few minor ASM hacks (some made by me and some by the community) have been added to make the update more interesting, such as auto scrolling levels, Fire Bros., multiple Spiny Egg behaviors, and new powerups. The music patcher can now combine some music packs, as well as apply tone colors over them for even more variations. The level generator had a few bug fixes in some patterns, but beyond that, the level designs in v0.3.0 will remain very similar to v0.2.x. On the backend, [Sequential Archives](https://github.com/Coolcord/Sequential_Archive) have been implemented allowing for external graphics and music patches via [Hexagon Patches](https://github.com/Coolcord/Hexagon). This update is a major step, considering that many pieces of this programmatic puzzle are starting to come together.
  
  **Q: I see that you have included graphics and music patches. Can you include mine in the next update?**
  
@@ -49,10 +53,27 @@ If you're interested in testing the next update of Level-Headed, you can join in
  
  **Q: What are you trying to work towards?**
  
- A: There are two major goals that I'm hoping to accomplish. The first is a pattern database for the 
- "SMB1_Compliance" generator. This should make it significantly easier to create new patterns and also
- allow users to create their own. The second goal is to add support for another game that isn't a
- Nintendo property.
+ A: The next major goal is a pattern database for the "SMB1_Compliance" generator. This should make it significantly easier to create new patterns and also
+ allow users to create their own. Progress has been made towards this with the addition of [Sequential Archives](https://github.com/Coolcord/Sequential_Archive) in v0.3.0, but there's still a lot more work to be done before this can happen.
+ 
+ **Q: I set a level type to uncommon, but I got it multiple times in a row! Is this a bug?**
+ 
+ A: Technically, no. Each commonality is associated with a weight like so:
+ * Very Common = 50 points
+ * Common = 30 points
+ * Uncommon = 15 points
+ * Rare = 5 points
+ * None = 0 points
+ 
+ When the level generator goes to generate a new level, it does not care what kind of level came before or will come after. All it cares about is the percentage chance that it calculates based upon the weights the user provides. Think of this like rolling a dice. There's nothing stopping you from rolling four 1's in a row, though it's unlikely to happen. To get an idea of the numbers, using the default settings, each level has a 32.26% chance of being a Standard Overworld level and a 9.68% chance of being an underwater level. Personally, this issue doesn't bother me at all, as the numbers seem to always work themselves out when playing multiple games in sequence. However, I may rework this system in the future, as many people seem to expect it to work differently. For now, just try dropping what you don't like to "Rare" as that'll make a big difference.
+ 
+ **Q: There's no variety!**
+ 
+ A: Bear in mind that Level-Headed is only v0.3, so it's only a fraction of what I have planned. Think of current releases as a preview of what's to come. With each update, this will become less and less of a problem.
+ 
+ **Q: When will you support X game?**
+ 
+ A: Level-Headed is being designed from the ground up with multi-game support in mind, but don't expect to see support for another game until after v1.0. That's a very, very long ways off.
  
  **Q: Is Level-Headed dead? You haven't updated it in months!**
  
