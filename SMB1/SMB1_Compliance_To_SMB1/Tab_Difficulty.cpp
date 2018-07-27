@@ -80,8 +80,8 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyCastleOffscreenBulletBills = this->ui->sbCastleOffscreenBulletBills->value();
         this->pluginSettings->difficultyIslandFlyingCheepCheeps = this->ui->sbIslandFlyingCheepCheeps->value();
         this->pluginSettings->difficultyIslandLakitus = this->ui->sbIslandLakitus->value();
-        this->pluginSettings->difficultyIslandOffscreenBulletBills = this->ui->sbBridgeOffscreenBulletBills->value();
-        this->pluginSettings->difficultyUndergroundFlyingCheepCheeps = this->ui->sbBridgeFlyingCheepCheeps->value();
+        this->pluginSettings->difficultyIslandOffscreenBulletBills = this->ui->sbIslandOffscreenBulletBills->value();
+        this->pluginSettings->difficultyUndergroundFlyingCheepCheeps = this->ui->sbUndergroundFlyingCheepCheeps->value();
         this->pluginSettings->difficultyUndergroundLakitus = this->ui->sbUndergroundLakitus->value();
         this->pluginSettings->difficultyUndergroundOffscreenBulletBills = this->ui->sbUndergroundOffscreenBulletBills->value();
         this->pluginSettings->difficultyUnderwaterBloopers = this->ui->sbUnderwaterBloopers->value();
