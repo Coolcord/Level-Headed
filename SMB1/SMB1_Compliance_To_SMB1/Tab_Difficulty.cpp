@@ -9,7 +9,6 @@ void Tab_Difficulty::Load_Settings() {
     else this->ui->radioStartingLives->setChecked(true);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
-    this->ui->comboTimerSpeed->setCurrentIndex(this->pluginSettings->timerSpeed);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
@@ -59,7 +58,6 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->permadeath = this->ui->radioPermadeath->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
     this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
-    this->pluginSettings->timerSpeed = this->ui->comboTimerSpeed->currentIndex();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();

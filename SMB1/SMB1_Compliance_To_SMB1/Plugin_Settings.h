@@ -43,7 +43,6 @@ struct Plugin_Settings {
     bool permadeath;
     int numLives;
     bool godMode;
-    int timerSpeed;
     bool addLuigiGame;
     bool superMarioOnDamage;
     bool lakituThrowArc;
