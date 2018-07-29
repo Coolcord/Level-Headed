@@ -5,7 +5,11 @@
 #include <QTime>
 
 int main(int argc, char *argv[]) {
+    //Use Plastique Theme on Windows
+    #ifdef Q_OS_WIN32
     QApplication::setStyle("plastique");
+    #endif
+
     QApplication a(argc, argv);
     Main_Window w;
 
