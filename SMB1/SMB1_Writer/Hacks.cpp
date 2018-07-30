@@ -81,9 +81,9 @@ bool Hacks::Fix_Life_Counter_Bugs() {
     if (!this->Write_Bytes_To_Offset(0x63A2, QByteArray::fromHex(QString("E90A18C88C08034C4488").toLatin1()))) return false;
 
     //Limit to 99 lives
-    if (!this->Write_Bytes_To_Offset(0x4F6, QByteArray::fromHex(QString("20FEC0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("20FEC0").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x410E, QByteArray::fromHex(QString("AE5A07E062B001E88E5A0760").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x4F6, QByteArray::fromHex(QString("2008C1").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("2008C1").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x4118, QByteArray::fromHex(QString("AE5A07E062B001E88E5A0760").toLatin1()));
 }
 
 bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
