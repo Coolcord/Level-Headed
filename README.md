@@ -49,7 +49,7 @@ If you're interested in testing the next update of Level-Headed, you can join in
  
  **Q: What's going to be in the next update?**
  
- A: You can see what changes are going to be implemented by looking at the [changelog](https://raw.githubusercontent.com/Coolcord/Level-Headed/master/Changelog.txt).
+ A: You can see what changes are going to be implemented by looking at the [changelog](https://raw.githubusercontent.com/Coolcord/Level-Headed/master/Doc/Changelog.txt).
  
  **Q: What are you trying to work towards?**
  

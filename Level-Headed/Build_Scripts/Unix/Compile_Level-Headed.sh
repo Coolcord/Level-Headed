@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Check if qmake is installed
+command -v qmake >/dev/null 2>&1 || { echo >&2 "qmake must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
+
 # Prepare Folders And Pull Code
 rm -rf Level-Headed
 mkdir Level-Headed
@@ -90,5 +93,8 @@ source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager 
 
 # Clean up
 rm -rf source/
+
+echo ""
+echo "Compilation complete! Enjoy Level-Headed!"
 exit 0
 
