@@ -40,21 +40,11 @@ HEADERS += SMB1_Writer.h \
     Item_Writer.h \
     Binary_Manipulator.h \
     Object_Writer.h \
-    Scenery.h \
     Level_Offset.h \
-    Background.h \
     ROM_Checksum.h \
-    Level_Compliment.h \
     Header_Writer.h \
     Enemy_Writer.h \
-    ../Common_SMB1_Files/Level_Attribute.h \
-    ../Common_SMB1_Files/Level_Compliment.h \
-    ../Common_SMB1_Files/Background.h \
-    ../Common_SMB1_Files/Brick.h \
-    ../Common_SMB1_Files/Scenery.h \
-    ../../Common_Files/Version.h \
     SMB1_Writer_Interface.h \
-    ../Common_SMB1_Files/Level.h \
     ROM_Handler.h \
     ROM_Filename.h \
     Midpoint_Writer.h \
