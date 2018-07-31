@@ -2,6 +2,7 @@
 
 # Check if qmake is installed
 command -v qmake >/dev/null 2>&1 || { echo >&2 "qmake must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
+command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 
 # Prepare Folders And Pull Code
 rm -rf Level-Headed
@@ -17,7 +18,7 @@ git clone https://github.com/Coolcord/Sequential_Archive.git
 # Build Level-Headed
 cd Level-Headed/Level-Headed/
 sed -i '/INCLUDEPATH += \./a QT += gui widgets' Level-Headed.pro
-qmake
+qmake -config release
 make
 cd ../../
 
@@ -25,7 +26,7 @@ cd ../../
 cd Level-Headed/SMB1/SMB1_Compliance_Generator/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_Generator.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_Generator.pro
-qmake
+qmake -config release
 make
 cd ../../../
 
@@ -33,7 +34,7 @@ cd ../../../
 cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_To_SMB1.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_To_SMB1.pro
-qmake
+qmake -config release
 make
 cd ../../../
 
@@ -41,7 +42,7 @@ cd ../../../
 cd Level-Headed/SMB1/SMB1_Writer/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Writer.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Writer.pro
-qmake
+qmake -config release
 make
 cd ../../../
 
@@ -49,7 +50,7 @@ cd ../../../
 cd Hexagon/Hexagon/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Hexagon.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Hexagon.pro
-qmake
+qmake -config release
 make
 cd ../../
 
@@ -57,14 +58,14 @@ cd ../../
 cd Sequential_Archive/Sequential_Archive/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Sequential_Archive.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Sequential_Archive.pro
-qmake
+qmake -config release
 make
 cd ../../
 
 # Build SAM
 cd Sequential_Archive/Sequential_Archive_Manager/
 sed -i '/INCLUDEPATH += \./a QT += gui widgets' Sequential_Archive_Manager.pro
-qmake
+qmake -config release
 make
 cd ../../
 

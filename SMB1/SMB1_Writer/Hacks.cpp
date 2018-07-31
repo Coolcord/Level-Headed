@@ -5,6 +5,8 @@
 #include <cmath>
 
 const static QString STRING_FIRE_BROS = "Fire Bros";
+const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
+const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
 
 Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
     assert(sequentialArchiveHandler);
@@ -38,7 +40,8 @@ bool Hacks::Black_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, 0x00))) return false; //reduce inactive timer to 0
-    return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23));
+    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23))) return false;
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS);
 }
 
 bool Hacks::Bouncy_Spiny_Eggs() {
@@ -133,7 +136,8 @@ bool Hacks::Real_Time() {
 bool Hacks::Red_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x22));
+    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x22))) return false;
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_RED_PIRANHA_PLANTS);
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
