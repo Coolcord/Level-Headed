@@ -5,11 +5,12 @@
 #include <QByteArray>
 
 class Graphics;
+class Hacks;
 class Sequential_Archive_Handler;
 
 class Powerups : public Byte_Writer {
 public:
-    Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics);
+    Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics, Hacks *hacks);
     bool Replace_1UP_With_Poison_Mushroom();
     bool Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
     bool Replace_1UP_With_Swimming_Mushroom();
@@ -23,8 +24,8 @@ public:
     bool Replace_Fire_Flower_With_Spinball_Flower();
 
 private:
-    QFile *file;
     Graphics *graphics;
+    Hacks *hacks;
     Sequential_Archive_Handler *sequentialArchiveHandler;
 };
 

@@ -39,6 +39,7 @@ public:
     bool Set_Number_Of_Worlds(int value);
     bool Set_Lakitu_Respawn_Speed(int value);
     bool Set_Starting_Lives(int lives);
+    void Set_Hammer_Suit_Active(bool isHammerSuitActive);
     bool Speedy_Objects_And_Enemies();
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
@@ -52,6 +53,7 @@ private:
 
     Sequential_Archive_Handler *sequentialArchiveHandler;
     int difficultyWalkingHammerBros;
+    bool isHammerSuitActive;
 };
 
 #endif // HACKS_H

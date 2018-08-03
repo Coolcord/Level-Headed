@@ -12,6 +12,7 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler 
     assert(sequentialArchiveHandler);
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
+    this->isHammerSuitActive = false;
 }
 
 bool Hacks::Add_Luigi_Game() {
@@ -191,8 +192,10 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, 0x02))) return false;
     if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, 0x02))) return false; //red palette for Bowser
-    if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
-            "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
+    if (!this->isHammerSuitActive) {
+        if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
+                "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
+    }
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS);
 }
 
@@ -289,13 +292,17 @@ bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
     //A value of 0x10 will disable respawn completely
     if (value < 0 || value > 0x10) return false;
     if (value == 0x10) return this->Write_Bytes_To_Offset(0x43D4, QByteArray::fromHex(QString("38EAB0").toLatin1()));
-    else return this->Write_Bytes_To_Offset(0x43D5, QByteArray(1, static_cast<unsigned char>(value)));
+    else return this->Write_Bytes_To_Offset(0x43D5, QByteArray(1, static_cast<char>(value)));
 }
 
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 && lives > 0x80) return false;
     if (!this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)))) return false;
     return this->Fix_Life_Counter_Bugs();
+}
+
+void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {
+    this->isHammerSuitActive = isHammerSuitActive;
 }
 
 bool Hacks::Speedy_Objects_And_Enemies() {

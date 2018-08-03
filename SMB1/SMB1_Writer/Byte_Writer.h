@@ -13,7 +13,7 @@ public:
     ~Byte_Writer();
 
 protected:
-    bool Write_Bytes_To_Offset(int offset, const QByteArray &bytes);
+    bool Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes);
 
     QFile *file;
     Level_Offset *levelOffset;

@@ -1,11 +1,13 @@
 #include "Powerups.h"
 #include "Level_Offset.h"
 #include "Graphics.h"
+#include "Hacks.h"
 #include "Sequential_Archive_Handler.h"
 
-Powerups::Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics) : Byte_Writer(file, levelOffset) {
-    assert(sequentialArchiveHandler); assert(graphics);
+Powerups::Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics, Hacks *hacks) : Byte_Writer(file, levelOffset) {
+    assert(sequentialArchiveHandler); assert(graphics); assert(hacks);
     this->graphics = graphics;
+    this->hacks = hacks;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
 }
 
@@ -103,7 +105,9 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("071F1F3F3F7A72300000000F18252D0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B0002000600").toLatin1()))) return false;
-    return this->graphics->Apply_Hammer_Suit_Fix();
+    if (!this->graphics->Apply_Hammer_Suit_Fix()) return false;
+    this->hacks->Set_Hammer_Suit_Active(true);
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {

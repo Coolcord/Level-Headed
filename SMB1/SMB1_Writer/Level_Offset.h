@@ -17,7 +17,7 @@ public:
     void Set_Extras(Room_ID_Handler *roomIDHandler, Room_Address_Writer *roomAddressWriter);
     int Get_Level_Object_Offset(Level::Level level);
     int Get_Level_Enemy_Offset(Level::Level level);
-    int Fix_Offset(int offset);
+    qint64 Fix_Offset(qint64 offset);
     ROM_Type::ROM_Type Get_ROM_Type();
 
 private:

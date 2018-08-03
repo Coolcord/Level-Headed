@@ -49,7 +49,7 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     return this->Fix_Offset(offset);
 }
 
-int Level_Offset::Fix_Offset(int offset) {
+qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
     case ROM_Type::DEFAULT: return offset; //nothing to do
     case ROM_Type::INVALID: //this should never happen

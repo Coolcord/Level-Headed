@@ -51,7 +51,7 @@ bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
 
 bool Graphics::Change_1UP_Palette(int palette) {
     if (palette < 0 || palette > 3) return false;
-    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<unsigned char>(palette)));
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(palette)));
 }
 
 bool Graphics::Write_Title_Screen_Core() {
@@ -122,8 +122,8 @@ void Graphics::Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchB
                 isHex = true;
             }
             qint64 num = 0;
-            if (isHex) num = line.toULongLong(&valid, 0x10);
-            else num = line.toULongLong(&valid, 10);
+            if (isHex) num = line.toLongLong(&valid, 0x10);
+            else num = line.toLongLong(&valid, 10);
             if (valid) {
                 versionOffset = num;
                 return;

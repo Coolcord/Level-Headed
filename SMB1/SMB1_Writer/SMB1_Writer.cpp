@@ -190,7 +190,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->text = new Text(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
-        this->powerups = new Powerups(this->file, this->levelOffset, this->sequentialArchiveHandler, this->graphics);
+        this->powerups = new Powerups(this->file, this->levelOffset, this->sequentialArchiveHandler, this->graphics, this->hacks);
         this->sequentialArchiveHandler->Set_File(this->file);
         return true;
     } else {

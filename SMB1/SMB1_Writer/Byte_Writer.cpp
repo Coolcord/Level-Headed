@@ -14,7 +14,7 @@ Byte_Writer::~Byte_Writer() {
     this->levelOffset = NULL;
 }
 
-bool Byte_Writer::Write_Bytes_To_Offset(int offset, const QByteArray &bytes) {
+bool Byte_Writer::Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes) {
     offset = this->levelOffset->Fix_Offset(offset);
     if (!this->file->seek(offset)) return false;
     return (this->file->write(bytes) == bytes.size());
