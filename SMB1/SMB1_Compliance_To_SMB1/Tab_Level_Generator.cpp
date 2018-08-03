@@ -21,7 +21,7 @@ Tab_Level_Generator::Tab_Level_Generator(QWidget *parent, const QString &applica
 void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
-    this->ui->sbRandomSeed->setValue(this->pluginSettings->randomSeed);
+    this->ui->sbRandomSeed->setValue(static_cast<int>(this->pluginSettings->randomSeed));
     this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
     this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
     this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
@@ -47,7 +47,7 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
-        this->pluginSettings->randomSeed = this->ui->sbRandomSeed->value();
+        this->pluginSettings->randomSeed = static_cast<unsigned int>(this->ui->sbRandomSeed->value());
     }
 }
 

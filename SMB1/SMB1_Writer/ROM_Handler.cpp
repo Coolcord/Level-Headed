@@ -29,7 +29,7 @@ ROM_Handler::~ROM_Handler() {
 
 QString ROM_Handler::Install_ROM() {
     QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM", this->applicationLocation, "NES ROMs (*.nes *.fds)");
-    if (fileLocation == NULL || fileLocation.isEmpty()) return QString();
+    if (fileLocation == nullptr || fileLocation.isEmpty()) return QString();
 
     QFile file(fileLocation);
     if (!file.exists()) {
@@ -93,10 +93,10 @@ QString ROM_Handler::Install_ROM() {
 }
 
 QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
-    if (cancel) return NULL;
+    if (cancel) return nullptr;
     QFile loadFile(this->romFolderLocation + "/" + fileName);
     if (!loadFile.exists()) {
-        return NULL;
+        return nullptr;
     }
     if (!loadFile.open(QFile::ReadWrite)) {
         cancel = true;
@@ -104,7 +104,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions to access " + this->file->fileName() +
                               ". Cannot continue!", Common_Strings::STRING_OK);
-        return NULL;
+        return nullptr;
     }
 
     //Calculate the checksum
@@ -119,7 +119,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         cancel = true;
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               loadedFileName + " is not a valid SMB1 ROM!", Common_Strings::STRING_OK);
-        return NULL;
+        return nullptr;
     }
 
     //Make a copy of the ROM for the new hacked version
@@ -138,10 +138,10 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         this->outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, extensionFilter);
     }
     qDebug() << "Saving at: " << this->outputROMLocation;
-    if (this->outputROMLocation == NULL || this->outputROMLocation.isEmpty()) {
+    if (this->outputROMLocation == nullptr || this->outputROMLocation.isEmpty()) {
         cancel = true;
         loadFile.close();
-        return NULL;
+        return nullptr;
     }
 
     //Open the new save file and delete it if it currently exists
@@ -153,7 +153,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
             this->Show_Error(Common_Strings::STRING_LEVEL_HEADED +
                              " does not have proper read/write permissions to access " +
                              this->file->fileName() + ". Cannot continue!");
-            return NULL;
+            return nullptr;
         }
     }
     if (!this->file->open(QFile::ReadWrite)) {
@@ -162,7 +162,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         this->Show_Error(Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions to access " +
                          this->file->fileName() + ". Cannot continue!");
-        return NULL;
+        return nullptr;
     }
 
     //Copy the ROM to the new location
@@ -171,7 +171,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         loadFile.close();
         cancel = true;
         this->Show_Error("Unable to copy the game to " + this->file->fileName());
-        return NULL;
+        return nullptr;
     }
 
     //Get Read permissions
@@ -183,7 +183,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         this->Show_Error(Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions to access " +
                          this->file->fileName() + ". Cannot continue!");
-        return NULL;
+        return nullptr;
     }
     return this->file;
 }
@@ -201,7 +201,7 @@ QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
         }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 bool ROM_Handler::Clean_ROM_Directory() {
@@ -294,7 +294,7 @@ void ROM_Handler::Show_Error(const QString &error) {
         if (this->file->exists()) this->file->remove();
     }
     delete this->file;
-    this->file = NULL;
+    this->file = nullptr;
     this->romType = ROM_Type::INVALID;
 
     //Show the error

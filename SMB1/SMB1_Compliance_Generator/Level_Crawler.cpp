@@ -66,7 +66,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
 
         if (!endDetected) safeSize = x-1;
 
-    } while (line != NULL && !this->file->atEnd());
+    } while (line != nullptr && !this->file->atEnd());
 
     return true;
     //return this->Draw_Map(); //Debug code
@@ -524,7 +524,7 @@ QString Level_Crawler::Make_Key(int x, int y) {
 }
 
 bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlSteps) {
-    if (line == NULL || line.isEmpty()) return false;
+    if (line == nullptr || line.isEmpty()) return false;
     QStringList elements = line.split(' ');
 
     //Crawl forward according to the brick pattern
@@ -803,13 +803,13 @@ bool Level_Crawler::Draw_Map() {
 }
 
 int Level_Crawler::Get_X_From_Key(const QString &key) {
-    if (key == NULL || key.isEmpty()) return -1;
+    if (key == nullptr || key.isEmpty()) return -1;
     QStringList coordinates = key.split("x");
     return coordinates.at(0).toInt();
 }
 
 int Level_Crawler::Get_Y_From_Key(const QString &key) {
-    if (key == NULL || key.isEmpty()) return 0;
+    if (key == nullptr || key.isEmpty()) return 0;
     QStringList coordinates = key.split("x");
     return coordinates.at(1).toInt();
 }

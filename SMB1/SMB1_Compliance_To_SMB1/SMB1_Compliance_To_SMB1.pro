@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = SMB1_Compliance_To_SMB1
 TEMPLATE = lib
-CONFIG += plugin c++11 pendantic Wall
+CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Enemy_Handler.cpp \

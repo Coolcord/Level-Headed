@@ -10,8 +10,8 @@ Byte_Writer::Byte_Writer(QFile *file, Level_Offset *levelOffset) {
 }
 
 Byte_Writer::~Byte_Writer() {
-    this->file = NULL;
-    this->levelOffset = NULL;
+    this->file = nullptr;
+    this->levelOffset = nullptr;
 }
 
 bool Byte_Writer::Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes) {

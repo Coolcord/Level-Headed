@@ -15,10 +15,10 @@
 #include <assert.h>
 
 SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
-    this->generatorPlugin = NULL;
-    this->writerPlugin = NULL;
-    this->generatorLoader = NULL;
-    this->writerLoader = NULL;
+    this->generatorPlugin = nullptr;
+    this->writerPlugin = nullptr;
+    this->generatorLoader = nullptr;
+    this->writerLoader = nullptr;
     this->applicationLocation = QString();
     this->pluginsLoaded = false;
     this->Load_Plugin_Default_Settings();
@@ -102,10 +102,10 @@ void SMB1_Compliance_To_SMB1::Shutdown() {
     if (this->writerLoader) this->writerLoader->unload();
     delete this->generatorLoader;
     delete this->writerLoader;
-    this->generatorLoader = NULL;
-    this->writerLoader = NULL;
-    this->generatorPlugin = NULL;
-    this->writerPlugin = NULL;
+    this->generatorLoader = nullptr;
+    this->writerLoader = nullptr;
+    this->generatorPlugin = nullptr;
+    this->writerPlugin = nullptr;
     this->pluginsLoaded = false;
 }
 

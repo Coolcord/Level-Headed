@@ -26,7 +26,7 @@ bool Midpoint_Writer::Read_Midpoints() {
 
     //Read the midpoints from the ROM
     qint64 ret = this->file->read(this->buffer->data(), 16);
-    if (ret != 16 || this->buffer == NULL || this->buffer->size() != 16) return false;
+    if (ret != 16 || this->buffer == nullptr || this->buffer->size() != 16) return false;
 
     return true;
 }

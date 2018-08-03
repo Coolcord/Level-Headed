@@ -17,7 +17,7 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler 
 
 bool Hacks::Add_Luigi_Game() {
     //Based on the patch by Yy
-    if (!this->Write_Bytes_To_Offset(0x607, QByteArray(1, 0x7A))) return false;
+    if (!this->Write_Bytes_To_Offset(0x607, QByteArray(1, static_cast<char>(0x7A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x7A8, QByteArray::fromHex(QString("23CD05160A1B1218220C071D12160E241E19FF23").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x873, QByteArray::fromHex(QString("0BA004B9ED879904038810F76018181822220D0442423E5D5D0A09B46850EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1222, QByteArray::fromHex(QString("38EAEA").toLatin1()))) return false;
@@ -26,8 +26,8 @@ bool Hacks::Add_Luigi_Game() {
     if (!this->Write_Bytes_To_Offset(0x34F4, QByteArray::fromHex(QString("2082928D0907208F92").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3584, QByteArray::fromHex(QString("209C92").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5348, QByteArray::fromHex(QString("205F8FA9044C36BCEAEAEAEAEAEAEAEAEAEAEAEAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x59BF, QByteArray(1, 0xFA))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5A02, QByteArray(1, 0xFA))) return false;
+    if (!this->Write_Bytes_To_Offset(0x59BF, QByteArray(1, static_cast<char>(0xFA)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5A02, QByteArray(1, static_cast<char>(0xFA)))) return false;
     return true;
 }
 
@@ -38,10 +38,10 @@ bool Hacks::Always_Autoscroll() {
 }
 
 bool Hacks::Black_Piranha_Plants() {
-    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
+    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, static_cast<char>(0x13)))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, 0x00))) return false; //reduce inactive timer to 0
-    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x23))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, static_cast<char>(0x00)))) return false; //reduce inactive timer to 0
+    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, static_cast<char>(0x23)))) return false;
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS);
 }
 
@@ -57,11 +57,11 @@ bool Hacks::Disable_Intro_Demo() {
 }
 
 bool Hacks::Enable_Hitting_Underwater_Blocks() {
-    return this->Write_Bytes_To_Offset(0x5CEA, QByteArray(5, 0xEA));
+    return this->Write_Bytes_To_Offset(0x5CEA, QByteArray(5, static_cast<char>(0xEA)));
 }
 
 bool Hacks::Enable_Piranha_Plants_On_First_Level() {
-    return this->Write_Bytes_To_Offset(0x1905, QByteArray(5, 0xEA));
+    return this->Write_Bytes_To_Offset(0x1905, QByteArray(5, static_cast<char>(0xEA)));
 }
 
 bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
@@ -71,7 +71,7 @@ bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
 }
 
 bool Hacks::Fireballs_Kill_Everything_Onscreen() {
-    return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, 0x8F));
+    return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, static_cast<char>(0x8F)));
 }
 
 bool Hacks::Fix_Lakitu_Throw_Arc() {
@@ -92,10 +92,10 @@ bool Hacks::Fix_Life_Counter_Bugs() {
 
 bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
     //By w7n
-    if (!this->Write_Bytes_To_Offset(0x47F6, QByteArray(2, 0xEA))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4840, QByteArray(9, 0xEA))) return false;
-    if (!this->Write_Bytes_To_Offset(0x555B, QByteArray(2, 0xEA))) return false;
-    return this->Write_Bytes_To_Offset(0x65ED, QByteArray(14, 0xEA));
+    if (!this->Write_Bytes_To_Offset(0x47F6, QByteArray(2, static_cast<char>(0xEA)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4840, QByteArray(9, static_cast<char>(0xEA)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x555B, QByteArray(2, static_cast<char>(0xEA)))) return false;
+    return this->Write_Bytes_To_Offset(0x65ED, QByteArray(14, static_cast<char>(0xEA)));
 }
 
 bool Hacks::Infinite_Lives() {
@@ -110,19 +110,19 @@ bool Hacks::Invincibility() {
     if (!this->Write_Bytes_To_Offset(0x2F54, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false; //there's a bug here that causes Mario to walk slowly during the Pipe Intro
     if (!this->Write_Bytes_To_Offset(0x2F67, QByteArray::fromHex(QString("38EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x4E20, QByteArray::fromHex(QString("18EAEA90").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5802, QByteArray(1, 0x60))) return false;
-    if (!this->Write_Bytes_To_Offset(0x582B, QByteArray(1, 0x60))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5802, QByteArray(1, static_cast<char>(0x60)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x582B, QByteArray(1, static_cast<char>(0x60)))) return false;
     return this->Write_Bytes_To_Offset(0x589D, QByteArray::fromHex(QString("EAEA").toLatin1()));
 }
 
 bool Hacks::Moon_Jump() {
     //if (!this->Write_Bytes_To_Offset(0x2F78, QByteArray(1, 0x6A))) return false; //turbo button presses
-    return this->Write_Bytes_To_Offset(0x3497, QByteArray(1, 0x13)); //jump while in midair
+    return this->Write_Bytes_To_Offset(0x3497, QByteArray(1, static_cast<char>(0x13))); //jump while in midair
 }
 
 bool Hacks::Permadeath() {
     if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
-    if (!this->Write_Bytes_To_Offset(0x02ED,  QByteArray(1, 0x18))) return false; //disable the A+Start continue cheat code
+    if (!this->Write_Bytes_To_Offset(0x02ED,  QByteArray(1, static_cast<char>(0x18)))) return false; //disable the A+Start continue cheat code
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     return this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1())); //skip the lives screen
@@ -135,18 +135,18 @@ bool Hacks::Real_Time() {
 }
 
 bool Hacks::Red_Piranha_Plants() {
-    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, 0x13))) return false;
+    if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, static_cast<char>(0x13)))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, 0x22))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, static_cast<char>(0x22)))) return false;
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_RED_PIRANHA_PLANTS);
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, 0x00))) return false;
-    if (!this->Write_Bytes_To_Offset(0x1140, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x1519, QByteArray(1, 0x0A))) return false;
+    if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, static_cast<char>(0x00)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1140, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x1519, QByteArray(1, static_cast<char>(0x0A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x152B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1584, QByteArray::fromHex(QString("85043003DE8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x15A6, QByteArray::fromHex(QString("85043003BC5704").toLatin1()))) return false;
@@ -184,14 +184,14 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
 
 bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("1CE4").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, 0x38))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, static_cast<char>(0x38)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3B01, QByteArray::fromHex(QString("6BC0A90495AC2095C0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, 0x60))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("8A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB4C28BBA900952A4C"
             "28BBA92085FFB91E0060").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, 0x02))) return false;
-    if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, 0x02))) return false; //red palette for Bowser
+    if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, static_cast<char>(0x02)))) return false; //red palette for Bowser
     if (!this->isHammerSuitActive) {
         if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
                 "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
@@ -200,10 +200,10 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
 }
 
 bool Hacks::Replace_Mario_With_Luigi() {
-    if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, 0xA9))) return false;
-    if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, 0x72))) return false;
-    if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, 0x5A))) return false;
-    if (!this->Write_Bytes_To_Offset(0x42E, QByteArray(1, 0x70))) return false;
+    if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, static_cast<char>(0xA9)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, static_cast<char>(0x72)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x42C, QByteArray(1, static_cast<char>(0x5A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x42E, QByteArray(1, static_cast<char>(0x70)))) return false;
 
     QByteArray luigiText;
     luigiText.append(static_cast<char>(0x15));
@@ -224,18 +224,18 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
     case 2:
         return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x02)));
     case 3:
-        speedBytes.append(0xE8);
-        speedBytes.append(0xE4);
+        speedBytes.append(static_cast<char>(0xE8));
+        speedBytes.append(static_cast<char>(0xE4));
         return this->Write_Bytes_To_Offset(0x431C, speedBytes);
     case 4:
-        speedBytes.append(0xD8);
-        speedBytes.append(0xD4);
+        speedBytes.append(static_cast<char>(0xD8));
+        speedBytes.append(static_cast<char>(0xD4));
         return this->Write_Bytes_To_Offset(0x431C, speedBytes);
     case 5:
         return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x08)));
     case 6:
-        speedBytes.append(0xC8);
-        speedBytes.append(0xC4);
+        speedBytes.append(static_cast<char>(0xC8));
+        speedBytes.append(static_cast<char>(0xC4));
         return this->Write_Bytes_To_Offset(0x431C, speedBytes);
     case 7:
         return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0D)));
@@ -269,15 +269,15 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
     worldByte.append(static_cast<char>(value));
 
     //These offsets must be patched for Number of Worlds to be set properly
-    if (!this->Write_Bytes_To_Offset(0x02B2, QByteArray(1, 0x00))) return false; //disable to B button to select world
+    if (!this->Write_Bytes_To_Offset(0x02B2, QByteArray(1, static_cast<char>(0x00)))) return false; //disable to B button to select world
     if (!this->Write_Bytes_To_Offset(0x0438, worldByte)) return false;
     if (!this->Write_Bytes_To_Offset(0x047A, worldByte)) return false;
     if (!this->Write_Bytes_To_Offset(0x6A27, worldByte)) return false;
 
     //Correct hard mode activator
     if (!this->Write_Bytes_To_Offset(0x1054, QByteArray(1, 0x00))) return false;
-    if (!this->Write_Bytes_To_Offset(0x104B, QByteArray(1, startHardModeOnWorld))) return false;
-    if (!this->Write_Bytes_To_Offset(0x512B, QByteArray(1, startHardModeOnWorld))) return false;
+    if (!this->Write_Bytes_To_Offset(0x104B, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x512B, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false;
 
     //Apply the Walking Hammer Bros patch
     assert(this->difficultyWalkingHammerBros >= 1 && this->difficultyWalkingHammerBros <= 11);
@@ -308,69 +308,69 @@ void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {
 bool Hacks::Speedy_Objects_And_Enemies() {
     //by L
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("50B0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x36D4, QByteArray(1, 0x60))) return false;
+    if (!this->Write_Bytes_To_Offset(0x36D4, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, 0x20))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3CD4, QByteArray(1, 0x20))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3F89, QByteArray(1, 0x06))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3F8D, QByteArray(1, 0x0C))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3F91, QByteArray(1, 0x06))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, static_cast<char>(0x20)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3CD4, QByteArray(1, static_cast<char>(0x20)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3F89, QByteArray(1, static_cast<char>(0x06)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3F8D, QByteArray(1, static_cast<char>(0x0C)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3F91, QByteArray(1, static_cast<char>(0x06)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3F9D, QByteArray::fromHex(QString("14A906").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3FA3, QByteArray::fromHex(QString("2CA908").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3FCE, QByteArray(1, 0x0A))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3FD8, QByteArray(1, 0x14))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3FDC, QByteArray(1, 0x06))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3FCE, QByteArray(1, static_cast<char>(0x0A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3FD8, QByteArray(1, static_cast<char>(0x14)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3FDC, QByteArray(1, static_cast<char>(0x06)))) return false;
     if (!this->Write_Bytes_To_Offset(0x445F, QByteArray::fromHex(QString("3848384838").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x44A8, QByteArray::fromHex(QString("1E15161E2C30201C2E322824").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, 0xF9))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4574, QByteArray(1, 0x10))) return false;
-    if (!this->Write_Bytes_To_Offset(0x47E6, QByteArray(1, 0xE8))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4861, QByteArray(1, 0xFE))) return false;
-    if (!this->Write_Bytes_To_Offset(0x486D, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x49D3, QByteArray(1, 0x05))) return false;
-    if (!this->Write_Bytes_To_Offset(0x49D8, QByteArray(1, 0xF7))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4A82, QByteArray(1, 0xE8))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4B56, QByteArray(1, 0x23))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4B5C, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4C07, QByteArray(1, 0x02))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4C27, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4C7C, QByteArray(1, 0x01))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4F01, QByteArray(1, 0x1E))) return false;
-    if (!this->Write_Bytes_To_Offset(0x50D4, QByteArray(1, 0x10))) return false;
+    if (!this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0xF9)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4574, QByteArray(1, static_cast<char>(0x10)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x47E6, QByteArray(1, static_cast<char>(0xE8)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4861, QByteArray(1, static_cast<char>(0xFE)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x486D, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x49D3, QByteArray(1, static_cast<char>(0x05)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x49D8, QByteArray(1, static_cast<char>(0xF7)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4A82, QByteArray(1, static_cast<char>(0xE8)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4B56, QByteArray(1, static_cast<char>(0x23)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4B5C, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4C07, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4C27, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4C7C, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4F01, QByteArray(1, static_cast<char>(0x1E)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x50D4, QByteArray(1, static_cast<char>(0x10)))) return false;
     if (!this->Write_Bytes_To_Offset(0x51E1, QByteArray::fromHex(QString("6F206F6F6F20206F").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5217, QByteArray(1, 0x02))) return false;
-    if (!this->Write_Bytes_To_Offset(0x55F7, QByteArray(1, 0x03))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5618, QByteArray(1, 0x18))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5658, QByteArray(1, 0x20))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5217, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x55F7, QByteArray(1, static_cast<char>(0x03)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5618, QByteArray(1, static_cast<char>(0x18)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5658, QByteArray(1, static_cast<char>(0x20)))) return false;
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, 0x18));
+    return this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x18)));
 }
 
 bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
     if (world < 1 || world > 0xFF) return false;
-    return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, world-1));
+    return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, static_cast<char>(world-1)));
 }
 
 bool Hacks::Start_With_Fire_Flower_On_Room_Change() {
-    if (!this->Write_Bytes_To_Offset(0x5B4, QByteArray(1, 0x02))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5C1, QByteArray(1, 0xAD))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5B4, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5C1, QByteArray(1, static_cast<char>(0xAD)))) return false;
     if (!this->Write_Bytes_To_Offset(0x1072, QByteArray::fromHex(QString("008D5707AD").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x1278, QByteArray(1, 0x00));
+    return this->Write_Bytes_To_Offset(0x1278, QByteArray(1, static_cast<char>(0x00)));
 }
 
 bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
     //JMP $C114
     if (!this->Write_Bytes_To_Offset(0x3270, QByteArray::fromHex(QString("4C14C1").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, 0xCE))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, static_cast<char>(0xCE)))) return false;
     //$C114
     return this->Write_Bytes_To_Offset(0x4124, QByteArray::fromHex(QString("AD5607F005AD5407F0034C63B28D0B07A901851DA9C98D470760").toLatin1()));
 }
 
 bool Hacks::Unlimited_Time() {
     if (!this->Write_Bytes_To_Offset(0x0774, QByteArray::fromHex(QString("24242424").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3776, QByteArray(1, 0xAD))) return false;
-    return this->Write_Bytes_To_Offset(0x52FC, QByteArray(1, 0x4E));
+    if (!this->Write_Bytes_To_Offset(0x3776, QByteArray(1, static_cast<char>(0xAD)))) return false;
+    return this->Write_Bytes_To_Offset(0x52FC, QByteArray(1, static_cast<char>(0x4E)));
 }
 
 bool Hacks::Write_Watermark() {

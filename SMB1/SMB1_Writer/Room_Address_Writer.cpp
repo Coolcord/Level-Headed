@@ -105,7 +105,7 @@ bool Room_Address_Writer::Read_Into_Buffer(int offset, int amount, QByteArray *b
 
     //Read the data from the ROM
     qint64 ret = this->file->read(buffer->data(), amount);
-    if (ret != amount || buffer == NULL || buffer->size() != amount) return false;
+    if (ret != amount || buffer == nullptr || buffer->size() != amount) return false;
     return true;
 }
 
@@ -151,10 +151,10 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(int fromOffset, int toOffset,
 
         //Fix the offset
         if (add) {
-            offset += numBytes;
+            offset += static_cast<unsigned int>(numBytes);
         } else {
             assert(offset >= static_cast<unsigned int>(numBytes));
-            offset -= numBytes;
+            offset -= static_cast<unsigned int>(numBytes);
         }
 
         //Update the offset in the buffer

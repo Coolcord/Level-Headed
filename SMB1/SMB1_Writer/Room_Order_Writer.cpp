@@ -20,12 +20,12 @@ Room_Order_Writer::~Room_Order_Writer() {
 
 bool Room_Order_Writer::Read_Room_Order_Table() {
     assert(this->buffer);
-    int offset = this->levelOffset->Fix_Offset(0x1CCC);
+    qint64 offset = this->levelOffset->Fix_Offset(0x1CCC);
     if (!this->file->seek(offset)) return false;
 
     //Read the Room Order Table from the ROM
     qint64 ret = this->file->read(this->buffer->data(), 36);
-    if (ret != 36 || this->buffer == NULL || this->buffer->size() != 36) return false;
+    if (ret != 36 || this->buffer == nullptr || this->buffer->size() != 36) return false;
 
     this->Populate_Midpoint_Indexes_In_Handler();
     return true;
@@ -38,7 +38,7 @@ bool Room_Order_Writer::Write_Room_Order_Table() {
     if (!this->Fix_Room_Order_Table_Header()) return false;
 
     //Get the Room Order Table Offset
-    int offset = this->levelOffset->Fix_Offset(0x1CCC);
+    qint64 offset = this->levelOffset->Fix_Offset(0x1CCC);
     if (!this->file->seek(offset)) return false;
 
     //Write the Room Order Table to the ROM
@@ -60,13 +60,13 @@ QVector<unsigned char> *Room_Order_Writer::Get_Midpoints_From_Room_Order_Table(u
     int midpointIndex = 0;
     for (int i = 0; i < 36 && midpointIndex < 32; ++i) {
         unsigned char roomID = static_cast<unsigned char>(this->buffer->data()[i]);
-        if (roomID == id) midpoints->append(midpointIndex);
+        if (roomID == id) midpoints->append(static_cast<unsigned char>(midpointIndex));
         if (roomID != this->roomIDHandler->roomIDs->value(Level::PIPE_INTRO)) ++midpointIndex; //don't count the pipe cutscenes
     }
     return midpoints;
 }
 
-bool Room_Order_Writer::Write_Bytes_To_Offset(int offset, const QByteArray &bytes) {
+bool Room_Order_Writer::Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes) {
     offset = this->levelOffset->Fix_Offset(offset);
     if (!this->file->seek(offset)) return false;
     return (this->file->write(bytes) == bytes.size());
@@ -79,14 +79,14 @@ void Room_Order_Writer::Populate_Midpoint_Indexes_In_Handler() {
     }
     this->roomIDHandler->midpointIndexes->clear();
     foreach (unsigned char value, this->roomIDHandler->roomIDs->values()) {
-        this->roomIDHandler->midpointIndexes->insert(static_cast<int>(value), this->Get_Midpoints_From_Room_Order_Table(value));
+        this->roomIDHandler->midpointIndexes->insert(static_cast<unsigned char>(value), this->Get_Midpoints_From_Room_Order_Table(value));
     }
 }
 
 bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
     QByteArray header(8, ' ');
     //Get the Room Order Table Header Offset
-    int offset = this->levelOffset->Fix_Offset(0x1CC4);
+    qint64 offset = this->levelOffset->Fix_Offset(0x1CC4);
     if (!this->file->seek(offset)) return false;
 
     //Read the Room Order Table Header from the ROM
@@ -121,13 +121,13 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
 }
 
 bool Room_Order_Writer::Scan_Level_For_End_Objects(Level::Level level, bool &endOfWorld) {
-    int offset = this->levelOffset->Get_Level_Object_Offset(level);
+    qint64 offset = this->levelOffset->Get_Level_Object_Offset(level);
     if (offset == BAD_OFFSET) return false;
     if (!this->file->seek(offset)) return false;
 
     QByteArray buffer(2, ' ');
     qint64 ret = this->file->read(buffer.data(), 2);
-    while (ret == 2 && buffer.data() != NULL
+    while (ret == 2 && buffer.data() != nullptr
            && static_cast<unsigned char>(buffer.data()[0]) != 0xFD) {
         switch (static_cast<unsigned char>(buffer.data()[1])) {
         //FlagPole

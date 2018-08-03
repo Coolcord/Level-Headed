@@ -13,11 +13,11 @@ const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+"
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
     this->combineMusicPacks = false;
-    this->file = NULL;
-    this->hexagonPlugin = NULL;
-    this->sequentialArchivePlugin = NULL;
-    this->hexagonLoader = NULL;
-    this->sequentialArchiveLoader = NULL;
+    this->file = nullptr;
+    this->hexagonPlugin = nullptr;
+    this->sequentialArchivePlugin = nullptr;
+    this->hexagonLoader = nullptr;
+    this->sequentialArchiveLoader = nullptr;
     this->lastAppliedGraphicsPack = QString();
     this->graphicsPackStrings = QStringList();
     this->musicPackStrings = QStringList();
@@ -30,12 +30,12 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
 Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     if (this->hexagonLoader) this->hexagonLoader->unload();
     if (this->sequentialArchiveLoader) this->sequentialArchiveLoader->unload();
-    this->hexagonLoader = NULL;
-    this->sequentialArchiveLoader = NULL;
-    this->hexagonPlugin = NULL;
-    this->sequentialArchivePlugin = NULL;
+    this->hexagonLoader = nullptr;
+    this->sequentialArchiveLoader = nullptr;
+    this->hexagonPlugin = nullptr;
+    this->sequentialArchivePlugin = nullptr;
     delete this->invalidTones;
-    this->invalidTones = NULL;
+    this->invalidTones = nullptr;
 }
 
 void Sequential_Archive_Handler::Set_Combine_Music_Packs(bool combineMusicPacks) {

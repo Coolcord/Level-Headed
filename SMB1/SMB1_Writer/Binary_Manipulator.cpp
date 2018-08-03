@@ -118,7 +118,7 @@ void Binary_Manipulator::Write_Hex_Digit_To_BitArray(QBitArray &bits, int start,
     QBitArray hexDigitBits = Hex_Digit_To_BitArray(hexDigit);
     assert(hexDigitBits.size() <= bits.size());
 
-    for (unsigned int i = start, j = hexStart; j <= hexEnd; ++i, ++j) {
+    for (int i = start, j = static_cast<int>(hexStart); j <= static_cast<int>(hexEnd); ++i, ++j) {
         bits.setBit(i, hexDigitBits.testBit(j));
     }
 }
@@ -128,7 +128,7 @@ void Binary_Manipulator::Write_Byte_To_BitArray(QBitArray &bits, int start, int 
     assert(start <= bits.size() && start >= 0);
     assert(hex >= 0x00 && hex <= 0xFF);
 
-    QBitArray hexBits = Hex_To_BitArray(hex);
+    QBitArray hexBits = Hex_To_BitArray(static_cast<unsigned char>(hex));
     if (start + hexBits.size() > bits.size()) throw "Cannot write outside of the bit array";
 
     for (int i = start, j = 0; i < start + bits.size(); ++i, ++j) {

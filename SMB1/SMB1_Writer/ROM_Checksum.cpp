@@ -56,7 +56,7 @@ bool ROM_Checksum::Check_ROM_Header(QFile *file) {
     if (!file->seek(0)) return false;
     QByteArray buffer(4, ' ');
     if (file->read(buffer.data(), 4) != 4) return false;
-    if (buffer.data() == NULL || buffer.size() != 4) return false;
+    if (buffer.data() == nullptr || buffer.size() != 4) return false;
 
     if (this->Check_NES_ROM_Header(&buffer)) return true;
     return this->Check_FDS_ROM_Header(&buffer);

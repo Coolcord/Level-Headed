@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = SMB1_Writer
 TEMPLATE = lib
-CONFIG += plugin c++11 pendantic Wall
+CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Writer.cpp \
     Item_Writer.cpp \

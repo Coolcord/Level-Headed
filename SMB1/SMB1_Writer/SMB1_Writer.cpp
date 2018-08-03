@@ -26,29 +26,29 @@
 SMB1_Writer::SMB1_Writer() {
     //Set class variables
     this->applicationLocation = QString();
-    this->file = NULL;
-    this->headerBuffer = NULL;
-    this->objectsBuffer = NULL;
-    this->enemiesBuffer = NULL;
-    this->enemyBytesTracker = NULL;
-    this->levelOffset = NULL;
-    this->objectWriter = NULL;
-    this->enemyWriter = NULL;
-    this->headerWriter = NULL;
-    this->roomIDHandler = NULL;
-    this->roomOrderWriter = NULL;
-    this->roomAddressWriter = NULL;
-    this->midpointWriter = NULL;
-    this->hacks = NULL;
-    this->music = NULL;
-    this->graphics = NULL;
-    this->powerups = NULL;
-    this->sequentialArchiveHandler = NULL;
-    this->romHandler = NULL;
+    this->file = nullptr;
+    this->headerBuffer = nullptr;
+    this->objectsBuffer = nullptr;
+    this->enemiesBuffer = nullptr;
+    this->enemyBytesTracker = nullptr;
+    this->levelOffset = nullptr;
+    this->objectWriter = nullptr;
+    this->enemyWriter = nullptr;
+    this->headerWriter = nullptr;
+    this->roomIDHandler = nullptr;
+    this->roomOrderWriter = nullptr;
+    this->roomAddressWriter = nullptr;
+    this->midpointWriter = nullptr;
+    this->hacks = nullptr;
+    this->music = nullptr;
+    this->graphics = nullptr;
+    this->powerups = nullptr;
+    this->sequentialArchiveHandler = nullptr;
+    this->romHandler = nullptr;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;
-    this->parent = NULL;
+    this->parent = nullptr;
 }
 
 void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
@@ -79,31 +79,31 @@ void SMB1_Writer::Shutdown() {
         this->file->close();
     }
     delete this->file;
-    this->file = NULL;
+    this->file = nullptr;
     delete this->levelOffset;
-    this->levelOffset = NULL;
+    this->levelOffset = nullptr;
     delete this->midpointWriter;
-    this->midpointWriter = NULL;
+    this->midpointWriter = nullptr;
     delete this->roomOrderWriter;
-    this->roomOrderWriter = NULL;
+    this->roomOrderWriter = nullptr;
     delete this->roomIDHandler;
-    this->roomIDHandler = NULL;
+    this->roomIDHandler = nullptr;
     delete this->roomAddressWriter;
-    this->roomAddressWriter = NULL;
+    this->roomAddressWriter = nullptr;
     delete this->enemyBytesTracker;
-    this->enemyBytesTracker = NULL;
+    this->enemyBytesTracker = nullptr;
     delete this->romHandler;
-    this->romHandler = NULL;
+    this->romHandler = nullptr;
     delete this->hacks;
-    this->hacks = NULL;
+    this->hacks = nullptr;
     delete this->music;
-    this->music = NULL;
+    this->music = nullptr;
     delete this->graphics;
-    this->graphics = NULL;
+    this->graphics = nullptr;
     delete this->powerups;
-    this->powerups = NULL;
+    this->powerups = nullptr;
     delete this->sequentialArchiveHandler;
-    this->sequentialArchiveHandler = NULL;
+    this->sequentialArchiveHandler = nullptr;
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {
@@ -154,25 +154,25 @@ bool SMB1_Writer::Load_ROM(const QString &fileName) {
 bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     if (!cancel && this->file) {
         delete this->levelOffset;
-        this->levelOffset = NULL;
+        this->levelOffset = nullptr;
         delete this->roomIDHandler;
-        this->roomIDHandler = NULL;
+        this->roomIDHandler = nullptr;
         delete this->midpointWriter;
-        this->midpointWriter = NULL;
+        this->midpointWriter = nullptr;
         delete this->roomOrderWriter;
-        this->roomOrderWriter = NULL;
+        this->roomOrderWriter = nullptr;
         delete this->roomIDHandler;
-        this->roomIDHandler = NULL;
+        this->roomIDHandler = nullptr;
         delete this->enemyBytesTracker;
-        this->enemyBytesTracker = NULL;
+        this->enemyBytesTracker = nullptr;
         delete this->hacks;
-        this->hacks = NULL;
+        this->hacks = nullptr;
         delete this->music;
-        this->music = NULL;
+        this->music = nullptr;
         delete this->graphics;
-        this->graphics = NULL;
+        this->graphics = nullptr;
         delete this->powerups;
-        this->powerups = NULL;
+        this->powerups = nullptr;
         this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
         this->roomIDHandler = new Room_ID_Handler(this->file, this->levelOffset);
         this->midpointWriter = new Midpoint_Writer(this->file, this->levelOffset, this->roomIDHandler);
@@ -275,7 +275,7 @@ bool SMB1_Writer::Set_Output_ROM_Location(const QString &location) {
 
 bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
     assert(this->file);
-    if (buffer == NULL) return false;
+    if (buffer == nullptr) return false;
     if (!this->file->seek(offset)) return false;
     return this->file->write(buffer->data(), buffer->length()) == buffer->length();
 }
@@ -305,7 +305,7 @@ bool SMB1_Writer::Read_Objects() {
     QByteArray buffer(2, ' ');
     this->numObjectBytes = 0;
     qint64 ret = this->file->read(buffer.data(), 2);
-    while (ret == 2 && buffer.data() != NULL
+    while (ret == 2 && buffer.data() != nullptr
            && static_cast<unsigned char>(buffer.data()[0]) != 0xFD) {
         this->objectsBuffer->append(buffer);
         this->numObjectBytes += 2;
@@ -338,9 +338,9 @@ bool SMB1_Writer::Read_Enemies() {
 }
 
 bool SMB1_Writer::Are_Buffers_Allocated() {
-    return (this->headerBuffer != NULL && this->objectsBuffer != NULL && this->enemiesBuffer != NULL
+    return (this->headerBuffer != nullptr && this->objectsBuffer != nullptr && this->enemiesBuffer != nullptr
             && this->objectOffset != BAD_OFFSET && this->enemyOffset != BAD_OFFSET
-            && this->objectWriter != NULL && this->enemyWriter != NULL && this->headerWriter != NULL);
+            && this->objectWriter != nullptr && this->enemyWriter != nullptr && this->headerWriter != nullptr);
 }
 
 void SMB1_Writer::Deallocate_Buffers() {
@@ -350,12 +350,12 @@ void SMB1_Writer::Deallocate_Buffers() {
     delete this->objectWriter;
     delete this->enemyWriter;
     delete this->headerWriter;
-    this->headerBuffer = NULL;
-    this->objectsBuffer = NULL;
-    this->enemiesBuffer = NULL;
-    this->objectWriter = NULL;
-    this->enemyWriter = NULL;
-    this->headerWriter = NULL;
+    this->headerBuffer = nullptr;
+    this->objectsBuffer = nullptr;
+    this->enemiesBuffer = nullptr;
+    this->objectWriter = nullptr;
+    this->enemyWriter = nullptr;
+    this->headerWriter = nullptr;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;
     this->numObjectBytes = 0;

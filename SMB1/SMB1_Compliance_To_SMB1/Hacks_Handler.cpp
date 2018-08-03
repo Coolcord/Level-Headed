@@ -13,8 +13,8 @@ Hacks_Handler::Hacks_Handler(SMB1_Writer_Interface *writerPlugin, Plugin_Setting
 }
 
 Hacks_Handler::~Hacks_Handler() {
-    this->writerPlugin = NULL;
-    this->pluginSettings = NULL;
+    this->writerPlugin = nullptr;
+    this->pluginSettings = nullptr;
 }
 
 bool Hacks_Handler::Write_Hacks() {

@@ -19,8 +19,8 @@ Main_Window::Main_Window(QWidget *parent) :
     this->setWindowTitle(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION);
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
     this->pluginHandler = new Plugin_Handler(this);
-    this->interpreterLoader = NULL;
-    this->interpreterPlugin = NULL;
+    this->interpreterLoader = nullptr;
+    this->interpreterPlugin = nullptr;
 }
 
 Main_Window::~Main_Window() {
@@ -41,8 +41,8 @@ void Main_Window::Disable_All() {
     if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
     if (this->interpreterLoader) this->interpreterLoader->unload();
     delete this->interpreterLoader;
-    this->interpreterLoader = NULL;
-    this->interpreterPlugin = NULL;
+    this->interpreterLoader = nullptr;
+    this->interpreterPlugin = nullptr;
     this->ui->comboBaseGame->setCurrentIndex(0);
 }
 
@@ -54,8 +54,8 @@ void Main_Window::Enable_Generator() {
     if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
     if (this->interpreterLoader) this->interpreterLoader->unload();
     delete this->interpreterLoader;
-    this->interpreterLoader = NULL;
-    this->interpreterPlugin = NULL;
+    this->interpreterLoader = nullptr;
+    this->interpreterPlugin = nullptr;
 }
 
 void Main_Window::Enable_Buttons() {
@@ -111,7 +111,7 @@ bool Main_Window::Load_Previous_Plugins() {
 }
 
 void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
-    if (arg1 == NULL || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
+    if (arg1 == nullptr || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Disable_All();
         return;
     } else if (this->Populate_Generators(arg1)){
@@ -121,7 +121,7 @@ void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
 }
 
 void Main_Window::on_comboLevelGenerator_currentIndexChanged(const QString &arg1) {
-    if (arg1 == NULL || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
+    if (arg1 == nullptr || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Enable_Generator();
         return;
     } else {
@@ -168,12 +168,12 @@ void Main_Window::on_Main_Window_finished(int result) {
     if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
     if (this->interpreterLoader) this->interpreterLoader->unload();
     delete this->interpreterLoader;
-    this->interpreterLoader = NULL;
-    this->interpreterPlugin = NULL;
+    this->interpreterLoader = nullptr;
+    this->interpreterPlugin = nullptr;
     if (result == 0) {
         //The output of this really doesn't matter at this point
         this->pluginHandler->Save_Currently_Loaded_Plugins(this->ui->comboBaseGame->currentText(), this->ui->comboLevelGenerator->currentText());
     }
     delete this->pluginHandler;
-    this->pluginHandler = NULL;
+    this->pluginHandler = nullptr;
 }

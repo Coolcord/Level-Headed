@@ -15,8 +15,8 @@ class Level_Offset {
 public:
     Level_Offset(QFile *file, ROM_Type::ROM_Type romType);
     void Set_Extras(Room_ID_Handler *roomIDHandler, Room_Address_Writer *roomAddressWriter);
-    int Get_Level_Object_Offset(Level::Level level);
-    int Get_Level_Enemy_Offset(Level::Level level);
+    qint64 Get_Level_Object_Offset(Level::Level level);
+    qint64 Get_Level_Enemy_Offset(Level::Level level);
     qint64 Fix_Offset(qint64 offset);
     ROM_Type::ROM_Type Get_ROM_Type();
 

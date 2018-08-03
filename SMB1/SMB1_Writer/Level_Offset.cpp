@@ -11,8 +11,8 @@ Level_Offset::Level_Offset(QFile *file, ROM_Type::ROM_Type romType) {
     }
     this->file = file;
     this->romType = romType;
-    this->roomIDHandler = NULL;
-    this->roomAddressWriter = NULL;
+    this->roomIDHandler = nullptr;
+    this->roomAddressWriter = nullptr;
 }
 
 void Level_Offset::Set_Extras(Room_ID_Handler *roomIDHandler, Room_Address_Writer *roomAddressWriter) {
@@ -22,7 +22,7 @@ void Level_Offset::Set_Extras(Room_ID_Handler *roomIDHandler, Room_Address_Write
     this->roomAddressWriter = roomAddressWriter;
 }
 
-int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
+qint64 Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     assert(this->roomIDHandler);
     assert(this->roomAddressWriter);
 
@@ -33,7 +33,7 @@ int Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     return this->Fix_Offset(offset);
 }
 
-int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
+qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     assert(this->roomIDHandler);
     assert(this->roomAddressWriter);
 
@@ -51,10 +51,9 @@ int Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 
 qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
-    case ROM_Type::DEFAULT: return offset; //nothing to do
     case ROM_Type::INVALID: //this should never happen
-    default:
-        assert(false);
+    default: assert(false);
+    case ROM_Type::DEFAULT: return offset; //nothing to do
     }
     return BAD_OFFSET;
 }

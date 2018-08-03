@@ -20,7 +20,7 @@ public:
     QVector<unsigned char> *Get_Midpoints_From_Room_Order_Table(unsigned char id);
 
 private:
-    bool Write_Bytes_To_Offset(int offset, const QByteArray &bytes);
+    bool Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes);
     void Populate_Midpoint_Indexes_In_Handler();
     bool Fix_Room_Order_Table_Header();
     bool Scan_Level_For_End_Objects(Level::Level level, bool &endOfWorld);

@@ -32,8 +32,8 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
     this->generatorPlugin = generatorPlugin;
     this->writerPlugin = writerPlugin;
     this->sequentialArchiveLoaded = false;
-    this->sequentialArchiveLoader = NULL;
-    this->sequentialArchivePlugin = NULL;
+    this->sequentialArchiveLoader = nullptr;
+    this->sequentialArchivePlugin = nullptr;
     this->levelLocation = applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(applicationLocation);
     if (!dir.exists(Common_Strings::STRING_LEVELS)) dir.mkdir(Common_Strings::STRING_LEVELS); //don't bother checking for success here
@@ -56,8 +56,8 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
 
 Level_Generator::~Level_Generator() {
     if (this->sequentialArchiveLoader) this->sequentialArchiveLoader->unload();
-    this->sequentialArchiveLoader = NULL;
-    this->sequentialArchivePlugin = NULL;
+    this->sequentialArchiveLoader = nullptr;
+    this->sequentialArchivePlugin = nullptr;
     delete this->chances;
     delete this->veryCommonLevels;
     delete this->commonLevels;

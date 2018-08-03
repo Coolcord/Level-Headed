@@ -144,7 +144,7 @@ QStringList Plugin_Handler::Get_Generator_Plugins(const QString &writerPlugin) {
 }
 
 QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString generatorPlugin){
-    if (writerPlugin == NULL || generatorPlugin == NULL || writerPlugin.isEmpty() || generatorPlugin.isEmpty()) {
+    if (writerPlugin == nullptr || generatorPlugin == nullptr || writerPlugin.isEmpty() || generatorPlugin.isEmpty()) {
         return QString(); //invalid arguments
     }
     return generatorPlugin.replace(" ", "_") + Common_Strings::STRING_INTERPRETER_SPLIT

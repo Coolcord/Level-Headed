@@ -14,9 +14,9 @@ Enemy_Bytes_Tracker::Enemy_Bytes_Tracker(QFile *file, Level_Offset *levelOffset)
 
 Enemy_Bytes_Tracker::~Enemy_Bytes_Tracker() {
     delete this->enemyByteCount;
-    this->enemyByteCount = NULL;
-    this->file = NULL;
-    this->levelOffset = NULL;
+    this->enemyByteCount = nullptr;
+    this->file = nullptr;
+    this->levelOffset = nullptr;
 }
 
 int Enemy_Bytes_Tracker::Get_Enemy_Byte_Count_In_Level(Level::Level level) {
@@ -110,7 +110,7 @@ bool Enemy_Bytes_Tracker::Calculate_Enemy_Bytes_In_Level(Level::Level level) {
     assert(this->file);
     assert(this->file->isOpen() && this->file->isReadable());
     assert(this->enemyByteCount);
-    int offset = this->levelOffset->Get_Level_Enemy_Offset(level);
+    qint64 offset = this->levelOffset->Get_Level_Enemy_Offset(level);
     assert(offset != BAD_OFFSET);
     if (!this->file->seek(offset)) return false;
 

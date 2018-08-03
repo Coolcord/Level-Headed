@@ -12,11 +12,11 @@ Room_ID_Handler::Room_ID_Handler(QFile *file, Level_Offset *levelOffset) {
     this->file = file;
     this->currentLevel = Level::WORLD_1_LEVEL_1;
     this->levelOffset = levelOffset;
-    this->enemyBytesTracker = NULL;
+    this->enemyBytesTracker = nullptr;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
-    this->roomOrderWriter = NULL;
-    this->roomAddressWriter = NULL;
-    this->enemyBytesTracker = NULL;
+    this->roomOrderWriter = nullptr;
+    this->roomAddressWriter = nullptr;
+    this->enemyBytesTracker = nullptr;
     this->midpointIndexes = new QMap<unsigned char, QVector<unsigned char>*>();
     this->Populate_Room_IDs();
 }
@@ -72,7 +72,7 @@ bool Room_ID_Handler::Get_Level_From_Room_ID(unsigned char id, Level::Level &lev
 
 QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Room_ID(unsigned char id) {
     QMap<unsigned char, QVector<unsigned char>*>::iterator iter = this->midpointIndexes->find(id);
-    if (iter == this->midpointIndexes->end()) return NULL; //not found
+    if (iter == this->midpointIndexes->end()) return nullptr; //not found
     return iter.value();
 }
 
@@ -82,7 +82,7 @@ QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Current_Level
 
 QVector<unsigned char> *Room_ID_Handler::Get_Midpoint_Indexes_From_Level(Level::Level level) {
     unsigned char roomID = 0;
-    if (!this->Get_Room_ID_From_Level(level, roomID)) return NULL;
+    if (!this->Get_Room_ID_From_Level(level, roomID)) return nullptr;
     return this->Get_Midpoint_Indexes_From_Room_ID(roomID);
 }
 
@@ -336,7 +336,7 @@ bool Room_ID_Handler::Read_First_Byte(int offset, unsigned char &c) {
     QByteArray buffer(1, ' ');
     if (!this->file->seek(offset)) return false;
     qint64 ret = this->file->read(buffer.data(), 1);
-    if (ret != 1 || buffer.data() == NULL) return false;
+    if (ret != 1 || buffer.data() == nullptr) return false;
     unsigned char firstByte = static_cast<unsigned char>(buffer.data()[0]);
     if (firstByte == 0xFD) return false; //end of the level
     c = firstByte;
