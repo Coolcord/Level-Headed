@@ -140,8 +140,8 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
     //Copy the Room Order
     QVector<Level::Level> oldRoomOrder;
     for (i = 0; i < 36; ++i) {
-        assert(oldRoomIDs.contains(this->roomOrderWriter->buffer->data()[i]));
-        oldRoomOrder.append(oldRoomIDs[this->roomOrderWriter->buffer->data()[i]]);
+        assert(oldRoomIDs.contains(static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i])));
+        oldRoomOrder.append(oldRoomIDs[static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i])]);
     }
 
     //Copy the Header Address Tables
@@ -239,8 +239,8 @@ unsigned char Room_ID_Handler::Get_Value_From_Attribute(Level_Attribute::Level_A
     case Level_Attribute::OVERWORLD:    return 1;
     case Level_Attribute::UNDERGROUND:  return 2;
     case Level_Attribute::CASTLE:       return 3;
-    default:                            assert(false); return 0;
     }
+    assert(false); return 0;
 }
 
 bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
@@ -248,8 +248,8 @@ bool Room_ID_Handler::Send_Object_Bytes_From_One_Level_To_Another(Level::Level f
     assert(fromLevel != toLevel);
 
     //Get the Level Offsets
-    int fromOffset = this->levelOffset->Get_Level_Object_Offset(fromLevel);
-    int toOffset = this->levelOffset->Get_Level_Object_Offset(toLevel);
+    qint64 fromOffset = this->levelOffset->Get_Level_Object_Offset(fromLevel);
+    qint64 toOffset = this->levelOffset->Get_Level_Object_Offset(toLevel);
 
     return this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes, false);
 }
@@ -265,8 +265,8 @@ bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fr
     int oldToBytes = this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(toLevel);
 
     //Get the Level Offsets
-    int fromOffset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
-    int toOffset = this->levelOffset->Get_Level_Enemy_Offset(toLevel);
+    qint64 fromOffset = this->levelOffset->Get_Level_Enemy_Offset(fromLevel);
+    qint64 toOffset = this->levelOffset->Get_Level_Enemy_Offset(toLevel);
 
     //Move the bytes
     bool success = this->Send_Bytes_From_One_Offset_To_Another(fromOffset, toOffset, numBytes, true);
@@ -277,20 +277,20 @@ bool Room_ID_Handler::Send_Enemy_Bytes_From_One_Level_To_Another(Level::Level fr
     return success;
 }
 
-bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int toOffset, int numBytes, bool enemies) {
+bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(qint64 fromOffset, qint64 toOffset, int numBytes, bool enemies) {
     assert(this->file);
     assert(fromOffset != toOffset);
 
     //Calculate the Buffer Size and Buffer Read Offset
-    int offset = 0;
+    qint64 offset = 0;
     int bufferSize = 0;
     bool fromFirst = false;
     if (toOffset > fromOffset) {
-        bufferSize = toOffset - fromOffset;
+        bufferSize = static_cast<int>(toOffset - fromOffset);
         offset = fromOffset;
         fromFirst = true;
     } else { //toLevel comes first in the binary
-        bufferSize = (fromOffset+numBytes) - toOffset;
+        bufferSize = static_cast<int>((fromOffset+numBytes) - toOffset);
         offset = toOffset;
     }
 
@@ -306,7 +306,7 @@ bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int 
 
     //Send the Bytes to the according level
     assert(numBytes < bufferSize);
-    QByteArray data = QByteArray(numBytes, 0xFF);
+    QByteArray data = QByteArray(numBytes, static_cast<char>(0xFF));
     if (fromFirst) {
         if (!enemies) {
             for (int i = 0; i < numBytes; ++i) {
@@ -331,7 +331,7 @@ bool Room_ID_Handler::Send_Bytes_From_One_Offset_To_Another(int fromOffset, int 
     return this->roomAddressWriter->Fix_Level_Addresses(fromOffset, toOffset, numBytes);
 }
 
-bool Room_ID_Handler::Read_First_Byte(int offset, unsigned char &c) {
+bool Room_ID_Handler::Read_First_Byte(qint64 offset, unsigned char &c) {
     assert(this->file);
     QByteArray buffer(1, ' ');
     if (!this->file->seek(offset)) return false;
@@ -385,7 +385,7 @@ void Room_ID_Handler::Update_Room_ID(Level::Level level, unsigned char oldRoomNu
     unsigned char value = this->roomIDs->value(level);
     if (((value>>5)&0x3) == oldAttribute) {
         if (oldRoomNum == (value&0x1F)) {
-            value = ((newAttribute<<5)|newRoomNum);
+            value = static_cast<unsigned char>((newAttribute<<5)|newRoomNum);
         } else if (oldRoomNum < (value&0x1F)) {
             --value;
         }
@@ -432,7 +432,7 @@ bool Room_ID_Handler::Update_Pipe_Pointers(const QMap<unsigned char, Level::Leve
 
 bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Level::Level> &oldRoomIDs, Level::Level level) {
     if (this->currentLevel == level) return true; //don't bother messing with the current level, as it will be written later
-    int offset = this->levelOffset->Get_Level_Enemy_Offset(level);
+    qint64 offset = this->levelOffset->Get_Level_Enemy_Offset(level);
     if (offset == BAD_OFFSET) return false;
     if (offset == 0) return true; //nothing to read
     if (!this->file->seek(offset)) return false;

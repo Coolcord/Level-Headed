@@ -219,14 +219,14 @@ private:
     bool Create_ROM_Directory();
     bool Are_Buffers_Allocated();
     void Deallocate_Buffers();
-    bool Write_Buffer(const int offset, QByteArray *buffer);
+    bool Write_Buffer(const qint64 offset, QByteArray *buffer);
     bool Read_Level_Header();
     bool Read_Objects();
     bool Read_Enemies();
 
     int numObjectBytes;
-    int objectOffset;
-    int enemyOffset;
+    qint64 objectOffset;
+    qint64 enemyOffset;
     QFile *file;
     QByteArray *headerBuffer;
     QByteArray *objectsBuffer;

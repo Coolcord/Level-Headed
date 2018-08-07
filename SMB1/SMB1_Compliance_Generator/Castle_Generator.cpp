@@ -80,8 +80,8 @@ int Castle_Generator::Get_Lowest_Y_From_Brick(Brick::Brick brick) {
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   return Physics::GROUND_Y;
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   return Physics::GROUND_Y;
     case Brick::ALL:                                return -1; //there's no ground here
-    default: assert(false); return 0;
     }
+    assert(false); return 0;
 }
 
 int Castle_Generator::Get_Random_Y() {

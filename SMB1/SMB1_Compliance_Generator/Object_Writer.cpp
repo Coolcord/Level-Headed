@@ -504,7 +504,6 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery:
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   property = Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5; break;
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   property = Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4; break;
     case Brick::ALL:                                property = Brick::STRING_ALL; break;
-    default:                                        return false;
     }
     property += " ";
     switch (scenery) {
@@ -512,7 +511,6 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery:
     case Scenery::ONLY_CLOUDS:  property += Scenery::STRING_ONLY_CLOUDS; break;
     case Scenery::MOUNTAINS:    property += Scenery::STRING_MOUNTAINS; break;
     case Scenery::FENCES:       property += Scenery::STRING_FENCES; break;
-    default:                    return false;
     }
     return this->Write_Object(x, Object_Item::STRING_CHANGE_BRICK_AND_SCENERY, property, false);
 }
@@ -528,7 +526,6 @@ bool Object_Writer::Change_Background(int x, Background::Background background) 
     case Background::SNOW:              property = Background::STRING_SNOW; break;
     case Background::NIGHT_AND_SNOW:    property = Background::STRING_NIGHT_AND_SNOW; break;
     case Background::NIGHT_AND_FREEZE:  property = Background::STRING_NIGHT_AND_FREEZE; break;
-    default:                            return false;
     }
     return this->Write_Object(x, Object_Item::STRING_CHANGE_BACKGROUND, property, false);
 }

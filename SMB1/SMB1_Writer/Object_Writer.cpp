@@ -9,8 +9,8 @@ bool Object_Writer::Write_Object(int x, int y, int objectByte) {
 }
 
 bool Object_Writer::Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit) {
-    if (!Binary_Manipulator::Is_Valid_Hex_Digit(firstObjectHexDigit)) return false;
-    if (!Binary_Manipulator::Is_Valid_Hex_Digit(secondObjectHexDigit)) return false;
+    if (!Binary_Manipulator::Is_Valid_Hex_Digit(static_cast<unsigned char>(firstObjectHexDigit))) return false;
+    if (!Binary_Manipulator::Is_Valid_Hex_Digit(static_cast<unsigned char>(secondObjectHexDigit))) return false;
     QBitArray objectBits(8, false);
     Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 0, static_cast<unsigned char>(firstObjectHexDigit)); //write the object
     Binary_Manipulator::Write_Hex_Digit_To_BitArray(objectBits, 4, static_cast<unsigned char>(secondObjectHexDigit)); //write the properties
@@ -271,7 +271,6 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery:
     case Scenery::ONLY_CLOUDS:   firstHexDigit = 0x1; break;
     case Scenery::MOUNTAINS:     firstHexDigit = 0x2; break;
     case Scenery::FENCES:        firstHexDigit = 0x3; break;
-    default:            return false;
     }
     switch (brick) {
     case Brick::NO_BRICKS:                         secondHexDigit = 0x0; break;
@@ -290,7 +289,6 @@ bool Object_Writer::Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery:
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:  secondHexDigit = 0xD; break;
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:  secondHexDigit = 0xE; break;
     case Brick::ALL:                               secondHexDigit = 0xF; break;
-    default:                                return false;
     }
     return this->Write_Object(x, 0xE, firstHexDigit, secondHexDigit);
 }
@@ -306,7 +304,6 @@ bool Object_Writer::Change_Background(int x, Background::Background background) 
     case Background::SNOW:              property = 0x5; break;
     case Background::NIGHT_AND_SNOW:    property = 0x6; break;
     case Background::NIGHT_AND_FREEZE:  property = 0x7; break;
-    default:                return false;
     }
     return this->Write_Object(x, 0xE, 0x4, property);
 }

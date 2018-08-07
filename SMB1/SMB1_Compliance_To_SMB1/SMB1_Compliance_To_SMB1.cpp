@@ -306,7 +306,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.underwaterChance = STRING_UNCOMMON;
     this->pluginSettings.bridgeChance = STRING_COMMON;
     this->pluginSettings.islandChance = STRING_COMMON;
-    this->pluginSettings.randomSeed = QTime::currentTime().msecsSinceStartOfDay();
+    this->pluginSettings.randomSeed = static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay());
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.music = 0;
     this->pluginSettings.combineMusicWithOtherPacks = true;

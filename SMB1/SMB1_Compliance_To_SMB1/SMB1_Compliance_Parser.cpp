@@ -219,9 +219,8 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Pipe_Wall(line, errorCode);
     case Object_Item::NOTHING:
         return this->objectHandler->Nothing(line, errorCode);
-    default:
-        return false; //invalid object
     }
+    assert(false); return false;
 }
 
 bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line, int &errorCode) {

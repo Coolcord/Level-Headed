@@ -208,7 +208,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.fileName = this->levelLocation + "/" + generationName + "/Level_" + QString::number(world) + "_" + QString::number(level) + ".lvl";
 
     //Determine difficulty
-    args.difficulty = std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels));
+    args.difficulty = static_cast<int>(std::ceil((static_cast<double>(levelNum+1)*10.0)/static_cast<double>(numLevels)));
     assert(args.difficulty >= 1 && args.difficulty <= 10);
     args.useAutoScroll = false;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 2) {
@@ -513,7 +513,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     map.close();
 
     //Get a new seed for the next generation, since this one was successful
-    this->pluginSettings->randomSeed = QTime::currentTime().msecsSinceStartOfDay();
+    this->pluginSettings->randomSeed = static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay());
 
     //Pack the Levels into a Sequential Archive
     if (!this->Load_Sequential_Archive_Plugin()) {
@@ -563,8 +563,6 @@ void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level
     case UNCOMMON:      uncommonLevels->append(levelType); break;
     case RARE:          rareLevels->append(levelType); break;
     case NONE:          break;
-    default:
-        assert(false); return;
     }
 }
 
@@ -937,7 +935,6 @@ bool Level_Generator::Write_To_Map(QTextStream &mapStream, Level::Level level, c
     case Level::UNDERWATER_BONUS:   line = Level::STRING_UNDERWATER_BONUS; break;
     case Level::WARP_ZONE:          line = Level::STRING_WARP_ZONE; break;
     case Level::UNDERWATER_CASTLE:  line = Level::STRING_UNDERWATER_CASTLE; break;
-    default:                        assert(false);
     }
 
     if (fileName.size() > 0) line += " \"" + fileName + "\"";

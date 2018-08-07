@@ -94,7 +94,7 @@ unsigned int Room_Address_Writer::Get_Room_ID_Enemy_Offset_From_Table(unsigned c
     return offset;
 }
 
-bool Room_Address_Writer::Fix_Level_Addresses(int fromOffset, int toOffset, int numBytes) {
+bool Room_Address_Writer::Fix_Level_Addresses(qint64 fromOffset, qint64 toOffset, int numBytes) {
     if (!this->Fix_Level_Address_Buffer(fromOffset, toOffset, numBytes, this->lowObjectBuffer, this->highObjectBuffer, false)) return false;
     return this->Fix_Level_Address_Buffer(fromOffset, toOffset, numBytes, this->lowEnemyBuffer, this->highEnemyBuffer, true);
 }
@@ -116,7 +116,7 @@ bool Room_Address_Writer::Write_Buffer(int offset, QByteArray *buffer) {
     return this->file->write(buffer->data(), buffer->length()) == buffer->length();
 }
 
-bool Room_Address_Writer::Fix_Level_Address_Buffer(int fromOffset, int toOffset, int numBytes, QByteArray *lowByteBuffer, QByteArray *highByteBuffer, bool enemies) {
+bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toOffset, int numBytes, QByteArray *lowByteBuffer, QByteArray *highByteBuffer, bool enemies) {
     assert(lowByteBuffer);
     assert(highByteBuffer);
     int byteBufferSize = lowByteBuffer->size();

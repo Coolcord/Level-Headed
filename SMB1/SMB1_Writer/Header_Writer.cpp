@@ -178,7 +178,6 @@ bool Header_Writer::Set_Starting_Position(Level_Attribute::Level_Attribute value
     case Level_Attribute::OVERWORLD:     hexDigit = 0x2; break;
     case Level_Attribute::UNDERGROUND:   hexDigit = 0x1; break;
     case Level_Attribute::CASTLE:        hexDigit = 0x3; break;
-    default:            return false;
     }
 
     //Write the data
@@ -201,7 +200,6 @@ bool Header_Writer::Set_Background(Background::Background value) {
     case Background::SNOW:              hexDigit = 0x5; break;
     case Background::NIGHT_AND_SNOW:    hexDigit = 0x6; break;
     case Background::NIGHT_AND_FREEZE:  hexDigit = 0x7; break;
-    default:                return false;
     }
 
     //Write the data
@@ -220,7 +218,6 @@ bool Header_Writer::Set_Level_Compliment(Level_Compliment::Level_Compliment valu
     case Level_Compliment::MUSHROOMS:           hexDigit = 0x1; break;
     case Level_Compliment::BULLET_BILL_TURRETS: hexDigit = 0x2; break;
     case Level_Compliment::CLOUDS:              hexDigit = 0x3; break;
-    default:                                    return false;
     }
 
     //Write the data
@@ -239,7 +236,6 @@ bool Header_Writer::Set_Scenery(Scenery::Scenery value) {
     case Scenery::ONLY_CLOUDS:   hexDigit = 0x1; break;
     case Scenery::MOUNTAINS:     hexDigit = 0x2; break;
     case Scenery::FENCES:        hexDigit = 0x3; break;
-    default:            return false;
     }
 
     //Write the data
@@ -270,7 +266,6 @@ bool Header_Writer::Set_Brick(Brick::Brick value) {
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:  hexDigit = 0xD; break;
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:  hexDigit = 0xE; break;
     case Brick::ALL:                               hexDigit = 0xF; break;
-    default:                                return false;
     }
 
     //Write the data

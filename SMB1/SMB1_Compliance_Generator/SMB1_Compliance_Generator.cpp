@@ -55,7 +55,6 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
         success = this->Generate_Island_Level(&file, &args);
         break;
     case Level_Type::PIPE_EXIT:
-    default:
         assert(false);
     }
 

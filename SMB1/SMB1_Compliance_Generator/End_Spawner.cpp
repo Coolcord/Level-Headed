@@ -21,7 +21,6 @@ End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compli
     case Castle::NONE:  this->castleObjectCount = 0; break;
     case Castle::SMALL: this->castleObjectCount = 1; break;
     case Castle::BIG:   this->castleObjectCount = 2; break;
-    default: assert(false);
     }
 
     //Determine the amount of objects that need to be allocated for the end
@@ -55,8 +54,6 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
             success = this->Shortest_Castle(x); break;
         case End_Pattern::One_Block_Bridge:
             success = this->One_Block_Bridge_End(x); break;
-        default:
-            assert(false); return false;
         }
         if (success) this->endWritten = true;
         return success;
@@ -79,8 +76,6 @@ void End_Spawner::Determine_End() {
         assert(this->Determine_Bridge_End()); break;
     case Level_Type::ISLAND:
         assert(this->Determine_Island_End()); break;
-    default:
-        assert(false); return;
     }
     this->endObjectCount += this->castleObjectCount;
     if (useAutoScroll) ++this->endObjectCount;

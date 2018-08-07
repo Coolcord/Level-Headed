@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     Main_Window w;
 
-    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+    qsrand(static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay()));
     if (!w.Create_Directories()) return 1;
     if (!w.Populate_Writers()) return 1;
 

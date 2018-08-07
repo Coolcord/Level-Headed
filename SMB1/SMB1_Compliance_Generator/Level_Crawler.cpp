@@ -51,7 +51,6 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     if (!this->file->reset()) return false;
     this->brick = startingBrick;
     this->nextBrick = startingBrick;
-    this->file = file;
     this->endDetected = false;
     this->safeSize = 0;
 
@@ -405,7 +404,6 @@ void Level_Crawler::Crawl_Forward(int x, int spaces) {
                 this->Mark_Bad_Coordinate(x, i);
             }
             break;
-        default: assert(false);
         }
     }
     if (changeBrick) this->brick = this->nextBrick;
@@ -491,7 +489,6 @@ void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSte
                 this->Mark_Bad_Coordinate(x, i);
             }
             break;
-        default: assert(false);
         }
     }
     if (changeBrick) this->brick = this->nextBrick;
@@ -740,10 +737,8 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::CHANGE_BACKGROUND:
     case Object_Item::NOTHING:
         return true; //nothing to do
-    default:
-        assert(false);
-        return false; //invalid object
     }
+    assert(false); return false;
 }
 
 bool Level_Crawler::Draw_Map() {

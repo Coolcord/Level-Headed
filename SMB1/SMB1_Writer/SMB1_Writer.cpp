@@ -273,7 +273,7 @@ bool SMB1_Writer::Set_Output_ROM_Location(const QString &location) {
     }
 }
 
-bool SMB1_Writer::Write_Buffer(const int offset, QByteArray *buffer) {
+bool SMB1_Writer::Write_Buffer(const qint64 offset, QByteArray *buffer) {
     assert(this->file);
     if (buffer == nullptr) return false;
     if (!this->file->seek(offset)) return false;

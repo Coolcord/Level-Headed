@@ -21,7 +21,7 @@ Midpoint_Writer::~Midpoint_Writer() {
 
 bool Midpoint_Writer::Read_Midpoints() {
     assert(this->buffer);
-    int offset = this->levelOffsets->Fix_Offset(0x11CD);
+    qint64 offset = this->levelOffsets->Fix_Offset(0x11CD);
     if (!this->file->seek(offset)) return false;
 
     //Read the midpoints from the ROM
@@ -33,7 +33,7 @@ bool Midpoint_Writer::Read_Midpoints() {
 
 bool Midpoint_Writer::Write_Midpoints() {
     assert(this->buffer);
-    int offset = this->levelOffsets->Fix_Offset(0x11CD);
+    qint64 offset = this->levelOffsets->Fix_Offset(0x11CD);
     if (!this->file->seek(offset)) return false;
 
     //Write the midpoints to the ROM

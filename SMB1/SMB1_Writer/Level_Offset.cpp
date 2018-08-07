@@ -52,7 +52,6 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
     case ROM_Type::INVALID: //this should never happen
-    default: assert(false);
     case ROM_Type::DEFAULT: return offset; //nothing to do
     }
     return BAD_OFFSET;

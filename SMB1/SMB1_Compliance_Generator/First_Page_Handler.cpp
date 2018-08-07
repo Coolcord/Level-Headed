@@ -26,8 +26,6 @@ void First_Page_Handler::Handle_First_Page(int &x) {
     case Castle::NONE:
         x += 16;
         break;
-    default:
-        assert(false);
     }
     this->object->Set_First_Page_Safety(true);
     this->firstPageWritten = true;
@@ -40,7 +38,6 @@ Background::Background First_Page_Handler::Get_Header_Background() {
     case Castle::SMALL:
     case Castle::NONE:
         return this->headerBackground;
-    default:
-        assert(false); return Background::BLANK_BACKGROUND;
     }
+    assert(false); return Background::BLANK_BACKGROUND;
 }

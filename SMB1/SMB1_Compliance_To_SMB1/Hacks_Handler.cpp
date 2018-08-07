@@ -220,9 +220,9 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {
     switch (checkState) {
-    default:                        assert(false);
     case Qt::Checked:               return true;
     case Qt::Unchecked:             return false;
     case Qt::PartiallyChecked:      return static_cast<bool>(Random::Get_Num(1));
     }
+    assert(false); return false;
 }

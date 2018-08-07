@@ -55,7 +55,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Level_Attribute::OVERWORLD:    buffer += Level_Attribute::STRING_OVERWORLD + Common_Strings::STRING_NEW_LINE; break;
     case Level_Attribute::UNDERGROUND:  buffer += Level_Attribute::STRING_UNDERGROUND + Common_Strings::STRING_NEW_LINE; break;
     case Level_Attribute::CASTLE:       buffer += Level_Attribute::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
-    default:                            return false;
     }
 
     //Handle the Starting Position
@@ -65,7 +64,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Level_Attribute::OVERWORLD:    buffer += Level_Attribute::STRING_OVERWORLD + Common_Strings::STRING_NEW_LINE; break;
     case Level_Attribute::UNDERGROUND:  buffer += Level_Attribute::STRING_UNDERGROUND + Common_Strings::STRING_NEW_LINE; break;
     case Level_Attribute::CASTLE:       buffer += Level_Attribute::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
-    default:                            return false;
     }
 
     //Handle the Brick
@@ -87,7 +85,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   buffer += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5 + Common_Strings::STRING_NEW_LINE; break;
     case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   buffer += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4 + Common_Strings::STRING_NEW_LINE; break;
     case Brick::ALL:                                buffer += Brick::STRING_ALL + Common_Strings::STRING_NEW_LINE; break;
-    default:                                        return false;
     }
 
     //Handle the Background
@@ -101,7 +98,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Background::SNOW:              buffer += Background::STRING_SNOW + Common_Strings::STRING_NEW_LINE; break;
     case Background::NIGHT_AND_SNOW:    buffer += Background::STRING_NIGHT_AND_SNOW + Common_Strings::STRING_NEW_LINE; break;
     case Background::NIGHT_AND_FREEZE:  buffer += Background::STRING_NIGHT_AND_FREEZE + Common_Strings::STRING_NEW_LINE; break;
-    default:                            return false;
     }
 
     //Handle the Scenery
@@ -111,7 +107,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Scenery::ONLY_CLOUDS:  buffer += Scenery::STRING_ONLY_CLOUDS + Common_Strings::STRING_NEW_LINE; break;
     case Scenery::MOUNTAINS:    buffer += Scenery::STRING_MOUNTAINS + Common_Strings::STRING_NEW_LINE; break;
     case Scenery::FENCES:       buffer += Scenery::STRING_FENCES + Common_Strings::STRING_NEW_LINE; break;
-    default:                    return false;
     }
 
     //Handle the Level Compliment
@@ -121,7 +116,6 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     case Level_Compliment::MUSHROOMS:           buffer += Level_Compliment::STRING_MUSHROOMS + Common_Strings::STRING_NEW_LINE; break;
     case Level_Compliment::BULLET_BILL_TURRETS: buffer += Level_Compliment::STRING_BULLET_BILL_TURRETS + Common_Strings::STRING_NEW_LINE; break;
     case Level_Compliment::CLOUDS:              buffer += Level_Compliment::STRING_CLOUDS + Common_Strings::STRING_NEW_LINE; break;
-    default:                                    return false;
     }
 
     //Time
