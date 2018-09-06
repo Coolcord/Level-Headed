@@ -1,4 +1,5 @@
 #include "Main_Window.h"
+#include "CLI_Passthrough.h"
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
 #include <QApplication>
@@ -17,9 +18,13 @@ int main(int argc, char *argv[]) {
     if (!w.Create_Directories()) return 1;
     if (!w.Populate_Writers()) return 1;
 
-    w.show();
-    w.Load_Previous_Plugins();
-
-    return a.exec();
+    CLI_Passthrough cliPassthrough(argc, argv);
+    if (cliPassthrough.Was_Command_Line_Mode_Requested()) { //Run in Command Line Mode
+        return static_cast<int>(cliPassthrough.Run_Commands()) == 1;
+    } else { //Run in GUI Mode
+        w.show();
+        w.Load_Previous_Plugins();
+        return a.exec();
+    }
 }
 

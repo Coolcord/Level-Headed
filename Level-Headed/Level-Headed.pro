@@ -16,12 +16,14 @@ CONFIG += c++11 pendantic Weverything
 SOURCES +=\
         Main_Window.cpp \
     Main.cpp \
-    Plugin_Handler.cpp
+    Plugin_Handler.cpp \
+    CLI_Passthrough.cpp
 
 HEADERS  += Main_Window.h \
     Plugin_Handler.h \
     Common_Strings.h \
     Interpreter_Interface.h \
+    CLI_Passthrough.h
 
 FORMS    += Main_Window.ui
 
