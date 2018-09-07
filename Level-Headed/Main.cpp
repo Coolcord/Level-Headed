@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     if (!w.Create_Directories()) return 1;
     if (!w.Populate_Writers()) return 1;
 
-    CLI_Passthrough cliPassthrough(argc, argv);
+    CLI_Passthrough cliPassthrough(argc, argv, QApplication::applicationDirPath());
     if (cliPassthrough.Was_Command_Line_Mode_Requested()) { //Run in Command Line Mode
         return static_cast<int>(cliPassthrough.Run_Commands()) == 1;
     } else { //Run in GUI Mode

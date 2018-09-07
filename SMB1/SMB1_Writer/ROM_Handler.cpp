@@ -15,7 +15,6 @@
 #include <assert.h>
 
 ROM_Handler::ROM_Handler(QWidget *parent, const QString &applicationLocation) {
-    assert(parent);
     this->parent = parent;
     this->romType = ROM_Type::INVALID;
     this->romChecksum = new ROM_Checksum();

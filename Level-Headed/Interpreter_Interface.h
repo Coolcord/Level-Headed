@@ -8,9 +8,10 @@
 
 class Interpreter_Interface : public QObject {
 public:
-    virtual void Startup(QWidget *parent, const QString &location)=0;
+    virtual void Startup(QWidget *parent, const QString &location, const QStringList &args)=0;
     virtual void Shutdown()=0;
     virtual bool Run()=0;
+    virtual bool Run_CLI()=0;
     virtual int Configure_Settings()=0;
 };
 

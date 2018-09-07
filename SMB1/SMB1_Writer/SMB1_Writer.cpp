@@ -52,7 +52,6 @@ SMB1_Writer::SMB1_Writer() {
 }
 
 void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
-    assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
     this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);

@@ -153,7 +153,7 @@ bool Main_Window::Load_Interpreter(const QString &fileLocation) {
     if (!validPlugin) return false;
     this->interpreterPlugin = qobject_cast<Interpreter_Interface*>(validPlugin);
     if (!this->interpreterPlugin) return false;
-    this->interpreterPlugin->Startup(this, QApplication::applicationDirPath());
+    this->interpreterPlugin->Startup(this, QApplication::applicationDirPath(), QStringList());
     return true;
 }
 

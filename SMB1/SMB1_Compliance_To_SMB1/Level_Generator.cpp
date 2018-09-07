@@ -22,7 +22,6 @@ const static int RARE_POINTS = 2;
 
 Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                                  SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin) {
-    assert(parent);
     assert(pluginSettings);
     assert(generatorPlugin);
     assert(writerPlugin);

@@ -15,7 +15,6 @@ SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
 }
 
 void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location) {
-    assert(parent);
     this->parent = parent;
     this->applicationLocation = location;
 }

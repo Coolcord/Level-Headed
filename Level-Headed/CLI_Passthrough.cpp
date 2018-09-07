@@ -50,10 +50,18 @@ bool CLI_Passthrough::Run_Commands() {
         this->Show_Unable_To_Load_Plugin_Message();
         return false;
     }
-    interpreterPlugin->Startup(nullptr, this->applicationLocation);
 
-    //Pass the arguments to the plugin
-    //TODO: Write this... maybe update startup to take the QStringList?
+    //Run in CLI Mode
+    interpreterPlugin->Startup(nullptr, this->applicationLocation, *this->args);
+    bool success = interpreterPlugin->Run_CLI();
+
+    //Unload the Interpreter Plugin
+    if (interpreterPlugin) interpreterPlugin->Shutdown();
+    if (interpreterLoader) interpreterLoader->unload();
+    delete interpreterLoader;
+    interpreterLoader = nullptr;
+    interpreterPlugin = nullptr;
+    return success;
 }
 
 bool CLI_Passthrough::Was_Command_Line_Mode_Requested() {
@@ -66,6 +74,7 @@ void CLI_Passthrough::Show_Help() {
     //Basic Commands
     qDebug().noquote() << this->args->at(0) << "-i [Interpreter Plugin] [Plugin Args]";
     qDebug() << "    For normal usage";
+    qDebug() << "";
 
     //Basic Commands
     qDebug().noquote() << this->args->at(0) << "-i [Interpreter Plugin] --help";

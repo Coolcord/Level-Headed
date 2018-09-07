@@ -1,3 +1,6 @@
+Next Update (v0.3.1)
++ Added command line support
+
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus
 + Lakitu's eggs have a chance at either bouncing or breaking into Spinies

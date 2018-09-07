@@ -2,6 +2,7 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
+#include "CLI_Parser.h"
 #include "Configure_Settings_Form.h"
 #include "Difficulty_Level_Configurations.h"
 #include "Level_Generator.h"
@@ -20,14 +21,20 @@ SMB1_Compliance_To_SMB1::SMB1_Compliance_To_SMB1() {
     this->generatorLoader = nullptr;
     this->writerLoader = nullptr;
     this->applicationLocation = QString();
+    this->args = nullptr;
     this->pluginsLoaded = false;
+    this->cliMode = false;
     this->Load_Plugin_Default_Settings();
 }
 
-void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location) {
-    assert(parent);
+SMB1_Compliance_To_SMB1::~SMB1_Compliance_To_SMB1() {
+    delete this->args;
+}
+
+void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location, const QStringList &args) {
     this->parent = parent;
     this->applicationLocation = location;
+    if (!args.isEmpty()) this->args = new QStringList(args);
     if (!this->Load_Plugin_Settings()) this->Load_Plugin_Default_Settings();
 }
 
@@ -35,8 +42,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         //TODO: Update this error
-        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "Something went wrong. Check debug info...", Common_Strings::STRING_OK);
+        this->Show_Message("Something went wrong. Check debug info...", true);
         return false;
     }
 
@@ -78,11 +84,21 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Unload plugins
     this->Shutdown();
-    if (success) {
-        QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                 "Game successfully generated!", Common_Strings::STRING_OK);
-    }
+    if (success) this->Show_Message("Game successfully generated!", false);
+    else qDebug() << "Generation failed!"; //only show in command line to prevent flooding the user with message boxes
     return success;
+}
+
+bool SMB1_Compliance_To_SMB1::Run_CLI() {
+    this->cliMode = true;
+    CLI_Parser cliParser(this->args, &this->pluginSettings);
+    bool parseSuccess = cliParser.Parse_Args();
+    if (cliParser.Was_Help_Requested()) {
+        cliParser.Show_Help();
+        return parseSuccess;
+    }
+    if (!parseSuccess) return false;
+    return this->Run();
 }
 
 int SMB1_Compliance_To_SMB1::Configure_Settings() {
@@ -333,6 +349,15 @@ void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {
         while (QFileInfo(this->pluginSettings.outputROMLocation).exists()) {
             this->pluginSettings.outputROMLocation = this->Append_Number_To_FileName(this->pluginSettings.outputROMLocation);
         }
+    }
+}
+
+void SMB1_Compliance_To_SMB1::Show_Message(const QString &message, bool error) {
+    if (this->cliMode) {
+        qDebug().noquote() << message;
+    } else {
+        if (error) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, Common_Strings::STRING_OK);
+        else QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, Common_Strings::STRING_OK);
     }
 }
 

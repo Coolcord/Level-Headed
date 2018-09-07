@@ -25,7 +25,8 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Configure_Settings_Form.cpp \
     Tab_Base_Game.cpp \
     Tab_Level_Generator.cpp \
-    Tab_Difficulty.cpp
+    Tab_Difficulty.cpp \
+    CLI_Parser.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
     SMB1_Compliance_Parser.h \
@@ -43,7 +44,8 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Tab_Base_Game.h \
     Tab_Level_Generator.h \
     Tab_Difficulty.h \
-    Tab_Interface.h
+    Tab_Interface.h \
+    CLI_Parser.h
 
 OTHER_FILES +=
 
