@@ -5,7 +5,8 @@
 #include "../../SMB1/SMB1_Compliance_Generator/SMB1_Compliance_Generator_Interface.h"
 #include "../../SMB1/SMB1_Writer/SMB1_Writer_Interface.h"
 #include "Plugin_Settings.h"
-#include "QPluginLoader"
+#include <QFile>
+#include <QPluginLoader>
 
 class SMB1_Compliance_To_SMB1 : public Interpreter_Interface {
 
@@ -26,6 +27,7 @@ private:
     bool Save_Plugin_Settings();
     bool Load_Plugin_Settings();
     void Load_Plugin_Default_Settings();
+    QString Get_Setting_From_Line(QFile &file);
     void Update_ROM_Output_Location();
     void Show_Message(const QString &message, bool error);
     QString Append_Number_To_FileName(const QString &oldFileName);
