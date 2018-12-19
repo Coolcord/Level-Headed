@@ -54,6 +54,7 @@ void Tab_Base_Game::Install_New_ROM() {
 
 void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
     //Reset All Settings to Original
+    QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
     if (enabled) {
         this->ui->radio2PlayerGame->setChecked(true);
         this->ui->comboGraphics->setCurrentIndex(1);
@@ -63,7 +64,7 @@ void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
         this->ui->comboPowerup->setCurrentIndex(1);
         this->ui->comboSecondaryMushroom->setCurrentIndex(2);
 
-        //this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
+        if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
         this->ui->radioStartingLives->setChecked(true);
         this->ui->cbGodMode->setChecked(false);
 
@@ -112,7 +113,6 @@ void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
     this->ui->cbStartWithFireFlowerOnRoomChange->setEnabled(!enabled);
 
     //Disable the ASM Difficulty Presents
-    QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
     for (int i = 0; i < asmDifficulties.size(); ++i) {
         int value = 33;
         if (enabled) value = 0;
