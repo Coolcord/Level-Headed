@@ -166,6 +166,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << "Base_ROM=" << this->pluginSettings.baseROM << Common_Strings::STRING_NEW_LINE;
     stream << "Output_ROM_Location=" << this->pluginSettings.outputROMLocation << Common_Strings::STRING_NEW_LINE;
     stream << "Overwrite_Output_ROM=" << this->pluginSettings.overwriteOuputROM << Common_Strings::STRING_NEW_LINE;
+    stream << "Modify_Only_Levels=" << this->pluginSettings.modifyOnlyLevels << Common_Strings::STRING_NEW_LINE;
     stream << "Random_Number_Of_Worlds=" << this->pluginSettings.randomNumWorlds << Common_Strings::STRING_NEW_LINE;
     stream << "Number_Of_Worlds=" << this->pluginSettings.numWorlds << Common_Strings::STRING_NEW_LINE;
     stream << "Numer_Of_Levels_Per_World=" << this->pluginSettings.numLevelsPerWorld << Common_Strings::STRING_NEW_LINE;
@@ -243,6 +244,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.baseROM = this->Get_Setting_From_Line(file);
     this->pluginSettings.outputROMLocation = this->Get_Setting_From_Line(file);
     this->pluginSettings.overwriteOuputROM = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
+    this->pluginSettings.modifyOnlyLevels = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.randomNumWorlds = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.numWorlds = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.numLevelsPerWorld = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
@@ -315,6 +317,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.baseROM = "";
     this->pluginSettings.outputROMLocation = QString();
     this->pluginSettings.overwriteOuputROM = true;
+    this->pluginSettings.modifyOnlyLevels = false;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.levelScripts = "";
     this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;

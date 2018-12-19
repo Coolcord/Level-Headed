@@ -16,6 +16,7 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
     if (this->pluginSettings->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
     else this->ui->radioAppendNumberToFilename->setChecked(true);
+    this->ui->cbModifyOnlyLevels->setChecked(this->pluginSettings->modifyOnlyLevels);
     if (this->pluginSettings->addLuigiGame) this->ui->radioAddLuigiGame->setChecked(true);
     else this->ui->radio2PlayerGame->setChecked(true);
     if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
@@ -34,6 +35,7 @@ void Tab_Base_Game::Save_Settings() {
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
     this->pluginSettings->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
+    this->pluginSettings->modifyOnlyLevels = this->ui->cbModifyOnlyLevels->isChecked();
     this->pluginSettings->addLuigiGame = this->ui->radioAddLuigiGame->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
@@ -47,6 +49,19 @@ void Tab_Base_Game::Install_New_ROM() {
     if (!this->writerPlugin->Install_ROM().isEmpty()) {
         this->Populate_Installed_ROMs();
     }
+}
+
+void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
+    if (enabled) {
+        this->ui->radio2PlayerGame->setChecked(true);
+        this->ui->comboGraphics->setCurrentIndex(1);
+        this->ui->comboMusic->setCurrentIndex(2);
+        this->ui->comboTone->setCurrentIndex(1);
+        this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
+        this->ui->comboPowerup->setCurrentIndex(1);
+        this->ui->comboSecondaryMushroom->setCurrentIndex(2);
+    }
+    this->ui->layoutNonLevelsWidget->setEnabled(!enabled);
 }
 
 void Tab_Base_Game::Populate_Installed_ROMs() {

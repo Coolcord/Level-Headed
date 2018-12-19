@@ -42,6 +42,8 @@ private slots:
 
     void on_radioStartingLives_toggled(bool checked);
 
+    void on_cbModifyOnlyLevels_toggled(bool checked);
+
 private:
     void Load_Settings();
     void Save_Settings();

@@ -24,6 +24,7 @@ struct Plugin_Settings {
     QString baseROM;
     QString outputROMLocation;
     bool overwriteOuputROM;
+    bool modifyOnlyLevels;
     bool randomNumWorlds;
     int numWorlds;
     int numLevelsPerWorld;
