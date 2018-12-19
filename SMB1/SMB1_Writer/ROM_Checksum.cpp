@@ -12,7 +12,7 @@ ROM_Checksum::ROM_Checksum() {
     this->checksumMap->insert(CHECKSUM_USA1, ROM_Type::DEFAULT);
     this->checksumMap->insert(CHECKSUM_EUROPE, ROM_Type::EUROPE);
     this->checksumMap->insert(CHECKSUM_FDS, ROM_Type::FDS);
-    this->checksumMap->insert(CHECKSUM_DUCK, ROM_Type::DEFAULT);
+    this->checksumMap->insert(CHECKSUM_DUCK, ROM_Type::DUCK);
     this->checksumMap->insert(CHECKSUM_TRACK, ROM_Type::TRACK);
     //Populate the filename map
     this->fileNameMap = new QMap<QString, QString>();

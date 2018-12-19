@@ -1,5 +1,6 @@
 #include "Hacks_Handler.h"
 #include "../SMB1_Writer/SMB1_Writer_Interface.h"
+#include "../SMB1_Writer/ROM_Filename.h"
 #include "../../Common_Files/Random.h"
 #include <assert.h>
 
@@ -18,27 +19,32 @@ Hacks_Handler::~Hacks_Handler() {
 }
 
 bool Hacks_Handler::Write_Hacks() {
-    if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
-    if (!this->Handle_Music()) return false;
-    if (!this->Handle_Lives()) return false;
-    if (!this->Handle_God_Mode()) return false;
-    if (this->pluginSettings->addLuigiGame) {
-        if (!this->writerPlugin->Hacks_Add_Luigi_Game()) return false;
-        if (!this->writerPlugin->Graphics_Write_Title_Screen_For_1_Player_Game()) return false;
+    bool fullSupport = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
+    if (fullSupport) {
+        if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
+        if (!this->Handle_Music()) return false;
+        if (!this->Handle_God_Mode()) return false;
+        if (this->pluginSettings->addLuigiGame) {
+            if (!this->writerPlugin->Hacks_Add_Luigi_Game()) return false;
+            if (!this->writerPlugin->Graphics_Write_Title_Screen_For_1_Player_Game()) return false;
+        } else {
+            if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
+        }
+        if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
+        if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
+        if (!this->Handle_Piranha_Plants()) return false;
+        if (!this->Handle_Lakitus()) return false;
+        if (!this->Handle_Enemy_Speed()) return false;
+        if (!this->Handle_Powerup()) return false;
+        if (!this->Handle_Secondary_Mushroom()) return false;
+        if (!this->Handle_Replace_Castle_Loop()) return false;
+        if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
     } else {
-        if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
+        if (!this->writerPlugin->Graphics_Write_Title_Screen_For_Partial_Game()) return false;
     }
-    if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
-    if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
-    if (!this->Handle_Piranha_Plants()) return false;
-    if (!this->Handle_Lakitus()) return false;
-    if (!this->Handle_Enemy_Speed()) return false;
-    if (!this->Handle_Powerup()) return false;
-    if (!this->Handle_Secondary_Mushroom()) return false;
-    if (!this->Handle_Replace_Castle_Loop()) return false;
+    if (!this->Handle_Lives()) return false;
 
     //The patches below are always applied
-    if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
@@ -90,7 +96,7 @@ bool Hacks_Handler::Handle_Graphics() {
 }
 
 bool Hacks_Handler::Handle_Lakitus() {
-    //Handle the Throw Arc
+    //Handle the throw arc
     if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
 
     //Handle the Spiny Egg Behavior

@@ -785,3 +785,8 @@ bool SMB1_Writer::Graphics_Write_Title_Screen_For_2_Player_Game() {
     if (!this->graphics) return false;
     return this->graphics->Write_Title_Screen_For_2_Player_Game();
 }
+
+bool SMB1_Writer::Graphics_Write_Title_Screen_For_Partial_Game() {
+    if (!this->graphics) return false;
+    return this->graphics->Write_Title_Screen_For_Partial_Game();
+}

@@ -5,6 +5,7 @@ namespace ROM_Type {
     enum ROM_Type {
         DEFAULT,
         EUROPE,
+        DUCK,
         TRACK,
         FDS,
         INVALID

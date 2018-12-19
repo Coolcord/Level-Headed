@@ -197,6 +197,7 @@ public:
     virtual bool Graphics_Change_1UP_Palette(int palette)=0;
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;
     virtual bool Graphics_Write_Title_Screen_For_2_Player_Game()=0;
+    virtual bool Graphics_Write_Title_Screen_For_Partial_Game()=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Writer_Interface, "SMB1_Writer_Interface")

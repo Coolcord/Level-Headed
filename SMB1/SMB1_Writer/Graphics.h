@@ -25,6 +25,7 @@ public:
     bool Change_1UP_Palette(int palette);
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
+    bool Write_Title_Screen_For_Partial_Game();
 
 private:
     bool Write_Title_Screen_Core();

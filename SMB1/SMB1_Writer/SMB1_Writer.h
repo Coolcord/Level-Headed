@@ -213,6 +213,7 @@ public:
     bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
+    bool Graphics_Write_Title_Screen_For_Partial_Game();
 
 private:
     bool Load_ROM_Offsets(bool cancel);

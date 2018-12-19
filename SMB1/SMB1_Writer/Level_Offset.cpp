@@ -55,7 +55,12 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
     case ROM_Type::EUROPE:
         if (offset < 0x6A27) return offset;
         else return offset + 0x7;
-    case ROM_Type::TRACK: return offset + 0x8000; //increment for Track combo cart
+    case ROM_Type::DUCK:
+        if (offset < 0x9EA7) return offset;
+        return offset + 0x8000;
+    case ROM_Type::TRACK:
+        if (offset < 0x9EA7) return offset + 0x8000;
+        return offset + 0x20000; //increment for Track combo cart
     case ROM_Type::FDS:
         if (offset < 0x0489) return offset + 0x2153;
         if (offset < 0x11DD) return offset + 0x2157;
