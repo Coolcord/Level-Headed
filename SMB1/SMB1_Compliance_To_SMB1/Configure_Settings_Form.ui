@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -242,13 +242,6 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
             </spacer>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cbOnlyModifyLevels">
-             <property name="text">
-              <string>Only Modify Levels (will disable some level generator features and ASM hacks)</string>
-             </property>
-            </widget>
            </item>
            <item>
             <widget class="QWidget" name="layoutNonLevelsWidget" native="true">
@@ -569,7 +562,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-179</y>
+            <y>0</y>
             <width>652</width>
             <height>1766</height>
            </rect>

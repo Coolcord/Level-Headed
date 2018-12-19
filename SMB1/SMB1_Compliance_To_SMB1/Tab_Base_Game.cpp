@@ -1,6 +1,7 @@
 #include "Tab_Base_Game.h"
 #include "Configure_Settings_Form.h"
 #include "ui_Configure_Settings_Form.h"
+#include "../SMB1_Writer/ROM_Filename.h"
 #include <QDir>
 #include <QFileInfo>
 #include <QVector>
@@ -17,7 +18,6 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
     if (this->pluginSettings->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
     else this->ui->radioAppendNumberToFilename->setChecked(true);
-    this->ui->cbOnlyModifyLevels->setChecked(this->pluginSettings->onlyModifyLevels);
     if (this->pluginSettings->addLuigiGame) this->ui->radioAddLuigiGame->setChecked(true);
     else this->ui->radio2PlayerGame->setChecked(true);
     if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
@@ -36,7 +36,6 @@ void Tab_Base_Game::Save_Settings() {
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
     this->pluginSettings->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
-    this->pluginSettings->onlyModifyLevels = this->ui->cbOnlyModifyLevels->isChecked();
     this->pluginSettings->addLuigiGame = this->ui->radioAddLuigiGame->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
@@ -52,7 +51,7 @@ void Tab_Base_Game::Install_New_ROM() {
     }
 }
 
-void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
+void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
     QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
     if (enabled) {

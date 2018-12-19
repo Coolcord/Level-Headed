@@ -26,9 +26,9 @@ public:
 
 private slots:
     //Base Game Tab
+    void on_comboBaseROM_currentIndexChanged(const QString &arg1);
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
-    void on_cbOnlyModifyLevels_toggled(bool checked);
 
     //Level Generator Tab
     void on_radioGenerateNewLevels_toggled(bool checked);
@@ -54,6 +54,7 @@ private:
     SMB1_Writer_Interface *writerPlugin;
     QString applicationLocation;
     QWidget *parent;
+    bool loading;
 };
 
 #endif // CONFIGURE_SETTINGS_FORM_H

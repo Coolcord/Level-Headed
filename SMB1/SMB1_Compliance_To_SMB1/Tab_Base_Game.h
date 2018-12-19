@@ -10,7 +10,7 @@ public:
     void Save_Settings();
 
     void Install_New_ROM();
-    void Modify_Only_Levels(bool enabled);
+    void Enable_Partial_Support_Mode(bool enabled);
 
 private:
     void Populate_Installed_ROMs();

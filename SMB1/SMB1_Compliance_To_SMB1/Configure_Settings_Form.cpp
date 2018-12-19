@@ -2,6 +2,7 @@
 #include "ui_Configure_Settings_Form.h"
 #include "../../Common_Files/Version.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../SMB1_Writer/ROM_Filename.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "Tab_Base_Game.h"
 #include "Tab_Difficulty.h"
@@ -22,6 +23,7 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     ui(new Ui::Configure_Settings_Form)
 {
     assert(parent); assert(writerPlugin); assert(pluginSettings);
+    this->loading = true;
     this->parent = parent;
     this->applicationLocation = applicationLocation;
     this->pluginSettings = pluginSettings;
@@ -42,6 +44,8 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->Load_Settings();
     this->ui->tabWidget->setCurrentIndex(this->pluginSettings->tab);
+    this->tabBaseGame->Enable_Partial_Support_Mode(!this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_FULL_SUPPORT));
+    this->loading = false;
 }
 
 Configure_Settings_Form::~Configure_Settings_Form() {
@@ -80,6 +84,10 @@ void Configure_Settings_Form::Save_Settings() {
     this->tabLevelGenerator->Save_Settings();
     this->tabDifficulty->Save_Settings();
     this->close();
+}
+
+void Configure_Settings_Form::on_comboBaseROM_currentIndexChanged(const QString &arg1) {
+    if (!this->loading) this->tabBaseGame->Enable_Partial_Support_Mode(!arg1.startsWith(ROM_Filename::STRING_FULL_SUPPORT));
 }
 
 void Configure_Settings_Form::on_btnInstallNewROM_clicked() {
@@ -133,8 +141,4 @@ void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) 
 void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     if (checked) this->ui->sbLives->show();
     else this->ui->sbLives->hide();
-}
-
-void Configure_Settings_Form::on_cbOnlyModifyLevels_toggled(bool checked) {
-    this->tabBaseGame->Modify_Only_Levels(checked);
 }
