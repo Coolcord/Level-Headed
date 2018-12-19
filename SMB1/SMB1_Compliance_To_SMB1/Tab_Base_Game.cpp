@@ -53,7 +53,7 @@ void Tab_Base_Game::Install_New_ROM() {
 
 void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
-    QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
+    QVector<int> asmDifficulties = {9, 12, 15, 20, 21, 22};
     if (enabled) {
         this->ui->radio2PlayerGame->setChecked(true);
         this->ui->comboGraphics->setCurrentIndex(1);
@@ -77,7 +77,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboSpinyEggBehavior->setCurrentIndex(1);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(1);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
-        this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
         this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
@@ -107,7 +106,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblReplaceCastleLoops->setEnabled(!enabled);
     this->ui->comboReplaceCastleLoops->setEnabled(!enabled);
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
-    this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
     this->ui->cbStartWithFireFlowerOnRoomChange->setEnabled(!enabled);
 
