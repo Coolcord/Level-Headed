@@ -110,67 +110,67 @@ void Tab_Difficulty::Save_Settings() {
     case 1: //Random
         break; //do nothing for now
     case 2: //Very Easy
-        Difficulty_Level_Configurations().Very_Easy(this->pluginSettings);
+        Difficulty_Level_Configurations().Very_Easy(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 3: //Easy
-        Difficulty_Level_Configurations().Easy(this->pluginSettings);
+        Difficulty_Level_Configurations().Easy(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 4: //Normal
-        Difficulty_Level_Configurations().Normal(this->pluginSettings);
+        Difficulty_Level_Configurations().Normal(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 5: //Hard
-        Difficulty_Level_Configurations().Hard(this->pluginSettings);
+        Difficulty_Level_Configurations().Hard(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 6: //Very Hard
-        Difficulty_Level_Configurations().Very_Hard(this->pluginSettings);
+        Difficulty_Level_Configurations().Very_Hard(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 7: //Brutal
-        Difficulty_Level_Configurations().Brutal(this->pluginSettings);
+        Difficulty_Level_Configurations().Brutal(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 8: //Purist
-        Difficulty_Level_Configurations().Purist(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 9: //Purist + Auto Scroll
-        Difficulty_Level_Configurations().Purist_And_Auto_Scroll(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist_And_Auto_Scroll(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 10: //Purist + No Hammer Bros.
-        Difficulty_Level_Configurations().Purist_And_No_Hammer_Bros(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist_And_No_Hammer_Bros(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 11: //Purist + Lakitu Throw Arc
-        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 12: //Purist + Lakitu Throw Arc + Auto Scrolling
-        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 13: //Purist + Lakitu Throw Arc + No Hammer Bros.
-        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(this->pluginSettings);
+        Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 14: //Walk in the Park
-        Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings);
+        Difficulty_Level_Configurations().Walk_In_The_Park(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 15: //Just Keep Scrolling
-        Difficulty_Level_Configurations().Just_Keep_Scrolling(this->pluginSettings);
+        Difficulty_Level_Configurations().Just_Keep_Scrolling(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 16: //Riddled with Bullets
-        Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings);
+        Difficulty_Level_Configurations().Riddled_With_Bullets(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 17: //Lakitu's Challenge
-        Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings);
+        Difficulty_Level_Configurations().Lakitus_Challenge(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 18: //Cheep-Cheep Frenzy
-        Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings);
+        Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 19: //Hammer Time
-        Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings);
+        Difficulty_Level_Configurations().Hammer_Time(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 20: //Extreme Hammer Time
-        Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings);
+        Difficulty_Level_Configurations().Extreme_Hammer_Time(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 21: //Turn up the Heat
-        Difficulty_Level_Configurations().Turn_Up_The_Heat(this->pluginSettings);
+        Difficulty_Level_Configurations().Turn_Up_The_Heat(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     case 22: //Too Hot to Handle
-        Difficulty_Level_Configurations().Too_Hot_To_Handle(this->pluginSettings);
+        Difficulty_Level_Configurations().Too_Hot_To_Handle(this->pluginSettings, this->ui->cbOnlyModifyLevels->isChecked());
         break;
     }
 }

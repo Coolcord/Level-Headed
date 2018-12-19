@@ -9,6 +9,7 @@ class Hacks : public Byte_Writer {
 public:
     Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
     ~Hacks() {}
+    bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();
@@ -54,6 +55,7 @@ private:
     Sequential_Archive_Handler *sequentialArchiveHandler;
     int difficultyWalkingHammerBros;
     bool isHammerSuitActive;
+    bool wasCastleLoopReplacedWithAutoScrollObject;
 };
 
 #endif // HACKS_H

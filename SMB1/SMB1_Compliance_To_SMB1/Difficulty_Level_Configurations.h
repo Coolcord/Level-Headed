@@ -8,7 +8,8 @@ class Difficulty_Level_Configurations {
 public:
     Difficulty_Level_Configurations() {}
     ~Difficulty_Level_Configurations() {}
-    void Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings);
+    void Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings, bool disableASM);
+
     Difficulty_Level_Settings Normal();
     Difficulty_Level_Settings Very_Easy();
     Difficulty_Level_Settings Easy();
@@ -33,28 +34,31 @@ public:
     Difficulty_Level_Settings Random();
 
     //Alternative methods
-    void Very_Easy(Plugin_Settings *pluginSettings);
-    void Easy(Plugin_Settings *pluginSettings);
-    void Normal(Plugin_Settings *pluginSettings);
-    void Hard(Plugin_Settings *pluginSettings);
-    void Very_Hard(Plugin_Settings *pluginSettings);
-    void Brutal(Plugin_Settings *pluginSettings);
-    void Purist(Plugin_Settings *pluginSettings);
-    void Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings);
-    void Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings);
-    void Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings);
-    void Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings);
-    void Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings);
-    void Walk_In_The_Park(Plugin_Settings *pluginSettings);
-    void Just_Keep_Scrolling(Plugin_Settings *pluginSettings);
-    void Riddled_With_Bullets(Plugin_Settings *pluginSettings);
-    void Lakitus_Challenge(Plugin_Settings *pluginSettings);
-    void Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings);
-    void Hammer_Time(Plugin_Settings *pluginSettings);
-    void Extreme_Hammer_Time(Plugin_Settings *pluginSettings);
-    void Turn_Up_The_Heat(Plugin_Settings *pluginSettings);
-    void Too_Hot_To_Handle(Plugin_Settings *pluginSettings);
-    void Random(Plugin_Settings *pluginSettings);
+    void Very_Easy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Easy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Normal(Plugin_Settings *pluginSettings, bool disableASM);
+    void Hard(Plugin_Settings *pluginSettings, bool disableASM);
+    void Very_Hard(Plugin_Settings *pluginSettings, bool disableASM);
+    void Brutal(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM);
+    void Walk_In_The_Park(Plugin_Settings *pluginSettings, bool disableASM);
+    void Just_Keep_Scrolling(Plugin_Settings *pluginSettings, bool disableASM);
+    void Riddled_With_Bullets(Plugin_Settings *pluginSettings, bool disableASM);
+    void Lakitus_Challenge(Plugin_Settings *pluginSettings, bool disableASM);
+    void Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM);
+    void Extreme_Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM);
+    void Turn_Up_The_Heat(Plugin_Settings *pluginSettings, bool disableASM);
+    void Too_Hot_To_Handle(Plugin_Settings *pluginSettings, bool disableASM);
+    void Random(Plugin_Settings *pluginSettings, bool disableASM);
+
+private:
+    void Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings);
 };
 
 #endif // DIFFICULTY_LEVEL_CONFIGURATIONS_H

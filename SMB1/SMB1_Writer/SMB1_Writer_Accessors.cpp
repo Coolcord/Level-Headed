@@ -234,7 +234,9 @@ bool SMB1_Writer::Object_Scroll_Stop(int x, bool warpZone) {
 
 bool SMB1_Writer::Object_Toggle_Auto_Scroll(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Toggle_Auto_Scroll(x);
+    if (!this->hacks) return false;
+    if (!this->hacks->Was_Castle_Loop_Replaced_With_Autoscroll_Object()) return this->objectWriter->Nothing(x);
+    else return this->objectWriter->Toggle_Auto_Scroll(x);
 }
 
 bool SMB1_Writer::Object_Flying_Cheep_Cheep_Spawner(int x) {

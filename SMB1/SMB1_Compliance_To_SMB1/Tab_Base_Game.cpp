@@ -3,6 +3,7 @@
 #include "ui_Configure_Settings_Form.h"
 #include <QDir>
 #include <QFileInfo>
+#include <QVector>
 
 Tab_Base_Game::Tab_Base_Game(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings)
     : Tab_Interface(parent, applicationLocation, writerPlugin, ui, pluginSettings) {
@@ -16,7 +17,7 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
     if (this->pluginSettings->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
     else this->ui->radioAppendNumberToFilename->setChecked(true);
-    this->ui->cbModifyOnlyLevels->setChecked(this->pluginSettings->modifyOnlyLevels);
+    this->ui->cbOnlyModifyLevels->setChecked(this->pluginSettings->onlyModifyLevels);
     if (this->pluginSettings->addLuigiGame) this->ui->radioAddLuigiGame->setChecked(true);
     else this->ui->radio2PlayerGame->setChecked(true);
     if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
@@ -35,7 +36,7 @@ void Tab_Base_Game::Save_Settings() {
     if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
     if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
     this->pluginSettings->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
-    this->pluginSettings->modifyOnlyLevels = this->ui->cbModifyOnlyLevels->isChecked();
+    this->pluginSettings->onlyModifyLevels = this->ui->cbOnlyModifyLevels->isChecked();
     this->pluginSettings->addLuigiGame = this->ui->radioAddLuigiGame->isChecked();
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
@@ -52,6 +53,7 @@ void Tab_Base_Game::Install_New_ROM() {
 }
 
 void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
+    //Reset All Settings to Original
     if (enabled) {
         this->ui->radio2PlayerGame->setChecked(true);
         this->ui->comboGraphics->setCurrentIndex(1);
@@ -60,8 +62,62 @@ void Tab_Base_Game::Modify_Only_Levels(bool enabled) {
         this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
         this->ui->comboPowerup->setCurrentIndex(1);
         this->ui->comboSecondaryMushroom->setCurrentIndex(2);
+
+        //this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
+        this->ui->radioStartingLives->setChecked(true);
+        this->ui->cbGodMode->setChecked(false);
+
+        this->ui->sbAutoScroll->setValue(11);
+        this->ui->sbWalkingHammerBros->setValue(11);
+        this->ui->sbAutoScrollChancePerLevel->setValue(0);
+        this->ui->comboBasicEnemySpeed->setCurrentIndex(1);
+        this->ui->comboBulletBillSpeed->setCurrentIndex(2);
+        this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
+        this->ui->comboPiranhaPlantType->setCurrentIndex(1);
+        this->ui->comboSpinyEggBehavior->setCurrentIndex(1);
+        this->ui->comboReplaceCastleLoops->setCurrentIndex(1);
+        this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
+        this->ui->cbLakituThrowArc->setChecked(false);
+        this->ui->cbRevertToSuperMario->setChecked(false);
+        this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
     this->ui->layoutNonLevelsWidget->setEnabled(!enabled);
+    this->ui->radioInfiniteLives->setEnabled(!enabled);
+    this->ui->radioPermadeath->setEnabled(!enabled);
+    this->ui->cbGodMode->setEnabled(!enabled);
+
+    //Enable Custom Difficulty Settings
+    this->ui->lblAutoScroll->setEnabled(!enabled);
+    this->ui->sbAutoScroll->setEnabled(!enabled);
+    this->ui->lblWalkingHammerBros->setEnabled(!enabled);
+    this->ui->sbWalkingHammerBros->setEnabled(!enabled);
+    this->ui->lblAutoScrollChancePerLevel->setEnabled(!enabled);
+    this->ui->sbAutoScrollChancePerLevel->setEnabled(!enabled);
+    this->ui->lblBasicEnemySpeed->setEnabled(!enabled);
+    this->ui->comboBasicEnemySpeed->setEnabled(!enabled);
+    this->ui->lblBulletBillSpeed->setEnabled(!enabled);
+    this->ui->comboBulletBillSpeed->setEnabled(!enabled);
+    this->ui->lblLakituRespawnSpeed->setEnabled(!enabled);
+    this->ui->comboLakituRespawnSpeed->setEnabled(!enabled);
+    this->ui->lblPiranhaPlantType->setEnabled(!enabled);
+    this->ui->comboPiranhaPlantType->setEnabled(!enabled);
+    this->ui->lblSpinyEggBehavior->setEnabled(!enabled);
+    this->ui->comboSpinyEggBehavior->setEnabled(!enabled);
+    this->ui->layoutReplaceCastleLoops->setEnabled(!enabled);
+    this->ui->lblReplaceCastleLoops->setEnabled(!enabled);
+    this->ui->comboReplaceCastleLoops->setEnabled(!enabled);
+    this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
+    this->ui->cbLakituThrowArc->setEnabled(!enabled);
+    this->ui->cbRevertToSuperMario->setEnabled(!enabled);
+    this->ui->cbStartWithFireFlowerOnRoomChange->setEnabled(!enabled);
+
+    //Disable the ASM Difficulty Presents
+    QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
+    for (int i = 0; i < asmDifficulties.size(); ++i) {
+        int value = 33;
+        if (enabled) value = 0;
+        this->ui->comboDifficulty->setItemData(asmDifficulties.at(i), value, Qt::UserRole-1);
+    }
 }
 
 void Tab_Base_Game::Populate_Installed_ROMs() {

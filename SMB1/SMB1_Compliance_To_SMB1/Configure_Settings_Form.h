@@ -28,6 +28,7 @@ private slots:
     //Base Game Tab
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
+    void on_cbOnlyModifyLevels_toggled(bool checked);
 
     //Level Generator Tab
     void on_radioGenerateNewLevels_toggled(bool checked);
@@ -39,10 +40,7 @@ private slots:
 
     //Difficulty Tab
     void on_comboDifficulty_currentIndexChanged(int index);
-
     void on_radioStartingLives_toggled(bool checked);
-
-    void on_cbModifyOnlyLevels_toggled(bool checked);
 
 private:
     void Load_Settings();

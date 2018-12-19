@@ -67,7 +67,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Handle the Difficulty Settings
     if (this->pluginSettings.difficultyComboIndex == 1) {
-        Difficulty_Level_Configurations().Random(&this->pluginSettings);
+        Difficulty_Level_Configurations().Random(&this->pluginSettings, this->pluginSettings.onlyModifyLevels);
     }
 
     //Generate the levels
@@ -166,7 +166,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     stream << "Base_ROM=" << this->pluginSettings.baseROM << Common_Strings::STRING_NEW_LINE;
     stream << "Output_ROM_Location=" << this->pluginSettings.outputROMLocation << Common_Strings::STRING_NEW_LINE;
     stream << "Overwrite_Output_ROM=" << this->pluginSettings.overwriteOuputROM << Common_Strings::STRING_NEW_LINE;
-    stream << "Modify_Only_Levels=" << this->pluginSettings.modifyOnlyLevels << Common_Strings::STRING_NEW_LINE;
+    stream << "Modify_Only_Levels=" << this->pluginSettings.onlyModifyLevels << Common_Strings::STRING_NEW_LINE;
     stream << "Random_Number_Of_Worlds=" << this->pluginSettings.randomNumWorlds << Common_Strings::STRING_NEW_LINE;
     stream << "Number_Of_Worlds=" << this->pluginSettings.numWorlds << Common_Strings::STRING_NEW_LINE;
     stream << "Numer_Of_Levels_Per_World=" << this->pluginSettings.numLevelsPerWorld << Common_Strings::STRING_NEW_LINE;
@@ -244,7 +244,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     this->pluginSettings.baseROM = this->Get_Setting_From_Line(file);
     this->pluginSettings.outputROMLocation = this->Get_Setting_From_Line(file);
     this->pluginSettings.overwriteOuputROM = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
-    this->pluginSettings.modifyOnlyLevels = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
+    this->pluginSettings.onlyModifyLevels = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.randomNumWorlds = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.numWorlds = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
     this->pluginSettings.numLevelsPerWorld = this->Get_Setting_From_Line(file).toInt(&valid); if (!valid) return false;
@@ -317,7 +317,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.baseROM = "";
     this->pluginSettings.outputROMLocation = QString();
     this->pluginSettings.overwriteOuputROM = true;
-    this->pluginSettings.modifyOnlyLevels = false;
+    this->pluginSettings.onlyModifyLevels = false;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.levelScripts = "";
     this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;
@@ -344,7 +344,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
     this->pluginSettings.difficultyComboIndex = 4;
-    Difficulty_Level_Configurations().Normal(&this->pluginSettings);
+    Difficulty_Level_Configurations().Normal(&this->pluginSettings, this->pluginSettings.onlyModifyLevels);
 }
 
 QString SMB1_Compliance_To_SMB1::Get_Setting_From_Line(QFile &file) {

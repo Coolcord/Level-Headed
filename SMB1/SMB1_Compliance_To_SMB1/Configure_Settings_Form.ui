@@ -244,9 +244,9 @@ p, li { white-space: pre-wrap; }
             </spacer>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbModifyOnlyLevels">
+            <widget class="QCheckBox" name="cbOnlyModifyLevels">
              <property name="text">
-              <string>Modify only levels</string>
+              <string>Only Modify Levels (will disable some level generator features and ASM hacks)</string>
              </property>
             </widget>
            </item>
@@ -549,24 +549,6 @@ p, li { white-space: pre-wrap; }
              </property>
             </spacer>
            </item>
-           <item>
-            <widget class="QWidget" name="groupPatches" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_11">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-             </layout>
-            </widget>
-           </item>
           </layout>
          </widget>
         </widget>
@@ -587,7 +569,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-179</y>
             <width>652</width>
             <height>1766</height>
            </rect>
@@ -1608,7 +1590,7 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutPiranhaPlantTYpe">
+               <layout class="QHBoxLayout" name="layoutPiranhaPlantType">
                 <item>
                  <widget class="QLabel" name="lblPiranhaPlantType">
                   <property name="text">

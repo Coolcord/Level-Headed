@@ -13,6 +13,11 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler 
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
     this->isHammerSuitActive = false;
+    this->wasCastleLoopReplacedWithAutoScrollObject = false;
+}
+
+bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
+    return this->wasCastleLoopReplacedWithAutoScrollObject;
 }
 
 bool Hacks::Add_Luigi_Game() {
@@ -179,6 +184,7 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
             "14A586290FC90BB00CAD5507C902B005A2002058D9681860A5414901854160").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x41B9, QByteArray::fromHex(QString("2FC1").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5DBA, QByteArray::fromHex(QString("BFC0").toLatin1()))) return false;
+    this->wasCastleLoopReplacedWithAutoScrollObject = true;
     return true;
 }
 

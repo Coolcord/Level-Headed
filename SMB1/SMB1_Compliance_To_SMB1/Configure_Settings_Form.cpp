@@ -135,6 +135,6 @@ void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     else this->ui->sbLives->hide();
 }
 
-void Configure_Settings_Form::on_cbModifyOnlyLevels_toggled(bool checked) {
+void Configure_Settings_Form::on_cbOnlyModifyLevels_toggled(bool checked) {
     this->tabBaseGame->Modify_Only_Levels(checked);
 }
