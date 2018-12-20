@@ -81,6 +81,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBasicEnemySpeed = 1;
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
+    pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultySpinyEggBehavior = 1;
     pluginSettings->difficultyReplaceCastleLoops = 1;

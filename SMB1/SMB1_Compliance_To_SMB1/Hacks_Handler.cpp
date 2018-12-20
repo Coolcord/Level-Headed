@@ -39,11 +39,11 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Secondary_Mushroom()) return false;
         if (!this->Handle_Replace_Castle_Loop()) return false;
         if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
+        if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_Partial_Game()) return false;
     }
     if (!this->Handle_Lives()) return false;
-    if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
 
     //The patches below are always applied
     if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
@@ -97,6 +97,9 @@ bool Hacks_Handler::Handle_Graphics() {
 }
 
 bool Hacks_Handler::Handle_Lakitus() {
+    //Fix the Throw Arc
+    if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
+
     //Handle the Spiny Egg Behavior
     int spinyEggBehavior = this->pluginSettings->difficultySpinyEggBehavior;
     if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Num(1)+1;

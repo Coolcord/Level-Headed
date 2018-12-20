@@ -535,6 +535,11 @@ bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     return this->hacks->Fix_Lakitu_Throw_Arc();
 }
 
+bool SMB1_Writer::Hacks_Fix_Life_Counter_Bugs() {
+    if (!this->hacks) return false;
+    return this->hacks->Fix_Life_Counter_Bugs();
+}
+
 bool SMB1_Writer::Hacks_Hard_Mode_Does_Not_Affect_Lift_Size() {
     if (!this->hacks) return false;
     return this->hacks->Hard_Mode_Does_Not_Affect_Lift_Size();

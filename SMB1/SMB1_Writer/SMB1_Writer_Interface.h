@@ -141,6 +141,7 @@ public:
     virtual bool Hacks_Enable_Piranha_Plants_On_First_Level()=0;
     virtual bool Hacks_Enable_Walking_Hammer_Bros(int difficulty)=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
+    virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Permadeath()=0;

@@ -35,7 +35,12 @@ qint64 Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     //Convert from RAM value to ROM value
     switch (this->romType) {
     default:                    offset -= 0x7FEE; break;
-    case ROM_Type::COOP_CGTI_1: offset -= 0x322E; break;
+    case ROM_Type::COOP_CGTI_1:
+        //if (offset < 0x322E) offset += 0xA07A; //World 6-3 has a very low pointer for some reason
+        //else offset -= 0x322E;
+        offset -= 0x7FEE;
+        offset = this->Fix_Offset(offset);
+        break;
     case ROM_Type::DUCK:
     case ROM_Type::TRACK:
         offset -= 0x7FEE;
@@ -86,6 +91,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x047B) return offset + 0x7E61;
         if (offset < 0x0D22) return offset + 0x7E75;
         if (offset < 0x105B) return offset + 0x7E01;
+        if (offset < 0x107E) return offset + 0x7DFD;
         if (offset < 0x11DE) return offset + 0x7DFE;
         if (offset < 0x1206) return offset + 0x7E1D;
         if (offset < 0x1308) return offset + 0x7DEC;
@@ -96,6 +102,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x4450) return offset + 0x805D;
         if (offset < 0x450B) return offset + 0x8065;
         if (offset < 0x5130) return offset + 0x8090;
+        if (offset < 0x5CFA) return offset + 0x81DB;
         if (offset < 0x6509) return offset + 0x826D;
         if (offset < 0x6A29) return offset + 0x8201;
         if (offset < 0x6B0D) return offset + 0x8200;
