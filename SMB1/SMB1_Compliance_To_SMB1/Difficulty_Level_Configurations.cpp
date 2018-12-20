@@ -3,6 +3,30 @@
 #include "../SMB1_Compliance_Generator/Difficulty.h"
 #include <assert.h>
 
+//Wrappers
+void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Auto_Scroll(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_No_Hammer_Bros(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Turn_Up_The_Heat(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Turn_Up_The_Heat(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Too_Hot_To_Handle(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Too_Hot_To_Handle(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings, disableASM);}
+
 void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings, bool disableASM) {
     assert(pluginSettings);
     pluginSettings->difficultyAutoScroll = difficultySettings.autoScroll;
@@ -48,6 +72,22 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
+}
+
+void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings) {
+    pluginSettings->difficultyAutoScroll = 11;
+    pluginSettings->difficultyWalkingHammerBros = 11;
+    pluginSettings->difficultyAutoScrollChancePerLevel = 0;
+    pluginSettings->difficultyBasicEnemySpeed = 1;
+    pluginSettings->difficultyBulletBillSpeed = 2;
+    pluginSettings->difficultyLakituRespawnSpeed = 3;
+    pluginSettings->difficultyPiranhaPlantType = 1;
+    pluginSettings->difficultySpinyEggBehavior = 1;
+    pluginSettings->difficultyReplaceCastleLoops = 1;
+    pluginSettings->difficultyReplaceCastleLoopsCurrent = 1;
+    pluginSettings->difficultySpeedyObjectsAndEnemies = false;
+    pluginSettings->superMarioOnDamage = false;
+    pluginSettings->difficultyStartWithFireFlowerOnRoomChange = false;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -431,45 +471,4 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Num(1));
     return difficultySettings;
-}
-
-//Wrappers
-void Difficulty_Level_Configurations::Very_Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Easy(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Easy(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Normal(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Auto_Scroll(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_No_Hammer_Bros(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Lakitus_Challenge(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Lakitus_Challenge(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Cheep_Cheep_Frenzy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Cheep_Cheep_Frenzy(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hammer_Time(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Extreme_Hammer_Time(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Extreme_Hammer_Time(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Turn_Up_The_Heat(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Turn_Up_The_Heat(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Too_Hot_To_Handle(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Too_Hot_To_Handle(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Random(), pluginSettings, disableASM);}
-
-void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings) {
-    pluginSettings->difficultyAutoScroll = 11;
-    pluginSettings->difficultyWalkingHammerBros = 11;
-    pluginSettings->difficultyAutoScrollChancePerLevel = 0;
-    pluginSettings->difficultyBasicEnemySpeed = 1;
-    pluginSettings->difficultyBulletBillSpeed = 2;
-    pluginSettings->difficultyLakituRespawnSpeed = 3;
-    pluginSettings->difficultyPiranhaPlantType = 1;
-    pluginSettings->difficultySpinyEggBehavior = 1;
-    pluginSettings->difficultyReplaceCastleLoops = 1;
-    pluginSettings->difficultyReplaceCastleLoopsCurrent = 1;
-    pluginSettings->difficultySpeedyObjectsAndEnemies = false;
-    pluginSettings->lakituThrowArc = false;
-    pluginSettings->superMarioOnDamage = false;
-    pluginSettings->difficultyStartWithFireFlowerOnRoomChange = false;
 }
