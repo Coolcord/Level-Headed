@@ -302,7 +302,7 @@ bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
 }
 
 bool Hacks::Set_Starting_Lives(int lives) {
-    if (lives <= 0 && lives > 0x80) return false;
+    if (lives <= 0 || lives > 0x80) return false;
     if (!this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)))) return false;
     return this->Fix_Life_Counter_Bugs();
 }

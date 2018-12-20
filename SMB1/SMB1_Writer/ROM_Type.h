@@ -4,10 +4,9 @@
 namespace ROM_Type {
     enum ROM_Type {
         DEFAULT,
-        EUROPE,
         DUCK,
         TRACK,
-        FDS,
+        COOP_CGTI_1,
         INVALID
     };
 }

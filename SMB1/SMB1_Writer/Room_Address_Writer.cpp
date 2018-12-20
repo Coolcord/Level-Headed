@@ -130,15 +130,33 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
     //Fix all of the offsets in the buffers
     for (int i = 0; i < byteBufferSize; ++i) {
         //Calculate the offset
-        unsigned int offset = static_cast<unsigned int>(static_cast<unsigned char>(highByteBuffer->data()[i]));
+        qint64 offset = static_cast<unsigned int>(static_cast<unsigned char>(highByteBuffer->data()[i]));
         offset *= 0x100; //move to the high byte
         offset += static_cast<unsigned int>(static_cast<unsigned char>(lowByteBuffer->data()[i]));
 
         //Convert from RAM value to ROM value
-        unsigned int fixedOffset = offset;
-        if (enemies) fixedOffset -= 0x7FF0;
-        else fixedOffset -= 0x7FEE;
-        fixedOffset = static_cast<unsigned int>(this->levelOffset->Fix_Offset(fixedOffset));
+        qint64 fixedOffset = offset;
+        if (enemies) {
+            switch (this->levelOffset->Get_ROM_Type()) {
+            default:                    fixedOffset -= 0x7FF0; break;
+            case ROM_Type::COOP_CGTI_1: fixedOffset -= 0xB9; break;
+            case ROM_Type::DUCK:
+            case ROM_Type::TRACK:
+                fixedOffset -= 0x7FF0;
+                fixedOffset = this->levelOffset->Fix_Offset(fixedOffset);
+                break;
+            }
+        } else {
+            switch (this->levelOffset->Get_ROM_Type()) {
+            default:                    fixedOffset -= 0x7FEE; break;
+            case ROM_Type::COOP_CGTI_1: fixedOffset -= 0x322E; break;
+            case ROM_Type::DUCK:
+            case ROM_Type::TRACK:
+                fixedOffset -= 0x7FEE;
+                fixedOffset = this->levelOffset->Fix_Offset(fixedOffset);
+                break;
+            }
+        }
 
         //Determine if any calculations are necessary
         if (fixedOffset < static_cast<unsigned int>(fromOffset) && fixedOffset < static_cast<unsigned int>(toOffset)) continue;
