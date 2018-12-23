@@ -73,10 +73,12 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
     case ROM_Type::COOP_CGTI_1:
         if (offset < 0x0258) return offset + 0x7DFD;
         if (offset < 0x02B4) return offset + 0x7E0B;
+        if (offset < 0x02DB) return offset + 0x7E11;
         if (offset < 0x0419) return offset + 0x7E57;
+        if (offset < 0x044A) return offset + 0x7E37;
         if (offset < 0x047B) return offset + 0x7E61;
         if (offset < 0x0D22) return offset + 0x7E75;
-        if (offset < 0x0DF3) return offset + 0x7E6F;
+        if (offset < 0x0E08) return offset + 0x7E6F;
         if (offset < 0x105B) return offset + 0x7E01;
         if (offset < 0x107E) return offset + 0x7DFD;
         if (offset < 0x11DE) return offset + 0x7DFE;
@@ -89,10 +91,9 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x3F2F) return offset + 0x802E;
         if (offset < 0x4450) return offset + 0x805D;
         if (offset < 0x450B) return offset + 0x8065;
-        if (offset < 0x5130) return offset + 0x8090;
+        if (offset < 0x5135) return offset + 0x8090;
         if (offset < 0x5CFA) return offset + 0x81DB;
         if (offset < 0x6509) return offset + 0x826D;
-        if (offset < 0x6A29) return offset + 0x8201;
         if (offset < 0x6B0D) return offset + 0x8200;
         if (offset < 0x6EE3) return offset + 0x81E4;
         return offset + 0x8000;

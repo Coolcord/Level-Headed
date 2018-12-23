@@ -1,6 +1,7 @@
 #include "Hacks.h"
 #include "Level_Offset.h"
 #include "Sequential_Archive_Handler.h"
+#include "Text.h"
 #include <assert.h>
 #include <cmath>
 
@@ -8,8 +9,10 @@ const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
 const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
 
-Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
-    assert(sequentialArchiveHandler);
+Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
+    assert(sequentialArchiveHandler); assert(text);
+    this->levelOffset = levelOffset;
+    this->text = text;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
     this->isHammerSuitActive = false;
@@ -384,8 +387,15 @@ bool Hacks::Unlimited_Time() {
 
 bool Hacks::Write_Watermark() {
     //Change the end game text
-    if (!this->Write_Bytes_To_Offset(0x0DBB, QByteArray::fromHex(QString("242424150E1F0E1528110E0A0D0E0D242424240025E31B241F121C121D240C1818150C181B0D2418172410121D111E0B242400264A0D0F181B241E190D0A1D0E1C2B24002688112424242424242424242424242424242424").toLatin1()))) return false;
-    return this->Start_Underwater_Castle_Brick_On_World(9); //disables underwater castle bricks
+    if (!this->Write_Bytes_To_Offset(0x0DBB, this->text->Convert_String_To_SMB_Bytes("   Level-Headed    "))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0DD2, this->text->Convert_String_To_SMB_Bytes(" Visit Coolcord on Github  "))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0DF1, this->text->Convert_String_To_SMB_Bytes("For Updates! "))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0E02, this->text->Convert_String_To_SMB_Bytes("                 "))) return false;
+    if (!this->Start_Underwater_Castle_Brick_On_World(9)) return false; //disables underwater castle bricks
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        if (!this->Disable_Intro_Demo()) return false; //if Luigi dies in the intro demo, a game will start
+    }
+    return true;
 }
 
 bool Hacks::Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world) {

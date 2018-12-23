@@ -4,10 +4,11 @@
 #include "Byte_Writer.h"
 
 class Sequential_Archive_Handler;
+class Text;
 
 class Hacks : public Byte_Writer {
 public:
-    Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
+    Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
     ~Hacks() {}
     bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
     bool Add_Luigi_Game();
@@ -53,6 +54,7 @@ private:
     bool Enable_Walking_Hammer_Bros_In_World(int world);
 
     Sequential_Archive_Handler *sequentialArchiveHandler;
+    Text *text;
     int difficultyWalkingHammerBros;
     bool isHammerSuitActive;
     bool wasCastleLoopReplacedWithAutoScrollObject;
