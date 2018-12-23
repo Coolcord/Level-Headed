@@ -95,7 +95,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x3C13) return offset + 0x7FCB;
         if (offset < 0x3C37) return offset + 0x7FCC;
         if (offset < 0x3F2F) return offset + 0x802E;
-        if (offset < 0x4450) return offset + 0x805D;
+        if (offset < 0x4469) return offset + 0x805D;
         if (offset < 0x450B) return offset + 0x8065;
         if (offset < 0x47FB) return offset + 0x807D;
         if (offset < 0x4850) return offset + 0x8078;

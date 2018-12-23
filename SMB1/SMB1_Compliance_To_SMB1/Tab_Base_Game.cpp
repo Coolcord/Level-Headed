@@ -64,7 +64,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboSecondaryMushroom->setCurrentIndex(2);
 
         if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
-        this->ui->radioStartingLives->setChecked(true);
+        if (this->ui->radioPermadeath->isChecked()) this->ui->radioStartingLives->setChecked(true);
         this->ui->cbGodMode->setChecked(false);
 
         this->ui->sbAutoScroll->setValue(11);
@@ -82,7 +82,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
     this->ui->layoutNonLevelsWidget->setEnabled(!enabled);
-    this->ui->radioInfiniteLives->setEnabled(!enabled);
+    //this->ui->radioInfiniteLives->setEnabled(!enabled);
     this->ui->radioPermadeath->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
 
