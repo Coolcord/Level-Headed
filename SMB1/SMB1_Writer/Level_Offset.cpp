@@ -35,17 +35,7 @@ qint64 Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     //Convert from RAM value to ROM value
     switch (this->romType) {
     default:                    offset -= 0x7FEE; break;
-    case ROM_Type::COOP_CGTI_1:
-        //if (offset < 0x322E) offset += 0xA07A; //World 6-3 has a very low pointer for some reason
-        //else offset -= 0x322E;
-        offset -= 0x7FEE;
-        offset = this->Fix_Offset(offset);
-        break;
-    case ROM_Type::DUCK:
-    case ROM_Type::TRACK:
-        offset -= 0x7FEE;
-        offset = this->Fix_Offset(offset);
-        break;
+    case ROM_Type::COOP_CGTI_1: offset += 0x12; break;
     }
     return offset;
 }
@@ -66,12 +56,7 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     //Convert from RAM value to ROM value
     switch (this->romType) {
     default:                    offset -= 0x7FF0; break;
-    case ROM_Type::COOP_CGTI_1: offset -= 0xB9; break;
-    case ROM_Type::DUCK:
-    case ROM_Type::TRACK:
-        offset -= 0x7FF0;
-        offset = this->Fix_Offset(offset);
-        break;
+    case ROM_Type::COOP_CGTI_1: offset += 0x10; break;
     }
     return offset;
 }

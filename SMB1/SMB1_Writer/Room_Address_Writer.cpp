@@ -25,46 +25,64 @@ Room_Address_Writer::~Room_Address_Writer() {
 }
 
 bool Room_Address_Writer::Read_Room_Address_Tables() {
-    //Read the Object Address Header
+    //Read the Headers
     if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_HEADER, 4, this->objectsHeaderBuffer)) return false;
-
-    //Read the Objects Address Low Byte Table
-    if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, 34, this->lowObjectBuffer)) return false;
-
-    //Read the Objects Address High Byte Table
-    if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, 34, this->highObjectBuffer)) return false;
-
-    //Read the Enemy Address Header
     if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_HEADER, 4, this->enemiesHeaderBuffer)) return false;
 
-    //Read the Enemies Address Low Byte Table
-    if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, 34, this->lowEnemyBuffer)) return false;
-
-    //Read the Enemies Address High Byte Table
-    if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_HIGH_BYTE, 34, this->highEnemyBuffer)) return false;
-
+    //The Co-op ROM handles level pointers slightly differently
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        QByteArray objectBuffer(68, ' ');
+        QByteArray enemyBuffer(68, ' ');
+        if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, 68, &objectBuffer)) return false;
+        if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, 68, &enemyBuffer)) return false;
+        assert(objectBuffer.size() == enemyBuffer.size());
+        for (int i = 0, j = 0; i < objectBuffer.size(); ++i) {
+            if (i%2==0) { //low bytes are even
+                this->lowObjectBuffer->data()[j] = objectBuffer.at(i);
+                this->lowEnemyBuffer->data()[j] = enemyBuffer.at(i);
+            } else { //high bytes are odd
+                this->highObjectBuffer->data()[j] = objectBuffer.at(i);
+                this->highEnemyBuffer->data()[j] = enemyBuffer.at(i);
+                ++j;
+            }
+        }
+    } else { //read the level pointers normally
+        if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, 34, this->lowObjectBuffer)) return false;
+        if (!this->Read_Into_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, 34, this->highObjectBuffer)) return false;
+        if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, 34, this->lowEnemyBuffer)) return false;
+        if (!this->Read_Into_Buffer(this->ENEMY_ADDRESS_HIGH_BYTE, 34, this->highEnemyBuffer)) return false;
+    }
     return true;
 }
 
 bool Room_Address_Writer::Write_Room_Address_Tables() {
-    //Write the Object Address Header
+    //Write the Headers
     if (!this->Write_Buffer(this->OBJECT_ADDRESS_HEADER, this->objectsHeaderBuffer)) return false;
-
-    //Write the Objects Address Low Byte Table
-    if (!this->Write_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, this->lowObjectBuffer)) return false;
-
-    //Write the Objects Address High Byte Table
-    if (!this->Write_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, this->highObjectBuffer)) return false;
-
-    //Write the Enemy Address Header
     if (!this->Write_Buffer(this->ENEMY_ADDRESS_HEADER, this->enemiesHeaderBuffer)) return false;
 
-    //Write the Enemies Address Low Byte Table
-    if (!this->Write_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, this->lowEnemyBuffer)) return false;
-
-    //Write the Enemies Address High Byte Table
-    if (!this->Write_Buffer(this->ENEMY_ADDRESS_HIGH_BYTE, this->highEnemyBuffer)) return false;
-
+    //The Co-op ROM handles level pointers slightly differently
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        QByteArray objectBuffer(68, ' ');
+        QByteArray enemyBuffer(68, ' ');
+        assert(objectBuffer.size() == enemyBuffer.size());
+        for (int i = 0, j = 0; i < objectBuffer.size(); ++i) {
+            if (i%2==0) { //low bytes are even
+                objectBuffer.data()[i] = this->lowObjectBuffer->data()[j];
+                enemyBuffer.data()[i] = this->lowEnemyBuffer->data()[j];
+            } else { //high bytes are odd
+                objectBuffer.data()[i] = this->highObjectBuffer->data()[j];
+                enemyBuffer.data()[i] = this->highEnemyBuffer->data()[j];
+                ++j;
+            }
+        }
+        if (!this->Write_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, &objectBuffer)) return false;
+        if (!this->Write_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, &enemyBuffer)) return false;
+    } else { //write the level pointers normally
+        if (!this->Write_Buffer(this->OBJECT_ADDRESS_LOW_BYTE, this->lowObjectBuffer)) return false;
+        if (!this->Write_Buffer(this->OBJECT_ADDRESS_HIGH_BYTE, this->highObjectBuffer)) return false;
+        if (!this->Write_Buffer(this->ENEMY_ADDRESS_LOW_BYTE, this->lowEnemyBuffer)) return false;
+        if (!this->Write_Buffer(this->ENEMY_ADDRESS_HIGH_BYTE, this->highEnemyBuffer)) return false;
+    }
     return true;
 }
 
@@ -139,7 +157,7 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
         if (enemies) {
             switch (this->levelOffset->Get_ROM_Type()) {
             default:                    fixedOffset -= 0x7FF0; break;
-            case ROM_Type::COOP_CGTI_1: fixedOffset -= 0xB9; break;
+            case ROM_Type::COOP_CGTI_1: fixedOffset += 0x10; break;
             case ROM_Type::DUCK:
             case ROM_Type::TRACK:
                 fixedOffset -= 0x7FF0;
@@ -149,7 +167,7 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
         } else {
             switch (this->levelOffset->Get_ROM_Type()) {
             default:                    fixedOffset -= 0x7FEE; break;
-            case ROM_Type::COOP_CGTI_1: fixedOffset -= 0x322E; break;
+            case ROM_Type::COOP_CGTI_1: fixedOffset += 0x12; break;
             case ROM_Type::DUCK:
             case ROM_Type::TRACK:
                 fixedOffset -= 0x7FEE;
