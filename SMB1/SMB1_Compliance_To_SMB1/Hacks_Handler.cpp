@@ -46,7 +46,6 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Lives()) return false;
 
     //The patches below are always applied
-    if (!this->writerPlugin->Hacks_Enable_Hitting_Underwater_Blocks()) return false;
     if (!this->writerPlugin->Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }

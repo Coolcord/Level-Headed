@@ -303,7 +303,11 @@ bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
 
 bool Hacks::Set_Starting_Lives(int lives) {
     if (lives <= 0 || lives > 0x80) return false;
-    return this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)));
+    if (!this->Write_Bytes_To_Offset(0x107A, QByteArray(1, static_cast<char>(lives-1)))) return false;
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        if (!this->Write_Bytes_To_Offset(0x0256, QByteArray(1, static_cast<char>(lives-1)))) return false;
+    }
+    return true;
 }
 
 void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {

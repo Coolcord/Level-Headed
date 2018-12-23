@@ -71,15 +71,18 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x9EA7) return offset + 0x8000;
         return offset + 0x20000; //increment for Track combo cart
     case ROM_Type::COOP_CGTI_1:
+        if (offset < 0x0258) return offset + 0x7DFD;
         if (offset < 0x02B4) return offset + 0x7E0B;
         if (offset < 0x0419) return offset + 0x7E57;
         if (offset < 0x047B) return offset + 0x7E61;
         if (offset < 0x0D22) return offset + 0x7E75;
+        if (offset < 0x0DF3) return offset + 0x7E6F;
         if (offset < 0x105B) return offset + 0x7E01;
         if (offset < 0x107E) return offset + 0x7DFD;
         if (offset < 0x11DE) return offset + 0x7DFE;
         if (offset < 0x1206) return offset + 0x7E1D;
         if (offset < 0x1308) return offset + 0x7DEC;
+        if (offset < 0x148E) return offset + 0x7DF2;
         if (offset < 0x161A) return offset + 0x7DF0;
         if (offset < 0x1C80) return offset + 0x7DD3;
         if (offset < 0x2EEB) return offset + 0x7DD1;
