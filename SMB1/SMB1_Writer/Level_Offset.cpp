@@ -34,7 +34,8 @@ qint64 Level_Offset::Get_Level_Object_Offset(Level::Level level) {
 
     //Convert from RAM value to ROM value
     switch (this->romType) {
-    default:                    offset -= 0x7FEE; break;
+    case ROM_Type::INVALID:     assert(false); break;
+    case ROM_Type::DEFAULT:     offset -= 0x7FEE; break;
     case ROM_Type::COOP_CGTI_1: offset += 0x12; break;
     }
     return offset;
@@ -55,7 +56,8 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 
     //Convert from RAM value to ROM value
     switch (this->romType) {
-    default:                    offset -= 0x7FF0; break;
+    case ROM_Type::INVALID:     assert(false); break;
+    case ROM_Type::DEFAULT:     offset -= 0x7FF0; break;
     case ROM_Type::COOP_CGTI_1: offset += 0x10; break;
     }
     return offset;
