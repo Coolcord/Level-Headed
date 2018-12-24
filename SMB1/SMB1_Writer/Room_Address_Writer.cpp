@@ -158,21 +158,11 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
             switch (this->levelOffset->Get_ROM_Type()) {
             default:                    fixedOffset -= 0x7FF0; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x10; break;
-            case ROM_Type::DUCK:
-            case ROM_Type::TRACK:
-                fixedOffset -= 0x7FF0;
-                fixedOffset = this->levelOffset->Fix_Offset(fixedOffset);
-                break;
             }
         } else {
             switch (this->levelOffset->Get_ROM_Type()) {
             default:                    fixedOffset -= 0x7FEE; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x12; break;
-            case ROM_Type::DUCK:
-            case ROM_Type::TRACK:
-                fixedOffset -= 0x7FEE;
-                fixedOffset = this->levelOffset->Fix_Offset(fixedOffset);
-                break;
             }
         }
 

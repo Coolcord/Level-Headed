@@ -64,12 +64,6 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
     case ROM_Type::DEFAULT: return offset; //nothing to do
-    case ROM_Type::DUCK:
-        if (offset < 0x9EA7) return offset;
-        return offset + 0x8000;
-    case ROM_Type::TRACK:
-        if (offset < 0x9EA7) return offset + 0x8000;
-        return offset + 0x20000; //increment for Track combo cart
     case ROM_Type::COOP_CGTI_1:
         if (offset < 0x0258) return offset + 0x7DFD;
         if (offset < 0x02B4) return offset + 0x7E0B;

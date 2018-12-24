@@ -82,7 +82,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
     this->ui->layoutNonLevelsWidget->setEnabled(!enabled);
-    //this->ui->radioInfiniteLives->setEnabled(!enabled);
     this->ui->radioPermadeath->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
 

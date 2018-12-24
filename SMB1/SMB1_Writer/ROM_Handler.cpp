@@ -191,8 +191,6 @@ QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
     fileNames.append(ROM_Filename::STRING_USA1);
-    fileNames.append(ROM_Filename::STRING_DUCK);
-    fileNames.append(ROM_Filename::STRING_TRACK);
     fileNames.append(ROM_Filename::STRING_COOP_CGTI_1);
 
     //Attempt to open each supported ROM
@@ -210,8 +208,6 @@ bool ROM_Handler::Clean_ROM_Directory() {
     QMap<QString, bool> fileNames;
     fileNames.insert(ROM_Filename::STRING_USA0, true);
     fileNames.insert(ROM_Filename::STRING_USA1, true);
-    fileNames.insert(ROM_Filename::STRING_DUCK, true);
-    fileNames.insert(ROM_Filename::STRING_TRACK, true);
     fileNames.insert(ROM_Filename::STRING_COOP_CGTI_1, true);
 
     //Delete all folders
@@ -253,8 +249,6 @@ QStringList ROM_Handler::Get_Installed_ROMs() {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
     fileNames.append(ROM_Filename::STRING_USA1);
-    fileNames.append(ROM_Filename::STRING_DUCK);
-    fileNames.append(ROM_Filename::STRING_TRACK);
     fileNames.append(ROM_Filename::STRING_COOP_CGTI_1);
     QStringList installedROMs;
 
