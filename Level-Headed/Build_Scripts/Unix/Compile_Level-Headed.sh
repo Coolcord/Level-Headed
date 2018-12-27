@@ -14,6 +14,7 @@ git clone https://github.com/Coolcord/Level-Headed.git
 git clone https://github.com/Coolcord/Level-Headed_Data.git
 git clone https://github.com/Coolcord/Hexagon.git
 git clone https://github.com/Coolcord/Sequential_Archive.git
+git clone https://github.com/Coolcord/C_Common_Code.git
 
 # Build Level-Headed
 cd Level-Headed/Level-Headed/
