@@ -27,7 +27,6 @@ private:
     bool Save_Plugin_Settings();
     bool Load_Plugin_Settings();
     void Load_Plugin_Default_Settings();
-    QString Get_Setting_From_Line(QFile &file);
     void Update_ROM_Output_Location();
     void Show_Message(const QString &message, bool error);
     QString Append_Number_To_FileName(const QString &oldFileName);
