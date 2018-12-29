@@ -9,6 +9,8 @@ namespace Unfixed_ROM_Type {
         USA1_Headerless,
         DUCK,
         DUCK_Headerless,
+        TRACK,
+        TRACK_Headerless,
         COOP_CGTI_1,
         INVALID
     };

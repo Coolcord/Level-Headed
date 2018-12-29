@@ -1,5 +1,6 @@
 Next Update (v0.3.1)
-+ Partial support for the simultaneous Co-op ROM hack by Corpse Grinder and TI.
++ Partial support for the simultaneous Co-op ROM hack by Corpse Grinder and TI
++ Combo carts and unheadered ROMs are now automatically patched to be compatible with Level-Headed
 + Added command line support
 
 Bullet Time (v0.3.0)
