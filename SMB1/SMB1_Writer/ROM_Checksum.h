@@ -17,7 +17,7 @@ public:
     ROM_Type::ROM_Type Get_ROM_Type_From_Checksum(const QString &romChecksum);
     QString Get_ROM_Filename_From_Checksum(const QString &romChecksum);
     ROM_Type::ROM_Type Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType);
-    void Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType);
+    bool Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType);
 
 private:
     bool Check_ROM_Header(QFile *file);
@@ -25,6 +25,7 @@ private:
     bool Check_No_ROM_Header(QByteArray *buffer);
     bool Check_FDS_ROM_Header(QByteArray *buffer);
     void Add_Standard_Header(QByteArray &buffer);
+    void Convert_PRG1_To_PRG0(QByteArray &buffer);
 
     QMap<QString, Unfixed_ROM_Type::Unfixed_ROM_Type> *checksumMap;
     QMap<QString, QString> *fileNameMap;

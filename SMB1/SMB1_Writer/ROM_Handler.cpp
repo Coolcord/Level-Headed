@@ -80,8 +80,16 @@ QString ROM_Handler::Install_ROM() {
     file.reset();
     installedFile.reset();
     QByteArray buffer = file.readAll();
-    this->romChecksum->Apply_Fixes_To_Match_Checksum(buffer, unfixedROMType);
+    if (!this->romChecksum->Apply_Fixes_To_Match_Checksum(buffer, unfixedROMType)) {
+        file.close();
+        installedFile.close();
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
+        return QString();
+    }
     if (buffer.isEmpty() || installedFile.write(buffer) == -1) {
+        file.close();
+        installedFile.close();
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions. Cannot continue!", Common_Strings::STRING_OK);
@@ -192,7 +200,6 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
 QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
-    fileNames.append(ROM_Filename::STRING_USA1);
     fileNames.append(ROM_Filename::STRING_COOP_CGTI_1);
 
     //Attempt to open each supported ROM
@@ -209,7 +216,6 @@ QFile *ROM_Handler::Load_First_Local_ROM(bool &cancel) {
 bool ROM_Handler::Clean_ROM_Directory() {
     QMap<QString, bool> fileNames;
     fileNames.insert(ROM_Filename::STRING_USA0, true);
-    fileNames.insert(ROM_Filename::STRING_USA1, true);
     fileNames.insert(ROM_Filename::STRING_COOP_CGTI_1, true);
 
     //Delete all folders
@@ -250,7 +256,6 @@ bool ROM_Handler::Clean_ROM_Directory() {
 QStringList ROM_Handler::Get_Installed_ROMs() {
     QStringList fileNames;
     fileNames.append(ROM_Filename::STRING_USA0);
-    fileNames.append(ROM_Filename::STRING_USA1);
     fileNames.append(ROM_Filename::STRING_COOP_CGTI_1);
     QStringList installedROMs;
 
