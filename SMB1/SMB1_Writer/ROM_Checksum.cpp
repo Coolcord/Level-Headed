@@ -7,14 +7,18 @@
 
 ROM_Checksum::ROM_Checksum() {
     //Populate the checksum map
-    this->checksumMap = new QMap<QString, ROM_Type::ROM_Type>();
-    this->checksumMap->insert(CHECKSUM_USA0, ROM_Type::DEFAULT);
-    this->checksumMap->insert(CHECKSUM_USA1, ROM_Type::DEFAULT);
-    this->checksumMap->insert(CHECKSUM_COOP_CGTI_1, ROM_Type::COOP_CGTI_1);
+    this->checksumMap = new QMap<QString, Unfixed_ROM_Type::Unfixed_ROM_Type>();
+    this->checksumMap->insert(CHECKSUM_USA0, Unfixed_ROM_Type::USA0);
+    this->checksumMap->insert(CHECKSUM_USA0_HEADERLESS, Unfixed_ROM_Type::USA0_Headerless);
+    this->checksumMap->insert(CHECKSUM_USA1, Unfixed_ROM_Type::USA1);
+    this->checksumMap->insert(CHECKSUM_USA1_HEADERLESS, Unfixed_ROM_Type::USA1_Headerless);
+    this->checksumMap->insert(CHECKSUM_COOP_CGTI_1, Unfixed_ROM_Type::COOP_CGTI_1);
     //Populate the filename map
     this->fileNameMap = new QMap<QString, QString>();
     this->fileNameMap->insert(CHECKSUM_USA0, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_USA0_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_USA1, ROM_Filename::STRING_USA1);
+    this->fileNameMap->insert(CHECKSUM_USA1_HEADERLESS, ROM_Filename::STRING_USA1);
     this->fileNameMap->insert(CHECKSUM_COOP_CGTI_1, ROM_Filename::STRING_COOP_CGTI_1);
 }
 
@@ -41,16 +45,44 @@ QString ROM_Checksum::Get_ROM_Checksum(QFile *file) {
     return QString(QCryptographicHash::hash(buffer, QCryptographicHash::Sha512).toHex().toUpper());
 }
 
-ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Checksum(const QString &romChecksum) {
+Unfixed_ROM_Type::Unfixed_ROM_Type ROM_Checksum::Get_Unfixed_ROM_Type_From_Checksum(const QString &romChecksum) {
     assert(this->checksumMap);
-    if (!this->checksumMap->contains(romChecksum)) return ROM_Type::INVALID;
+    if (!this->checksumMap->contains(romChecksum)) return Unfixed_ROM_Type::INVALID;
     return this->checksumMap->value(romChecksum);
+}
+
+ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Checksum(const QString &romChecksum) {
+    return this->Get_ROM_Type_From_Unfixed_ROM_Type(this->Get_Unfixed_ROM_Type_From_Checksum(romChecksum));
 }
 
 QString ROM_Checksum::Get_ROM_Filename_From_Checksum(const QString &romChecksum) {
     assert(this->fileNameMap);
     if (!this->fileNameMap->contains(romChecksum)) return QString();
     return this->fileNameMap->value(romChecksum);
+}
+
+ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType) {
+    switch (unfixedROMType) {
+    case Unfixed_ROM_Type::USA0:            return ROM_Type::DEFAULT;
+    case Unfixed_ROM_Type::USA0_Headerless: return ROM_Type::DEFAULT;
+    case Unfixed_ROM_Type::USA1:            return ROM_Type::DEFAULT;
+    case Unfixed_ROM_Type::USA1_Headerless: return ROM_Type::DEFAULT;
+    case Unfixed_ROM_Type::COOP_CGTI_1:     return ROM_Type::COOP_CGTI_1;
+    case Unfixed_ROM_Type::INVALID:         return ROM_Type::INVALID;
+    }
+    return ROM_Type::INVALID;
+}
+
+void ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType) {
+    if (buffer.isEmpty()) return;
+    switch (unfixedROMType) {
+    case Unfixed_ROM_Type::USA0:            return;
+    case Unfixed_ROM_Type::USA0_Headerless: this->Add_Standard_Header(buffer); return;
+    case Unfixed_ROM_Type::USA1:            return;
+    case Unfixed_ROM_Type::USA1_Headerless: this->Add_Standard_Header(buffer); return;
+    case Unfixed_ROM_Type::COOP_CGTI_1:     return;
+    case Unfixed_ROM_Type::INVALID:         return;
+    }
 }
 
 bool ROM_Checksum::Check_ROM_Header(QFile *file) {
@@ -61,6 +93,7 @@ bool ROM_Checksum::Check_ROM_Header(QFile *file) {
     if (buffer.data() == nullptr || buffer.size() != 4) return false;
 
     if (this->Check_NES_ROM_Header(&buffer)) return true;
+    else if (this->Check_No_ROM_Header(&buffer)) return true;
     return this->Check_FDS_ROM_Header(&buffer);
 }
 
@@ -74,6 +107,14 @@ bool ROM_Checksum::Check_NES_ROM_Header(QByteArray *buffer) {
     return static_cast<unsigned char>(buffer->at(3)) == 0x1A;
 }
 
+bool ROM_Checksum::Check_No_ROM_Header(QByteArray *buffer) {
+    assert(buffer);
+    if (static_cast<unsigned char>(buffer->at(0)) != 0x78) return false;
+    if (static_cast<unsigned char>(buffer->at(1)) != 0xD8) return false;
+    if (static_cast<unsigned char>(buffer->at(2)) != 0xA9) return false;
+    return static_cast<unsigned char>(buffer->at(3)) == 0x10;
+}
+
 bool ROM_Checksum::Check_FDS_ROM_Header(QByteArray *buffer) {
     assert(buffer);
 
@@ -82,4 +123,8 @@ bool ROM_Checksum::Check_FDS_ROM_Header(QByteArray *buffer) {
     if (static_cast<unsigned char>(buffer->at(1)) != 0x44) return false;
     if (static_cast<unsigned char>(buffer->at(2)) != 0x53) return false;
     return static_cast<unsigned char>(buffer->at(3)) == 0x1A;
+}
+
+void ROM_Checksum::Add_Standard_Header(QByteArray &buffer) {
+    buffer.prepend(QByteArray::fromHex(QString("4e45531a020101000000000000000000").toLatin1()));
 }

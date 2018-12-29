@@ -58,7 +58,8 @@ HEADERS += SMB1_Writer.h \
     Graphics.h \
     Text.h \
     Sequential_Archive_Handler.h \
-    Powerups.h
+    Powerups.h \
+    Unfixed_ROM_Type.h
 OTHER_FILES +=
 
 unix {
