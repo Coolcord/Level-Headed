@@ -69,9 +69,23 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 
 qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
+    case ROM_Type::DEFAULT:
+        return offset; //nothing to do
     case ROM_Type::EUROPE:
+        if (offset < 0x1AF5) return offset;
+        if (offset < 0x1C08) return offset + 0x2;
+        if (offset < 0x391A) return offset;
+        if (offset < 0x406E) return offset + 0x5;
+        if (offset < 0x4F48) return offset + 0x6;
+        if (offset < 0x56E6) return offset - 0x38;
+        if (offset < 0x594F) return offset;
+        if (offset < 0x5D5B) return offset + 0x2;
+        if (offset < 0x6453) return offset + 0x8;
+        if (offset < 0x72DA) return offset + 0x7;
+        if (offset < 0x7F9E) return offset + 0x1;
+        return offset;
     case ROM_Type::FDS:
-    case ROM_Type::DEFAULT: return offset; //nothing to do
+        return offset;
     case ROM_Type::COOP_CGTI_1:
         if (offset < 0x0258) return offset + 0x7DFD;
         if (offset < 0x02B4) return offset + 0x7E0B;
