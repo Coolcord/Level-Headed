@@ -17,6 +17,14 @@ namespace Unfixed_ROM_Type {
         TR2_Headerless,
         TRACK,
         TRACK_Headerless,
+        EUROPE,
+        EUROPE_Headerless,
+        DUCKE,
+        DUCKE_Headerless,
+        TETRIS,
+        TETRIS_Headerless,
+        FDS,
+        FDS_Headerless,
         COOP_CGTI_1,
         INVALID
     };

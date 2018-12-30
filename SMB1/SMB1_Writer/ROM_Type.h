@@ -5,6 +5,8 @@ namespace ROM_Type {
     enum ROM_Type {
         DEFAULT,
         COOP_CGTI_1,
+        EUROPE,
+        FDS,
         INVALID
     };
 }

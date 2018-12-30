@@ -157,12 +157,16 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
         if (enemies) {
             switch (this->levelOffset->Get_ROM_Type()) {
             case ROM_Type::INVALID:     assert(false); break;
+            case ROM_Type::EUROPE:
+            case ROM_Type::FDS:
             case ROM_Type::DEFAULT:     fixedOffset -= 0x7FF0; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x10; break;
             }
         } else {
             switch (this->levelOffset->Get_ROM_Type()) {
             case ROM_Type::INVALID:     assert(false); break;
+            case ROM_Type::EUROPE:
+            case ROM_Type::FDS:
             case ROM_Type::DEFAULT:     fixedOffset -= 0x7FEE; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x12; break;
             }
