@@ -83,6 +83,7 @@ QString ROM_Handler::Install_ROM() {
     if (!this->romChecksum->Apply_Fixes_To_Match_Checksum(buffer, unfixedROMType)) {
         file.close();
         installedFile.close();
+        installedFile.remove();
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
         return QString();
@@ -90,6 +91,7 @@ QString ROM_Handler::Install_ROM() {
     if (buffer.isEmpty() || installedFile.write(buffer) == -1) {
         file.close();
         installedFile.close();
+        installedFile.remove();
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions. Cannot continue!", Common_Strings::STRING_OK);

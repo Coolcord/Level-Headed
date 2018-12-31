@@ -20,14 +20,23 @@ ROM_Checksum::ROM_Checksum() {
     this->checksumMap->insert(CHECKSUM_TR1_HEADERLESS, Unfixed_ROM_Type::TR1_Headerless);
     this->checksumMap->insert(CHECKSUM_TR2, Unfixed_ROM_Type::TR2);
     this->checksumMap->insert(CHECKSUM_TR2_HEADERLESS, Unfixed_ROM_Type::TR2_Headerless);
+    this->checksumMap->insert(CHECKSUM_J25, Unfixed_ROM_Type::J25);
+    this->checksumMap->insert(CHECKSUM_J25_HEADERLESS, Unfixed_ROM_Type::J25_Headerless);
     this->checksumMap->insert(CHECKSUM_TRACK, Unfixed_ROM_Type::TRACK);
     this->checksumMap->insert(CHECKSUM_TRACK_HEADERLESS, Unfixed_ROM_Type::TRACK_Headerless);
+    this->checksumMap->insert(CHECKSUM_TRACK_ALT, Unfixed_ROM_Type::TRACK);
+    this->checksumMap->insert(CHECKSUM_TRACK_ALT_HEADERLESS, Unfixed_ROM_Type::TRACK_Headerless);
     this->checksumMap->insert(CHECKSUM_EUROPE, Unfixed_ROM_Type::EUROPE);
     this->checksumMap->insert(CHECKSUM_EUROPE_HEADERLESS, Unfixed_ROM_Type::EUROPE_Headerless);
     this->checksumMap->insert(CHECKSUM_DUCKE, Unfixed_ROM_Type::DUCKE);
+    this->checksumMap->insert(CHECKSUM_DUCKE_ALT_HEADER, Unfixed_ROM_Type::EUROPE);
     this->checksumMap->insert(CHECKSUM_DUCKE_HEADERLESS, Unfixed_ROM_Type::DUCKE_Headerless);
     this->checksumMap->insert(CHECKSUM_TETRIS, Unfixed_ROM_Type::TETRIS);
     this->checksumMap->insert(CHECKSUM_TETRIS_HEADERLESS, Unfixed_ROM_Type::TETRIS_Headerless);
+    this->checksumMap->insert(CHECKSUM_TETRIS_ALT, Unfixed_ROM_Type::TETRIS);
+    this->checksumMap->insert(CHECKSUM_TETRIS_ALT_HEADERLESS, Unfixed_ROM_Type::TETRIS_Headerless);
+    this->checksumMap->insert(CHECKSUM_E25, Unfixed_ROM_Type::E25);
+    this->checksumMap->insert(CHECKSUM_E25_HEADERLESS, Unfixed_ROM_Type::E25_Headerless);
     this->checksumMap->insert(CHECKSUM_FDS, Unfixed_ROM_Type::FDS);
     this->checksumMap->insert(CHECKSUM_FDS_HEADERLESS, Unfixed_ROM_Type::FDS_Headerless);
     this->checksumMap->insert(CHECKSUM_COOP_CGTI_1, Unfixed_ROM_Type::COOP_CGTI_1);
@@ -46,14 +55,23 @@ ROM_Checksum::ROM_Checksum() {
     this->fileNameMap->insert(CHECKSUM_TR1_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TR2, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TR2_HEADERLESS, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_J25, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_J25_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TRACK, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TRACK_HEADERLESS, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_TRACK_ALT, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_TRACK_ALT_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_EUROPE, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_EUROPE_HEADERLESS, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_DUCKE, ROM_Filename::STRING_EUROPE);
+    this->fileNameMap->insert(CHECKSUM_DUCKE_ALT_HEADER, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_DUCKE_HEADERLESS, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_TETRIS, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_TETRIS_HEADERLESS, ROM_Filename::STRING_EUROPE);
+    this->fileNameMap->insert(CHECKSUM_TETRIS_ALT, ROM_Filename::STRING_EUROPE);
+    this->fileNameMap->insert(CHECKSUM_TETRIS_ALT_HEADERLESS, ROM_Filename::STRING_EUROPE);
+    this->fileNameMap->insert(CHECKSUM_E25, ROM_Filename::STRING_EUROPE);
+    this->fileNameMap->insert(CHECKSUM_E25_HEADERLESS, ROM_Filename::STRING_EUROPE);
     this->fileNameMap->insert(CHECKSUM_FDS, ROM_Filename::STRING_FDS);
     this->fileNameMap->insert(CHECKSUM_FDS_HEADERLESS, ROM_Filename::STRING_FDS);
     this->fileNameMap->insert(CHECKSUM_COOP_CGTI_1, ROM_Filename::STRING_COOP_CGTI_1);
@@ -113,6 +131,8 @@ ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_
     case Unfixed_ROM_Type::TR2_Headerless:
     case Unfixed_ROM_Type::TRACK:
     case Unfixed_ROM_Type::TRACK_Headerless:
+    case Unfixed_ROM_Type::J25:
+    case Unfixed_ROM_Type::J25_Headerless:
         return ROM_Type::DEFAULT;
     case Unfixed_ROM_Type::EUROPE:
     case Unfixed_ROM_Type::EUROPE_Headerless:
@@ -120,6 +140,8 @@ ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_
     case Unfixed_ROM_Type::DUCKE_Headerless:
     case Unfixed_ROM_Type::TETRIS:
     case Unfixed_ROM_Type::TETRIS_Headerless:
+    case Unfixed_ROM_Type::E25:
+    case Unfixed_ROM_Type::E25_Headerless:
         return ROM_Type::EUROPE;
     case Unfixed_ROM_Type::FDS:
     case Unfixed_ROM_Type::FDS_Headerless:
@@ -147,6 +169,8 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::EUROPE_Headerless:
     case Unfixed_ROM_Type::DUCKE_Headerless:
     case Unfixed_ROM_Type::TETRIS_Headerless:
+    case Unfixed_ROM_Type::J25_Headerless:
+    case Unfixed_ROM_Type::E25_Headerless:
         this->Add_Standard_Header(buffer); break;
     case Unfixed_ROM_Type::FDS_Headerless:
         this->Add_Famicom_Header(buffer); break;
@@ -183,6 +207,9 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::TRACK_Headerless:
     case Unfixed_ROM_Type::TRACK:
         this->Convert_TRACK_To_PRG0(buffer); break;
+    case Unfixed_ROM_Type::J25:
+    case Unfixed_ROM_Type::J25_Headerless:
+        this->Convert_25th_Anniversary_To_Normal(buffer); break;
     case Unfixed_ROM_Type::EUROPE_Headerless:
         expectedChecksum = CHECKSUM_EUROPE; break;
     case Unfixed_ROM_Type::DUCKE:
@@ -193,6 +220,11 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::TETRIS:
     case Unfixed_ROM_Type::TETRIS_Headerless:
         this->Convert_TETRIS_To_Europe(buffer);
+        expectedChecksum = CHECKSUM_EUROPE;
+        break;
+    case Unfixed_ROM_Type::E25:
+    case Unfixed_ROM_Type::E25_Headerless:
+        this->Convert_25th_Anniversary_To_Normal(buffer);
         expectedChecksum = CHECKSUM_EUROPE;
         break;
     }
@@ -322,6 +354,10 @@ void ROM_Checksum::Convert_Trained_To_PRG0(QByteArray &buffer) {
     buffer.replace(0x0E8B, 3, QByteArray::fromHex(QString("9DFC06").toLatin1()));
     buffer.replace(0x3453, 4, QByteArray::fromHex(QString("2818100C").toLatin1()));
     buffer.replace(0x589D, 2, QByteArray::fromHex(QString("F006").toLatin1()));
+}
+
+void ROM_Checksum::Convert_25th_Anniversary_To_Normal(QByteArray &buffer) {
+    buffer.replace(0x9543, 59, QByteArray::fromHex(QString("787373737F7F80A0878F8E8E8600FFFF3F9F9F9F1FFE0105C1E17171F17E7E7F7E7E7F7FFF8181808181A080FF7F7FFF7F7FFFFFFFF1C1C181C1C5").toLatin1()));
 }
 
 void ROM_Checksum::Convert_DUCKE_To_Europe(QByteArray &buffer) {
