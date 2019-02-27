@@ -10,6 +10,9 @@ Next Update (v0.3.1)
 + Added Graphics (Reign of the Koopa by willj168)
 + Added Graphics (Zoku Jun (Palette 1) by Mikachu)
 + Added Graphics (Zoku Jun (Palette 2) by Mikachu)
++ Added Graphics (All Night Nippon 2 by teeporage777)
++ Added Graphics (The Forgotten World by Szemigi)
++ Added Graphics (The Undiscovered Zones by Szemigi)
 
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus
