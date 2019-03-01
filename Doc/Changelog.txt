@@ -3,6 +3,8 @@ Next Update (v0.3.1)
 + Partial support for the European and Famicom versions of SMB1
 + Combo carts and unheadered ROMs are now automatically patched to be compatible with Level-Headed
 + Added command line support
++ Added Music (Garuna (Variant 1) by Garuna)
++ Added Music (Garuna (Variant 2) by Garuna)
 + Added Graphics (New Mario Bros. by Super Stiviboy)
 + Added Graphics (Super Mario Bros. 4 by Guscraft808Beta2)
 + Added Graphics (All Night Nippon by Nintendo)
@@ -13,6 +15,17 @@ Next Update (v0.3.1)
 + Added Graphics (All Night Nippon 2 by teeporage777)
 + Added Graphics (The Forgotten World by Szemigi)
 + Added Graphics (The Undiscovered Zones by Szemigi)
++ Added Graphics (Mikamari 1 by Mikachu)
++ Added Graphics (Mikamari 2 by Mikachu)
++ Added Graphics (Mikamari 3 by Mikachu)
++ Added Graphics (Mikamari 4 by Mikachu)
++ Added Graphics (Super Mario 5000 by Frantik)
++ Added Graphics (Luigi and the New Quest by DarKnight13)
++ Added Graphics (Strange Mario Bros. by acmlm)
++ Added Graphics (Luigi's First Quest by ROMulus)
++ Added Graphics (Desert Land by Green Jerry)
++ Added Graphics (YASH by flamepanther)
++ Added Graphics (HF by HF Games)
 
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus

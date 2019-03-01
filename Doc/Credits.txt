@@ -4,14 +4,38 @@ Graphics:
 All Night Nippon 2 (by teeporage777)
 http://www.romhacking.net/hacks/3771/
 
+Desert Land (by Green Jerry)
+http://www.romhacking.net/hacks/3648/
+
 Dream Mario Bros. (by TheSuperShow)
 https://www.romhacking.net/hacks/3298/
 
 Harmony7's SMB Graphics (Googie's Mod) (Based on Mario in: Time is Ticking)
 https://www.romhacking.net/hacks/306/
 
+HF (by HF Games)
+http://www.romhacking.net/hacks/93/
+
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
+
+Luigi's First Quest (by ROMulus)
+http://www.romhacking.net/hacks/3590/
+
+Luigi and the New Quest (by DarKnight13)
+http://www.romhacking.net/hacks/2020/
+
+Mikamari 1 (by Mikachu)
+http://www.romhacking.net/hacks/1551/
+
+Mikamari 2 (by Mikachu)
+http://www.romhacking.net/hacks/1553/
+
+Mikamari 3 (by Mikachu)
+http://www.romhacking.net/hacks/1554/
+
+Mikamari 4 (by Mikachu)
+http://www.romhacking.net/hacks/1555/
 
 New Mario Bros. (by Super Stiviboy)
 https://www.romhacking.net/hacks/3954/
@@ -25,8 +49,20 @@ https://www.romhacking.net/hacks/116/
 Reign of the Koopa (by willj168)
 https://www.romhacking.net/hacks/653/
 
+SMB Continued (by Captain Gastronomicon)
+http://www.romhacking.net/hacks/4201/
+
+Strange Mario Bros. (by acmlm)
+http://www.romhacking.net/hacks/14/
+
 Super Duper Mario Bros. (by Tabmok99)
 https://www.romhacking.net/hacks/30/
+
+Super Mario 5000 (by Frantik)
+https://www.romhacking.net/hacks/1429/
+
+Super Mario Bros. (by Garuna)
+http://www.romhacking.net/hacks/2002/
 
 Super Mario Bros. 3: The Forgotten Worlds (by Szemigi)
 http://www.romhacking.net/hacks/3546/
@@ -45,6 +81,9 @@ https://www.romhacking.net/hacks/3227/
 
 Super Mario S (by Sogun)
 https://www.romhacking.net/hacks/1267/
+
+YASH (by flamepanther)
+http://www.romhacking.net/hacks/2663/
 
 Zoku Jun (by Mikachu)
 https://www.romhacking.net/hacks/1552/
