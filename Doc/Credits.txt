@@ -10,11 +10,26 @@ http://www.romhacking.net/hacks/3648/
 Dream Mario Bros. (by TheSuperShow)
 https://www.romhacking.net/hacks/3298/
 
+EDS (by Googie)
+http://www.romhacking.net/hacks/3443/
+
+Final Quest (by EBS)
+http://www.romhacking.net/hacks/779/
+
 Harmony7's SMB Graphics (Googie's Mod) (Based on Mario in: Time is Ticking)
 https://www.romhacking.net/hacks/306/
 
 HF (by HF Games)
 http://www.romhacking.net/hacks/93/
+
+HF 2 (by HF Games)
+http://www.romhacking.net/hacks/829/
+
+Kamikaze 3 (by 79)
+https://www.romhacking.net/hacks/1592/
+
+Kamikaze DX (by 79)
+https://www.romhacking.net/hacks/1593/
 
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
@@ -49,6 +64,9 @@ https://www.romhacking.net/hacks/116/
 Reign of the Koopa (by willj168)
 https://www.romhacking.net/hacks/653/
 
+Skeens Mario Bros. (by Mike Skeens)
+http://www.romhacking.net/hacks/3432/
+
 SMB Continued (by Captain Gastronomicon)
 http://www.romhacking.net/hacks/4201/
 
@@ -79,8 +97,14 @@ https://www.romhacking.net/hacks/144/
 Super Mario MCB (by MacBee)
 https://www.romhacking.net/hacks/3227/
 
+Super Mario Bros. NEW (by Byvegeta)
+http://www.romhacking.net/hacks/3505/
+
 Super Mario S (by Sogun)
 https://www.romhacking.net/hacks/1267/
+
+Supreme (by LooneyDude)
+http://www.romhacking.net/hacks/899/
 
 YASH (by flamepanther)
 http://www.romhacking.net/hacks/2663/

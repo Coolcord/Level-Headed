@@ -46,6 +46,7 @@ public:
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();
+    bool Top_Of_Flagpole_Gives_1UP();
     bool Unlimited_Time();
     bool Write_Watermark();
 

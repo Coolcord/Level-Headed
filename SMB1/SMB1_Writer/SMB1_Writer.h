@@ -175,6 +175,7 @@ public:
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Start_With_Fire_Flower_On_Room_Change();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
+    bool Hacks_Top_Of_Flagpole_Gives_1UP();
     bool Hacks_Write_Watermark();
 
     //Music Functions

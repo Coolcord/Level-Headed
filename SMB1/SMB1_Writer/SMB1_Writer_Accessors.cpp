@@ -625,6 +625,11 @@ bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
     return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
 }
 
+bool SMB1_Writer::Hacks_Top_Of_Flagpole_Gives_1UP() {
+    if (!this->hacks) return false;
+    return this->hacks->Top_Of_Flagpole_Gives_1UP();
+}
+
 bool SMB1_Writer::Hacks_Write_Watermark() {
     if (!this->hacks) return false;
     return this->hacks->Write_Watermark();
