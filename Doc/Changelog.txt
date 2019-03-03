@@ -34,6 +34,9 @@ Next Update (v0.3.1)
 + Added Graphics (NEW by Byvegeta)
 + Added Graphics (Supreme by LooneyDude)
 + Added Graphics (Final Quest by EBS)
++ Added Graphics (Promotion by 18 Craftsmen)
++ Added Graphics (Suicide Extreme V by EBS)
++ Added Graphics (SMB3 by GeneralGir2)
 
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus
