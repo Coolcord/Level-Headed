@@ -37,6 +37,12 @@ Next Update (v0.3.1)
 + Added Graphics (Promotion by 18 Craftsmen)
 + Added Graphics (Suicide Extreme V by EBS)
 + Added Graphics (SMB3 by GeneralGir2)
++ Added Graphics (Luigi's Summer Adventure by teeporage777)
++ Added Graphics (Super Wario Bros. by Sics)
++ Added Graphics (Super Wario Bros. (Palette 1) by Googie)
++ Added Graphics (Super Wario Bros. (Palette 2) by Googie)
++ Added Graphics (Peach's Cream (Palette 1) by Googie)
++ Added Graphics (Peach's Cream (Palette 2) by Googie)
 
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus
