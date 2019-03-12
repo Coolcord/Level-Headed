@@ -4,6 +4,9 @@ Graphics:
 All Night Nippon 2 (by teeporage777)
 http://www.romhacking.net/hacks/3771/
 
+Curse from the Outskirts (by Dr. Mario)
+http://www.romhacking.net/hacks/209/
+
 Desert Land (by Green Jerry)
 http://www.romhacking.net/hacks/3648/
 
@@ -31,6 +34,9 @@ https://www.romhacking.net/hacks/1592/
 Kamikaze DX (by 79)
 https://www.romhacking.net/hacks/1593/
 
+Kiri5 Star (by Kirikaze)
+http://www.romhacking.net/hacks/2026/
+
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
 
@@ -43,6 +49,9 @@ http://www.romhacking.net/hacks/3500/
 Luigi and the New Quest (by DarKnight13)
 http://www.romhacking.net/hacks/2020/
 
+Mario in Zebes (by Slimeous)
+http://www.romhacking.net/hacks/1899/
+
 Mikamari 1 (by Mikachu)
 http://www.romhacking.net/hacks/1551/
 
@@ -54,6 +63,9 @@ http://www.romhacking.net/hacks/1554/
 
 Mikamari 4 (by Mikachu)
 http://www.romhacking.net/hacks/1555/
+
+Mushroom Nightmare (by Shadic)
+https://www.romhacking.net/hacks/114/
 
 New Mario Bros. (by Super Stiviboy)
 https://www.romhacking.net/hacks/3954/
@@ -73,6 +85,12 @@ http://www.romhacking.net/hacks/2043/
 Reign of the Koopa (by willj168)
 https://www.romhacking.net/hacks/653/
 
+Remix 2 - The New Adventures (by Raysyde)
+http://www.romhacking.net/hacks/1564/
+
+Remix 3 - The Link Adventures (by Raysyde)
+http://www.romhacking.net/hacks/1565/
+
 Skeens Mario Bros. (by Mike Skeens)
 http://www.romhacking.net/hacks/3432/
 
@@ -90,6 +108,9 @@ http://www.romhacking.net/hacks/2969/
 
 Super Duper Mario Bros. (by Tabmok99)
 https://www.romhacking.net/hacks/30/
+
+Super Luigi - The Forgotten Adventure (by Googie)
+https://www.romhacking.net/hacks/2440/
 
 Super Mario 5000 (by Frantik)
 https://www.romhacking.net/hacks/1429/
@@ -221,6 +242,7 @@ N/A
 =============================================================================================================
 Author Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who made these!
 Hyper Mario
+Link Bros
 Mario 2001
 Super Bubba Bros.
 Super Mario Bros. Nonstop
