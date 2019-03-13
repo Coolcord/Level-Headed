@@ -52,6 +52,12 @@ Next Update (v0.3.1)
 + Added Graphics (Kiri5 Star by Kirikaze)
 + Added Graphics (Mario in Zebes by Slimeous)
 + Added Graphics (Super Luigi - The Forgotten Adventure by Googie)
++ Added Graphics (Luigi's Chronicles (Palette 1) by Googie)
++ Added Graphics (Luigi's Chronicles (Palette 2) by Googie)
++ Added Graphics (Toad's Adventure by Omniverse)
++ Added Graphics (Toad's Treasure Quest by AlexAR)
++ Added Graphics (Harvett Fox by HarvettFox96)
++ Added Graphics (Let's Kill Iggy by Captain Gastronomicon)
 
 Bullet Time (v0.3.0)
 + Added Bullet Bills and Lakitus

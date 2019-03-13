@@ -22,6 +22,9 @@ http://www.romhacking.net/hacks/779/
 Harmony7's SMB Graphics (Googie's Mod) (Based on Mario in: Time is Ticking)
 https://www.romhacking.net/hacks/306/
 
+Harvett Fox (by HarvettFox96)
+https://www.romhacking.net/hacks/4183/
+
 HF (by HF Games)
 http://www.romhacking.net/hacks/93/
 
@@ -37,8 +40,14 @@ https://www.romhacking.net/hacks/1593/
 Kiri5 Star (by Kirikaze)
 http://www.romhacking.net/hacks/2026/
 
+Let's Kill Iggy (by Captain Gastronomicon)
+https://www.romhacking.net/hacks/4258/
+
 Lost Levels (by Captain Antonio Falcon)
 https://www.youtube.com/watch?v=ZTYssnmeiR4
+
+Luigi's Chronicles (by Googie)
+https://www.romhacking.net/hacks/33/
 
 Luigi's First Quest (by ROMulus)
 http://www.romhacking.net/hacks/3590/
@@ -147,6 +156,12 @@ http://www.romhacking.net/hacks/2430/
 
 Supreme (by LooneyDude)
 http://www.romhacking.net/hacks/899/
+
+Toad's Adventure (by Omniverse)
+https://www.romhacking.net/hacks/86/
+
+Toad's Treasure Quest (by AlexAR)
+https://www.romhacking.net/hacks/191/
 
 YASH (by flamepanther)
 http://www.romhacking.net/hacks/2663/
