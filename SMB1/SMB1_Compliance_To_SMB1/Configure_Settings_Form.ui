@@ -459,10 +459,10 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbRandomSoundEffects">
                 <property name="text">
-                 <string>Random Sound Effects</string>
+                 <string>Randomize Some Sound Effects</string>
                 </property>
                 <property name="tristate">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>

@@ -38,7 +38,7 @@ struct Plugin_Settings {
     int music;
     bool combineMusicWithOtherPacks;
     int toneColor;
-    Qt::CheckState randomSounds;
+    bool randomSounds;
     int graphics;
     bool infiniteLives;
     bool permadeath;

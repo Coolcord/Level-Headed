@@ -12,6 +12,7 @@
 #include "Room_Address_Writer.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Sound.h"
 #include "Powerups.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
@@ -41,6 +42,7 @@ SMB1_Writer::SMB1_Writer() {
     this->midpointWriter = nullptr;
     this->hacks = nullptr;
     this->music = nullptr;
+    this->sound = nullptr;
     this->graphics = nullptr;
     this->powerups = nullptr;
     this->sequentialArchiveHandler = nullptr;
@@ -97,6 +99,8 @@ void SMB1_Writer::Shutdown() {
     this->hacks = nullptr;
     delete this->music;
     this->music = nullptr;
+    delete this->sound;
+    this->sound = nullptr;
     delete this->graphics;
     this->graphics = nullptr;
     delete this->powerups;
@@ -168,6 +172,8 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->hacks = nullptr;
         delete this->music;
         this->music = nullptr;
+        delete this->sound;
+        this->sound = nullptr;
         delete this->graphics;
         this->graphics = nullptr;
         delete this->powerups;
@@ -188,6 +194,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->text = new Text(this->file, this->levelOffset);
         this->hacks = new Hacks(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
         this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
+        this->sound = new Sound(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
         this->powerups = new Powerups(this->file, this->levelOffset, this->sequentialArchiveHandler, this->graphics, this->hacks);
         this->sequentialArchiveHandler->Set_File(this->file);

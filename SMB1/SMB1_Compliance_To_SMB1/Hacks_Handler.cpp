@@ -23,6 +23,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (fullSupport) {
         if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
         if (!this->Handle_Music()) return false;
+        if (this->pluginSettings->randomSounds && !this->writerPlugin->Sound_Randomize_Sounds()) return false;
         if (!this->Handle_God_Mode()) return false;
         if (this->pluginSettings->addLuigiGame) {
             if (!this->writerPlugin->Hacks_Add_Luigi_Game()) return false;

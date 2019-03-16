@@ -18,6 +18,7 @@ class Room_Order_Writer;
 class Room_Address_Writer;
 class Hacks;
 class Music;
+class Sound;
 class Sequential_Archive_Handler;
 class Text;
 class Graphics;
@@ -203,6 +204,9 @@ public:
     bool Music_Tone_Color_17();
     bool Music_Tone_Color_18();
 
+    //Sound
+    bool Sound_Randomize_Sounds();
+
     //Powerups
     bool Powerups_Replace_1UP_With_Poison_Mushroom();
     bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
@@ -253,6 +257,7 @@ private:
     Room_Address_Writer *roomAddressWriter;
     Hacks *hacks;
     Music *music;
+    Sound *sound;
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     Graphics *graphics;

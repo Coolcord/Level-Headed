@@ -187,6 +187,9 @@ public:
     virtual bool Music_Tone_Color_17()=0;
     virtual bool Music_Tone_Color_18()=0;
 
+    //Sound
+    virtual bool Sound_Randomize_Sounds()=0;
+
     //Powerups
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario()=0;

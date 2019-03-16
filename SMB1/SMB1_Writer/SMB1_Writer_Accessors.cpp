@@ -7,6 +7,7 @@
 #include "Room_ID_Handler.h"
 #include "Hacks.h"
 #include "Music.h"
+#include "Sound.h"
 #include "Powerups.h"
 #include "Graphics.h"
 #include "Sequential_Archive_Handler.h"
@@ -749,6 +750,11 @@ bool SMB1_Writer::Music_Tone_Color_17() {
 bool SMB1_Writer::Music_Tone_Color_18() {
     if (!this->music) return false;
     return this->music->Tone_Color_18();
+}
+
+bool SMB1_Writer::Sound_Randomize_Sounds() {
+    if (!this->sound) return false;
+    return this->sound->Randomize_Sounds();
 }
 
 bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom() {

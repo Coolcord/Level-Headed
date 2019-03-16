@@ -33,7 +33,8 @@ SOURCES += SMB1_Writer.cpp \
     Graphics.cpp \
     Text.cpp \
     Sequential_Archive_Handler.cpp \
-    Powerups.cpp
+    Powerups.cpp \
+    Sound.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
@@ -59,7 +60,8 @@ HEADERS += SMB1_Writer.h \
     Text.h \
     Sequential_Archive_Handler.h \
     Powerups.h \
-    Unfixed_ROM_Type.h
+    Unfixed_ROM_Type.h \
+    Sound.h
 OTHER_FILES +=
 
 unix {
