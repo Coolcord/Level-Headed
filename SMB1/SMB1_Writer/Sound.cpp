@@ -16,16 +16,7 @@ bool Sound::Randomize_Sounds() {
     }
 
     //Coin
-    if (Random::Get_Num(CHANCE)==0) {
-        switch(Random::Get_Num(1)+1) {
-        default:    assert(false); break;
-        case 1:     success = this->Coin_1(); break;
-        case 2:     success = this->Coin_2(); break;
-        }
-        if (!success) return false;
-    } else {
-        if (!this->Coin_Random()) return false;
-    }
+    if (!this->Coin_Random()) return false;
 
     //Brick Break
     if (Random::Get_Num(CHANCE)) {
@@ -75,12 +66,10 @@ bool Sound::Small_Jump_Is_Big_Jump() { return this->Write_Bytes_To_Offset(0x3529
 bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("0C0B0A090807060504030201").toLatin1())); }
 bool Sound::Brick_Break_2() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("6906CE0FAD09FD0D080D7A").toLatin1())); }
 bool Sound::Brick_Break_3() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("6A990CF50A090347080D0644").toLatin1())); }
-bool Sound::Coin_1() {
-    if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(0x04)))) return false;
-    return this->Write_Bytes_To_Offset(0x7540, QByteArray(1, static_cast<char>(0xFA)));
+bool Sound::Coin_Random() {
+    if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(Random::Get_Num(0x69)+0x04)))) return false;
+    return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1));
 }
-bool Sound::Coin_2() { return this->Write_Bytes_To_Offset(0x7540, QByteArray(1, static_cast<char>(0xFA))); }
-bool Sound::Coin_Random() { return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1)); }
 bool Sound::Powerup_1() { return this->Write_Bytes_To_Offset(0x74EA, QByteArray::fromHex(QString("122A426226405A0C223A4E58081E364C061C3444565E18304802122A4200").toLatin1())); }
 bool Sound::Powerup_2() { return this->Write_Bytes_To_Offset(0x74EA, QByteArray::fromHex(QString("3052302C3E1A3E1A140C2E502E642032203210241E491E34102210061CF8F8").toLatin1())); }
 bool Sound::Small_Jump_1() { return this->Write_Bytes_To_Offset(0x7453, QByteArray::fromHex(QString("EAEA").toLatin1())); }
