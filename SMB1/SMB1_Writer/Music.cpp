@@ -76,3 +76,50 @@ bool Music::Tone_Color_10() {
     if (!this->Write_Bytes_To_Offset(0x7F45, QByteArray(1, static_cast<char>(0xB3)))) return false;
     return this->Write_Bytes_To_Offset(0x7F72, QByteArray::fromHex(QString("021A").toLatin1()));
 }
+
+bool Music::Tone_Color_11() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(11)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("4050505454585C60404449494C4C4C50505050505054545454545458585858585858585858585858"
+            "585858585454504C").toLatin1()));
+}
+
+bool Music::Tone_Color_12() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(12)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("80A0A0A8A8B0B8C080889090989898A0A0A0A0A0A0A8A8A8A8A8A8B0B0B0B0B0B0B0B0B0B0B0B0B0"
+            "B0B0B0B0A8A8A098").toLatin1()));
+}
+
+bool Music::Tone_Color_13() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(13)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("018080A0A0C0E00101204040606060808080808080A0A0A0A0A0A0C0C0C0C0C0C0C0C0C0C0C0C0C0"
+            "C0C0C0C0A0A08060").toLatin1()));
+}
+
+bool Music::Tone_Color_14() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(14)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("01010101010101010101010101010101010101010101010101010101010101010101010101010101"
+            "0101010101010101").toLatin1()));
+}
+
+bool Music::Tone_Color_15() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(15)) return true;
+    return this->Write_Bytes_To_Offset(0x7861, QByteArray(1, static_cast<char>(0xFF)));
+}
+
+bool Music::Tone_Color_16() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(16)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("50545455555657585051535353535354545454545455555555555556565656565656565656565656"
+            "5656565655555453").toLatin1()));
+}
+
+bool Music::Tone_Color_17() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(17)) return true;
+    return this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("10141415151617181011131313131314141414141415151515151516161616161616161616161616"
+            "1616161615151413").toLatin1()));
+}
+
+bool Music::Tone_Color_18() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(18)) return true;
+    return this->Write_Bytes_To_Offset(0x7FA6, QByteArray::fromHex(QString("909192939495969798999A9B9C9D9E9F909192939395969798999A9B9C9D9E9F9091929394959597"
+            "98999A9B9C9D9E9F90919292939495").toLatin1()));
+}

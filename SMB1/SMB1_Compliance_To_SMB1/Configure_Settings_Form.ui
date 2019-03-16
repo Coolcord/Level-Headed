@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -392,6 +392,46 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>10</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>11</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>12</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>13</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>14</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>15</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>17</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>18</string>
                    </property>
                   </item>
                  </widget>

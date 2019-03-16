@@ -3,6 +3,7 @@ Next Update (v0.3.1)
 + Partial support for the European and Famicom versions of SMB1
 + Combo carts and unheadered ROMs are now automatically patched to be compatible with Level-Headed
 + Added command line support
++ 8 new tone colors for music
 + Added Music (Garuna (Variant 1) by Garuna)
 + Added Music (Garuna (Variant 2) by Garuna)
 + Added Music (Kamikaze DX by 79)

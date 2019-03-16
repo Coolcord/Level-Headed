@@ -711,6 +711,46 @@ bool SMB1_Writer::Music_Tone_Color_10() {
     return this->music->Tone_Color_10();
 }
 
+bool SMB1_Writer::Music_Tone_Color_11() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_11();
+}
+
+bool SMB1_Writer::Music_Tone_Color_12() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_12();
+}
+
+bool SMB1_Writer::Music_Tone_Color_13() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_13();
+}
+
+bool SMB1_Writer::Music_Tone_Color_14() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_14();
+}
+
+bool SMB1_Writer::Music_Tone_Color_15() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_15();
+}
+
+bool SMB1_Writer::Music_Tone_Color_16() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_16();
+}
+
+bool SMB1_Writer::Music_Tone_Color_17() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_17();
+}
+
+bool SMB1_Writer::Music_Tone_Color_18() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_18();
+}
+
 bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom() {
     if (!this->powerups) return false;
     return this->powerups->Replace_1UP_With_Poison_Mushroom();

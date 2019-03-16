@@ -194,6 +194,14 @@ public:
     bool Music_Tone_Color_8();
     bool Music_Tone_Color_9();
     bool Music_Tone_Color_10();
+    bool Music_Tone_Color_11();
+    bool Music_Tone_Color_12();
+    bool Music_Tone_Color_13();
+    bool Music_Tone_Color_14();
+    bool Music_Tone_Color_15();
+    bool Music_Tone_Color_16();
+    bool Music_Tone_Color_17();
+    bool Music_Tone_Color_18();
 
     //Powerups
     bool Powerups_Replace_1UP_With_Poison_Mushroom();

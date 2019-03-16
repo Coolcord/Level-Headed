@@ -178,6 +178,14 @@ public:
     virtual bool Music_Tone_Color_8()=0;
     virtual bool Music_Tone_Color_9()=0;
     virtual bool Music_Tone_Color_10()=0;
+    virtual bool Music_Tone_Color_11()=0;
+    virtual bool Music_Tone_Color_12()=0;
+    virtual bool Music_Tone_Color_13()=0;
+    virtual bool Music_Tone_Color_14()=0;
+    virtual bool Music_Tone_Color_15()=0;
+    virtual bool Music_Tone_Color_16()=0;
+    virtual bool Music_Tone_Color_17()=0;
+    virtual bool Music_Tone_Color_18()=0;
 
     //Powerups
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
