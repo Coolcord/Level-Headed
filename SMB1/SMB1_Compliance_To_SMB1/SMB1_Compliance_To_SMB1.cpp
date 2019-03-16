@@ -216,6 +216,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Music", this->pluginSettings.music)) return false;
     if (!configFile.Set_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks)) return false;
     if (!configFile.Set_Value("Tone_Color", this->pluginSettings.toneColor)) return false;
+    if (!configFile.Set_Value("Random_Sound_Effects", this->pluginSettings.randomSounds)) return false;
     if (!configFile.Set_Value("Graphics", this->pluginSettings.graphics)) return false;
     if (!configFile.Set_Value("Infinite_Lives", this->pluginSettings.infiniteLives)) return false;
     if (!configFile.Set_Value("Permadeath", this->pluginSettings.permadeath)) return false;
@@ -234,6 +235,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
 
 bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     Readable_Config_File configFile;
+    int tmp = 0;
     if (!configFile.Open(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME)) return false;
     configFile.Get_Value("Last_Tab", this->pluginSettings.tab);
     configFile.Get_Value("Base_ROM", this->pluginSettings.baseROM);
@@ -289,6 +291,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Music", this->pluginSettings.music);
     configFile.Get_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks);
     configFile.Get_Value("Tone_Color", this->pluginSettings.toneColor);
+    configFile.Get_Value("Random_Sound_Effects", tmp); this->pluginSettings.randomSounds = static_cast<Qt::CheckState>(tmp);
     configFile.Get_Value("Graphics", this->pluginSettings.graphics);
     configFile.Get_Value("Infinite_Lives", this->pluginSettings.infiniteLives);
     configFile.Get_Value("Permadeath", this->pluginSettings.permadeath);
@@ -324,6 +327,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.music = 0;
     this->pluginSettings.combineMusicWithOtherPacks = true;
     this->pluginSettings.toneColor = 0;
+    this->pluginSettings.randomSounds = Qt::PartiallyChecked;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.permadeath = false;

@@ -24,6 +24,7 @@ void Tab_Base_Game::Load_Settings() {
     else this->ui->comboMusic->setCurrentIndex(2); //use original music
     this->ui->cbCombineWithOtherMusicPacks->setChecked(this->pluginSettings->combineMusicWithOtherPacks);
     this->ui->comboTone->setCurrentIndex(this->pluginSettings->toneColor);
+    this->ui->cbRandomSoundEffects->setCheckState(this->pluginSettings->randomSounds);
     if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
@@ -40,6 +41,7 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->music = this->ui->comboMusic->currentIndex();
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
     this->pluginSettings->toneColor = this->ui->comboTone->currentIndex();
+    this->pluginSettings->randomSounds = this->ui->cbRandomSoundEffects->checkState();
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
     this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();

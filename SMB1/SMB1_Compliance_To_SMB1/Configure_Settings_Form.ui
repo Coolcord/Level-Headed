@@ -457,6 +457,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbRandomSoundEffects">
+                <property name="text">
+                 <string>Random Sound Effects</string>
+                </property>
+                <property name="tristate">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
                <layout class="QVBoxLayout" name="layoutPowerup">
                 <item>
                  <widget class="QLabel" name="lblPowerup">
