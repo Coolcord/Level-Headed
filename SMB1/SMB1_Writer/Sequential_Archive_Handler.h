@@ -28,7 +28,7 @@ public:
     QByteArray Read_Graphics_Fix(const QString &fixName);
 
 private:
-    bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch);
+    bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks);
     bool Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch);
     bool Apply_Secondary_Music_Patches(const QString &patchList);
     QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);

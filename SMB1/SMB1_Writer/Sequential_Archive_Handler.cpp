@@ -133,7 +133,7 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName)
     return patchBytes;
 }
 
-bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch) {
+bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks) {
     if (!this->file) return false;
     QByteArray patchBytes = this->Read_Music_Pack(musicPack);
     qDebug() << "Using music pack " << musicPack;
@@ -147,28 +147,31 @@ bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool
     if (this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) != Hexagon_Error_Codes::OK) return false;
 
     //Possibly apply additional patches
-    if (isSecondaryPatch || !this->combineMusicPacks) return true;
-    QStringList compatiblePacks = this->Get_Compatible_Music_Packs(patchBytes);
+    if (!this->combineMusicPacks) return true;
+    QStringList currentCompatiblePacks = this->Get_Compatible_Music_Packs(patchBytes);
+    QStringList compatiblePacks;
+    if (isSecondaryPatch) { //only consider what's compatible with this pack as well as all previous packs
+        for (int i = 0; i < previouscompatiblePacks.size(); ++i) {
+            QString packName = previouscompatiblePacks.at(i);
+            if (currentCompatiblePacks.contains(packName)) {
+                compatiblePacks.push_back(packName);
+            }
+        }
+    } else { //consider all compatible patches for the primary patch
+        compatiblePacks = currentCompatiblePacks;
+    }
     int secondaryIndex = Random::Get_Num(compatiblePacks.size());
     if (secondaryIndex == compatiblePacks.size()) return true; //don't apply anything
-    return this->Apply_Secondary_Music_Patches(compatiblePacks.at(secondaryIndex));
+    QString packName = compatiblePacks.at(secondaryIndex);
+    compatiblePacks.removeAt(secondaryIndex); //remove the pack that is going to be used
+    return this->Apply_Music_Pack(packName, true, compatiblePacks);
 }
 
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch) {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     assert(index < this->musicPackStrings.size());
-    return this->Apply_Music_Pack(this->musicPackStrings.at(index), isSecondaryPatch);
-}
-
-bool Sequential_Archive_Handler::Apply_Secondary_Music_Patches(const QString &patchList) {
-    QStringList patches = patchList.split(';');
-    if (patches.isEmpty()) return true; //nothing to do
-
-    //Apply all patches
-    for (int i = 0; i < patches.size(); ++i) {
-        if (!this->Apply_Music_Pack(patches.at(i), true)) return false;
-    }
-    return true;
+    QStringList compatiblePacks;
+    return this->Apply_Music_Pack(this->musicPackStrings.at(index), isSecondaryPatch, compatiblePacks);
 }
 
 QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteArray &patchBytes) {
