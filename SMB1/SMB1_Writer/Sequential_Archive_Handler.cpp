@@ -64,6 +64,7 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     if (!this->Load_Plugins_If_Necessary()) return false;
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return false;
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+this->graphicsPackStrings.at(index));
+    qDebug() << "Using graphics pack " << this->graphicsPackStrings.at(index);
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
