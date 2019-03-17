@@ -7,6 +7,7 @@ bool Sound::Randomize_Sounds() {
     bool success = false;
 
     //Set Jump Sounds
+    if (!this->Jump_Random()) return false;
     if (Random::Get_Num(1)) {
         if (Random::Get_Num(1)) {
             if (!this->Big_Jump_Is_Small_Jump()) return false;
@@ -39,9 +40,6 @@ bool Sound::Randomize_Sounds() {
         if (!success) return false;
     }
 
-    //Small Jump
-    if (Random::Get_Num(CHANCE)==0 && !this->Small_Jump_1()) return false;
-
     //Stomp
     if (Random::Get_Num(CHANCE)) {
         if (Random::Get_Num(CHANCE)==0) {
@@ -70,8 +68,12 @@ bool Sound::Coin_Random() {
     if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(Random::Get_Num(0x69)+0x04)))) return false;
     return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1));
 }
+bool Sound::Jump_Random() {
+    if (!this->Write_Bytes_To_Offset(0x73EB, QByteArray(1, static_cast<char>(Random::Get_Num(0x0C)+0x1F)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x73F3, QByteArray(1, static_cast<char>(Random::Get_Num(0x05)+0x23)))) return false;
+    return this->Write_Bytes_To_Offset(0x73FD, QByteArray(1, static_cast<char>(Random::Get_Num(0x0C)+0x18)));
+}
 bool Sound::Powerup_1() { return this->Write_Bytes_To_Offset(0x74EA, QByteArray::fromHex(QString("122A426226405A0C223A4E58081E364C061C3444565E18304802122A4200").toLatin1())); }
 bool Sound::Powerup_2() { return this->Write_Bytes_To_Offset(0x74EA, QByteArray::fromHex(QString("3052302C3E1A3E1A140C2E502E642032203210241E491E34102210061CF8F8").toLatin1())); }
-bool Sound::Small_Jump_1() { return this->Write_Bytes_To_Offset(0x7453, QByteArray::fromHex(QString("EAEA").toLatin1())); }
 bool Sound::Stomp_1() { return this->Write_Bytes_To_Offset(0x73C1, QByteArray::fromHex(QString("0101010101010101010101010101").toLatin1())); }
 bool Sound::Stomp_Random() { return this->Write_Bytes_To_Offset(0x73C1, this->Get_Random_Bytes(14)); }

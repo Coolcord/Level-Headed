@@ -18,6 +18,7 @@ private:
     bool Brick_Break_2();
     bool Brick_Break_3();
     bool Coin_Random();
+    bool Jump_Random();
     bool Powerup_1();
     bool Powerup_2();
     bool Small_Jump_1();
