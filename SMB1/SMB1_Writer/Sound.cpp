@@ -70,7 +70,7 @@ bool Sound::Coin_Random() {
 }
 bool Sound::Jump_Random() {
     if (!this->Write_Bytes_To_Offset(0x73EB, QByteArray(1, static_cast<char>(Random::Get_Num(0x0C)+0x1F)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x73F3, QByteArray(1, static_cast<char>(Random::Get_Num(0x05)+0x23)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x73F3, QByteArray(1, static_cast<char>(Random::Get_Num(0x07)+0x24)))) return false;
     return this->Write_Bytes_To_Offset(0x73FD, QByteArray(1, static_cast<char>(Random::Get_Num(0x0C)+0x18)));
 }
 bool Sound::Powerup_1() { return this->Write_Bytes_To_Offset(0x74EA, QByteArray::fromHex(QString("122A426226405A0C223A4E58081E364C061C3444565E18304802122A4200").toLatin1())); }
