@@ -23,7 +23,7 @@ git clone https://github.com/Coolcord/C_Common_Code.git
 cd Level-Headed/Level-Headed/
 sed -i '/INCLUDEPATH += \./a QT += gui widgets' Level-Headed.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../
 
 # Build the SMB1 Compliance Level Generator Plugin
@@ -31,7 +31,7 @@ cd Level-Headed/SMB1/SMB1_Compliance_Generator/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_Generator.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_Generator.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../../
 
 # Build the SMB1 Compliance to SMB1 Interpreter Plugin
@@ -39,7 +39,7 @@ cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_To_SMB1.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_To_SMB1.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../../
 
 # Build the SMB1 Writer Plugin
@@ -47,7 +47,7 @@ cd Level-Headed/SMB1/SMB1_Writer/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Writer.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Writer.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../../
 
 # Build the Hexagon Plugin
@@ -55,7 +55,7 @@ cd Hexagon/Hexagon/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Hexagon.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Hexagon.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../
 
 # Build the Sequential Archive Plugin
@@ -63,14 +63,14 @@ cd Sequential_Archive/Sequential_Archive/
 sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Sequential_Archive.pro
 sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Sequential_Archive.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../
 
 # Build SAM
 cd Sequential_Archive/Sequential_Archive_Manager/
 sed -i '/INCLUDEPATH += \./a QT += gui widgets' Sequential_Archive_Manager.pro
 qmake -config release
-make -j $CPUcores
+make -j $CPUcores || exit 1
 cd ../../
 
 # Create the Runtime Environment
