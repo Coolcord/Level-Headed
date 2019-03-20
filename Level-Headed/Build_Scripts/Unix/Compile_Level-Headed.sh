@@ -9,15 +9,26 @@ CPUcores=$(nproc)
 
 # Prepare Folders And Pull Code
 rm -rf Level-Headed
-mkdir Level-Headed
-cd Level-Headed
-mkdir source
-cd source
+mkdir Level-Headed; cd Level-Headed
+mkdir source; cd source
 git clone https://github.com/Coolcord/Level-Headed.git
 git clone https://github.com/Coolcord/Level-Headed_Data.git
 git clone https://github.com/Coolcord/Hexagon.git
 git clone https://github.com/Coolcord/Sequential_Archive.git
 git clone https://github.com/Coolcord/C_Common_Code.git
+
+# Revert to stable code
+if [ -z $1 ] || [ $1 != "latest" ]; then
+    echo Using stable code...
+    cd Level-Headed/; git checkout tags/v0.3.0 &> /dev/null
+    cd ../Level-Headed_Data/; git checkout tags/v0.1.0 &> /dev/null
+    cd ../Hexagon/; git checkout tags/v1.0.2 &> /dev/null
+    cd ../Sequential_Archive/; git checkout 028fdb371134db190195b282ddd356edfeeba704 &> /dev/null
+    cd ../C_Common_Code/; git checkout 98bf507bf79c2be566a5c2d8f78cf61a4c2347e4 &> /dev/null
+    cd ..
+else
+    echo Using latest code...
+fi
 
 # Build Level-Headed
 cd Level-Headed/Level-Headed/
