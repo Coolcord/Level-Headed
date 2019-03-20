@@ -8,7 +8,7 @@ command -v nproc >/dev/null 2>&1 || { echo >&2 "nproc must be installed before L
 CPUcores=$(nproc)
 
 # Prepare Folders And Pull Code
-rm -rf Level-Headed
+rm -rf Level-Headed/
 mkdir Level-Headed; cd Level-Headed
 mkdir source; cd source
 git clone https://github.com/Coolcord/Level-Headed.git
