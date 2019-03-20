@@ -25,7 +25,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  Check out the [Level-Headed Wiki](https://github.com/Coolcord/Level-Headed/wiki) for more information and tutorials on how to use Level-Headed.
  
- If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins through Qt Creator. A tutorial on how to compile this project can be found [here](https://github.com/Coolcord/Level-Headed/wiki/Compiling-Level%E2%80%90Headed).
+ If you're a Windows user, you can download the Windows build under the [releases](https://github.com/Coolcord/Level-Headed/releases) tab. Linux and Mac users should compile the application and plugins via the [Unix Build Script](https://github.com/Coolcord/Level-Headed/wiki/Compiling-Level%E2%80%90Headed-via-the-Unix-Build-Script). Alternatively, Level-Headed can be [compiled via Qt Creator](https://github.com/Coolcord/Level-Headed/wiki/Compiling-Level%E2%80%90Headed-via-Qt-Creator).
  
  If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
 
