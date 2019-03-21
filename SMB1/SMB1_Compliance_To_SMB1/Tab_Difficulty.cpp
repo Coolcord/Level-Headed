@@ -55,7 +55,7 @@ void Tab_Difficulty::Load_Settings() {
 }
 
 void Tab_Difficulty::Save_Settings() {
-    bool partialSupport = !this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_FULL_SUPPORT);
+    bool partialSupport = this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT);
     this->pluginSettings->infiniteLives = this->ui->radioInfiniteLives->isChecked();
     this->pluginSettings->permadeath = this->ui->radioPermadeath->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();

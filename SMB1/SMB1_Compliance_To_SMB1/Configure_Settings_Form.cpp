@@ -44,7 +44,7 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->Load_Settings();
     this->ui->tabWidget->setCurrentIndex(this->pluginSettings->tab);
-    this->tabBaseGame->Enable_Partial_Support_Mode(!this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_FULL_SUPPORT));
+    this->tabBaseGame->Enable_Partial_Support_Mode(this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
     this->loading = false;
 }
 

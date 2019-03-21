@@ -62,6 +62,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboMusic->setCurrentIndex(2);
         this->ui->comboTone->setCurrentIndex(1);
         this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
+        this->ui->cbRandomSoundEffects->setChecked(false);
         this->ui->comboPowerup->setCurrentIndex(1);
         this->ui->comboSecondaryMushroom->setCurrentIndex(2);
 

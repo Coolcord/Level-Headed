@@ -69,7 +69,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Handle the Difficulty Settings
     if (this->pluginSettings.difficultyComboIndex == 1) {
-        Difficulty_Level_Configurations().Random(&this->pluginSettings, !this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT));
+        Difficulty_Level_Configurations().Random(&this->pluginSettings, this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
     }
 
     //Generate the levels
