@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -244,8 +244,29 @@ p, li { white-space: pre-wrap; }
             </spacer>
            </item>
            <item>
-            <widget class="QWidget" name="layoutNonLevelsWidget" native="true">
-             <layout class="QVBoxLayout" name="layoutNonLevels">
+            <widget class="QGroupBox" name="groupBaseGameSettings">
+             <property name="title">
+              <string>Base Game Settings</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QPushButton" name="btnUseRandomSettings">
+                  <property name="text">
+                   <string>Use Random Settings</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnUseOriginalSettings">
+                  <property name="text">
+                   <string>Use Original Settings</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>

@@ -29,6 +29,8 @@ private slots:
     void on_comboBaseROM_currentIndexChanged(const QString &arg1);
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
+    void on_btnUseRandomSettings_clicked();
+    void on_btnUseOriginalSettings_clicked();
 
     //Level Generator Tab
     void on_radioGenerateNewLevels_toggled(bool checked);

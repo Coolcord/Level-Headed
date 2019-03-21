@@ -109,6 +109,14 @@ void Configure_Settings_Form::on_btnOutputROMLocation_clicked() {
     else this->ui->leOutputROMLocation->setText(outputROMLocation);
 }
 
+void Configure_Settings_Form::on_btnUseRandomSettings_clicked() {
+    this->tabBaseGame->Use_Random_Settings();
+}
+
+void Configure_Settings_Form::on_btnUseOriginalSettings_clicked() {
+    this->tabBaseGame->Use_Original_Settings();
+}
+
 void Configure_Settings_Form::on_radioGenerateNewLevels_toggled(bool checked) {
     this->tabLevelGenerator->Enable_New_Level_Options(checked);
 }

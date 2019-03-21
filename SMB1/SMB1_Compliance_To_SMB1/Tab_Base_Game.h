@@ -11,6 +11,8 @@ public:
 
     void Install_New_ROM();
     void Enable_Partial_Support_Mode(bool enabled);
+    void Use_Original_Settings();
+    void Use_Random_Settings();
 
 private:
     void Populate_Installed_ROMs();

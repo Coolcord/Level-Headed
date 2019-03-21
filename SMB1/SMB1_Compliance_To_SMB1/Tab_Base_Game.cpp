@@ -57,14 +57,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
     QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
     if (enabled) {
-        this->ui->radio2PlayerGame->setChecked(true);
-        this->ui->comboGraphics->setCurrentIndex(1);
-        this->ui->comboMusic->setCurrentIndex(2);
-        this->ui->comboTone->setCurrentIndex(1);
-        this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
-        this->ui->cbRandomSoundEffects->setChecked(false);
-        this->ui->comboPowerup->setCurrentIndex(1);
-        this->ui->comboSecondaryMushroom->setCurrentIndex(2);
+        this->Use_Original_Settings();
 
         if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
         if (this->ui->radioPermadeath->isChecked()) this->ui->radioStartingLives->setChecked(true);
@@ -84,7 +77,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbRevertToSuperMario->setChecked(false);
         this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
-    this->ui->layoutNonLevelsWidget->setEnabled(!enabled);
+    this->ui->groupBaseGameSettings->setEnabled(!enabled);
     this->ui->radioPermadeath->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
 
@@ -119,6 +112,28 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         if (enabled) value = 0;
         this->ui->comboDifficulty->setItemData(asmDifficulties.at(i), value, Qt::UserRole-1);
     }
+}
+
+void Tab_Base_Game::Use_Original_Settings() {
+    this->ui->radio2PlayerGame->setChecked(true);
+    this->ui->comboGraphics->setCurrentIndex(1);
+    this->ui->comboMusic->setCurrentIndex(2);
+    this->ui->comboTone->setCurrentIndex(1);
+    this->ui->cbCombineWithOtherMusicPacks->setChecked(false);
+    this->ui->cbRandomSoundEffects->setChecked(false);
+    this->ui->comboPowerup->setCurrentIndex(1);
+    this->ui->comboSecondaryMushroom->setCurrentIndex(2);
+}
+
+void Tab_Base_Game::Use_Random_Settings() {
+    this->ui->radioAddLuigiGame->setChecked(true);
+    this->ui->comboGraphics->setCurrentIndex(0);
+    this->ui->comboMusic->setCurrentIndex(0);
+    this->ui->comboTone->setCurrentIndex(0);
+    this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
+    this->ui->cbRandomSoundEffects->setChecked(true);
+    this->ui->comboPowerup->setCurrentIndex(0);
+    this->ui->comboSecondaryMushroom->setCurrentIndex(0);
 }
 
 void Tab_Base_Game::Populate_Installed_ROMs() {
