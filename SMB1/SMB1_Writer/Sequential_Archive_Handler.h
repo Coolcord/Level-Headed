@@ -26,6 +26,7 @@ public:
     int Get_Number_Of_Music_Packs();
     bool Is_Tone_Invalid(int tone);
     QByteArray Read_Graphics_Fix(const QString &fixName);
+    bool Is_Hexagon_Line_End_Of_Header(const QString &line);
 
 private:
     bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks);

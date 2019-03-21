@@ -129,7 +129,7 @@ void Graphics::Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchB
     QTextStream stream(patchBytes);
     while (!stream.atEnd()) {
         QString line = stream.readLine().trimmed();
-        if (line.startsWith(Patch_Strings::STRING_CHECKSUM) || line.startsWith(Patch_Strings::STRING_OFFSET)) return;
+        if (this->sequentialArchiveHandler->Is_Hexagon_Line_End_Of_Header(line)) return;
         if (line.startsWith(STRING_VERSION_OFFSET)) { //attempt to parse the offset
             line = line.remove(0, STRING_VERSION_OFFSET.size());
             bool isHex = false, valid = false;

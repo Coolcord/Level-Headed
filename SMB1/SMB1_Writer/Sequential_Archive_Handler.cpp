@@ -133,6 +133,11 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName)
     return patchBytes;
 }
 
+bool Sequential_Archive_Handler::Is_Hexagon_Line_End_Of_Header(const QString &line) {
+    if (!this->Load_Plugins_If_Necessary()) return false;
+    return this->hexagonPlugin->Is_Line_End_Of_Header(line);
+}
+
 bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks) {
     if (!this->file) return false;
     QByteArray patchBytes = this->Read_Music_Pack(musicPack);
@@ -184,7 +189,7 @@ QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteAr
     while (!stream.atEnd()) {
         QString line = stream.readLine().trimmed();
         if (line.isEmpty()) continue;
-        if (line.startsWith(Patch_Strings::STRING_CHECKSUM) || line.startsWith(Patch_Strings::STRING_OFFSET)) return compatibleMusicPacks;
+        if (this->hexagonPlugin->Is_Line_End_Of_Header(line)) return compatibleMusicPacks;
         if (compatibleSection) { //read the compatible music packs
             if (!line.startsWith(Patch_Strings::STRING_COMMENT)) continue;
             line = line.remove(0, Patch_Strings::STRING_COMMENT.size()).trimmed();
@@ -205,7 +210,7 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
     while (!stream.atEnd()) {
         QString line = stream.readLine().trimmed();
         if (line.isEmpty()) continue;
-        if (line.startsWith(Patch_Strings::STRING_CHECKSUM) || line.startsWith(Patch_Strings::STRING_OFFSET)) return true;
+        if (this->hexagonPlugin->Is_Line_End_Of_Header(line)) return true;
         if (line.startsWith(STRING_COMPATIBLE_SECTION)) return true;
         if (line.startsWith(STRING_INVALID_TONES)) {
             line = line.remove(0, STRING_INVALID_TONES.size()).trimmed();
