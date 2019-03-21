@@ -631,6 +631,11 @@ bool SMB1_Writer::Hacks_Top_Of_Flagpole_Gives_1UP() {
     return this->hacks->Top_Of_Flagpole_Gives_1UP();
 }
 
+bool SMB1_Writer::Hacks_Unlimited_Time() {
+    if (!this->hacks) return false;
+    return this->hacks->Unlimited_Time();
+}
+
 bool SMB1_Writer::Hacks_Write_Watermark() {
     if (!this->hacks) return false;
     return this->hacks->Write_Watermark();

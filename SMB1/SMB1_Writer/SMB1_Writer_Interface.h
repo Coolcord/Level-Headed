@@ -160,6 +160,7 @@ public:
     virtual bool Hacks_Start_With_Fire_Flower_On_Room_Change()=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Top_Of_Flagpole_Gives_1UP()=0;
+    virtual bool Hacks_Unlimited_Time()=0;
     virtual bool Hacks_Write_Watermark()=0;
 
     //Music Functions

@@ -11,6 +11,8 @@ namespace Unfixed_ROM_Type {
         DUCK_Headerless,
         PC10,
         PC10_Headerless,
+        P1,
+        P1_Headerless,
         TR1,
         TR1_Headerless,
         TR2,

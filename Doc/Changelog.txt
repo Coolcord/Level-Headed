@@ -2,6 +2,7 @@ Next Update (v0.3.1)
 + Partial support for the simultaneous Co-op ROM hack by Corpse Grinder and TI
 + Partial support for the European and Famicom versions of SMB1
 + Combo carts and unheadered ROMs are now automatically patched to be compatible with Level-Headed
++ Very easy now has unlimited time
 + Added command line support
 + Random Sounds
 + 8 new tone colors for music

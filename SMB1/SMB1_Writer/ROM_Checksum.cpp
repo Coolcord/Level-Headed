@@ -16,6 +16,8 @@ ROM_Checksum::ROM_Checksum() {
     this->checksumMap->insert(CHECKSUM_DUCK_HEADERLESS, Unfixed_ROM_Type::DUCK_Headerless);
     this->checksumMap->insert(CHECKSUM_PC10, Unfixed_ROM_Type::PC10);
     this->checksumMap->insert(CHECKSUM_PC10_HEADERLESS, Unfixed_ROM_Type::PC10_Headerless);
+    this->checksumMap->insert(CHECKSUM_P1, Unfixed_ROM_Type::P1);
+    this->checksumMap->insert(CHECKSUM_P1_HEADERLESS, Unfixed_ROM_Type::P1_Headerless);
     this->checksumMap->insert(CHECKSUM_TR1, Unfixed_ROM_Type::TR1);
     this->checksumMap->insert(CHECKSUM_TR1_HEADERLESS, Unfixed_ROM_Type::TR1_Headerless);
     this->checksumMap->insert(CHECKSUM_TR2, Unfixed_ROM_Type::TR2);
@@ -51,6 +53,8 @@ ROM_Checksum::ROM_Checksum() {
     this->fileNameMap->insert(CHECKSUM_DUCK_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_PC10, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_PC10_HEADERLESS, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_P1, ROM_Filename::STRING_USA0);
+    this->fileNameMap->insert(CHECKSUM_P1_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TR1, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TR1_HEADERLESS, ROM_Filename::STRING_USA0);
     this->fileNameMap->insert(CHECKSUM_TR2, ROM_Filename::STRING_USA0);
@@ -125,6 +129,8 @@ ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_
     case Unfixed_ROM_Type::DUCK_Headerless:
     case Unfixed_ROM_Type::PC10:
     case Unfixed_ROM_Type::PC10_Headerless:
+    case Unfixed_ROM_Type::P1:
+    case Unfixed_ROM_Type::P1_Headerless:
     case Unfixed_ROM_Type::TR1:
     case Unfixed_ROM_Type::TR1_Headerless:
     case Unfixed_ROM_Type::TR2:
@@ -163,6 +169,7 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::USA1_Headerless:
     case Unfixed_ROM_Type::DUCK_Headerless:
     case Unfixed_ROM_Type::PC10_Headerless:
+    case Unfixed_ROM_Type::P1_Headerless:
     case Unfixed_ROM_Type::TR1_Headerless:
     case Unfixed_ROM_Type::TR2_Headerless:
     case Unfixed_ROM_Type::TRACK_Headerless:
@@ -199,6 +206,9 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::PC10_Headerless:
     case Unfixed_ROM_Type::PC10:
         this->Convert_PC10_To_PRG0(buffer); break;
+    case Unfixed_ROM_Type::P1_Headerless:
+    case Unfixed_ROM_Type::P1:
+        this->Convert_P1_To_PRG0(buffer); break;
     case Unfixed_ROM_Type::TR1_Headerless:
     case Unfixed_ROM_Type::TR2_Headerless:
     case Unfixed_ROM_Type::TR1:
@@ -339,6 +349,22 @@ void ROM_Checksum::Convert_PC10_To_PRG0(QByteArray &buffer) {
     buffer.replace(0x0004, 4, QByteArray::fromHex(QString("02010100").toLatin1()));
 }
 
+void ROM_Checksum::Convert_P1_To_PRG0(QByteArray &buffer) {
+    this->Write_Bytes_To_Buffer(buffer, 0x0013, QByteArray(1, static_cast<char>(0x10)));
+    this->Write_Bytes_To_Buffer(buffer, 0x027C, QByteArray::fromHex(QString("AEFC07F04AC940D046").toLatin1()));
+    this->Write_Bytes_To_Buffer(buffer, 0x028D, QByteArray::fromHex(QString("8DA207").toLatin1()));
+    this->Write_Bytes_To_Buffer(buffer, 0x02AF, QByteArray::fromHex(QString("E88A29078D6B07").toLatin1()));
+    this->Write_Bytes_To_Buffer(buffer, 0x10E9, QByteArray(1, static_cast<char>(0x60)));
+    this->Write_Bytes_To_Buffer(buffer, 0x356A, QByteArray(1, static_cast<char>(0x0A)));
+    this->Write_Bytes_To_Buffer(buffer, 0x7FFA, QByteArray::fromHex(QString("15161617171819191A1A1C1D1D").toLatin1()));
+    this->Write_Bytes_To_Buffer(buffer, 0x9ED3, QByteArray::fromHex(QString("2620C6542620E65426210654262085014420865448209A014920A5C94620BAC94A20A60AD0D1D8D8"
+            "DED1D0DADED120C60AD2D3DBDBDBD9DBDCDBDF20E60AD4D5D4D9DBE2D4DADBE021060AD6D7D6D7E1"
+            "26D6DDE1E1212614D0E8D1D0D1DED1D8D0D126DED1DED1D0D1D0D126214614DB4242DB42DB42DBDB"
+            "4226DB42DB42DB42DB4226216646DB216C0EDFDBDBDB26DBDFDBDFDBDBE4E526218614DBDBDBDE43"
+            "DBE0DBDBDB26DBE3DBE0DBDBE6E32621A614DBDBDBDB42DBDBDBD4D926DBD9DBDBD4D9D4D9E721C5"
+            "165F95959595959595959798789596959597989798957A21ED0ECF01090805241712171D0E170D18").toLatin1()));
+}
+
 void ROM_Checksum::Convert_TRACK_To_PRG0(QByteArray &buffer) {
     buffer.remove(0x2A010, 0x6000);
     buffer.remove(0x10010, 0x18000);
@@ -373,4 +399,8 @@ void ROM_Checksum::Convert_TETRIS_To_Europe(QByteArray &buffer) {
     buffer.remove(0x20010, 0x3E000);
     buffer.remove(0x0010, 0x18000);
     buffer.replace(0x0000, 16, QByteArray::fromHex(QString("4e45531a020101000000000000000000").toLatin1()));
+}
+
+void ROM_Checksum::Write_Bytes_To_Buffer(QByteArray &buffer, int offset, const QByteArray &bytes) {
+    buffer.replace(offset, bytes.size(), bytes);
 }

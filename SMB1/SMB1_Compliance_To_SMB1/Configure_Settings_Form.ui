@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -614,7 +614,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>652</width>
-            <height>1766</height>
+            <height>1795</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1803,6 +1803,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbStartWithFireFlowerOnRoomChange">
                 <property name="text">
                  <string>Start with Fire Flower on room change</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbUnlimitedTime">
+                <property name="text">
+                 <string>Unlimited Time</string>
                 </property>
                </widget>
               </item>

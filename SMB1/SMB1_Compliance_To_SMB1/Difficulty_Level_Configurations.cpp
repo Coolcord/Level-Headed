@@ -55,6 +55,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyStandardOverworldLakitus = difficultySettings.standardOverworldLakitus;
     pluginSettings->difficultyStandardOverworldOffscreenBulletBills = difficultySettings.standardOverworldOffscreenBulletBills;
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
+    pluginSettings->difficultyUnlimitedTime = difficultySettings.unlimitedTime;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
@@ -119,6 +120,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.standardOverworldLakitus = 4;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.noEnemies = false;
+    difficultySettings.unlimitedTime = false;
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 0;
@@ -156,6 +158,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.bulletBillSpeed = 1;
+    difficultySettings.unlimitedTime = true;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
     difficultySettings.replaceCastleLoops = 1;
     return difficultySettings;
