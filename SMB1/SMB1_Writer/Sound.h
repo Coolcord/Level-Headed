@@ -9,8 +9,6 @@ public:
     bool Randomize_Sounds();
 
 private:
-    QByteArray Get_Random_Bytes(int size);
-
     bool Big_Jump_Is_Small_Jump();
     bool Small_Jump_Is_Big_Jump();
 
@@ -19,7 +17,7 @@ private:
     bool One_Up_Random();
     bool Brick_Break_1();
     bool Brick_Break_2();
-    bool Brick_Break_3();
+    bool Brick_Break_Random();
     bool Coin_Random();
     bool Jump_Random();
     bool Powerup_1();
@@ -30,8 +28,11 @@ private:
     bool Stomp_Random_2();
     bool Vine_1();
 
+    QByteArray Get_Random_Bytes(int size, int maxValue = 0xFF);
+    QByteArray Random_Increment(QByteArray bytes, int maxAmount = 0xFF);
     QByteArray Randomize_Notes(QByteArray bytes, int maxKeyChanges = 4);
     QByteArray Reverse_Notes(const QByteArray &bytes);
+    QByteArray Possibly_Reverse_Notes(const QByteArray &bytes);
     char Square_2_Get_Random_Note();
     char Square_2_Key_Random(char byte);
     char Square_2_Key_Up(char byte);

@@ -5,7 +5,6 @@
 #include <QDebug>
 
 bool Sound::Randomize_Sounds() {
-    const int CHANCE = 3;
     bool success = false;
 
     //Set Jump Sounds
@@ -31,20 +30,16 @@ bool Sound::Randomize_Sounds() {
     if (!this->Coin_Random()) return false;
 
     //Brick Break
-    if (Random::Get_Num(CHANCE)) {
-        switch(Random::Get_Num(2)) {
-        default:    assert(false); break;
-        case 0:     success = this->Brick_Break_1(); break;
-        case 1:     success = this->Brick_Break_2(); break;
-        case 2:     success = this->Brick_Break_3(); break;
-        }
-        if (!success) return false;
+    switch(Random::Get_Num(2)) {
+    default:    assert(false); break;
+    case 0:     success = this->Brick_Break_1(); break;
+    case 1:     success = this->Brick_Break_2(); break;
+    case 2:     success = this->Brick_Break_Random(); break;
     }
+    if (!success) return false;
 
     //Powerups
-    int num = Random::Get_Num(2);
-    qDebug() << "Using Sound: " << num;
-    switch(num) {
+    switch(Random::Get_Num(2)) {
     default:    assert(false); break;
     case 0:     success = this->Powerup_1(); break;
     case 1:     success = this->Powerup_2(); break;
@@ -65,13 +60,6 @@ bool Sound::Randomize_Sounds() {
     return true;
 }
 
-QByteArray Sound::Get_Random_Bytes(int size) {
-    if (size <= 0) return QByteArray();
-    QByteArray bytes(size, static_cast<char>(0x00));
-    for (int i = 0; i < size; ++i) bytes[i] = static_cast<char>(Random::Get_Num(0xFF));
-    return bytes;
-}
-
 bool Sound::Big_Jump_Is_Small_Jump() { return this->Write_Bytes_To_Offset(0x3522, QByteArray(1, static_cast<char>(0x80))); }
 bool Sound::Small_Jump_Is_Big_Jump() { return this->Write_Bytes_To_Offset(0x3529, QByteArray(1, static_cast<char>(0x01))); }
 
@@ -82,9 +70,9 @@ bool Sound::One_Up_Random() {
     for (int i = 0; i < bytes.size(); ++i) bytes[i] = this->Square_2_Get_Random_Note();
     return this->Write_Bytes_To_Offset(0x74E4, bytes);
 }
-bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("0C0B0A090807060504030201").toLatin1())); }
-bool Sound::Brick_Break_2() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("6906CE0FAD09FD0D080D7A").toLatin1())); }
-bool Sound::Brick_Break_3() { return this->Write_Bytes_To_Offset(0x763F, QByteArray::fromHex(QString("6A990CF50A090347080D0644").toLatin1())); }
+bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0B060C0F0A09030D080D060C").toLatin1()))); }
+bool Sound::Brick_Break_2() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0C0B0A090807060504030201").toLatin1()))); }
+bool Sound::Brick_Break_Random() { return this->Write_Bytes_To_Offset(0x763F, this->Get_Random_Bytes(12, 0x0F)); }
 bool Sound::Coin_Random() {
     if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(Random::Get_Num(0x69)+0x04)))) return false;
     return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1));
@@ -98,18 +86,27 @@ bool Sound::Powerup_1() { return this->Write_Bytes_To_Offset(0x74EA, this->Rando
 bool Sound::Powerup_2() { return this->Write_Bytes_To_Offset(0x74EA, this->Randomize_Notes(QByteArray::fromHex(QString("122A426226405A0C223A4E58081E364C061C3444565E18304802122A4200").toLatin1()), 2)); }
 bool Sound::Powerup_3() { return this->Write_Bytes_To_Offset(0x74EA, this->Randomize_Notes(QByteArray::fromHex(QString("3052302C3E1A3E1A140C2E502E642032203210241E491E34102210061CF8").toLatin1()), 2)); }
 bool Sound::Stomp_Random_1() { return this->Write_Bytes_To_Offset(0x73C1, QByteArray(14, static_cast<char>(Random::Get_Num(0xFF)))); }
-bool Sound::Stomp_Random_2() {
-    QByteArray bytes = QByteArray::fromHex(QString("9F9B989695949290909A97959392").toLatin1());
-    int addAmount = Random::Get_Num(0xFF);
-    for (int i = 0; i < bytes.size(); ++i) bytes[i] = static_cast<char>((static_cast<int>(bytes.at(i))+addAmount)%0x100);
-    return this->Write_Bytes_To_Offset(0x73C1, bytes);
-}
+bool Sound::Stomp_Random_2() { return this->Write_Bytes_To_Offset(0x73C1, this->Random_Increment(QByteArray::fromHex(QString("9F9B989695949290909A97959392").toLatin1()))); }
 bool Sound::Vine_1() { return this->Write_Bytes_To_Offset(0x7508, this->Randomize_Notes(QByteArray::fromHex(QString("4C524C483E363E3630284A504A643C323C322C243A643A342C222C221C1414").toLatin1()), 3)); }
+
+QByteArray Sound::Get_Random_Bytes(int size, int maxValue) {
+    if (size <= 0) return QByteArray();
+    QByteArray bytes(size, static_cast<char>(0x00));
+    for (int i = 0; i < size; ++i) bytes[i] = static_cast<char>(Random::Get_Num(maxValue));
+    return bytes;
+}
+
+QByteArray Sound::Random_Increment(QByteArray bytes, int maxAmount) {
+    bytes = this->Possibly_Reverse_Notes(bytes);
+    int addAmount = Random::Get_Num(maxAmount);
+    for (int i = 0; i < bytes.size(); ++i) bytes[i] = static_cast<char>((static_cast<int>(bytes.at(i))+addAmount)%0x100);
+    return bytes;
+}
 
 QByteArray Sound::Randomize_Notes(QByteArray bytes, int maxKeyChanges) {
     int keyChanges = Random::Get_Num(maxKeyChanges);
     bool keyup = Random::Get_Num(1);
-    if (Random::Get_Num(1)) bytes = this->Reverse_Notes(bytes);
+    bytes = this->Possibly_Reverse_Notes(bytes);
     for (int i = 0; i < keyChanges; ++i) {
         if (keyup) {
             for (int j = 0; j < bytes.size(); ++j) bytes[j] = this->Square_2_Key_Up(bytes[j]);
@@ -124,6 +121,11 @@ QByteArray Sound::Reverse_Notes(const QByteArray &bytes) {
     QByteArray reversed(bytes.size(), ' ');
     for (int i = 0, j = bytes.size()-1; i < bytes.size(); ++i, --j) reversed[j] = bytes.at(i);
     return reversed;
+}
+
+QByteArray Sound::Possibly_Reverse_Notes(const QByteArray &bytes) {
+    if (Random::Get_Num(1)) return this->Reverse_Notes(bytes);
+    else return bytes;
 }
 
 char Sound::Square_2_Get_Random_Note() {
