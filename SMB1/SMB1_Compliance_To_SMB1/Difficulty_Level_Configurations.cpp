@@ -57,6 +57,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyUnlimitedTime = difficultySettings.unlimitedTime;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
+    pluginSettings->difficultyTopOfFlagpoleGives1UP = difficultySettings.topOfFlagpoleGives1UP;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = difficultySettings.replaceCastleLoops;
@@ -90,6 +91,8 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
     pluginSettings->superMarioOnDamage = false;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = false;
+    pluginSettings->difficultyUnlimitedTime = false;
+    pluginSettings->difficultyTopOfFlagpoleGives1UP = false;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -121,6 +124,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.noEnemies = false;
     difficultySettings.unlimitedTime = false;
+    difficultySettings.topOfFlagpoleGives1UP = true;
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 0;
@@ -175,6 +179,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
     difficultySettings.replaceCastleLoops = 2;
+    difficultySettings.topOfFlagpoleGives1UP = true;
     return difficultySettings;
 }
 
@@ -209,6 +214,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.spinyEggBehavior = 0;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
+    difficultySettings.topOfFlagpoleGives1UP = false;
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast

@@ -200,6 +200,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_No_Enemies", this->pluginSettings.difficultyNoEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Unlimited_Time", this->pluginSettings.difficultyUnlimitedTime)) return false;
     if (!configFile.Set_Value("Difficulty_Start_With_Fire_Flower_On_Room_Change", this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange)) return false;
+    if (!configFile.Set_Value("Difficulty_Top_Of_Flagpole_Gives_1-UP", this->pluginSettings.difficultyTopOfFlagpoleGives1UP)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity)) return false;
     if (!configFile.Set_Value("Difficulty_Replace_Castle_Loops", this->pluginSettings.difficultyReplaceCastleLoops)) return false;
     if (!configFile.Set_Value("Difficulty_Auto_Scroll_Chance_Per_Level", this->pluginSettings.difficultyAutoScrollChancePerLevel)) return false;
@@ -275,6 +276,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_No_Enemies", this->pluginSettings.difficultyNoEnemies);
     configFile.Get_Value("Difficulty_Unlimited_Time", this->pluginSettings.difficultyUnlimitedTime);
     configFile.Get_Value("Difficulty_Start_With_Fire_Flower_On_Room_Change", this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange);
+    configFile.Get_Value("Difficulty_Top_Of_Flagpole_Gives_1-UP", this->pluginSettings.difficultyTopOfFlagpoleGives1UP);
     configFile.Get_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity);
     configFile.Get_Value("Difficulty_Replace_Castle_Loops", this->pluginSettings.difficultyReplaceCastleLoops);
     configFile.Get_Value("Difficulty_Auto_Scroll_Chance_Per_Level", this->pluginSettings.difficultyAutoScrollChancePerLevel);

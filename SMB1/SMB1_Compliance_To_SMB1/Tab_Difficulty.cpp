@@ -44,6 +44,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
     this->ui->cbUnlimitedTime->setChecked(this->pluginSettings->difficultyUnlimitedTime);
     this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
+    this->ui->cbTopOfFlagpoleGives1UP->setChecked(this->pluginSettings->difficultyTopOfFlagpoleGives1UP);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
     this->ui->comboReplaceCastleLoops->setCurrentIndex(this->pluginSettings->difficultyReplaceCastleLoops);
     this->ui->sbAutoScrollChancePerLevel->setValue(this->pluginSettings->difficultyAutoScrollChancePerLevel);
@@ -95,6 +96,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyUnlimitedTime = this->ui->cbUnlimitedTime->isChecked();
         this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();
+        this->pluginSettings->difficultyTopOfFlagpoleGives1UP = this->ui->cbTopOfFlagpoleGives1UP->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyReplaceCastleLoops = this->ui->comboReplaceCastleLoops->currentIndex();
         this->pluginSettings->difficultyAutoScrollChancePerLevel = this->ui->sbAutoScrollChancePerLevel->value();

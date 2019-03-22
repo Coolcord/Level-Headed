@@ -34,6 +34,7 @@ bool Hacks_Handler::Write_Hacks() {
         }
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
         if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
+        if (this->pluginSettings->difficultyTopOfFlagpoleGives1UP && !this->writerPlugin->Hacks_Top_Of_Flagpole_Gives_1UP()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
         if (!this->Handle_Enemy_Speed()) return false;
