@@ -1,0 +1,31 @@
+SMB1_Compliance_Level
+======================================================================
+SMB1_Compliance_Level format created by Coolcord.
+Randomly Generated on Sunday, July 01, 2018, at 07:27:40 PM.
+Level Type: Standard_Overworld
+Difficulty: 1
+Level Length: 268
+Number of Objects: 50
+Number of Enemies: 11
+Number of Pipe Pointers: 0
+======================================================================
+Attribute: Overworld
+Starting_Position: Overworld
+Brick_Pattern: Surface
+Background: Blank_Background
+Scenery: Fences
+Compliment: Bullet_Bill_Turrets
+Time: 400
+Midpoint: 0
+======================================================================
+Horizontal_Coins 5 10 15
+Question_Block_With_Coin 16 7
+Question_Block_With_Coin 3 7
+Brick_With_10_Coins 3 7
+Cancel_Spawner 10
+End_Steps 0
+Flagpole 17
+Castle 5
+Scroll_Stop 9
+======================================================================
+======================================================================

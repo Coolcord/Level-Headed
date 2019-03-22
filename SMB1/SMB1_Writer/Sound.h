@@ -21,9 +21,14 @@ private:
     bool Jump_Random();
     bool Powerup_1();
     bool Powerup_2();
+    bool Powerup_Random_Key();
     bool Small_Jump_1();
     bool Stomp_1();
     bool Stomp_Random();
+    bool Stomp_Random_2();
+
+    char Square_2_Key_Up(char byte);
+    char Square_2_Key_Down(char byte);
 };
 
 #endif // SOUND_H

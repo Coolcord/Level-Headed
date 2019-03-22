@@ -1,0 +1,80 @@
+SMB1_Compliance_Level_Map
+======================================================================
+SMB1_Compliance_Level format created by Coolcord.
+Randomly Generated on Sunday, July 01, 2018, at 07:27:40 PM.
+Standard Overworld Levels Commonality: Very Common
+Underground Levels Commonality: None
+Underwater Levels Commonality: None
+Bridge Levels Commonality: None
+Island Levels Commonality: None
+Random Seed: 70033869
+======================================================================
+Number_of_Worlds: 4
+======================================================================
+# Object Move Table
+Underwater_Castle World_1_Level_1 8
+Underwater_Castle Underwater_Bonus 14
+Underwater_Castle World_7_Level_1 2
+World_3_Level_2 World_7_Level_1 12
+World_3_Level_2 World_3_Level_3 14
+Warp_Zone World_3_Level_3 2
+Warp_Zone Cloud_Bonus_2 20
+Warp_Zone World_1_Level_4 18
+World_5_Level_1 World_1_Level_4 4
+World_5_Level_1 World_6_Level_3 30
+World_5_Level_1 World_6_Level_1 26
+World_1_Level_3 World_6_Level_1 4
+World_1_Level_3 World_2_Level_1 32
+World_1_Level_3 World_4_Level_3 26
+World_4_Level_1 World_4_Level_3 6
+World_4_Level_1 World_8_Level_3 32
+World_4_Level_1 World_3_Level_4 32
+World_4_Level_1 World_8_Level_4 10
+World_8_Level_1 World_8_Level_4 26
+World_8_Level_1 World_7_Level_4 36
+World_8_Level_1 World_6_Level_2 36
+World_8_Level_1 World_5_Level_2 38
+World_8_Level_1 World_3_Level_1 8
+World_4_Level_2 World_3_Level_1 30
+World_4_Level_2 World_2_Level_3 38
+World_4_Level_2 World_8_Level_2 40
+World_4_Level_2 World_4_Level_4 40
+World_4_Level_2 World_2_Level_4 10
+World_1_Level_2 World_2_Level_4 32
+World_1_Level_2 World_2_Level_2 42
+World_1_Level_2 Cloud_Bonus_1 42
+World_1_Level_2 Underground_Bonus 44
+======================================================================
+# Enemy Move Table
+World_2_Level_1 World_6_Level_3 2
+Cloud_Bonus_1 World_3_Level_4 3
+Cloud_Bonus_2 World_3_Level_4 1
+Cloud_Bonus_2 World_4_Level_3 2
+World_7_Level_1 World_4_Level_3 4
+World_7_Level_1 World_3_Level_1 1
+World_1_Level_1 World_3_Level_1 5
+World_3_Level_3 World_5_Level_2 6
+World_1_Level_4 World_5_Level_2 4
+World_1_Level_4 World_2_Level_4 2
+World_8_Level_4 World_2_Level_4 7
+Underground_Bonus World_2_Level_4 1
+Underground_Bonus World_8_Level_2 11
+World_4_Level_1 World_8_Level_2 4
+World_4_Level_1 World_8_Level_3 9
+Underwater_Castle World_8_Level_3 7
+Underwater_Castle World_2_Level_2 12
+World_3_Level_2 World_2_Level_2 11
+World_3_Level_2 World_6_Level_1 25
+World_1_Level_3 World_6_Level_1 15
+World_1_Level_3 World_4_Level_4 13
+World_5_Level_1 World_4_Level_4 29
+World_5_Level_1 World_6_Level_2 6
+World_1_Level_2 World_6_Level_2 38
+World_1_Level_2 World_2_Level_3 6
+World_4_Level_2 World_2_Level_3 44
+World_4_Level_2 World_7_Level_4 1
+World_8_Level_1 World_7_Level_4 57
+======================================================================
+# Level Map
+World_7_Level_1 "Level_1_1.lvl"
+======================================================================
