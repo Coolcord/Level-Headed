@@ -19,10 +19,11 @@ bool Sound::Randomize_Sounds() {
     }
 
     //1-UP
-    switch(Random::Get_Num(1)) {
+    switch(Random::Get_Num(2)) {
     default:    assert(false); break;
     case 0:     success = this->One_Up_1(); break;
     case 1:     success = this->One_Up_2(); break;
+    case 2:     success = this->One_Up_Random(); break;
     }
     if (!success) return false;
 
@@ -75,7 +76,8 @@ bool Sound::Big_Jump_Is_Small_Jump() { return this->Write_Bytes_To_Offset(0x3522
 bool Sound::Small_Jump_Is_Big_Jump() { return this->Write_Bytes_To_Offset(0x3529, QByteArray(1, static_cast<char>(0x01))); }
 
 bool Sound::One_Up_1() { return this->Write_Bytes_To_Offset(0x74E4, this->Randomize_Notes(QByteArray::fromHex(QString("580254564E44").toLatin1()))); }
-bool Sound::One_Up_2() {
+bool Sound::One_Up_2() { return this->Write_Bytes_To_Offset(0x74E4, this->Randomize_Notes(QByteArray::fromHex(QString("5240523A342C").toLatin1()))); }
+bool Sound::One_Up_Random() {
     QByteArray bytes(6, ' ');
     for (int i = 0; i < bytes.size(); ++i) bytes[i] = this->Square_2_Get_Random_Note();
     return this->Write_Bytes_To_Offset(0x74E4, bytes);
