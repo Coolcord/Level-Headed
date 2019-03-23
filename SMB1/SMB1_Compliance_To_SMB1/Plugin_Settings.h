@@ -34,7 +34,7 @@ struct Plugin_Settings {
     QString underwaterChance;
     QString bridgeChance;
     QString islandChance;
-    uint randomSeed;
+    QString randomSeed;
     int music;
     bool combineMusicWithOtherPacks;
     int toneColor;

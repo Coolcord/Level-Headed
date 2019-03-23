@@ -2,6 +2,7 @@
 #include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../../Common_Files/Random.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "../SMB1_Writer/ROM_Filename.h"
 #include "CLI_Parser.h"
@@ -41,6 +42,7 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location, 
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
+    qsrand(Random::Get_Seed_From_QString(this->pluginSettings.randomSeed));
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         //TODO: Update this error
@@ -323,7 +325,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.underwaterChance = STRING_UNCOMMON;
     this->pluginSettings.bridgeChance = STRING_COMMON;
     this->pluginSettings.islandChance = STRING_COMMON;
-    this->pluginSettings.randomSeed = static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay());
+    this->pluginSettings.randomSeed = QString::number(QTime::currentTime().msecsSinceStartOfDay());
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.music = 0;
     this->pluginSettings.combineMusicWithOtherPacks = true;

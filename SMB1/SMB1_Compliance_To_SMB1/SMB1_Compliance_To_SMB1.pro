@@ -27,6 +27,7 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     Tab_Level_Generator.cpp \
     Tab_Difficulty.cpp \
     CLI_Parser.cpp \
+    ../../Common_Files/Random.cpp \
     ../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \

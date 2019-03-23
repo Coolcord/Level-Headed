@@ -395,7 +395,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     SMB1_Compliance_Parser parser(this->writerPlugin);
 
     //Seed the random number generator... the location here is important
-    qsrand(this->pluginSettings->randomSeed);
+    qsrand(Random::Get_Seed_From_QString(this->pluginSettings->randomSeed));
     qDebug().noquote() << "Seed: " << this->pluginSettings->randomSeed;
 
     //Randomly determine the number of max levels and levels per world if specified
@@ -423,7 +423,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_DIFFICULTY + ": " + QString::number(this->pluginSettings->difficultyComboIndex))) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + QString::number(this->pluginSettings->randomSeed))) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + this->pluginSettings->randomSeed)) return false;
 
     //Write the Header of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
@@ -512,7 +512,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     map.close();
 
     //Get a new seed for the next generation, since this one was successful
-    this->pluginSettings->randomSeed = static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay());
+    this->pluginSettings->randomSeed = QString::number(QTime::currentTime().msecsSinceStartOfDay());
 
     //Pack the Levels into a Sequential Archive
     if (!this->Load_Sequential_Archive_Plugin()) {
@@ -708,15 +708,16 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
     switch (numLevels) { //Add easy levels to the beginning
     case 20:
         if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
-        //fall through
+        [[clang::fallthrough]]; //fall through
     case 19:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
-        //fall through
+        [[clang::fallthrough]]; //fall through
     case 18:
         if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
-        //fall through
+        [[clang::fallthrough]]; //fall through
     case 17:
         if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_4)) return false;
+        [[clang::fallthrough]]; //fall through
     default:
         break;
     }

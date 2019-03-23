@@ -148,7 +148,7 @@ void Configure_Settings_Form::on_sbNumWorlds_valueChanged() {
 }
 
 void Configure_Settings_Form::on_btnNewRandomSeed_clicked() {
-    this->ui->sbRandomSeed->setValue(QTime::currentTime().msecsSinceStartOfDay());
+    this->ui->leRandomSeed->setText(QString::number(QTime::currentTime().msecsSinceStartOfDay()));
 }
 
 void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) {

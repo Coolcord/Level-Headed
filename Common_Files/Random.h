@@ -4,14 +4,9 @@
 #include <QTime>
 
 namespace Random {
-    //Max is inclusive (e.g. max of 10 will return numbers 0-10)
-    static int Get_Num(int max) {
-        return static_cast<int>(qrand()/(static_cast<double>(RAND_MAX)+1)*(max+1));
-	}
-    /*
-    static int Get_Num(int min, int max) {
-		return static_cast<int>(((double)qrand()/(RAND_MAX+1))*(max-min+1)+min);
-    }*/
+    int Get_Num(int max); //Max is inclusive (e.g. max of 10 will return numbers 0-10)
+    int Get_Num(int min, int max);
+    uint Get_Seed_From_QString(const QString &string);
 }
 
 #endif // RANDOM_H

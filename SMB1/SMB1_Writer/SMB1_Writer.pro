@@ -34,7 +34,8 @@ SOURCES += SMB1_Writer.cpp \
     Text.cpp \
     Sequential_Archive_Handler.cpp \
     Powerups.cpp \
-    Sound.cpp
+    Sound.cpp \
+    ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Writer.h \
     ROM_Type.h \
