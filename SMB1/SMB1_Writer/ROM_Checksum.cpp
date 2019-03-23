@@ -42,6 +42,7 @@ ROM_Checksum::ROM_Checksum() {
     this->checksumMap->insert(CHECKSUM_FDS, Unfixed_ROM_Type::FDS);
     this->checksumMap->insert(CHECKSUM_FDS_HEADERLESS, Unfixed_ROM_Type::FDS_Headerless);
     this->checksumMap->insert(CHECKSUM_COOP_CGTI_1, Unfixed_ROM_Type::COOP_CGTI_1);
+    this->checksumMap->insert(CHECKSUM_BILL_KILL_2, Unfixed_ROM_Type::BILL_KILL_2);
 
     //Populate the filename map
     this->fileNameMap = new QMap<QString, QString>();
@@ -79,6 +80,7 @@ ROM_Checksum::ROM_Checksum() {
     this->fileNameMap->insert(CHECKSUM_FDS, ROM_Filename::STRING_FDS);
     this->fileNameMap->insert(CHECKSUM_FDS_HEADERLESS, ROM_Filename::STRING_FDS);
     this->fileNameMap->insert(CHECKSUM_COOP_CGTI_1, ROM_Filename::STRING_COOP_CGTI_1);
+    this->fileNameMap->insert(CHECKSUM_BILL_KILL_2, ROM_Filename::STRING_BILL_KILL_2);
 }
 
 ROM_Checksum::~ROM_Checksum() {
@@ -154,6 +156,8 @@ ROM_Type::ROM_Type ROM_Checksum::Get_ROM_Type_From_Unfixed_ROM_Type(Unfixed_ROM_
         return ROM_Type::FDS;
     case Unfixed_ROM_Type::COOP_CGTI_1:
         return ROM_Type::COOP_CGTI_1;
+    case Unfixed_ROM_Type::BILL_KILL_2:
+        return ROM_Type::BILL_KILL_2;
     case Unfixed_ROM_Type::INVALID:
         return ROM_Type::INVALID;
     }
@@ -192,6 +196,7 @@ bool ROM_Checksum::Apply_Fixes_To_Match_Checksum(QByteArray &buffer, Unfixed_ROM
     case Unfixed_ROM_Type::EUROPE:
     case Unfixed_ROM_Type::FDS:
     case Unfixed_ROM_Type::COOP_CGTI_1:
+    case Unfixed_ROM_Type::BILL_KILL_2:
         return true;
     case Unfixed_ROM_Type::FDS_Headerless:
         expectedChecksum = CHECKSUM_FDS; break;

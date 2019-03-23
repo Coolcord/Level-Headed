@@ -38,6 +38,7 @@ qint64 Level_Offset::Get_Level_Object_Offset(Level::Level level) {
     case ROM_Type::FDS:         offset -= 0x3EA1; break;
     case ROM_Type::EUROPE:      offset -= 0x7FEE; break;
     case ROM_Type::DEFAULT:     offset -= 0x7FEE; break;
+    case ROM_Type::BILL_KILL_2: offset -= 0x7FEE; break;
     case ROM_Type::COOP_CGTI_1: offset += 0x12; break;
     }
     return offset;
@@ -62,6 +63,7 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
     case ROM_Type::FDS:         offset -= 0x3EA3; break;
     case ROM_Type::EUROPE:      offset -= 0x7FF0; break;
     case ROM_Type::DEFAULT:     offset -= 0x7FF0; break;
+    case ROM_Type::BILL_KILL_2: offset -= 0x7FF0; break;
     case ROM_Type::COOP_CGTI_1: offset += 0x10; break;
     }
     return offset;
@@ -69,6 +71,7 @@ qint64 Level_Offset::Get_Level_Enemy_Offset(Level::Level level) {
 
 qint64 Level_Offset::Fix_Offset(qint64 offset) {
     switch (this->romType) {
+    case ROM_Type::BILL_KILL_2:
     case ROM_Type::DEFAULT:
         return offset; //nothing to do
     case ROM_Type::EUROPE:

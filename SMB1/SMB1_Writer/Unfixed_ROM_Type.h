@@ -32,6 +32,7 @@ namespace Unfixed_ROM_Type {
         FDS,
         FDS_Headerless,
         COOP_CGTI_1,
+        BILL_KILL_2,
         INVALID
     };
 }

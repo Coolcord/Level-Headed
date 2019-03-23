@@ -160,6 +160,7 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
             case ROM_Type::FDS:         fixedOffset -= 0x3EA3; break;
             case ROM_Type::EUROPE:      fixedOffset -= 0x7FF0; break;
             case ROM_Type::DEFAULT:     fixedOffset -= 0x7FF0; break;
+            case ROM_Type::BILL_KILL_2:     fixedOffset -= 0x7FF0; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x10; break;
             }
         } else {
@@ -168,6 +169,7 @@ bool Room_Address_Writer::Fix_Level_Address_Buffer(qint64 fromOffset, qint64 toO
             case ROM_Type::FDS:         fixedOffset -= 0x3EA1; break;
             case ROM_Type::EUROPE:      fixedOffset -= 0x7FEE; break;
             case ROM_Type::DEFAULT:     fixedOffset -= 0x7FEE; break;
+            case ROM_Type::BILL_KILL_2:     fixedOffset -= 0x7FEE; break;
             case ROM_Type::COOP_CGTI_1: fixedOffset += 0x12; break;
             }
         }
