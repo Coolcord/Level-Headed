@@ -3,7 +3,8 @@ Next Update (v0.3.1)
 + Partial support for the versus multiplayer ROM hack Super Bill Kill (by jeffXvX)
 + Partial support for the European and Famicom versions of SMB1
 + Combo carts and unheadered ROMs are now automatically patched to be compatible with Level-Headed
-+ Hitting the top of the flagpole now gives a 1-UP on Normal, Easy, and Very Easy difficulties
++ Hitting the top of the flagpole now gives a 1-UP on Easy and Very Easy difficulties
++ Fire Bros. are now only seen on Hard or higher difficulties
 + Very easy now has unlimited time
 + Added command line support
 + Random Sounds

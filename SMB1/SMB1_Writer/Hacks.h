@@ -35,6 +35,7 @@ public:
     bool Replace_1UP_With_Swimming_Mushroom();
     bool Replace_Castle_Loop_With_Autoscroll_Object();
     bool Replace_Castle_Loop_With_Fire_Bros();
+    bool Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Replace_Mario_With_Luigi();
     bool Set_Basic_Enemy_Speed(int speed);
     bool Set_Bullet_Bill_Speed(int speed);
@@ -46,7 +47,6 @@ public:
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();
-    bool Top_Of_Flagpole_Gives_1UP();
     bool Unlimited_Time();
     bool Write_Watermark();
 

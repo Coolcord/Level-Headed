@@ -57,7 +57,6 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyUnlimitedTime = difficultySettings.unlimitedTime;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
-    pluginSettings->difficultyTopOfFlagpoleGives1UP = difficultySettings.topOfFlagpoleGives1UP;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = difficultySettings.replaceCastleLoops;
@@ -86,13 +85,12 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultySpinyEggBehavior = 1;
-    pluginSettings->difficultyReplaceCastleLoops = 1;
-    pluginSettings->difficultyReplaceCastleLoopsCurrent = 1;
+    pluginSettings->difficultyReplaceCastleLoops = 2;
+    pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
     pluginSettings->superMarioOnDamage = false;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = false;
     pluginSettings->difficultyUnlimitedTime = false;
-    pluginSettings->difficultyTopOfFlagpoleGives1UP = false;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -124,10 +122,9 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.noEnemies = false;
     difficultySettings.unlimitedTime = false;
-    difficultySettings.topOfFlagpoleGives1UP = true;
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
-    difficultySettings.replaceCastleLoops = 0;
+    difficultySettings.replaceCastleLoops = 3; //autoscroll
     difficultySettings.autoScrollChancePerLevel = 25;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
@@ -164,7 +161,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.unlimitedTime = true;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
-    difficultySettings.replaceCastleLoops = 1;
+    difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
     return difficultySettings;
 }
 
@@ -178,8 +175,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
-    difficultySettings.replaceCastleLoops = 2;
-    difficultySettings.topOfFlagpoleGives1UP = true;
+    difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
     return difficultySettings;
 }
 
@@ -211,10 +207,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.standardOverworldLakitus = 3;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
-    difficultySettings.spinyEggBehavior = 0;
+    difficultySettings.spinyEggBehavior = 1;
+    difficultySettings.replaceCastleLoops = 2; //random hard
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
-    difficultySettings.topOfFlagpoleGives1UP = false;
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
@@ -237,6 +233,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.undergroundLakitus = 3;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
+    difficultySettings.spinyEggBehavior = 2;
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
@@ -278,7 +275,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Purist() {
     Difficulty_Level_Settings difficultySettings = this->Purist_And_Auto_Scroll();
-    difficultySettings.replaceCastleLoops = 1; //nothing
+    difficultySettings.replaceCastleLoops = 2; //nothing
     difficultySettings.autoScroll = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
     return difficultySettings;
@@ -288,7 +285,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
     difficultySettings.walkingHammerBros = 11;
-    difficultySettings.replaceCastleLoops = 2; //auto scroll
+    difficultySettings.replaceCastleLoops = 3; //auto scroll
     difficultySettings.piranhaPlantType = 1; //green
     difficultySettings.lakituRespawnSpeed = 3; //normal
     difficultySettings.lakituThrowArc = false;
@@ -333,7 +330,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Just_Keep_Scrolling()
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.autoScroll = 1;
     difficultySettings.autoScrollChancePerLevel = 100;
-    difficultySettings.replaceCastleLoops = 2;
+    difficultySettings.replaceCastleLoops = 3;
+    difficultySettings.unlimitedTime = true;
     return difficultySettings;
 }
 
@@ -383,6 +381,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.spinyEggBehavior = 0;
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     return difficultySettings;
@@ -415,7 +414,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
-    difficultySettings.replaceCastleLoops = 1;
+    difficultySettings.replaceCastleLoops = 2;
     return difficultySettings;
 }
 
@@ -423,19 +422,19 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time()
     Difficulty_Level_Settings difficultySettings = this->Very_Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
-    difficultySettings.replaceCastleLoops = 1;
+    difficultySettings.replaceCastleLoops = 2;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Turn_Up_The_Heat() {
     Difficulty_Level_Settings difficultySettings = this->Hammer_Time();
-    difficultySettings.replaceCastleLoops = 3;
+    difficultySettings.replaceCastleLoops = 4;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Too_Hot_To_Handle() {
     Difficulty_Level_Settings difficultySettings = this->Extreme_Hammer_Time();
-    difficultySettings.replaceCastleLoops = 3;
+    difficultySettings.replaceCastleLoops = 4;
     return difficultySettings;
 }
 

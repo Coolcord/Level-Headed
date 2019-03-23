@@ -167,6 +167,7 @@ public:
     bool Hacks_Remove_Vertical_Object_Limit();
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
     bool Hacks_Replace_Castle_Loop_With_Fire_Bros();
+    bool Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Basic_Enemy_Speed(int speed);
     bool Hacks_Set_Bullet_Bill_Speed(int speed);
@@ -176,7 +177,6 @@ public:
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Start_With_Fire_Flower_On_Room_Change();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
-    bool Hacks_Top_Of_Flagpole_Gives_1UP();
     bool Hacks_Unlimited_Time();
     bool Hacks_Write_Watermark();
 

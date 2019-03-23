@@ -581,6 +581,11 @@ bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Fire_Bros() {
     return this->hacks->Replace_Castle_Loop_With_Fire_Bros();
 }
 
+bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
+}
+
 bool SMB1_Writer::Hacks_Replace_Mario_With_Luigi() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Mario_With_Luigi();
@@ -624,11 +629,6 @@ bool SMB1_Writer::Hacks_Start_With_Fire_Flower_On_Room_Change() {
 bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
     if (!this->hacks) return false;
     return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
-}
-
-bool SMB1_Writer::Hacks_Top_Of_Flagpole_Gives_1UP() {
-    if (!this->hacks) return false;
-    return this->hacks->Top_Of_Flagpole_Gives_1UP();
 }
 
 bool SMB1_Writer::Hacks_Unlimited_Time() {

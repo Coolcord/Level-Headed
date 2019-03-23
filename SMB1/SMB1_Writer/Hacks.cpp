@@ -208,6 +208,12 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS);
 }
 
+bool Hacks::Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D007EE5A07A94085FE60").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("206BC0").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()));
+}
+
 bool Hacks::Replace_Mario_With_Luigi() {
     if (!this->Write_Bytes_To_Offset(0x609, QByteArray(1, static_cast<char>(0xA9)))) return false;
     if (!this->Write_Bytes_To_Offset(0x870, QByteArray(1, static_cast<char>(0x72)))) return false;
@@ -377,12 +383,6 @@ bool Hacks::Taking_Damage_As_Fire_Reverts_To_Super() {
     if (!this->Write_Bytes_To_Offset(0x5946, QByteArray(1, static_cast<char>(0xCE)))) return false;
     //$C114
     return this->Write_Bytes_To_Offset(0x4124, QByteArray::fromHex(QString("AD5607F005AD5407F0034C63B28D0B07A901851DA9C98D470760").toLatin1()));
-}
-
-bool Hacks::Top_Of_Flagpole_Gives_1UP() {
-    if (!this->Write_Bytes_To_Offset(0x0D78, QByteArray::fromHex(QString("AC0F01D007EE5A07A94085FE60").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("20688D").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()));
 }
 
 bool Hacks::Unlimited_Time() {

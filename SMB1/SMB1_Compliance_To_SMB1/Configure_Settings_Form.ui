@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -635,7 +635,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>-1160</y>
             <width>652</width>
-            <height>1824</height>
+            <height>1795</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1766,6 +1766,11 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Random Hard (Auto Scroll, Fire Bros.)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>None</string>
                    </property>
                   </item>
@@ -1777,6 +1782,11 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Fire Bros.</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Top of Flagpole Gives 1-UP</string>
                    </property>
                   </item>
                  </widget>
@@ -1824,13 +1834,6 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbStartWithFireFlowerOnRoomChange">
                 <property name="text">
                  <string>Start with Fire Flower on room change</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="cbTopOfFlagpoleGives1UP">
-                <property name="text">
-                 <string>Top of Flagpole gives 1-UP</string>
                 </property>
                </widget>
               </item>

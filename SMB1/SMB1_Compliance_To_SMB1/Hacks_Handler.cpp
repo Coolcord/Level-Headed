@@ -34,7 +34,6 @@ bool Hacks_Handler::Write_Hacks() {
         }
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
         if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
-        if (this->pluginSettings->difficultyTopOfFlagpoleGives1UP && !this->writerPlugin->Hacks_Top_Of_Flagpole_Gives_1UP()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
         if (!this->Handle_Enemy_Speed()) return false;
@@ -112,7 +111,7 @@ bool Hacks_Handler::Handle_Lakitus() {
     if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Num(1)+1;
     bool success = false;
     switch (spinyEggBehavior) {
-    default:    assert(false);
+    default:    assert(false); return false;
     case 1:     success = true; break; //Normal
     case 2:     success = this->writerPlugin->Hacks_Bouncy_Spiny_Eggs(); break; //Bouncy
     }
@@ -121,7 +120,7 @@ bool Hacks_Handler::Handle_Lakitus() {
     //Handle the Respawn Speed
     int lakituRespawnSpeed = this->pluginSettings->difficultyLakituRespawnSpeed;
     switch (lakituRespawnSpeed) {
-    default:    assert(false);
+    default:    assert(false); return false;
     case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Num(0xA));
     case 1:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x10); //Disabled
     case 2:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0xF); //Delayed
@@ -142,7 +141,7 @@ bool Hacks_Handler::Handle_Piranha_Plants() {
     int piranhaPlantType = this->pluginSettings->difficultyPiranhaPlantType;
     if (piranhaPlantType == 0) piranhaPlantType = Random::Get_Num(2)+1;
     switch (piranhaPlantType) {
-    default:    assert(false);
+    default:    assert(false); return false;
     case 1:     return true;
     case 2:     return this->writerPlugin->Hacks_Red_Piranha_Plants();
     case 3:     return this->writerPlugin->Hacks_Black_Piranha_Plants();
@@ -177,7 +176,7 @@ bool Hacks_Handler::Handle_Powerup() {
     int powerup = this->pluginSettings->powerup;
     if (powerup == 0) powerup = Random::Get_Num(8)+1;
     switch (powerup) {
-    default:    assert(false);
+    default:    assert(false); return false;
     case 1:     return true; //Fire Flower
     case 2:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Cutter_Flower();
     case 3:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
@@ -206,7 +205,7 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Apply the necessary patch
     bool success = false;
     switch (secondaryMushroom) {
-    default:    assert(false);
+    default:    assert(false); return false;
     case 2:     success = true; break; //1-Up
     case 3:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
     case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
@@ -222,13 +221,16 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(2)+1;
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(2)+3; //3-5
+    } else if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 1) {
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(1)+3; //3 or 4
     }
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
-    default:    assert(false);
-    case 1:     return true; //no complimentary hack
-    case 2:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
-    case 3:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
+    default:    assert(false); return false;
+    case 2:     return true; //no complimentary hack
+    case 3:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
+    case 4:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
+    case 5:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     }
 }
 

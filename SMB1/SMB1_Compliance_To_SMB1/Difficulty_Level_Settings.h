@@ -30,7 +30,6 @@ struct Difficulty_Level_Settings {
     int standardOverworldOffscreenBulletBills;
     bool noEnemies;
     bool unlimitedTime;
-    bool topOfFlagpoleGives1UP;
     bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
     int replaceCastleLoops;

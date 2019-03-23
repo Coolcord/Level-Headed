@@ -77,7 +77,6 @@ struct Plugin_Settings {
     int difficultyStandardOverworldOffscreenBulletBills;
     bool difficultyNoEnemies;
     bool difficultyUnlimitedTime;
-    bool difficultyTopOfFlagpoleGives1UP;
     bool difficultyStartWithFireFlowerOnRoomChange;
     int difficultyHammerTimeIntensity;
     int difficultyReplaceCastleLoops;
