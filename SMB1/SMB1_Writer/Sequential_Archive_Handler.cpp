@@ -4,6 +4,7 @@
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
 #include <assert.h>
+#include <QFileInfo>
 #include <QTextStream>
 
 #include <QDebug>
@@ -11,7 +12,7 @@
 const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Invalid Tones: ";
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
 
-Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation) {
+Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
     this->combineMusicPacks = false;
     this->file = nullptr;
     this->hexagonPlugin = nullptr;
@@ -22,7 +23,9 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->graphicsPackStrings = QStringList();
     this->musicPackStrings = QStringList();
     this->invalidTones = new QSet<int>();
+    this->romFolderLocation = romFolderLocation;
     this->pluginLocation = applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
+    this->romsArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
     this->graphicsPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
     this->musicPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
 }
@@ -136,6 +139,53 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName)
 bool Sequential_Archive_Handler::Is_Hexagon_Line_End_Of_Header(const QString &line) {
     if (!this->Load_Plugins_If_Necessary()) return false;
     return this->hexagonPlugin->Is_Line_End_Of_Header(line);
+}
+
+bool Sequential_Archive_Handler::Install_ROM_Patches(const QString &romName) {
+    if (!this->Load_Plugins_If_Necessary()) return true; //no plugins, so just skip this
+    if (!this->sequentialArchivePlugin->Open(this->romsArchiveLocation)) return true; //no ROMs.sa exists, so don't install anything
+    if (!this->sequentialArchivePlugin->Change_Directory(romName)) {
+        this->sequentialArchivePlugin->Close();
+        return true;
+    }
+
+    //Check if any patches are available for the file
+    QString extension = QFileInfo(romName).suffix();
+    QStringList patches = this->sequentialArchivePlugin->Get_Files();
+    if (patches.isEmpty()) {
+        this->sequentialArchivePlugin->Close();
+        return true;
+    }
+
+    //Read the original file into a buffer
+    QFile originalFile(this->romFolderLocation + "/" + romName);
+    if (!originalFile.open(QIODevice::ReadOnly)) return false;
+    QByteArray originalBytes = originalFile.readAll();
+    originalFile.close();
+    if (originalBytes.isEmpty()) return false;
+
+    //Apply every patch available to the file
+    for (QString patch : patches) {
+        //Make a copy of the original file using the patch file's name
+        QString patchFileBaseName = QFileInfo(patch).fileName(); patchFileBaseName.chop(QFileInfo(patch).suffix().size()+1);
+        QFile patchFile(this->romFolderLocation+"/"+patchFileBaseName+"."+extension);
+        if (!patchFile.open(QIODevice::ReadWrite)) return this->Removed_Installed_ROM_Patches_On_Failure(patches, extension);
+        if (patchFile.write(originalBytes) != originalBytes.size() || !patchFile.reset()) {
+            patchFile.close();
+            return this->Removed_Installed_ROM_Patches_On_Failure(patches, extension);
+        }
+
+        //Apply the Hexagon patch to the new file
+        QByteArray patchBytes = this->sequentialArchivePlugin->Read_File(patch);
+        int lineNum = 0;
+        if (this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, &patchFile, false, lineNum) != Hexagon_Error_Codes::OK) {
+            patchFile.close();
+            return this->Removed_Installed_ROM_Patches_On_Failure(patches, extension);
+        }
+        patchFile.close();
+    }
+    this->sequentialArchivePlugin->Close();
+    return true;
 }
 
 bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks) {
@@ -271,4 +321,13 @@ QByteArray Sequential_Archive_Handler::Read_Music_Pack(const QString &musicPackS
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+musicPackString);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
+}
+
+bool Sequential_Archive_Handler::Removed_Installed_ROM_Patches_On_Failure(const QStringList &patches, const QString &extension) {
+    this->sequentialArchivePlugin->Close();
+    for (QString patch : patches) {
+        QString patchFileBaseName = QFileInfo(patch).fileName(); patchFileBaseName.chop(QFileInfo(patch).suffix().size()+1);
+        QFile::remove(this->romFolderLocation+"/"+patchFileBaseName+"."+extension); //ignore output
+    }
+    return false; //always return false. An error had to occur to get here
 }

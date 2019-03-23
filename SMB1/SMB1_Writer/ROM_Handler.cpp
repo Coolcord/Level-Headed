@@ -2,6 +2,7 @@
 #include "ROM_Checksum.h"
 #include "ROM_Filename.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "Sequential_Archive_Handler.h"
 #include "SMB1_Writer_Strings.h"
 #include <QMessageBox>
 #include <QFileDialog>
@@ -15,6 +16,7 @@
 #include <assert.h>
 
 ROM_Handler::ROM_Handler(QWidget *parent, const QString &applicationLocation) {
+    this->sequentialArchiveHandler = nullptr;
     this->parent = parent;
     this->romType = ROM_Type::INVALID;
     this->romChecksum = new ROM_Checksum();
@@ -24,9 +26,15 @@ ROM_Handler::ROM_Handler(QWidget *parent, const QString &applicationLocation) {
 
 ROM_Handler::~ROM_Handler() {
     delete this->romChecksum;
+    this->sequentialArchiveHandler = nullptr; //don't deallocate this here
+}
+
+void ROM_Handler::Set_Sequential_Archive_Handler(Sequential_Archive_Handler *sequentialArchiveHandler) {
+    this->sequentialArchiveHandler = sequentialArchiveHandler;
 }
 
 QString ROM_Handler::Install_ROM() {
+    assert(this->sequentialArchiveHandler);
     QString fileLocation = QFileDialog::getOpenFileName(this->parent, "Open a ROM", this->applicationLocation, "NES ROMs (*.nes *.fds)");
     if (fileLocation == nullptr || fileLocation.isEmpty()) return QString();
 
@@ -99,6 +107,14 @@ QString ROM_Handler::Install_ROM() {
     }
     file.close();
     installedFile.close();
+    if (!this->sequentialArchiveHandler->Install_ROM_Patches(fileName)) {
+        installedFile.remove();
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                              Common_Strings::STRING_LEVEL_HEADED +
+                              " failed to install some base ROM patches! Either something isn't configured correctly, or "+Common_Strings::STRING_LEVEL_HEADED+
+                              " does not have proper read/write permissions!", Common_Strings::STRING_OK);
+        return QString();
+    }
     QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "ROM successfully installed!", Common_Strings::STRING_OK);
     return fileName;
 }
@@ -259,6 +275,10 @@ bool ROM_Handler::Clean_ROM_Directory() {
     this->romType = tmpROMType;
 
     return success;
+}
+
+QString ROM_Handler::Get_Installed_ROM_Folder_Location() {
+    return this->romFolderLocation;
 }
 
 QStringList ROM_Handler::Get_Installed_ROMs() {

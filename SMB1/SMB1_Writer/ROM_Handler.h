@@ -8,14 +8,16 @@
 #include <QWidget>
 
 class ROM_Checksum;
+class Sequential_Archive_Handler;
 
-class ROM_Handler
-{
+class ROM_Handler {
 public:
     ROM_Handler(QWidget *parent, const QString &applicationLocation);
     ~ROM_Handler();
+    void Set_Sequential_Archive_Handler(Sequential_Archive_Handler *sequentialArchiveHandler);
     QString Install_ROM();
     bool Clean_ROM_Directory();
+    QString Get_Installed_ROM_Folder_Location();
     QStringList Get_Installed_ROMs();
     QFile *Load_Local_ROM(const QString &fileName, bool &cancel);
     QFile *Load_First_Local_ROM(bool &cancel);
@@ -28,6 +30,7 @@ private:
 
     ROM_Type::ROM_Type romType;
     ROM_Checksum *romChecksum;
+    Sequential_Archive_Handler *sequentialArchiveHandler;
     QFile *file;
     QString romFolderLocation;
     QString applicationLocation;

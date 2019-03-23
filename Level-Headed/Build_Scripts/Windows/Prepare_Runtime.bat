@@ -22,6 +22,7 @@ ERASE "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MO
 ERASE "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Plugins\Sequential_Archive.dll" >NUL 2>&1
 ERASE "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\Graphics.sa" >NUL 2>&1
 ERASE "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\Music.sa" >NUL 2>&1
+ERASE "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\ROMs.sa" >NUL 2>&1
 ERASE "%SOURCE_LOCATION%\Sequential_Archive\build-Sequential_Archive_Manager-Desktop_%QT%-%MODE%\%MODE%\Plugins\Sequential_Archive.dll" >NUL 2>&1
 
 REM Install New Plugins
@@ -35,4 +36,5 @@ COPY "%SOURCE_LOCATION%\Sequential_Archive\build-Sequential_Archive-Desktop_%QT%
 REM Pack Sequential Archives
 "%SOURCE_LOCATION%\Sequential_Archive\build-Sequential_Archive_Manager-Desktop_%QT%-%MODE%\%MODE%\Sequential_Archive_Manager.exe" --pack "%SOURCE_LOCATION%\Level-Headed_Data\Graphics" "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\Graphics.sa"
 "%SOURCE_LOCATION%\Sequential_Archive\build-Sequential_Archive_Manager-Desktop_%QT%-%MODE%\%MODE%\Sequential_Archive_Manager.exe" --pack "%SOURCE_LOCATION%\Level-Headed_Data\Music" "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\Music.sa"
+"%SOURCE_LOCATION%\Sequential_Archive\build-Sequential_Archive_Manager-Desktop_%QT%-%MODE%\%MODE%\Sequential_Archive_Manager.exe" --pack "%SOURCE_LOCATION%\Level-Headed_Data\ROMs" "%SOURCE_LOCATION%\Level-Headed\build-Level-Headed-Desktop_%QT%-%MODE%\%MODE%\Data\SMB1\ROMs.sa"
 ECHO If there are no errors, everything should be ready!

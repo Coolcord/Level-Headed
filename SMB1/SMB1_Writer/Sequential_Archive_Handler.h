@@ -9,7 +9,7 @@
 
 class Sequential_Archive_Handler {
 public:
-    Sequential_Archive_Handler(const QString &applicationLocation);
+    Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation);
     ~Sequential_Archive_Handler();
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
@@ -27,6 +27,7 @@ public:
     bool Is_Tone_Invalid(int tone);
     QByteArray Read_Graphics_Fix(const QString &fixName);
     bool Is_Hexagon_Line_End_Of_Header(const QString &line);
+    bool Install_ROM_Patches(const QString &romName);
 
 private:
     bool Apply_Music_Pack(const QString &musicPack, bool isSecondaryPatch, QStringList &previouscompatiblePacks);
@@ -39,6 +40,7 @@ private:
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();
     QByteArray Read_Music_Pack(const QString &musicPackString);
+    bool Removed_Installed_ROM_Patches_On_Failure(const QStringList &patches, const QString &extension);
 
     QFile *file;
     QSet<int> *invalidTones;
@@ -49,7 +51,9 @@ private:
     QPluginLoader *sequentialArchiveLoader;
     QStringList graphicsPackStrings;
     QStringList musicPackStrings;
+    QString romFolderLocation;
     QString pluginLocation;
+    QString romsArchiveLocation;
     QString graphicsPacksArchiveLocation;
     QString musicPacksArchiveLocation;
     QString lastAppliedGraphicsPack;
