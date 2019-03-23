@@ -18,7 +18,7 @@ SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
 void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location, const QString &seed) {
     this->parent = parent;
     this->applicationLocation = location;
-    Random::Get_Instance().Seed(seed);
+    Random::Get_Instance().Seed(seed, 3);
 }
 
 void SMB1_Compliance_Generator::Shutdown() {

@@ -57,7 +57,7 @@ SMB1_Writer::SMB1_Writer() {
 void SMB1_Writer::Startup(QWidget *parent, const QString &location, const QString &seed) {
     this->parent = parent;
     this->applicationLocation = location;
-    Random::Get_Instance().Seed(seed);
+    Random::Get_Instance().Seed(seed, 2);
     this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);
     this->sequentialArchiveHandler = new Sequential_Archive_Handler(location, this->romHandler->Get_Installed_ROM_Folder_Location());
     this->romHandler->Set_Sequential_Archive_Handler(this->sequentialArchiveHandler);

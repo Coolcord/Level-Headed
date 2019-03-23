@@ -42,7 +42,7 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location, 
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
-    Random::Get_Instance().Seed(this->pluginSettings.randomSeed);
+    Random::Get_Instance().Seed(this->pluginSettings.randomSeed, 1);
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         //TODO: Update this error

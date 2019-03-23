@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     Main_Window w;
 
-    Random::Get_Instance().Seed(static_cast<unsigned int>(QTime::currentTime().msecsSinceStartOfDay()));
+    Random::Get_Instance().Seed(QString::number(QTime::currentTime().msecsSinceStartOfDay()), 0);
     if (!w.Create_Directories()) return 1;
     if (!w.Populate_Writers()) return 1;
 
