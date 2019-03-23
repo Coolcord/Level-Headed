@@ -215,7 +215,7 @@ bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool
     } else { //consider all compatible patches for the primary patch
         compatiblePacks = currentCompatiblePacks;
     }
-    int secondaryIndex = Random::Get_Num(compatiblePacks.size());
+    int secondaryIndex = Random::Get_Instance().Get_Num(compatiblePacks.size());
     if (secondaryIndex == compatiblePacks.size()) return true; //don't apply anything
     QString packName = compatiblePacks.at(secondaryIndex);
     compatiblePacks.removeAt(secondaryIndex); //remove the pack that is going to be used

@@ -27,7 +27,7 @@ bool Bridge_Generator::Generate_Level() {
         x = this->Get_Safe_Jump_Distance(x);
 
         //TODO: Clean up probabilities
-        switch (Random::Get_Num(19)) {
+        switch (Random::Get_Instance().Get_Num(19)) {
         case 0:
         case 1:
         case 2:
@@ -74,7 +74,7 @@ int Bridge_Generator::Get_Height_From_Y(int y) {
 }
 
 int Bridge_Generator::Get_Bridge_Y() {
-    switch (Random::Get_Num(2)) {
+    switch (Random::Get_Instance().Get_Num(2)) {
     case 0:     return 7;
     case 1:     return 8;
     case 2:     return Physics::GROUND_Y;
@@ -83,13 +83,13 @@ int Bridge_Generator::Get_Bridge_Y() {
 }
 
 int Bridge_Generator::Get_Bridge_Length() {
-    int length = 3+(Random::Get_Num(11));
+    int length = 3+(Random::Get_Instance().Get_Num(11));
     assert(length <= 0xF);
     return length;
 }
 
 int Bridge_Generator::Get_Safe_Jump_Distance(int min) {
-    int x = Random::Get_Num(3)+2;
+    int x = Random::Get_Instance().Get_Num(3)+2;
     x += min;
     if (x > 0x10) x = 0x10;
     return x;
@@ -97,7 +97,7 @@ int Bridge_Generator::Get_Safe_Jump_Distance(int min) {
 
 bool Bridge_Generator::Spawn_Intro(int &x) {
     //Decrement x a bit to match SMB1's style
-    if (this->object->Get_First_Page_Safety()) x -= Random::Get_Num(8);
+    if (this->object->Get_First_Page_Safety()) x -= Random::Get_Instance().Get_Num(8);
 
     //Handle Auto Scrolling Levels
     int autoScrollX = 2;
@@ -107,14 +107,14 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
 
     //Possibly spawn a hole between the steps and the castle
     assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
-    x = Random::Get_Num(Physics::WALKING_JUMP_LENGTH)+1;
-    int length = Random::Get_Num(7)+3;
+    x = Random::Get_Instance().Get_Num(Physics::WALKING_JUMP_LENGTH)+1;
+    int length = Random::Get_Instance().Get_Num(7)+3;
     assert(this->object->Island(x, Physics::GROUND_Y+1, length));
 
     //Determine the bridge placement
     int y = 0;
     int height = 0;
-    switch (Random::Get_Num(2)) {
+    switch (Random::Get_Instance().Get_Num(2)) {
     case 0:
         y = 7;
         height = 4;
@@ -138,10 +138,10 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
         y = Physics::GROUND_Y;
     }
     assert(length >= height);
-    x = Random::Get_Num(length-height);
+    x = Random::Get_Instance().Get_Num(length-height);
     assert(x < length);
     assert(height+x <= length);
-    int numBlocks = Random::Get_Num(2);
+    int numBlocks = Random::Get_Instance().Get_Num(2);
     //Prevent the blocks from being created over the edge of the island
     while (height+x+numBlocks > length) {
         --numBlocks;
@@ -156,7 +156,7 @@ bool Bridge_Generator::Spawn_Intro(int &x) {
         }
     }
     int bridgeLength = this->Get_Bridge_Length();
-    if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+Random::Get_Num(2);
+    if (bridgeLength <= (length-(x+height+numBlocks))+1) bridgeLength = (length-(x+height+numBlocks))+1+Random::Get_Instance().Get_Num(2);
     assert(this->object->Bridge(this->object->Get_Last_Object_Length(), y, bridgeLength));
     assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), y, this->Get_Height_From_Y(y)));
 
@@ -198,7 +198,7 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
     if (numObjectsAvailable < 5) return false;
 
     //A Multi Bridge can be anywhere from 2 to 4 bridges
-    int numBridges = Random::Get_Num(2)+2;
+    int numBridges = Random::Get_Instance().Get_Num(2)+2;
     int numObjectsRequired = 5+((numBridges-2)*2);
     if (numObjectsAvailable < numObjectsRequired) {
         numBridges = ((numObjectsAvailable-5)/2)+2;
@@ -206,9 +206,9 @@ bool Bridge_Generator::Spawn_Multi_Bridge(int x, int y, bool ignoreFirstSupport)
     }
 
     //Allow the Multi Bridge to be uniform in some aspects
-    bool uniformDistance = !(static_cast<bool>(Random::Get_Num(2)));
-    bool uniformLength = !(static_cast<bool>(Random::Get_Num(2)));
-    bool uniformHeight = (static_cast<bool>(Random::Get_Num(2)));
+    bool uniformDistance = !(static_cast<bool>(Random::Get_Instance().Get_Num(2)));
+    bool uniformLength = !(static_cast<bool>(Random::Get_Instance().Get_Num(2)));
+    bool uniformHeight = (static_cast<bool>(Random::Get_Instance().Get_Num(2)));
     if (!y) y = this->Get_Bridge_Y();
     int height = this->Get_Height_From_Y(y);
     int length = this->Get_Bridge_Length();
@@ -251,7 +251,7 @@ bool Bridge_Generator::Spawn_Lone_Bridge(int x, int y, int length) {
 
     //Determine a y value
     if (!y) y = this->Get_Bridge_Y();
-    if (!length) length = Random::Get_Num(2)+2;
+    if (!length) length = Random::Get_Instance().Get_Num(2)+2;
 
     //Spawn the bridge by itself
     assert(this->object->Bridge(x, y, length));
@@ -264,15 +264,15 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
     if (numObjectsAvailable < 3) return false;
 
     //A series of lone bridges can consist of anywhere between 3 and 6 bridges
-    int numBridges = Random::Get_Num(2)+3;
+    int numBridges = Random::Get_Instance().Get_Num(2)+3;
     if (numBridges > numObjectsAvailable) numBridges = numObjectsAvailable;
 
     //Allow the series to be uniform in some aspects
-    bool uniformDistance = !(static_cast<bool>(Random::Get_Num(3)));
-    bool uniformHeight = !(static_cast<bool>(Random::Get_Num(3)));
-    bool uniformLength = !(static_cast<bool>(Random::Get_Num(3)));
+    bool uniformDistance = !(static_cast<bool>(Random::Get_Instance().Get_Num(3)));
+    bool uniformHeight = !(static_cast<bool>(Random::Get_Instance().Get_Num(3)));
+    bool uniformLength = !(static_cast<bool>(Random::Get_Instance().Get_Num(3)));
     int y = this->Get_Bridge_Y();
-    int length = Random::Get_Num(2)+2;
+    int length = Random::Get_Instance().Get_Num(2)+2;
 
     //Spawn the Lone Bridge Series
     assert(this->Spawn_Lone_Bridge(x, y, length));
@@ -280,7 +280,7 @@ bool Bridge_Generator::Spawn_Lone_Bridge_Series(int x) {
     for (int i = 1; i < numBridges; ++i) {
         if (!uniformDistance) x = this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length());
         if (!uniformHeight) y = this->Get_Bridge_Y();
-        if (!uniformLength) length = Random::Get_Num(2)+2;
+        if (!uniformLength) length = Random::Get_Instance().Get_Num(2)+2;
         assert(this->Spawn_Lone_Bridge(x, y, length));
     }
     return true;

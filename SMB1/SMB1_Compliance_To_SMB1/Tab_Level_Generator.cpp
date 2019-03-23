@@ -36,6 +36,7 @@ void Tab_Level_Generator::Load_Settings() {
 
 void Tab_Level_Generator::Save_Settings() {
     this->pluginSettings->generateNewLevels = this->ui->radioGenerateNewLevels->isChecked();
+    this->pluginSettings->randomSeed = this->ui->leRandomSeed->text();
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
     } else {
@@ -47,7 +48,6 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
-        this->pluginSettings->randomSeed = this->ui->leRandomSeed->text();
     }
 }
 

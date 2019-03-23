@@ -27,7 +27,7 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
-        switch (Random::Get_Num(4)) {
+        switch (Random::Get_Instance().Get_Num(4)) {
         case 0:     return this->Two_Steps_And_Hole(x);
         case 1:     return this->Pipe_Series(x);
         case 2:     return this->Platform_Over_Hole(x);
@@ -53,7 +53,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
 
     //Possibly extend the top platform by one
     bool extendedTop = false;
-    if (Random::Get_Num(1) == 0) {
+    if (Random::Get_Instance().Get_Num(1) == 0) {
         extendedTop = true;
         assert(this->object->Vertical_Blocks(this->object->Get_Last_Object_Length(), this->Get_Y_From_Height(height), height));
         --this->availableObjects;
@@ -61,7 +61,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
 
     //Possibly place a hole
     bool hole = false;
-    if (height > Physics::BASIC_JUMP_HEIGHT || Random::Get_Num(1) == 0) {
+    if (height > Physics::BASIC_JUMP_HEIGHT || Random::Get_Instance().Get_Num(1) == 0) {
         int length = 0;
         if (extendedTop && this->levelType != Level_Type::UNDERGROUND) length = this->Get_Random_Number(Physics::WALKING_JUMP_LENGTH, Physics::RUNNING_JUMP_LENGTH);
         else length = this->Get_Random_Number(2, Physics::WALKING_JUMP_LENGTH);
@@ -79,7 +79,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
     //Possibly place vertical blocks to land on
     bool landing = false;
     if (this->availableObjects > 0) {
-        if (Random::Get_Num(1) == 0) {
+        if (Random::Get_Instance().Get_Num(1) == 0) {
             height = this->Get_Random_Number(2, height);
             assert(this->object->Vertical_Blocks(length, this->Get_Y_From_Height(height), height));
             --this->availableObjects;
@@ -91,7 +91,7 @@ bool Common_Pattern_Spawner::Two_Steps_And_Hole(int x) {
     bool steps = false;
     int stepsHeight = this->Get_Random_Number(Physics::MIN_STEPS_SIZE, height);
     if (this->availableObjects >= stepsHeight) {
-        if (Random::Get_Num(1) == 0) {
+        if (Random::Get_Instance().Get_Num(1) == 0) {
             landing = true;
             steps = true;
             while (stepsHeight > 0 && this->availableObjects > 0) {
@@ -114,7 +114,7 @@ bool Common_Pattern_Spawner::Pipe_Series(int x) {
 
     //Possibly add space between each pipe
     bool noSpace = false;
-    if (Random::Get_Num(1) == 0) noSpace = true;
+    if (Random::Get_Instance().Get_Num(1) == 0) noSpace = true;
 
     //Spawn in all the pipes
     int y = this->Get_Random_Pipe_Y(x);
@@ -148,7 +148,7 @@ bool Common_Pattern_Spawner::Platform_Over_Hole(int x) {
 
     //Possibly make the platform uniform on both sides
     int length = 0;
-    if (Random::Get_Num(1) == 0) { //uniform
+    if (Random::Get_Instance().Get_Num(1) == 0) { //uniform
         length = holeLength-(2*x);
     } else { //not uniform
         length = this->Get_Random_Number(2, holeLength-x);
@@ -160,7 +160,7 @@ bool Common_Pattern_Spawner::Platform_Over_Hole(int x) {
     assert(length+x <= holeLength);
 
     //Use either bricks or blocks to make the platform
-    if (Random::Get_Num(1) == 0) {
+    if (Random::Get_Instance().Get_Num(1) == 0) {
         assert(this->object->Horizontal_Blocks(x, this->Get_Y_From_Height(height), length));
     } else {
         assert(this->object->Horizontal_Bricks(x, this->Get_Y_From_Height(height), length));
@@ -178,7 +178,7 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
     bool vertical = false;
     int y = this->Get_Safe_Random_Y(x);
     if (y < this->minY) y = this->minY;
-    if (Random::Get_Num(1) == 0) {
+    if (Random::Get_Instance().Get_Num(1) == 0) {
         assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
         vertical = true;
     } else {
@@ -194,9 +194,9 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
             y = this->object->Get_Current_Y();
             //Possibly go down
             if (y == Physics::HIGHEST_Y) {
-                if (Random::Get_Num(4) != 0) y += this->Get_Random_Number(1, 4); //more likely to go down when at highest y
+                if (Random::Get_Instance().Get_Num(4) != 0) y += this->Get_Random_Number(1, 4); //more likely to go down when at highest y
             } else {
-                if (Random::Get_Num(1) == 0) y += this->Get_Random_Number(1, 4);
+                if (Random::Get_Instance().Get_Num(1) == 0) y += this->Get_Random_Number(1, 4);
             }
             if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //don't go too low
             if (y < this->minY) y = this->minY;
@@ -206,9 +206,9 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
             y = this->object->Get_Current_Y();
             //Possibly go up
             if (y == Physics::GROUND_Y) {
-                if (Random::Get_Num(4) != 0) y -= this->Get_Random_Number(1, 4); //more likely to go up when on the ground
+                if (Random::Get_Instance().Get_Num(4) != 0) y -= this->Get_Random_Number(1, 4); //more likely to go up when on the ground
             } else {
-                if (Random::Get_Num(1) == 0) y -= this->Get_Random_Number(1, 4);
+                if (Random::Get_Instance().Get_Num(1) == 0) y -= this->Get_Random_Number(1, 4);
             }
             if (y < this->minY) y = this->minY; //don't go too high
             assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
@@ -236,8 +236,8 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
     for (int i = this->Get_Random_Number(1, 6); i > 0 && this->availableObjects > 0; --i) {
         y = this->object->Get_Current_Y();
         //Possibly change Y
-        if (Random::Get_Num(3) != 0) {
-            if (Random::Get_Num(1) == 0) {
+        if (Random::Get_Instance().Get_Num(3) != 0) {
+            if (Random::Get_Instance().Get_Num(1) == 0) {
                 y -= this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);
             } else {
                 y += this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);

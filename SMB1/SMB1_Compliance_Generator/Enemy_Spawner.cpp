@@ -74,7 +74,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         averageDistance = this->Calculate_Average_Distance(x, totalSpaces, this->Calculate_Number_Of_Enemies());
 
         //Determine what type of enemies to spawn
-        bool forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        bool forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         bool noEnemies = this->args->difficultyNoEnemies;
         if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
         if (forceHammerBro) {
@@ -204,7 +204,7 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
 }
 
 int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
-    switch (Random::Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -218,7 +218,7 @@ int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int
 }
 
 int Enemy_Spawner::Spawn_Underground_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
-    switch (Random::Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -237,7 +237,7 @@ int Enemy_Spawner::Spawn_Underwater_Enemy(int &x, int &y, int lastX, int size, b
 }
 
 int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
-    switch (Random::Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -252,7 +252,7 @@ int Enemy_Spawner::Spawn_Castle_Enemy(int &x, int &y, int lastX, int size, bool 
 
 int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
     //TODO: Add other paratroopa types
-    switch (Random::Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -268,7 +268,7 @@ int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size, bool 
 
 int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
     //TODO: Add other paratroopa types
-    switch (Random::Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
     case 1:
     case 2:
@@ -302,7 +302,7 @@ int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEne
 }
 
 int Enemy_Spawner::Get_Random_X(int min) {
-    int random = Random::Get_Num(0x10);
+    int random = Random::Get_Instance().Get_Num(0x10);
     random += min;
     if (random > 0x10) random = 0x10;
     return random;
@@ -315,7 +315,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
 
     //Determine how many enemies to spawn
     int numEnemies = 0;
-    switch (Random::Get_Num(1)) {
+    switch (Random::Get_Instance().Get_Num(1)) {
     case 0: numEnemies = 2; break;
     case 1: numEnemies = 3; break;
     default: assert(false);
@@ -323,7 +323,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
 
     //Determine the y to place the enemies at
     int tmpY = y;
-    switch (Random::Get_Num(1)) {
+    switch (Random::Get_Instance().Get_Num(1)) {
     case 0: tmpY = 0x6; break;
     case 1: tmpY = 0xA; break;
     default: assert(false);
@@ -356,7 +356,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     int spawnX = tmpX-lastX;
     assert(spawnX <= 16);
     assert(numEnemies == 2 || numEnemies == 3);
-    switch (Random::Get_Num(1)) {
+    switch (Random::Get_Instance().Get_Num(1)) {
     case 0: //Goombas
         assert(this->enemies->Goomba_Group(spawnX, tmpY, numEnemies));
         break;
@@ -382,14 +382,14 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         if (!canSpawnBlooper) noEnemies = true;
         if (!noEnemies && !forceHammerBro && canSpawnBlooper) {
             int spawnX = x - lastX;
-            y = Random::Get_Num(9)+1;
+            y = Random::Get_Instance().Get_Num(9)+1;
             assert(this->enemies->Blooper(spawnX, y));
             return 1;
         }
     }
 
     //Try to spawn a Green Paratroopa
-    if (!noEnemies && !forceHammerBro && Random::Get_Num(4) == 0) {
+    if (!noEnemies && !forceHammerBro && Random::Get_Instance().Get_Num(4) == 0) {
         bool spawnParatroopa = false;
         if (!this->levelCrawler->Find_Safe_Green_Leaping_Paratroopa_Coordinate(tmpX, tmpY, lastX)) {
             //Try again, but start closer to the last enemy
@@ -430,7 +430,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     } else {
         switch (this->args->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
-            random = Random::Get_Num(8);
+            random = Random::Get_Instance().Get_Num(8);
             if (random < 3) {
                 if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
                 else assert(this->enemies->Goomba(spawnX, tmpY));
@@ -439,7 +439,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             else assert(false);
             break;
         case Level_Type::BRIDGE:
-            switch (Random::Get_Num(4)) {
+            switch (Random::Get_Instance().Get_Num(4)) {
             case 0:
             case 1:
             case 2:
@@ -455,7 +455,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             }
             break;
         case Level_Type::ISLAND:
-            switch (Random::Get_Num(5)) {
+            switch (Random::Get_Instance().Get_Num(5)) {
             case 0:
             case 1:
             case 2:
@@ -474,7 +474,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         case Level_Type::UNDERGROUND: //don't spawn enemies that don't change colors with the pallette
         case Level_Type::UNDERWATER:
         case Level_Type::CASTLE:
-            random = (Random::Get_Num(5));
+            random = (Random::Get_Instance().Get_Num(5));
             if (random < 3) {
                 if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
                 else assert(this->enemies->Goomba(spawnX, tmpY));

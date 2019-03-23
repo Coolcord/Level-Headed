@@ -42,7 +42,7 @@ void SMB1_Compliance_To_SMB1::Startup(QWidget *parent, const QString &location, 
 }
 
 bool SMB1_Compliance_To_SMB1::Run() {
-    qsrand(Random::Get_Seed_From_QString(this->pluginSettings.randomSeed));
+    Random::Get_Instance().Seed(this->pluginSettings.randomSeed);
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
         //TODO: Update this error
@@ -153,8 +153,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
     if (!this->writerPlugin) return false; //TODO: Throw an error here
 
     //Set the application locations
-    this->generatorPlugin->Startup(this->parent, this->applicationLocation);
-    this->writerPlugin->Startup(this->parent, this->applicationLocation);
+    this->generatorPlugin->Startup(this->parent, this->applicationLocation, this->pluginSettings.randomSeed);
+    this->writerPlugin->Startup(this->parent, this->applicationLocation, this->pluginSettings.randomSeed);
 
     this->pluginsLoaded = true;
     return true;

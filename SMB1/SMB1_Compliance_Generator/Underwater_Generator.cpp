@@ -18,7 +18,7 @@ bool Underwater_Generator::Generate_Level() {
 
         //TODO: Fix probabilities
         //TODO: Add coins to some of the patterns
-        switch (Random::Get_Num(4)) {
+        switch (Random::Get_Instance().Get_Num(4)) {
         case 0:     this->Brick_Pattern_Distraction(x); break;
         case 1:     this->Corral(x); break;
         case 2:     this->Corral_Series(x); break;
@@ -43,11 +43,11 @@ bool Underwater_Generator::Generate_Level() {
 int Underwater_Generator::Get_Underwater_X(int min) {
     //Aim for a lower value... but allow higher values to be possible
     int x = min;
-    switch (Random::Get_Num(3)) {
-    case 0:     x += Random::Get_Num(3); break;
-    case 1:     x += Random::Get_Num(5); break;
-    case 2:     x += Random::Get_Num(7); break;
-    case 3:     x += Random::Get_Num(9); break;
+    switch (Random::Get_Instance().Get_Num(3)) {
+    case 0:     x += Random::Get_Instance().Get_Num(3); break;
+    case 1:     x += Random::Get_Instance().Get_Num(5); break;
+    case 2:     x += Random::Get_Instance().Get_Num(7); break;
+    case 3:     x += Random::Get_Instance().Get_Num(9); break;
     default:    assert(false); return 0;
     }
     if (x > 0x10) x = 0x10;
@@ -71,7 +71,7 @@ bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
 
     //Determine which kind of brick pattern to use
     Brick::Brick brick = Brick::NO_BRICKS;
-    switch (Random::Get_Num(9)) {
+    switch (Random::Get_Instance().Get_Num(9)) {
     case 0:     brick = Brick::SURFACE_AND_CEILING_4; break;
     case 1:     brick = Brick::SURFACE_AND_CEILING_8; break;
     case 2:     brick = Brick::SURFACE_4_AND_CEILING; break;
@@ -87,7 +87,7 @@ bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
 
     //The length of the brick pattern will be between 2 and 8
-    assert(this->object->Change_Brick_And_Scenery(Random::Get_Num(6)+2, Brick::SURFACE, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(Random::Get_Instance().Get_Num(6)+2, Brick::SURFACE, Scenery::NO_SCENERY));
     this->object->Set_Last_Object_Length(2);
     return true;
 }
@@ -97,8 +97,8 @@ bool Underwater_Generator::Corral(int x) {
 
     //The corral can be anywhere between 2 - 9 in height
     int height = 0;
-    if (Random::Get_Num(3) == 0) height = Random::Get_Num(7)+2;
-    else height = Random::Get_Num(3)+2;
+    if (Random::Get_Instance().Get_Num(3) == 0) height = Random::Get_Instance().Get_Num(7)+2;
+    else height = Random::Get_Instance().Get_Num(3)+2;
     int y = Physics::GROUND_Y - height + 1;
     assert(this->object->Corral(x, y, height));
     return true;
@@ -109,15 +109,15 @@ bool Underwater_Generator::Corral_Series(int x) {
     if (numObjectsAvailable < 3) return false;
 
     //Use between 3 and 5 corral
-    int numCorral = Random::Get_Num(2)+3;
+    int numCorral = Random::Get_Instance().Get_Num(2)+3;
     if (numCorral > numObjectsAvailable) numCorral = numObjectsAvailable;
 
     //Spawn the Corral Series
-    bool uniformDistance = static_cast<bool>(Random::Get_Num(1));
+    bool uniformDistance = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     assert(this->Corral(x));
-    x = (Random::Get_Num(2))+1;
+    x = (Random::Get_Instance().Get_Num(2))+1;
     for (int i = 1; i < numCorral; ++i) {
-        if (!uniformDistance) x = Random::Get_Num(2)+1;
+        if (!uniformDistance) x = Random::Get_Instance().Get_Num(2)+1;
         assert(this->Corral(x));
     }
     return true;
@@ -128,8 +128,8 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
     if (numObjectsAvailable < 1) return false;
 
     //Determine the length of the horizontal blocks
-    int length = Random::Get_Num(3)+2; //length should be between 2 and 5
-    int blocksY = Random::Get_Num(7)+3; //y should be between 3 and 10
+    int length = Random::Get_Instance().Get_Num(3)+2; //length should be between 2 and 5
+    int blocksY = Random::Get_Instance().Get_Num(7)+3; //y should be between 3 and 10
     assert(this->object->Horizontal_Blocks(x, blocksY, length));
     --numObjectsAvailable;
 
@@ -137,13 +137,13 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
     x = 0;
     int remainingLength = length;
     for (int i = 0; i < length && numObjectsAvailable > 0; ++i) {
-        if (Random::Get_Num(2) == 0) {
+        if (Random::Get_Instance().Get_Num(2) == 0) {
             assert(x <= remainingLength);
             remainingLength -= x;
             int height = 0;
-            if (Random::Get_Num(3) == 0) height = Random::Get_Num(7)+2;
-            else height = Random::Get_Num(3)+2;
-            if (blocksY-height < 1) height = Random::Get_Num(blocksY-3)+2;
+            if (Random::Get_Instance().Get_Num(3) == 0) height = Random::Get_Instance().Get_Num(7)+2;
+            else height = Random::Get_Instance().Get_Num(3)+2;
+            if (blocksY-height < 1) height = Random::Get_Instance().Get_Num(blocksY-3)+2;
             int y = blocksY - height;
             assert(this->object->Corral(x, y, height));
             x = 1;
@@ -163,16 +163,16 @@ bool Underwater_Generator::Hole(int x) {
     int numObjectsAvailable = this->object->Get_Num_Objects_Available();
     if (numObjectsAvailable < 1) return false;
 
-    int holeLength = Random::Get_Num(6)+2; //length is from 2 to 8
-    bool sideBarriers = static_cast<bool>(Random::Get_Num(3));
+    int holeLength = Random::Get_Instance().Get_Num(6)+2; //length is from 2 to 8
+    bool sideBarriers = static_cast<bool>(Random::Get_Instance().Get_Num(3));
     int firstHeight = 0;
     int secondHeight = 0;
     if (numObjectsAvailable < 5) sideBarriers = false;
 
     //Spawn a hole with uniform side barriers
     if (sideBarriers) {
-        firstHeight = Random::Get_Num(4)+2; //height is from 2 to 6
-        secondHeight = Random::Get_Num(4)+2;
+        firstHeight = Random::Get_Instance().Get_Num(4)+2; //height is from 2 to 6
+        secondHeight = Random::Get_Instance().Get_Num(4)+2;
         assert(this->object->Vertical_Blocks(x, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
         assert(this->object->Vertical_Blocks(1, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
         x = 1;

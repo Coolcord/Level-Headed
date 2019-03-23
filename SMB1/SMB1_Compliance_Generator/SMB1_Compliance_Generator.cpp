@@ -6,6 +6,7 @@
 #include "Bridge_Generator.h"
 #include "Island_Generator.h"
 #include "Pipe_Exit_Generator.h"
+#include "../../Common_Files/Random.h"
 #include <assert.h>
 #include <QDebug>
 #include <QTime>
@@ -14,9 +15,10 @@ SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
     this->applicationLocation = QString();
 }
 
-void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location) {
+void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location, const QString &seed) {
     this->parent = parent;
     this->applicationLocation = location;
+    Random::Get_Instance().Seed(seed);
 }
 
 void SMB1_Compliance_Generator::Shutdown() {

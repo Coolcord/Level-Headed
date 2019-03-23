@@ -1,27 +1,23 @@
-#ifndef RANDOM_H
-#define RANDOM_H
-
 #include "Random.h"
+#include <assert.h>
 
-#include <QTime>
-
-namespace Random {
-    int Get_Num(int max) {
-        return static_cast<int>(qrand()/(static_cast<double>(RAND_MAX)+1)*(max+1));
-    }
-
-    int Get_Num(int min, int max) {
-        return static_cast<int>(((static_cast<double>(qrand())/(RAND_MAX+1))*(max-min+1)+min));
-    }
-
-    uint Get_Seed_From_QString(const QString &string) {
-        bool isNumber = false;
-        uint seed = 0;
-        seed = string.toUInt(&isNumber, 10);
-        if (isNumber) return seed;
-        for (int i = 0; i < string.size(); ++i) seed += static_cast<uint>(string.at(i).toLatin1());
-        return seed;
-    }
+void Random::Seed(unsigned int seed) {
+    this->randomGenerator->seed(seed);
 }
 
-#endif // RANDOM_H
+void Random::Seed(const QString &seed) {
+    bool isNumber = false;
+    unsigned int uSeed = 0;
+    uSeed = seed.toUInt(&isNumber, 10);
+    if (isNumber) return this->Seed(uSeed);
+    for (int i = 0; i < seed.size(); ++i) uSeed += static_cast<unsigned int>(seed.at(i).toLatin1());
+    return this->Seed(uSeed);
+}
+
+int Random::Get_Num(int max) {
+    return this->randomGenerator->bounded(max+1);
+}
+
+int Random::Get_Num(int min, int max) {
+    return this->randomGenerator->bounded(min, max+1);
+}

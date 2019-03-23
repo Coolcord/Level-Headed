@@ -34,17 +34,17 @@ Level_Generator::~Level_Generator() {
 
 int Level_Generator::Get_Random_X() {
     //Aim for a lower value... but allow higher values to be possible
-    int random = Random::Get_Num(19);
+    int random = Random::Get_Instance().Get_Num(19);
     if (random < 3) {
-        return Random::Get_Num(0x05);
+        return Random::Get_Instance().Get_Num(0x05);
     } else if (random < 10) {
-        return Random::Get_Num(0x06)+1;
+        return Random::Get_Instance().Get_Num(0x06)+1;
     } else if (random < 16) {
-        return Random::Get_Num(0x07)+1;
+        return Random::Get_Instance().Get_Num(0x07)+1;
     } else if (random < 19) {
-        return Random::Get_Num(0x09)+1;
+        return Random::Get_Instance().Get_Num(0x09)+1;
     } else if (random < 20) {
-        return Random::Get_Num(0x0E)+1;
+        return Random::Get_Instance().Get_Num(0x0E)+1;
     } else {
         assert(false);
         return 0;

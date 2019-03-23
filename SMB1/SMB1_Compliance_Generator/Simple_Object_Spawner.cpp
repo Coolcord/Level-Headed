@@ -22,15 +22,15 @@ Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object, Level_Type::
 }
 
 int Simple_Object_Spawner::Get_Random_Length() {
-    return Random::Get_Num(Physics::MAX_OBJECT_LENGTH-3)+1;
+    return Random::Get_Instance().Get_Num(Physics::MAX_OBJECT_LENGTH-3)+1;
 }
 
 int Simple_Object_Spawner::Get_Random_Hole_Length() {
-    return Random::Get_Num(Physics::RUNNING_JUMP_LENGTH-2)+1;
+    return Random::Get_Instance().Get_Num(Physics::RUNNING_JUMP_LENGTH-2)+1;
 }
 
 int Simple_Object_Spawner::Get_Random_Steps_Size() {
-    return Random::Get_Num(Physics::MAX_STEPS_SIZE-Physics::MIN_STEPS_SIZE-2)+Physics::MIN_STEPS_SIZE;
+    return Random::Get_Instance().Get_Num(Physics::MAX_STEPS_SIZE-Physics::MIN_STEPS_SIZE-2)+Physics::MIN_STEPS_SIZE;
 }
 
 void Simple_Object_Spawner::Fill_With_Question_Blocks(int y, int length) {
@@ -38,7 +38,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks(int y, int length) {
     int numObjects = 0;
     for (int i = 0; i < length; ++i) {
         if (this->object->Get_Num_Objects_Available() > 0 && numObjects < length-1) {
-            int random = Random::Get_Num(QUESTION_TOTAL-1);
+            int random = Random::Get_Instance().Get_Num(QUESTION_TOTAL-1);
             if (random <= QUESTION_NOTHING) continue;
             else if (random <= QUESTION_MUSHROOM) {
                 if (this->object->Question_Block_With_Mushroom_Only(i, y)) {
@@ -56,7 +56,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
     int numObjects = 0;
     for (int i = 0; i < length; ++i) {
         if (this->object->Get_Num_Objects_Available() > 0 && numObjects < length-1) {
-            int random = Random::Get_Num(BRICK_TOTAL-1);
+            int random = Random::Get_Instance().Get_Num(BRICK_TOTAL-1);
             if (random <= BRICK_NOTHING) continue;
             else if (random <= BRICK_QUESTION_COIN) {
                 if (this->object->Question_Block_With_Coin(i, y)) {
@@ -96,7 +96,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
 
 bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     if (this->object->Get_Num_Objects_Available() == 0) return false;
-    int random = Random::Get_Num(PROBABILITY_TOTAL_SIMPLE-1);
+    int random = Random::Get_Instance().Get_Num(PROBABILITY_TOTAL_SIMPLE-1);
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {
         if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
             int length = this->object->Get_Last_Object_Length();

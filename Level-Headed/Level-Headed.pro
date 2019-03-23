@@ -17,7 +17,8 @@ SOURCES +=\
         Main_Window.cpp \
     Main.cpp \
     Plugin_Handler.cpp \
-    CLI_Passthrough.cpp
+    CLI_Passthrough.cpp \
+    ../Common_Files/Random.cpp
 
 HEADERS  += Main_Window.h \
     Plugin_Handler.h \

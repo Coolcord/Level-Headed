@@ -212,7 +212,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.useAutoScroll = false;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 3) {
         if (this->pluginSettings->difficultyAutoScroll <= args.difficulty) {
-            if (Random::Get_Num(99)+1 <= this->pluginSettings->difficultyAutoScrollChancePerLevel) {
+            if (Random::Get_Instance().Get_Num(99)+1 <= this->pluginSettings->difficultyAutoScrollChancePerLevel) {
                 args.useAutoScroll = true;
             }
         }
@@ -252,11 +252,11 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
-        if (args.difficulty < args.difficultyBulletTime && Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
-        if (Random::Get_Num(1)==0) args.headerScenery = Scenery::MOUNTAINS;
+        if (args.difficulty < args.difficultyBulletTime && Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Instance().Get_Num(1)==0) args.headerScenery = Scenery::MOUNTAINS;
         else args.headerScenery = Scenery::FENCES;
-        if (Random::Get_Num(2)==0) {
-            int random = Random::Get_Num(119);
+        if (Random::Get_Instance().Get_Num(2)==0) {
+            int random = Random::Get_Instance().Get_Num(119);
             if (random < 40) args.headerBackground = Background::NIGHT;
             else if (random < 80) args.headerBackground = Background::SNOW;
             else if (random < 105) args.headerBackground = Background::NIGHT_AND_SNOW;
@@ -266,11 +266,11 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         break;
     case Level_Type::BRIDGE:
     case Level_Type::ISLAND:
-        if (Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::ONLY_CLOUDS;
-        if (Random::Get_Num(1)==0) {
-            int random = Random::Get_Num(169);
+        if (Random::Get_Instance().Get_Num(1)==0) {
+            int random = Random::Get_Instance().Get_Num(169);
             if (random < 50) args.headerBackground = Background::OVER_WATER;
             else if (random < 90) args.headerBackground = Background::NIGHT;
             else if (random < 130) args.headerBackground = Background::SNOW;
@@ -280,10 +280,10 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         } else args.headerBackground = Background::BLANK_BACKGROUND;
         break;
     case Level_Type::UNDERGROUND:
-        if (args.difficulty < args.difficultyBulletTime && Random::Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+        if (args.difficulty < args.difficultyBulletTime && Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
         args.headerScenery = Scenery::NO_SCENERY;
-        if (args.levelCompliment == Level_Compliment::BULLET_BILL_TURRETS && Random::Get_Num(3)==0) {
-            if (Random::Get_Num(2)==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        if (args.levelCompliment == Level_Compliment::BULLET_BILL_TURRETS && Random::Get_Instance().Get_Num(3)==0) {
+            if (Random::Get_Instance().Get_Num(2)==0) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else args.headerBackground = Background::NIGHT_AND_SNOW;
         } else {
             args.headerBackground = Background::BLANK_BACKGROUND;
@@ -335,7 +335,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
     //Determine chance
     int veryCommonChance = VERY_COMMON_POINTS*numVeryCommon; int commonChance = (COMMON_POINTS*numCommon)+veryCommonChance;
     int uncommonChance = (UNCOMMON_POINTS*numUncommon)+commonChance; int rareChance = (RARE_POINTS*numRare)+uncommonChance;
-    int random = Random::Get_Num(rareChance-1);
+    int random = Random::Get_Instance().Get_Num(rareChance-1);
     int index = 0;
 
     //Determine the level type by probability
@@ -395,12 +395,12 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     SMB1_Compliance_Parser parser(this->writerPlugin);
 
     //Seed the random number generator... the location here is important
-    qsrand(Random::Get_Seed_From_QString(this->pluginSettings->randomSeed));
+    Random::Get_Instance().Seed(this->pluginSettings->randomSeed);
     qDebug().noquote() << "Seed: " << this->pluginSettings->randomSeed;
 
     //Randomly determine the number of max levels and levels per world if specified
     if (this->pluginSettings->randomNumWorlds) {
-        this->pluginSettings->numWorlds = Random::Get_Num(4)+2; //max out at 6 worlds
+        this->pluginSettings->numWorlds = Random::Get_Instance().Get_Num(4)+2; //max out at 6 worlds
         this->pluginSettings->numLevelsPerWorld = 9;
         while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
             --this->pluginSettings->numLevelsPerWorld;

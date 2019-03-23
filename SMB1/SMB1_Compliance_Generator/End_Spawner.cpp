@@ -212,7 +212,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
     //Change to the surface brick pattern
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
-    x = Random::Get_Num(6)+2;
+    x = Random::Get_Instance().Get_Num(6)+2;
     return this->Shortest_End(x);
 }
 
@@ -253,15 +253,15 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     int y = Physics::GROUND_Y;
     int height = 0xD - y;
     assert(height == 3);
-    int bridgeLength = Random::Get_Num(5)+5;
+    int bridgeLength = Random::Get_Instance().Get_Num(5)+5;
     assert(this->object->Vertical_Blocks(x, y, height));
     assert(this->object->Bridge(1, y, bridgeLength));
     int distanceRemainingFromBridgeEnd = bridgeLength;
 
     //Spawn an Island
-    int islandLength = Random::Get_Num(11)+3;
+    int islandLength = Random::Get_Instance().Get_Num(11)+3;
     if (islandLength < 5) x = this->object->Get_Last_Object_Length();
-    else x = this->object->Get_Last_Object_Length()-Random::Get_Num(islandLength-5);
+    else x = this->object->Get_Last_Object_Length()-Random::Get_Instance().Get_Num(islandLength-5);
     if (x < 0) x = 0; //TODO: Fix the else statement above to remove this line
     assert(this->object->Island(x, Physics::GROUND_Y+1, islandLength));
     distanceRemainingFromBridgeEnd -= x;
@@ -282,11 +282,11 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     else assert(this->object->Cancel_Spawner(0));
 
     //Change the brick type back to surface
-    x = Random::Get_Num(4)+distanceRemainingFromIslandEnd; //increment to the end of the island
+    x = Random::Get_Instance().Get_Num(4)+distanceRemainingFromIslandEnd; //increment to the end of the island
     if (x > 0x10) x = 0x10;
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
-    x = Random::Get_Num(10)+2;
+    x = Random::Get_Instance().Get_Num(10)+2;
     return this->Shortest_End(x, false);
 }
 

@@ -157,7 +157,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
 }
 
 bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
-    for (int i = Random::Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+    for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
         if (this->Is_Coordinate_Safe(x, i)) {
             y = i;
             return true;
@@ -170,7 +170,7 @@ bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
 bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
         for (int i = lastX+15; i >= x; --i) {
-            for (int j = Random::Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
                     //The two coordinates above cannot be solid objects
@@ -185,7 +185,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
         }
     } else {
         for (int i = x; i <= lastX+15; ++i) {
-            for (int j = Random::Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
                     //The two coordinates above cannot be solid objects
@@ -205,7 +205,7 @@ bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
 //TODO: Don't allow these to spawn above y 2
 bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
-        for (int i = Random::Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = lastX+15; j >= x; --j) {
                 if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
                     //Y was set in the function
@@ -215,7 +215,7 @@ bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
             }
         }
     } else {
-        for (int i = Random::Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = x; j <= lastX+15; ++j) {
                 if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
                     //Y was set in the function
@@ -234,7 +234,7 @@ bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
     //Scan up to 4 blocks above the ground
     int scanDistance = 4;
     if (y < 4) scanDistance = y+1;
-    for (int i = y-Random::Get_Num(scanDistance-1), numScanned = 0; numScanned < scanDistance; i <= 0 ? i = y : --i) {
+    for (int i = y-Random::Get_Instance().Get_Num(scanDistance-1), numScanned = 0; numScanned < scanDistance; i <= 0 ? i = y : --i) {
         //Scan possible flight path
         int numValid = 0;
         bool invalid = false;
@@ -256,7 +256,7 @@ bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int last
     if (reverse) {
         for (int i = lastX+15; i >= x; --i) {
             //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
-            for (int j = Random::Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
                 //Make sure the red paratroopa has a clear flight path
                 bool valid = true;
                 for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {
@@ -275,7 +275,7 @@ bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int last
     } else {
         for (int i = x; i <= lastX+15; ++i) {
             //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
-            for (int j = Random::Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
                 //Make sure the red paratroopa has a clear flight path
                 bool valid = true;
                 for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {

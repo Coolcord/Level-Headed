@@ -53,7 +53,7 @@ bool Hacks_Handler::Handle_Music() {
     assert(this->writerPlugin->Music_Set_Combine_Music_Packs(this->pluginSettings->combineMusicWithOtherPacks));
 
     int music = this->pluginSettings->music;
-    if (music == 0) music = Random::Get_Num(this->writerPlugin->Music_Get_Number_Of_Music_Packs())+2;
+    if (music == 0) music = Random::Get_Instance().Get_Num(this->writerPlugin->Music_Get_Number_Of_Music_Packs())+2;
     bool success = false;
     switch (music) {
     case 1:     success = this->writerPlugin->Music_Disable(); break; //no music (music is disabled)
@@ -64,7 +64,7 @@ bool Hacks_Handler::Handle_Music() {
 
     //Handle the Tone Color
     int toneColor = this->pluginSettings->toneColor;
-    if (toneColor == 0) toneColor = Random::Get_Num(18)+1;
+    if (toneColor == 0) toneColor = Random::Get_Instance().Get_Num(18)+1;
     qDebug().noquote() << "Using tone color " << toneColor-1;
     switch (toneColor) {
     default:    assert(false); break;
@@ -93,7 +93,7 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphic_Packs())+1;
+    if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphic_Packs())+1;
     bool success = false;
     switch (graphics) {
     case 1:     success = true; break; //original graphics
@@ -108,7 +108,7 @@ bool Hacks_Handler::Handle_Lakitus() {
 
     //Handle the Spiny Egg Behavior
     int spinyEggBehavior = this->pluginSettings->difficultySpinyEggBehavior;
-    if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Num(1)+1;
+    if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Instance().Get_Num(1)+1;
     bool success = false;
     switch (spinyEggBehavior) {
     default:    assert(false); return false;
@@ -121,7 +121,7 @@ bool Hacks_Handler::Handle_Lakitus() {
     int lakituRespawnSpeed = this->pluginSettings->difficultyLakituRespawnSpeed;
     switch (lakituRespawnSpeed) {
     default:    assert(false); return false;
-    case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Num(0xA));
+    case 0:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(Random::Get_Instance().Get_Num(0xA));
     case 1:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x10); //Disabled
     case 2:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0xF); //Delayed
     case 3:     return true; //Normal (0x7)
@@ -139,7 +139,7 @@ bool Hacks_Handler::Handle_Lives() {
 
 bool Hacks_Handler::Handle_Piranha_Plants() {
     int piranhaPlantType = this->pluginSettings->difficultyPiranhaPlantType;
-    if (piranhaPlantType == 0) piranhaPlantType = Random::Get_Num(2)+1;
+    if (piranhaPlantType == 0) piranhaPlantType = Random::Get_Instance().Get_Num(2)+1;
     switch (piranhaPlantType) {
     default:    assert(false); return false;
     case 1:     return true;
@@ -158,13 +158,13 @@ bool Hacks_Handler::Handle_God_Mode() {
 bool Hacks_Handler::Handle_Enemy_Speed() {
     //Handle basic enemy speed
     int speed = this->pluginSettings->difficultyBasicEnemySpeed;
-    if (speed == 0) speed = Random::Get_Num(3)+1; //random all
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(3)+1; //random all
     if (speed == 4) speed = 5; //increase speed for ludicrous setting
     if (!this->writerPlugin->Hacks_Set_Basic_Enemy_Speed(speed)) return false;
 
     //Handle bullet bill speed
     speed = this->pluginSettings->difficultyBulletBillSpeed;
-    if (speed == 0) speed = Random::Get_Num(4)+1;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(4)+1;
     if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Speed(speed)) return false;
 
     //Handle the speedy enemies patch
@@ -174,7 +174,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
 
 bool Hacks_Handler::Handle_Powerup() {
     int powerup = this->pluginSettings->powerup;
-    if (powerup == 0) powerup = Random::Get_Num(8)+1;
+    if (powerup == 0) powerup = Random::Get_Instance().Get_Num(8)+1;
     switch (powerup) {
     default:    assert(false); return false;
     case 1:     return true; //Fire Flower
@@ -192,14 +192,14 @@ bool Hacks_Handler::Handle_Powerup() {
 bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Handle random values first
     int secondaryMushroom = this->pluginSettings->secondaryMushroom;
-    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Num(2)+2; //1-Up, Poison, Swimming
-    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Num(3)+2; //1-Up, Poison, Swimming, Mystery
+    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2)+2; //1-Up, Poison, Swimming
+    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Instance().Get_Num(3)+2; //1-Up, Poison, Swimming, Mystery
 
     //Handle the Mystery Mushroom
     bool randomPalette = false;
     if (secondaryMushroom == 5) {
         randomPalette = true;
-        secondaryMushroom = Random::Get_Num(3)+2; //1-Up, Poison, Swimming, Poison or 1-Up
+        secondaryMushroom = Random::Get_Instance().Get_Num(3)+2; //1-Up, Poison, Swimming, Poison or 1-Up
     }
 
     //Apply the necessary patch
@@ -215,15 +215,15 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     if (!randomPalette) return true;
 
     //Change the palette if it is a Mystery Mushroom
-    return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Num(3));
+    return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Instance().Get_Num(3));
 }
 
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(2)+3; //3-5
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(2)+3; //3-5
     } else if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 1) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Num(1)+3; //3 or 4
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(1)+3; //3 or 4
     }
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
     default:    assert(false); return false;
@@ -238,7 +238,7 @@ bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {
     switch (checkState) {
     case Qt::Checked:               return true;
     case Qt::Unchecked:             return false;
-    case Qt::PartiallyChecked:      return static_cast<bool>(Random::Get_Num(1));
+    case Qt::PartiallyChecked:      return static_cast<bool>(Random::Get_Instance().Get_Num(1));
     }
     assert(false); return false;
 }

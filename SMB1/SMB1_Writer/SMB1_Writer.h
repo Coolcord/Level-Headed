@@ -31,7 +31,7 @@ class SMB1_Writer : public SMB1_Writer_Interface {
 
 public:
     SMB1_Writer();
-    void Startup(QWidget *parent, const QString &location);
+    void Startup(QWidget *parent, const QString &location, const QString &seed);
     void Shutdown();
     QStringList Get_Installed_ROMs();
     QString Install_ROM();

@@ -12,7 +12,7 @@ Object_Spawner::Object_Spawner(Object_Writer *object) {
 int Object_Spawner::Get_Random_Number(int min, int max) {
     if (min == max) return min;
     assert(max > min);
-    return Random::Get_Num(max-min)+min;
+    return Random::Get_Instance().Get_Num(max-min)+min;
 }
 
 int Object_Spawner::Get_Y_From_Height(int height) {
@@ -35,8 +35,8 @@ int Object_Spawner::Get_Safe_Random_Y(int x) {
     }
 
     //Go up or down
-    if (Random::Get_Num(1) == 0) y -= Random::Get_Num(Physics::BASIC_JUMP_HEIGHT);
-    else y += Random::Get_Num(Physics::BASIC_JUMP_HEIGHT);
+    if (Random::Get_Instance().Get_Num(1) == 0) y -= Random::Get_Instance().Get_Num(Physics::BASIC_JUMP_HEIGHT);
+    else y += Random::Get_Instance().Get_Num(Physics::BASIC_JUMP_HEIGHT);
 
     //Make sure y is valid
     if (y < Physics::HIGHEST_Y) y = Physics::HIGHEST_Y;

@@ -19,6 +19,7 @@
 #include "Graphics.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../../Common_Files/Random.h"
 #include <QDir>
 #include <QMessageBox>
 #include <assert.h>
@@ -53,9 +54,10 @@ SMB1_Writer::SMB1_Writer() {
     this->parent = nullptr;
 }
 
-void SMB1_Writer::Startup(QWidget *parent, const QString &location) {
+void SMB1_Writer::Startup(QWidget *parent, const QString &location, const QString &seed) {
     this->parent = parent;
     this->applicationLocation = location;
+    Random::Get_Instance().Seed(seed);
     this->romHandler = new ROM_Handler(this->parent, this->applicationLocation);
     this->sequentialArchiveHandler = new Sequential_Archive_Handler(location, this->romHandler->Get_Installed_ROM_Folder_Location());
     this->romHandler->Set_Sequential_Archive_Handler(this->sequentialArchiveHandler);

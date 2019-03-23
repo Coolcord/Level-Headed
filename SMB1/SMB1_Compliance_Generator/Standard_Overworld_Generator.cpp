@@ -25,7 +25,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
         x = this->object->Get_Last_Object_Length();
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
-            if (Random::Get_Num(2) == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
+            if (Random::Get_Instance().Get_Num(2) == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
