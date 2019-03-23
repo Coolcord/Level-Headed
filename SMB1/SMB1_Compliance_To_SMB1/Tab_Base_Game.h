@@ -10,6 +10,7 @@ public:
     void Save_Settings();
 
     void Install_New_ROM();
+    bool Is_Partial_Support_Mode_Enabled();
     void Enable_Partial_Support_Mode(bool enabled);
     void Use_Original_Settings();
     void Use_Random_Settings();
@@ -18,6 +19,8 @@ private:
     void Populate_Installed_ROMs();
     void Populate_Graphics_Packs();
     void Populate_Music_Packs();
+
+    bool partialSupportMode;
 };
 
 #endif // TAB_BASE_GAME_H

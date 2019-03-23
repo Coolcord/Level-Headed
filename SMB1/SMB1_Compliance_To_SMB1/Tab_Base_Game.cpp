@@ -11,6 +11,7 @@ Tab_Base_Game::Tab_Base_Game(QWidget *parent, const QString &applicationLocation
     this->Populate_Installed_ROMs();
     this->Populate_Graphics_Packs();
     this->Populate_Music_Packs();
+    this->partialSupportMode = false;
 }
 
 void Tab_Base_Game::Load_Settings() {
@@ -53,9 +54,14 @@ void Tab_Base_Game::Install_New_ROM() {
     }
 }
 
+bool Tab_Base_Game::Is_Partial_Support_Mode_Enabled() {
+    return this->partialSupportMode;
+}
+
 void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
     QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
+    this->partialSupportMode = enabled;
     if (enabled) {
         this->Use_Original_Settings();
 

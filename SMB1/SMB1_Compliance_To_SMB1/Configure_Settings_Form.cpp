@@ -87,11 +87,21 @@ void Configure_Settings_Form::Save_Settings() {
 }
 
 void Configure_Settings_Form::on_comboBaseROM_currentIndexChanged(const QString &arg1) {
-    if (!this->loading) this->tabBaseGame->Enable_Partial_Support_Mode(!arg1.startsWith(ROM_Filename::STRING_FULL_SUPPORT));
+    if (!this->loading) {
+        bool wasPartialSupportEnabled = this->tabBaseGame->Is_Partial_Support_Mode_Enabled();
+        bool enablePartialSupportMode = arg1.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT);
+        this->tabBaseGame->Enable_Partial_Support_Mode(enablePartialSupportMode);
+        if (wasPartialSupportEnabled && !enablePartialSupportMode) this->tabBaseGame->Use_Random_Settings();
+    }
 }
 
 void Configure_Settings_Form::on_btnInstallNewROM_clicked() {
+    this->loading = true;
     this->tabBaseGame->Install_New_ROM();
+    this->loading = false;
+
+    //Only enable partial support after the installation is complete
+    this->tabBaseGame->Enable_Partial_Support_Mode(this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
 }
 
 void Configure_Settings_Form::on_btnOutputROMLocation_clicked() {
