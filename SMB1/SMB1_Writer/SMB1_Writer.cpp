@@ -112,7 +112,7 @@ void SMB1_Writer::Shutdown() {
 }
 
 void SMB1_Writer::Seed_Random_Number_Generator_Instance(const QString &seed) {
-    Random::Get_Instance().Seed(seed, 3);
+    Random::Get_Instance().Seed(seed, 2);
 }
 
 QStringList SMB1_Writer::Get_Installed_ROMs() {

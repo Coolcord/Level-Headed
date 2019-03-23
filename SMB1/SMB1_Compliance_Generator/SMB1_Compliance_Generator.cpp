@@ -25,7 +25,7 @@ void SMB1_Compliance_Generator::Shutdown() {
 }
 
 void SMB1_Compliance_Generator::Seed_Random_Number_Generator_Instance(const QString &seed) {
-    Random::Get_Instance().Seed(seed, 4);
+    Random::Get_Instance().Seed(seed, 3);
 }
 
 bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Arguments args) {
