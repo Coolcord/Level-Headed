@@ -14,8 +14,9 @@
 
 class SMB1_Writer_Interface : public QObject {
 public:
-    virtual void Startup(QWidget *parent, const QString &location, const QString &seed)=0;
+    virtual void Startup(QWidget *parent, const QString &location)=0;
     virtual void Shutdown()=0;
+    virtual void Seed_Random_Number_Generator_Instance(const QString &seed)=0;
     virtual QStringList Get_Installed_ROMs()=0;
     virtual QString Install_ROM()=0;
     virtual bool Load_ROM()=0;

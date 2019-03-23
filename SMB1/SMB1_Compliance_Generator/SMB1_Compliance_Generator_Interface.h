@@ -9,8 +9,9 @@
 
 class SMB1_Compliance_Generator_Interface : public QObject {
 public:
-    virtual void Startup(QWidget *parent, const QString &location, const QString &seed)=0;
+    virtual void Startup(QWidget *parent, const QString &location)=0;
     virtual void Shutdown()=0;
+    virtual void Seed_Random_Number_Generator_Instance(const QString &seed)=0;
     virtual bool Generate_Level(SMB1_Compliance_Generator_Arguments args)=0;
 };
 

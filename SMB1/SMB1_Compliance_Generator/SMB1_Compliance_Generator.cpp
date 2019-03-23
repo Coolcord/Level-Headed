@@ -15,14 +15,17 @@ SMB1_Compliance_Generator::SMB1_Compliance_Generator() {
     this->applicationLocation = QString();
 }
 
-void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location, const QString &seed) {
+void SMB1_Compliance_Generator::Startup(QWidget *parent, const QString &location) {
     this->parent = parent;
     this->applicationLocation = location;
-    Random::Get_Instance().Seed(seed, 3);
 }
 
 void SMB1_Compliance_Generator::Shutdown() {
 
+}
+
+void SMB1_Compliance_Generator::Seed_Random_Number_Generator_Instance(const QString &seed) {
+    Random::Get_Instance().Seed(seed, 4);
 }
 
 bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Arguments args) {

@@ -13,8 +13,9 @@ class SMB1_Compliance_Generator : public SMB1_Compliance_Generator_Interface {
 
 public:
     SMB1_Compliance_Generator();
-    void Startup(QWidget *parent, const QString &location, const QString &seed);
+    void Startup(QWidget *parent, const QString &location);
     void Shutdown();
+    void Seed_Random_Number_Generator_Instance(const QString &seed);
     bool Generate_Level(SMB1_Compliance_Generator_Arguments args);
 
 private:
