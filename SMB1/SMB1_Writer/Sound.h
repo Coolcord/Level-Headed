@@ -20,6 +20,7 @@ private:
     bool Brick_Break_2();
     bool Brick_Break_Random();
     bool Coin_Random();
+    bool Fireball_Random();
     bool Jump_Random();
     bool Powerup_1();
     bool Powerup_2();
