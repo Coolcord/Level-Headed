@@ -11,7 +11,6 @@ public:
 private:
     bool Big_Jump_Is_Small_Jump();
     bool Small_Jump_Is_Big_Jump();
-
     bool One_Up_1();
     bool One_Up_2();
     bool One_Up_Random();
@@ -22,6 +21,7 @@ private:
     bool Coin_Random();
     bool Fireball_Random();
     bool Jump_Random();
+    bool Kick_Random();
     bool Powerup_1();
     bool Powerup_2();
     bool Powerup_3();

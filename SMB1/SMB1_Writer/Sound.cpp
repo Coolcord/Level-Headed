@@ -29,6 +29,7 @@ bool Sound::Randomize_Sounds() {
     if (!this->Bump_Random()) return false;
     if (!this->Coin_Random()) return false;
     if (!this->Fireball_Random()) return false;
+    if (!this->Kick_Random()) return false;
 
     //Brick Break
     switch(Random::Get_Instance().Get_Num(2)) {
@@ -63,9 +64,9 @@ bool Sound::Randomize_Sounds() {
 
 bool Sound::Big_Jump_Is_Small_Jump() { return this->Write_Bytes_To_Offset(0x3522, QByteArray(1, static_cast<char>(0x80))); }
 bool Sound::Small_Jump_Is_Big_Jump() { return this->Write_Bytes_To_Offset(0x3529, QByteArray(1, static_cast<char>(0x01))); }
-
 bool Sound::One_Up_1() { return this->Write_Bytes_To_Offset(0x74E4, this->Randomize_Notes(QByteArray::fromHex(QString("580254564E44").toLatin1()))); }
 bool Sound::One_Up_2() { return this->Write_Bytes_To_Offset(0x74E4, this->Randomize_Notes(QByteArray::fromHex(QString("5240523A342C").toLatin1()))); }
+
 bool Sound::One_Up_Random() {
     QByteArray bytes(6, ' ');
     for (int i = 0; i < bytes.size(); ++i) bytes[i] = this->Square_2_Get_Random_Note();
@@ -78,32 +79,46 @@ bool Sound::Bump_Random() {
     int highByte = Random::Get_Instance().Get_Num(0xF);
     return this->Write_Bytes_To_Offset(0x7414, QByteArray(1, static_cast<char>((highByte*0x10)+0xE))); //also affects fireballs (original value 9E
 }
+
 bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0B060C0F0A09030D080D060C").toLatin1()))); }
 bool Sound::Brick_Break_2() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0C0B0A090807060504030201").toLatin1()))); }
 bool Sound::Brick_Break_Random() { return this->Write_Bytes_To_Offset(0x763F, this->Get_Random_Bytes(12, 0x0F)); }
+
 bool Sound::Coin_Random() {
     if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x69)+0x04)))) return false;
     return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1));
 }
+
 bool Sound::Fireball_Random() {
     int highByte = Random::Get_Instance().Get_Num(0x8, 0xB);
     int lowByte = Random::Get_Instance().Get_Num(0x9, 0xB);
     return this->Write_Bytes_To_Offset(0x740C, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)));
 }
+
 bool Sound::Jump_Random() {
     if (!this->Write_Bytes_To_Offset(0x73EB, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x0C)+0x1F)))) return false;
     if (!this->Write_Bytes_To_Offset(0x73F3, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x07)+0x24)))) return false;
     return this->Write_Bytes_To_Offset(0x73FD, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x0B)+0x18)));
 }
+
+bool Sound::Kick_Random() {
+    if (!this->Write_Bytes_To_Offset(0x748E, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x09, 0x0F))))) return false;
+    int highByte = Random::Get_Instance().Get_Num(0x4);
+    if (!this->Write_Bytes_To_Offset(0x7497, QByteArray(1, static_cast<char>(((highByte*0x10)+0x8))))) return false; //default is 0x28
+    return this->Write_Bytes_To_Offset(0x74A5, QByteArray(1, static_cast<char>((Random::Get_Instance().Get_Num(0xFF))))); //default is 0xA0
+}
+
 bool Sound::Powerup_1() { return this->Write_Bytes_To_Offset(0x74EA, this->Randomize_Notes(QByteArray::fromHex(QString("4C524C483E363E3630284A504A643C323C322C243A643A342C222C221C1414").toLatin1()))); }
 bool Sound::Powerup_2() { return this->Write_Bytes_To_Offset(0x74EA, this->Randomize_Notes(QByteArray::fromHex(QString("122A426226405A0C223A4E58081E364C061C3444565E18304802122A4200").toLatin1()), 2)); }
 bool Sound::Powerup_3() { return this->Write_Bytes_To_Offset(0x74EA, this->Randomize_Notes(QByteArray::fromHex(QString("3052302C3E1A3E1A140C2E502E642032203210241E491E34102210061CF8").toLatin1()), 2)); }
+
 bool Sound::Stomp_Random_1() {
     int highByte = Random::Get_Instance().Get_Num(0xF);
     int lowByte = Random::Get_Instance().Get_Num(0xB); //values that end with 0x0C or higher are loud
     if ((highByte&1) == 1 && lowByte < 5) lowByte = 5;; //some low bytes are quiet
     return this->Write_Bytes_To_Offset(0x73C1, QByteArray(14, static_cast<char>((highByte*0x10)+lowByte)));
 }
+
 bool Sound::Stomp_Random_2() { return this->Write_Bytes_To_Offset(0x73C1, this->Random_Increment(QByteArray::fromHex(QString("9F9B989695949290909A97959392").toLatin1()))); }
 bool Sound::Vine_1() { return this->Write_Bytes_To_Offset(0x7508, this->Randomize_Notes(QByteArray::fromHex(QString("4C524C483E363E3630284A504A643C323C322C243A643A342C222C221C1414").toLatin1()), 3)); }
 
