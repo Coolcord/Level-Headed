@@ -28,6 +28,7 @@ bool Sound::Randomize_Sounds() {
 
     if (!this->Bump_Random()) return false;
     if (!this->Coin_Random()) return false;
+    if (!this->Flagpole_Random()) return false;
     if (!this->Fireball_Random()) return false;
     if (!this->Kick_Random()) return false;
     if (!this->Pipe_Down_Random()) return false;
@@ -94,6 +95,22 @@ bool Sound::Fireball_Random() {
     int highByte = Random::Get_Instance().Get_Num(0x8, 0xB);
     int lowByte = Random::Get_Instance().Get_Num(0x9, 0xB);
     return this->Write_Bytes_To_Offset(0x740C, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)));
+}
+
+bool Sound::Flagpole_Random() {
+    //0x73D0 is the length (default is 0x40)
+    if (!this->Write_Bytes_To_Offset(0x73D0, this->Get_Random_Bytes(1))) return false;
+
+    //0x73D5 (default 0x62)
+    if (!this->Write_Bytes_To_Offset(0x73D5, this->Get_Random_Bytes(1))) return false;
+
+    //0x73DA (default 0x99)
+    if (!this->Write_Bytes_To_Offset(0x73DA, this->Get_Random_Bytes(1))) return false;
+
+    //0x74BC (default 0xBC)
+    if (!this->Write_Bytes_To_Offset(0x74BC, this->Get_Random_Bytes(1))) return false;
+
+    return true;
 }
 
 bool Sound::Jump_Random() {
