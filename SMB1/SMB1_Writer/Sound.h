@@ -22,6 +22,7 @@ private:
     bool Fireball_Random();
     bool Jump_Random();
     bool Kick_Random();
+    bool Pipe_Down_Random();
     bool Powerup_1();
     bool Powerup_2();
     bool Powerup_3();
