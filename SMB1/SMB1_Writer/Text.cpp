@@ -1,5 +1,35 @@
 #include "Text.h"
 
+bool Text::Set_Mario_Name(const QString &name) {
+    if (name == "MARIO") return true; //assume there is nothing to do
+    QString trimmedName = name;
+    if (trimmedName.size() > 5) trimmedName.resize(5);
+    QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
+    QByteArray spaceBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), ' ')));
+    QByteArray exclamationBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), '!')));
+    QByteArray leftJustified = nameBytes+spaceBytes;
+
+    if (!this->Write_Bytes_To_Offset(0x0765, leftJustified)) return false; //HUD
+    if (!this->Write_Bytes_To_Offset(0x07AB, leftJustified)) return false; //Time Up
+    if (!this->Write_Bytes_To_Offset(0x07BE, leftJustified)) return false; //Game Over
+    if (!this->Write_Bytes_To_Offset(0x0D71, nameBytes+exclamationBytes)) return false; //Thank you Mario!
+    return true;
+}
+
+bool Text::Set_Luigi_Name(const QString &name) {
+    if (name == "LUIGI") return true; //assume there is nothing to do
+    QString trimmedName = name;
+    if (trimmedName.size() > 5) trimmedName.resize(5);
+    QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
+    QByteArray spaceBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), ' ')));
+    QByteArray exclamationBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), '!')));
+    QByteArray leftJustified = nameBytes+spaceBytes;
+
+    if (!this->Write_Bytes_To_Offset(0x07FD, leftJustified)) return false; //HUD, Time Up, Game Over
+    if (!this->Write_Bytes_To_Offset(0x0D85, nameBytes+exclamationBytes)) return false; //Thank you Luigi!
+    return true;
+}
+
 QByteArray Text::Convert_String_To_SMB_Bytes(const QString &string) {
     QByteArray bytes(string.size(), 0x00);
     for (int i = 0; i < string.size(); ++i) {

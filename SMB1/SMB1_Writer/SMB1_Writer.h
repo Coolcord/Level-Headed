@@ -173,6 +173,8 @@ public:
     bool Hacks_Set_Basic_Enemy_Speed(int speed);
     bool Hacks_Set_Bullet_Bill_Speed(int speed);
     bool Hacks_Set_Lakitu_Respawn_Speed(int value);
+    bool Hacks_Set_Luigi_Name(const QString &name);
+    bool Hacks_Set_Mario_Name(const QString &name);
     bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Speedy_Objects_And_Enemies();

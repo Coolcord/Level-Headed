@@ -24,6 +24,7 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
         if (!this->Handle_Music()) return false;
         if (this->pluginSettings->randomSounds && !this->writerPlugin->Sound_Randomize_Sounds()) return false;
+        if (!this->Handle_Names()) return false;
         if (!this->Handle_God_Mode()) return false;
         if (this->pluginSettings->difficultyUnlimitedTime && !this->writerPlugin->Hacks_Unlimited_Time()) return false;
         if (this->pluginSettings->addLuigiGame) {
@@ -216,6 +217,12 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
 
     //Change the palette if it is a Mystery Mushroom
     return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Instance().Get_Num(3));
+}
+
+bool Hacks_Handler::Handle_Names() {
+    if (!this->writerPlugin->Hacks_Set_Mario_Name(this->pluginSettings->marioName)) return false;
+    if (!this->writerPlugin->Hacks_Set_Luigi_Name(this->pluginSettings->luigiName)) return false;
+    return true;
 }
 
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {

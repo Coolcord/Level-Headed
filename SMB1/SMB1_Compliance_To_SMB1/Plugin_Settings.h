@@ -49,6 +49,8 @@ struct Plugin_Settings {
     bool lakituThrowArc;
     int powerup;
     int secondaryMushroom;
+    QString marioName;
+    QString luigiName;
     int difficultyComboIndex;
     int difficultyAutoScroll;
     int difficultyBulletTime;

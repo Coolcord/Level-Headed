@@ -9,6 +9,8 @@ class Text : public Byte_Writer {
 public:
     Text(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
     ~Text() {}
+    bool Set_Mario_Name(const QString &name);
+    bool Set_Luigi_Name(const QString &name);
     QByteArray Convert_String_To_SMB_Bytes(const QString &string);
 
 };

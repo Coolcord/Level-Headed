@@ -11,6 +11,7 @@
 #include "Powerups.h"
 #include "Graphics.h"
 #include "Sequential_Archive_Handler.h"
+#include "Text.h"
 #include <QDebug>
 
 bool SMB1_Writer::Header_Time(int value) {
@@ -604,6 +605,16 @@ bool SMB1_Writer::Hacks_Set_Bullet_Bill_Speed(int speed) {
 bool SMB1_Writer::Hacks_Set_Lakitu_Respawn_Speed(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Lakitu_Respawn_Speed(value);
+}
+
+bool SMB1_Writer::Hacks_Set_Luigi_Name(const QString &name) {
+    if (!this->text) return false;
+    return this->text->Set_Luigi_Name(name);
+}
+
+bool SMB1_Writer::Hacks_Set_Mario_Name(const QString &name) {
+    if (!this->text) return false;
+    return this->text->Set_Mario_Name(name);
 }
 
 bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {

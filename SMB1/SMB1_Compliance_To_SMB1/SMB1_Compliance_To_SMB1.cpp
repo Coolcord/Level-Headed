@@ -235,6 +235,8 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
     if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
+    if (!configFile.Set_Value("Mario_Name", this->pluginSettings.marioName)) return false;
+    if (!configFile.Set_Value("Luigi_Name", this->pluginSettings.luigiName)) return false;
     return configFile.Save_And_Close();
 }
 
@@ -310,6 +312,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
     configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);
+    configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);
+    configFile.Get_Value("Luigi_Name", this->pluginSettings.luigiName);
     configFile.Discard_And_Close();
     return true;
 }
@@ -346,6 +350,8 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.difficultySpeedyObjectsAndEnemies = false;
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
+    this->pluginSettings.marioName = "MARIO";
+    this->pluginSettings.luigiName = "LUIGI";
     this->pluginSettings.difficultyComboIndex = 4;
     Difficulty_Level_Configurations().Normal(&this->pluginSettings, false);
 }

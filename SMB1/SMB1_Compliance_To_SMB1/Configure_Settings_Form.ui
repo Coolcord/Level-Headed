@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -248,7 +248,7 @@ p, li { white-space: pre-wrap; }
              <property name="title">
               <string>Base Game Settings</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_15">
+             <layout class="QVBoxLayout" name="verticalLayout_11">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
@@ -594,6 +594,58 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </item>
                  </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutNames">
+                <item>
+                 <layout class="QHBoxLayout" name="layoutMarioName">
+                  <item>
+                   <widget class="QLabel" name="lblMarioName">
+                    <property name="text">
+                     <string>Mario's Name:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="leMarioName">
+                    <property name="inputMask">
+                     <string>&gt;NNNNN</string>
+                    </property>
+                    <property name="text">
+                     <string>MARIO</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>5</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="layoutLuigiName">
+                  <item>
+                   <widget class="QLabel" name="lblLuigiName">
+                    <property name="text">
+                     <string>Luigi's Name:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="leLuigiName">
+                    <property name="inputMask">
+                     <string>&gt;NNNNN</string>
+                    </property>
+                    <property name="text">
+                     <string>LUIGI</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>5</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>

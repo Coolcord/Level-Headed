@@ -8,6 +8,7 @@ Next Update (v0.3.1)
 + Very easy now has unlimited time
 + Added command line support
 + Random Sounds
++ Mario and Luigi can be renamed
 + 8 new tone colors for music
 + Added Music (Garuna (Variant 1) by Garuna)
 + Added Music (Garuna (Variant 2) by Garuna)

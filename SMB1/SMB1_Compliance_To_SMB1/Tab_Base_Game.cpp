@@ -31,6 +31,8 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
     this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
+    this->ui->leMarioName->setText(this->pluginSettings->marioName);
+    this->ui->leLuigiName->setText(this->pluginSettings->luigiName);
 }
 
 void Tab_Base_Game::Save_Settings() {
@@ -46,6 +48,8 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
     this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
+    this->pluginSettings->marioName = this->ui->leMarioName->text();
+    this->pluginSettings->luigiName = this->ui->leLuigiName->text();
 }
 
 void Tab_Base_Game::Install_New_ROM() {
@@ -129,6 +133,8 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->cbRandomSoundEffects->setChecked(false);
     this->ui->comboPowerup->setCurrentIndex(1);
     this->ui->comboSecondaryMushroom->setCurrentIndex(2);
+    this->ui->leMarioName->setText("MARIO");
+    this->ui->leLuigiName->setText("LUIGI");
 }
 
 void Tab_Base_Game::Use_Random_Settings() {
