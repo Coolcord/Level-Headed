@@ -88,7 +88,7 @@ bool Sound::Brick_Break_Random() { return this->Write_Bytes_To_Offset(0x763F, th
 
 bool Sound::Coin_Random() {
     if (!this->Write_Bytes_To_Offset(0x7529, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x69)+0x04)))) return false;
-    return this->Write_Bytes_To_Offset(0x7536, this->Get_Random_Bytes(1));
+    return this->Write_Bytes_To_Offset(0x7536, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x8F)+0x70)));
 }
 
 bool Sound::Fireball_Random() {
