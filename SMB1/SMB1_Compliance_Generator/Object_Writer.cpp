@@ -546,11 +546,15 @@ bool Object_Writer::Balance_Lift_Horizontal_Rope(int x, int length) {
 
 bool Object_Writer::Steps(int x, int width) {
     if (width < 1 || width > 8) return false;
-    return this->Write_Object(x, Object_Item::STRING_STEPS, QString::number(width), width, true);
+    if (!this->Write_Object(x, Object_Item::STRING_STEPS, QString::number(width), width, true)) return false;
+    this->currentY = 11-width;
+    return true;
 }
 
 bool Object_Writer::End_Steps(int x) {
-    return this->Write_Object(x, Object_Item::STRING_END_STEPS, Physics::END_STAIRS_LENGTH, true);
+    if (!this->Write_Object(x, Object_Item::STRING_END_STEPS, Physics::END_STAIRS_LENGTH, true)) return false;
+    this->currentY = 3;
+    return true;
 }
 
 bool Object_Writer::Pipe_Wall(int x) {
