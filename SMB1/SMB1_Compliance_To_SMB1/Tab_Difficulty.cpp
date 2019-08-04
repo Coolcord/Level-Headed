@@ -41,6 +41,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbStandardOverworldFlyingCheepCheeps->setValue(this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps);
     this->ui->sbStandardOverworldLakitus->setValue(this->pluginSettings->difficultyStandardOverworldLakitus);
     this->ui->sbStandardOverworldOffscreenBulletBills->setValue(this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills);
+    this->ui->sbMinimumEnemyDistance->setValue(this->pluginSettings->difficultyMinimumEnemyDistance);
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
     this->ui->cbUnlimitedTime->setChecked(this->pluginSettings->difficultyUnlimitedTime);
     this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
@@ -93,6 +94,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = this->ui->sbStandardOverworldFlyingCheepCheeps->value();
         this->pluginSettings->difficultyStandardOverworldLakitus = this->ui->sbStandardOverworldLakitus->value();
         this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = this->ui->sbStandardOverworldOffscreenBulletBills->value();
+        this->pluginSettings->difficultyMinimumEnemyDistance = this->ui->sbMinimumEnemyDistance->value();
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyUnlimitedTime = this->ui->cbUnlimitedTime->isChecked();
         this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();

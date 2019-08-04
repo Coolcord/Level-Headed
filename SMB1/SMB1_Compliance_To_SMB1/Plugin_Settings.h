@@ -77,6 +77,7 @@ struct Plugin_Settings {
     int difficultyStandardOverworldFlyingCheepCheeps;
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
+    int difficultyMinimumEnemyDistance;
     bool difficultyNoEnemies;
     bool difficultyUnlimitedTime;
     bool difficultyStartWithFireFlowerOnRoomChange;

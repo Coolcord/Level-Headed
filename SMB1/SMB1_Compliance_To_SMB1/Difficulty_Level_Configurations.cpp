@@ -54,6 +54,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = difficultySettings.standardOverworldFlyingCheepCheeps;
     pluginSettings->difficultyStandardOverworldLakitus = difficultySettings.standardOverworldLakitus;
     pluginSettings->difficultyStandardOverworldOffscreenBulletBills = difficultySettings.standardOverworldOffscreenBulletBills;
+    pluginSettings->difficultyMinimumEnemyDistance = difficultySettings.minimumEnemyDistance;
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyUnlimitedTime = difficultySettings.unlimitedTime;
     pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
@@ -101,6 +102,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
     difficultySettings.walkingHammerBros = 11;
+    difficultySettings.minimumEnemyDistance = 6;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 6;
     difficultySettings.bridgeFlyingCheepCheeps = 3;
     difficultySettings.bridgeLakitus = 4;
@@ -149,6 +151,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.autoScroll = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
     difficultySettings.bulletTime = 11;
+    difficultySettings.minimumEnemyDistance = 10;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 10;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 8;
@@ -174,6 +177,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.autoScroll = 7;
     difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
+    difficultySettings.minimumEnemyDistance = 8;
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.spinyEggBehavior = 1; //Normal
@@ -191,6 +195,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.hammerTime = 7;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 4;
     difficultySettings.walkingHammerBros = 11;
+    difficultySettings.minimumEnemyDistance = 5;
     difficultySettings.bridgeFlyingCheepCheeps = 2;
     difficultySettings.bridgeLakitus = 11;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -229,6 +234,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.hammerTime = 3;
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.walkingHammerBros = 8;
+    difficultySettings.minimumEnemyDistance = 4;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.autoScrollChancePerLevel = 35;
     difficultySettings.lakituSpawnChancePerLevel = 50;
@@ -253,6 +259,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.hammerTimeIntensity = 40;
     difficultySettings.walkingHammerBros = 6;
     difficultySettings.autoScroll = 2;
+    difficultySettings.minimumEnemyDistance = 1;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 1;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     difficultySettings.castleFlyingCheepCheeps = 4;
@@ -473,6 +480,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldLakitus = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.minimumEnemyDistance = Random::Get_Instance().Get_Num(1, 11);
     difficultySettings.hammerTimeIntensity = Random::Get_Instance().Get_Num(50); //limit to 50%
     difficultySettings.replaceCastleLoops = 0; //0 is random here
     difficultySettings.maxLevelLength = 0; //0 is random here

@@ -28,6 +28,7 @@ struct Difficulty_Level_Settings {
     int standardOverworldFlyingCheepCheeps;
     int standardOverworldLakitus;
     int standardOverworldOffscreenBulletBills;
+    int minimumEnemyDistance;
     bool noEnemies;
     bool unlimitedTime;
     bool startWithFireFlowerOnRoomChange;

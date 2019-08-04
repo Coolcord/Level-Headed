@@ -263,7 +263,6 @@ int Enemy_Spawner::Spawn_Bridge_Enemy(int &x, int &y, int lastX, int size, bool 
         assert(false);
         return 0;
     }
-    return 0;
 }
 
 int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
@@ -279,7 +278,6 @@ int Enemy_Spawner::Spawn_Island_Enemy(int &x, int &y, int lastX, int size, bool 
         assert(false);
         return 0;
     }
-    return 0;
 }
 
 int Enemy_Spawner::Calculate_Number_Of_Enemies() {
@@ -297,7 +295,7 @@ int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEne
     assert(totalSpaces-x >= 0);
     if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
     if (averageDistance > 11) averageDistance = 11;
-    if (averageDistance < 4) averageDistance = 4;
+    if (averageDistance < this->args->difficultyMinimumEnemyDistance) averageDistance = this->args->difficultyMinimumEnemyDistance;
     return averageDistance;
 }
 
@@ -310,7 +308,7 @@ int Enemy_Spawner::Get_Random_X(int min) {
 
 int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies) {
     int tmpX = x;
-    assert(tmpX-lastX > 0);
+    if (tmpX-lastX <= 0) return 0;
     if (noEnemies) return this->Common_Enemy(x, y, lastX, lastSize, false, true); //give up and spawn a common enemy instead
 
     //Determine how many enemies to spawn
@@ -373,7 +371,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
 
 int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies) {
     int tmpX = x;
-    assert(tmpX-lastX > 0);
+    if (tmpX-lastX <= 0) return 0; //unable to spawn anything
     int tmpY = y;
 
     //Try to spawn a Blooper
