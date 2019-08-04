@@ -60,6 +60,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = difficultySettings.replaceCastleLoops;
+    pluginSettings->difficultyMaxLevelLength = difficultySettings.maxLevelLength;
     pluginSettings->difficultyAutoScrollChancePerLevel = difficultySettings.autoScrollChancePerLevel;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
@@ -125,6 +126,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 3; //autoscroll
+    difficultySettings.maxLevelLength = 4; //Normal
     difficultySettings.autoScrollChancePerLevel = 25;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
@@ -162,6 +164,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.unlimitedTime = true;
     difficultySettings.startWithFireFlowerOnRoomChange = true;
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
+    difficultySettings.maxLevelLength = 2; //Very Short
     return difficultySettings;
 }
 
@@ -176,6 +179,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
+    difficultySettings.maxLevelLength = 3; //Short
     return difficultySettings;
 }
 
@@ -209,6 +213,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.spinyEggBehavior = 1;
     difficultySettings.replaceCastleLoops = 2; //random hard
+    difficultySettings.maxLevelLength = 5; //Long
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
@@ -234,6 +239,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.spinyEggBehavior = 2;
+    difficultySettings.maxLevelLength = 6; //Very Long
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
@@ -266,6 +272,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.underwaterFlyingCheepCheeps = 5;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
+    difficultySettings.maxLevelLength = 7; //Maximum
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
@@ -467,6 +474,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTimeIntensity = Random::Get_Instance().Get_Num(50); //limit to 50%
     difficultySettings.replaceCastleLoops = 0; //0 is random here
+    difficultySettings.maxLevelLength = 0; //0 is random here
     difficultySettings.autoScrollChancePerLevel = Random::Get_Instance().Get_Num(100);
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Instance().Get_Num(100);
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Instance().Get_Num(1));

@@ -33,6 +33,7 @@ struct Difficulty_Level_Settings {
     bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
     int replaceCastleLoops;
+    int maxLevelLength;
     int autoScrollChancePerLevel;
     int lakituSpawnChancePerLevel;
     int lakituRespawnSpeed;

@@ -48,6 +48,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficultyLakituSpawnChancePerLevel;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     int difficultySpawnerPriority;
+    int maxLevelLength;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H

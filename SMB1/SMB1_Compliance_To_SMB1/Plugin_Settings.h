@@ -83,6 +83,7 @@ struct Plugin_Settings {
     int difficultyHammerTimeIntensity;
     int difficultyReplaceCastleLoops;
     int difficultyReplaceCastleLoopsCurrent;
+    int difficultyMaxLevelLength;
     int difficultyAutoScrollChancePerLevel;
     int difficultyLakituSpawnChancePerLevel;
     int difficultyLakituRespawnSpeed;

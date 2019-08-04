@@ -206,6 +206,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Start_With_Fire_Flower_On_Room_Change", this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity)) return false;
     if (!configFile.Set_Value("Difficulty_Replace_Castle_Loops", this->pluginSettings.difficultyReplaceCastleLoops)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_Level_Length", this->pluginSettings.difficultyMaxLevelLength)) return false;
     if (!configFile.Set_Value("Difficulty_Auto_Scroll_Chance_Per_Level", this->pluginSettings.difficultyAutoScrollChancePerLevel)) return false;
     if (!configFile.Set_Value("Difficulty_Lakitu_Spawn_Chance_Per_Level", this->pluginSettings.difficultyLakituSpawnChancePerLevel)) return false;
     if (!configFile.Set_Value("Difficulty_Lakitu_Respawn_Speed", this->pluginSettings.difficultyLakituRespawnSpeed)) return false;
@@ -283,6 +284,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Start_With_Fire_Flower_On_Room_Change", this->pluginSettings.difficultyStartWithFireFlowerOnRoomChange);
     configFile.Get_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity);
     configFile.Get_Value("Difficulty_Replace_Castle_Loops", this->pluginSettings.difficultyReplaceCastleLoops);
+    configFile.Get_Value("Difficulty_Max_Level_Length", this->pluginSettings.difficultyMaxLevelLength);
     configFile.Get_Value("Difficulty_Auto_Scroll_Chance_Per_Level", this->pluginSettings.difficultyAutoScrollChancePerLevel);
     configFile.Get_Value("Difficulty_Lakitu_Spawn_Chance_Per_Level", this->pluginSettings.difficultyLakituSpawnChancePerLevel);
     configFile.Get_Value("Difficulty_Lakitu_Respawn_Speed", this->pluginSettings.difficultyLakituRespawnSpeed);

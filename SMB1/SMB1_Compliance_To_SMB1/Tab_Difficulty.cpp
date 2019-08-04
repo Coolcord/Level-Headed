@@ -46,6 +46,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
     this->ui->comboReplaceCastleLoops->setCurrentIndex(this->pluginSettings->difficultyReplaceCastleLoops);
+    this->ui->comboMaxLevelLength->setCurrentIndex(this->pluginSettings->difficultyMaxLevelLength);
     this->ui->sbAutoScrollChancePerLevel->setValue(this->pluginSettings->difficultyAutoScrollChancePerLevel);
     this->ui->sbLakituSpawnChancePerLevel->setValue(this->pluginSettings->difficultyLakituSpawnChancePerLevel);
     this->ui->comboLakituRespawnSpeed->setCurrentIndex(this->pluginSettings->difficultyLakituRespawnSpeed);
@@ -97,6 +98,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyReplaceCastleLoops = this->ui->comboReplaceCastleLoops->currentIndex();
+        this->pluginSettings->difficultyMaxLevelLength = this->ui->comboMaxLevelLength->currentIndex();
         this->pluginSettings->difficultyAutoScrollChancePerLevel = this->ui->sbAutoScrollChancePerLevel->value();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->difficultyLakituRespawnSpeed = this->ui->comboLakituRespawnSpeed->currentIndex();
