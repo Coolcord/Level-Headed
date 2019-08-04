@@ -1,4 +1,7 @@
 Next Update (v0.3.1)
++ Levels are now shorter by default
++ Level length can be controlled
++ Minimum distance between enemy placement can be set
 + Partial support for the simultaneous Co-op ROM hack (by Corpse Grinder and TI)
 + Partial support for the versus multiplayer ROM hack Super Bill Kill (by jeffXvX)
 + Partial support for the European and Famicom versions of SMB1
