@@ -48,6 +48,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    bool difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int difficultySpawnerPriority;
     int maxLevelLength;
 };

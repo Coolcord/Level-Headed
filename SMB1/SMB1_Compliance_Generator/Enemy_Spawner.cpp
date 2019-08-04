@@ -77,6 +77,7 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         bool forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         bool noEnemies = this->args->difficultyNoEnemies;
         if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
+        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn) noEnemies = this->objects->Were_Flying_Cheep_Cheeps_Spawned();
         if (forceHammerBro) {
             size = this->Common_Enemy(x, y, lastX, size, true, noEnemies);
         } else {

@@ -41,6 +41,7 @@ struct Difficulty_Level_Settings {
     bool lakituThrowArc;
     int spinyEggBehavior;
     bool disableAllOtherEnemiesWhenALakituSpawns;
+    bool disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int spawnerPriority;
     bool superMarioOnDamage;
     int piranhaPlantType;

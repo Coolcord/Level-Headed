@@ -52,7 +52,7 @@ bool Sound::Randomize_Sounds() {
     if (!success) return false;
 
     //Stomp
-    if (Random::Get_Instance().Get_Num(1)) {
+    if (Random::Get_Instance().Get_Num(2)) {
         if (!this->Stomp_Random_1()) return false;
     } else {
         if (!this->Stomp_Random_2()) return false;

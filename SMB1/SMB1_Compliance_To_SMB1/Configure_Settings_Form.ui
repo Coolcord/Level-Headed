@@ -685,9 +685,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1029</y>
+            <y>-1256</y>
             <width>652</width>
-            <height>1862</height>
+            <height>1891</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1945,6 +1945,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenALakituSpawns">
                 <property name="text">
                  <string>Disable all other enemies when a Lakitu spawns</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn">
+                <property name="text">
+                 <string>Disable all other enemies when flying Cheep-Cheeps spawn</string>
                 </property>
                </widget>
               </item>

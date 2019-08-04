@@ -7,8 +7,7 @@
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Item_Writer.h"
 
-class Object_Writer : public Item_Writer
-{
+class Object_Writer : public Item_Writer {
 public:
     Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
     ~Object_Writer() {}
@@ -18,6 +17,7 @@ public:
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
+    bool Were_Flying_Cheep_Cheeps_Spawned();
     bool Is_Auto_Scroll_Active();
     bool Was_Auto_Scroll_Used();
     bool Is_Midpoint_Ready();
@@ -102,6 +102,7 @@ private:
     int totalBytes;
     bool firstPageSafety;
     bool autoScrollActive;
+    bool wereFlyingCheepCheepsSpawned;
     bool wasAutoScrollUsed;
 
     friend class Pipe_Pointer_Writer;

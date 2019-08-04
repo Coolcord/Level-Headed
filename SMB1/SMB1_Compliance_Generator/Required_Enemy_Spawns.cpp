@@ -49,7 +49,7 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     case Enemy_Item::SURFING_LIFT:
     case Enemy_Item::PIPE_POINTER:
     case Enemy_Item::TOAD:
-    case Enemy_Item::WARP_ZONE:         skipEnemy = false;
+    case Enemy_Item::WARP_ZONE:         skipEnemy = false; break;
     default:                            break;
     }
     if (skipEnemy) return true;
@@ -186,8 +186,8 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::TOAD:                  success = this->enemy->Toad(x); break;
     case Enemy_Item::GOOMBA_GROUP:          success = this->enemy->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::KOOPA_GROUP:           success = this->enemy->Koopa_Group(x, y, args.num, args.onlyHardMode); break;
-    case Enemy_Item::PAGE_CHANGE:           assert(false); break; return false;
-    default:                                assert(false); break; return false;
+    case Enemy_Item::PAGE_CHANGE:           assert(false); return false;
+    default:                                assert(false); return false;
     }
     if (success) {
         this->numRequiredBytes -= numRequiredBytes;

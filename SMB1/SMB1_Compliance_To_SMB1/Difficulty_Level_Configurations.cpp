@@ -69,6 +69,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
     pluginSettings->difficultySpinyEggBehavior = difficultySettings.spinyEggBehavior;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
+    pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
@@ -136,6 +137,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituThrowArc = true;
     difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
@@ -221,6 +223,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.replaceCastleLoops = 2; //random hard
     difficultySettings.maxLevelLength = 5; //Long
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 2; //fast
@@ -236,6 +239,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.walkingHammerBros = 8;
     difficultySettings.minimumEnemyDistance = 4;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.autoScrollChancePerLevel = 35;
     difficultySettings.lakituSpawnChancePerLevel = 50;
     difficultySettings.castleFlyingCheepCheeps = 7;
@@ -306,6 +310,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     difficultySettings.lakituThrowArc = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     return difficultySettings;
 }
 
@@ -396,6 +401,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spinyEggBehavior = 0;
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.lakituSpawnChancePerLevel = 100;
@@ -490,6 +496,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.spinyEggBehavior = 0; //0 is random here
     difficultySettings.lakituRespawnSpeed = 0; //0 is random here
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantType = 0; //0 is random here

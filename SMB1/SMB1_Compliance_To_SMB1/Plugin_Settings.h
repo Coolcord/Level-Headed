@@ -90,6 +90,7 @@ struct Plugin_Settings {
     int difficultyLakituSpawnChancePerLevel;
     int difficultyLakituRespawnSpeed;
     bool difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    bool difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int difficultySpinyEggBehavior;
     int difficultySpawnerPriority;
     int difficultyPiranhaPlantType;

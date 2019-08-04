@@ -245,6 +245,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyHammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
     args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
     args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    args.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
 
     //Determine the level type. The last level of each world should be a castle

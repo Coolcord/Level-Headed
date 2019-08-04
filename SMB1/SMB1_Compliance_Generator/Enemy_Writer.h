@@ -4,8 +4,7 @@
 #include "Item_Writer.h"
 #include <QString>
 
-class Enemy_Writer : public Item_Writer
-{
+class Enemy_Writer : public Item_Writer {
 public:
     Enemy_Writer(QTextStream *stream, int numBytesLeft);
     ~Enemy_Writer() {}

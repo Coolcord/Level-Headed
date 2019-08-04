@@ -3,6 +3,7 @@
 #include "../Common_SMB1_Files/Background_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "../Common_SMB1_Files/Scenery_String.h"
+#include "Enemy_Spawner.h"
 #include "Physics.h"
 #include <assert.h>
 
@@ -16,6 +17,7 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Complia
     this->totalBytes = numBytesLeft;
     this->firstPageSafety = false;
     this->autoScrollActive = false;
+    this->wereFlyingCheepCheepsSpawned = false;
     this->wasAutoScrollUsed = false;
 }
 
@@ -41,6 +43,10 @@ int Object_Writer::Get_Num_Objects_Left() {
 
 int Object_Writer::Get_Num_Objects_Available() {
     return (this->Get_Num_Objects_Left()-this->endObjectCount);
+}
+
+bool Object_Writer::Were_Flying_Cheep_Cheeps_Spawned() {
+    return this->wereFlyingCheepCheepsSpawned;
 }
 
 bool Object_Writer::Is_Auto_Scroll_Active() {
@@ -462,7 +468,9 @@ bool Object_Writer::Toggle_Auto_Scroll(int x) {
 
 bool Object_Writer::Flying_Cheep_Cheep_Spawner(int x) {
     if (this->Get_Absolute_X(x) == 0xF) return false;
-    return this->Write_Object(x, Object_Item::STRING_FLYING_CHEEP_CHEEP_SPAWNER, false);
+    if (!this->Write_Object(x, Object_Item::STRING_FLYING_CHEEP_CHEEP_SPAWNER, false)) return false;
+    this->wereFlyingCheepCheepsSpawned = true;
+    return true;
 }
 
 bool Object_Writer::Swimming_Cheep_Cheep_Spawner(int x) {
