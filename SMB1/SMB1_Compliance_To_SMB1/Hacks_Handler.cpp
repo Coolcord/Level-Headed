@@ -46,6 +46,7 @@ bool Hacks_Handler::Write_Hacks() {
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_Partial_Game()) return false;
     }
+    if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
@@ -129,6 +130,30 @@ bool Hacks_Handler::Handle_Lakitus() {
     case 4:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x4); //Quick
     case 5:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x2); //Very Quick
     case 6:     return this->writerPlugin->Hacks_Set_Lakitu_Respawn_Speed(0x0); //ASAP
+    }
+}
+
+bool Hacks_Handler::Handle_Level_Length() {
+    switch (this->pluginSettings->difficultyMaxLevelLength) {
+    default: return false;
+    case 0: //Random
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = Random::Get_Instance().Get_Num(64, 321);
+        if (this->pluginSettings->difficultyMaxLevelLengthBlocks == 321) this->pluginSettings->difficultyMaxLevelLengthBlocks = 0;
+        return true;
+    case 1: //As Short as Possible
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 1; return true;
+    case 2: //Very Short
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 96; return true;
+    case 3: //Short
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 144; return true;
+    case 4: //Normal (about 12 pages)
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 192; return true;
+    case 5: //Long
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 240; return true;
+    case 6: //Very Long
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 288; return true;
+    case 7: //As Long as Possible
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 0; return true;
     }
 }
 

@@ -250,7 +250,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
     else args.levelType = this->Determine_Level_Type();
     args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
-    args.maxLevelLength = this->Get_Level_Length(this->pluginSettings->difficultyMaxLevelLength, args.difficulty, args.useAutoScroll, args.levelType);
+    args.maxLevelLength = this->Get_Level_Length(this->pluginSettings->difficultyMaxLevelLengthBlocks, args.difficulty, args.useAutoScroll, args.levelType);
     switch (args.levelType) {
     case Level_Type::STANDARD_OVERWORLD:
         if (args.difficulty < args.difficultyBulletTime && Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
@@ -326,28 +326,8 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     return args;
 }
 
-int Level_Generator::Get_Level_Length(int index, int difficulty, bool autoScroll, Level_Type::Level_Type levelType) {
-    //Get the proper difficulty length based upon the combo box selection
-    int length = 0;
-    switch (index) {
-    default: assert(false); return 0;
-    case 0: //Random
-        length = Random::Get_Instance().Get_Num(512); break;
-    case 1: //As Short as Possible
-        return 1;
-    case 2: //Very Short
-        length = 64; break;
-    case 3: //Short
-        length = 128; break;
-    case 4: //Normal
-        length = 192; break;
-    case 5: //Long
-        length = 256; break;
-    case 6: //Very Long
-        length = 320; break;
-    case 7: //As Long as Possible
-        return 0;
-    }
+int Level_Generator::Get_Level_Length(int length, int difficulty, bool autoScroll, Level_Type::Level_Type levelType) {
+    if (length <= 0) return 0;
 
     //Make certain level types shorter
     if (levelType == Level_Type::UNDERWATER) length -= static_cast<int>(static_cast<double>(length)*0.25); //25% shorter
@@ -356,7 +336,7 @@ int Level_Generator::Get_Level_Length(int index, int difficulty, bool autoScroll
     assert(length > 0);
 
     //Make later levels longer
-    length += static_cast<int>(static_cast<double>(length)*0.035)*difficulty; //3.5% size increase for each difficulty
+    length += static_cast<int>(static_cast<double>(length)*0.04)*difficulty; //4% size increase for each difficulty
     return length;
 }
 

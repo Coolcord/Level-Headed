@@ -16,6 +16,7 @@ private:
     bool Handle_Music();
     bool Handle_Graphics();
     bool Handle_Lakitus();
+    bool Handle_Level_Length();
     bool Handle_Lives();
     bool Handle_Piranha_Plants();
     bool Handle_God_Mode();

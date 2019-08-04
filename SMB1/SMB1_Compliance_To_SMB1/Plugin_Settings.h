@@ -84,6 +84,7 @@ struct Plugin_Settings {
     int difficultyReplaceCastleLoops;
     int difficultyReplaceCastleLoopsCurrent;
     int difficultyMaxLevelLength;
+    int difficultyMaxLevelLengthBlocks;
     int difficultyAutoScrollChancePerLevel;
     int difficultyLakituSpawnChancePerLevel;
     int difficultyLakituRespawnSpeed;
