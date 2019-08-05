@@ -57,7 +57,6 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyMinimumEnemyDistance = difficultySettings.minimumEnemyDistance;
     pluginSettings->difficultyNoEnemies = difficultySettings.noEnemies;
     pluginSettings->difficultyUnlimitedTime = difficultySettings.unlimitedTime;
-    pluginSettings->difficultyStartWithFireFlowerOnRoomChange = difficultySettings.startWithFireFlowerOnRoomChange;
     pluginSettings->difficultyHammerTimeIntensity = difficultySettings.hammerTimeIntensity;
     pluginSettings->difficultyReplaceCastleLoops = difficultySettings.replaceCastleLoops;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = difficultySettings.replaceCastleLoops;
@@ -93,7 +92,6 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
     pluginSettings->superMarioOnDamage = false;
-    pluginSettings->difficultyStartWithFireFlowerOnRoomChange = false;
     pluginSettings->difficultyUnlimitedTime = false;
 }
 
@@ -127,7 +125,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.noEnemies = false;
     difficultySettings.unlimitedTime = false;
-    difficultySettings.startWithFireFlowerOnRoomChange = false;
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 3; //autoscroll
     difficultySettings.maxLevelLength = 4; //Normal
@@ -168,8 +165,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.unlimitedTime = true;
-    difficultySettings.startWithFireFlowerOnRoomChange = true;
-    difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
+    difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
     difficultySettings.maxLevelLength = 2; //Very Short
     return difficultySettings;
 }

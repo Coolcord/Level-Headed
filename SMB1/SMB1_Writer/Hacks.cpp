@@ -15,8 +15,12 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler 
     this->text = text;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
+    this->skipLivesScreen = false;
     this->isHammerSuitActive = false;
     this->wasCastleLoopReplacedWithAutoScrollObject = false;
+    this->wasCastleLoopReplacedWithFireBros = false;
+    this->wasCastleLoopReplacedWithFlagpole1UP = false;
+    this->wasCastleLoopReplacedWithFireFlower = false;
 }
 
 bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
@@ -111,7 +115,7 @@ bool Hacks::Infinite_Lives() {
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x11E9, QByteArray::fromHex(QString("EAEA1890").toLatin1()))) return false; //prevent decrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
-    return this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1())); //skip the lives screen
+    return this->Skip_Lives_Screen();
 }
 
 bool Hacks::Invincibility() {
@@ -133,7 +137,7 @@ bool Hacks::Permadeath() {
     if (!this->Write_Bytes_To_Offset(0x02ED,  QByteArray(1, static_cast<char>(0x18)))) return false; //disable the A+Start continue cheat code
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
-    return this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1())); //skip the lives screen
+    return this->Skip_Lives_Screen();
 }
 
 bool Hacks::Real_Time() {
@@ -178,6 +182,7 @@ bool Hacks::Remove_Vertical_Object_Limit() {
 
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
     //By ATA
+    if (this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower) return false;
     if (!this->Write_Bytes_To_Offset(0x16C9, QByteArray::fromHex(QString("E6C0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2F46, QByteArray::fromHex(QString("6BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2FAD, QByteArray::fromHex(QString("20B7C0F0").toLatin1()))) return false;
@@ -192,6 +197,7 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
 }
 
 bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower) return false;
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("1CE4").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, static_cast<char>(0x38)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3B01, QByteArray::fromHex(QString("6BC0A90495AC2095C0").toLatin1()))) return false;
@@ -205,13 +211,27 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
         if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
                 "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
     }
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS);
+    if (!this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS)) return false;
+    this->wasCastleLoopReplacedWithFireBros = true;
+    return true;
+}
+
+bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
+    if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4C79C0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4089, QByteArray::fromHex(QString("A9028D5607A9008D540720A4EF4CC586").toLatin1()))) return false;
+    if (this->skipLivesScreen && !this->Write_Bytes_To_Offset(0x4093, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+    this->wasCastleLoopReplacedWithFireFlower = true;
+    return true;
 }
 
 bool Hacks::Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D007EE5A07A94085FE60").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("206BC0").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()))) return false;
+    this->wasCastleLoopReplacedWithFlagpole1UP = true;
+    return true;
 }
 
 bool Hacks::Replace_Mario_With_Luigi() {
@@ -421,4 +441,15 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
     --world;
     if (world < 0 || world > 0xF) return false;
     return this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()));
+}
+
+bool Hacks::Skip_Lives_Screen() {
+    if (this->wasCastleLoopReplacedWithFireFlower) {
+        if (!this->Write_Bytes_To_Offset(0x4093, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+    } else {
+        //if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+    }
+    this->skipLivesScreen = true;
+    return true;
 }

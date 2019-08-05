@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>719</width>
+    <width>751</width>
     <height>746</height>
    </rect>
   </property>
@@ -129,7 +129,7 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>669</width>
+            <width>701</width>
             <height>635</height>
            </rect>
           </property>
@@ -685,9 +685,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1256</y>
-            <width>652</width>
-            <height>1891</height>
+            <y>-1227</y>
+            <width>684</width>
+            <height>1862</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1837,7 +1837,7 @@ p, li { white-space: pre-wrap; }
                  <widget class="QComboBox" name="comboReplaceCastleLoops">
                   <item>
                    <property name="text">
-                    <string>Random</string>
+                    <string>Random (Auto Scroll, Fire Bros, Flagpole 1-UP)</string>
                    </property>
                   </item>
                   <item>
@@ -1863,6 +1863,16 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Top of Flagpole Gives 1-UP</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Start with Fire Flower</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Start with Fire Flower + Flagpole 1-UP</string>
                    </property>
                   </item>
                  </widget>
@@ -1969,13 +1979,6 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="cbStartWithFireFlowerOnRoomChange">
-                <property name="text">
-                 <string>Start with Fire Flower on room change</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QCheckBox" name="cbUnlimitedTime">
                 <property name="text">
                  <string>Unlimited Time</string>
@@ -2026,7 +2029,7 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>669</width>
+            <width>701</width>
             <height>635</height>
            </rect>
           </property>

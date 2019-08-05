@@ -34,7 +34,6 @@ bool Hacks_Handler::Write_Hacks() {
             if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
         }
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
-        if (this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange && !this->writerPlugin->Hacks_Start_With_Fire_Flower_On_Room_Change()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
         if (!this->Handle_Enemy_Speed()) return false;
@@ -253,9 +252,9 @@ bool Hacks_Handler::Handle_Names() {
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(2)+3; //3-5
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 5); //(no fireflower buffs)
     } else if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 1) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(1)+3; //3 or 4
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 4); //(only Auto Scroll or Fire Bros)
     }
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
     default:    assert(false); return false;
@@ -263,6 +262,10 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     case 3:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
     case 4:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
     case 5:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
+    case 6:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+    case 7:
+        if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP()) return false;
+        return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
     }
 }
 

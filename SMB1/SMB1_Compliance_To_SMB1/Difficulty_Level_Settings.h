@@ -31,7 +31,6 @@ struct Difficulty_Level_Settings {
     int minimumEnemyDistance;
     bool noEnemies;
     bool unlimitedTime;
-    bool startWithFireFlowerOnRoomChange;
     int hammerTimeIntensity;
     int replaceCastleLoops;
     int maxLevelLength;

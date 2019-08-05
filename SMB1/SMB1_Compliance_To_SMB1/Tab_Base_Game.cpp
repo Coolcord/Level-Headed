@@ -85,7 +85,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
-        this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(false);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
     this->ui->radioPermadeath->setEnabled(!enabled);
@@ -114,7 +113,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
-    this->ui->cbStartWithFireFlowerOnRoomChange->setEnabled(!enabled);
 
     //Disable the ASM Difficulty Presents
     for (int i = 0; i < asmDifficulties.size(); ++i) {

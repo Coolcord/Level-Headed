@@ -80,7 +80,6 @@ struct Plugin_Settings {
     int difficultyMinimumEnemyDistance;
     bool difficultyNoEnemies;
     bool difficultyUnlimitedTime;
-    bool difficultyStartWithFireFlowerOnRoomChange;
     int difficultyHammerTimeIntensity;
     int difficultyReplaceCastleLoops;
     int difficultyReplaceCastleLoopsCurrent;

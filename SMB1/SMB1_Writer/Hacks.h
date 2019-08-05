@@ -35,6 +35,7 @@ public:
     bool Replace_1UP_With_Swimming_Mushroom();
     bool Replace_Castle_Loop_With_Autoscroll_Object();
     bool Replace_Castle_Loop_With_Fire_Bros();
+    bool Replace_Castle_Loop_With_Start_With_Fire_Flower();
     bool Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Replace_Mario_With_Luigi();
     bool Set_Basic_Enemy_Speed(int speed);
@@ -53,12 +54,17 @@ public:
 private:
     bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
     bool Enable_Walking_Hammer_Bros_In_World(int world);
+    bool Skip_Lives_Screen();
 
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     int difficultyWalkingHammerBros;
+    bool skipLivesScreen;
     bool isHammerSuitActive;
     bool wasCastleLoopReplacedWithAutoScrollObject;
+    bool wasCastleLoopReplacedWithFireBros;
+    bool wasCastleLoopReplacedWithFlagpole1UP;
+    bool wasCastleLoopReplacedWithFireFlower;
 };
 
 #endif // HACKS_H

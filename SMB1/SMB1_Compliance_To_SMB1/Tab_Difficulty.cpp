@@ -44,7 +44,6 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbMinimumEnemyDistance->setValue(this->pluginSettings->difficultyMinimumEnemyDistance);
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
     this->ui->cbUnlimitedTime->setChecked(this->pluginSettings->difficultyUnlimitedTime);
-    this->ui->cbStartWithFireFlowerOnRoomChange->setChecked(this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
     this->ui->comboReplaceCastleLoops->setCurrentIndex(this->pluginSettings->difficultyReplaceCastleLoops);
     this->ui->comboMaxLevelLength->setCurrentIndex(this->pluginSettings->difficultyMaxLevelLength);
@@ -98,7 +97,6 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyMinimumEnemyDistance = this->ui->sbMinimumEnemyDistance->value();
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyUnlimitedTime = this->ui->cbUnlimitedTime->isChecked();
-        this->pluginSettings->difficultyStartWithFireFlowerOnRoomChange = this->ui->cbStartWithFireFlowerOnRoomChange->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();
         this->pluginSettings->difficultyReplaceCastleLoops = this->ui->comboReplaceCastleLoops->currentIndex();
         this->pluginSettings->difficultyMaxLevelLength = this->ui->comboMaxLevelLength->currentIndex();

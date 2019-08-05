@@ -582,6 +582,11 @@ bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Fire_Bros() {
     return this->hacks->Replace_Castle_Loop_With_Fire_Bros();
 }
 
+bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Start_With_Fire_Flower();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
@@ -630,11 +635,6 @@ bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
 bool SMB1_Writer::Hacks_Speedy_Objects_And_Enemies() {
     if (!this->hacks) return false;
     return this->hacks->Speedy_Objects_And_Enemies();
-}
-
-bool SMB1_Writer::Hacks_Start_With_Fire_Flower_On_Room_Change() {
-    if (!this->hacks) return false;
-    return this->hacks->Start_With_Fire_Flower_On_Room_Change();
 }
 
 bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
