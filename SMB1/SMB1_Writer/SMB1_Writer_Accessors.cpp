@@ -602,6 +602,11 @@ bool SMB1_Writer::Hacks_Set_Basic_Enemy_Speed(int speed) {
     return this->hacks->Set_Basic_Enemy_Speed(speed);
 }
 
+bool SMB1_Writer::Hacks_Set_Bullet_Bill_Firing_Rate(int rate) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Bullet_Bill_Firing_Rate(rate);
+}
+
 bool SMB1_Writer::Hacks_Set_Bullet_Bill_Speed(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Set_Bullet_Bill_Speed(speed);

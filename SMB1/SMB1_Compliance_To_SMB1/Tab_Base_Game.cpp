@@ -77,6 +77,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->sbWalkingHammerBros->setValue(11);
         this->ui->sbAutoScrollChancePerLevel->setValue(0);
         this->ui->comboBasicEnemySpeed->setCurrentIndex(1);
+        this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
         this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
@@ -99,6 +100,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->sbAutoScrollChancePerLevel->setEnabled(!enabled);
     this->ui->lblBasicEnemySpeed->setEnabled(!enabled);
     this->ui->comboBasicEnemySpeed->setEnabled(!enabled);
+    this->ui->lblBulletBillFiringRate->setEnabled(!enabled);
+    this->ui->comboBulletBillFiringRate->setEnabled(!enabled);
     this->ui->lblBulletBillSpeed->setEnabled(!enabled);
     this->ui->comboBulletBillSpeed->setEnabled(!enabled);
     this->ui->lblLakituRespawnSpeed->setEnabled(!enabled);

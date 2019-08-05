@@ -192,6 +192,11 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (speed == 0) speed = Random::Get_Instance().Get_Num(4)+1;
     if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Speed(speed)) return false;
 
+    //Handle bullet bill firing rate
+    speed = this->pluginSettings->difficultyBulletBillFiringRate;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 7);
+    if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Firing_Rate(speed)) return false;
+
     //Handle the speedy enemies patch
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;

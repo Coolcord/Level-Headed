@@ -685,9 +685,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1227</y>
+            <y>-1153</y>
             <width>684</width>
-            <height>1862</height>
+            <height>1895</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1623,6 +1623,61 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Speedy</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutBulletBillFiringRate">
+                <item>
+                 <widget class="QLabel" name="lblBulletBillFiringRate">
+                  <property name="text">
+                   <string>Bullet Bill Firing Rate:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBulletBillFiringRate">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Infrequent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Infrequent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Frequent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Frequent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Rapid Fire</string>
                    </property>
                   </item>
                   <item>

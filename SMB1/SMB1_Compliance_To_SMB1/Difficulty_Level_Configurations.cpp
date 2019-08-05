@@ -73,6 +73,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
+    pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
@@ -83,6 +84,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyWalkingHammerBros = 11;
     pluginSettings->difficultyAutoScrollChancePerLevel = 0;
     pluginSettings->difficultyBasicEnemySpeed = 1;
+    pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->lakituThrowArc = false;
@@ -139,6 +141,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
     difficultySettings.basicEnemySpeed = 1;
+    difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
@@ -163,6 +166,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.underwaterSwimmingCheepCheeps = 2;
     difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.lakituRespawnSpeed = 2;
+    difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.unlimitedTime = true;
     difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
@@ -216,7 +220,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.spinyEggBehavior = 1;
-    difficultySettings.replaceCastleLoops = 2; //random hard
+    difficultySettings.replaceCastleLoops = 1; //random hard
     difficultySettings.maxLevelLength = 5; //Long
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
@@ -250,6 +254,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
+    difficultySettings.bulletBillFiringRate = 4; //frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
     return difficultySettings;
 }
@@ -283,6 +288,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.maxLevelLength = 7; //Maximum
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
+    difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.spawnerPriority = 0; //random
     return difficultySettings;
@@ -372,6 +378,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets(
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 11;
     difficultySettings.standardOverworldOffscreenBulletBills = 1;
+    difficultySettings.bulletBillFiringRate = 5; //very frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
     return difficultySettings;
 }

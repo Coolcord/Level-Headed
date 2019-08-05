@@ -279,6 +279,11 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
     }
 }
 
+bool Hacks::Set_Bullet_Bill_Firing_Rate(int rate) {
+    if (rate < 1 || rate > 7) return false;
+    return this->Write_Bytes_To_Offset(0x39D2, QByteArray(1, static_cast<char>(rate-1)));
+}
+
 bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     int speedValue = 0;
     switch (speed) {

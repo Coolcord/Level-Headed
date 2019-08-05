@@ -10,6 +10,7 @@ Next Update (v0.3.1)
 + Fire Bros. are now only seen on Hard or higher difficulties
 + Very Easy now has unlimited time
 + Normal, Easy, and Very Easy no longer spawn enemies when Flying Cheep-Cheeps are used
++ Bullet Bill Cannon Firing Rate can now be controlled
 + Added command line support
 + Random Sounds
 + Mario and Luigi can be renamed
