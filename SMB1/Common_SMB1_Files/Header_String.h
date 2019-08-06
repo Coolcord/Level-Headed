@@ -19,13 +19,10 @@ namespace Header {
     const static QString STRING_MIDPOINT = "Midpoint";
     const static QString STRING_COOLCORD = STRING_NAME + " format created by Coolcord.";
     const static QString STRING_CREATED = "Randomly Generated on";
-    const static QString STRING_STANDARD_OVERWORLD_LEVELS_COMMONALITY = "Standard Overworld Levels Commonality";
-    const static QString STRING_UNDERGROUND_LEVELS_COMMONALITY = "Underground Levels Commonality";
-    const static QString STRING_UNDERWATER_LEVELS_COMMONALITY = "Underwater Levels Commonality";
-    const static QString STRING_BRIDGE_LEVELS_COMMONALITY = "Bridge Levels Commonality";
-    const static QString STRING_ISLAND_LEVELS_COMMONALITY = "Island Levels Commonality";
     const static QString STRING_DIFFICULTY = "Difficulty";
     const static QString STRING_RANDOM_SEED = "Random Seed";
+    const static QString STRING_GRAPHICS_PACK = "Graphics Pack";
+    const static QString STRING_MUSIC = "Music";
     const static QString STRING_LEVEL_LENGTH = "Level Length";
     const static QString STRING_NUMBER_OF_OBJECTS = "Number of Objects";
     const static QString STRING_NUMBER_OF_ENEMIES = "Number of Enemies";

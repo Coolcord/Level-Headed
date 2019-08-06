@@ -833,6 +833,11 @@ bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Spinball_Flower() {
     return this->powerups->Replace_Fire_Flower_With_Spinball_Flower();
 }
 
+QString SMB1_Writer::Graphics_Get_Last_Applied_Graphics_Pack() {
+    if (!this->sequentialArchiveHandler) return QString();
+    return this->sequentialArchiveHandler->Get_Last_Applied_Graphics_Pack();
+}
+
 QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {
     if (!this->sequentialArchiveHandler) return QStringList();
     return this->sequentialArchiveHandler->Get_Graphics_Packs();

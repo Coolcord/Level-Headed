@@ -209,6 +209,7 @@ public:
     virtual bool Powerups_Replace_Fire_Flower_With_Spinball_Flower()=0;
 
     //Graphics
+    virtual QString Graphics_Get_Last_Applied_Graphics_Pack()=0;
     virtual QStringList Graphics_Get_Graphic_Packs()=0;
     virtual bool Graphics_Apply_Graphic_Pack(int index)=0;
     virtual int Graphics_Get_Number_Of_Graphic_Packs()=0;

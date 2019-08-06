@@ -226,6 +226,7 @@ public:
     bool Powerups_Replace_Fire_Flower_With_Spinball_Flower();
 
     //Graphics
+    QString Graphics_Get_Last_Applied_Graphics_Pack();
     QStringList Graphics_Get_Graphic_Packs();
     bool Graphics_Apply_Graphic_Pack(int index);
     int Graphics_Get_Number_Of_Graphic_Packs();

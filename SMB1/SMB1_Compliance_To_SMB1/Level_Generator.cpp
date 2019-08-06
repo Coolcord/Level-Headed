@@ -431,14 +431,12 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     }
 
     //Write the Comment section of the map file
+    QString graphicsPack = this->writerPlugin->Graphics_Get_Last_Applied_Graphics_Pack();
+    if (graphicsPack.isEmpty()) graphicsPack = "Original";
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_COOLCORD)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A."))) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_STANDARD_OVERWORLD_LEVELS_COMMONALITY + ": " + this->pluginSettings->standardOverworldChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERGROUND_LEVELS_COMMONALITY + ": " + this->pluginSettings->undergroundChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_UNDERWATER_LEVELS_COMMONALITY + ": " + this->pluginSettings->underwaterChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_BRIDGE_LEVELS_COMMONALITY + ": " + this->pluginSettings->bridgeChance)) return false;
-    if (!this->Write_To_Map(mapStream, Header::STRING_ISLAND_LEVELS_COMMONALITY + ": " + this->pluginSettings->islandChance)) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_GRAPHICS_PACK + ": " + graphicsPack)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_DIFFICULTY + ": " + QString::number(this->pluginSettings->difficultyComboIndex))) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_RANDOM_SEED + ": " + this->pluginSettings->randomSeed)) return false;
 

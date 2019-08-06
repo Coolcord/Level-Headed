@@ -26,6 +26,7 @@ bool Sound::Randomize_Sounds() {
     }
     if (!success) return false;
 
+    if (!this->Bowser_Drop_Random()) return false;
     if (!this->Bump_Random()) return false;
     if (!this->Coin_Random()) return false;
     if (!this->Flagpole_Random()) return false;
@@ -80,6 +81,16 @@ bool Sound::Bump_Random() {
     if (!this->Write_Bytes_To_Offset(0x7412, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x91, 0x95))))) return false;
     int highByte = Random::Get_Instance().Get_Num(0xF);
     return this->Write_Bytes_To_Offset(0x7414, QByteArray(1, static_cast<char>((highByte*0x10)+0xE))); //also affects fireballs (original value 9E
+}
+
+bool Sound::Bowser_Drop_Random() {
+    int highByte = Random::Get_Instance().Get_Num(0x7, 0xE);
+    int lowByte = Random::Get_Instance().Get_Num(0x2, 0x6);
+    //if (Random::Get_Instance().Get_Num(1)) lowByte = Random::Get_Instance().Get_Num(0xC, 0xF);
+    if (!this->Write_Bytes_To_Offset(0x75DE, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)))) return false;
+    highByte = Random::Get_Instance().Get_Num(0x4);
+    lowByte = Random::Get_Instance().Get_Num(0, 7)*2; //even number between 0 and 0xE
+    return this->Write_Bytes_To_Offset(0x75E0, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)));
 }
 
 bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0B060C0F0A09030D080D060C").toLatin1()))); }
