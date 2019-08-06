@@ -16,6 +16,7 @@ private:
     bool One_Up_Random();
     bool Bump_Random();
     bool Bowser_Drop_Random();
+    bool Bowser_Flame_Random();
     bool Brick_Break_1();
     bool Brick_Break_2();
     bool Brick_Break_Random();
