@@ -2,6 +2,7 @@
 #include "ui_Main_Window.h"
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
+#include "Update_Dialog.h"
 #include "Common_Strings.h"
 #include "../Common_Files/Version.h"
 #include "../../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h"
@@ -10,6 +11,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 #include <QMessageBox>
+#include <QUrl>
 
 Main_Window::Main_Window(QWidget *parent) :
     QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint),
@@ -30,13 +32,16 @@ Main_Window::~Main_Window() {
 }
 
 void Main_Window::Check_For_Updates() {
+    const QString REMOTE_GIT_SERVER = "https://github.com/Coolcord/Level-Headed.git";
+    const QString UPDATE_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
+    const bool FORCE_UPDATE_CHECK = false;
+
     //TODO: Add a don't ask again button or checkbox (this will probably require creating a form)
     //TODO: RUN THIS IN A SEPARATE THREAD!!!!!
-    QString newVersion = Git_Update_Checker().Check_For_Updates(Version::VERSION_NUMBER, "https://github.com/Coolcord/Level-Headed.git",
-                                                                QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
-    if (!newVersion.isEmpty()) {
-        QMessageBox::information(nullptr, Common_Strings::STRING_LEVEL_HEADED, "Update available: v"+newVersion+"\n\nWould you like to download it now?", QMessageBox::Yes, QMessageBox::No);
-    }
+    QString version = Version::VERSION_NUMBER;
+    if (FORCE_UPDATE_CHECK) version = "0.0.0";
+    QString newVersion = Git_Update_Checker().Check_For_Updates(version, REMOTE_GIT_SERVER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
+    if (!newVersion.isEmpty()) Update_Dialog(this, newVersion, UPDATE_PAGE).exec();
 }
 
 bool Main_Window::Create_Directories() {

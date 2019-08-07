@@ -19,16 +19,19 @@ SOURCES +=\
     Main.cpp \
     Plugin_Handler.cpp \
     CLI_Passthrough.cpp \
-    ../Common_Files/Random.cpp
+    ../Common_Files/Random.cpp \
+    Update_Dialog.cpp
 
 HEADERS  += Main_Window.h \
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h \
     Plugin_Handler.h \
     Common_Strings.h \
     Interpreter_Interface.h \
-    CLI_Passthrough.h
+    CLI_Passthrough.h \
+    Update_Dialog.h
 
-FORMS    += Main_Window.ui
+FORMS    += Main_Window.ui \
+    Update_Dialog.ui
 
 RC_FILE = Level-Headed.rc
 
