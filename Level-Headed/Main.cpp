@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
     } else { //Run in GUI Mode
         w.show();
         w.Load_Previous_Plugins();
+        w.Check_For_Updates();
         return a.exec();
     }
 }

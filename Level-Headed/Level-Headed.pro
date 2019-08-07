@@ -14,13 +14,15 @@ CONFIG += c++11 pendantic Weverything
 
 
 SOURCES +=\
-        Main_Window.cpp \
+    ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.cpp \
+    Main_Window.cpp \
     Main.cpp \
     Plugin_Handler.cpp \
     CLI_Passthrough.cpp \
     ../Common_Files/Random.cpp
 
 HEADERS  += Main_Window.h \
+    ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h \
     Plugin_Handler.h \
     Common_Strings.h \
     Interpreter_Interface.h \

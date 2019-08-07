@@ -2,12 +2,13 @@
 #include "ui_Main_Window.h"
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
+#include "Common_Strings.h"
+#include "../Common_Files/Version.h"
+#include "../../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h"
 #include <QWindow>
 #include <QFile>
 #include <QPluginLoader>
-#include "../Common_Files/Version.h"
 #include <QDebug>
-#include "Common_Strings.h"
 #include <QMessageBox>
 
 Main_Window::Main_Window(QWidget *parent) :
@@ -26,6 +27,16 @@ Main_Window::Main_Window(QWidget *parent) :
 Main_Window::~Main_Window() {
     delete ui;
     delete this->interpreterLoader;
+}
+
+void Main_Window::Check_For_Updates() {
+    //TODO: Add a don't ask again button or checkbox (this will probably require creating a form)
+    //TODO: RUN THIS IN A SEPARATE THREAD!!!!!
+    QString newVersion = Git_Update_Checker().Check_For_Updates(Version::VERSION_NUMBER, "https://github.com/Coolcord/Level-Headed.git",
+                                                                QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
+    if (!newVersion.isEmpty()) {
+        QMessageBox::information(nullptr, Common_Strings::STRING_LEVEL_HEADED, "Update available: v"+newVersion+"\n\nWould you like to download it now?", QMessageBox::Yes, QMessageBox::No);
+    }
 }
 
 bool Main_Window::Create_Directories() {

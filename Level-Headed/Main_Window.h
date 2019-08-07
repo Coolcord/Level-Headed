@@ -18,6 +18,7 @@ class Main_Window : public QDialog {
 public:
     explicit Main_Window(QWidget *parent = 0);
     ~Main_Window();
+    void Check_For_Updates();
     bool Create_Directories();
     bool Populate_Writers();
     bool Populate_Generators(const QString &writerPlugin);

@@ -6,8 +6,7 @@
 
 class Main_Window;
 
-class Plugin_Handler
-{
+class Plugin_Handler {
 public:
     Plugin_Handler(Main_Window *window);
     ~Plugin_Handler() {}
