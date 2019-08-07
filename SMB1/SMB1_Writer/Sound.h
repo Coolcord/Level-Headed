@@ -14,6 +14,7 @@ private:
     bool One_Up_1();
     bool One_Up_2();
     bool One_Up_Random();
+    bool Blast_Random();
     bool Bump_Random();
     bool Bowser_Drop_Random();
     bool Bowser_Flame_Random();

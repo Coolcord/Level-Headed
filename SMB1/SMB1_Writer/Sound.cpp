@@ -26,6 +26,7 @@ bool Sound::Randomize_Sounds() {
     }
     if (!success) return false;
 
+    if (!this->Blast_Random()) return false;
     if (!this->Bowser_Drop_Random()) return false;
     if (!this->Bowser_Flame_Random()) return false;
     if (!this->Bump_Random()) return false;
@@ -77,11 +78,20 @@ bool Sound::One_Up_Random() {
     return this->Write_Bytes_To_Offset(0x74E4, bytes);
 }
 
+bool Sound::Blast_Random() {
+    if (!this->Write_Bytes_To_Offset(0x754B, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x1D, 0x24))))) return false; //length (original value 0x20)
+    if (!this->Write_Bytes_To_Offset(0x7550, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x81, 0xBF))))) return false;
+    int highByte = 0x5, lowByte = Random::Get_Instance().Get_Num(0x9, 0xF);
+    if (!this->Write_Bytes_To_Offset(0x7552, QByteArray(1, static_cast<char>(static_cast<char>((highByte*0x10)+lowByte))))) return false;
+    highByte = Random::Get_Instance().Get_Num(0xF); lowByte = 0xF;
+    return this->Write_Bytes_To_Offset(0x75EF, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte))); //also affects Bowser drop (original value 0x9F)
+}
+
 bool Sound::Bump_Random() {
     if (!this->Write_Bytes_To_Offset(0x7410, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x05, 0x1B))))) return false;
     if (!this->Write_Bytes_To_Offset(0x7412, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x91, 0x95))))) return false;
     int highByte = Random::Get_Instance().Get_Num(0xF);
-    return this->Write_Bytes_To_Offset(0x7414, QByteArray(1, static_cast<char>((highByte*0x10)+0xE))); //also affects fireballs (original value 9E)
+    return this->Write_Bytes_To_Offset(0x7414, QByteArray(1, static_cast<char>((highByte*0x10)+0xE))); //also affects fireballs (original value 0x9E)
 }
 
 bool Sound::Bowser_Drop_Random() {
@@ -146,7 +156,7 @@ bool Sound::Powerup_3() { return this->Write_Bytes_To_Offset(0x74EA, this->Rando
 bool Sound::Stomp_Random_1() {
     int highByte = Random::Get_Instance().Get_Num(0xF);
     int lowByte = Random::Get_Instance().Get_Num(0xB); //values that end with 0x0C or higher are loud
-    if ((highByte&1) == 1 && lowByte < 5) lowByte = 5;; //some low bytes are quiet
+    if ((highByte&1) == 1 && lowByte < 5) lowByte = 5; //some low bytes are quiet
     return this->Write_Bytes_To_Offset(0x73C1, QByteArray(14, static_cast<char>((highByte*0x10)+lowByte)));
 }
 
