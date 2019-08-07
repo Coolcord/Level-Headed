@@ -124,7 +124,7 @@ bool End_Spawner::Determine_Castle_End() {
     switch (0) {
     case 0:
         this->endPattern = End_Pattern::Shortest_Castle;
-        this->endObjectCount = 9;
+        this->endObjectCount = 10;
         assert(this->requiredEnemySpawns->Set_Num_End_Bytes(6));
         return true;
     default:
@@ -218,7 +218,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 }
 
 bool End_Spawner::Shortest_Castle(int x) {
-    if (this->object->Get_Num_Objects_Left() < 9) return false;
+    if (this->object->Get_Num_Objects_Left() < 10) return false;
     if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 0) return false;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
@@ -229,11 +229,12 @@ bool End_Spawner::Shortest_Castle(int x) {
         x += 0x10; //increment to an odd numbered page
         this->object->Set_Coordinate_Safety(false);
     }
-    assert(this->object->Change_Brick_And_Scenery(x, Brick::CEILING, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::NO_SCENERY));
     this->object->Set_Coordinate_Safety(true);
 
     //Create the Bowser Bridge page
     assert(this->object->Bowser_Bridge(1));
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::CEILING, Scenery::NO_SCENERY));
     assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::BOWSER, 7));
     assert(this->object->Change_Brick_And_Scenery(12, Brick::SURFACE_5_AND_CEILING, Scenery::NO_SCENERY));
     assert(this->object->Axe_Rope(0));

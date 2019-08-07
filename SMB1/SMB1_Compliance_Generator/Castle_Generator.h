@@ -4,12 +4,12 @@
 #include "Level_Generator.h"
 #include "Item_Spawner.h"
 
-class Castle_Generator : public Level_Generator
-{
+class Castle_Generator : public Level_Generator {
 public:
     Castle_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     ~Castle_Generator();
     bool Generate_Level();
+
 private:
     Castle_Generator(const Castle_Generator&);
     Castle_Generator& operator=(const Castle_Generator&);
