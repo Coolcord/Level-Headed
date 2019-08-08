@@ -17,7 +17,7 @@ void Update_Thread::run() {
     //UPDATE CHECKER SETTINGS
     const QString REMOTE_GIT_SERVER = "https://github.com/Coolcord/Level-Headed.git";
     const QString UPDATE_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
-    const bool FORCE_UPDATE_CHECK = true;
+    const bool FORCE_UPDATE_CHECK = false;
 
     //Run the update check
     bool ignoreUpdates = false;
