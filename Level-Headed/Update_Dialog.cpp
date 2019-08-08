@@ -1,12 +1,15 @@
 #include "Update_Dialog.h"
 #include "ui_Update_Dialog.h"
+#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QDebug>
 #include <QDesktopServices>
 
-Update_Dialog::Update_Dialog(QWidget *parent, const QString &version, const QString &updatePage) :
+Update_Dialog::Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &version, const QString &updatePage) :
     QDialog(parent, Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::MSWindowsFixedSizeDialogHint),
     ui(new Ui::Update_Dialog)
 {
+    assert(readableConfigFile);
+    this->readableConfigFile = readableConfigFile;
     ui->setupUi(this);
     this->ui->teUpdateMessage->setText("<p align=\"center\">New Version: v"+version+
                                        "</p>\n\n<p align=\"center\">Would you like to download it now?</p>");
@@ -26,5 +29,5 @@ void Update_Dialog::on_Update_Dialog_accepted() {
 }
 
 void Update_Dialog::on_Update_Dialog_rejected() {
-    qDebug() << "rejected";
+    if (this->ui->cbDontAskAgain->isChecked()) this->readableConfigFile->Set_Value("Ignore_Updates", true);
 }

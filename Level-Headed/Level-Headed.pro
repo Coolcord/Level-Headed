@@ -13,22 +13,28 @@ TEMPLATE = app
 CONFIG += c++11 pendantic Weverything
 
 
-SOURCES +=\
+SOURCES += \
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.cpp \
+    ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp \
+    ../Common_Files/Random.cpp \
     Main_Window.cpp \
     Main.cpp \
     Plugin_Handler.cpp \
     CLI_Passthrough.cpp \
-    ../Common_Files/Random.cpp \
-    Update_Dialog.cpp
+    Update_Dialog.cpp \
+    Update_Thread.cpp
 
-HEADERS  += Main_Window.h \
+HEADERS  += \
+    Main_Window.h \
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h \
+    ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h \
+    ../Common_Files/Random.h \
     Plugin_Handler.h \
     Common_Strings.h \
     Interpreter_Interface.h \
     CLI_Passthrough.h \
-    Update_Dialog.h
+    Update_Dialog.h \
+    Update_Thread.h
 
 FORMS    += Main_Window.ui \
     Update_Dialog.ui

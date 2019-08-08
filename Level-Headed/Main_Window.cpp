@@ -3,45 +3,44 @@
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
 #include "Update_Dialog.h"
+#include "Update_Thread.h"
 #include "Common_Strings.h"
 #include "../Common_Files/Version.h"
-#include "../../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h"
+#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QWindow>
 #include <QFile>
 #include <QPluginLoader>
 #include <QDebug>
 #include <QMessageBox>
+#include <QTimer>
 #include <QUrl>
 
-Main_Window::Main_Window(QWidget *parent) :
+Main_Window::Main_Window(QWidget *parent, QApplication *application) :
     QDialog(parent, Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint),
     ui(new Ui::Main_Window)
 {
+    assert(application);
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->setupUi(this);
     this->setWindowTitle(Common_Strings::STRING_LEVEL_HEADED+" "+Version::VERSION);
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATE_A_GAME);
-    this->pluginHandler = new Plugin_Handler(this);
+    this->readableConfigFile = new Readable_Config_File();
+    this->pluginHandler = new Plugin_Handler(this, this->readableConfigFile);
     this->interpreterLoader = nullptr;
     this->interpreterPlugin = nullptr;
+    this->updateThread = new Update_Thread(this, application, this->readableConfigFile, Version::VERSION_NUMBER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
+    connect(this->updateThread, SIGNAL(Update_Available(const QString&, const QString&)), this, SLOT(on_Update_Thread_Update_Available(const QString&, const QString&)));
 }
 
 Main_Window::~Main_Window() {
     delete ui;
     delete this->interpreterLoader;
+    delete this->readableConfigFile;
+    delete this->updateThread;
 }
 
 void Main_Window::Check_For_Updates() {
-    const QString REMOTE_GIT_SERVER = "https://github.com/Coolcord/Level-Headed.git";
-    const QString UPDATE_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
-    const bool FORCE_UPDATE_CHECK = false;
-
-    //TODO: Add a don't ask again button or checkbox (this will probably require creating a form)
-    //TODO: RUN THIS IN A SEPARATE THREAD!!!!!
-    QString version = Version::VERSION_NUMBER;
-    if (FORCE_UPDATE_CHECK) version = "0.0.0";
-    QString newVersion = Git_Update_Checker().Check_For_Updates(version, REMOTE_GIT_SERVER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
-    if (!newVersion.isEmpty()) Update_Dialog(this, newVersion, UPDATE_PAGE).exec();
+    this->updateThread->start();
 }
 
 bool Main_Window::Create_Directories() {
@@ -192,4 +191,8 @@ void Main_Window::on_Main_Window_finished(int result) {
     }
     delete this->pluginHandler;
     this->pluginHandler = nullptr;
+}
+
+void Main_Window::on_Update_Thread_Update_Available(const QString &newVersion, const QString &updatePage) {
+    Update_Dialog(this, this->readableConfigFile, newVersion, updatePage).exec();
 }

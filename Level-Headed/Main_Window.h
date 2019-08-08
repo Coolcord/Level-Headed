@@ -1,12 +1,15 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include "Update_Thread.h"
+#include <QApplication>
 #include <QDialog>
 #include <QString>
 #include <QPluginLoader>
 
 class Plugin_Handler;
 class Interpreter_Interface;
+class Readable_Config_File;
 
 namespace Ui {
 class Main_Window;
@@ -16,7 +19,7 @@ class Main_Window : public QDialog {
     Q_OBJECT
 
 public:
-    explicit Main_Window(QWidget *parent = 0);
+    Main_Window(QWidget *parent, QApplication *application);
     ~Main_Window();
     void Check_For_Updates();
     bool Create_Directories();
@@ -33,12 +36,15 @@ private slots:
     void on_btnConfigureSettings_clicked();
     void on_btnGenerateGame_clicked();
     void on_Main_Window_finished(int result);
+    void on_Update_Thread_Update_Available(const QString &newVersion, const QString &updatePage);
 
 private:
     bool Load_Interpreter(const QString &fileLocation);
     void Show_Unable_To_Load_Plugin_Error();
 
     Ui::Main_Window *ui;
+    Update_Thread *updateThread;
+    Readable_Config_File *readableConfigFile;
     Plugin_Handler *pluginHandler;
     QPluginLoader *interpreterLoader;
     Interpreter_Interface *interpreterPlugin;

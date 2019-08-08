@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     #endif
 
     QApplication a(argc, argv);
-    Main_Window w;
+    Main_Window w(nullptr, &a);
 
     Random::Get_Instance().Seed(QString::number(QTime::currentTime().msecsSinceStartOfDay()), 1);
     if (!w.Create_Directories()) return 1;

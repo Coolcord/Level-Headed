@@ -5,10 +5,11 @@
 #include <QWidget>
 
 class Main_Window;
+class Readable_Config_File;
 
 class Plugin_Handler {
 public:
-    Plugin_Handler(Main_Window *window);
+    Plugin_Handler(Main_Window *window, Readable_Config_File *readableConfigFile);
     ~Plugin_Handler() {}
     bool Create_Directories();
     QStringList Get_Writer_Plugins();
@@ -22,6 +23,7 @@ private:
     QStringList Get_Plugins_From_Folder(const QString &folder);
 
     Main_Window *window;
+    Readable_Config_File *readableConfigFile;
     QWidget *widget;
 };
 

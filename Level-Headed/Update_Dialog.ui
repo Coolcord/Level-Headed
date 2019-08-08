@@ -52,6 +52,9 @@
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
+     <property name="undoRedoEnabled">
+      <bool>false</bool>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
@@ -85,7 +88,7 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="cbDontAskAgain">
        <property name="text">
         <string>Don't ask again</string>
        </property>
@@ -121,6 +124,10 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cbDontAskAgain</tabstop>
+  <tabstop>teUpdateMessage</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -130,12 +137,12 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>229</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>274</y>
+     <y>167</y>
     </hint>
    </hints>
   </connection>
@@ -146,12 +153,12 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>266</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>277</x>
+     <y>167</y>
     </hint>
    </hints>
   </connection>

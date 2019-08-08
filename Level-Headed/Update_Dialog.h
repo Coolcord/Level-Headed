@@ -4,6 +4,8 @@
 #include <QAbstractButton>
 #include <QDialog>
 
+class Readable_Config_File;
+
 namespace Ui {
 class Update_Dialog;
 }
@@ -12,7 +14,7 @@ class Update_Dialog : public QDialog {
     Q_OBJECT
 
 public:
-    Update_Dialog(QWidget *parent, const QString &version, const QString &updatePage);
+    Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &version, const QString &updatePage);
     ~Update_Dialog();
 
 private slots:
@@ -21,6 +23,7 @@ private slots:
 
 private:
     Ui::Update_Dialog *ui;
+    Readable_Config_File *readableConfigFile;
     QString updatePage;
 };
 
