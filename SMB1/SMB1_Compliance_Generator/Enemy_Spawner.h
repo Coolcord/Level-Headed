@@ -12,8 +12,7 @@ class Object_Writer;
 class Level_Crawler;
 class Required_Enemy_Spawns;
 
-class Enemy_Spawner
-{
+class Enemy_Spawner {
 public:
     Enemy_Spawner(QFile *file, QTextStream *stream, Object_Writer *objects, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
     ~Enemy_Spawner();

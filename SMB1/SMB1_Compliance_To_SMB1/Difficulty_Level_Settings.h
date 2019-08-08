@@ -29,6 +29,7 @@ struct Difficulty_Level_Settings {
     int standardOverworldLakitus;
     int standardOverworldOffscreenBulletBills;
     int minimumEnemyDistance;
+    int minimumUnderwaterEnemyDistance;
     bool noEnemies;
     bool unlimitedTime;
     int hammerTimeIntensity;

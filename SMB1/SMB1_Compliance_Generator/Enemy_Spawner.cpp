@@ -296,7 +296,9 @@ int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEne
     assert(totalSpaces-x >= 0);
     if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
     if (averageDistance > 11) averageDistance = 11;
-    if (averageDistance < this->args->difficultyMinimumEnemyDistance) averageDistance = this->args->difficultyMinimumEnemyDistance;
+    int minimumDistance = this->args->difficultyMinimumEnemyDistance;
+    if (this->args->levelType == Level_Type::UNDERWATER) minimumDistance = this->args->difficultyMinimumUnderwaterEnemyDistance;
+    if (averageDistance < minimumDistance) averageDistance = minimumDistance;
     return averageDistance;
 }
 

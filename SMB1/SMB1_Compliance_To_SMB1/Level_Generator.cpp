@@ -241,6 +241,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyStandardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
     args.difficultyStandardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
     args.difficultyMinimumEnemyDistance = this->pluginSettings->difficultyMinimumEnemyDistance;
+    args.difficultyMinimumUnderwaterEnemyDistance = this->pluginSettings->difficultyMinimumUnderwaterEnemyDistance;
     args.difficultyNoEnemies = this->pluginSettings->difficultyNoEnemies;
     args.difficultyHammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
     args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
@@ -332,7 +333,7 @@ int Level_Generator::Get_Level_Length(int length, int difficulty, bool autoScrol
     if (length <= 0) return 0;
 
     //Make certain level types shorter
-    if (levelType == Level_Type::UNDERWATER) length -= static_cast<int>(static_cast<double>(length)*0.30); //30% shorter
+    if (levelType == Level_Type::UNDERWATER) length -= static_cast<int>(static_cast<double>(length)*0.40); //40% shorter
     else if (levelType == Level_Type::ISLAND) length -= static_cast<int>(static_cast<double>(length)*0.10); //10% shorter
     if (autoScroll) length -= static_cast<int>(static_cast<double>(length)*0.30); //30% shorter
     assert(length > 0);

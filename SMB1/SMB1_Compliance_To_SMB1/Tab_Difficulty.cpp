@@ -43,6 +43,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbStandardOverworldLakitus->setValue(this->pluginSettings->difficultyStandardOverworldLakitus);
     this->ui->sbStandardOverworldOffscreenBulletBills->setValue(this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills);
     this->ui->sbMinimumEnemyDistance->setValue(this->pluginSettings->difficultyMinimumEnemyDistance);
+    this->ui->sbMinimumUnderwaterEnemyDistance->setValue(this->pluginSettings->difficultyMinimumUnderwaterEnemyDistance);
     this->ui->cbNoEnemies->setChecked(this->pluginSettings->difficultyNoEnemies);
     this->ui->cbUnlimitedTime->setChecked(this->pluginSettings->difficultyUnlimitedTime);
     this->ui->sbHammerTimeIntensity->setValue(this->pluginSettings->difficultyHammerTimeIntensity);
@@ -96,6 +97,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyStandardOverworldLakitus = this->ui->sbStandardOverworldLakitus->value();
         this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills = this->ui->sbStandardOverworldOffscreenBulletBills->value();
         this->pluginSettings->difficultyMinimumEnemyDistance = this->ui->sbMinimumEnemyDistance->value();
+        this->pluginSettings->difficultyMinimumUnderwaterEnemyDistance = this->ui->sbMinimumUnderwaterEnemyDistance->value();
         this->pluginSettings->difficultyNoEnemies = this->ui->cbNoEnemies->isChecked();
         this->pluginSettings->difficultyUnlimitedTime = this->ui->cbUnlimitedTime->isChecked();
         this->pluginSettings->difficultyHammerTimeIntensity = this->ui->sbHammerTimeIntensity->value();

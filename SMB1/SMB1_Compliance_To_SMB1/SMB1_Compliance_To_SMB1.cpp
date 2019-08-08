@@ -202,6 +202,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Standard_Overworld_Lakitus", this->pluginSettings.difficultyStandardOverworldLakitus)) return false;
     if (!configFile.Set_Value("Difficulty_Standard_Overworld_Offscreen_Bullet_Bills", this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills)) return false;
     if (!configFile.Set_Value("Difficulty_Minimum_Enemy_Distance", this->pluginSettings.difficultyMinimumEnemyDistance)) return false;
+    if (!configFile.Set_Value("Difficulty_Minimum_Underwater_Enemy_Distance", this->pluginSettings.difficultyMinimumUnderwaterEnemyDistance)) return false;
     if (!configFile.Set_Value("Difficulty_No_Enemies", this->pluginSettings.difficultyNoEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Unlimited_Time", this->pluginSettings.difficultyUnlimitedTime)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity)) return false;
@@ -282,6 +283,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Standard_Overworld_Lakitus", this->pluginSettings.difficultyStandardOverworldLakitus);
     configFile.Get_Value("Difficulty_Standard_Overworld_Offscreen_Bullet_Bills", this->pluginSettings.difficultyStandardOverworldOffscreenBulletBills);
     configFile.Get_Value("Difficulty_Minimum_Enemy_Distance", this->pluginSettings.difficultyMinimumEnemyDistance);
+    configFile.Get_Value("Difficulty_Minimum_Underwater_Enemy_Distance", this->pluginSettings.difficultyMinimumUnderwaterEnemyDistance);
     configFile.Get_Value("Difficulty_No_Enemies", this->pluginSettings.difficultyNoEnemies);
     configFile.Get_Value("Difficulty_Unlimited_Time", this->pluginSettings.difficultyUnlimitedTime);
     configFile.Get_Value("Difficulty_Hammer_Time_Intensity", this->pluginSettings.difficultyHammerTimeIntensity);

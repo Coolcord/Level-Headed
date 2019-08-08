@@ -44,6 +44,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
     int difficultyMinimumEnemyDistance;
+    int difficultyMinimumUnderwaterEnemyDistance;
     bool difficultyNoEnemies;
     int difficultyHammerTimeIntensity;
     int difficultyLakituSpawnChancePerLevel;

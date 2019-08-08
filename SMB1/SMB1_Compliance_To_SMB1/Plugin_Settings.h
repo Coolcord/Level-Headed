@@ -78,6 +78,7 @@ struct Plugin_Settings {
     int difficultyStandardOverworldLakitus;
     int difficultyStandardOverworldOffscreenBulletBills;
     int difficultyMinimumEnemyDistance;
+    int difficultyMinimumUnderwaterEnemyDistance;
     bool difficultyNoEnemies;
     bool difficultyUnlimitedTime;
     int difficultyHammerTimeIntensity;
