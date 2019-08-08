@@ -36,7 +36,7 @@ private slots:
     void on_btnConfigureSettings_clicked();
     void on_btnGenerateGame_clicked();
     void on_Main_Window_finished(int result);
-    void on_Update_Thread_Update_Available(const QString &newVersion, const QString &updatePage);
+    void on_Update_Available(const QString &newVersion, const QString &updatePage);
 
 private:
     bool Load_Interpreter(const QString &fileLocation);
