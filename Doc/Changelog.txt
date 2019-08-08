@@ -1,6 +1,6 @@
 Next Update (v0.3.1)
-+ Levels are now shorter by default
-+ Level length can be controlled
++ Level length is now controlled by the difficulty setting
++ Random Sounds
 + Minimum distance between enemy placement can be set
 + Partial support for the simultaneous Co-op ROM hack (by Corpse Grinder and TI)
 + Partial support for the versus multiplayer ROM hack Super Bill Kill (by jeffXvX)
@@ -10,10 +10,10 @@ Next Update (v0.3.1)
 + Fire Bros. are now only seen on Hard or higher difficulties
 + Very Easy now has unlimited time
 + Normal, Easy, and Very Easy no longer spawn enemies when Flying Cheep-Cheeps are used
-+ Bullet Bill Cannon Firing Rate can now be controlled
++ Bullet Bill Cannon Firing Rate is now controlled by the difficulty setting
 + Added command line support
-+ Random Sounds
 + Mario and Luigi can be renamed
++ There is now a hole in the ceiling above the Bowser Bridge to prevent soft locks
 + 8 new tone colors for music
 + Added Music (Garuna (Variant 1) by Garuna)
 + Added Music (Garuna (Variant 2) by Garuna)

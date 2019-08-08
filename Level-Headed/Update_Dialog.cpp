@@ -11,12 +11,12 @@ Update_Dialog::Update_Dialog(QWidget *parent, Readable_Config_File *readableConf
     assert(readableConfigFile);
     this->readableConfigFile = readableConfigFile;
     ui->setupUi(this);
-    this->ui->teUpdateMessage->setText("<p align=\"center\">New Version: v"+version+
+    this->ui->tvUpdateMessage->setText("<p align=\"center\">New Version: v"+version+
                                        "</p>\n\n<p align=\"center\">Would you like to download it now?</p>");
     int numberOfLines = 3; //necessary for determining the QTextBrowser height
-    int height = QFontMetrics(this->ui->teUpdateMessage->font()).height()*numberOfLines;
-    this->ui->teUpdateMessage->setMinimumHeight(height);
-    this->ui->teUpdateMessage->setMaximumHeight(height);
+    int height = QFontMetrics(this->ui->tvUpdateMessage->font()).height()*numberOfLines;
+    this->ui->tvUpdateMessage->setMinimumHeight(height);
+    this->ui->tvUpdateMessage->setMaximumHeight(height);
     this->updatePage = updatePage;
 }
 
