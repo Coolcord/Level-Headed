@@ -155,10 +155,10 @@ QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString gener
 }
 
 bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, const QString &generatorPlugin) {
+    this->readableConfigFile->Open_Without_Loading(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME);
     if (!this->readableConfigFile->Set_Value("Writer_Plugin", writerPlugin) ||
         !this->readableConfigFile->Set_Value("Generator_Plugin", generatorPlugin) ||
         !this->readableConfigFile->Save_And_Close()) {
-        this->Show_Read_Write_Error();
         return false;
     } else {
         return true;
@@ -166,15 +166,11 @@ bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, 
 }
 
 bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QString &generatorPlugin) {
-    if (!this->readableConfigFile->Open(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME)) {
-        this->Show_Read_Write_Error();
-        return false;
-    }
+    this->readableConfigFile->Open(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME);
     if (this->readableConfigFile->Get_Value("Writer_Plugin", writerPlugin) &&
         this->readableConfigFile->Get_Value("Generator_Plugin", generatorPlugin)) {
         return true;
     } else {
-        this->Show_Read_Write_Error();
         writerPlugin = QString();
         generatorPlugin = QString();
         return false;
