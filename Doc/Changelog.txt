@@ -1,4 +1,7 @@
-Next Update (v0.3.1)
+Next Update (v0.3.2)
+Nothing new yet! :(
+
+Less Excess (v0.3.1)
 + Level length is now controlled by the difficulty setting
 + Random Sounds
 + Minimum distance between enemy placement can be set
