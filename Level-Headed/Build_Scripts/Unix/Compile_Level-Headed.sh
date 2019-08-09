@@ -91,11 +91,11 @@ mkdir -p Levels/SMB1/
 mkdir -p Plugins/Generators/
 mkdir -p Plugins/Interpreters/
 mkdir -p Plugins/Writers/
-mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/Plugins/
 
 # Install Plugins and Data
 releaseDirectory=source/Level-Headed/Level-Headed/release
 if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running in a Windows OS
+    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/release/Plugins/
     cp source/Level-Headed/Level-Headed/release/Level-Headed.exe Level-Headed.exe
     chmod +x Level-Headed.exe
     cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/release/SMB1_Compliance_Generator.dll Plugins/Generators/SMB1_Compliance_Generator.dll
@@ -103,11 +103,12 @@ if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running
     cp source/Level-Headed/SMB1/SMB1_Writer/release/SMB1_Writer.dll Plugins/Writers/SMB1_Writer.dll
     cp source/Hexagon/Hexagon/release/Hexagon.dll Plugins/Hexagon.dll
     cp source/Sequential_Archive/Sequential_Archive/release/Sequential_Archive.dll Plugins/Sequential_Archive.dll
-    cp source/Sequential_Archive/Sequential_Archive/release/Sequential_Archive.dll source/Sequential_Archive/Sequential_Archive_Manager/Plugins/Sequential_Archive.dll
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
+    cp source/Sequential_Archive/Sequential_Archive/release/Sequential_Archive.dll source/Sequential_Archive/Sequential_Archive_Manager/release/Plugins/Sequential_Archive.dll
+    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
+    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
+    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
 else # assume we're on GNU/Linux or Mac
+    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/Plugins/
     cp source/Level-Headed/Level-Headed/Level-Headed Level-Headed
     chmod +x Level-Headed
     cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/libSMB1_Compliance_Generator.so Plugins/Generators/SMB1_Compliance_Generator.so
