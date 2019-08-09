@@ -20,7 +20,7 @@ void Update_Thread::run() {
     const bool FORCE_UPDATE_CHECK = false;
 
     //Run the update check
-    bool ignoreUpdates = false;
+    bool ignoreUpdates = true;
     this->readableConfigFile->Get_Value("Ignore_Updates", ignoreUpdates);
     if (FORCE_UPDATE_CHECK) { ignoreUpdates = false; this->version = "0.0.0"; }
     QString newVersion = QString();
