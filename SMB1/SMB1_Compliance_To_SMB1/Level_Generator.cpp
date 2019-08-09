@@ -68,7 +68,7 @@ bool Level_Generator::Generate_Levels() {
     QString folderLocation = QString();
     bool success = this->Generate_Levels_And_Pack(folderLocation);
     QDir dir(folderLocation);
-    dir.removeRecursively();
+    this->Delete_Old_Level_Generations();
     return success;
 }
 
@@ -341,6 +341,31 @@ int Level_Generator::Get_Level_Length(int length, int difficulty, bool autoScrol
     //Make later levels longer
     length += static_cast<int>(static_cast<double>(length)*0.04)*difficulty; //4% size increase for each difficulty
     return length;
+}
+
+bool Level_Generator::Delete_Old_Level_Generations() {
+    //Delete old folder from what are likely failed generations
+    QString levelFolderLocation = this->applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
+    QDir dir(levelFolderLocation);
+    for (QString folder : dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+        if (dir.cd(folder)) {
+            dir.removeRecursively();
+            if (!dir.cdUp() && !dir.cd(levelFolderLocation)) return false; //something weird happened, so just quit
+        }
+    }
+
+    //Delete old generations
+    const int MAX_OLD_GENERATIONS = 100;
+    int generations = 0;
+    QStringList nameFilters;
+    nameFilters << "Random*"+Common_Strings::STRING_LEVELS_EXTENSION;
+    dir.setNameFilters(nameFilters);
+    dir.setSorting(QDir::Name | QDir::Reversed);
+    for (QString file : dir.entryList(QDir::Files)) {
+        ++generations;
+        if (generations > MAX_OLD_GENERATIONS) dir.remove(file); //if we can't delete it, just ignore the error and move on
+    }
+    return true;
 }
 
 Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
