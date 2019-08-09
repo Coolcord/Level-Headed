@@ -31,22 +31,21 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
  ## FAQ
  
- **Q: What's new in Bullet Time (v0.3.0)?**
+ **Q: What's new in Less Excess (v0.3.1)?**
  
- A: The Bullet Time update mostly focuses on enemies and difficulty settings. Expect to see Lakitus, Bullet Bill Cannons, as well as a few other surprises. Difficulty settings currently only affect enemies and gameplay settings, but there is now a lot more options than there were in v0.2.4. A few minor ASM hacks (some made by me and some by the community) have been added to make the update more interesting, such as auto scrolling levels, Fire Bros., multiple Spiny Egg behaviors, and new powerups. The music patcher can now combine some music packs, as well as apply tone colors over them for even more variations. The level generator had a few bug fixes in some patterns, but beyond that, the level designs in v0.3.0 will remain very similar to v0.2.x. On the back-end, [Sequential Archives](https://github.com/Coolcord/Sequential_Archive) have been implemented allowing for external graphics and music patches via [Hexagon Patches](https://github.com/Coolcord/Hexagon). This update is a major step, considering that many pieces of this programmatic puzzle are starting to come together.
+ A: The Less Excess update solves the problem of later levels being way too long in some games. Level length is limited based upon the specified difficulty. Later levels are still longer, but they won't be as long as they were in v0.3.0 (unless the Level Length setting is set to "As long as possible"). In addition, level type can affect level length. Underwater levels are 40% shorter and Island levels are 10% shorter. If the levels are auto scrollers, their size will be reduced by an additional 30%. From there, an additional 4% length is added for each skill level, maxing out at a 40% increase for the last level of the game.
  
- **Q: I see that you have included graphics and music patches. Can you include mine in the next update?**
+ These changes originally caused enemies to be placed closer together, changing how difficulty scaling works. This was countered with the new "Minumum enemy distance" setting to prevent enemy spam.
  
- A: Sure, I'll consider it! The graphics and music help make each game feel slightly more unique. Over time,
- I'd like to collect as many as I can to help add more variety.
- 
- **Q: How do I add my own graphics and music patches?**
- 
- A: There's a tutorial on how to do that on the wiki [here](https://github.com/Coolcord/Level-Headed/wiki/How-to-Add-Your-Own-Graphics-and-Music-Into-Level%E2%80%90Headed).
+ _These new settings will likely need further balance, so I would appreciate feedback that anyone has on the new difficulty curve._
  
  **Q: What's going to be in the next update?**
  
  A: You can see what changes are going to be implemented by looking at the [changelog](https://raw.githubusercontent.com/Coolcord/Level-Headed/master/Doc/Changelog.txt).
+ 
+ **Q: How do I add my own graphics and music patches?**
+ 
+ A: There's a tutorial on how to do that on the wiki [here](https://github.com/Coolcord/Level-Headed/wiki/How-to-Add-Your-Own-Graphics-and-Music-Into-Level%E2%80%90Headed).
  
  **Q: What are you trying to work towards?**
  

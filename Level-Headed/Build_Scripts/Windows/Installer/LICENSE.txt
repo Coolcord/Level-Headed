@@ -1,5 +1,5 @@
-In order for Level-Headed to run, you'll need to acquire your own clean
-ROM of Super Mario Bros. 1 for the NES.
+In order for Level-Headed to function, you'll need to acquire your own
+clean ROM of Super Mario Bros. 1 for the NES.
 
 Level-Headed DOES NOT include this! Games CANNOT be generated without
 a Super Mario Bros. 1 ROM!
