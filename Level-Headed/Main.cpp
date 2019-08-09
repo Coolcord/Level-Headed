@@ -7,12 +7,10 @@
 #include <QTime>
 
 int main(int argc, char *argv[]) {
-    //Use Plastique Theme on Windows
-    #ifdef Q_OS_WIN32
-    QApplication::setStyle("plastique");
-    #endif
-
     QApplication a(argc, argv);
+    #ifdef Q_OS_WIN32
+    a.setStyle("fusion"); //use fusion theme on Windows
+    #endif
     Main_Window w(nullptr, &a);
 
     Random::Get_Instance().Seed(QString::number(QTime::currentTime().msecsSinceStartOfDay()), 1);

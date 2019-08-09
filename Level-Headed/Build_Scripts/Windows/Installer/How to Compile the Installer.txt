@@ -1,0 +1,12 @@
+Level-Headed.nsi is a NSIS installer script, so NSIS is required to compile the installer.
+Download NSIS from here: http://nsis.sourceforge.net/Main%5FPage
+
+The script will assume that it has a directory structure like so:
+C:\Installer
+C:\Installer\Files\        <-- Place all files that Level-Headed.exe will need to run here, such as the Qt DLLs, the Plugins folder, etc.
+C:\Installer\Level-Headed.exe
+C:\Installer\LICENSE.txt
+
+
+New installer scripts can quickly be generated using the script generator tool found here: http://nsis.sourceforge.net/NSIS_Quick_Setup_Script_Generator
+After generating a new installer script, make sure to include the "Config" and "Qt" files and folders, as they won't be deleted by the uninstaller otherwise.
