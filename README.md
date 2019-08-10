@@ -7,7 +7,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 [![Github all releases](https://img.shields.io/github/downloads/Coolcord/Level-Headed/total.svg)](https://GitHub.com/Coolcord/Level-Headed/releases)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
-# [Download for Windows](https://github.com/Coolcord/Level-Headed/releases/download/v0.3.1/Level-Headed.v0.3.1.Setup.exe)
+# [Download for Windows](https://github.com/Coolcord/Level-Headed/releases/download/v0.3.1-1/Level-Headed.v0.3.1-1.Setup.exe)
 
 ## About Level-Headed
 
