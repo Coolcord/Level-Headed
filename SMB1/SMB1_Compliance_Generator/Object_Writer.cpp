@@ -63,8 +63,12 @@ int Object_Writer::Get_Cancel_Spawner_X() {
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
-    return ((this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS) < (this->totalBytes/4)
-            || this->currentPage > 0xA);
+    if (this->args->maxLevelLength == 0) {
+        return ((this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS) < (this->totalBytes/4)
+                || this->currentPage > 0xA);
+    } else {
+        return this->levelLength >= (this->args->maxLevelLength/2);
+    }
 }
 
 bool Object_Writer::Get_First_Page_Safety() {
