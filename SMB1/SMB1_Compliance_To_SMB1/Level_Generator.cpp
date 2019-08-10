@@ -217,6 +217,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
             }
         }
     }
+    args.useMidpoints = this->pluginSettings->numLevelsPerWorld == 4;
     args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
     args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
     args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;

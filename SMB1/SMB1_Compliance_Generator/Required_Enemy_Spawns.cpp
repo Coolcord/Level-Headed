@@ -112,6 +112,7 @@ Extra_Enemy_Args Required_Enemy_Spawns::Get_Initialized_Extra_Enemy_Args() {
     args.room = 0;
     args.page = 0;
     args.num = 3;
+    args.allowSpawnAfterCancelSpawner = true;
     return args;
 }
 
@@ -121,6 +122,15 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     this->enemy->Set_First_Enemy(false);
     int nextX = this->requiredEnemies->first().x;
     int y = this->requiredEnemies->first().y;
+
+    //Ignore enemies that spawn after a cancel spawner upon request
+    Extra_Enemy_Args args = this->requiredEnemies->first().args;
+    if (!args.allowSpawnAfterCancelSpawner) {
+        int cancelSpawnerX = this->object->Get_Cancel_Spawner_X();
+        if (cancelSpawnerX != -1 && nextX >= cancelSpawnerX) {
+            return true; //ignore this enemy with no error as requested
+        }
+    }
 
     //Handle the x values
     int previousX = this->enemy->Get_Level_Length();
@@ -133,7 +143,6 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     bool disableCoordinateSafety = this->requiredEnemies->front().disableCoordinateSafety;
     assert(x >= 0);
     Enemy_Item::Enemy_Item enemy = this->requiredEnemies->first().enemy;
-    Extra_Enemy_Args args = this->requiredEnemies->first().args;
 
     //Check to see if a page change is required
     int previousAbsoluteX = previousX%0x10;

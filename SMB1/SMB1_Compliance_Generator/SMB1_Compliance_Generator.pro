@@ -13,6 +13,7 @@ TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_Generator.cpp \
+    Midpoint_Handler.cpp \
     Object_Writer.cpp \
     Enemy_Writer.cpp \
     Header_Writer.cpp \
@@ -40,6 +41,7 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
+    Midpoint_Handler.h \
     Object_Writer.h \
     Enemy_Writer.h \
     Header_Writer.h \

@@ -21,6 +21,7 @@ bool Underground_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
+        this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
         if (this->object->Get_Num_Objects_Available() >= 3) {
             int random = Random::Get_Instance().Get_Num(5);
@@ -37,7 +38,7 @@ bool Underground_Generator::Generate_Level() {
 
     //Write the header last
     return this->header->Write_Header(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      0, this->args->difficulty, this->object->Get_Level_Length(),
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 

@@ -13,15 +13,47 @@ Continuous_Enemies_Spawner::Continuous_Enemies_Spawner(SMB1_Compliance_Generator
     this->args = args;
     this->object = object;
     this->requiredEnemySpawns = requiredEnemySpawns;
+    this->lastSpawn = Enemy_Item::NOTHING;
 }
 
 Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spawner(int x) {
+    this->lastSpawn = this->Determine_Continuous_Enemies_Spawner(x);
+    return this->lastSpawn;
+}
+
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Midpoint_Continuous_Enemies_Spawner(int x) {
+    switch (this->lastSpawn) {
+    default: assert(false); break;
+    case Enemy_Item::NOTHING: break;
+    case Enemy_Item::BULLET_BILL_SPAWNER:
+        if (this->args->levelType == Level_Type::UNDERWATER) {
+            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
+            else assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
+        } else {
+            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
+            else assert(this->object->Bullet_Bill_Spawner(x));
+        }
+        break;
+    case Enemy_Item::CHEEP_CHEEP_SPAWNER:
+        if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
+        else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
+        break;
+    case Enemy_Item::LAKITU:
+        Extra_Enemy_Args extraEnemyArgs = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
+        extraEnemyArgs.allowSpawnAfterCancelSpawner = false;
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, extraEnemyArgs, x+0x15, 0x0));
+        break;
+    }
+    return this->lastSpawn;
+}
+
+Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Determine_Continuous_Enemies_Spawner(int x) {
     //Pull these Values Based on the Level Type
     int flyingCheepCheeps = 0;
     int lakitus = 0;
     int offscreenBulletBills = 0;
     switch (this->args->levelType) {
-    default: assert(false);
+    default: assert(false); return Enemy_Item::NOTHING;
     case Level_Type::STANDARD_OVERWORLD:
         flyingCheepCheeps = this->args->difficultyStandardOverworldFlyingCheepCheeps;
         lakitus = this->args->difficultyStandardOverworldLakitus;
@@ -71,7 +103,7 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Continuous_Enemies_Spa
     //Handle the Spawner After the Order Has Been Defined
     for (unsigned int i = 0; i < order.size(); ++i) {
         switch (order.at(i)) {
-        default: assert(false);
+        default: assert(false); return Enemy_Item::NOTHING;
         case 0:
             if (this->Try_To_Create_Continuous_Lakitus(x, lakitus) != Enemy_Item::NOTHING) return Enemy_Item::LAKITU;
             break;
