@@ -1,5 +1,6 @@
 #include "Sequential_Archive_Handler.h"
 #include "../../Common_Files/Random.h"
+#include "../../Common_Files/Version.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
@@ -279,6 +280,7 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
 QStringList Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(const QStringList &fileList) {
     QStringList hexpFiles;
     for (QString file : fileList) {
+        if (file.startsWith(".") && !Version::VERSION_NUMBER.contains("dev")) continue; //ignore hidden files
         if (file.toLower().endsWith(".hexp")) hexpFiles.append(file);
     }
     return hexpFiles;

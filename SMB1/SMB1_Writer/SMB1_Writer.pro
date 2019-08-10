@@ -62,7 +62,9 @@ HEADERS += SMB1_Writer.h \
     Sequential_Archive_Handler.h \
     Powerups.h \
     Unfixed_ROM_Type.h \
-    Sound.h
+    Sound.h \
+    ../../Common_Files/Random.h \
+    ../../Common_Files/Version.h
 OTHER_FILES +=
 
 unix {
