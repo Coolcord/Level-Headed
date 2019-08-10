@@ -1,5 +1,5 @@
 Next Update (v0.3.2)
-Nothing new yet! :(
++ Midpoints are created if a game has 4 levels per world
 
 Less Excess (v0.3.1)
 + Level length is now controlled by the difficulty setting

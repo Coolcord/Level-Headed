@@ -35,7 +35,9 @@ private slots:
     //Level Generator Tab
     void on_radioGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
-    void on_cbRandomNumWorlds_clicked(bool checked);
+    void on_radioRandomNumWorlds_toggled(bool checked);
+    void on_radioLevelsHaveMidpoints_toggled(bool checked);
+    void on_radioSpecifyNumberOfLevelsPerWorld_toggled(bool checked);
     void on_sbNumLevelsPerWorld_valueChanged();
     void on_sbNumWorlds_valueChanged();
     void on_btnNewRandomSeed_clicked();
@@ -43,10 +45,6 @@ private slots:
     //Difficulty Tab
     void on_comboDifficulty_currentIndexChanged(int index);
     void on_radioStartingLives_toggled(bool checked);
-
-    void on_radioLevelsHaveMidpoints_toggled(bool checked);
-
-    void on_radioWorldsCanBeLongerThan4Levels_toggled(bool checked);
 
 private:
     void Load_Settings();

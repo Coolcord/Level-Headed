@@ -135,8 +135,28 @@ void Configure_Settings_Form::on_btnClearAllRandomLevelScripts_clicked() {
     this->tabLevelGenerator->Clear_All_Random_Level_Scripts();
 }
 
-void Configure_Settings_Form::on_cbRandomNumWorlds_clicked(bool checked) {
+void Configure_Settings_Form::on_radioRandomNumWorlds_toggled(bool checked) {
     this->tabLevelGenerator->Enable_Random_Number_Of_Worlds(checked);
+}
+
+void Configure_Settings_Form::on_radioLevelsHaveMidpoints_toggled(bool checked) {
+    if (checked) {
+        this->ui->sbNumWorlds->setValue(5);
+        this->ui->sbNumWorlds->setMaximum(5);
+        this->ui->sbNumLevelsPerWorld->setValue(4);
+        this->ui->sbNumLevelsPerWorld->setMaximum(4);
+        this->ui->lblNumLevelsPerWorld->setEnabled(false);
+        this->ui->sbNumLevelsPerWorld->setEnabled(false);
+    }
+}
+
+void Configure_Settings_Form::on_radioSpecifyNumberOfLevelsPerWorld_toggled(bool checked) {
+    if (checked) {
+        this->ui->sbNumWorlds->setMaximum(8);
+        this->ui->sbNumLevelsPerWorld->setMaximum(9);
+        this->ui->lblNumLevelsPerWorld->setEnabled(true);
+        this->ui->sbNumLevelsPerWorld->setEnabled(true);
+    }
 }
 
 void Configure_Settings_Form::on_sbNumLevelsPerWorld_valueChanged() {
@@ -159,24 +179,4 @@ void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) 
 void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     if (checked) this->ui->sbLives->show();
     else this->ui->sbLives->hide();
-}
-
-void Configure_Settings_Form::on_radioLevelsHaveMidpoints_toggled(bool checked) {
-    if (checked) {
-        this->ui->sbNumWorlds->setValue(5);
-        this->ui->sbNumWorlds->setMaximum(5);
-        this->ui->sbNumLevelsPerWorld->setValue(4);
-        this->ui->sbNumLevelsPerWorld->setMaximum(4);
-        this->ui->lblNumLevelsPerWorld->setEnabled(false);
-        this->ui->sbNumLevelsPerWorld->setEnabled(false);
-    }
-}
-
-void Configure_Settings_Form::on_radioWorldsCanBeLongerThan4Levels_toggled(bool checked) {
-    if (checked) {
-        this->ui->sbNumWorlds->setMaximum(8);
-        this->ui->sbNumLevelsPerWorld->setMaximum(9);
-        this->ui->lblNumLevelsPerWorld->setEnabled(true);
-        this->ui->sbNumLevelsPerWorld->setEnabled(true);
-    }
 }

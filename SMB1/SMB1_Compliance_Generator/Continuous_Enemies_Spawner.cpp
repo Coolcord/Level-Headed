@@ -41,7 +41,7 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Midpoint_Continuous_En
     case Enemy_Item::LAKITU:
         Extra_Enemy_Args extraEnemyArgs = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
         extraEnemyArgs.allowSpawnAfterCancelSpawner = false;
-        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, extraEnemyArgs, x+0x15, 0x0));
+        assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::LAKITU, extraEnemyArgs, x+0x10, 0x0));
         break;
     }
     return this->lastSpawn;
