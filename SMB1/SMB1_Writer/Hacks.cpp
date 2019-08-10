@@ -453,7 +453,7 @@ bool Hacks::Skip_Lives_Screen() {
         if (!this->Write_Bytes_To_Offset(0x4093, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
     } else {
         //if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1()))) return false;
-        if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1()))) return false;
     }
     this->skipLivesScreen = true;
     return true;
