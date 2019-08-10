@@ -68,7 +68,7 @@ bool Level_Generator::Generate_Levels() {
     QString folderLocation = QString();
     bool success = this->Generate_Levels_And_Pack(folderLocation);
     QDir dir(folderLocation);
-    //this->Delete_Old_Level_Generations();
+    this->Delete_Old_Level_Generations();
     return success;
 }
 
