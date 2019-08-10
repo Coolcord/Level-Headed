@@ -18,10 +18,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  own levels using the "SMB1_Compliance" scripting language. As of now, only SMB1 is
  supported, but in the future, support for more games will be added.
  
- In order for Level-Headed to work properly, a base ROM must be supplied to Level-Headed.
- The following 2 ROMs are supported:
- * Super Mario Bros. (JU) (PRG0) [!].nes (MD5: 811B027EAF99C2DEF7B933C5208636DE)
- * Super Mario Bros. (JU) (PRG1).nes (MD5: 94EDE9347C1416105F1C08EC26B5B73A)
+ In order for Level-Headed to work properly, a base ROM must be supplied to Level-Headed. You can read more about which ROMs are supported [here](https://github.com/Coolcord/Level-Headed/wiki/Supported-ROMs).
  
  Check out the [Level-Headed Wiki](https://github.com/Coolcord/Level-Headed/wiki) for more information and tutorials on how to use Level-Headed.
  
