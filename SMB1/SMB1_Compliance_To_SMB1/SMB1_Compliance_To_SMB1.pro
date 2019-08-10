@@ -48,6 +48,7 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     Tab_Difficulty.h \
     Tab_Interface.h \
     CLI_Parser.h \
+    ../../Common_Files\Random.h \
     ../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h
 
 OTHER_FILES +=

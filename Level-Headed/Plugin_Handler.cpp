@@ -1,6 +1,6 @@
 #include "Plugin_Handler.h"
 #include "Common_Strings.h"
-#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QString>
 #include <QStringList>
 #include <QMap>

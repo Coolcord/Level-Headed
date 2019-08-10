@@ -1,6 +1,6 @@
 #include "Update_Thread.h"
-#include "../../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h"
-#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h"
+#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include "Update_Dialog.h"
 
 Update_Thread::Update_Thread(QWidget *parent, QApplication *application, Readable_Config_File *readableConfigFile, const QString &version, const QString &gitLocation) : QThread(parent) {

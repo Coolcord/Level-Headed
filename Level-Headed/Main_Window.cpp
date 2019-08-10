@@ -6,7 +6,7 @@
 #include "Update_Thread.h"
 #include "Common_Strings.h"
 #include "../Common_Files/Version.h"
-#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QWindow>
 #include <QFile>
 #include <QPluginLoader>

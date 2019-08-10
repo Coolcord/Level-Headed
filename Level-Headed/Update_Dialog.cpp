@@ -1,6 +1,6 @@
 #include "Update_Dialog.h"
 #include "ui_Update_Dialog.h"
-#include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QDebug>
 #include <QDesktopServices>
 
