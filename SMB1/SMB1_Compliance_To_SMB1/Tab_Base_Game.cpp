@@ -70,7 +70,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->Use_Original_Settings();
 
         if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
-        if (this->ui->radioPermadeath->isChecked()) this->ui->radioStartingLives->setChecked(true);
+        this->ui->radioStartingLives->setChecked(true);
+        this->ui->sbLives->setValue(7);
         this->ui->cbGodMode->setChecked(false);
 
         this->ui->sbAutoScroll->setValue(11);
@@ -88,6 +89,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbRevertToSuperMario->setChecked(false);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
+    this->ui->radioInfiniteLives->setEnabled(!enabled);
     this->ui->radioPermadeath->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
 
