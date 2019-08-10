@@ -160,23 +160,3 @@ void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     if (checked) this->ui->sbLives->show();
     else this->ui->sbLives->hide();
 }
-
-void Configure_Settings_Form::on_radioLevelsHaveMidpoints_toggled(bool checked) {
-    if (checked) {
-        this->ui->sbNumWorlds->setValue(5);
-        this->ui->sbNumWorlds->setMaximum(5);
-        this->ui->sbNumLevelsPerWorld->setValue(4);
-        this->ui->sbNumLevelsPerWorld->setMaximum(4);
-        this->ui->lblNumLevelsPerWorld->setEnabled(false);
-        this->ui->sbNumLevelsPerWorld->setEnabled(false);
-    }
-}
-
-void Configure_Settings_Form::on_radioWorldsCanBeLongerThan4Levels_toggled(bool checked) {
-    if (checked) {
-        this->ui->sbNumWorlds->setMaximum(8);
-        this->ui->sbNumLevelsPerWorld->setMaximum(9);
-        this->ui->lblNumLevelsPerWorld->setEnabled(true);
-        this->ui->sbNumLevelsPerWorld->setEnabled(true);
-    }
-}

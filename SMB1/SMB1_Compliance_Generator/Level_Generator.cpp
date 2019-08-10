@@ -16,7 +16,6 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
     this->enemySpawner = new Enemy_Spawner(file, this->stream, this->object, this->enemy, this->requiredEnemySpawns, this->args);
     this->continuousEnemiesSpawner = new Continuous_Enemies_Spawner(this->args, this->object, this->requiredEnemySpawns);
     this->end = new End_Spawner(this->object, this->enemy, this->args, this->requiredEnemySpawns, this->args->useAutoScroll);
-    this->midpointHandler = new Midpoint_Handler(this->object, this->continuousEnemiesSpawner, this->args, this->args->levelType);
     this->firstPageHandler = new First_Page_Handler(this->object, this->args->headerBackground, this->args->startCastle, this->args->useAutoScroll);
 }
 
@@ -30,7 +29,6 @@ Level_Generator::~Level_Generator() {
     delete this->enemySpawner;
     delete this->requiredEnemySpawns;
     delete this->end;
-    delete this->midpointHandler;
     delete this->firstPageHandler;
 }
 

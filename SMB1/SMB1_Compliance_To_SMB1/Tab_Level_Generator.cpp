@@ -22,8 +22,6 @@ void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->leRandomSeed->setText(this->pluginSettings->randomSeed);
-    this->ui->radioWorldsCanBeLongerThan4Levels->setChecked(this->pluginSettings->worldsCanBeLongerThan4Levels);
-    this->ui->radioLevelsHaveMidpoints->setChecked(!this->pluginSettings->worldsCanBeLongerThan4Levels);
     this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
     this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
     this->ui->sbNumLevelsPerWorld->setValue(this->pluginSettings->numLevelsPerWorld);
@@ -42,7 +40,6 @@ void Tab_Level_Generator::Save_Settings() {
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
     } else {
-        this->pluginSettings->worldsCanBeLongerThan4Levels = this->ui->radioWorldsCanBeLongerThan4Levels->isChecked();
         this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
         this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
         this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();

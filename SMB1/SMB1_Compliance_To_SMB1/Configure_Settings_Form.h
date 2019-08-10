@@ -44,10 +44,6 @@ private slots:
     void on_comboDifficulty_currentIndexChanged(int index);
     void on_radioStartingLives_toggled(bool checked);
 
-    void on_radioLevelsHaveMidpoints_toggled(bool checked);
-
-    void on_radioWorldsCanBeLongerThan4Levels_toggled(bool checked);
-
 private:
     void Load_Settings();
     void Save_Settings();

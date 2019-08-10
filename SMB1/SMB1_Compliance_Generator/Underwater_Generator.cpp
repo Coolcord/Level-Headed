@@ -14,7 +14,6 @@ bool Underwater_Generator::Generate_Level() {
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Underwater_X(x);
 
         //TODO: Fix probabilities
@@ -37,7 +36,7 @@ bool Underwater_Generator::Generate_Level() {
 
     //Write the header last
     return this->header->Write_Header(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
+                                      0, this->args->difficulty, this->object->Get_Level_Length(),
                                       this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
 }
 

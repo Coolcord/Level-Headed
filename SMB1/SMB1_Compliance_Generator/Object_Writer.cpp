@@ -19,7 +19,6 @@ Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Complia
     this->autoScrollActive = false;
     this->wereFlyingCheepCheepsSpawned = false;
     this->wasAutoScrollUsed = false;
-    this->cancelSpawnerX = -1;
 }
 
 int Object_Writer::Get_Last_Object_Length() {
@@ -56,10 +55,6 @@ bool Object_Writer::Is_Auto_Scroll_Active() {
 
 bool Object_Writer::Was_Auto_Scroll_Used() {
     return this->wasAutoScrollUsed;
-}
-
-int Object_Writer::Get_Cancel_Spawner_X() {
-    return this->cancelSpawnerX;
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
@@ -490,12 +485,7 @@ bool Object_Writer::Bullet_Bill_Spawner(int x) {
 
 bool Object_Writer::Cancel_Spawner(int x) {
     if (this->Get_Absolute_X(x) == 0xF) return false;
-    if (this->Write_Object(x, Object_Item::STRING_CANCEL_SPAWNER, false)) {
-        this->cancelSpawnerX = this->levelLength;
-        return true;
-    } else {
-        return false;
-    }
+    return this->Write_Object(x, Object_Item::STRING_CANCEL_SPAWNER, false);
 }
 
 bool Object_Writer::Loop_Command(int x) {
