@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -483,7 +483,7 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbRandomSoundEffects">
                 <property name="text">
-                 <string>Randomize Some Sound Effects</string>
+                 <string>Random Sounds</string>
                 </property>
                 <property name="tristate">
                  <bool>false</bool>
@@ -2108,8 +2108,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>701</width>
-            <height>635</height>
+            <width>684</width>
+            <height>704</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2198,80 +2198,110 @@ p, li { white-space: pre-wrap; }
             <widget class="QWidget" name="layoutGenerateNewLevelsWidget" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
-               <widget class="QCheckBox" name="cbRandomNumWorlds">
-                <property name="enabled">
-                 <bool>true</bool>
+               <widget class="QGroupBox" name="groupWorldLayout">
+                <property name="title">
+                 <string>World Layout</string>
                 </property>
-                <property name="text">
-                 <string>Random Number of Worlds</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="layoutNumWorldsWidget" native="true">
-                <layout class="QVBoxLayout" name="layoutLevelNumberSettings">
+                <layout class="QVBoxLayout" name="verticalLayout_17">
                  <item>
-                  <layout class="QHBoxLayout" name="layoutNumWorlds">
+                  <layout class="QHBoxLayout" name="layoutWorldLayout">
                    <item>
-                    <widget class="QLabel" name="lblNumWorlds">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
+                    <widget class="QRadioButton" name="radioWorldsCanBeLongerThan4Levels">
                      <property name="text">
-                      <string>Number of Worlds:</string>
+                      <string>Worlds can be Longer than 4 levels</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="sbNumWorlds">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>8</number>
-                     </property>
-                     <property name="value">
-                      <number>5</number>
+                    <widget class="QRadioButton" name="radioLevelsHaveMidpoints">
+                     <property name="text">
+                      <string>Levels Have Midpoints When Possible</string>
                      </property>
                     </widget>
                    </item>
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="layoutNumLevelsPerWorld">
-                   <item>
-                    <widget class="QLabel" name="lblNumLevelsPerWorld">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="text">
-                      <string>Number of Levels per World: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QSpinBox" name="sbNumLevelsPerWorld">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>9</number>
-                     </property>
-                     <property name="value">
-                      <number>4</number>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QCheckBox" name="cbRandomNumWorlds">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Random Number of Worlds (20 levels max)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="layoutNumWorldsWidget" native="true">
+                   <layout class="QVBoxLayout" name="layoutLevelNumberSettings">
+                    <item>
+                     <layout class="QHBoxLayout" name="layoutNumWorlds">
+                      <item>
+                       <widget class="QLabel" name="lblNumWorlds">
+                        <property name="enabled">
+                         <bool>true</bool>
+                        </property>
+                        <property name="text">
+                         <string>Number of Worlds:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="sbNumWorlds">
+                        <property name="enabled">
+                         <bool>true</bool>
+                        </property>
+                        <property name="minimum">
+                         <number>1</number>
+                        </property>
+                        <property name="maximum">
+                         <number>8</number>
+                        </property>
+                        <property name="value">
+                         <number>5</number>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="layoutNumLevelsPerWorld">
+                      <item>
+                       <widget class="QLabel" name="lblNumLevelsPerWorld">
+                        <property name="enabled">
+                         <bool>true</bool>
+                        </property>
+                        <property name="text">
+                         <string>Number of Levels per World: </string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="sbNumLevelsPerWorld">
+                        <property name="enabled">
+                         <bool>true</bool>
+                        </property>
+                        <property name="minimum">
+                         <number>1</number>
+                        </property>
+                        <property name="maximum">
+                         <number>9</number>
+                        </property>
+                        <property name="value">
+                         <number>4</number>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
                  </item>
                 </layout>
                </widget>

@@ -20,6 +20,7 @@ public:
     bool Were_Flying_Cheep_Cheeps_Spawned();
     bool Is_Auto_Scroll_Active();
     bool Was_Auto_Scroll_Used();
+    int Get_Cancel_Spawner_X();
     bool Is_Midpoint_Ready();
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
@@ -104,6 +105,7 @@ private:
     bool autoScrollActive;
     bool wereFlyingCheepCheepsSpawned;
     bool wasAutoScrollUsed;
+    int cancelSpawnerX;
 
     friend class Pipe_Pointer_Writer;
 };

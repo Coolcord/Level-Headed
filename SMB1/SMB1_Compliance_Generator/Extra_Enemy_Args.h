@@ -13,6 +13,7 @@ struct Extra_Enemy_Args {
     int room;
     int page;
     int num;
+    bool allowSpawnAfterCancelSpawner;
 };
 
 #endif // EXTRA_ENEMY_ARGS_H

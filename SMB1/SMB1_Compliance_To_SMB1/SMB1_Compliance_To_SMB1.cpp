@@ -170,6 +170,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Base_ROM", this->pluginSettings.baseROM)) return false;
     if (!configFile.Set_Value("Output_ROM_Location", this->pluginSettings.outputROMLocation)) return false;
     if (!configFile.Set_Value("Overwrite_Output_ROM", this->pluginSettings.overwriteOuputROM)) return false;
+    if (!configFile.Set_Value("Worlds_Can_Be_Longer_Than_4_Worlds", this->pluginSettings.worldsCanBeLongerThan4Levels)) return false;
     if (!configFile.Set_Value("Random_Number_Of_Worlds", this->pluginSettings.randomNumWorlds)) return false;
     if (!configFile.Set_Value("Number_Of_Worlds", this->pluginSettings.numWorlds)) return false;
     if (!configFile.Set_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld)) return false;
@@ -251,6 +252,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Base_ROM", this->pluginSettings.baseROM);
     configFile.Get_Value("Output_ROM_Location", this->pluginSettings.outputROMLocation);
     configFile.Get_Value("Overwrite_Output_ROM", this->pluginSettings.overwriteOuputROM);
+    configFile.Get_Value("Worlds_Can_Be_Longer_Than_4_Levels", this->pluginSettings.worldsCanBeLongerThan4Levels);
     configFile.Get_Value("Random_Number_Of_Worlds", this->pluginSettings.randomNumWorlds);
     configFile.Get_Value("Number_Of_Worlds", this->pluginSettings.numWorlds);
     configFile.Get_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld);
@@ -340,6 +342,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.bridgeChance = STRING_COMMON;
     this->pluginSettings.islandChance = STRING_COMMON;
     this->pluginSettings.randomSeed = QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    this->pluginSettings.worldsCanBeLongerThan4Levels = true;
     this->pluginSettings.randomNumWorlds = true;
     this->pluginSettings.music = 0;
     this->pluginSettings.combineMusicWithOtherPacks = true;
