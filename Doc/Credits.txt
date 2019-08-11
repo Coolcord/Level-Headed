@@ -2,22 +2,22 @@ If a hack isn't listed here, either it was made by me (Coolcord), or I couldn't 
 =============================================================================================================
 Graphics:
 All Night Nippon 2 (by teeporage777)
-http://www.romhacking.net/hacks/3771/
+https://www.romhacking.net/hacks/3771/
 
 Curse from the Outskirts (by Dr. Mario)
-http://www.romhacking.net/hacks/209/
+https://www.romhacking.net/hacks/209/
 
 Desert Land (by Green Jerry)
-http://www.romhacking.net/hacks/3648/
+https://www.romhacking.net/hacks/3648/
 
 Dream Mario Bros. (by TheSuperShow)
 https://www.romhacking.net/hacks/3298/
 
 EDS (by Googie)
-http://www.romhacking.net/hacks/3443/
+https://www.romhacking.net/hacks/3443/
 
 Final Quest (by EBS)
-http://www.romhacking.net/hacks/779/
+https://www.romhacking.net/hacks/779/
 
 Harmony7's SMB Graphics (Googie's Mod) (Based on Mario in: Time is Ticking)
 https://www.romhacking.net/hacks/306/
@@ -26,10 +26,10 @@ Harvett Fox (by HarvettFox96)
 https://www.romhacking.net/hacks/4183/
 
 HF (by HF Games)
-http://www.romhacking.net/hacks/93/
+https://www.romhacking.net/hacks/93/
 
 HF 2 (by HF Games)
-http://www.romhacking.net/hacks/829/
+https://www.romhacking.net/hacks/829/
 
 Kamikaze 3 (by 79)
 https://www.romhacking.net/hacks/1592/
@@ -38,7 +38,7 @@ Kamikaze DX (by 79)
 https://www.romhacking.net/hacks/1593/
 
 Kiri5 Star (by Kirikaze)
-http://www.romhacking.net/hacks/2026/
+https://www.romhacking.net/hacks/2026/
 
 Let's Kill Iggy (by Captain Gastronomicon)
 https://www.romhacking.net/hacks/4258/
@@ -50,28 +50,28 @@ Luigi's Chronicles (by Googie)
 https://www.romhacking.net/hacks/33/
 
 Luigi's First Quest (by ROMulus)
-http://www.romhacking.net/hacks/3590/
+https://www.romhacking.net/hacks/3590/
 
 Luigi's Summer Adventure (by teeporage777)
-http://www.romhacking.net/hacks/3500/
+https://www.romhacking.net/hacks/3500/
 
 Luigi and the New Quest (by DarKnight13)
-http://www.romhacking.net/hacks/2020/
+https://www.romhacking.net/hacks/2020/
 
 Mario in Zebes (by Slimeous)
-http://www.romhacking.net/hacks/1899/
+https://www.romhacking.net/hacks/1899/
 
 Mikamari 1 (by Mikachu)
-http://www.romhacking.net/hacks/1551/
+https://www.romhacking.net/hacks/1551/
 
 Mikamari 2 (by Mikachu)
-http://www.romhacking.net/hacks/1553/
+https://www.romhacking.net/hacks/1553/
 
 Mikamari 3 (by Mikachu)
-http://www.romhacking.net/hacks/1554/
+https://www.romhacking.net/hacks/1554/
 
 Mikamari 4 (by Mikachu)
-http://www.romhacking.net/hacks/1555/
+https://www.romhacking.net/hacks/1555/
 
 Mushroom Nightmare (by Shadic)
 https://www.romhacking.net/hacks/114/
@@ -83,37 +83,40 @@ Paradyce (by Insectduel)
 https://www.romhacking.net/hacks/222/
 
 Peach's Cream (by Googie)
-http://www.romhacking.net/hacks/986/
+https://www.romhacking.net/hacks/986/
 
 Pocket Edition (by Fantendo)
 https://www.romhacking.net/hacks/116/
 
 Promotion (by 18 Craftsmen)
-http://www.romhacking.net/hacks/2043/
+https://www.romhacking.net/hacks/2043/
 
 Reign of the Koopa (by willj168)
 https://www.romhacking.net/hacks/653/
 
 Remix 2 - The New Adventures (by Raysyde)
-http://www.romhacking.net/hacks/1564/
+https://www.romhacking.net/hacks/1564/
 
 Remix 3 - The Link Adventures (by Raysyde)
-http://www.romhacking.net/hacks/1565/
+https://www.romhacking.net/hacks/1565/
+
+Silhouette Mario Bros. (by Leon Arnott)
+https://www.romhacking.net/hacks/1719/
 
 Skeens Mario Bros. (by Mike Skeens)
-http://www.romhacking.net/hacks/3432/
+https://www.romhacking.net/hacks/3432/
 
 SMB3 (by GeneralGir2)
 https://www.youtube.com/watch?v=PcjYkNcp8QI
 
 SMB Continued (by Captain Gastronomicon)
-http://www.romhacking.net/hacks/4201/
+https://www.romhacking.net/hacks/4201/
 
 Strange Mario Bros. (by acmlm)
-http://www.romhacking.net/hacks/14/
+https://www.romhacking.net/hacks/14/
 
 Suicide Extreme V (by EBS)
-http://www.romhacking.net/hacks/2969/
+https://www.romhacking.net/hacks/2969/
 
 Super Bobble Bros. (by Unsavory Maggot)
 https://www.romhacking.net/hacks/4370/
@@ -128,13 +131,13 @@ Super Mario 5000 (by Frantik)
 https://www.romhacking.net/hacks/1429/
 
 Super Mario Bros. (by Garuna)
-http://www.romhacking.net/hacks/2002/
+https://www.romhacking.net/hacks/2002/
 
 Super Mario Bros. 3: The Forgotten Worlds (by Szemigi)
-http://www.romhacking.net/hacks/3546/
+https://www.romhacking.net/hacks/3546/
 
 Super Mario Bros. 4: The Undiscovered Zones (by Szemigi)
-http://www.romhacking.net/hacks/3658/
+https://www.romhacking.net/hacks/3658/
 
 Super Mario Bros. 4 (by Guscraft808Beta2)
 https://www.smwcentral.net/?p=viewthread&t=94570
@@ -146,7 +149,7 @@ Super Mario MCB (by MacBee)
 https://www.romhacking.net/hacks/3227/
 
 Super Mario Bros. NEW (by Byvegeta)
-http://www.romhacking.net/hacks/3505/
+https://www.romhacking.net/hacks/3505/
 
 Super Mario S (by Sogun)
 https://www.romhacking.net/hacks/1267/
@@ -155,13 +158,13 @@ Super Wario Bros. (by Googie)
 https://www.romhacking.net/hacks/1562/
 
 Super Wario Bros. (by Sics)
-http://www.romhacking.net/hacks/2430/
+https://www.romhacking.net/hacks/2430/
 
 Super Zabil Bros. (by Poporo)
 https://www.romhacking.net/hacks/2057/
 
 Supreme (by LooneyDude)
-http://www.romhacking.net/hacks/899/
+https://www.romhacking.net/hacks/899/
 
 Toad's Adventure (by Omniverse)
 https://www.romhacking.net/hacks/86/
@@ -170,7 +173,7 @@ Toad's Treasure Quest (by AlexAR)
 https://www.romhacking.net/hacks/191/
 
 YASH (by flamepanther)
-http://www.romhacking.net/hacks/2663/
+https://www.romhacking.net/hacks/2663/
 
 Zoku Jun (by Mikachu)
 https://www.romhacking.net/hacks/1552/
@@ -235,7 +238,7 @@ Autoscroll Screen (by ATA)
 N/A
 
 Fast Foes (by Leon Arnott)
-http://www.romhacking.net/hacks/1720/
+https://www.romhacking.net/hacks/1720/
 
 Fire Mario to Big Mario when hit (by w7n)
 https://www.romhacking.net/hacks/3570/
