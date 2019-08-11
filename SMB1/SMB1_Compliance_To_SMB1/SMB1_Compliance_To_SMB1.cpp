@@ -58,11 +58,8 @@ bool SMB1_Compliance_To_SMB1::Run() {
 
     //Load a ROM into the Writer Plugin
     bool loaded = false;
-    if (this->pluginSettings.baseROM.isEmpty()) {
-        loaded = this->writerPlugin->Load_ROM();
-    } else {
-        loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
-    }
+    if (this->pluginSettings.baseROM.isEmpty()) loaded = this->writerPlugin->Load_ROM_First_Time(this->pluginSettings.baseROM);
+    else loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
     if (!loaded) {
         qDebug() << "Failed to load the ROM!";
         return false;

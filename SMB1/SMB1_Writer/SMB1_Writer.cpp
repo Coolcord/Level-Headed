@@ -130,7 +130,7 @@ bool SMB1_Writer::Create_ROM_Directory() {
     return true;
 }
 
-bool SMB1_Writer::Load_ROM() {
+bool SMB1_Writer::Load_ROM_First_Time(QString &baseRomName) {
     if (!this->Create_ROM_Directory()) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions. Cannot continue!");
@@ -148,7 +148,11 @@ bool SMB1_Writer::Load_ROM() {
         if (fileName.isEmpty()) {
             return false;
         }
-        return this->Load_ROM(fileName);
+        if (this->Load_ROM(fileName)) {
+            baseRomName = fileName;
+            return true;
+        }
+        return false;
     }
     return this->Load_ROM_Offsets(cancel);
 }

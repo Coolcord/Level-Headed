@@ -19,7 +19,7 @@ public:
     virtual void Seed_Random_Number_Generator_Instance(const QString &seed)=0;
     virtual QStringList Get_Installed_ROMs()=0;
     virtual QString Install_ROM()=0;
-    virtual bool Load_ROM()=0;
+    virtual bool Load_ROM_First_Time(QString &baseRomName)=0;
     virtual bool Load_ROM(const QString &fileName)=0;
     virtual bool New_Level(Level::Level level)=0;
     virtual bool Write_Level()=0;
