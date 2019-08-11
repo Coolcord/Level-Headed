@@ -56,10 +56,7 @@ bool Item_Writer::Will_Page_Flag_Be_Tripped(int x) {
 
 bool Item_Writer::Write_Item(int x, const QString &item) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
-    //assert(this->Is_Safe_To_Write_Item());
-    if (!this->Is_Safe_To_Write_Item()) {
-        assert(false);
-    }
+    assert(this->Is_Safe_To_Write_Item());
     *(this->stream) << item << Common_Strings::STRING_NEW_LINE;
     if (this->stream->status() != QTextStream::Ok) return false;
 
