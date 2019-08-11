@@ -168,7 +168,8 @@ void Tab_Base_Game::Populate_Installed_ROMs() {
 }
 
 void Tab_Base_Game::Populate_Graphics_Packs() {
-    QStringList packsWithExtension = this->writerPlugin->Graphics_Get_Graphic_Packs();
+    QStringList packsWithExtension = this->writerPlugin->Graphics_Get_Graphics_Packs();
+    packsWithExtension += this->writerPlugin->Graphics_Get_Bonus_Graphics_Packs();
     QStringList packs;
     for (int i = 0; i < packsWithExtension.size(); ++i) {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
@@ -178,6 +179,7 @@ void Tab_Base_Game::Populate_Graphics_Packs() {
 
 void Tab_Base_Game::Populate_Music_Packs() {
     QStringList packsWithExtension = this->writerPlugin->Music_Get_Music_Packs();
+    packsWithExtension += this->writerPlugin->Music_Get_Bonus_Music_Packs();
     QStringList packs;
     for (int i = 0; i < packsWithExtension.size(); ++i) {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());

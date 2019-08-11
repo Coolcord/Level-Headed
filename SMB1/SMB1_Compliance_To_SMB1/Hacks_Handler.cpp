@@ -94,11 +94,11 @@ bool Hacks_Handler::Handle_Music() {
 
 bool Hacks_Handler::Handle_Graphics() {
     int graphics = this->pluginSettings->graphics;
-    if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphic_Packs())+1;
+    if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphics_Packs())+1;
     bool success = false;
     switch (graphics) {
     case 1:     success = true; break; //original graphics
-    default:    success = this->writerPlugin->Graphics_Apply_Graphic_Pack(graphics-2); break;
+    default:    success = this->writerPlugin->Graphics_Apply_Graphics_Pack(graphics-2); break;
     }
     return success;
 }

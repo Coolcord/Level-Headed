@@ -657,6 +657,11 @@ bool SMB1_Writer::Hacks_Write_Watermark() {
     return this->hacks->Write_Watermark();
 }
 
+QStringList SMB1_Writer::Music_Get_Bonus_Music_Packs() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Bonus_Music_Packs();
+}
+
 QStringList SMB1_Writer::Music_Get_Music_Packs() {
     if (!this->sequentialArchiveHandler) return QStringList();
     return this->sequentialArchiveHandler->Get_Music_Packs();
@@ -665,6 +670,11 @@ QStringList SMB1_Writer::Music_Get_Music_Packs() {
 bool SMB1_Writer::Music_Apply_Music_Pack(int index) {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Apply_Music_Pack_At_Index(index);
+}
+
+int SMB1_Writer::Music_Get_Number_Of_Bonus_Music_Packs() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Bonus_Music_Packs();
 }
 
 int SMB1_Writer::Music_Get_Number_Of_Music_Packs() {
@@ -838,17 +848,27 @@ QString SMB1_Writer::Graphics_Get_Last_Applied_Graphics_Pack() {
     return this->sequentialArchiveHandler->Get_Last_Applied_Graphics_Pack();
 }
 
-QStringList SMB1_Writer::Graphics_Get_Graphic_Packs() {
+QStringList SMB1_Writer::Graphics_Get_Bonus_Graphics_Packs() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Bonus_Graphics_Packs();
+}
+
+QStringList SMB1_Writer::Graphics_Get_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return QStringList();
     return this->sequentialArchiveHandler->Get_Graphics_Packs();
 }
 
-bool SMB1_Writer::Graphics_Apply_Graphic_Pack(int index) {
+bool SMB1_Writer::Graphics_Apply_Graphics_Pack(int index) {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index);
 }
 
-int SMB1_Writer::Graphics_Get_Number_Of_Graphic_Packs() {
+int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Graphics_Packs() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Bonus_Graphics_Packs();
+}
+
+int SMB1_Writer::Graphics_Get_Number_Of_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
 }

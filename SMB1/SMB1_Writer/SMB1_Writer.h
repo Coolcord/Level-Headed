@@ -185,8 +185,10 @@ public:
     bool Hacks_Write_Watermark();
 
     //Music Functions
+    QStringList Music_Get_Bonus_Music_Packs();
     QStringList Music_Get_Music_Packs();
     bool Music_Apply_Music_Pack(int index);
+    int Music_Get_Number_Of_Bonus_Music_Packs();
     int Music_Get_Number_Of_Music_Packs();
     bool Music_Disable();
     bool Music_Set_Combine_Music_Packs(bool combineMusicPacks);
@@ -227,9 +229,11 @@ public:
 
     //Graphics
     QString Graphics_Get_Last_Applied_Graphics_Pack();
-    QStringList Graphics_Get_Graphic_Packs();
-    bool Graphics_Apply_Graphic_Pack(int index);
-    int Graphics_Get_Number_Of_Graphic_Packs();
+    QStringList Graphics_Get_Bonus_Graphics_Packs();
+    QStringList Graphics_Get_Graphics_Packs();
+    bool Graphics_Apply_Graphics_Pack(int index);
+    int Graphics_Get_Number_Of_Bonus_Graphics_Packs();
+    int Graphics_Get_Number_Of_Graphics_Packs();
     bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();

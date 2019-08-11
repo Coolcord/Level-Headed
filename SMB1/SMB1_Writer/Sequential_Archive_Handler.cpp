@@ -23,6 +23,8 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->lastAppliedGraphicsPack = QString();
     this->graphicsPackStrings = QStringList();
     this->musicPackStrings = QStringList();
+    this->bonusGraphicsPacks = QStringList();
+    this->bonusMusicPacks = QStringList();
     this->invalidTones = new QSet<int>();
     this->romFolderLocation = romFolderLocation;
     this->pluginLocation = applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
@@ -63,17 +65,23 @@ bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QByteArray &patchBytes
 
 bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
-    assert(index < this->graphicsPackStrings.size());
+    assert(index < this->graphicsPackStrings.size()+this->bonusGraphicsPacks.size());
     if (!this->file) return false;
     if (!this->Load_Plugins_If_Necessary()) return false;
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return false;
-    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+this->graphicsPackStrings.at(index));
-    qDebug() << "Using graphics pack " << this->graphicsPackStrings.at(index);
+
+    //Get the correct pack from either bonuses or regular packs
+    QString graphicsPack;
+    if (index < this->graphicsPackStrings.size()) graphicsPack = this->graphicsPackStrings.at(index);
+    else graphicsPack = this->bonusGraphicsPacks.at(index-this->graphicsPackStrings.size());
+
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+graphicsPack);
+    qDebug() << "Using graphics pack " << graphicsPack;
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
     bool success = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
-    if (success) this->lastAppliedGraphicsPack = this->graphicsPackStrings.at(index);
+    if (success) this->lastAppliedGraphicsPack = graphicsPack;
     return success;
 }
 
@@ -81,11 +89,21 @@ bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
     return this->Apply_Music_Pack_At_Index(index, false);
 }
 
+QStringList Sequential_Archive_Handler::Get_Bonus_Graphics_Packs() {
+    if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
+    return this->bonusGraphicsPacks;
+}
+
+QStringList Sequential_Archive_Handler::Get_Bonus_Music_Packs() {
+    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
+    return this->bonusMusicPacks;
+}
+
 QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {
     if (!this->graphicsPackStrings.isEmpty()) return this->graphicsPackStrings;
     if (!this->Load_Plugins_If_Necessary()) return this->graphicsPackStrings;
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return this->graphicsPackStrings;
-    this->graphicsPackStrings = this->Get_HEXP_Files_From_File_List(this->sequentialArchivePlugin->Get_Files());
+    this->Get_HEXP_Files_From_File_List(this->graphicsPackStrings, this->bonusGraphicsPacks);
     this->sequentialArchivePlugin->Close();
     return this->graphicsPackStrings;
 }
@@ -104,7 +122,7 @@ QStringList Sequential_Archive_Handler::Get_Music_Packs() {
     if (!this->musicPackStrings.isEmpty()) return this->musicPackStrings;
     if (!this->Load_Plugins_If_Necessary()) return this->musicPackStrings;
     if (!this->sequentialArchivePlugin->Open(this->musicPacksArchiveLocation)) return this->musicPackStrings;
-    this->musicPackStrings = this->Get_HEXP_Files_From_File_List(this->sequentialArchivePlugin->Get_Files());
+    this->Get_HEXP_Files_From_File_List(this->musicPackStrings, this->bonusMusicPacks);
     this->sequentialArchivePlugin->Close();
     return this->musicPackStrings;
 }
@@ -113,6 +131,16 @@ QString Sequential_Archive_Handler::Get_Music_Pack_At_Index(int index) {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     assert(index < this->musicPackStrings.size());
     return this->musicPackStrings.at(index);
+}
+
+int Sequential_Archive_Handler::Get_Number_Of_Bonus_Graphics_Packs() {
+    if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
+    return this->bonusGraphicsPacks.size();
+}
+
+int Sequential_Archive_Handler::Get_Number_Of_Bonus_Music_Packs() {
+    if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
+    return this->bonusMusicPacks.size();
 }
 
 int Sequential_Archive_Handler::Get_Number_Of_Graphics_Packs() {
@@ -225,9 +253,10 @@ bool Sequential_Archive_Handler::Apply_Music_Pack(const QString &musicPack, bool
 
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index, bool isSecondaryPatch) {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
-    assert(index < this->musicPackStrings.size());
+    assert(index < this->musicPackStrings.size()+this->bonusMusicPacks.size());
     QStringList compatiblePacks;
-    return this->Apply_Music_Pack(this->musicPackStrings.at(index), isSecondaryPatch, compatiblePacks);
+    if (index < this->musicPackStrings.size()) return this->Apply_Music_Pack(this->musicPackStrings.at(index), isSecondaryPatch, compatiblePacks);
+    else return this->Apply_Music_Pack(this->bonusMusicPacks.at(index-this->musicPackStrings.size()), isSecondaryPatch, compatiblePacks);
 }
 
 QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteArray &patchBytes) {
@@ -277,13 +306,19 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
     return true;
 }
 
-QStringList Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(const QStringList &fileList) {
-    QStringList hexpFiles;
+void Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(QStringList &normalFiles, QStringList &bonusFiles) {
+    QStringList fileList = this->sequentialArchivePlugin->Get_Files();
+    normalFiles = QStringList();
+    bonusFiles = QStringList();
     for (QString file : fileList) {
-        if (file.startsWith(".") && !Version::VERSION_NUMBER.contains("dev")) continue; //ignore hidden files
-        if (file.toLower().endsWith(".hexp")) hexpFiles.append(file);
+        if (file.startsWith(".")) {
+             if (Version::VERSION_NUMBER.contains("dev")) bonusFiles.append(file);
+        } else if (file.startsWith("+")) {
+            bonusFiles.append(file);
+        } else if (file.toLower().endsWith(".hexp")) {
+            normalFiles.append(file);
+        }
     }
-    return hexpFiles;
 }
 
 bool Sequential_Archive_Handler::Load_Plugins_If_Necessary() {
