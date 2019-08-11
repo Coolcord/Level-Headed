@@ -35,7 +35,7 @@ private slots:
     void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
     void on_btnConfigureSettings_clicked();
     void on_btnGenerateGame_clicked();
-    void on_Main_Window_finished(int result);
+    void on_Main_Window_finished();
     void on_Update_Available(const QString &newVersion, const QString &updatePage);
 
 private:

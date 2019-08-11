@@ -155,14 +155,13 @@ QString Plugin_Handler::Get_Interpreter_Name(QString writerPlugin, QString gener
 }
 
 bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, const QString &generatorPlugin) {
-    this->readableConfigFile->Open(QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME);
-    if (!this->readableConfigFile->Set_Value("Writer_Plugin", writerPlugin) ||
-        !this->readableConfigFile->Set_Value("Generator_Plugin", generatorPlugin) ||
-        !this->readableConfigFile->Save_And_Close()) {
-        return false;
-    } else {
-        return true;
-    }
+    QString settingsFile = QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME;
+    bool ret1 = this->readableConfigFile->Open(settingsFile);
+    if (!ret1) ret1 = this->readableConfigFile->Open_Without_Loading(settingsFile);
+    bool ret2 = this->readableConfigFile->Set_Value("Writer_Plugin", writerPlugin);
+    bool ret3 = this->readableConfigFile->Set_Value("Generator_Plugin", generatorPlugin);
+    bool ret4 = this->readableConfigFile->Save_And_Close();
+    return ret1&&ret2&&ret3&&ret4;
 }
 
 bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QString &generatorPlugin) {
