@@ -14,7 +14,7 @@ class Update_Dialog : public QDialog {
     Q_OBJECT
 
 public:
-    Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &version, const QString &updatePage);
+    Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &newVersion, const QString &updatePage);
     ~Update_Dialog();
 
 private slots:
@@ -25,6 +25,7 @@ private:
     Ui::Update_Dialog *ui;
     Readable_Config_File *readableConfigFile;
     QString updatePage;
+    QString newVersion;
 };
 
 #endif // UPDATE_DIALOG_H

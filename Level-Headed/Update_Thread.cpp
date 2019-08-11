@@ -20,10 +20,11 @@ void Update_Thread::run() {
     const bool FORCE_UPDATE_CHECK = false;
 
     //Run the update check
-    bool ignoreUpdates = false;
-    this->readableConfigFile->Get_Value("Ignore_Updates", ignoreUpdates);
-    if (FORCE_UPDATE_CHECK) { ignoreUpdates = false; this->version = "0.0.0"; }
-    QString newVersion = QString();
-    if (!ignoreUpdates) newVersion = Git_Update_Checker().Check_For_Updates(this->version, REMOTE_GIT_SERVER, this->gitLocation);
+    QString lastIgnoredUpdate = QString();
+    Git_Update_Checker gitUpdateChecker;
+    if (this->readableConfigFile->Get_Value("Last_Ignored_Update", lastIgnoredUpdate) &&
+            gitUpdateChecker.Is_Version_Newer_Than_Current(lastIgnoredUpdate, this->version)) this->version = lastIgnoredUpdate;
+    if (FORCE_UPDATE_CHECK) this->version = "0.0.0";
+    QString newVersion = gitUpdateChecker.Check_For_Updates(this->version, REMOTE_GIT_SERVER, this->gitLocation);
     if (!newVersion.isEmpty()) emit Update_Available(newVersion, UPDATE_PAGE);
 }

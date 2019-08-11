@@ -4,14 +4,15 @@
 #include <QDebug>
 #include <QDesktopServices>
 
-Update_Dialog::Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &version, const QString &updatePage) :
+Update_Dialog::Update_Dialog(QWidget *parent, Readable_Config_File *readableConfigFile, const QString &newVersion, const QString &updatePage) :
     QDialog(parent, Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::MSWindowsFixedSizeDialogHint),
     ui(new Ui::Update_Dialog)
 {
     assert(readableConfigFile);
     this->readableConfigFile = readableConfigFile;
+    this->newVersion = newVersion;
     ui->setupUi(this);
-    this->ui->tvUpdateMessage->setText("<p align=\"center\">New Version: v"+version+
+    this->ui->tvUpdateMessage->setText("<p align=\"center\">New Version: v"+newVersion+
                                        "</p>\n\n<p align=\"center\">Would you like to download it now?</p>");
     int numberOfLines = 3; //necessary for determining the QTextBrowser height
     int height = QFontMetrics(this->ui->tvUpdateMessage->font()).height()*numberOfLines;
@@ -29,5 +30,5 @@ void Update_Dialog::on_Update_Dialog_accepted() {
 }
 
 void Update_Dialog::on_Update_Dialog_rejected() {
-    if (this->ui->cbDontAskAgain->isChecked()) this->readableConfigFile->Set_Value("Ignore_Updates", true);
+    if (this->ui->cbDontAskAgain->isChecked()) this->readableConfigFile->Set_Value("Last_Ignored_Update", this->newVersion);
 }
