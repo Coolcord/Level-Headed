@@ -1,4 +1,7 @@
-Next Update (v0.3.2)
+Next Update (v0.3.3)
+Nothing here yet! :(
+
+The Midpoints Strike Back! (v0.3.2)
 + Midpoints are created if a game has 4 levels per world
 + Added Graphics (Silhouette Mario Bros. by Leon Arnott)
 
