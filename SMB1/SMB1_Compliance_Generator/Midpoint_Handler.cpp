@@ -99,10 +99,10 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     if (this->levelType == Level_Type::BRIDGE) ++requiredObjects;
     if (this->object->Get_Num_Objects_Available() < requiredObjects) return false;
 
-    //Absolute coordinates 0x3 and 0x4 must be clear
+    //Absolute coordinates 0x2 - 0x4 must be clear
     //Increment to 0x5 to fix
     int absoluteX = this->object->Get_Absolute_X(x);
-    if (absoluteX < 0x4) {
+    if (absoluteX < 0x3) {
         //Place an island to ensure that the midpoint will be safe
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Instance().Get_Num(2)+(6-absoluteX))) return false;
@@ -131,8 +131,10 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         }
         if (this->levelType == Level_Type::BRIDGE) {
             //Spawn the bridge by itself
+            if (this->object->Will_Page_Flag_Be_Tripped(tmpX)) ++page;
             if (!this->object->Bridge(tmpX, y, length)) return false;
         } else { //spawn a tree
+            if (this->object->Will_Page_Flag_Be_Tripped(tmpX)) ++page;
             if (!this->object->Island(tmpX, y, length)) return false;
         }
         x = this->object->Get_Last_Object_Length();
