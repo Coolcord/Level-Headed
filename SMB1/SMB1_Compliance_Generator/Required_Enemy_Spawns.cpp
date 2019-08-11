@@ -129,6 +129,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
         int cancelSpawnerX = this->object->Get_Cancel_Spawner_X();
         if (cancelSpawnerX != -1 && nextX >= cancelSpawnerX) {
             this->requiredEnemies->pop_front();
+            this->numRequiredBytes -= numRequiredBytes;
             return true; //ignore this enemy with no error as requested
         }
     }
