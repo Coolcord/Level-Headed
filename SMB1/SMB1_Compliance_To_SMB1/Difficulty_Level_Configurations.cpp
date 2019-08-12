@@ -76,6 +76,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
+    pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
@@ -87,6 +88,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBasicEnemySpeed = 1;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
+    pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultyPiranhaPlantType = 1;
@@ -138,13 +140,14 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituThrowArc = true;
     difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
-    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
     difficultySettings.basicEnemySpeed = 1;
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
+    difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
 }
@@ -186,6 +189,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.minimumUnderwaterEnemyDistance = 9;
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.lakituThrowArc = false;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 1; //Normal
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
@@ -233,6 +237,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
+    difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     return difficultySettings;
 }
 
@@ -531,6 +536,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.piranhaPlantType = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
+    difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

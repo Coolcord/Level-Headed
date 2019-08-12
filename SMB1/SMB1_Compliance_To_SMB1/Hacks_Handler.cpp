@@ -197,6 +197,13 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 7);
     if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Firing_Rate(speed)) return false;
 
+    //Handle the flying Cheep-Cheep jump height
+    speed = this->pluginSettings->difficultyFlyingCheepCheepJumpHeight;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 2);
+    if (speed == 1) speed = 4;
+    else speed = 5;
+    if (!this->writerPlugin->Hacks_Set_Flying_Cheep_Cheep_Jump_Height(speed)) return false;
+
     //Handle the speedy enemies patch
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;

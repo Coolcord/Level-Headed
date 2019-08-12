@@ -157,6 +157,7 @@ public:
     virtual bool Hacks_Set_Basic_Enemy_Speed(int speed)=0;
     virtual bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate)=0;
     virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;
+    virtual bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height)=0;
     virtual bool Hacks_Set_Lakitu_Respawn_Speed(int value)=0;
     virtual bool Hacks_Set_Luigi_Name(const QString &name)=0;
     virtual bool Hacks_Set_Mario_Name(const QString &name)=0;

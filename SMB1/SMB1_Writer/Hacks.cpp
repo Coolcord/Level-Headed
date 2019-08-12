@@ -302,6 +302,11 @@ bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
 }
 
+bool Hacks::Set_Flying_Cheep_Cheep_Jump_Height(int height) {
+    if (height < 1 || height > 9) return false;
+    return this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0x100-height)));
+}
+
 bool Hacks::Set_Number_Of_Worlds(int value) {
     if (value < 0 || value > 8) return false;
     int numWorlds = value;

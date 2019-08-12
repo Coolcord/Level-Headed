@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -688,9 +688,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-1294</y>
             <width>684</width>
-            <height>1929</height>
+            <height>1962</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1752,6 +1752,36 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutFlyingCheepCheepJumpHeight">
+                <item>
+                 <widget class="QLabel" name="lblFlyingCheepCheepJumpHeight">
+                  <property name="text">
+                   <string>Flying Cheep-Cheep Jump Height:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboFlyingCheepCheepJumpHeight">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Low</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
                    </property>
                   </item>
                  </widget>

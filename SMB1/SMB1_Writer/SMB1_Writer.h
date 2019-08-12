@@ -174,6 +174,7 @@ public:
     bool Hacks_Set_Basic_Enemy_Speed(int speed);
     bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate);
     bool Hacks_Set_Bullet_Bill_Speed(int speed);
+    bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height);
     bool Hacks_Set_Lakitu_Respawn_Speed(int value);
     bool Hacks_Set_Luigi_Name(const QString &name);
     bool Hacks_Set_Mario_Name(const QString &name);

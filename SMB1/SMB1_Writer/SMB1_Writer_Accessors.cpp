@@ -608,6 +608,11 @@ bool SMB1_Writer::Hacks_Set_Bullet_Bill_Speed(int speed) {
     return this->hacks->Set_Bullet_Bill_Speed(speed);
 }
 
+bool SMB1_Writer::Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int speed) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Flying_Cheep_Cheep_Jump_Height(speed);
+}
+
 bool SMB1_Writer::Hacks_Set_Lakitu_Respawn_Speed(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Lakitu_Respawn_Speed(value);
