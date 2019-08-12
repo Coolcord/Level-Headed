@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -2285,7 +2285,7 @@ p, li { white-space: pre-wrap; }
                          <number>1</number>
                         </property>
                         <property name="maximum">
-                         <number>9</number>
+                         <number>8</number>
                         </property>
                         <property name="value">
                          <number>4</number>

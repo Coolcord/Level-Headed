@@ -49,16 +49,21 @@ bool Midpoint_Writer::Set_Midpoint(int worldNum, int levelNum, int value) {
         levelNum = tmp;
     }
 
-    assert(levelNum > 0 && levelNum <= 4);
+    //Make sure values are valid
+    assert(levelNum > 0 && levelNum <= 8);
     assert(worldNum > 0 && worldNum <= 8);
+    assert(levelNum <= 4 || worldNum <= 4);
+    assert(worldNum*levelNum <= 32);
     if (value < 0 || value > 0xF) return false;
+
+    //Perform calculations to get the index
     --worldNum;
     int index = (worldNum*2)+((levelNum-1)/2);
-    bool highByte = (levelNum%2==1);
+    bool highNibble = (levelNum%2==1);
 
     //Set the byte
     char byte = this->buffer->at(index);
-    if (highByte) byte = (byte&0x0F)+static_cast<char>(value*0x10);
+    if (highNibble) byte = (byte&0x0F)+static_cast<char>(value*0x10);
     else byte = (byte&0xF0)+static_cast<char>(value);
     this->buffer->data()[index] = byte;
     return true;

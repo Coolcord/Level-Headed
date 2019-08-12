@@ -1,5 +1,6 @@
 Next Update (v0.3.3)
-Nothing here yet! :(
++ Midpoints are always used regardless of how many levels there are per world
+- Worlds can only be a max of 8 levels long instead of 9
 
 The Midpoints Strike Back! (v0.3.2)
 + Midpoints are created if a game has 4 levels per world

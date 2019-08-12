@@ -237,7 +237,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
             }
         }
     }
-    args.useMidpoints = this->pluginSettings->numLevelsPerWorld <= 4;
+    args.useMidpoints = true;
     args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
     args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
     args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
@@ -465,7 +465,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     //Randomly determine the number of max levels and levels per world if specified
     if (this->pluginSettings->randomNumWorlds) {
         this->pluginSettings->numWorlds = Random::Get_Instance().Get_Num(4)+2; //max out at 6 worlds
-        this->pluginSettings->numLevelsPerWorld = 9;
+        this->pluginSettings->numLevelsPerWorld = 8;
         while (this->pluginSettings->numLevelsPerWorld*this->pluginSettings->numWorlds > 20) {
             --this->pluginSettings->numLevelsPerWorld;
         }
@@ -474,6 +474,10 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     //Write the Number of Worlds
     if (!this->writerPlugin->Hacks_Set_Number_Of_Worlds(this->pluginSettings->numWorlds)) {
         qDebug() << "Failed to write the number of worlds to the ROM!";
+        return false;
+    }
+    if (!this->writerPlugin->Hacks_Set_Number_Of_Levels_Per_World(this->pluginSettings->numLevelsPerWorld)) {
+        qDebug() << "Failed to write the number of levels per world to the ROM!";
         return false;
     }
 

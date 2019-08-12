@@ -331,9 +331,14 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
 }
 
 bool Hacks::Set_Number_Of_Levels_Per_World(int value) {
-    this->midpointWriter->Set_More_Than_4_Levels_Per_World(value > 4);
-
-    //TODO: Write this!!! World and Level need to be swapped in ASM!!!
+    bool moreThan4LevelsPerWorld = (value > 4);
+    this->midpointWriter->Set_More_Than_4_Levels_Per_World(moreThan4LevelsPerWorld);
+    if (moreThan4LevelsPerWorld) {
+        if (!this->Write_Bytes_To_Offset(0x11FA, QByteArray(1, static_cast<char>(0x5C)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x11FF, QByteArray(1, static_cast<char>(0x5F)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x120A, QByteArray(1, static_cast<char>(0x5F)))) return false;
+    }
+    return true;
 }
 
 bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
