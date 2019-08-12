@@ -35,9 +35,7 @@ private slots:
     //Level Generator Tab
     void on_radioGenerateNewLevels_toggled(bool checked);
     void on_btnClearAllRandomLevelScripts_clicked();
-    void on_radioRandomNumWorlds_toggled(bool checked);
-    void on_radioLevelsHaveMidpoints_toggled(bool checked);
-    void on_radioSpecifyNumberOfLevelsPerWorld_toggled(bool checked);
+    void on_cbRandomNumWorlds_toggled(bool checked);
     void on_sbNumLevelsPerWorld_valueChanged();
     void on_sbNumWorlds_valueChanged();
     void on_btnNewRandomSeed_clicked();
