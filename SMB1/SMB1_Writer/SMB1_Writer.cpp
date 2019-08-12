@@ -202,7 +202,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->roomIDHandler->Set_Enemy_Bytes_Tracker(this->enemyBytesTracker);
         if (!this->enemyBytesTracker->Calculate_Enemy_Bytes_In_All_Levels()) return false;
         this->text = new Text(this->file, this->levelOffset);
-        this->hacks = new Hacks(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
+        this->hacks = new Hacks(this->file, this->levelOffset, this->midpointWriter, this->sequentialArchiveHandler, this->text);
         this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->sound = new Sound(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
@@ -214,7 +214,11 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     }
 }
 
-bool SMB1_Writer::New_Level(Level::Level level) {
+bool SMB1_Writer::New_Bonus_Level(Level::Level level) {
+    return this->New_Level(level, 0, 0);
+}
+
+bool SMB1_Writer::New_Level(Level::Level level, int worldNum, int levelNum) {
     if (!this->file) return false; //the ROM needs to be loaded first
 
     //Make sure that the buffers are empty
@@ -229,6 +233,8 @@ bool SMB1_Writer::New_Level(Level::Level level) {
 
     Level::Level previousLevel = this->roomIDHandler->Get_Current_Level();
     this->roomIDHandler->Set_Current_Level(level);
+    this->roomIDHandler->Set_Current_World_Num(worldNum);
+    this->roomIDHandler->Set_Current_Level_Num(levelNum);
 
     //Read the Level
     if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {

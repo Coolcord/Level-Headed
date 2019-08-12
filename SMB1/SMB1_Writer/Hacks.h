@@ -3,12 +3,13 @@
 
 #include "Byte_Writer.h"
 
+class Midpoint_Writer;
 class Sequential_Archive_Handler;
 class Text;
 
 class Hacks : public Byte_Writer {
 public:
-    Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
+    Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
     ~Hacks() {}
     bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
     bool Add_Luigi_Game();
@@ -42,6 +43,7 @@ public:
     bool Set_Bullet_Bill_Firing_Rate(int rate);
     bool Set_Bullet_Bill_Speed(int speed);
     bool Set_Number_Of_Worlds(int value);
+    bool Set_Number_Of_Levels_Per_World(int value);
     bool Set_Lakitu_Respawn_Speed(int value);
     bool Set_Starting_Lives(int lives);
     void Set_Hammer_Suit_Active(bool isHammerSuitActive);
@@ -57,6 +59,7 @@ private:
     bool Enable_Walking_Hammer_Bros_In_World(int world);
     bool Skip_Lives_Screen();
 
+    Midpoint_Writer *midpointWriter;
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     int difficultyWalkingHammerBros;

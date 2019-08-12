@@ -1,5 +1,6 @@
 #include "Hacks.h"
 #include "Level_Offset.h"
+#include "Midpoint_Writer.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
 #include <assert.h>
@@ -9,10 +10,11 @@ const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
 const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
 
-Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
-    assert(sequentialArchiveHandler); assert(text);
+Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
+    assert(midpointWriter); assert(sequentialArchiveHandler); assert(text);
     this->levelOffset = levelOffset;
     this->text = text;
+    this->midpointWriter = midpointWriter;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
     this->skipLivesScreen = false;
@@ -326,6 +328,12 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
     assert(this->Convert_Difficulty_To_World(this->difficultyWalkingHammerBros, numWorlds, walkingHammerBrosWorld));
     assert(walkingHammerBrosWorld >= 1 && walkingHammerBrosWorld <= 8);
     return this->Enable_Walking_Hammer_Bros_In_World(walkingHammerBrosWorld);
+}
+
+bool Hacks::Set_Number_Of_Levels_Per_World(int value) {
+    this->midpointWriter->Set_More_Than_4_Levels_Per_World(value > 4);
+
+    //TODO: Write this!!! World and Level need to be swapped in ASM!!!
 }
 
 bool Hacks::Set_Lakitu_Respawn_Speed(int value) {

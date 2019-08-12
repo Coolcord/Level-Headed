@@ -13,6 +13,7 @@ Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_I
     this->file = file;
     this->levelOffsets = levelOffsets;
     this->roomIDHandler = roomIDHandler;
+    this->moreThan4LevelsPerWorld = false;
 }
 
 Midpoint_Writer::~Midpoint_Writer() {
@@ -40,29 +41,30 @@ bool Midpoint_Writer::Write_Midpoints() {
     return this->file->write(this->buffer->data(), this->buffer->length()) == this->buffer->length();
 }
 
-bool Midpoint_Writer::Set_Midpoint(int value) {
-    return this->Set_Midpoint(this->roomIDHandler->Get_Current_Level(), value);
-}
-
-bool Midpoint_Writer::Set_Midpoint(Level::Level level, int value) {
-    if (value < 0x0 || value > 0xF) return false;
-    QVector<unsigned char> *midpointIndexes = this->roomIDHandler->Get_Midpoint_Indexes_From_Level(level);
-    if (!midpointIndexes || midpointIndexes->isEmpty()) return false;
-    for (int i = 0; i < midpointIndexes->size(); ++i) {
-        int index = midpointIndexes->at(i);
-        bool highNibble = (index % 2 == 0);
-        int properIndex = index / 2;
-
-        //Write the nibble into the byte
-        QBitArray bits = Binary_Manipulator::Hex_To_BitArray(static_cast<unsigned char>(this->buffer->at(properIndex)));
-        if (highNibble) {
-            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 0, static_cast<unsigned char>(value));
-        } else {
-            Binary_Manipulator::Write_Hex_Digit_To_BitArray(bits, 4, static_cast<unsigned char>(value));
-        }
-
-        unsigned char byte = Binary_Manipulator::BitArray_To_Hex(bits);
-        this->buffer->data()[properIndex] = static_cast<char>(byte);
+bool Midpoint_Writer::Set_Midpoint(int worldNum, int levelNum, int value) {
+    //Swap worldNum with levelNum if using more than 4 levels per world
+    if (this->moreThan4LevelsPerWorld) {
+        int tmp = worldNum;
+        worldNum = levelNum;
+        levelNum = tmp;
     }
+
+    assert(levelNum > 0 && levelNum <= 4);
+    assert(worldNum > 0 && worldNum <= 8);
+    if (value < 0 || value > 0xF) return false;
+    --worldNum;
+    int index = (worldNum*2)+((levelNum-1)/2);
+    bool highByte = (levelNum%2==1);
+
+    //Set the byte
+    char byte = this->buffer->at(index);
+    if (highByte) byte = (byte&0x0F)+static_cast<char>(value*0x10);
+    else byte = (byte&0xF0)+static_cast<char>(value);
+    this->buffer->data()[index] = byte;
     return true;
 }
+
+void Midpoint_Writer::Set_More_Than_4_Levels_Per_World(bool value) {
+    this->moreThan4LevelsPerWorld = value;
+}
+

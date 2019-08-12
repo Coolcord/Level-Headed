@@ -57,11 +57,7 @@ bool SMB1_Writer::Header_Attribute(Level_Attribute::Level_Attribute attribute) {
 
 bool SMB1_Writer::Header_Midpoint(int value) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->midpointWriter->Set_Midpoint(value);
-}
-
-bool SMB1_Writer::Header_Midpoint(Level::Level level, int value) {
-    return this->midpointWriter->Set_Midpoint(level, value);
+    return this->midpointWriter->Set_Midpoint(this->roomIDHandler->Get_Current_World_Num(), this->roomIDHandler->Get_Current_Level_Num(), value);
 }
 
 bool SMB1_Writer::Room_Table_Set_Next_Level(Level::Level level) {
@@ -630,6 +626,11 @@ bool SMB1_Writer::Hacks_Set_Mario_Name(const QString &name) {
 bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Number_Of_Worlds(value);
+}
+
+bool SMB1_Writer::Hacks_Set_Number_Of_Levels_Per_World(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Number_Of_Levels_Per_World(value);
 }
 
 bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {

@@ -11,6 +11,8 @@ Room_ID_Handler::Room_ID_Handler(QFile *file, Level_Offset *levelOffset) {
     assert(levelOffset);
     this->file = file;
     this->currentLevel = Level::WORLD_1_LEVEL_1;
+    this->levelNum = 0;
+    this->worldNum = 0;
     this->levelOffset = levelOffset;
     this->enemyBytesTracker = nullptr;
     this->roomIDs = new QMap<Level::Level, unsigned char>();
@@ -49,8 +51,24 @@ Level::Level Room_ID_Handler::Get_Current_Level() {
     return this->currentLevel;
 }
 
+int Room_ID_Handler::Get_Current_Level_Num() {
+    return this->levelNum;
+}
+
+int Room_ID_Handler::Get_Current_World_Num() {
+    return this->worldNum;
+}
+
 void Room_ID_Handler::Set_Current_Level(Level::Level level) {
     this->currentLevel = level;
+}
+
+void Room_ID_Handler::Set_Current_Level_Num(int levelNum) {
+    this->levelNum = levelNum;
+}
+
+void Room_ID_Handler::Set_Current_World_Num(int worldNum) {
+    this->worldNum = worldNum;
 }
 
 bool Room_ID_Handler::Get_Room_ID_From_Level(Level::Level level, unsigned char &id) {

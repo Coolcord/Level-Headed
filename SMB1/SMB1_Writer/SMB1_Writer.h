@@ -38,7 +38,8 @@ public:
     QString Install_ROM();
     bool Load_ROM_First_Time(QString &baseRomName);
     bool Load_ROM(const QString &fileName);
-    bool New_Level(Level::Level level);
+    bool New_Bonus_Level(Level::Level level);
+    bool New_Level(Level::Level level, int worldNum, int levelNum);
     bool Write_Level();
     int Get_Num_Object_Bytes();
     int Get_Num_Enemy_Bytes();
@@ -55,7 +56,6 @@ public:
     bool Header_Brick(Brick::Brick value);
     bool Header_Attribute(Level_Attribute::Level_Attribute attribute);
     bool Header_Midpoint(int value);
-    bool Header_Midpoint(Level::Level level, int value);
 
     //Room Table
     bool Room_Table_Set_Next_Level(Level::Level level);
@@ -178,6 +178,7 @@ public:
     bool Hacks_Set_Luigi_Name(const QString &name);
     bool Hacks_Set_Mario_Name(const QString &name);
     bool Hacks_Set_Number_Of_Worlds(int value);
+    bool Hacks_Set_Number_Of_Levels_Per_World(int value);
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();

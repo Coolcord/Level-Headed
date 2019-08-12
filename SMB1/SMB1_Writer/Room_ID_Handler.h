@@ -21,7 +21,11 @@ public:
     void Set_Room_Address_Writer(Room_Address_Writer *roomAddressWriter);
     void Set_Enemy_Bytes_Tracker(Enemy_Bytes_Tracker *enemyBytesTracker);
     Level::Level Get_Current_Level();
+    int Get_Current_Level_Num();
+    int Get_Current_World_Num();
     void Set_Current_Level(Level::Level level);
+    void Set_Current_Level_Num(int levelNum);
+    void Set_Current_World_Num(int worldNum);
 
     bool Get_Room_ID_From_Level(Level::Level level, unsigned char &id);
     bool Get_Level_From_Room_ID(unsigned char id, Level::Level &level);
@@ -50,6 +54,8 @@ private:
 
     QFile *file;
     Level::Level currentLevel;
+    int worldNum;
+    int levelNum;
     Level_Offset *levelOffset;
     Enemy_Bytes_Tracker *enemyBytesTracker;
     QMap<Level::Level, unsigned char> *roomIDs;

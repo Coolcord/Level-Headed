@@ -24,10 +24,10 @@ public:
     ~Level_Generator();
     bool Generate_Levels();
     bool Parse_Level_Map();
-    bool Parse_Map_Header(QTextStream &file, int &lineNum, int &errorCode);
+    bool Parse_Map_Header(QTextStream &file, int &numLevelsPerWorld, int &lineNum, int &errorCode);
     bool Parse_Move_Object_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
     bool Parse_Move_Enemy_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
-    bool Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode);
+    bool Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numLevelsPerWorld, int &lineNum, int &errorCode);
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);

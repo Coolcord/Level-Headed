@@ -84,7 +84,7 @@ bool Level_Generator::Parse_Level_Map() {
     return success;
 }
 
-bool Level_Generator::Parse_Map_Header(QTextStream &file, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numLevelsPerWorld, int &lineNum, int &errorCode) {
     //Level Name
     QString line;
     line = file.readLine().trimmed();
@@ -107,6 +107,19 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &lineNum, int &err
         return false;
     }
 
+    //Parse the Number of Levels Per World
+    line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ":", lineNum);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ":") return false;
+    valid = false;
+    numLevelsPerWorld = elements.at(1).toInt(&valid);
+    if (!valid) return false; //unable to parse int
+    if (!this->writerPlugin->Hacks_Set_Number_Of_Levels_Per_World(numLevelsPerWorld)) {
+        errorCode = 3;
+        return false;
+    }
+
     //Parse Seperator at the end
     if (!this->Parse_To_Next_Seperator(file, lineNum)) return false;
 
@@ -121,8 +134,10 @@ bool Level_Generator::Parse_Move_Enemy_Table(QTextStream &file, const QMap<QStri
     return this->Parse_Move_Table(file, levels, lineNum, errorCode, false);
 }
 
-bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numLevelsPerWorld, int &lineNum, int &errorCode) {
     //Read the Level Lines
+    int currentLevelNum = 1;
+    int currentWorldNum = 1;
     bool success = false;
     do {
         ++lineNum;
@@ -141,6 +156,11 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             }
 
             //Add the level to the room order table
+            ++currentLevelNum;
+            if (currentLevelNum > numLevelsPerWorld) {
+                ++currentWorldNum;
+                currentLevelNum = 1;
+            }
             Level::Level currentLevel = iter.value();
             if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
                 errorCode = 3;
@@ -155,7 +175,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     return false;
                 }
                 scriptName.chop(1); scriptName = scriptName.remove(0, 1);
-                if (!this->writerPlugin->New_Level(currentLevel)) {
+                if (!this->writerPlugin->New_Level(currentLevel, currentWorldNum, currentLevelNum)) {
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                           "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
                     return false;
@@ -217,7 +237,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
             }
         }
     }
-    args.useMidpoints = this->pluginSettings->numLevelsPerWorld == 4;
+    args.useMidpoints = this->pluginSettings->numLevelsPerWorld <= 4;
     args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
     args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
     args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
@@ -470,6 +490,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     //Write the Header of the map file
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_WORLDS + ": " + QString::number(this->pluginSettings->numWorlds))) return false;
+    if (!this->Write_To_Map(mapStream, Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ": " + QString::number(this->pluginSettings->numLevelsPerWorld))) return false;
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
     //Build the Move Objects Map
@@ -500,7 +521,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
 
-        if (!this->writerPlugin->New_Level(levelOrder.at(i))) {
+        if (!this->writerPlugin->New_Level(levelOrder.at(i), (i/this->pluginSettings->numLevelsPerWorld)+1, (i%this->pluginSettings->numLevelsPerWorld)+1)) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                   "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
             return false;
@@ -576,9 +597,8 @@ bool Level_Generator::Handle_Map_File() {
     if (mapFile.atEnd()) return false;
 
     //Parse through the map file starting with the header
-    int lineNum = 0;
-    int errorCode = 0;
-    if (!this->Parse_Map_Header(mapFile, lineNum, errorCode)) return false;
+    int numLevelsPerWorld = 0, lineNum = 0, errorCode = 0;
+    if (!this->Parse_Map_Header(mapFile, numLevelsPerWorld, lineNum, errorCode)) return false;
     if (mapFile.atEnd()) return false;
 
     //Parse the Move Tables
@@ -590,7 +610,7 @@ bool Level_Generator::Handle_Map_File() {
     if (mapFile.atEnd()) return false;
 
     //Parse the Levels
-    if (!this->Parse_Levels(mapFile, levels, lineNum, errorCode)) return false;
+    if (!this->Parse_Levels(mapFile, levels, numLevelsPerWorld, lineNum, errorCode)) return false;
     if (!mapFile.atEnd()) return false;
     return true;
 }
