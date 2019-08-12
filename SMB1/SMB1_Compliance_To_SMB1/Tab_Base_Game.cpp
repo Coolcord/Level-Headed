@@ -74,6 +74,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
             this->ui->radioStartingLives->setChecked(true);
             this->ui->sbLives->setValue(this->pluginSettings->numLives);
         }
+        this->ui->sbLives->setMaximum(35);
         this->ui->cbGodMode->setChecked(false);
 
         this->ui->sbAutoScroll->setValue(11);
@@ -89,6 +90,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
+    } else {
+        this->ui->sbLives->setMaximum(99);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
     this->ui->radioInfiniteLives->setEnabled(!enabled);
