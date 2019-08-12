@@ -334,9 +334,14 @@ bool Hacks::Set_Number_Of_Levels_Per_World(int value) {
     bool moreThan4LevelsPerWorld = (value > 4);
     this->midpointWriter->Set_More_Than_4_Levels_Per_World(moreThan4LevelsPerWorld);
     if (moreThan4LevelsPerWorld) {
-        if (!this->Write_Bytes_To_Offset(0x11FA, QByteArray(1, static_cast<char>(0x5C)))) return false;
-        if (!this->Write_Bytes_To_Offset(0x11FF, QByteArray(1, static_cast<char>(0x5F)))) return false;
-        if (!this->Write_Bytes_To_Offset(0x120A, QByteArray(1, static_cast<char>(0x5F)))) return false;
+        if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+            if (!this->Write_Bytes_To_Offset(0x11F9, QByteArray::fromHex(QString("AD5C070AAAA5E4").toLatin1()))) return false;
+            if (!this->Write_Bytes_To_Offset(0x1208, QByteArray::fromHex(QString("A5E4EA").toLatin1()))) return false;
+        } else {
+            if (!this->Write_Bytes_To_Offset(0x11FA, QByteArray(1, static_cast<char>(0x5C)))) return false;
+            if (!this->Write_Bytes_To_Offset(0x11FF, QByteArray(1, static_cast<char>(0x5F)))) return false;
+            if (!this->Write_Bytes_To_Offset(0x120A, QByteArray(1, static_cast<char>(0x5F)))) return false;
+        }
     }
     return true;
 }

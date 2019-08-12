@@ -70,8 +70,10 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->Use_Original_Settings();
 
         if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
-        this->ui->radioStartingLives->setChecked(true);
-        this->ui->sbLives->setValue(7);
+        if (!this->ui->radioStartingLives->isChecked()) {
+            this->ui->radioStartingLives->setChecked(true);
+            this->ui->sbLives->setValue(this->pluginSettings->numLives);
+        }
         this->ui->cbGodMode->setChecked(false);
 
         this->ui->sbAutoScroll->setValue(11);

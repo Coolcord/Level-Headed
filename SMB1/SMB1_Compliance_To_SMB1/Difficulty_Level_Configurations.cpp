@@ -352,6 +352,24 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Thr
 Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
     Difficulty_Level_Settings difficultySettings = this->Very_Easy();
     difficultySettings.noEnemies = true;
+    difficultySettings.bridgeFlyingCheepCheeps = 11;
+    difficultySettings.bridgeLakitus = 11;
+    difficultySettings.bridgeOffscreenBulletBills = 11;
+    difficultySettings.castleFlyingCheepCheeps = 11;
+    difficultySettings.castleLakitus = 11;
+    difficultySettings.castleOffscreenBulletBills = 11;
+    difficultySettings.islandFlyingCheepCheeps = 11;
+    difficultySettings.islandLakitus = 11;
+    difficultySettings.islandOffscreenBulletBills = 11;
+    difficultySettings.undergroundFlyingCheepCheeps = 11;
+    difficultySettings.undergroundLakitus = 11;
+    difficultySettings.undergroundOffscreenBulletBills = 11;
+    difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterLakitus = 11;
+    difficultySettings.underwaterSwimmingCheepCheeps = 11;
+    difficultySettings.standardOverworldFlyingCheepCheeps = 11;
+    difficultySettings.standardOverworldLakitus = 11;
+    difficultySettings.standardOverworldOffscreenBulletBills = 11;
     return difficultySettings;
 }
 
