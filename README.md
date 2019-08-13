@@ -27,8 +27,14 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  If you have any questions about Level-Headed, feel free to contact me at coolcord24@tutanota.com
 
  ## FAQ
+
+**Q: What's new in "The Midpoints Strike Back!" (v0.3.2)?**
  
- **Q: What's new in Less Excess (v0.3.1)?**
+ A: Midpoints have, by far, been the most requested feature for Level-Headed. While the first public release of Level-Headed ("Water Vapor" v0.1.0) had midpoints, it was a very unreliable feature. In some circumstances, the player would be put in an unwinnable state or placed over a hole and die repeatedly until a game over. Attempts were made to fix the bugs in the system, but ultimately, it was determined that midpoints should be completely scrapped until a later date.
+
+ Since then, more work as gone into the midpoint handler, and it's now ready to be reimplemented. However, there is a catch. In order for midpoints to work properly, worlds **must** have 4 levels each. Any more or less throw off what SMB1 expects, causing the wrong midpoint to be loaded. The fix for this requires assembly and will be implemented in v0.3.3.
+ 
+ **Q: What's new in "Less Excess" (v0.3.1)?**
  
  A: The Less Excess update solves the problem of later levels being way too long in some games. Level length is limited based upon the specified difficulty. Later levels are still longer, but they won't be as long as they were in v0.3.0 (unless the Level Length setting is set to "As long as possible"). In addition, level type can affect level length. Underwater levels are 40% shorter and Island levels are 10% shorter. If the levels are auto scrollers, their size will be reduced by an additional 30%. From there, an additional 4% length is added for each skill level, maxing out at a 40% increase for the last level of the game.
  
@@ -39,15 +45,14 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  **Q: What's going to be in the next update?**
  
  A: You can see what changes are going to be implemented by looking at the [changelog](https://raw.githubusercontent.com/Coolcord/Level-Headed/master/Doc/Changelog.txt).
+
+ **Q: When are you going to add new patterns into the level generator? What about new level types?**
+ 
+ A: Currently, levels still only have access to about 10 patterns per level type, which is why the levels can sometimes be a bit stale. The v0.4.x series of updates will address this by focusing on creating new patterns for existing levels as well as adding completely new level types all together. v0.4 is still a ways off though, as I intend to write a graphical pattern editor to easily make new patterns for the level generator.
  
  **Q: How do I add my own graphics and music patches?**
  
  A: There's a tutorial on how to do that on the wiki [here](https://github.com/Coolcord/Level-Headed/wiki/How-to-Add-Your-Own-Graphics-and-Music-Into-Level%E2%80%90Headed).
- 
- **Q: What are you trying to work towards?**
- 
- A: The next major goal is a pattern database for the "SMB1_Compliance" generator. This should make it significantly easier to create new patterns and also
- allow users to create their own. Progress has been made towards this with the addition of [Sequential Archives](https://github.com/Coolcord/Sequential_Archive) in v0.3.0, but there's still a lot more work to be done before this can happen.
  
  **Q: I set a level type to uncommon, but I got it multiple times in a row! Is this a bug?**
  
