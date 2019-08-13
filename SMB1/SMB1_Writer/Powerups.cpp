@@ -9,6 +9,11 @@ Powerups::Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Ha
     this->graphics = graphics;
     this->hacks = hacks;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
+    this->primaryPowerupIsFireBased = true;
+}
+
+bool Powerups::Is_Primary_Powerup_Fire_Based() {
+    return this->primaryPowerupIsFireBased;
 }
 
 bool Powerups::Replace_1UP_With_Poison_Mushroom() {
@@ -52,7 +57,9 @@ bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
     if (!this->Write_Bytes_To_Offset(0x869D, QByteArray::fromHex(QString("010307").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0502018383C57E3D1D0F07064E7F3B01").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("C1B1596D353B1F030040201008040000").toLatin1()))) return false;
-    return this->graphics->Apply_Cutter_Flower_Fix();
+    if (!this->graphics->Apply_Cutter_Flower_Fix()) return false;
+    this->primaryPowerupIsFireBased = true;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Double_Jump_Star() {
@@ -69,7 +76,9 @@ bool Powerups::Replace_Fire_Flower_With_Double_Jump_Star() {
     if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("01010202047842220000010103073D1D").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("12080810111628300D07070F0E081000").toLatin1()))) return false;
-    return this->graphics->Apply_Double_Jump_Star_Fix();
+    if (!this->graphics->Apply_Double_Jump_Star_Fix()) return false;
+    this->primaryPowerupIsFireBased = false;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Fire_Star() {
@@ -87,7 +96,9 @@ bool Powerups::Replace_Fire_Flower_With_Fire_Star() {
     if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("01010303077F7D3D0101020204784222").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1D0F0F1F1F1E38301208081011162830").toLatin1()))) return false;
-    return this->graphics->Apply_Fire_Star_Fix();
+    if (!this->graphics->Apply_Fire_Star_Fix()) return false;
+    this->primaryPowerupIsFireBased = true;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
@@ -107,6 +118,7 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B0002000600").toLatin1()))) return false;
     if (!this->graphics->Apply_Hammer_Suit_Fix()) return false;
     this->hacks->Set_Hammer_Suit_Active(true);
+    this->primaryPowerupIsFireBased = false;
     return true;
 }
 
@@ -125,7 +137,9 @@ bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {
     if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("00180A466E1E3C003C5ABBF5E3956A3C0000082C2C1C0000003C4A7E6A563C").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0003070C0C0C07030000000000000000").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("01010101010101010000000000000000").toLatin1()))) return false;
-    return this->graphics->Apply_Poison_Bubbles_Fix();
+    if (!this->graphics->Apply_Poison_Bubbles_Fix()) return false;
+    this->primaryPowerupIsFireBased = false;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
@@ -144,7 +158,9 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
             "021004520428920000000000000000000000020812002A0000000000000000000000000001040208").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("000105060B0D06030002030D060B0502").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("01010101010101010101010101010101").toLatin1()))) return false;
-    return this->graphics->Apply_Power_Wand_Fix();
+    if (!this->graphics->Apply_Power_Wand_Fix()) return false;
+    this->primaryPowerupIsFireBased = false;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
@@ -159,7 +175,9 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("3C7EE3C1E1F37E3C00001C3E1E0C00003C7EF7E3C3C3663C0000081C3C3C1800").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("00000F1F1F0F00000F1F3F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("71FDC9C1F17D1F070000000000000000").toLatin1()))) return false;
-    return this->graphics->Apply_Slime_Flower_Fix();
+    if (!this->graphics->Apply_Slime_Flower_Fix()) return false;
+    this->primaryPowerupIsFireBased = false;
+    return true;
 }
 
 bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
@@ -176,5 +194,7 @@ bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("00183C7E7E3C1800000018080000000000183C7E7E3C18000000003020000000").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0000000000000000000F1F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("010131393D1F0F030000000000000000").toLatin1()))) return false;
-    return this->graphics->Apply_Spinball_Flower_Fix();
+    if (!this->graphics->Apply_Spinball_Flower_Fix()) return false;
+    this->primaryPowerupIsFireBased = false;
+    return true;
 }

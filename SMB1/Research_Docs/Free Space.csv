@@ -4,7 +4,7 @@ Used Space,Group,Name
 0x406D-0x40AC,2,Fire Bros. (Incompatible with Autoscroll)
 0x407B-0x4088,3,Top of Flagpole gives 1-Up
 0x4089-0x4099,3,Start with Fire Flower
-0x40FD-0x4100,0,FREE SPACE
-0x4101-0x4117,0,Bouncy Spiny Eggs
+0x4101-0x4117,0a,Bouncy Spiny Eggs
+0x41FD-0x4117,0b,Spiny Eggs Explode Into Fire
 0x4118-0x4123,0,Life Overflow Fix
 0x4124-0x413E,0,Taking Damage As Fire Reverts To Super

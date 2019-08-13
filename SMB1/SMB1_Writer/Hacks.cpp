@@ -1,6 +1,7 @@
 #include "Hacks.h"
 #include "Level_Offset.h"
 #include "Midpoint_Writer.h"
+#include "Powerups.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
 #include <assert.h>
@@ -12,6 +13,7 @@ const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
 
 Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
     assert(midpointWriter); assert(sequentialArchiveHandler); assert(text);
+    this->powerups = nullptr;
     this->levelOffset = levelOffset;
     this->text = text;
     this->midpointWriter = midpointWriter;
@@ -23,6 +25,10 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWr
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
     this->wasCastleLoopReplacedWithFireFlower = false;
+}
+
+void Hacks::Set_Powerups(Powerups *powerups) {
+    this->powerups = powerups;
 }
 
 bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
@@ -419,7 +425,21 @@ bool Hacks::Spiny_Eggs_Chase_Mario() {
 }
 
 bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
+    //Hitting the block under flames destroys them
+    if (!this->Write_Bytes_To_Offset(0x4109, QByteArray::fromHex(QString("C912D003208EE1A9012011DA4C1BE0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6026, QByteArray::fromHex(QString("4CF9C0EAEA").toLatin1()))) return false;
+
+    //Fireballs can't hurt fire
+    assert(this->powerups);
+    if (this->powerups->Is_Primary_Powerup_Fire_Based()) {
+        if (!this->Write_Bytes_To_Offset(0x40FD, QByteArray::fromHex(QString("C902F007C912F0034C58D760").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5764, QByteArray::fromHex(QString("4CEDC0EA").toLatin1()))) return false;
+    }
+
+    //Flames can't move left or right
     if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x00)))) return false;
+
+    //Flame Sprites
     if (!this->Write_Bytes_To_Offset(0x88F0, QByteArray::fromHex(QString("00000000020B070E00000000000001030E070B02000000000301000000000000").toLatin1()))) return false;
     return this->Write_Bytes_To_Offset(0x8950, QByteArray::fromHex(QString("000000000503170E00000000000001030E17030500000000030100000000000014292B0F6F7F7F7F"
             "100000004204050584A0E4E8DAFEFDFD0000040000200000BFF6FA7C7C3F07071F1F1F0F0F030000"
