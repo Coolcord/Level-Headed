@@ -59,11 +59,6 @@ bool Hacks::Black_Piranha_Plants() {
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS);
 }
 
-bool Hacks::Bouncy_Spiny_Eggs() {
-    if (!this->Write_Bytes_To_Offset(0x4101, QByteArray::fromHex(QString("D0034CE2E0B416C012D0034CD9DF20AEE1F0EF4CFFDF").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x6005, QByteArray::fromHex(QString("4CF1C0").toLatin1()));
-}
-
 bool Hacks::Disable_Intro_Demo() {
     if (!this->Write_Bytes_To_Offset(0x277, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x289, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
@@ -411,6 +406,36 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     return this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x18)));
+}
+
+bool Hacks::Spiny_Eggs_Bouncy() {
+    if (!this->Write_Bytes_To_Offset(0x4101, QByteArray::fromHex(QString("D0034CE2E0B416C012D0034CD9DF20AEE1F0EF4CFFDF").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x6005, QByteArray::fromHex(QString("4CF1C0").toLatin1()));
+}
+
+bool Hacks::Spiny_Eggs_Chase_Mario() {
+    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x10)))) return false;
+    return this->Write_Bytes_To_Offset(0x60E8, QByteArray::fromHex(QString("EAEA").toLatin1()));
+}
+
+bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
+    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x00)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x88F0, QByteArray::fromHex(QString("00000000020B070E00000000000001030E070B02000000000301000000000000").toLatin1()))) return false;
+    return this->Write_Bytes_To_Offset(0x8950, QByteArray::fromHex(QString("000000000503170E00000000000001030E17030500000000030100000000000014292B0F6F7F7F7F"
+            "100000004204050584A0E4E8DAFEFDFD0000040000200000BFF6FA7C7C3F07071F1F1F0F0F030000"
+            "BFFFBE1E3CFCF0E0E0F0F8F8F0E00000210527175B7FBFBF00002000000400002894D4F0F6FEFEFE"
+            "080000004220A0A0FDFF7D783C3F0F07070F1F1F0F070000FD6F5F3E3EFCE0E0F8F8F8F0F0C00000").toLatin1()));
+}
+
+bool Hacks::Spiny_Eggs_No_Eggs() {
+    //Copy the Spiny tile layout over the Spiny Egg tile layout
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x6772, 12, bytes)) return false;
+    if (!this->Write_Bytes_To_Offset(0x677E, bytes)) return false;
+
+    //Disable tile mirroring for spiny eggs
+    if (!this->Write_Bytes_To_Offset(0x6AD7, QByteArray(1, static_cast<char>(0xFF)))) return false;
+    return this->Write_Bytes_To_Offset(0x6B00, QByteArray::fromHex(QString("EAEA").toLatin1()));
 }
 
 bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {

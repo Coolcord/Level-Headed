@@ -153,7 +153,6 @@ public:
     bool Hacks_Add_Luigi_Game();
     bool Hacks_Always_Autoscroll();
     bool Hacks_Black_Piranha_Plants();
-    bool Hacks_Bouncy_Spiny_Eggs();
     bool Hacks_Enable_God_Mode();
     bool Hacks_Enable_Hitting_Underwater_Blocks();
     bool Hacks_Enable_Piranha_Plants_On_First_Level();
@@ -182,6 +181,10 @@ public:
     bool Hacks_Set_Number_Of_Levels_Per_World(int value);
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Speedy_Objects_And_Enemies();
+    bool Hacks_Spiny_Eggs_Bouncy();
+    bool Hacks_Spiny_Eggs_Chase_Mario();
+    bool Hacks_Spiny_Eggs_Explode_Into_Flames();
+    bool Hacks_Spiny_Eggs_No_Eggs();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     bool Hacks_Unlimited_Time();
     bool Hacks_Write_Watermark();

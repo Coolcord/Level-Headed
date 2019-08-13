@@ -136,7 +136,6 @@ public:
     virtual bool Hacks_Add_Luigi_Game()=0;
     virtual bool Hacks_Always_Autoscroll()=0;
     virtual bool Hacks_Black_Piranha_Plants()=0;
-    virtual bool Hacks_Bouncy_Spiny_Eggs()=0;
     virtual bool Hacks_Enable_God_Mode()=0;
     virtual bool Hacks_Enable_Hitting_Underwater_Blocks()=0;
     virtual bool Hacks_Enable_Piranha_Plants_On_First_Level()=0;
@@ -165,6 +164,10 @@ public:
     virtual bool Hacks_Set_Number_Of_Levels_Per_World(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
     virtual bool Hacks_Speedy_Objects_And_Enemies()=0;
+    virtual bool Hacks_Spiny_Eggs_Bouncy()=0;
+    virtual bool Hacks_Spiny_Eggs_Chase_Mario()=0;
+    virtual bool Hacks_Spiny_Eggs_Explode_Into_Flames()=0;
+    virtual bool Hacks_Spiny_Eggs_No_Eggs()=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Unlimited_Time()=0;
     virtual bool Hacks_Write_Watermark()=0;

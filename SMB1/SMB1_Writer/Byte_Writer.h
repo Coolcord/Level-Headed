@@ -13,6 +13,7 @@ public:
     ~Byte_Writer();
 
 protected:
+    bool Read_Bytes_From_Offset(qint64 offset, int amount, QByteArray &bytes);
     bool Write_Bytes_To_Offset(qint64 offset, const QByteArray &bytes);
 
     QFile *file;

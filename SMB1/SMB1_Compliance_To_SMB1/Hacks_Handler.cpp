@@ -107,14 +107,24 @@ bool Hacks_Handler::Handle_Lakitus() {
     //Fix the Throw Arc
     if (this->pluginSettings->lakituThrowArc && !this->writerPlugin->Hacks_Fix_Lakitu_Throw_Arc()) return false;
 
-    //Handle the Spiny Egg Behavior
+    //Handle the Random Values for the Spiny Egg Behavior
     int spinyEggBehavior = this->pluginSettings->difficultySpinyEggBehavior;
-    if (spinyEggBehavior == 0) spinyEggBehavior = Random::Get_Instance().Get_Num(1)+1;
+    switch (spinyEggBehavior) {
+    default:    break;
+    case 0:     spinyEggBehavior = Random::Get_Instance().Get_Num(3, 7); break;
+    case 1:     spinyEggBehavior = Random::Get_Instance().Get_Num(4, 7); break;
+    case 2:     spinyEggBehavior = Random::Get_Instance().Get_Num(5, 7); break;
+    }
+
+    //Handle the Value for the Spiny Egg Behavior
     bool success = false;
     switch (spinyEggBehavior) {
     default:    assert(false); return false;
-    case 1:     success = true; break; //Normal
-    case 2:     success = this->writerPlugin->Hacks_Bouncy_Spiny_Eggs(); break; //Bouncy
+    case 3:     success = this->writerPlugin->Hacks_Spiny_Eggs_Bouncy(); break; //Bounce
+    case 4:     success = this->writerPlugin->Hacks_Spiny_Eggs_Chase_Mario(); break; //Chase Mario
+    case 5:     success = this->writerPlugin->Hacks_Spiny_Eggs_Explode_Into_Flames(); break; //Explode Into Flames
+    case 6:     success = this->writerPlugin->Hacks_Spiny_Eggs_No_Eggs(); break; //No Eggs
+    case 7:     success = true; break; //Normal
     }
     if (!success) return false;
 

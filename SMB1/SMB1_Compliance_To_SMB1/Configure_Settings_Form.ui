@@ -688,7 +688,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1294</y>
+            <y>-1252</y>
             <width>684</width>
             <height>1962</height>
            </rect>
@@ -1921,12 +1921,37 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>Normal</string>
+                    <string>Random (No Bounce)</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Bouncy</string>
+                    <string>Random Easy (Explode, No Eggs, Normal)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Bounce</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Chase Mario</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Explode Into Flames</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>No Eggs</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
                    </property>
                   </item>
                  </widget>

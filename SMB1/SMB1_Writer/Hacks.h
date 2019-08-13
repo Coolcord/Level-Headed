@@ -15,7 +15,6 @@ public:
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();
-    bool Bouncy_Spiny_Eggs();
     bool Disable_Intro_Demo();
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();
@@ -49,6 +48,10 @@ public:
     bool Set_Starting_Lives(int lives);
     void Set_Hammer_Suit_Active(bool isHammerSuitActive);
     bool Speedy_Objects_And_Enemies();
+    bool Spiny_Eggs_Bouncy();
+    bool Spiny_Eggs_Chase_Mario();
+    bool Spiny_Eggs_Explode_Into_Flames();
+    bool Spiny_Eggs_No_Eggs();
     bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();

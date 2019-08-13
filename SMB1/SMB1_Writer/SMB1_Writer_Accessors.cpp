@@ -499,11 +499,6 @@ bool SMB1_Writer::Hacks_Black_Piranha_Plants() {
     return this->hacks->Black_Piranha_Plants();
 }
 
-bool SMB1_Writer::Hacks_Bouncy_Spiny_Eggs() {
-    if (!this->hacks) return false;
-    return this->hacks->Bouncy_Spiny_Eggs();
-}
-
 bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Start_With_Fire_Flower_On_Room_Change()) return false;
@@ -646,6 +641,26 @@ bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
 bool SMB1_Writer::Hacks_Speedy_Objects_And_Enemies() {
     if (!this->hacks) return false;
     return this->hacks->Speedy_Objects_And_Enemies();
+}
+
+bool SMB1_Writer::Hacks_Spiny_Eggs_Bouncy() {
+    if (!this->hacks) return false;
+    return this->hacks->Spiny_Eggs_Bouncy();
+}
+
+bool SMB1_Writer::Hacks_Spiny_Eggs_Chase_Mario() {
+    if (!this->hacks) return false;
+    return this->hacks->Spiny_Eggs_Chase_Mario();
+}
+
+bool SMB1_Writer::Hacks_Spiny_Eggs_Explode_Into_Flames() {
+    if (!this->hacks) return false;
+    return this->hacks->Spiny_Eggs_Explode_Into_Flames();
+}
+
+bool SMB1_Writer::Hacks_Spiny_Eggs_No_Eggs() {
+    if (!this->hacks) return false;
+    return this->hacks->Spiny_Eggs_No_Eggs();
 }
 
 bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {

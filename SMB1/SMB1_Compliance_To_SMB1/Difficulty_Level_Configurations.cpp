@@ -138,7 +138,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
-    difficultySettings.spinyEggBehavior = 1; //Normal
+    difficultySettings.spinyEggBehavior = 1; //Random (No Bounce)
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spawnerPriority = 1;
@@ -190,7 +190,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
-    difficultySettings.spinyEggBehavior = 1; //Normal
+    difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
@@ -228,7 +228,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.standardOverworldLakitus = 3;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
-    difficultySettings.spinyEggBehavior = 1;
+    difficultySettings.spinyEggBehavior = 1; //Random (No Bounce)
     difficultySettings.replaceCastleLoops = 1; //random hard
     difficultySettings.maxLevelLength = 5; //Long
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
@@ -260,7 +260,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.undergroundLakitus = 3;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
-    difficultySettings.spinyEggBehavior = 2;
+    difficultySettings.spinyEggBehavior = 3; //bounce
     difficultySettings.maxLevelLength = 6; //Very Long
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.speedyObjectsAndEnemies = true;
@@ -325,6 +325,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
+    difficultySettings.spinyEggBehavior = 7; //normal
     return difficultySettings;
 }
 

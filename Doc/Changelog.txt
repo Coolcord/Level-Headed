@@ -1,6 +1,7 @@
 Next Update (v0.3.3)
 + Midpoints are always used regardless of how many levels there are per world
 + Flying Cheep-Cheep jump height now lower on Normal, Easy, and Very Easy difficulties
++ Added 3 new Spiny Egg behaviors (Chase Mario, Explode Into Flames, No Eggs)
 - Worlds can only be a max of 8 levels long instead of 9
 - Partially supported games are limited to 35 starting lives to help prevent graphical glitches
 
