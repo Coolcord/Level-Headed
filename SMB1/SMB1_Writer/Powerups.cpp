@@ -165,7 +165,7 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
 
 bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("10F0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("18E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, static_cast<char>(0x15)))) return false;
     if (!this->Write_Bytes_To_Offset(0x579A, QByteArray(1, static_cast<char>(0x15)))) return false;
@@ -182,6 +182,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
 
 bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("3D2D0F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3671, QByteArray(3, static_cast<char>(0xEA)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, static_cast<char>(0x05)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D6, QByteArray(1, static_cast<char>(0x07)))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
