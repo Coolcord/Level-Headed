@@ -420,8 +420,9 @@ bool Hacks::Spiny_Eggs_Bouncy() {
 }
 
 bool Hacks::Spiny_Eggs_Chase_Mario() {
-    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x10)))) return false;
-    return this->Write_Bytes_To_Offset(0x60E8, QByteArray::fromHex(QString("EAEA").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x4108, QByteArray::fromHex(QString("B516C912D005A905951E60A900951E60").toLatin1()))) return false; //only affect Spinies
+    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x0F)))) return false; //increase speed
+    return this->Write_Bytes_To_Offset(0x60E6, QByteArray::fromHex(QString("4CF8C060").toLatin1()));
 }
 
 bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
