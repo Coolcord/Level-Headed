@@ -10,6 +10,7 @@
 const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
 const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
+const static QString STRING_SPINY_EGGS_EXPLODE_INTO_FLAMES = "Spiny Eggs Explode Into Flames";
 
 Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
     assert(midpointWriter); assert(sequentialArchiveHandler); assert(text);
@@ -442,10 +443,11 @@ bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
 
     //Flame Sprites
     if (!this->Write_Bytes_To_Offset(0x88F0, QByteArray::fromHex(QString("00000000020B070E00000000000001030E070B02000000000301000000000000").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x8950, QByteArray::fromHex(QString("000000000503170E00000000000001030E17030500000000030100000000000014292B0F6F7F7F7F"
+    if (!this->Write_Bytes_To_Offset(0x8950, QByteArray::fromHex(QString("000000000503170E00000000000001030E17030500000000030100000000000014292B0F6F7F7F7F"
             "100000004204050584A0E4E8DAFEFDFD0000040000200000BFF6FA7C7C3F07071F1F1F0F0F030000"
             "BFFFBE1E3CFCF0E0E0F0F8F8F0E00000210527175B7FBFBF00002000000400002894D4F0F6FEFEFE"
-            "080000004220A0A0FDFF7D783C3F0F07070F1F1F0F070000FD6F5F3E3EFCE0E0F8F8F8F0F0C00000").toLatin1()));
+            "080000004220A0A0FDFF7D783C3F0F07070F1F1F0F070000FD6F5F3E3EFCE0E0F8F8F8F0F0C00000").toLatin1()))) return false;
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINY_EGGS_EXPLODE_INTO_FLAMES);
 }
 
 bool Hacks::Spiny_Eggs_No_Eggs() {
