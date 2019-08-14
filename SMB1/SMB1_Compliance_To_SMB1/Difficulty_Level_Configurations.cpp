@@ -138,7 +138,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.lakituThrowArc = true;
-    difficultySettings.spinyEggBehavior = 1; //Random (No Bounce)
+    difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spawnerPriority = 1;
