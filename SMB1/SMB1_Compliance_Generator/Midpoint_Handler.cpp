@@ -76,10 +76,10 @@ int Midpoint_Handler::Get_Midpoint() {
 }
 
 bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &page) {
-    //Absolute coordinates 0x3 and 0x4 must be clear
+    //Absolute coordinates 0x2 - 0x4 must be clear
     //Increment to 0x5 to fix
     int absoluteX = this->object->Get_Absolute_X(x);
-    if (absoluteX < 0x4) {
+    if (absoluteX < 0x3) {
         if (x+(5-absoluteX) > 0x10) return false;
         else x += (5-absoluteX);
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
