@@ -6,6 +6,7 @@
 #include "Text.h"
 #include <assert.h>
 #include <QTextStream>
+#include <QSet>
 
 const static qint64 DEFAULT_VERSION_OFFSET = 0x9F68;
 const static qint64 DEFAULT_PARTIAL_VERSION_OFFSET = 0x9F75;
@@ -54,6 +55,27 @@ bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
 bool Graphics::Change_1UP_Palette(int palette) {
     if (palette < 0 || palette > 3) return false;
     return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(palette)));
+}
+
+bool Graphics::Make_Sprite_Tiles_Transparent(const QByteArray &tiles) {
+    QSet<char> transparentTiles;
+    bool invert = false;
+    for (char sC : tiles) {
+        unsigned char c = static_cast<unsigned char>(sC);
+        qint64 spriteGraphicsOffset = 0x8010+(c*0x10); //get the graphics offset for the tile
+        if (transparentTiles.constFind(sC) != transparentTiles.constEnd()) continue; //tile already transparent
+        transparentTiles.insert(sC);
+        QByteArray graphicsBytes;
+        if (!this->Read_Bytes_From_Offset(spriteGraphicsOffset, 16, graphicsBytes)) return false; //get both "channels"
+        for (int i = 0; i < graphicsBytes.size(); ++i) {
+            unsigned char g = static_cast<unsigned char>(graphicsBytes.at(i));
+            if (invert) graphicsBytes.data()[i] = g&static_cast<char>(0x55); //turn every other byte transparent
+            else graphicsBytes.data()[i] = static_cast<char>(g&static_cast<char>(0xAA)); //turn every other byte transparent
+            invert = !invert;
+        }
+        if (!this->Write_Bytes_To_Offset(spriteGraphicsOffset, graphicsBytes)) return false;
+    }
+    return true;
 }
 
 bool Graphics::Write_Title_Screen_Core() {

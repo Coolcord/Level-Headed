@@ -3,6 +3,7 @@
 
 #include "Byte_Writer.h"
 
+class Graphics;
 class Midpoint_Writer;
 class Sequential_Archive_Handler;
 class Text;
@@ -12,6 +13,7 @@ class Hacks : public Byte_Writer {
 public:
     Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
     ~Hacks() {}
+    void Set_Graphics(Graphics *graphics);
     void Set_Powerups(Powerups *powerups);
     bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
     bool Add_Luigi_Game();
@@ -65,6 +67,7 @@ private:
     bool Enable_Walking_Hammer_Bros_In_World(int world);
     bool Skip_Lives_Screen();
 
+    Graphics *graphics;
     Powerups *powerups;
     Midpoint_Writer *midpointWriter;
     Sequential_Archive_Handler *sequentialArchiveHandler;

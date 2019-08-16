@@ -23,6 +23,7 @@ public:
     bool Apply_Title_Screen_1P_Fix(qint64 &versionOffset);
     bool Apply_Title_Screen_2P_Fix(qint64 &versionOffset);
     bool Change_1UP_Palette(int palette);
+    bool Make_Sprite_Tiles_Transparent(const QByteArray &tiles);
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
     bool Write_Title_Screen_For_Partial_Game();

@@ -1,4 +1,5 @@
 #include "Hacks.h"
+#include "Graphics.h"
 #include "Level_Offset.h"
 #include "Midpoint_Writer.h"
 #include "Powerups.h"
@@ -28,8 +29,12 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWr
     this->wasCastleLoopReplacedWithFireFlower = false;
 }
 
+void Hacks::Set_Graphics(Graphics *graphics) {
+    assert(graphics); this->graphics = graphics;
+}
+
 void Hacks::Set_Powerups(Powerups *powerups) {
-    this->powerups = powerups;
+    assert(powerups); this->powerups = powerups;
 }
 
 bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
@@ -423,7 +428,13 @@ bool Hacks::Spiny_Eggs_Bouncy() {
 bool Hacks::Spiny_Eggs_Chase_Mario() {
     if (!this->Write_Bytes_To_Offset(0x4108, QByteArray::fromHex(QString("B516C912D005A905951E60A900951E60").toLatin1()))) return false; //only affect Spinies
     if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x0F)))) return false; //increase speed
-    return this->Write_Bytes_To_Offset(0x60E6, QByteArray::fromHex(QString("4CF8C060").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x60E6, QByteArray::fromHex(QString("4CF8C060").toLatin1()))) return false; //chase Mario
+
+    //Make spiny eggs transparent
+    QByteArray bytes;
+    assert(this->graphics);
+    if (!this->Read_Bytes_From_Offset(0x677E, 12, bytes)) return false;
+    return this->graphics->Make_Sprite_Tiles_Transparent(bytes);
 }
 
 bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
