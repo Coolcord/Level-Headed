@@ -52,6 +52,7 @@ public:
     bool Set_Starting_Lives(int lives);
     void Set_Hammer_Suit_Active(bool isHammerSuitActive);
     bool Speedy_Objects_And_Enemies();
+    bool Spiny_Eggs_Do_Not_Break();
     bool Spiny_Eggs_Bouncy();
     bool Spiny_Eggs_Chase_Mario();
     bool Spiny_Eggs_Explode_Into_Flames();

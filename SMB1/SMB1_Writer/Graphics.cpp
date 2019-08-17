@@ -78,6 +78,41 @@ bool Graphics::Make_Sprite_Tiles_Transparent(const QByteArray &tiles) {
     return true;
 }
 
+bool Graphics::Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes) {
+    unsigned char c = static_cast<unsigned char>(tileID);
+    qint64 spriteGraphicsOffset = 0x8010+(c*0x10); //get the graphics offset for the tile
+    return this->Read_Bytes_From_Offset(spriteGraphicsOffset, 16, graphicsBytes);
+}
+
+bool Graphics::Perform_Horizontal_Flip(QByteArray &graphicsBytes) {
+    //Split the Two Channels
+    if (graphicsBytes.size() != 16) return false;
+    QByteArray channel1(8, static_cast<char>(0x00));
+    for (int i = 0; i < 8; ++i) channel1.data()[i] = this->Reverse_Bits(graphicsBytes.at(i));
+    QByteArray channel2(8, static_cast<char>(0x00));
+    for (int i = 0; i < 8; ++i) channel2.data()[i] = this->Reverse_Bits(graphicsBytes.at(i+8));
+    graphicsBytes = channel1+channel2;
+    return true;
+}
+
+bool Graphics::Perform_Vertical_Flip(QByteArray &graphicsBytes) {
+    //Simply Reverse the bytes in the two channels
+    if (graphicsBytes.size() != 16) return false;
+    QByteArray channel1(8, static_cast<char>(0x00));
+    for (int i = 0, j = 7; j > -1; ++i, --j) channel1.data()[i] = graphicsBytes.at(j);
+    QByteArray channel2(8, static_cast<char>(0x00));
+    for (int i = 0, j = 15; j > 7; ++i, --j) channel2.data()[i] = graphicsBytes.at(j);
+    graphicsBytes = channel1+channel2;
+    return true;
+}
+
+bool Graphics::Write_Graphics_Bytes_To_Sprite_Tile_ID(char tileID, const QByteArray &graphicsBytes) {
+    if (graphicsBytes.size() != 16) return false;
+    unsigned char c = static_cast<unsigned char>(tileID);
+    qint64 spriteGraphicsOffset = 0x8010+(c*0x10); //get the graphics offset for the tile
+    return this->Write_Bytes_To_Offset(spriteGraphicsOffset, graphicsBytes);
+}
+
 bool Graphics::Write_Title_Screen_Core() {
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     return this->Write_Bytes_To_Offset(0x9ED1, QByteArray::fromHex(QString("8702ABAD20894E452097"
@@ -174,4 +209,19 @@ void Graphics::Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchB
             }
         }
     }
+}
+
+char Graphics::Reverse_Bits(char byte) {
+    unsigned char b = static_cast<unsigned char>(byte);
+    unsigned char c = static_cast<unsigned char>(0x00);
+    unsigned char z = static_cast<unsigned char>(0x00);
+    if ((b&static_cast<unsigned char>(0x80)) > z) c += static_cast<unsigned char>(0x01);
+    if ((b&static_cast<unsigned char>(0x40)) > z) c += static_cast<unsigned char>(0x02);
+    if ((b&static_cast<unsigned char>(0x20)) > z) c += static_cast<unsigned char>(0x04);
+    if ((b&static_cast<unsigned char>(0x10)) > z) c += static_cast<unsigned char>(0x08);
+    if ((b&static_cast<unsigned char>(0x08)) > z) c += static_cast<unsigned char>(0x10);
+    if ((b&static_cast<unsigned char>(0x04)) > z) c += static_cast<unsigned char>(0x20);
+    if ((b&static_cast<unsigned char>(0x02)) > z) c += static_cast<unsigned char>(0x40);
+    if ((b&static_cast<unsigned char>(0x01)) > z) c += static_cast<unsigned char>(0x80);
+    return static_cast<char>(c);
 }

@@ -183,6 +183,7 @@ public:
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Spiny_Eggs_Bouncy();
     bool Hacks_Spiny_Eggs_Chase_Mario();
+    bool Hacks_Spiny_Eggs_Do_Not_Break();
     bool Hacks_Spiny_Eggs_Explode_Into_Flames();
     bool Hacks_Spiny_Eggs_No_Eggs();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();

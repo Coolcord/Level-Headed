@@ -166,6 +166,7 @@ public:
     virtual bool Hacks_Speedy_Objects_And_Enemies()=0;
     virtual bool Hacks_Spiny_Eggs_Bouncy()=0;
     virtual bool Hacks_Spiny_Eggs_Chase_Mario()=0;
+    virtual bool Hacks_Spiny_Eggs_Do_Not_Break()=0;
     virtual bool Hacks_Spiny_Eggs_Explode_Into_Flames()=0;
     virtual bool Hacks_Spiny_Eggs_No_Eggs()=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;

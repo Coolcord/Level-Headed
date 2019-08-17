@@ -653,6 +653,11 @@ bool SMB1_Writer::Hacks_Spiny_Eggs_Chase_Mario() {
     return this->hacks->Spiny_Eggs_Chase_Mario();
 }
 
+bool SMB1_Writer::Hacks_Spiny_Eggs_Do_Not_Break() {
+    if (!this->hacks) return false;
+    return this->hacks->Spiny_Eggs_Do_Not_Break();
+}
+
 bool SMB1_Writer::Hacks_Spiny_Eggs_Explode_Into_Flames() {
     if (!this->hacks) return false;
     return this->hacks->Spiny_Eggs_Explode_Into_Flames();

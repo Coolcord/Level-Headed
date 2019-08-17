@@ -24,6 +24,10 @@ public:
     bool Apply_Title_Screen_2P_Fix(qint64 &versionOffset);
     bool Change_1UP_Palette(int palette);
     bool Make_Sprite_Tiles_Transparent(const QByteArray &tiles);
+    bool Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes);
+    bool Perform_Horizontal_Flip(QByteArray &graphicsBytes);
+    bool Perform_Vertical_Flip(QByteArray &graphicsBytes);
+    bool Write_Graphics_Bytes_To_Sprite_Tile_ID(char tileID, const QByteArray &graphicsBytes);
     bool Write_Title_Screen_For_1_Player_Game();
     bool Write_Title_Screen_For_2_Player_Game();
     bool Write_Title_Screen_For_Partial_Game();
@@ -32,6 +36,7 @@ private:
     bool Write_Title_Screen_Core();
     QByteArray Get_Version_Bytes();
     void Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchBytes, qint64 &versionOffset);
+    char Reverse_Bits(char byte);
 
     Text *text;
     Sequential_Archive_Handler *sequentialArchiveHandler;

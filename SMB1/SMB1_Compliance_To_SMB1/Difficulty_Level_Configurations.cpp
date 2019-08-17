@@ -325,7 +325,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
-    difficultySettings.spinyEggBehavior = 7; //normal
+    difficultySettings.spinyEggBehavior = 8; //normal
     return difficultySettings;
 }
 

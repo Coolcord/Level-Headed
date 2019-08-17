@@ -420,6 +420,61 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     return this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x18)));
 }
 
+bool Hacks::Spiny_Eggs_Do_Not_Break() {
+    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x0F)))) return false; //increase speed
+
+    //Read the egg frames
+    QByteArray eggFrame1, eggFrame2;
+    if (!this->Read_Bytes_From_Offset(0x677E, 6, eggFrame1)) return false;
+    if (!this->Read_Bytes_From_Offset(0x6784, 6, eggFrame2)) return false;
+    if (static_cast<unsigned char>(eggFrame1.at(0)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(eggFrame1.at(1)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(eggFrame2.at(0)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(eggFrame2.at(1)) != static_cast<unsigned char>(0xFC)) {
+        return false; //the top two tiles are assumed to be the blank tiles. Fail if they are not.
+    }
+
+    //Read the spiny frames
+    QByteArray spinyFrame1, spinyFrame2;
+    if (!this->Read_Bytes_From_Offset(0x6772, 6, spinyFrame1)) return false;
+    if (!this->Read_Bytes_From_Offset(0x6778, 6, spinyFrame2)) return false;
+    if (static_cast<unsigned char>(spinyFrame1.at(0)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(spinyFrame1.at(1)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(spinyFrame2.at(0)) != static_cast<unsigned char>(0xFC) ||
+        static_cast<unsigned char>(spinyFrame2.at(1)) != static_cast<unsigned char>(0xFC)) {
+        return false; //the top two tiles are assumed to be the blank tiles. Fail if they are not.
+    }
+
+    //Read the Left Side from the Spiny Egg Graphics Data
+    QByteArray eggFrame1TopLeft, eggFrame1BottomLeft, eggFrame2TopLeft, eggFrame2BottomLeft;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(4), eggFrame1TopLeft)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(5), eggFrame1BottomLeft)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(4), eggFrame2TopLeft)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(5), eggFrame2BottomLeft)) return false;
+
+    //Get the Right Side
+    QByteArray eggFrame1TopRight = eggFrame1BottomLeft, eggFrame1BottomRight = eggFrame1TopLeft, eggFrame2TopRight = eggFrame2BottomLeft, eggFrame2BottomRight = eggFrame2TopLeft;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame1TopRight)) return false;
+    if (!this->graphics->Perform_Horizontal_Flip(eggFrame1TopRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame1BottomRight)) return false;
+    if (!this->graphics->Perform_Horizontal_Flip(eggFrame1BottomRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame2TopRight)) return false;
+    if (!this->graphics->Perform_Horizontal_Flip(eggFrame2TopRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame2BottomRight)) return false;
+    if (!this->graphics->Perform_Horizontal_Flip(eggFrame2BottomRight)) return false;
+
+    //Write the Egg Graphics Data over the Spiny Graphics Data
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(2), eggFrame1TopLeft)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(3), eggFrame1TopRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(4), eggFrame1BottomLeft)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(5), eggFrame1BottomRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(2), eggFrame2TopLeft)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(3), eggFrame2TopRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(4), eggFrame2BottomLeft)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(5), eggFrame2BottomRight)) return false;
+    return true;
+}
+
 bool Hacks::Spiny_Eggs_Bouncy() {
     if (!this->Write_Bytes_To_Offset(0x4101, QByteArray::fromHex(QString("D0034CE2E0B416C012D0034CD9DF20AEE1F0EF4CFFDF").toLatin1()))) return false;
     return this->Write_Bytes_To_Offset(0x6005, QByteArray::fromHex(QString("4CF1C0").toLatin1()));
@@ -427,14 +482,15 @@ bool Hacks::Spiny_Eggs_Bouncy() {
 
 bool Hacks::Spiny_Eggs_Chase_Mario() {
     if (!this->Write_Bytes_To_Offset(0x4108, QByteArray::fromHex(QString("B516C912D005A905951E60A900951E60").toLatin1()))) return false; //only affect Spinies
-    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x0F)))) return false; //increase speed
     if (!this->Write_Bytes_To_Offset(0x60E6, QByteArray::fromHex(QString("4CF8C060").toLatin1()))) return false; //chase Mario
 
-    //Make spiny eggs transparent
+    //Make Spiny Eggs transparent
     QByteArray bytes;
     assert(this->graphics);
     if (!this->Read_Bytes_From_Offset(0x677E, 12, bytes)) return false;
-    return this->graphics->Make_Sprite_Tiles_Transparent(bytes);
+    if (!this->graphics->Make_Sprite_Tiles_Transparent(bytes)) return false;
+
+    return this->Spiny_Eggs_Do_Not_Break();
 }
 
 bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
