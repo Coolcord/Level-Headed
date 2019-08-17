@@ -19,9 +19,7 @@ void Update_Thread::run() {
     const QString GITLAB_UPDATE_PAGE = "https://gitlab.com/Coolcord/Level-Headed";
     QStringList REMOTE_GIT_SERVERS;
     REMOTE_GIT_SERVERS << "https://github.com/Coolcord/Level-Headed.git";
-    REMOTE_GIT_SERVERS << "git@github.com:Coolcord/Level-Headed.git";
     REMOTE_GIT_SERVERS << "https://gitlab.com/Coolcord/Level-Headed.git";
-    REMOTE_GIT_SERVERS << "git@gitlab.com:Coolcord/Level-Headed.git";
     const bool FORCE_UPDATE_CHECK = false;
 
     //Run the update check
