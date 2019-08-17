@@ -332,6 +332,7 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
     if (!this->Write_Bytes_To_Offset(0x1054, QByteArray(1, static_cast<char>(0x00)))) return false;
     if (!this->Write_Bytes_To_Offset(0x104B, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false;
     if (!this->Write_Bytes_To_Offset(0x512B, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5161, QByteArray(1, static_cast<char>(value)))) return false; //world Bowser does not breathe fire
 
     //Apply the Walking Hammer Bros patch
     assert(this->difficultyWalkingHammerBros >= 1 && this->difficultyWalkingHammerBros <= 11);
