@@ -84,6 +84,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
         this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(2);
+        this->ui->comboHammerBrosThrowRate->setCurrentIndex(4);
         this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(7);

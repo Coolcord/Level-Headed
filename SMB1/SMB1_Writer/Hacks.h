@@ -50,6 +50,7 @@ public:
     bool Set_Number_Of_Levels_Per_World(int value);
     bool Set_Lakitu_Respawn_Speed(int value);
     bool Set_Starting_Lives(int lives);
+    bool Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate);
     void Set_Hammer_Suit_Active(bool isHammerSuitActive);
     bool Speedy_Objects_And_Enemies();
     bool Spiny_Eggs_Do_Not_Break();

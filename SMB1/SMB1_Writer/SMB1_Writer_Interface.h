@@ -163,6 +163,7 @@ public:
     virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
     virtual bool Hacks_Set_Number_Of_Levels_Per_World(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
+    virtual bool Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate)=0;
     virtual bool Hacks_Speedy_Objects_And_Enemies()=0;
     virtual bool Hacks_Spiny_Eggs_Bouncy()=0;
     virtual bool Hacks_Spiny_Eggs_Chase_Mario()=0;

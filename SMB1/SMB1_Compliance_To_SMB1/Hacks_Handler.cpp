@@ -215,6 +215,26 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     else speed = 5;
     if (!this->writerPlugin->Hacks_Set_Flying_Cheep_Cheep_Jump_Height(speed)) return false;
 
+    //Handle the Hammer Bros throw rate
+    speed = this->pluginSettings->difficultyHammerBrosThrowRate;
+    int easySpeed = 0, hardSpeed = 0;
+    switch (speed) {
+    default: assert(false); return false;
+    case 1:     easySpeed = 108; hardSpeed = 88; break;
+    case 2:     easySpeed = 88; hardSpeed = 68; break;
+    case 3:     easySpeed = 68; hardSpeed = 48; break;
+    case 4:     easySpeed = 48; hardSpeed = 28; break;
+    case 5:     easySpeed = 28; hardSpeed = 16; break;
+    case 6:     easySpeed = 16; hardSpeed = 9; break;
+    case 7:     easySpeed = 9; hardSpeed = 5; break;
+    case 8:     easySpeed = 1; hardSpeed = 1; break;
+    case 0:
+        easySpeed = Random::Get_Instance().Get_Num(1, 108);
+        hardSpeed = Random::Get_Instance().Get_Num(easySpeed, 108);
+        break;
+    }
+    if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
+
     //Handle the speedy enemies patch
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;

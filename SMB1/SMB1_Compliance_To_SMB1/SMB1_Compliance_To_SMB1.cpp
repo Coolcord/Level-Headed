@@ -234,6 +234,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight)) return false;
+    if (!configFile.Set_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate)) return false;
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
     if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
@@ -316,6 +317,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate);
     configFile.Get_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed);
     configFile.Get_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight);
+    configFile.Get_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate);
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
     configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);

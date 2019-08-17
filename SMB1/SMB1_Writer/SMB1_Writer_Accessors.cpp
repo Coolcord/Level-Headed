@@ -638,6 +638,11 @@ bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
     return this->hacks->Set_Starting_Lives(lives);
 }
 
+bool SMB1_Writer::Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Hammer_Bros_Throw_Rate(easyRate, hardRate);
+}
+
 bool SMB1_Writer::Hacks_Speedy_Objects_And_Enemies() {
     if (!this->hacks) return false;
     return this->hacks->Speedy_Objects_And_Enemies();

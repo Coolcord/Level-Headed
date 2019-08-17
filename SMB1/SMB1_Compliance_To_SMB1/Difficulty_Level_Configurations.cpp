@@ -77,6 +77,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
+    pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
@@ -89,6 +90,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
+    pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultyPiranhaPlantType = 1;
@@ -148,6 +150,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
+    difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
 }
@@ -171,6 +174,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.underwaterLakitus = 5;
     difficultySettings.underwaterSwimmingCheepCheeps = 2;
     difficultySettings.standardOverworldLakitus = 8;
+    difficultySettings.hammerBrosThrowRate = 1; //Extremely Infrequent
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
@@ -188,6 +192,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.minimumEnemyDistance = 8;
     difficultySettings.minimumUnderwaterEnemyDistance = 9;
     difficultySettings.bridgeFlyingCheepCheeps = 5;
+    difficultySettings.hammerBrosThrowRate = 2; //Very Infrequent
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
@@ -238,6 +243,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
+    difficultySettings.hammerBrosThrowRate = 4; //Normal
     return difficultySettings;
 }
 
@@ -267,6 +273,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.basicEnemySpeed = 3; //speedy
     difficultySettings.bulletBillFiringRate = 4; //frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
+    difficultySettings.hammerBrosThrowRate = 5; //Frequent
     return difficultySettings;
 }
 
@@ -298,6 +305,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.maxLevelLength = 7; //Maximum
+    difficultySettings.hammerBrosThrowRate = 8; //ludicrous
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
@@ -538,6 +546,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.basicEnemySpeed = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
+    difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

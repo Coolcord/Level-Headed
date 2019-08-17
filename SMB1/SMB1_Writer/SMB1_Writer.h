@@ -180,6 +180,7 @@ public:
     bool Hacks_Set_Number_Of_Worlds(int value);
     bool Hacks_Set_Number_Of_Levels_Per_World(int value);
     bool Hacks_Set_Starting_Lives(int lives);
+    bool Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate);
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Spiny_Eggs_Bouncy();
     bool Hacks_Spiny_Eggs_Chase_Mario();

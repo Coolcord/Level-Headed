@@ -374,6 +374,12 @@ bool Hacks::Set_Starting_Lives(int lives) {
     return true;
 }
 
+bool Hacks::Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate) {
+    if (easyRate < 0 || easyRate > 0xFF || hardRate < 0 || hardRate > 0xFF) return false;
+    if (!this->Write_Bytes_To_Offset(0x49DE, QByteArray(1, static_cast<char>(easyRate)))) return false;
+    return this->Write_Bytes_To_Offset(0x49DF, QByteArray(1, static_cast<char>(hardRate)));
+}
+
 void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {
     this->isHammerSuitActive = isHammerSuitActive;
 }

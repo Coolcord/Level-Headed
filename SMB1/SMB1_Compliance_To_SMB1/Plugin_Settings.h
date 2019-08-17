@@ -98,6 +98,7 @@ struct Plugin_Settings {
     int difficultyBulletBillFiringRate;
     int difficultyBulletBillSpeed;
     int difficultyFlyingCheepCheepJumpHeight;
+    int difficultyHammerBrosThrowRate;
     bool difficultySpeedyObjectsAndEnemies;
 };
 
