@@ -19,6 +19,7 @@ public:
     bool Replace_Fire_Flower_With_Double_Jump_Star();
     bool Replace_Fire_Flower_With_Fire_Star();
     bool Replace_Fire_Flower_With_Hammer_Suit();
+    bool Replace_Fire_Flower_With_Luigis_Fire_Flower();
     bool Replace_Fire_Flower_With_Poison_Bubbles();
     bool Replace_Fire_Flower_With_Power_Wand();
     bool Replace_Fire_Flower_With_Slime_Flower();

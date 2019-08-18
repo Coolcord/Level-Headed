@@ -126,6 +126,19 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
     return true;
 }
 
+bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
+    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("302719").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("32CE").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, static_cast<char>(0x0D)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0xFF)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61FA, QByteArray::fromHex(QString("090F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, static_cast<char>(0x01)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6D5D, QByteArray::fromHex(QString("01990202A981990602A941990A02A9C1").toLatin1()))) return false;
+    if (!this->graphics->Apply_Luigis_Fire_Flower_Fix()) return false;
+    this->primaryPowerupIsFireBased = true;
+    return true;
+}
+
 bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {
     if (!this->Write_Bytes_To_Offset(0x5F2, QByteArray(1, static_cast<char>(0x12)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;

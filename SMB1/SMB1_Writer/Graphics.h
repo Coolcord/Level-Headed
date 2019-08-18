@@ -16,6 +16,7 @@ public:
     bool Apply_Double_Jump_Star_Fix();
     bool Apply_Fire_Star_Fix();
     bool Apply_Hammer_Suit_Fix();
+    bool Apply_Luigis_Fire_Flower_Fix();
     bool Apply_Poison_Bubbles_Fix();
     bool Apply_Power_Wand_Fix();
     bool Apply_Slime_Flower_Fix();

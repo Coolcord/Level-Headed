@@ -854,6 +854,11 @@ bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Hammer_Suit() {
     return this->powerups->Replace_Fire_Flower_With_Hammer_Suit();
 }
 
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Luigis_Fire_Flower();
+}
+
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Poison_Bubbles() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Poison_Bubbles();

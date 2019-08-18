@@ -229,6 +229,7 @@ public:
     bool Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
     bool Powerups_Replace_Fire_Flower_With_Fire_Star();
     bool Powerups_Replace_Fire_Flower_With_Hammer_Suit();
+    bool Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower();
     bool Powerups_Replace_Fire_Flower_With_Poison_Bubbles();
     bool Powerups_Replace_Fire_Flower_With_Power_Wand();
     bool Powerups_Replace_Fire_Flower_With_Slime_Flower();
