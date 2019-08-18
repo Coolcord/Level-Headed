@@ -47,7 +47,11 @@ bool Powerups::Replace_1UP_With_Swimming_Mushroom() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("16270D").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("16270D").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3671, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("50B0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, static_cast<char>(0x15)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x579A, QByteArray::fromHex(QString("15F036C915").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, static_cast<char>(0x0D)))) return false;
     if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0xFF)))) return false;
     if (!this->Write_Bytes_To_Offset(0x61FA, QByteArray::fromHex(QString("090F").toLatin1()))) return false;
@@ -58,7 +62,7 @@ bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0502018383C57E3D1D0F07064E7F3B01").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("C1B1596D353B1F030040201008040000").toLatin1()))) return false;
     if (!this->graphics->Apply_Cutter_Flower_Fix()) return false;
-    this->primaryPowerupIsFireBased = true;
+    this->primaryPowerupIsFireBased = false;
     return true;
 }
 
