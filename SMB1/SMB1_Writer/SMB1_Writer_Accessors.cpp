@@ -834,6 +834,16 @@ bool SMB1_Writer::Powerups_Replace_1UP_With_Swimming_Mushroom() {
     return this->powerups->Replace_1UP_With_Swimming_Mushroom();
 }
 
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Bone_Caster() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Bone_Caster();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Coin_Flinger() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Coin_Flinger();
+}
+
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Cutter_Flower() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Cutter_Flower();
@@ -857,6 +867,11 @@ bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Hammer_Suit() {
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Luigis_Fire_Flower();
+}
+
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Pink_Fury() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Pink_Fury();
 }
 
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Poison_Bubbles() {

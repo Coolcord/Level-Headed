@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -513,6 +513,16 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Bone Caster</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Coin Flinger</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>Cutter Flower</string>
                    </property>
                   </item>
@@ -534,6 +544,11 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Luigi's Fire Flower</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Pink Fury</string>
                    </property>
                   </item>
                   <item>

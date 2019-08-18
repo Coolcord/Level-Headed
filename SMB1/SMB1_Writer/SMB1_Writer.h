@@ -225,11 +225,14 @@ public:
     bool Powerups_Replace_1UP_With_Poison_Mushroom();
     bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
     bool Powerups_Replace_1UP_With_Swimming_Mushroom();
+    bool Powerups_Replace_Fire_Flower_With_Bone_Caster();
+    bool Powerups_Replace_Fire_Flower_With_Coin_Flinger();
     bool Powerups_Replace_Fire_Flower_With_Cutter_Flower();
     bool Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
     bool Powerups_Replace_Fire_Flower_With_Fire_Star();
     bool Powerups_Replace_Fire_Flower_With_Hammer_Suit();
     bool Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower();
+    bool Powerups_Replace_Fire_Flower_With_Pink_Fury();
     bool Powerups_Replace_Fire_Flower_With_Poison_Bubbles();
     bool Powerups_Replace_Fire_Flower_With_Power_Wand();
     bool Powerups_Replace_Fire_Flower_With_Slime_Flower();

@@ -12,11 +12,14 @@ class Graphics : public Byte_Writer
 public:
     Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
     ~Graphics() {}
+    bool Apply_Bone_Caster_Fix();
+    bool Apply_Coin_Flinger_Fix();
     bool Apply_Cutter_Flower_Fix();
     bool Apply_Double_Jump_Star_Fix();
     bool Apply_Fire_Star_Fix();
     bool Apply_Hammer_Suit_Fix();
     bool Apply_Luigis_Fire_Flower_Fix();
+    bool Apply_Pink_Fury_Fix();
     bool Apply_Poison_Bubbles_Fix();
     bool Apply_Power_Wand_Fix();
     bool Apply_Slime_Flower_Fix();

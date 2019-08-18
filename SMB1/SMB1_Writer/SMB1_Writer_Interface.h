@@ -208,11 +208,14 @@ public:
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario()=0;
     virtual bool Powerups_Replace_1UP_With_Swimming_Mushroom()=0;
+    virtual bool Powerups_Replace_Fire_Flower_With_Bone_Caster()=0;
+    virtual bool Powerups_Replace_Fire_Flower_With_Coin_Flinger()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Cutter_Flower()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Double_Jump_Star()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Fire_Star()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Hammer_Suit()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower()=0;
+    virtual bool Powerups_Replace_Fire_Flower_With_Pink_Fury()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Poison_Bubbles()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Power_Wand()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Slime_Flower()=0;
