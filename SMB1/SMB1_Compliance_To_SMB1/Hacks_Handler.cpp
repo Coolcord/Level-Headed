@@ -34,11 +34,11 @@ bool Hacks_Handler::Write_Hacks() {
             if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
         }
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
+        if (!this->Handle_Powerup()) return false;
+        if (!this->Handle_Secondary_Mushroom()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
         if (!this->Handle_Enemy_Speed()) return false;
-        if (!this->Handle_Powerup()) return false;
-        if (!this->Handle_Secondary_Mushroom()) return false;
         if (!this->Handle_Replace_Castle_Loop()) return false;
         if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
         if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;

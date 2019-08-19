@@ -186,7 +186,7 @@ bool Powerups::Replace_Fire_Flower_With_Pink_Fury() {
     if (!this->Write_Bytes_To_Offset(0x3671, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("2DD3").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3CAE, QByteArray::fromHex(QString("01F009").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, static_cast<char>(0x15)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5765, QByteArray(1, static_cast<char>(0x15)))) return false; //TODO: THIS OFFSET CAUSES CRASHES ON SOME GAMES!
     if (!this->Write_Bytes_To_Offset(0x579A, QByteArray::fromHex(QString("15F036C915").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, static_cast<char>(0x02)))) return false;
