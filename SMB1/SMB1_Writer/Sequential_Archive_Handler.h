@@ -13,7 +13,7 @@ public:
     ~Sequential_Archive_Handler();
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
-    bool Apply_Graphics_Fix(const QString &fixName);
+    bool Apply_Graphics_Fix(const QString &fixName, const QString &fixType);
     bool Apply_Graphics_Fix(const QByteArray &patchBytes);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Music_Pack_At_Index(int index);
@@ -29,7 +29,7 @@ public:
     int Get_Number_Of_Graphics_Packs();
     int Get_Number_Of_Music_Packs();
     bool Is_Tone_Invalid(int tone);
-    QByteArray Read_Graphics_Fix(const QString &fixName);
+    QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType);
     bool Is_Hexagon_Line_End_Of_Header(const QString &line);
     bool Install_ROM_Patches(const QString &romName);
 

@@ -64,7 +64,8 @@ HEADERS += SMB1_Writer.h \
     Unfixed_ROM_Type.h \
     Sound.h \
     ../../Common_Files/Random.h \
-    ../../Common_Files/Version.h
+    ../../Common_Files/Version.h \
+    ../Common_SMB1_Files/Fix_Strings.h
 OTHER_FILES +=
 
 unix {

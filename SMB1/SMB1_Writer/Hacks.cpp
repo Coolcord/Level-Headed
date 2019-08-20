@@ -1,4 +1,5 @@
 #include "Hacks.h"
+#include "../Common_SMB1_Files/Fix_Strings.h"
 #include "Graphics.h"
 #include "Level_Offset.h"
 #include "Midpoint_Writer.h"
@@ -72,7 +73,7 @@ bool Hacks::Black_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, static_cast<char>(0x00)))) return false; //reduce inactive timer to 0
     if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, static_cast<char>(0x23)))) return false;
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS);
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS, Fix_Strings::STRING_GRAPHICS_PACK);
 }
 
 bool Hacks::Disable_Intro_Demo() {
@@ -163,7 +164,7 @@ bool Hacks::Red_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, static_cast<char>(0x13)))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, static_cast<char>(0x22)))) return false;
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_RED_PIRANHA_PLANTS);
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_RED_PIRANHA_PLANTS, Fix_Strings::STRING_GRAPHICS_PACK);
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
@@ -224,7 +225,7 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
         if (!this->Write_Bytes_To_Offset(0x8810, QByteArray::fromHex(QString("000000003C7E77FB0000000000183C0E9F5F8E20000000000E040000000000000502080307070703"
                 "0000000001030100C0E0F0F0B070E0C000004060E0C08000").toLatin1()))) return false;
     }
-    if (!this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS)) return false;
+    if (!this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_BROS, Fix_Strings::STRING_GRAPHICS_PACK)) return false;
     this->wasCastleLoopReplacedWithFireBros = true;
     return true;
 }
@@ -539,7 +540,7 @@ bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
             "100000004204050584A0E4E8DAFEFDFD0000040000200000BFF6FA7C7C3F07071F1F1F0F0F030000"
             "BFFFBE1E3CFCF0E0E0F0F8F8F0E00000210527175B7FBFBF00002000000400002894D4F0F6FEFEFE"
             "080000004220A0A0FDFF7D783C3F0F07070F1F1F0F070000FD6F5F3E3EFCE0E0F8F8F8F0F0C00000").toLatin1()))) return false;
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINY_EGGS_EXPLODE_INTO_FLAMES);
+    return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINY_EGGS_EXPLODE_INTO_FLAMES, Fix_Strings::STRING_GRAPHICS_PACK);
 }
 
 bool Hacks::Spiny_Eggs_No_Eggs() {

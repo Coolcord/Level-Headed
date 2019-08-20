@@ -2,6 +2,7 @@
 #include "../../Common_Files/Random.h"
 #include "../../Common_Files/Version.h"
 #include "../../Level-Headed/Common_Strings.h"
+#include "../Common_SMB1_Files/Fix_Strings.h"
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
 #include <assert.h>
@@ -52,8 +53,8 @@ void Sequential_Archive_Handler::Set_File(QFile *file) {
     this->file = file;
 }
 
-bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName) {
-    QByteArray patchBytes = this->Read_Graphics_Fix(fixName);
+bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName, const QString &fixType) {
+    QByteArray patchBytes = this->Read_Graphics_Fix(fixName, fixType);
     if (patchBytes.isEmpty()) return true; //nothing to apply
     return this->Apply_Graphics_Fix(patchBytes);
 }
@@ -157,10 +158,10 @@ bool Sequential_Archive_Handler::Is_Tone_Invalid(int tone) {
     return this->invalidTones->contains(tone);
 }
 
-QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName) {
+QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType) {
     if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
-    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+fixName+"/"+this->lastAppliedGraphicsPack);
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+fixType+"/"+fixName+"/"+this->lastAppliedGraphicsPack);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
 }
