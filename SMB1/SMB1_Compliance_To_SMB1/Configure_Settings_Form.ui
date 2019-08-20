@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -481,14 +481,25 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <widget class="QCheckBox" name="cbRandomSoundEffects">
-                <property name="text">
-                 <string>Random Sounds</string>
-                </property>
-                <property name="tristate">
-                 <bool>false</bool>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="cbRandomEffects">
+                <item>
+                 <widget class="QCheckBox" name="cbRandomSoundEffects">
+                  <property name="text">
+                   <string>Random Sounds</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="cbRandomBrickBreakAnimation">
+                  <property name="text">
+                   <string>Random Brick Break Animation</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
                <layout class="QVBoxLayout" name="layoutPowerup">

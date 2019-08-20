@@ -39,6 +39,7 @@ struct Plugin_Settings {
     bool combineMusicWithOtherPacks;
     int toneColor;
     bool randomSounds;
+    bool randomBrickBreakAnimation;
     int graphics;
     bool infiniteLives;
     bool permadeath;

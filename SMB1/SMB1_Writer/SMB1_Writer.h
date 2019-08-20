@@ -171,6 +171,7 @@ public:
     bool Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Basic_Enemy_Speed(int speed);
+    bool Hacks_Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight);
     bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate);
     bool Hacks_Set_Bullet_Bill_Speed(int speed);
     bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height);

@@ -292,6 +292,19 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
     }
 }
 
+bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {
+    if (lowerHeight < -127 || lowerHeight > 127) return false;
+    if (upperHeight < -127 || upperHeight > 127) return false;
+    int lowerValue = lowerHeight, upperValue = upperHeight;
+    if (lowerHeight > 0) lowerValue = 0x100 - lowerHeight;
+    if (upperHeight > 0) upperValue = 0x100 - upperHeight;
+    if (lowerHeight < 0) lowerValue = std::abs(lowerHeight);
+    if (upperHeight < 0) upperValue = std::abs(upperHeight);
+    if (!this->Write_Bytes_To_Offset(0x3E61, QByteArray(1, static_cast<char>(lowerValue)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3E7C, QByteArray(1, static_cast<char>(upperValue)))) return false;
+    return true;
+}
+
 bool Hacks::Set_Bullet_Bill_Firing_Rate(int rate) {
     if (rate < 1 || rate > 7) return false;
     return this->Write_Bytes_To_Offset(0x39D2, QByteArray(1, static_cast<char>(rate-1)));

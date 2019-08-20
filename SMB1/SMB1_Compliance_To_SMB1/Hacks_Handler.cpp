@@ -3,7 +3,6 @@
 #include "../SMB1_Writer/ROM_Filename.h"
 #include "../../Common_Files/Random.h"
 #include <assert.h>
-
 #include <QDebug>
 
 Hacks_Handler::Hacks_Handler(SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings) {
@@ -24,6 +23,7 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
         if (!this->Handle_Music()) return false;
         if (this->pluginSettings->randomSounds && !this->writerPlugin->Sound_Randomize_Sounds()) return false;
+        if (this->pluginSettings->randomBrickBreakAnimation && !this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 8), Random::Get_Instance().Get_Num(0, 8))) return false;
         if (!this->Handle_Names()) return false;
         if (!this->Handle_God_Mode()) return false;
         if (this->pluginSettings->difficultyUnlimitedTime && !this->writerPlugin->Hacks_Unlimited_Time()) return false;
@@ -34,7 +34,7 @@ bool Hacks_Handler::Write_Hacks() {
             if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
         }
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
-        if (!this->Handle_Powerup()) return false;
+        if (!this->Handle_Powerup()) return false; //must be applied BEFORE Lakitus
         if (!this->Handle_Secondary_Mushroom()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
