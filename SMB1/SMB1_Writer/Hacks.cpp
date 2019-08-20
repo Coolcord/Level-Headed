@@ -8,6 +8,7 @@
 #include "Text.h"
 #include <assert.h>
 #include <cmath>
+#include <QDebug>
 
 const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
@@ -294,6 +295,8 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
 }
 
 bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {
+    qDebug() << "Lower Height:" << lowerHeight;
+    qDebug() << "Upper Height:" << upperHeight;
     if (lowerHeight < -127 || lowerHeight > 127) return false;
     if (upperHeight < -127 || upperHeight > 127) return false;
     int lowerValue = lowerHeight, upperValue = upperHeight;
