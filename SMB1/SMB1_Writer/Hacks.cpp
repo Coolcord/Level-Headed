@@ -409,7 +409,6 @@ void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {
 
 bool Hacks::Speedy_Objects_And_Enemies() {
     //by L
-    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("50B0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D4, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, static_cast<char>(0x20)))) return false;
