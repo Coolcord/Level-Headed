@@ -6,8 +6,7 @@
 
 class Level_Offset;
 
-class Byte_Writer
-{
+class Byte_Writer {
 public:
     Byte_Writer(QFile *file, Level_Offset *levelOffset);
     ~Byte_Writer();

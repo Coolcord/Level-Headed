@@ -29,6 +29,8 @@ public:
     bool Replace_Fire_Flower_With_Spinball_Flower();
 
 private:
+    bool Update_Fire_Mario_Skin_Color();
+
     Graphics *graphics;
     Hacks *hacks;
     Sequential_Archive_Handler *sequentialArchiveHandler;

@@ -61,6 +61,7 @@ bool Powerups::Replace_Fire_Flower_With_Bone_Caster() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0000000000000000040E1F1F0F070303").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("00000000000000000303070F1F1F0E04").toLatin1()))) return false;
     if (!this->graphics->Apply_Bone_Caster_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -83,6 +84,7 @@ bool Powerups::Replace_Fire_Flower_With_Coin_Flinger() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("070F1F1F3F3F3F3F000007070E0D0D0D").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("3F3F3F3F1F1F0F070D0D0D0E07070000").toLatin1()))) return false;
     if (!this->graphics->Apply_Coin_Flinger_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -103,6 +105,7 @@ bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0502018383C57E3D1D0F07064E7F3B01").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("C1B1596D353B1F030040201008040000").toLatin1()))) return false;
     if (!this->graphics->Apply_Cutter_Flower_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -122,6 +125,7 @@ bool Powerups::Replace_Fire_Flower_With_Double_Jump_Star() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("01010202047842220000010103073D1D").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("12080810111628300D07070F0E081000").toLatin1()))) return false;
     if (!this->graphics->Apply_Double_Jump_Star_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -142,6 +146,7 @@ bool Powerups::Replace_Fire_Flower_With_Fire_Star() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("01010303077F7D3D0101020204784222").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1D0F0F1F1F1E38301208081011162830").toLatin1()))) return false;
     if (!this->graphics->Apply_Fire_Star_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = true;
     return true;
 }
@@ -162,6 +167,7 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("071F1F3F3F7A72300000000F18252D0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("1827273F1D1F0F0707181B0002000600").toLatin1()))) return false;
     if (!this->graphics->Apply_Hammer_Suit_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->hacks->Set_Hammer_Suit_Active(true);
     this->primaryPowerupIsFireBased = false;
     return true;
@@ -176,6 +182,7 @@ bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
     if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x6D5D, QByteArray::fromHex(QString("01990202A981990602A941990A02A9C1").toLatin1()))) return false;
     if (!this->graphics->Apply_Luigis_Fire_Flower_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = true;
     return true;
 }
@@ -196,6 +203,7 @@ bool Powerups::Replace_Fire_Flower_With_Pink_Fury() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("000000000102050B0000000000010306").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("162D2D160B0502010D1B1B0D06030100").toLatin1()))) return false;
     if (!this->graphics->Apply_Pink_Fury_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -216,6 +224,7 @@ bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0003070C0C0C07030000000000000000").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("01010101010101010000000000000000").toLatin1()))) return false;
     if (!this->graphics->Apply_Poison_Bubbles_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -236,6 +245,7 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("000105060B0D06030002030D060B0502").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("01010101010101010101010101010101").toLatin1()))) return false;
     if (!this->graphics->Apply_Power_Wand_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -253,6 +263,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("00000F1F1F0F00000F1F3F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("71FDC9C1F17D1F070000000000000000").toLatin1()))) return false;
     if (!this->graphics->Apply_Slime_Flower_Fix()) return false;
+    if (!this->Update_Fire_Mario_Skin_Color()) return false;
     this->primaryPowerupIsFireBased = false;
     return true;
 }
@@ -273,6 +284,12 @@ bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("0000000000000000000F1F38383F1F0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("010131393D1F0F030000000000000000").toLatin1()))) return false;
     if (!this->graphics->Apply_Spinball_Flower_Fix()) return false;
-    this->primaryPowerupIsFireBased = false;
+    this->primaryPowerupIsFireBased = false; //don't update the skin color for the spinball powerup
     return true;
+}
+
+bool Powerups::Update_Fire_Mario_Skin_Color() {
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x05E9, 1, bytes)) return false;
+    return this->Write_Bytes_To_Offset(0x05F1, bytes);
 }
