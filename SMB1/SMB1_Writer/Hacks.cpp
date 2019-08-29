@@ -23,6 +23,7 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWr
     this->midpointWriter = midpointWriter;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->difficultyWalkingHammerBros = 11;
+    this->spinyEggSpeedCap = 0x18;
     this->skipLivesScreen = false;
     this->isHammerSuitActive = false;
     this->wasCastleLoopReplacedWithAutoScrollObject = false;
@@ -295,8 +296,6 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
 }
 
 bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {
-    qDebug() << "Lower Height:" << lowerHeight;
-    qDebug() << "Upper Height:" << upperHeight;
     if (lowerHeight < -127 || lowerHeight > 127) return false;
     if (upperHeight < -127 || upperHeight > 127) return false;
     int lowerValue = lowerHeight, upperValue = upperHeight;
@@ -445,11 +444,11 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x5658, QByteArray(1, static_cast<char>(0x20)))) return false;
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x18)));
+    return this->Increase_Spiny_Egg_Speed(0x10);
 }
 
 bool Hacks::Spiny_Eggs_Do_Not_Break() {
-    if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x0F)))) return false; //increase speed
+    if (!this->Increase_Spiny_Egg_Speed(0x07)) return false;
 
     //Read the egg frames
     QByteArray eggFrame1, eggFrame2;
@@ -517,6 +516,7 @@ bool Hacks::Spiny_Eggs_Chase_Mario() {
     assert(this->graphics);
     if (!this->Read_Bytes_From_Offset(0x677E, 12, bytes)) return false;
     if (!this->graphics->Make_Sprite_Tiles_Transparent(bytes)) return false;
+    this->spinyEggSpeedCap = 0x13;
 
     return this->Spiny_Eggs_Do_Not_Break();
 }
@@ -534,6 +534,7 @@ bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
     }
 
     //Flames can't move left or right
+    this->spinyEggSpeedCap = 0;
     if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x00)))) return false;
 
     //Flame Sprites
@@ -612,6 +613,17 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
     --world;
     if (world < 0 || world > 0xF) return false;
     return this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()));
+}
+
+bool Hacks::Increase_Spiny_Egg_Speed(int amount) {
+    if (amount < 0 || amount > 127) return false;
+    assert(this->spinyEggSpeedCap >= 0x00 && this->spinyEggSpeedCap <= 0xFF);
+
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x60C4, 1, bytes)) return false;
+    bytes.data()[0] += static_cast<char>(amount);
+    if (bytes.data()[0] > this->spinyEggSpeedCap) bytes.data()[0] = static_cast<char>(this->spinyEggSpeedCap);
+    return this->Write_Bytes_To_Offset(0x60C4, bytes);
 }
 
 bool Hacks::Skip_Lives_Screen() {

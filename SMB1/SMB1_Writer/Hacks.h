@@ -69,6 +69,7 @@ public:
 private:
     bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
     bool Enable_Walking_Hammer_Bros_In_World(int world);
+    bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();
 
     Graphics *graphics;
@@ -77,6 +78,7 @@ private:
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     int difficultyWalkingHammerBros;
+    int spinyEggSpeedCap;
     bool skipLivesScreen;
     bool isHammerSuitActive;
     bool wasCastleLoopReplacedWithAutoScrollObject;
