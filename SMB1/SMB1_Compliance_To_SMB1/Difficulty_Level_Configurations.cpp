@@ -78,6 +78,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
+    pluginSettings->difficultyAllEnemiesDoNotWalkOffCliffs = difficultySettings.allEnemiesDoNotWalkOffCliffs;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
@@ -97,6 +98,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultySpinyEggBehavior = 1;
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
+    pluginSettings->difficultyAllEnemiesDoNotWalkOffCliffs = false;
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
     pluginSettings->superMarioOnDamage = false;
     pluginSettings->difficultyUnlimitedTime = false;
@@ -151,6 +153,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
+    difficultySettings.allEnemiesDoNotWalkOffCliffs = false;
     difficultySettings.speedyObjectsAndEnemies = false;
     return difficultySettings;
 }
@@ -269,6 +272,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.spinyEggBehavior = 3; //bounce
     difficultySettings.maxLevelLength = 6; //Very Long
     difficultySettings.lakituRespawnSpeed = 5;
+    difficultySettings.allEnemiesDoNotWalkOffCliffs = false;
     difficultySettings.speedyObjectsAndEnemies = true;
     difficultySettings.basicEnemySpeed = 3; //speedy
     difficultySettings.bulletBillFiringRate = 4; //frequent
@@ -311,6 +315,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.spawnerPriority = 0; //random
+    difficultySettings.allEnemiesDoNotWalkOffCliffs = true;
     return difficultySettings;
 }
 
@@ -547,6 +552,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
+    difficultySettings.allEnemiesDoNotWalkOffCliffs = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

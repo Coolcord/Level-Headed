@@ -151,6 +151,7 @@ public:
 
     //Hacks
     bool Hacks_Add_Luigi_Game();
+    bool Hacks_All_Enemies_Do_Not_Walk_Off_Cliffs();
     bool Hacks_Always_Autoscroll();
     bool Hacks_Black_Piranha_Plants();
     bool Hacks_Enable_God_Mode();

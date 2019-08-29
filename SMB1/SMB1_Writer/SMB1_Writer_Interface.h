@@ -134,6 +134,7 @@ public:
 
     //Hacks
     virtual bool Hacks_Add_Luigi_Game()=0;
+    virtual bool Hacks_All_Enemies_Do_Not_Walk_Off_Cliffs()=0;
     virtual bool Hacks_Always_Autoscroll()=0;
     virtual bool Hacks_Black_Piranha_Plants()=0;
     virtual bool Hacks_Enable_God_Mode()=0;

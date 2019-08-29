@@ -50,6 +50,7 @@ struct Difficulty_Level_Settings {
     int bulletBillSpeed;
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
+    bool allEnemiesDoNotWalkOffCliffs;
     bool speedyObjectsAndEnemies;
 };
 

@@ -236,6 +236,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
     //Handle the speedy enemies patch
+    if (this->pluginSettings->difficultyAllEnemiesDoNotWalkOffCliffs && !this->writerPlugin->Hacks_All_Enemies_Do_Not_Walk_Off_Cliffs()) return false;
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;
 }

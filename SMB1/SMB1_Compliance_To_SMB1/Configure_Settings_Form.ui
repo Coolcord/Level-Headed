@@ -719,9 +719,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-1360</y>
             <width>684</width>
-            <height>1995</height>
+            <height>2024</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2165,9 +2165,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbAllEnemiesDoNotWalkOffCliffs">
+                <property name="text">
+                 <string>All enemies do not walk off cliffs</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QCheckBox" name="cbSpeedyObjectsAndEnemies">
                 <property name="text">
-                 <string>Speedy Objects and Enemies</string>
+                 <string>Speedy objects and enemies</string>
                 </property>
                </widget>
               </item>
