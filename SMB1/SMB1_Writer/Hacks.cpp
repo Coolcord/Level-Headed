@@ -416,7 +416,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x3F8D, QByteArray(1, static_cast<char>(0x0C)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3F91, QByteArray(1, static_cast<char>(0x06)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3F9D, QByteArray::fromHex(QString("14A906").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x3FA3, QByteArray::fromHex(QString("2CA908").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3FCE, QByteArray(1, static_cast<char>(0x0A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3FD8, QByteArray(1, static_cast<char>(0x14)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3FDC, QByteArray(1, static_cast<char>(0x06)))) return false;
@@ -444,7 +443,7 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x5658, QByteArray(1, static_cast<char>(0x20)))) return false;
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
-    return this->Increase_Spiny_Egg_Speed(0x10);
+    return this->Increase_Spiny_Egg_Speed(0x09);
 }
 
 bool Hacks::Spiny_Eggs_Do_Not_Break() {
