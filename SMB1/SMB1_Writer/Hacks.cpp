@@ -329,6 +329,14 @@ bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
 }
 
+bool Hacks::Set_Enemy_Revive_Time(int time) {
+    if (time < 2 || time > 0xFF) return false;
+    int hardTime = time-5;
+    if (hardTime < 2) hardTime = 2;
+    if (!this->Write_Bytes_To_Offset(0x59E2, QByteArray(1, static_cast<char>(time)))) return false;
+    return this->Write_Bytes_To_Offset(0x59E3, QByteArray(1, static_cast<char>(hardTime)));
+}
+
 bool Hacks::Set_Flying_Cheep_Cheep_Jump_Height(int height) {
     if (height < 1 || height > 9) return false;
     return this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0x100-height)));
