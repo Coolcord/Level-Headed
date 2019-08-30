@@ -47,7 +47,7 @@ public:
     bool Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight);
     bool Set_Bullet_Bill_Firing_Rate(int rate);
     bool Set_Bullet_Bill_Speed(int speed);
-    bool Set_Enemy_Revive_Time(int time);
+    bool Set_Enemy_Revival_Speed(int speed);
     bool Set_Flying_Cheep_Cheep_Jump_Height(int height);
     bool Set_Number_Of_Worlds(int value);
     bool Set_Number_Of_Levels_Per_World(int value);

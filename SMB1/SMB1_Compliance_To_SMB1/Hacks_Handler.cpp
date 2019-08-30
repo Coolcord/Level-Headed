@@ -235,7 +235,17 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     }
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
-    //Handle the speedy enemies patch
+    //Handle the Enemy Revival Speed
+    switch (this->pluginSettings->difficultyEnemyRevivalSpeed) {
+    default: assert(false); return false;
+    case 0:     speed = Random::Get_Instance().Get_Num(3, 21); break;
+    case 1:     speed = 21; break;
+    case 2:     speed = 16; break;
+    case 3:     speed = 12; break;
+    case 4:     speed = 3; break;
+    }
+    if (!this->writerPlugin->Hacks_Set_Enemy_Revival_Time(speed)) return false;
+
     if (this->pluginSettings->difficultyAllEnemiesDoNotWalkOffCliffs && !this->writerPlugin->Hacks_All_Enemies_Do_Not_Walk_Off_Cliffs()) return false;
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;

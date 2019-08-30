@@ -719,9 +719,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1360</y>
+            <y>-1147</y>
             <width>684</width>
-            <height>2024</height>
+            <height>2057</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1783,6 +1783,46 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutEnemyRevivalSpeed">
+                <item>
+                 <widget class="QLabel" name="lblEnemyRevivalSpeed">
+                  <property name="text">
+                   <string>Enemy Revival Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboEnemyRevivalSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Delayed</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Goombas Respawn</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Goombas Respawn + Quick</string>
                    </property>
                   </item>
                  </widget>

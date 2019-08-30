@@ -76,6 +76,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
+    pluginSettings->difficultyEnemyRevivalSpeed = difficultySettings.enemyRevivalSpeed;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultyAllEnemiesDoNotWalkOffCliffs = difficultySettings.allEnemiesDoNotWalkOffCliffs;
@@ -90,6 +91,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBasicEnemySpeed = 1;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
+    pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
@@ -151,6 +153,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.basicEnemySpeed = 1;
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
+    difficultySettings.enemyRevivalSpeed = 2; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.allEnemiesDoNotWalkOffCliffs = false;
@@ -245,6 +248,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 2; //fast
     difficultySettings.bulletBillSpeed = 3; //fast
+    difficultySettings.enemyRevivalSpeed = 2; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     difficultySettings.hammerBrosThrowRate = 4; //Normal
     return difficultySettings;
@@ -314,6 +318,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.basicEnemySpeed = 4; //ludicrous
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
+    difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
     difficultySettings.allEnemiesDoNotWalkOffCliffs = true;
     return difficultySettings;
@@ -550,6 +555,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.piranhaPlantType = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
+    difficultySettings.enemyRevivalSpeed = 0; //0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.allEnemiesDoNotWalkOffCliffs = static_cast<bool>(Random::Get_Instance().Get_Num(1));

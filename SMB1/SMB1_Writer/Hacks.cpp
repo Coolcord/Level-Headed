@@ -329,11 +329,11 @@ bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
 }
 
-bool Hacks::Set_Enemy_Revive_Time(int time) {
-    if (time < 2 || time > 0xFF) return false;
-    int hardTime = time-5;
+bool Hacks::Set_Enemy_Revival_Speed(int speed) {
+    if (speed < 2 || speed > 0xFF) return false;
+    int hardTime = speed-5;
     if (hardTime < 2) hardTime = 2;
-    if (!this->Write_Bytes_To_Offset(0x59E2, QByteArray(1, static_cast<char>(time)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x59E2, QByteArray(1, static_cast<char>(speed)))) return false;
     return this->Write_Bytes_To_Offset(0x59E3, QByteArray(1, static_cast<char>(hardTime)));
 }
 

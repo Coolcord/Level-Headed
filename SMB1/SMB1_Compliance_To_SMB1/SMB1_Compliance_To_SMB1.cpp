@@ -234,6 +234,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed)) return false;
+    if (!configFile.Set_Value("Difficulty_Enemy_Revival_Speed", this->pluginSettings.difficultyEnemyRevivalSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate)) return false;
     if (!configFile.Set_Value("Difficulty_All_Enemies_Do_Not_Walk_Off_Cliffs", this->pluginSettings.difficultyAllEnemiesDoNotWalkOffCliffs)) return false;
@@ -319,6 +320,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed);
     configFile.Get_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate);
     configFile.Get_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed);
+    configFile.Get_Value("Difficulty_Enemy_Revival_Speed", this->pluginSettings.difficultyEnemyRevivalSpeed);
     configFile.Get_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight);
     configFile.Get_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate);
     configFile.Get_Value("Difficulty_All_Enemies_Do_Not_Walk_Off_Cliffs", this->pluginSettings.difficultyAllEnemiesDoNotWalkOffCliffs);

@@ -175,6 +175,7 @@ public:
     bool Hacks_Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight);
     bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate);
     bool Hacks_Set_Bullet_Bill_Speed(int speed);
+    bool Hacks_Set_Enemy_Revival_Time(int speed);
     bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height);
     bool Hacks_Set_Lakitu_Respawn_Speed(int value);
     bool Hacks_Set_Luigi_Name(const QString &name);
