@@ -12,6 +12,7 @@ public:
     bool Write_Hacks();
 
 private:
+    bool Handle_Animations();
     bool Handle_Auto_Scroll();
     bool Handle_Music();
     bool Handle_Graphics();

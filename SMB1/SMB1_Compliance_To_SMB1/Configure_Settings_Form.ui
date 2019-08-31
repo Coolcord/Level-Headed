@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -493,9 +493,9 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="cbRandomBrickBreakAnimation">
+                 <widget class="QCheckBox" name="cbRandomizeSomeAnimations">
                   <property name="text">
-                   <string>Random Brick Break Animation</string>
+                   <string>Randomize Some Animations</string>
                   </property>
                  </widget>
                 </item>

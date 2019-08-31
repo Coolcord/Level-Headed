@@ -23,7 +23,7 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Graphics()) return false; //graphics patches are typically the largest, so apply them first
         if (!this->Handle_Music()) return false;
         if (this->pluginSettings->randomSounds && !this->writerPlugin->Sound_Randomize_Sounds()) return false;
-        if (this->pluginSettings->randomBrickBreakAnimation && !this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 5), Random::Get_Instance().Get_Num(0, 9))) return false;
+        if (!this->Handle_Animations()) return false;
         if (!this->Handle_Names()) return false;
         if (!this->Handle_God_Mode()) return false;
         if (this->pluginSettings->difficultyUnlimitedTime && !this->writerPlugin->Hacks_Unlimited_Time()) return false;
@@ -48,6 +48,17 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
+}
+
+bool Hacks_Handler::Handle_Animations() {
+    if (!this->pluginSettings->randomizeSomeAnimations) return true; //nothing to do
+    if (!this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 5), Random::Get_Instance().Get_Num(0, 9))) return false;
+
+    //Set the Death Animation Jump Height
+    int deathJumpHeight = Random::Get_Instance().Get_Num(0, 7);
+    if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(deathJumpHeight)) return false;
+
+    return true;
 }
 
 bool Hacks_Handler::Handle_Music() {

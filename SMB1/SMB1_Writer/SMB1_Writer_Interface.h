@@ -157,6 +157,7 @@ public:
     virtual bool Hacks_Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight)=0;
     virtual bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate)=0;
     virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;
+    virtual bool Hacks_Set_Death_Animation_Jump_Height(int height)=0;
     virtual bool Hacks_Set_Enemy_Revival_Time(int speed)=0;
     virtual bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height)=0;
     virtual bool Hacks_Set_Lakitu_Respawn_Speed(int value)=0;

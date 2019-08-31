@@ -65,15 +65,15 @@ bool SMB1_Compliance_To_SMB1::Run() {
         return false;
     }
 
-    //Apply Hacks
-    assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
-
     //Handle the Difficulty Settings
     if (this->pluginSettings.difficultyComboIndex == 1) { //Random Difficulty
         Difficulty_Level_Configurations().Random(&this->pluginSettings, this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
     } else { //get the expected values for the specified present
         Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(this->pluginSettings.difficultyComboIndex, &this->pluginSettings, this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
     }
+
+    //Apply Hacks
+    assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
 
     //Generate the levels
     Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
@@ -224,7 +224,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks)) return false;
     if (!configFile.Set_Value("Tone_Color", this->pluginSettings.toneColor)) return false;
     if (!configFile.Set_Value("Random_Sound_Effects", this->pluginSettings.randomSounds)) return false;
-    if (!configFile.Set_Value("Random_Brick_Break_Animation", this->pluginSettings.randomBrickBreakAnimation)) return false;
+    if (!configFile.Set_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations)) return false;
     if (!configFile.Set_Value("Graphics", this->pluginSettings.graphics)) return false;
     if (!configFile.Set_Value("Infinite_Lives", this->pluginSettings.infiniteLives)) return false;
     if (!configFile.Set_Value("Permadeath", this->pluginSettings.permadeath)) return false;
@@ -309,7 +309,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks);
     configFile.Get_Value("Tone_Color", this->pluginSettings.toneColor);
     configFile.Get_Value("Random_Sound_Effects", this->pluginSettings.randomSounds);
-    configFile.Get_Value("Random_Brick_Break_Animation", this->pluginSettings.randomBrickBreakAnimation);
+    configFile.Get_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations);
     configFile.Get_Value("Graphics", this->pluginSettings.graphics);
     configFile.Get_Value("Infinite_Lives", this->pluginSettings.infiniteLives);
     configFile.Get_Value("Permadeath", this->pluginSettings.permadeath);
@@ -352,7 +352,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.combineMusicWithOtherPacks = true;
     this->pluginSettings.toneColor = 0;
     this->pluginSettings.randomSounds = true;
-    this->pluginSettings.randomBrickBreakAnimation = true;
+    this->pluginSettings.randomizeSomeAnimations = true;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.permadeath = false;

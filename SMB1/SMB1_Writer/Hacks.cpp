@@ -310,6 +310,13 @@ bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
 }
 
+bool Hacks::Set_Death_Animation_Jump_Height(int height) {
+    if (height < 0 || height > 127) return false;
+    int value = 0;
+    if (height > 0) value = 0x100-height;
+    return this->Write_Bytes_To_Offset(0x596E, QByteArray(1, static_cast<char>(value)));
+}
+
 bool Hacks::Set_Enemy_Revival_Speed(int speed) {
     if (speed < 2 || speed > 0xFF) return false;
     int hardTime = speed-5;
