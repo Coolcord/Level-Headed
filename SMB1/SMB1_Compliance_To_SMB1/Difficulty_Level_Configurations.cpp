@@ -83,6 +83,35 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
+bool Difficulty_Level_Configurations::Update_Plugin_Settings_For_Difficulty_Present(int difficulty, Plugin_Settings *pluginSettings, bool partialSupport) {
+    switch (difficulty) {
+    default: return false; //unknown difficulty present
+    case 0:  return true; //nothing to do for custom difficulties here
+    case 1:  return true; //nothing to do for random difficulties here
+    case 2:  Difficulty_Level_Configurations().Very_Easy(pluginSettings, partialSupport); return true;
+    case 3:  Difficulty_Level_Configurations().Easy(pluginSettings, partialSupport); return true;
+    case 4:  Difficulty_Level_Configurations().Normal(pluginSettings, partialSupport); return true;
+    case 5:  Difficulty_Level_Configurations().Hard(pluginSettings, partialSupport); return true;
+    case 6:  Difficulty_Level_Configurations().Very_Hard(pluginSettings, partialSupport); return true;
+    case 7:  Difficulty_Level_Configurations().Brutal(pluginSettings, partialSupport); return true;
+    case 8:  Difficulty_Level_Configurations().Purist(pluginSettings, partialSupport); return true;
+    case 9:  Difficulty_Level_Configurations().Purist_And_Auto_Scroll(pluginSettings, partialSupport); return true;
+    case 10: Difficulty_Level_Configurations().Purist_And_No_Hammer_Bros(pluginSettings, partialSupport); return true;
+    case 11: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc(pluginSettings, partialSupport); return true;
+    case 12: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(pluginSettings, partialSupport); return true;
+    case 13: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(pluginSettings, partialSupport); return true;
+    case 14: Difficulty_Level_Configurations().Walk_In_The_Park(pluginSettings, partialSupport); return true;
+    case 15: Difficulty_Level_Configurations().Just_Keep_Scrolling(pluginSettings, partialSupport); return true;
+    case 16: Difficulty_Level_Configurations().Riddled_With_Bullets(pluginSettings, partialSupport); return true;
+    case 17: Difficulty_Level_Configurations().Lakitus_Challenge(pluginSettings, partialSupport); return true;
+    case 18: Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(pluginSettings, partialSupport); return true;
+    case 19: Difficulty_Level_Configurations().Hammer_Time(pluginSettings, partialSupport); return true;
+    case 20: Difficulty_Level_Configurations().Extreme_Hammer_Time(pluginSettings, partialSupport); return true;
+    case 21: Difficulty_Level_Configurations().Turn_Up_The_Heat(pluginSettings, partialSupport); return true;
+    case 22: Difficulty_Level_Configurations().Too_Hot_To_Handle(pluginSettings, partialSupport); return true;
+    }
+}
+
 void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings) {
     pluginSettings->difficultyAutoScroll = 11;
     pluginSettings->difficultyWalkingHammerBros = 11;

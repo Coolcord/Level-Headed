@@ -9,6 +9,7 @@ public:
     Difficulty_Level_Configurations() {}
     ~Difficulty_Level_Configurations() {}
     void Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings, bool disableASM);
+    bool Update_Plugin_Settings_For_Difficulty_Present(int difficulty, Plugin_Settings *pluginSettings, bool partialSupport);
 
     void Very_Easy(Plugin_Settings *pluginSettings, bool disableASM);
     void Easy(Plugin_Settings *pluginSettings, bool disableASM);

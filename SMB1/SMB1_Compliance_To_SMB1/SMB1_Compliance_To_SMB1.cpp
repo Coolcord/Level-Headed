@@ -69,8 +69,10 @@ bool SMB1_Compliance_To_SMB1::Run() {
     assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
 
     //Handle the Difficulty Settings
-    if (this->pluginSettings.difficultyComboIndex == 1) {
+    if (this->pluginSettings.difficultyComboIndex == 1) { //Random Difficulty
         Difficulty_Level_Configurations().Random(&this->pluginSettings, this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
+    } else { //get the expected values for the specified present
+        Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(this->pluginSettings.difficultyComboIndex, &this->pluginSettings, this->pluginSettings.baseROM.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT));
     }
 
     //Generate the levels
