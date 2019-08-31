@@ -150,7 +150,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
-    difficultySettings.basicEnemySpeed = 1;
+    difficultySettings.basicEnemySpeed = 3; //Normal
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.enemyRevivalSpeed = 2; //Normal
@@ -182,6 +182,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.hammerBrosThrowRate = 1; //Extremely Infrequent
     difficultySettings.lakituRespawnSpeed = 2;
+    difficultySettings.basicEnemySpeed = 1; //Very Slow
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.unlimitedTime = true;
@@ -199,6 +200,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.minimumUnderwaterEnemyDistance = 9;
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.hammerBrosThrowRate = 2; //Very Infrequent
+    difficultySettings.basicEnemySpeed = 2; //Slow
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
@@ -246,7 +248,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.piranhaPlantType = 2; //red
-    difficultySettings.basicEnemySpeed = 2; //fast
+    difficultySettings.basicEnemySpeed = 4; //Fast
     difficultySettings.bulletBillSpeed = 3; //fast
     difficultySettings.enemyRevivalSpeed = 2; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
@@ -278,7 +280,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.lakituRespawnSpeed = 5;
     difficultySettings.allEnemiesDoNotWalkOffCliffs = false;
     difficultySettings.speedyObjectsAndEnemies = true;
-    difficultySettings.basicEnemySpeed = 3; //speedy
+    difficultySettings.basicEnemySpeed = 6; //Speedy
     difficultySettings.bulletBillFiringRate = 4; //frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
     difficultySettings.hammerBrosThrowRate = 5; //Frequent
@@ -315,7 +317,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.maxLevelLength = 7; //Maximum
     difficultySettings.hammerBrosThrowRate = 8; //ludicrous
     difficultySettings.lakituRespawnSpeed = 6;
-    difficultySettings.basicEnemySpeed = 4; //ludicrous
+    difficultySettings.basicEnemySpeed = 7; //ludicrous
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick

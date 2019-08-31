@@ -266,33 +266,18 @@ bool Hacks::Replace_Mario_With_Luigi() {
 }
 
 bool Hacks::Set_Basic_Enemy_Speed(int speed) {
-    if (speed < 1 || speed > 8) return false;
-    QByteArray speedBytes;
-    switch (speed) {
-    default:    assert(false); return false;
-    case 1:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x01)));
-    case 2:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x02)));
-    case 3:
-        speedBytes.append(static_cast<char>(0xE8));
-        speedBytes.append(static_cast<char>(0xE4));
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 4:
-        speedBytes.append(static_cast<char>(0xD8));
-        speedBytes.append(static_cast<char>(0xD4));
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 5:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x08)));
-    case 6:
-        speedBytes.append(static_cast<char>(0xC8));
-        speedBytes.append(static_cast<char>(0xC4));
-        return this->Write_Bytes_To_Offset(0x431C, speedBytes);
-    case 7:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0D)));
-    case 8:
-        return this->Write_Bytes_To_Offset(0x431F, QByteArray(1, static_cast<char>(0x0B)));
-    }
+    if (speed < 1 || speed > 127) return false; //negative values are technically possible, but the enemies will get stuck in walls
+    int easySpeed = 0x100-speed;
+    int hardSpeed = easySpeed-4;
+    int invertedHardSpeed = speed+4;
+    if (!this->Write_Bytes_To_Offset(0x431C, QByteArray(1, static_cast<char>(easySpeed)))) return false; //basic enemy speed
+    if (!this->Write_Bytes_To_Offset(0x431D, QByteArray(1, static_cast<char>(hardSpeed)))) return false; //basic enemy speed on hard mode
+    if (!this->Write_Bytes_To_Offset(0x49E4, QByteArray(1, static_cast<char>(speed)))) return false; //right speed after revive
+    if (!this->Write_Bytes_To_Offset(0x49E5, QByteArray(1, static_cast<char>(easySpeed)))) return false; //left speed after revive
+    if (!this->Write_Bytes_To_Offset(0x49E6, QByteArray(1, static_cast<char>(invertedHardSpeed)))) return false; //right speed after revive
+    if (!this->Write_Bytes_To_Offset(0x49E7, QByteArray(1, static_cast<char>(hardSpeed)))) return false; //left speed after revive
+    if (!this->Write_Bytes_To_Offset(0x5861, QByteArray(1, static_cast<char>(speed)))) return false; //right speed after stomping paratroopa
+    return this->Write_Bytes_To_Offset(0x5862, QByteArray(1, static_cast<char>(easySpeed))); //left speed after stomping paratroopa
 }
 
 bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {

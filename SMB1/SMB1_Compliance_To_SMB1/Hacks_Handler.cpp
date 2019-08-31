@@ -193,9 +193,21 @@ bool Hacks_Handler::Handle_God_Mode() {
 
 bool Hacks_Handler::Handle_Enemy_Speed() {
     //Handle basic enemy speed
-    int speed = this->pluginSettings->difficultyBasicEnemySpeed;
-    if (speed == 0) speed = Random::Get_Instance().Get_Num(3)+1; //random all
-    if (speed == 4) speed = 5; //increase speed for ludicrous setting
+    int speed = 0;
+    switch (this->pluginSettings->difficultyBasicEnemySpeed) {
+    default:    assert(false); return false;
+    case 1:     speed = 4; break;  //Very Slow
+    case 2:     speed = 6; break;  //Slow
+    case 3:     speed = 8; break;  //Normal
+    case 4:     speed = 12; break; //Fast
+    case 5:     speed = 18; break; //Very Fast
+    case 6:     speed = 24; break; //Speedy
+    case 7:     speed = 48; break; //Ludicrous Speed!
+    case 0:     //Random
+        speed = Random::Get_Instance().Get_Num(4, 25);
+        if (speed == 25) speed = 48;
+        break;
+    }
     if (!this->writerPlugin->Hacks_Set_Basic_Enemy_Speed(speed)) return false;
 
     //Handle bullet bill speed

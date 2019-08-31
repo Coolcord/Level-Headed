@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -719,7 +719,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1147</y>
+            <y>-988</y>
             <width>684</width>
             <height>2057</height>
            </rect>
@@ -1667,12 +1667,27 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Very Slow</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Slow</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>Normal</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
                     <string>Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Fast</string>
                    </property>
                   </item>
                   <item>
