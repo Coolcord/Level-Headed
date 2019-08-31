@@ -45,6 +45,7 @@ public:
     bool Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Replace_Mario_With_Luigi();
     bool Set_Basic_Enemy_Speed(int speed);
+    bool Set_Bowser_Bridge_Destruction_Speed(int speed);
     bool Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight);
     bool Set_Bullet_Bill_Firing_Rate(int rate);
     bool Set_Bullet_Bill_Speed(int speed);

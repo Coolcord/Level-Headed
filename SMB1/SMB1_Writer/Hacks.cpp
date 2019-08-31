@@ -293,6 +293,11 @@ bool Hacks::Set_Basic_Enemy_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x5862, QByteArray(1, static_cast<char>(easySpeed))); //left speed after stomping paratroopa
 }
 
+bool Hacks::Set_Bowser_Bridge_Destruction_Speed(int speed) {
+    if (speed < 1 || speed > 20) return false;
+    return this->Write_Bytes_To_Offset(0x502B, QByteArray(1, static_cast<char>(speed)));
+}
+
 bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {
     if (lowerHeight < -127 || lowerHeight > 127) return false;
     if (upperHeight < -127 || upperHeight > 127) return false;

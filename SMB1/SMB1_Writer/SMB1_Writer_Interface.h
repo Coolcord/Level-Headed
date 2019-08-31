@@ -156,6 +156,7 @@ public:
     virtual bool Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
     virtual bool Hacks_Set_Basic_Enemy_Speed(int speed)=0;
+    virtual bool Hacks_Set_Bowser_Bridge_Destruction_Speed(int speed)=0;
     virtual bool Hacks_Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight)=0;
     virtual bool Hacks_Set_Bullet_Bill_Firing_Rate(int rate)=0;
     virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;

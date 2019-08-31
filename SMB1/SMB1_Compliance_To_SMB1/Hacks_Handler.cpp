@@ -66,6 +66,7 @@ bool Hacks_Handler::Handle_Animations() {
     } else {
         if (!this->writerPlugin->Hacks_Destroy_Bowser_Bridge_Randomly()) return false;
     }
+    if (!this->writerPlugin->Hacks_Set_Bowser_Bridge_Destruction_Speed(Random::Get_Instance().Get_Num(1, 6))) return false;
 
     return true;
 }
