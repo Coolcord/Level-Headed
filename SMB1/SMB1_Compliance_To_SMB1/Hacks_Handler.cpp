@@ -55,8 +55,17 @@ bool Hacks_Handler::Handle_Animations() {
     if (!this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 5), Random::Get_Instance().Get_Num(0, 9))) return false;
 
     //Set the Death Animation Jump Height
-    int deathJumpHeight = Random::Get_Instance().Get_Num(0, 7);
-    if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(deathJumpHeight)) return false;
+    int num = Random::Get_Instance().Get_Num(0, 7);
+    if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(num)) return false;
+
+    //Handle the Bowser Bridge Destruction Order
+    if (Random::Get_Instance().Get_Num(0, 1)) {
+        if (Random::Get_Instance().Get_Num(0, 1)) {
+            if (!this->writerPlugin->Hacks_Destroy_Bowser_Bridge_Backwards()) return false;
+        }
+    } else {
+        if (!this->writerPlugin->Hacks_Destroy_Bowser_Bridge_Randomly()) return false;
+    }
 
     return true;
 }

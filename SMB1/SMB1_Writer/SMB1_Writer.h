@@ -153,6 +153,8 @@ public:
     bool Hacks_Add_Luigi_Game();
     bool Hacks_Always_Autoscroll();
     bool Hacks_Black_Piranha_Plants();
+    bool Hacks_Destroy_Bowser_Bridge_Backwards();
+    bool Hacks_Destroy_Bowser_Bridge_Randomly();
     bool Hacks_Enable_God_Mode();
     bool Hacks_Enable_Hitting_Underwater_Blocks();
     bool Hacks_Enable_Piranha_Plants_On_First_Level();

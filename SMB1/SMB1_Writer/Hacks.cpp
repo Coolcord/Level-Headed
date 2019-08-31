@@ -1,4 +1,5 @@
 #include "Hacks.h"
+#include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Fix_Strings.h"
 #include "Graphics.h"
 #include "Level_Offset.h"
@@ -72,6 +73,22 @@ bool Hacks::Black_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x5416, QByteArray(1, static_cast<char>(0x00)))) return false; //reduce inactive timer to 0
     if (!this->Write_Bytes_To_Offset(0x6878, QByteArray(1, static_cast<char>(0x23)))) return false;
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BLACK_PIRANHA_PLANTS, Fix_Strings::STRING_GRAPHICS_PACK);
+}
+
+bool Hacks::Destroy_Bowser_Bridge_Backwards() {
+    return this->Write_Bytes_To_Offset(0x4FEF, QByteArray::fromHex(QString("80828486888A8C8E9092949698").toLatin1()));
+}
+
+bool Hacks::Destroy_Bowser_Bridge_Randomly() {
+    QByteArray bridgeBytes = QByteArray::fromHex(QString("80828486888A8C8E9092949698").toLatin1());
+    QByteArray bytes(bridgeBytes.size(), static_cast<char>(0x00));
+    int maxValue = bridgeBytes.size();
+    for (int i = 0; i < maxValue; ++i) {
+        int index = Random::Get_Instance().Get_Num(0, bridgeBytes.size()-1);
+        bytes.data()[i] = bridgeBytes.at(index);
+        bridgeBytes.remove(index, 1);
+    }
+    return this->Write_Bytes_To_Offset(0x4FEF, bytes);
 }
 
 bool Hacks::Disable_Intro_Demo() {
