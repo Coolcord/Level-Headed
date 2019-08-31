@@ -4,7 +4,6 @@ Next Update (v0.3.3)
 + Added 4 new Spiny Egg behaviors (Chase Mario, Don't Break, Explode Into Flames, and No Eggs)
 + Added 4 new powerups (Bone Caster, Coin Flinger, Luigi's Fire Flower, and Pink Fury)
 + The amount of hammers the Hammer Bros. throw is based on the difficulty
-+ All enemies do not walk off cliffs on Brutal difficulty
 + Basic enemy speed is now slower on Easy and Very Easy difficulties
 + Enemy revival speed is now modified on Random difficulty
 - Worlds can only be a max of 8 levels long instead of 9

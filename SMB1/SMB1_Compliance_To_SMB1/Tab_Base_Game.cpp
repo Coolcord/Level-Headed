@@ -92,7 +92,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(7);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(1);
-        this->ui->cbAllEnemiesDoNotWalkOffCliffs->setChecked(false);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
@@ -144,7 +143,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblReplaceCastleLoops->setEnabled(!enabled);
     this->ui->comboReplaceCastleLoops->setEnabled(!enabled);
     this->ui->layoutReplaceCastleLoops->setEnabled(!enabled);
-    this->ui->cbAllEnemiesDoNotWalkOffCliffs->setEnabled(!enabled);
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);

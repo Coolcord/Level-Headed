@@ -16,7 +16,6 @@ public:
     void Set_Graphics(Graphics *graphics);
     void Set_Powerups(Powerups *powerups);
     bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
-    bool All_Enemies_Do_Not_Walk_Off_Cliffs();
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();

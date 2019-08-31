@@ -489,11 +489,6 @@ bool SMB1_Writer::Hacks_Add_Luigi_Game() {
     return this->hacks->Add_Luigi_Game();
 }
 
-bool SMB1_Writer::Hacks_All_Enemies_Do_Not_Walk_Off_Cliffs() {
-    if (!this->hacks) return false;
-    return this->hacks->All_Enemies_Do_Not_Walk_Off_Cliffs();
-}
-
 bool SMB1_Writer::Hacks_Always_Autoscroll() {
     if (!this->hacks) return false;
     return this->hacks->Always_Autoscroll();

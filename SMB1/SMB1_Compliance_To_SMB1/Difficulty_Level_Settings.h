@@ -51,7 +51,6 @@ struct Difficulty_Level_Settings {
     int enemyRevivalSpeed;
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
-    bool allEnemiesDoNotWalkOffCliffs;
     bool speedyObjectsAndEnemies;
 };
 

@@ -44,10 +44,6 @@ bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
     return this->wasCastleLoopReplacedWithAutoScrollObject;
 }
 
-bool Hacks::All_Enemies_Do_Not_Walk_Off_Cliffs() {
-    return this->Write_Bytes_To_Offset(0x60F5, QByteArray::fromHex(QString("FFF0").toLatin1()));
-}
-
 bool Hacks::Add_Luigi_Game() {
     //Based on the patch by Yy
     if (!this->Write_Bytes_To_Offset(0x607, QByteArray(1, static_cast<char>(0x7A)))) return false;
