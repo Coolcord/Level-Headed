@@ -499,11 +499,6 @@ bool SMB1_Writer::Hacks_Black_Piranha_Plants() {
     return this->hacks->Black_Piranha_Plants();
 }
 
-bool SMB1_Writer::Hacks_Destroy_Bowser_Bridge_Backwards() {
-    if (!this->hacks) return false;
-    return this->hacks->Destroy_Bowser_Bridge_Backwards();
-}
-
 bool SMB1_Writer::Hacks_Destroy_Bowser_Bridge_Randomly() {
     if (!this->hacks) return false;
     return this->hacks->Destroy_Bowser_Bridge_Randomly();

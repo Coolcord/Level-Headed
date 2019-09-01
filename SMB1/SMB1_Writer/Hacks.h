@@ -19,7 +19,6 @@ public:
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();
-    bool Destroy_Bowser_Bridge_Backwards();
     bool Destroy_Bowser_Bridge_Randomly();
     bool Disable_Intro_Demo();
     bool Enable_Hitting_Underwater_Blocks();
@@ -75,6 +74,7 @@ private:
     bool Enable_Walking_Hammer_Bros_In_World(int world);
     bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();
+
 
     Graphics *graphics;
     Powerups *powerups;

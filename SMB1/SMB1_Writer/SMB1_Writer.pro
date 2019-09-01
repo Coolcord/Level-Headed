@@ -13,6 +13,7 @@ TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Writer.cpp \
+    Bowser_Bridge_Destroyer.cpp \
     Item_Writer.cpp \
     Binary_Manipulator.cpp \
     Object_Writer.cpp \
@@ -38,6 +39,7 @@ SOURCES += SMB1_Writer.cpp \
     ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Writer.h \
+    Bowser_Bridge_Destroyer.h \
     ROM_Type.h \
     Item_Writer.h \
     Binary_Manipulator.h \

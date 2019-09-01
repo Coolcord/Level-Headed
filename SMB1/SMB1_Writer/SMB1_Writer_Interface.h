@@ -136,7 +136,6 @@ public:
     virtual bool Hacks_Add_Luigi_Game()=0;
     virtual bool Hacks_Always_Autoscroll()=0;
     virtual bool Hacks_Black_Piranha_Plants()=0;
-    virtual bool Hacks_Destroy_Bowser_Bridge_Backwards()=0;
     virtual bool Hacks_Destroy_Bowser_Bridge_Randomly()=0;
     virtual bool Hacks_Enable_God_Mode()=0;
     virtual bool Hacks_Enable_Hitting_Underwater_Blocks()=0;
