@@ -303,6 +303,22 @@ bool Hacks::Set_Bowser_Bridge_Destruction_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x502B, QByteArray(1, static_cast<char>(speed)));
 }
 
+bool Hacks::Set_Bowser_Flame_Frequency(int frequency) {
+    if (frequency < 1 || frequency > 3) return false;
+    if (frequency == 2) return true; //frequency is set to Normal
+    if (frequency == 1) { //less often
+        if (!this->Write_Bytes_To_Offset(0x516A, QByteArray(1, static_cast<char>(0xE6)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5182, QByteArray(1, static_cast<char>(0xBF)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x51E1, QByteArray::fromHex(QString("E6E6E6E6E6E6E6E6").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x51F3, QByteArray(1, static_cast<char>(0x00)));
+    } else {
+        assert(frequency == 3); //more often
+        if (!this->Write_Bytes_To_Offset(0x516A, QByteArray(1, static_cast<char>(0x10)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5182, QByteArray(1, static_cast<char>(0x08)))) return false;
+        return this->Write_Bytes_To_Offset(0x51E1, QByteArray::fromHex(QString("6020606060202060").toLatin1()));
+    }
+}
+
 bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHeight) {
     if (lowerHeight < -127 || lowerHeight > 127) return false;
     if (upperHeight < -127 || upperHeight > 127) return false;
@@ -337,6 +353,11 @@ bool Hacks::Set_Bullet_Bill_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x4C50, QByteArray(1, static_cast<char>(invertedSpeedValue)));
 }
 
+bool Hacks::Set_Coin_Animation_Bounce_Height(int height) {
+    if (height < 1 || height > 127) return false;
+    return this->Write_Bytes_To_Offset(0x3B7D, QByteArray(1, static_cast<char>(0x100-height)));
+}
+
 bool Hacks::Set_Death_Animation_Jump_Height(int height) {
     if (height < 0 || height > 127) return false;
     int value = 0;
@@ -352,9 +373,29 @@ bool Hacks::Set_Enemy_Revival_Speed(int speed) {
     return this->Write_Bytes_To_Offset(0x59E3, QByteArray(1, static_cast<char>(hardTime)));
 }
 
+bool Hacks::Set_Firebar_Length(int length) {
+    if (length < 1 || length > 6) return false;
+    return this->Write_Bytes_To_Offset(0x4D9D, QByteArray(1, static_cast<char>(length-1)));
+}
+
 bool Hacks::Set_Flying_Cheep_Cheep_Jump_Height(int height) {
     if (height < 1 || height > 9) return false;
     return this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0x100-height)));
+}
+
+bool Hacks::Set_Long_Firebar_Length(int length) {
+    if (length < 1 || length > 12) return false;
+    return this->Write_Bytes_To_Offset(0x4DA5, QByteArray(1, static_cast<char>(length-1)));
+}
+
+bool Hacks::Set_Maximum_Number_Of_Pirahna_Plants(int value) {
+    if (value < 1 || value > 6) return false;
+    return this->Write_Bytes_To_Offset(0x1963, QByteArray(1, static_cast<char>(value)));
+}
+
+bool Hacks::Set_Number_Of_Enemies_In_Enemy_Groups(int value) {
+    if (value < 1 || value > 5) return false; //default value is 2 for 2, 3 enemies
+    return this->Write_Bytes_To_Offset(0x4757, QByteArray(1, static_cast<char>(value)));
 }
 
 bool Hacks::Set_Number_Of_Worlds(int value) {
@@ -419,6 +460,11 @@ bool Hacks::Set_Starting_Lives(int lives) {
     return true;
 }
 
+bool Hacks::Set_Surfing_Lift_Speed(int speed) {
+    if (speed < 0 || speed > 127) return false;
+    return this->Write_Bytes_To_Offset(0x5658, QByteArray(1, static_cast<char>(speed)));
+}
+
 bool Hacks::Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate) {
     if (easyRate < 0 || easyRate > 0xFF || hardRate < 0 || hardRate > 0xFF) return false;
     if (!this->Write_Bytes_To_Offset(0x49DE, QByteArray(1, static_cast<char>(easyRate)))) return false;
@@ -463,7 +509,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x5217, QByteArray(1, static_cast<char>(0x02)))) return false;
     if (!this->Write_Bytes_To_Offset(0x55F7, QByteArray(1, static_cast<char>(0x03)))) return false;
     if (!this->Write_Bytes_To_Offset(0x5618, QByteArray(1, static_cast<char>(0x18)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x5658, QByteArray(1, static_cast<char>(0x20)))) return false;
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     return this->Increase_Spiny_Egg_Speed(0x09);
