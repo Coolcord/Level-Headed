@@ -13,6 +13,7 @@ Next Update (v0.3.3)
 + Piranha Plants are now on the first level on Brutal difficulty
 + Fewer Piranha Plants spawn on Easy and Very Easy difficulties
 + Coin bounce animation, brick break animation, death animation, and Bowser bridge destruction animation can now be randomized
++ Added support for Infinite Lives and Permadeath in partially supported games
 - Worlds can only be a max of 8 levels long instead of 9
 - Partially supported games are limited to 35 starting lives to help prevent graphical glitches
 

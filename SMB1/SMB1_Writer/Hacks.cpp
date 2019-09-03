@@ -145,9 +145,9 @@ bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
 }
 
 bool Hacks::Infinite_Lives() {
-    if (!this->Set_Starting_Lives(5)) return false; //set the starting lives and fix the life counter bugs first
+    if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
     if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
-        if (!this->Write_Bytes_To_Offset(0x11E0, QByteArray::fromHex(QString("EAEAEAEAEAEAEAEAEAEAEA1890").toLatin1()))) return false; //prevent decrementing
+        if (!this->Write_Bytes_To_Offset(0x11E0, QByteArray::fromHex(QString("EAEAEAEAEAEAEAEAEAEAEA1890103005EAEA1890").toLatin1()))) return false; //prevent decrementing
     } else {
         if (!this->Write_Bytes_To_Offset(0x11E9, QByteArray::fromHex(QString("EAEA1890").toLatin1()))) return false; //prevent decrementing
     }
