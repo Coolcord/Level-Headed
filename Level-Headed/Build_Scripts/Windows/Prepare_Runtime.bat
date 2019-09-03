@@ -2,7 +2,8 @@
 COLOR 0A
 
 SET QT=Qt_5_12_2_MinGW_32_bit
-SET MODE=Debug
+SET MODE=%1
+IF %1.==. SET MODE=Debug
 SET SOURCE_LOCATION=F:\Documents\Source_Code
 
 REM Prepare Folders
