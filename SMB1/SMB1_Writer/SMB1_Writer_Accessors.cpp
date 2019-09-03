@@ -553,6 +553,11 @@ bool SMB1_Writer::Hacks_Permadeath() {
     return this->hacks->Permadeath();
 }
 
+bool SMB1_Writer::Hacks_Random_Intro_Demo() {
+    if (!this->hacks) return false;
+    return this->hacks->Random_Intro_Demo();
+}
+
 bool SMB1_Writer::Hacks_Real_Time() {
     if (!this->hacks) return false;
     return this->hacks->Real_Time();

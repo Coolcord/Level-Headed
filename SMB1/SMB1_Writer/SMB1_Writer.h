@@ -163,6 +163,7 @@ public:
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
     bool Hacks_Permadeath();
+    bool Hacks_Random_Intro_Demo();
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();

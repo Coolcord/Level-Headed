@@ -32,6 +32,7 @@ public:
     bool Invincibility();
     bool Moon_Jump();
     bool Permadeath();
+    bool Random_Intro_Demo();
     bool Real_Time();
     bool Red_Piranha_Plants();
     bool Remove_Vertical_Object_Limit();

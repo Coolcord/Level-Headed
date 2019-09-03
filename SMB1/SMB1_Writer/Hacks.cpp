@@ -185,6 +185,57 @@ bool Hacks::Permadeath() {
     return this->Skip_Lives_Screen();
 }
 
+bool Hacks::Random_Intro_Demo() {
+    QByteArray buttons(21, static_cast<char>(0x01)); //default is holding right
+    bool run = Random::Get_Instance().Get_Num(1);
+    bool stopAfterJump = false;
+    bool left = false;
+    int consecutiveLefts = 0;
+
+    //Handle Button Presses
+    for (int i = 1; i < buttons.size(); ++i) {
+        if (Random::Get_Instance().Get_Num(8) == 0) run = !run; //possibly run
+
+        //Possibly Stop After Jumping
+        if (stopAfterJump) {
+            if (Random::Get_Instance().Get_Num(4) == 0) stopAfterJump = false;
+        } else {
+            if (Random::Get_Instance().Get_Num(10) == 0) stopAfterJump = true;
+        }
+
+        //Possibly Move Left For a Short Distance
+        if (consecutiveLefts > 5 || (left && Random::Get_Instance().Get_Num(2) == 0)) {
+            left = false;
+            consecutiveLefts = 0;
+        } else if (i > 4 && Random::Get_Instance().Get_Num(15) == 0) {
+            left = true;
+        }
+
+        bool jump = i%2 == 0;
+        if (left) {
+            ++consecutiveLefts;
+            buttons.data()[i] = (buttons.data()[i]&static_cast<char>(0xFE))|static_cast<char>(0x02);
+        }
+        else if (jump) buttons.data()[i] = buttons.data()[i]|static_cast<char>(0x80); //jump every other action, but not if moving left
+        if (run) buttons.data()[i] = buttons.data()[i]|static_cast<char>(0x40); //add the run button if run mode is enabled
+        if (!jump && stopAfterJump) buttons.data()[i] = static_cast<char>(0x00);
+    }
+    buttons.data()[buttons.size()-1] = static_cast<char>(0x00); //do nothing for last action
+
+    //Handle Timings
+    QByteArray timings(22, static_cast<char>(0x20));
+    timings.data()[0] = static_cast<char>(0x70); //walk past the title screen
+    for (int i = 1; i < timings.size(); ++i) {
+        if (i < buttons.size() && (buttons.at(i)&static_cast<char>(0x40)) == static_cast<char>(0x40)) timings.data()[i] = static_cast<char>(Random::Get_Instance().Get_Num(0x10, 0x1F)); //jump more often when running
+        else timings.data()[i] = static_cast<char>(Random::Get_Instance().Get_Num(0x14, 0x2F)); //jump less often when walking
+    }
+    timings.data()[timings.size()-2] = static_cast<char>(0xFF); //max wait time for last action
+    timings.data()[timings.size()-1] = static_cast<char>(0x00); //terminator byte
+
+    if (!this->Write_Bytes_To_Offset(0x0350, buttons)) return false;
+    return this->Write_Bytes_To_Offset(0x365, timings);
+}
+
 bool Hacks::Real_Time() {
     if (!this->Write_Bytes_To_Offset(0x113E, QByteArray::fromHex(QString("030201").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3784, QByteArray::fromHex(QString("ADF807D00DADF907C904D006ADFA074C0BC1A940").toLatin1()))) return false;

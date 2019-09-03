@@ -53,6 +53,9 @@ bool Hacks_Handler::Write_Hacks() {
 bool Hacks_Handler::Handle_Animations() {
     if (!this->pluginSettings->randomizeSomeAnimations) return true; //nothing to do
 
+    //Set the Intro Demo
+    if (!this->writerPlugin->Hacks_Random_Intro_Demo()) return false;
+
     //Set Brick Block Destruction Bounce Height
     if (!this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 5), Random::Get_Instance().Get_Num(0, 9))) return false;
 
