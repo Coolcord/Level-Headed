@@ -88,6 +88,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
         this->ui->comboEnemyGroupSize->setCurrentIndex(2);
         this->ui->comboEnemyRevivalSpeed->setCurrentIndex(2);
+        this->ui->comboFirebarLength->setCurrentIndex(6);
+        this->ui->comboLongFirebarLength->setCurrentIndex(12);
         this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(2);
         this->ui->comboHammerBrosThrowRate->setCurrentIndex(4);
         this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
@@ -133,6 +135,12 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->comboEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->layoutEnemyRevivalSpeed->setEnabled(!enabled);
+    this->ui->lblFirebarLength->setEnabled(!enabled);
+    this->ui->comboFirebarLength->setEnabled(!enabled);
+    this->ui->layoutFirebarLength->setEnabled(!enabled);
+    this->ui->lblLongFirebarLength->setEnabled(!enabled);
+    this->ui->comboLongFirebarLength->setEnabled(!enabled);
+    this->ui->layoutLongFirebarLength->setEnabled(!enabled);
     this->ui->lblEnemyGroupSize->setEnabled(!enabled);
     this->ui->comboEnemyGroupSize->setEnabled(!enabled);
     this->ui->layoutEnemyGroupSize->setEnabled(!enabled);

@@ -288,6 +288,16 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     }
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
+    //Handle the Firebar length
+    speed = this->pluginSettings->difficultyFirebarLength;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(4, 6);
+    if (!this->writerPlugin->Hacks_Set_Firebar_Length(speed)) return false;
+
+    //Handle the Long Firebar length
+    speed = this->pluginSettings->difficultyLongFirebarLength;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(6, 12);
+    if (!this->writerPlugin->Hacks_Set_Long_Firebar_Length(speed)) return false;
+
     //Handle the Enemy Group Size
     speed = this->pluginSettings->difficultyEnemyGroupSize;
     if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 3);

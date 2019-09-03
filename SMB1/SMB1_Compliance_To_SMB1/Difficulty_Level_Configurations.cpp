@@ -81,6 +81,8 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultyEnemyGroupSize = difficultySettings.enemyGroupSize;
     pluginSettings->difficultyEnemyRevivalSpeed = difficultySettings.enemyRevivalSpeed;
+    pluginSettings->difficultyFirebarLength = difficultySettings.firebarLength;
+    pluginSettings->difficultyLongFirebarLength = difficultySettings.longFirebarLength;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
@@ -127,6 +129,8 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyEnemyGroupSize = 2; //Normal
     pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
+    pluginSettings->difficultyFirebarLength = 6; //Normal
+    pluginSettings->difficultyLongFirebarLength = 12; //Normal
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
@@ -195,6 +199,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.enemyGroupSize = 2; //Normal
     difficultySettings.enemyRevivalSpeed = 2; //Normal
+    difficultySettings.firebarLength = 6; //Normal
+    difficultySettings.longFirebarLength = 10; //Slightly Short
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
@@ -229,6 +235,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bowserFlameFrequency = 1; //infrequent
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
+    difficultySettings.firebarLength = 4; //Very Short
+    difficultySettings.longFirebarLength = 6; //Very Short
     difficultySettings.enemyGroupSize = 1; //Small
     difficultySettings.unlimitedTime = true;
     difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
@@ -248,6 +256,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.surfingLiftSpeed = 2; //Slow
     difficultySettings.maxNumberOfPiranhaPlants = 3;
     difficultySettings.basicEnemySpeed = 2; //Slow
+    difficultySettings.firebarLength = 5; //Short
+    difficultySettings.longFirebarLength = 8; //Short
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
@@ -299,6 +309,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.basicEnemySpeed = 4; //Fast
     difficultySettings.bulletBillSpeed = 3; //fast
     difficultySettings.enemyRevivalSpeed = 2; //Normal
+    difficultySettings.firebarLength = 6; //Normal
+    difficultySettings.longFirebarLength = 12; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     difficultySettings.hammerBrosThrowRate = 4; //Normal
     return difficultySettings;
@@ -614,6 +626,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.enemyGroupSize = 0; //0 is random here
     difficultySettings.enemyRevivalSpeed = 0; //0 is random here
+    difficultySettings.firebarLength = 0; //0 is random here
+    difficultySettings.longFirebarLength = 0; // 0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
