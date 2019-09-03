@@ -168,7 +168,14 @@ bool Hacks::Moon_Jump() {
 
 bool Hacks::Permadeath() {
     if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
-    if (!this->Write_Bytes_To_Offset(0x02ED,  QByteArray(1, static_cast<char>(0x18)))) return false; //disable the A+Start continue cheat code
+
+    //Disable the A+Start continue cheat code
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        if (!this->Write_Bytes_To_Offset(0x1261,  QByteArray::fromHex(QString("A900").toLatin1()))) return false;
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x1261,  QByteArray::fromHex(QString("EAA900").toLatin1()))) return false;
+    }
+
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     return this->Skip_Lives_Screen();

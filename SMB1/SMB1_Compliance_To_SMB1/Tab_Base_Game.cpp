@@ -72,10 +72,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->Use_Original_Settings();
 
         if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
-        if (!this->ui->radioStartingLives->isChecked()) {
-            this->ui->radioStartingLives->setChecked(true);
-            this->ui->sbLives->setValue(this->pluginSettings->numLives);
-        }
         this->ui->sbLives->setMaximum(35);
         this->ui->cbGodMode->setChecked(false);
 
@@ -106,8 +102,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->sbLives->setMaximum(99);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
-    this->ui->radioInfiniteLives->setEnabled(!enabled);
-    this->ui->radioPermadeath->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
 
     //Enable Custom Difficulty Settings
