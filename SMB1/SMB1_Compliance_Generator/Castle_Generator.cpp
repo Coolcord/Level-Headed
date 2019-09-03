@@ -142,8 +142,10 @@ void Castle_Generator::Handle_Bowser_Fire() {
             this->bowserFireSpawned = true;
         }
     } else {
+        //Start preparing when 1/3rd of the level is left or when there are less than 3 pages left
         if (this->object->Get_Num_Objects_Available() < (this->args->numObjectBytes/6)+2 ||
-                (this->args->maxLevelLength > 0 && this->object->Get_Level_Length() > static_cast<int>((static_cast<double>(this->args->maxLevelLength)/3.0)*2.0))) { //start preparing when 1/3rd of the level is left
+                (this->args->maxLevelLength > 0 && this->object->Get_Level_Length() > static_cast<int>((static_cast<double>(this->args->maxLevelLength)/3.0)*2.0)) ||
+                (this->args->maxLevelLength-this->object->Get_Level_Length() < 48)) {
             if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
             else assert(this->object->Cancel_Spawner(0));
             this->bowserFireReadyToSpawn = true;
