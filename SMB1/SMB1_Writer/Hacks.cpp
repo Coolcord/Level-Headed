@@ -307,9 +307,9 @@ bool Hacks::Set_Bowser_Flame_Frequency(int frequency) {
     if (frequency < 1 || frequency > 3) return false;
     if (frequency == 2) return true; //frequency is set to Normal
     if (frequency == 1) { //less often
-        if (!this->Write_Bytes_To_Offset(0x516A, QByteArray(1, static_cast<char>(0xE6)))) return false;
-        if (!this->Write_Bytes_To_Offset(0x5182, QByteArray(1, static_cast<char>(0xBF)))) return false;
-        if (!this->Write_Bytes_To_Offset(0x51E1, QByteArray::fromHex(QString("E6E6E6E6E6E6E6E6").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x516A, QByteArray(1, static_cast<char>(0xBF)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5182, QByteArray(1, static_cast<char>(0x80)))) return false;
+        if (!this->Write_Bytes_To_Offset(0x51E1, QByteArray::fromHex(QString("BFBFBFBFBFBFBFBF").toLatin1()))) return false;
         return this->Write_Bytes_To_Offset(0x51F3, QByteArray(1, static_cast<char>(0x00)));
     } else {
         assert(frequency == 3); //more often

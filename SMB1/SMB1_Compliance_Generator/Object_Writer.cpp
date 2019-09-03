@@ -63,11 +63,11 @@ int Object_Writer::Get_Cancel_Spawner_X() {
 }
 
 bool Object_Writer::Is_Midpoint_Ready() {
+    bool halfOfObjectsUsed = ((this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS) < (this->totalBytes/4) || this->currentPage > 0xA);
     if (this->args->maxLevelLength == 0) {
-        return ((this->Get_Num_Objects_Left()-Physics::MIN_END_OBJECTS) < (this->totalBytes/4)
-                || this->currentPage > 0xA);
+        return halfOfObjectsUsed;
     } else {
-        return this->levelLength >= (this->args->maxLevelLength/2);
+        return halfOfObjectsUsed || (this->levelLength >= (this->args->maxLevelLength/2));
     }
 }
 

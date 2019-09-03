@@ -220,7 +220,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 8;
     difficultySettings.bridgeOffscreenBulletBills = 8;
-    difficultySettings.castleFireBars = 10;
+    difficultySettings.castleFireBars = 7;
     difficultySettings.islandLakitus = 11;
     difficultySettings.islandOffscreenBulletBills = 8;
     difficultySettings.underwaterBloopers = 9;
