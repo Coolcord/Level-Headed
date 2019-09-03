@@ -53,6 +53,7 @@ struct Difficulty_Level_Settings {
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
     bool speedyObjectsAndEnemies;
+    bool piranhaPlantsOnFirstLevel;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

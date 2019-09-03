@@ -7,6 +7,7 @@ Next Update (v0.3.3)
 + Basic enemy speed is now slower on Easy and Very Easy difficulties
 + Bowser Flames are now fired less frequently on Very Easy and more frequently on Brutal
 + Enemy revival speed is now modified on Random difficulty
++ Piranha Plants are now on the first level on Brutal difficulty
 + Coin bounce animation, brick break animation, death animation, and Bowser bridge destruction animation can now be randomized
 - Worlds can only be a max of 8 levels long instead of 9
 - Partially supported games are limited to 35 starting lives to help prevent graphical glitches

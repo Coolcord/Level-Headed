@@ -279,7 +279,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     case 4:     speed = 3; break;
     }
     if (!this->writerPlugin->Hacks_Set_Enemy_Revival_Time(speed)) return false;
-
+    if (this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel && !this->writerPlugin->Hacks_Enable_Piranha_Plants_On_First_Level()) return false;
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;
 }

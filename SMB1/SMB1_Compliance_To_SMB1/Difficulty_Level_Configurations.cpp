@@ -81,6 +81,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
+    pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
@@ -131,6 +132,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
+    pluginSettings->difficultyPiranhaPlantsOnFirstLevel = false;
     pluginSettings->superMarioOnDamage = false;
     pluginSettings->difficultyUnlimitedTime = false;
 }
@@ -187,6 +189,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
+    difficultySettings.piranhaPlantsOnFirstLevel = false;
     return difficultySettings;
 }
 
@@ -352,6 +355,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
+    difficultySettings.piranhaPlantsOnFirstLevel = true;
     return difficultySettings;
 }
 
@@ -592,5 +596,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

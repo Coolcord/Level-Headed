@@ -103,6 +103,7 @@ struct Plugin_Settings {
     int difficultyFlyingCheepCheepJumpHeight;
     int difficultyHammerBrosThrowRate;
     bool difficultySpeedyObjectsAndEnemies;
+    bool difficultyPiranhaPlantsOnFirstLevel;
 };
 
 #endif // PLUGIN_SETTINGS_H

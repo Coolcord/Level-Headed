@@ -20,6 +20,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(this->pluginSettings->difficultyFlyingCheepCheepJumpHeight);
     this->ui->comboHammerBrosThrowRate->setCurrentIndex(this->pluginSettings->difficultyHammerBrosThrowRate);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
+    this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbAutoScroll->setValue(this->pluginSettings->difficultyAutoScroll);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
@@ -124,6 +125,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyFlyingCheepCheepJumpHeight = this->ui->comboFlyingCheepCheepJumpHeight->currentIndex();
         this->pluginSettings->difficultyHammerBrosThrowRate = this->ui->comboHammerBrosThrowRate->currentIndex();
         this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();
+        this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel = this->ui->cbPiranhaPlantsOnFirstLevel->isChecked();
     } else { //get difficulty settings from the present
         assert(Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(this->pluginSettings->difficultyComboIndex, this->pluginSettings, partialSupport));
     }
