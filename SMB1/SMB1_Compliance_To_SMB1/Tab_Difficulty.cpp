@@ -61,6 +61,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn->setChecked(this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn);
     this->ui->comboSpinyEggBehavior->setCurrentIndex(this->pluginSettings->difficultySpinyEggBehavior);
     this->ui->comboSpawnerPriority->setCurrentIndex(this->pluginSettings->difficultySpawnerPriority);
+    this->ui->comboSurfingLiftSpeed->setCurrentIndex(this->pluginSettings->difficultySurfingLiftSpeed);
     this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
 }
 
@@ -114,6 +115,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->ui->cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn->isChecked();
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
+        this->pluginSettings->difficultySurfingLiftSpeed = this->ui->comboSurfingLiftSpeed->currentIndex();
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();

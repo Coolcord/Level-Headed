@@ -72,6 +72,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
+    pluginSettings->difficultySurfingLiftSpeed = difficultySettings.surfingLiftSpeed;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
     pluginSettings->difficultyBowserFlameFrequency = difficultySettings.bowserFlameFrequency;
@@ -127,6 +128,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->lakituThrowArc = false;
+    pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultySpinyEggBehavior = 1;
     pluginSettings->difficultyReplaceCastleLoops = 2;
@@ -180,6 +182,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spawnerPriority = 1;
     difficultySettings.superMarioOnDamage = true;
+    difficultySettings.surfingLiftSpeed = 3; //Normal
     difficultySettings.piranhaPlantType = 1;
     difficultySettings.basicEnemySpeed = 3; //Normal
     difficultySettings.bowserFlameFrequency = 2; //Normal
@@ -213,6 +216,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.underwaterSwimmingCheepCheeps = 2;
     difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.hammerBrosThrowRate = 1; //Extremely Infrequent
+    difficultySettings.surfingLiftSpeed = 1; //Very Slow
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.basicEnemySpeed = 1; //Very Slow
     difficultySettings.bowserFlameFrequency = 1; //infrequent
@@ -233,6 +237,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.minimumUnderwaterEnemyDistance = 9;
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.hammerBrosThrowRate = 2; //Very Infrequent
+    difficultySettings.surfingLiftSpeed = 2; //Slow
     difficultySettings.basicEnemySpeed = 2; //Slow
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
@@ -280,6 +285,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.superMarioOnDamage = false;
+    difficultySettings.surfingLiftSpeed = 4; //Fast
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 4; //Fast
     difficultySettings.bulletBillSpeed = 3; //fast
@@ -307,6 +313,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.standardOverworldLakitus = 3;
     difficultySettings.undergroundLakitus = 3;
     difficultySettings.underwaterLakitus = 3;
+    difficultySettings.surfingLiftSpeed = 5; //Very Fast
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.spinyEggBehavior = 3; //bounce
     difficultySettings.maxLevelLength = 6; //Very Long
@@ -345,6 +352,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.undergroundOffscreenBulletBills = 5;
     difficultySettings.underwaterFlyingCheepCheeps = 5;
     difficultySettings.underwaterLakitus = 3;
+    difficultySettings.surfingLiftSpeed = 6; //ludicrous
     difficultySettings.piranhaPlantType = 3; //black
     difficultySettings.maxLevelLength = 7; //Maximum
     difficultySettings.hammerBrosThrowRate = 8; //ludicrous
@@ -587,6 +595,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.surfingLiftSpeed = 0; //0 is random here
     difficultySettings.piranhaPlantType = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
     difficultySettings.bowserFlameFrequency = 0; //0 is random here

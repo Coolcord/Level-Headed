@@ -90,10 +90,12 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(2);
         this->ui->comboHammerBrosThrowRate->setCurrentIndex(4);
         this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
+        this->ui->comboSurfingLiftSpeed->setCurrentIndex(2);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(7);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(1);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
+        this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
     } else {
@@ -138,6 +140,9 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblLakituRespawnSpeed->setEnabled(!enabled);
     this->ui->comboLakituRespawnSpeed->setEnabled(!enabled);
     this->ui->layoutLakituRespawnSpeed->setEnabled(!enabled);
+    this->ui->lblSurfingLiftSpeed->setEnabled(!enabled);
+    this->ui->comboSurfingLiftSpeed->setEnabled(!enabled);
+    this->ui->layoutSurfingLiftSpeed->setEnabled(!enabled);
     this->ui->lblPiranhaPlantType->setEnabled(!enabled);
     this->ui->comboPiranhaPlantType->setEnabled(!enabled);
     this->ui->layoutPiranhaPlantType->setEnabled(!enabled);
@@ -148,6 +153,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->comboReplaceCastleLoops->setEnabled(!enabled);
     this->ui->layoutReplaceCastleLoops->setEnabled(!enabled);
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
+    this->ui->cbPiranhaPlantsOnFirstLevel->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
 

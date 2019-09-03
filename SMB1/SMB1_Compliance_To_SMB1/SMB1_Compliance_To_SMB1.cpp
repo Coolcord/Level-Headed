@@ -214,6 +214,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Disable_All_Other_Enemies_When_A_Lakitu_Spawns", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns)) return false;
     if (!configFile.Set_Value("Difficulty_Disable_All_Other_Enemies_When_Flying_Cheep_Cheeps_Spawn", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn)) return false;
     if (!configFile.Set_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority)) return false;
+    if (!configFile.Set_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType)) return false;
     if (!configFile.Set_Value("Standard_Overworld_Chance", this->pluginSettings.standardOverworldChance)) return false;
     if (!configFile.Set_Value("Underground_Chance", this->pluginSettings.undergroundChance)) return false;
@@ -301,6 +302,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Disable_All_Other_Enemies_When_A_Lakitu_Spawns", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns);
     configFile.Get_Value("Difficulty_Disable_All_Other_Enemies_When_Flying_Cheep_Cheeps_Spawn", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn);
     configFile.Get_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority);
+    configFile.Get_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed);
     configFile.Get_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType);
     configFile.Get_Value("Standard_Overworld_Chance", this->pluginSettings.standardOverworldChance);
     configFile.Get_Value("Underground_Chance", this->pluginSettings.undergroundChance);

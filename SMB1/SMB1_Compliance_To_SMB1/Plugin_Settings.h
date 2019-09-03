@@ -94,6 +94,7 @@ struct Plugin_Settings {
     bool difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int difficultySpinyEggBehavior;
     int difficultySpawnerPriority;
+    int difficultySurfingLiftSpeed;
     int difficultyPiranhaPlantType;
     int difficultyBasicEnemySpeed;
     int difficultyBowserFlameFrequency;

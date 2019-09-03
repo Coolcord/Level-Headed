@@ -227,6 +227,20 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     }
     if (!this->writerPlugin->Hacks_Set_Basic_Enemy_Speed(speed)) return false;
 
+    //Handle surfing lift speed
+    speed = 0;
+    switch (this->pluginSettings->difficultySurfingLiftSpeed) {
+    default:    assert(false); return false;
+    case 1:     speed = 10; break; //Very Slow
+    case 2:     speed = 13; break; //Slow
+    case 3:     speed = 16; break; //Normal
+    case 4:     speed = 20; break; //Fast
+    case 5:     speed = 24; break; //Very Fast
+    case 6:     speed = 28; break; //Ludicrous Speed!
+    case 0:     speed = Random::Get_Instance().Get_Num(10, 28); break;
+    }
+    if (!this->writerPlugin->Hacks_Set_Surfing_Lift_Speed(speed)) return false;
+
     //Handle bullet bill speed
     speed = this->pluginSettings->difficultyBulletBillSpeed;
     if (speed == 0) speed = Random::Get_Instance().Get_Num(4)+1;

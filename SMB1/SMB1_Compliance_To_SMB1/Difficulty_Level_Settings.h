@@ -44,6 +44,7 @@ struct Difficulty_Level_Settings {
     bool disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int spawnerPriority;
     bool superMarioOnDamage;
+    int surfingLiftSpeed;
     int piranhaPlantType;
     int basicEnemySpeed;
     int bowserFlameFrequency;
