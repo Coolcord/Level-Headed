@@ -153,8 +153,8 @@ bool Hacks::Infinite_Lives() {
 }
 
 bool Hacks::Invincibility() {
-    if (!this->Write_Bytes_To_Offset(0x2F54, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false; //there's a bug here that causes Mario to walk slowly during the Pipe Intro
-    if (!this->Write_Bytes_To_Offset(0x2F67, QByteArray::fromHex(QString("38EA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x2F51, QByteArray::fromHex(QString("A923EA").toLatin1()))) return false; //make Mario flash
+    if (!this->Write_Bytes_To_Offset(0x2F67, QByteArray::fromHex(QString("38EA").toLatin1()))) return false; //make Mario flash quickly
     if (!this->Write_Bytes_To_Offset(0x4E20, QByteArray::fromHex(QString("18EAEA90").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5802, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x582B, QByteArray(1, static_cast<char>(0x60)))) return false;

@@ -52,16 +52,19 @@ bool Hacks_Handler::Write_Hacks() {
 
 bool Hacks_Handler::Handle_Animations() {
     if (!this->pluginSettings->randomizeSomeAnimations) return true; //nothing to do
+
+    //Set Brick Block Destruction Bounce Height
     if (!this->writerPlugin->Hacks_Set_Brick_Break_Animation_Bounce_Height(Random::Get_Instance().Get_Num(0, 5), Random::Get_Instance().Get_Num(0, 9))) return false;
 
     //Set the Death Animation Jump Height
-    int num = Random::Get_Instance().Get_Num(0, 7);
-    if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(num)) return false;
+    if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(Random::Get_Instance().Get_Num(0, 7))) return false;
 
     //Handle the Bowser Bridge Destruction Order
     if (!this->writerPlugin->Hacks_Destroy_Bowser_Bridge_Randomly()) return false;
     if (!this->writerPlugin->Hacks_Set_Bowser_Bridge_Destruction_Speed(Random::Get_Instance().Get_Num(1, 7))) return false;
-    return true;
+
+    //Set the Coin Animation Bounce Height
+    return this->writerPlugin->Hacks_Set_Coin_Animation_Bounce_Height(Random::Get_Instance().Get_Num(1, 9));
 }
 
 bool Hacks_Handler::Handle_Music() {

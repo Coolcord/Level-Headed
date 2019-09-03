@@ -623,6 +623,11 @@ bool SMB1_Writer::Hacks_Set_Bullet_Bill_Speed(int speed) {
     return this->hacks->Set_Bullet_Bill_Speed(speed);
 }
 
+bool SMB1_Writer::Hacks_Set_Coin_Animation_Bounce_Height(int height) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Coin_Animation_Bounce_Height(height);
+}
+
 bool SMB1_Writer::Hacks_Set_Death_Animation_Jump_Height(int height) {
     if (!this->hacks) return false;
     return this->hacks->Set_Death_Animation_Jump_Height(height);
@@ -633,9 +638,19 @@ bool SMB1_Writer::Hacks_Set_Enemy_Revival_Time(int speed) {
     return this->hacks->Set_Enemy_Revival_Speed(speed);
 }
 
+bool SMB1_Writer::Hacks_Set_Firebar_Length(int length) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Firebar_Length(length);
+}
+
 bool SMB1_Writer::Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Set_Flying_Cheep_Cheep_Jump_Height(speed);
+}
+
+bool SMB1_Writer::Hacks_Set_Long_Firebar_Length(int length) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Long_Firebar_Length(length);
 }
 
 bool SMB1_Writer::Hacks_Set_Lakitu_Respawn_Speed(int value) {
@@ -653,6 +668,16 @@ bool SMB1_Writer::Hacks_Set_Mario_Name(const QString &name) {
     return this->text->Set_Mario_Name(name);
 }
 
+bool SMB1_Writer::Hacks_Set_Maximum_Number_Of_Pirahna_Plants(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Maximum_Number_Of_Pirahna_Plants(value);
+}
+
+bool SMB1_Writer::Hacks_Set_Number_Of_Enemies_In_Enemy_Groups(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Number_Of_Enemies_In_Enemy_Groups(value);
+}
+
 bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Number_Of_Worlds(value);
@@ -666,6 +691,11 @@ bool SMB1_Writer::Hacks_Set_Number_Of_Levels_Per_World(int value) {
 bool SMB1_Writer::Hacks_Set_Starting_Lives(int lives) {
     if (!this->hacks) return false;
     return this->hacks->Set_Starting_Lives(lives);
+}
+
+bool SMB1_Writer::Hacks_Set_Surfing_Lift_Speed(int speed) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Surfing_Lift_Speed(speed);
 }
 
 bool SMB1_Writer::Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate) {
