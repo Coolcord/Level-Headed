@@ -365,6 +365,11 @@ bool Hacks::Set_Death_Animation_Jump_Height(int height) {
     return this->Write_Bytes_To_Offset(0x596E, QByteArray(1, static_cast<char>(value)));
 }
 
+bool Hacks::Set_Enemy_Group_Size(int value) {
+    if (value < 1 || value > 5) return false; //default value is 2 for 2, 3 enemies
+    return this->Write_Bytes_To_Offset(0x4757, QByteArray(1, static_cast<char>(value)));
+}
+
 bool Hacks::Set_Enemy_Revival_Speed(int speed) {
     if (speed < 2 || speed > 0xFF) return false;
     int hardTime = speed-5;
@@ -391,11 +396,6 @@ bool Hacks::Set_Long_Firebar_Length(int length) {
 bool Hacks::Set_Maximum_Number_Of_Pirahna_Plants(int value) {
     if (value < 1 || value > 6) return false;
     return this->Write_Bytes_To_Offset(0x1963, QByteArray(1, static_cast<char>(value)));
-}
-
-bool Hacks::Set_Number_Of_Enemies_In_Enemy_Groups(int value) {
-    if (value < 1 || value > 5) return false; //default value is 2 for 2, 3 enemies
-    return this->Write_Bytes_To_Offset(0x4757, QByteArray(1, static_cast<char>(value)));
 }
 
 bool Hacks::Set_Number_Of_Worlds(int value) {

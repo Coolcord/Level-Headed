@@ -633,6 +633,11 @@ bool SMB1_Writer::Hacks_Set_Death_Animation_Jump_Height(int height) {
     return this->hacks->Set_Death_Animation_Jump_Height(height);
 }
 
+bool SMB1_Writer::Hacks_Set_Enemy_Group_Size(int value) {
+    if (!this->hacks) return false;
+    return this->hacks->Set_Enemy_Group_Size(value);
+}
+
 bool SMB1_Writer::Hacks_Set_Enemy_Revival_Time(int speed) {
     if (!this->hacks) return false;
     return this->hacks->Set_Enemy_Revival_Speed(speed);
@@ -671,11 +676,6 @@ bool SMB1_Writer::Hacks_Set_Mario_Name(const QString &name) {
 bool SMB1_Writer::Hacks_Set_Maximum_Number_Of_Pirahna_Plants(int value) {
     if (!this->hacks) return false;
     return this->hacks->Set_Maximum_Number_Of_Pirahna_Plants(value);
-}
-
-bool SMB1_Writer::Hacks_Set_Number_Of_Enemies_In_Enemy_Groups(int value) {
-    if (!this->hacks) return false;
-    return this->hacks->Set_Number_Of_Enemies_In_Enemy_Groups(value);
 }
 
 bool SMB1_Writer::Hacks_Set_Number_Of_Worlds(int value) {

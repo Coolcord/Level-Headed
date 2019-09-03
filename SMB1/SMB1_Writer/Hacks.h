@@ -51,12 +51,12 @@ public:
     bool Set_Bullet_Bill_Speed(int speed);
     bool Set_Coin_Animation_Bounce_Height(int height);
     bool Set_Death_Animation_Jump_Height(int height);
+    bool Set_Enemy_Group_Size(int value);
     bool Set_Enemy_Revival_Speed(int speed);
     bool Set_Firebar_Length(int length);
     bool Set_Flying_Cheep_Cheep_Jump_Height(int height);
     bool Set_Long_Firebar_Length(int length);
     bool Set_Maximum_Number_Of_Pirahna_Plants(int value);
-    bool Set_Number_Of_Enemies_In_Enemy_Groups(int value);
     bool Set_Number_Of_Worlds(int value);
     bool Set_Number_Of_Levels_Per_World(int value);
     bool Set_Lakitu_Respawn_Speed(int value);

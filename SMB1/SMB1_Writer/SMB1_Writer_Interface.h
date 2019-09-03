@@ -162,6 +162,7 @@ public:
     virtual bool Hacks_Set_Bullet_Bill_Speed(int speed)=0;
     virtual bool Hacks_Set_Coin_Animation_Bounce_Height(int height)=0;
     virtual bool Hacks_Set_Death_Animation_Jump_Height(int height)=0;
+    virtual bool Hacks_Set_Enemy_Group_Size(int value)=0;
     virtual bool Hacks_Set_Enemy_Revival_Time(int speed)=0;
     virtual bool Hacks_Set_Firebar_Length(int length)=0;
     virtual bool Hacks_Set_Flying_Cheep_Cheep_Jump_Height(int height)=0;
@@ -170,7 +171,6 @@ public:
     virtual bool Hacks_Set_Luigi_Name(const QString &name)=0;
     virtual bool Hacks_Set_Mario_Name(const QString &name)=0;
     virtual bool Hacks_Set_Maximum_Number_Of_Pirahna_Plants(int value)=0;
-    virtual bool Hacks_Set_Number_Of_Enemies_In_Enemy_Groups(int value)=0;
     virtual bool Hacks_Set_Number_Of_Worlds(int value)=0;
     virtual bool Hacks_Set_Number_Of_Levels_Per_World(int value)=0;
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
