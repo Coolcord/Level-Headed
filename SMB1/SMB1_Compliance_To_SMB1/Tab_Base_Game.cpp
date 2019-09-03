@@ -86,12 +86,14 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboBowserFlameFrequency->setCurrentIndex(2);
         this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
+        this->ui->comboEnemyGroupSize->setCurrentIndex(2);
         this->ui->comboEnemyRevivalSpeed->setCurrentIndex(2);
         this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(2);
         this->ui->comboHammerBrosThrowRate->setCurrentIndex(4);
         this->ui->comboLakituRespawnSpeed->setCurrentIndex(3);
         this->ui->comboSurfingLiftSpeed->setCurrentIndex(2);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
+        this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(5);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(7);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(1);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
@@ -131,6 +133,9 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->comboEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->layoutEnemyRevivalSpeed->setEnabled(!enabled);
+    this->ui->lblEnemyGroupSize->setEnabled(!enabled);
+    this->ui->comboEnemyGroupSize->setEnabled(!enabled);
+    this->ui->layoutEnemyGroupSize->setEnabled(!enabled);
     this->ui->lblFlyingCheepCheepJumpHeight->setEnabled(!enabled);
     this->ui->comboFlyingCheepCheepJumpHeight->setEnabled(!enabled);
     this->ui->layoutFlyingCheepCheepJumpHeight->setEnabled(!enabled);
@@ -146,6 +151,9 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblPiranhaPlantType->setEnabled(!enabled);
     this->ui->comboPiranhaPlantType->setEnabled(!enabled);
     this->ui->layoutPiranhaPlantType->setEnabled(!enabled);
+    this->ui->lblMaxNumberOfPiranhaPlants->setEnabled(!enabled);
+    this->ui->comboMaxNumberOfPiranhaPlants->setEnabled(!enabled);
+    this->ui->layoutMaxNumberOfPiranhaPlants->setEnabled(!enabled);
     this->ui->lblSpinyEggBehavior->setEnabled(!enabled);
     this->ui->comboSpinyEggBehavior->setEnabled(!enabled);
     this->ui->layoutSpinyEggBehavior->setEnabled(!enabled);

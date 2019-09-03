@@ -288,6 +288,11 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     }
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
+    //Handle the Enemy Group Size
+    speed = this->pluginSettings->difficultyEnemyGroupSize;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 3);
+    if (!this->writerPlugin->Hacks_Set_Number_Of_Enemies_In_Enemy_Groups(speed)) return false;
+
     //Handle the Enemy Revival Speed
     switch (this->pluginSettings->difficultyEnemyRevivalSpeed) {
     default: assert(false); return false;

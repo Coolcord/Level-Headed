@@ -6,6 +6,7 @@ Next Update (v0.3.3)
 + The amount of hammers the Hammer Bros. throw is based on the difficulty
 + Basic enemy speed is now slower on Easy and Very Easy difficulties
 + Bowser Flames are now fired less frequently on Very Easy and more frequently on Brutal
++ Enemy group size is now smaller on Very Easy and larger on Brutal
 + Enemy revival speed is now modified on Random difficulty
 + Piranha Plants are now on the first level on Brutal difficulty
 + Fewer Piranha Plants spawn on Easy and Very Easy difficulties

@@ -51,6 +51,7 @@ struct Difficulty_Level_Settings {
     int bowserFlameFrequency;
     int bulletBillFiringRate;
     int bulletBillSpeed;
+    int enemyGroupSize;
     int enemyRevivalSpeed;
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
