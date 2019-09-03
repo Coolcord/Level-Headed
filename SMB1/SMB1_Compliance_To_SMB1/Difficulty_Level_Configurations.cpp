@@ -122,13 +122,13 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyAutoScroll = 11;
     pluginSettings->difficultyWalkingHammerBros = 11;
     pluginSettings->difficultyAutoScrollChancePerLevel = 0;
-    pluginSettings->difficultyBasicEnemySpeed = 1;
+    pluginSettings->difficultyBasicEnemySpeed = 3; //Normal
     pluginSettings->difficultyBowserFlameFrequency = 2;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
-    pluginSettings->difficultyFirebarLength = 6; //Normal
-    pluginSettings->difficultyLongFirebarLength = 12; //Normal
+    pluginSettings->difficultyFirebarLength = 3; //Normal
+    pluginSettings->difficultyLongFirebarLength = 4; //Normal
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
@@ -136,7 +136,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultyMaxNumberOfPiranhaPlants = 5; //Normal
-    pluginSettings->difficultySpinyEggBehavior = 1;
+    pluginSettings->difficultySpinyEggBehavior = 8; //Normal
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
     pluginSettings->difficultySpeedyObjectsAndEnemies = false;
@@ -196,8 +196,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.enemyRevivalSpeed = 2; //Normal
-    difficultySettings.firebarLength = 6; //Normal
-    difficultySettings.longFirebarLength = 10; //Slightly Short
+    difficultySettings.firebarLength = 3; //Normal
+    difficultySettings.longFirebarLength = 3; //Slightly Short
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
@@ -232,8 +232,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bowserFlameFrequency = 1; //infrequent
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
-    difficultySettings.firebarLength = 4; //Very Short
-    difficultySettings.longFirebarLength = 6; //Very Short
+    difficultySettings.firebarLength = 1; //Very Short
+    difficultySettings.longFirebarLength = 1; //Very Short
     difficultySettings.unlimitedTime = true;
     difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
     difficultySettings.maxLevelLength = 2; //Very Short
@@ -252,8 +252,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.surfingLiftSpeed = 2; //Slow
     difficultySettings.maxNumberOfPiranhaPlants = 3;
     difficultySettings.basicEnemySpeed = 2; //Slow
-    difficultySettings.firebarLength = 5; //Short
-    difficultySettings.longFirebarLength = 8; //Short
+    difficultySettings.firebarLength = 2; //Short
+    difficultySettings.longFirebarLength = 2; //Short
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
@@ -305,8 +305,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.basicEnemySpeed = 4; //Fast
     difficultySettings.bulletBillSpeed = 3; //fast
     difficultySettings.enemyRevivalSpeed = 2; //Normal
-    difficultySettings.firebarLength = 6; //Normal
-    difficultySettings.longFirebarLength = 12; //Normal
+    difficultySettings.firebarLength = 3; //Normal
+    difficultySettings.longFirebarLength = 4; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     difficultySettings.hammerBrosThrowRate = 4; //Normal
     return difficultySettings;
@@ -514,7 +514,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
-    difficultySettings.spinyEggBehavior = 0;
+    difficultySettings.spinyEggBehavior = 0; //random
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.lakituSpawnChancePerLevel = 100;
     return difficultySettings;
