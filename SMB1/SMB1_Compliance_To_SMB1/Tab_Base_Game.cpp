@@ -97,6 +97,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
+        this->ui->cbUnlimitedTime->setChecked(false);
     } else {
         this->ui->sbLives->setMaximum(99);
     }
@@ -162,6 +163,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbPiranhaPlantsOnFirstLevel->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
+    this->ui->cbUnlimitedTime->setEnabled(!enabled);
 
     //Disable the ASM Difficulty Presents
     for (int i = 0; i < asmDifficulties.size(); ++i) {
