@@ -719,9 +719,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1429</y>
+            <y>-1256</y>
             <width>684</width>
-            <height>2255</height>
+            <height>2222</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1833,41 +1833,6 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Ludicrous Speed!</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="layoutEnemyGroupSize">
-                <item>
-                 <widget class="QLabel" name="lblEnemyGroupSize">
-                  <property name="text">
-                   <string>Enemy Group Size:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboEnemyGroupSize">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Small: 1 Large: 2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Small: 2 Large: 3 (Normal)</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Small: 3 Large: 4</string>
                    </property>
                   </item>
                  </widget>

@@ -101,7 +101,6 @@ struct Plugin_Settings {
     int difficultyBowserFlameFrequency;
     int difficultyBulletBillFiringRate;
     int difficultyBulletBillSpeed;
-    int difficultyEnemyGroupSize;
     int difficultyEnemyRevivalSpeed;
     int difficultyFirebarLength;
     int difficultyLongFirebarLength;

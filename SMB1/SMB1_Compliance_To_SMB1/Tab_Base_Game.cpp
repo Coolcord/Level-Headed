@@ -82,7 +82,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboBowserFlameFrequency->setCurrentIndex(2);
         this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
-        this->ui->comboEnemyGroupSize->setCurrentIndex(2);
         this->ui->comboEnemyRevivalSpeed->setCurrentIndex(2);
         this->ui->comboFirebarLength->setCurrentIndex(6);
         this->ui->comboLongFirebarLength->setCurrentIndex(12);
@@ -135,9 +134,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblLongFirebarLength->setEnabled(!enabled);
     this->ui->comboLongFirebarLength->setEnabled(!enabled);
     this->ui->layoutLongFirebarLength->setEnabled(!enabled);
-    this->ui->lblEnemyGroupSize->setEnabled(!enabled);
-    this->ui->comboEnemyGroupSize->setEnabled(!enabled);
-    this->ui->layoutEnemyGroupSize->setEnabled(!enabled);
     this->ui->lblFlyingCheepCheepJumpHeight->setEnabled(!enabled);
     this->ui->comboFlyingCheepCheepJumpHeight->setEnabled(!enabled);
     this->ui->layoutFlyingCheepCheepJumpHeight->setEnabled(!enabled);

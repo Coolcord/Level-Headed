@@ -16,7 +16,6 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboBowserFlameFrequency->setCurrentIndex(this->pluginSettings->difficultyBowserFlameFrequency);
     this->ui->comboBulletBillFiringRate->setCurrentIndex(this->pluginSettings->difficultyBulletBillFiringRate);
     this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
-    this->ui->comboEnemyGroupSize->setCurrentIndex(this->pluginSettings->difficultyEnemyGroupSize);
     this->ui->comboEnemyRevivalSpeed->setCurrentIndex(this->pluginSettings->difficultyEnemyRevivalSpeed);
     this->ui->comboFirebarLength->setCurrentIndex(this->pluginSettings->difficultyFirebarLength);
     this->ui->comboLongFirebarLength->setCurrentIndex(this->pluginSettings->difficultyLongFirebarLength);
@@ -128,7 +127,6 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyBowserFlameFrequency = this->ui->comboBowserFlameFrequency->currentIndex();
         this->pluginSettings->difficultyBulletBillFiringRate = this->ui->comboBulletBillFiringRate->currentIndex();
         this->pluginSettings->difficultyBulletBillSpeed = this->ui->comboBulletBillSpeed->currentIndex();
-        this->pluginSettings->difficultyEnemyGroupSize = this->ui->comboEnemyGroupSize->currentIndex();
         this->pluginSettings->difficultyEnemyRevivalSpeed = this->ui->comboEnemyRevivalSpeed->currentIndex();
         this->pluginSettings->difficultyFirebarLength = this->ui->comboFirebarLength->currentIndex();
         this->pluginSettings->difficultyLongFirebarLength = this->ui->comboLongFirebarLength->currentIndex();

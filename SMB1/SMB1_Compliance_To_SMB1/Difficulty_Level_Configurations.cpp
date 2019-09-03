@@ -79,7 +79,6 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyBowserFlameFrequency = difficultySettings.bowserFlameFrequency;
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
-    pluginSettings->difficultyEnemyGroupSize = difficultySettings.enemyGroupSize;
     pluginSettings->difficultyEnemyRevivalSpeed = difficultySettings.enemyRevivalSpeed;
     pluginSettings->difficultyFirebarLength = difficultySettings.firebarLength;
     pluginSettings->difficultyLongFirebarLength = difficultySettings.longFirebarLength;
@@ -127,7 +126,6 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBowserFlameFrequency = 2;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
-    pluginSettings->difficultyEnemyGroupSize = 2; //Normal
     pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
     pluginSettings->difficultyFirebarLength = 6; //Normal
     pluginSettings->difficultyLongFirebarLength = 12; //Normal
@@ -197,7 +195,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.bowserFlameFrequency = 2; //Normal
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
-    difficultySettings.enemyGroupSize = 2; //Normal
     difficultySettings.enemyRevivalSpeed = 2; //Normal
     difficultySettings.firebarLength = 6; //Normal
     difficultySettings.longFirebarLength = 10; //Slightly Short
@@ -237,7 +234,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.firebarLength = 4; //Very Short
     difficultySettings.longFirebarLength = 6; //Very Short
-    difficultySettings.enemyGroupSize = 1; //Small
     difficultySettings.unlimitedTime = true;
     difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
     difficultySettings.maxLevelLength = 2; //Very Short
@@ -382,7 +378,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bowserFlameFrequency = 2; //frequent
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
-    difficultySettings.enemyGroupSize = 3; //Big
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
     difficultySettings.piranhaPlantsOnFirstLevel = true;
@@ -624,7 +619,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bowserFlameFrequency = 0; //0 is random here
     difficultySettings.bulletBillFiringRate = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
-    difficultySettings.enemyGroupSize = 0; //0 is random here
     difficultySettings.enemyRevivalSpeed = 0; //0 is random here
     difficultySettings.firebarLength = 0; //0 is random here
     difficultySettings.longFirebarLength = 0; // 0 is random here

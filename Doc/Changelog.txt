@@ -6,7 +6,6 @@ Next Update (v0.3.3)
 + The amount of hammers the Hammer Bros. throw is based on the difficulty
 + Basic enemy speed is now slower on Easy and Very Easy difficulties
 + Bowser Flames are now fired less frequently on Very Easy and more frequently on Brutal
-+ Enemy group size is now smaller on Very Easy and larger on Brutal
 + Enemy revival speed is now modified on Random difficulty
 + Firebars are now shorter on Easy and Very Easy difficulties
 + Long Firebars are now shorter on Normal, Easy, and Very Easy difficulties
