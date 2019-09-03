@@ -63,6 +63,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboSpawnerPriority->setCurrentIndex(this->pluginSettings->difficultySpawnerPriority);
     this->ui->comboSurfingLiftSpeed->setCurrentIndex(this->pluginSettings->difficultySurfingLiftSpeed);
     this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
+    this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(this->pluginSettings->difficultyMaxNumberOfPiranhaPlants);
 }
 
 void Tab_Difficulty::Save_Settings() {
@@ -117,6 +118,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultySpawnerPriority = this->ui->comboSpawnerPriority->currentIndex();
         this->pluginSettings->difficultySurfingLiftSpeed = this->ui->comboSurfingLiftSpeed->currentIndex();
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
+        this->pluginSettings->difficultyMaxNumberOfPiranhaPlants = this->ui->comboMaxNumberOfPiranhaPlants->currentIndex();
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();

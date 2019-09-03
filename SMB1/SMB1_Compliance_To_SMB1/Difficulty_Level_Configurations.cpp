@@ -74,6 +74,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultySurfingLiftSpeed = difficultySettings.surfingLiftSpeed;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
+    pluginSettings->difficultyMaxNumberOfPiranhaPlants = difficultySettings.maxNumberOfPiranhaPlants;
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
     pluginSettings->difficultyBowserFlameFrequency = difficultySettings.bowserFlameFrequency;
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
@@ -130,6 +131,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
+    pluginSettings->difficultyMaxNumberOfPiranhaPlants = 5; //Normal
     pluginSettings->difficultySpinyEggBehavior = 1;
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
@@ -184,6 +186,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.surfingLiftSpeed = 3; //Normal
     difficultySettings.piranhaPlantType = 1;
+    difficultySettings.maxNumberOfPiranhaPlants = 5; //Normal
     difficultySettings.basicEnemySpeed = 3; //Normal
     difficultySettings.bowserFlameFrequency = 2; //Normal
     difficultySettings.bulletBillFiringRate = 3; //Normal
@@ -217,6 +220,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.standardOverworldLakitus = 8;
     difficultySettings.hammerBrosThrowRate = 1; //Extremely Infrequent
     difficultySettings.surfingLiftSpeed = 1; //Very Slow
+    difficultySettings.maxNumberOfPiranhaPlants = 1;
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.basicEnemySpeed = 1; //Very Slow
     difficultySettings.bowserFlameFrequency = 1; //infrequent
@@ -238,6 +242,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.bridgeFlyingCheepCheeps = 5;
     difficultySettings.hammerBrosThrowRate = 2; //Very Infrequent
     difficultySettings.surfingLiftSpeed = 2; //Slow
+    difficultySettings.maxNumberOfPiranhaPlants = 3;
     difficultySettings.basicEnemySpeed = 2; //Slow
     difficultySettings.lakituThrowArc = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
@@ -597,6 +602,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.surfingLiftSpeed = 0; //0 is random here
     difficultySettings.piranhaPlantType = 0; //0 is random here
+    difficultySettings.maxNumberOfPiranhaPlants = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
     difficultySettings.bowserFlameFrequency = 0; //0 is random here
     difficultySettings.bulletBillFiringRate = 0; //0 is random here

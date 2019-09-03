@@ -216,6 +216,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority)) return false;
     if (!configFile.Set_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_Number_Of_Piranha_Plants", this->pluginSettings.difficultyMaxNumberOfPiranhaPlants)) return false;
     if (!configFile.Set_Value("Standard_Overworld_Chance", this->pluginSettings.standardOverworldChance)) return false;
     if (!configFile.Set_Value("Underground_Chance", this->pluginSettings.undergroundChance)) return false;
     if (!configFile.Set_Value("Underwater_Chance", this->pluginSettings.underwaterChance)) return false;
@@ -304,6 +305,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority);
     configFile.Get_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed);
     configFile.Get_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType);
+    configFile.Get_Value("Difficulty_Max_Number_Of_Piranha_Plants", this->pluginSettings.difficultyMaxNumberOfPiranhaPlants);
     configFile.Get_Value("Standard_Overworld_Chance", this->pluginSettings.standardOverworldChance);
     configFile.Get_Value("Underground_Chance", this->pluginSettings.undergroundChance);
     configFile.Get_Value("Underwater_Chance", this->pluginSettings.underwaterChance);

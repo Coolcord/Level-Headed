@@ -191,6 +191,11 @@ bool Hacks_Handler::Handle_Lives() {
 }
 
 bool Hacks_Handler::Handle_Piranha_Plants() {
+    if (this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel && !this->writerPlugin->Hacks_Enable_Piranha_Plants_On_First_Level()) return false;
+    int maxNumberOfPlants = this->pluginSettings->difficultyMaxNumberOfPiranhaPlants;
+    if (maxNumberOfPlants == 0) maxNumberOfPlants = Random::Get_Instance().Get_Num(1, 6);
+    if (!this->writerPlugin->Hacks_Set_Maximum_Number_Of_Pirahna_Plants(maxNumberOfPlants)) return false;
+
     int piranhaPlantType = this->pluginSettings->difficultyPiranhaPlantType;
     if (piranhaPlantType == 0) piranhaPlantType = Random::Get_Instance().Get_Num(2)+1;
     switch (piranhaPlantType) {
@@ -293,7 +298,6 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     case 4:     speed = 3; break;
     }
     if (!this->writerPlugin->Hacks_Set_Enemy_Revival_Time(speed)) return false;
-    if (this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel && !this->writerPlugin->Hacks_Enable_Piranha_Plants_On_First_Level()) return false;
     if (this->pluginSettings->difficultySpeedyObjectsAndEnemies && !this->writerPlugin->Hacks_Speedy_Objects_And_Enemies()) return false;
     return true;
 }

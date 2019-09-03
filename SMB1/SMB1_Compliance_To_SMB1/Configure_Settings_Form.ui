@@ -719,7 +719,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1166</y>
+            <y>-1429</y>
             <width>684</width>
             <height>2255</height>
            </rect>
@@ -2215,16 +2215,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutMaximumNumberOfPiranhaPlants">
+               <layout class="QHBoxLayout" name="layoutMaxNumberOfPiranhaPlants">
                 <item>
-                 <widget class="QLabel" name="lblMaximumNumberOfPiranhaPlants">
+                 <widget class="QLabel" name="lblMaxNumberOfPiranhaPlants">
                   <property name="text">
                    <string>Maximum Number of Piranha Plants:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboMaximumNumberOfPiranhaPlants">
+                 <widget class="QComboBox" name="comboMaxNumberOfPiranhaPlants">
                   <item>
                    <property name="text">
                     <string>Random</string>

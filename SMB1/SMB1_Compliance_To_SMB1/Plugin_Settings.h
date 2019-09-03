@@ -96,6 +96,7 @@ struct Plugin_Settings {
     int difficultySpawnerPriority;
     int difficultySurfingLiftSpeed;
     int difficultyPiranhaPlantType;
+    int difficultyMaxNumberOfPiranhaPlants;
     int difficultyBasicEnemySpeed;
     int difficultyBowserFlameFrequency;
     int difficultyBulletBillFiringRate;
