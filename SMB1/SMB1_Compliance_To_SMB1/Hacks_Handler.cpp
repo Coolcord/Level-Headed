@@ -173,12 +173,12 @@ bool Hacks_Handler::Handle_Level_Length() {
         this->pluginSettings->difficultyMaxLevelLengthBlocks = 96; return true;
     case 3: //Short
         this->pluginSettings->difficultyMaxLevelLengthBlocks = 144; return true;
-    case 4: //Normal (about 12 pages)
-        this->pluginSettings->difficultyMaxLevelLengthBlocks = 192; return true;
+    case 4: //Normal (about 11 pages)
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 176; return true;
     case 5: //Long
-        this->pluginSettings->difficultyMaxLevelLengthBlocks = 240; return true;
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 224; return true;
     case 6: //Very Long
-        this->pluginSettings->difficultyMaxLevelLengthBlocks = 288; return true;
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = 272; return true;
     case 7: //As Long as Possible
         this->pluginSettings->difficultyMaxLevelLengthBlocks = 0; return true;
     }
