@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -719,9 +719,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1393</y>
+            <y>-1166</y>
             <width>684</width>
-            <height>2028</height>
+            <height>2255</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1705,6 +1705,41 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutBowserFlameFrequency">
+                <item>
+                 <widget class="QLabel" name="lblBowserFlameFrequency">
+                  <property name="text">
+                   <string>Bowser Flame Frequency:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBowserFlameFrequency">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Infrequent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Frequent</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutBulletBillFiringRate">
                 <item>
                  <widget class="QLabel" name="lblBulletBillFiringRate">
@@ -1805,6 +1840,41 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutEnemyGroupSize">
+                <item>
+                 <widget class="QLabel" name="lblEnemyGroupSize">
+                  <property name="text">
+                   <string>Enemy Group Size:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboEnemyGroupSize">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Small: 1 Large: 2</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Small: 2 Large: 3 (Normal)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Small: 3 Large: 4</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutEnemyRevivalSpeed">
                 <item>
                  <widget class="QLabel" name="lblEnemyRevivalSpeed">
@@ -1838,6 +1908,81 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Goombas Respawn + Quick</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutFirebarLength">
+                <item>
+                 <widget class="QLabel" name="lblFirebarLength">
+                  <property name="text">
+                   <string>Firebar Length:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboFirebarLength">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Short</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Short</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutLongFirebarLength">
+                <item>
+                 <widget class="QLabel" name="lblLongFirebarLength">
+                  <property name="text">
+                   <string>Long Firebar Length:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboLongFirebarLength">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Short</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Short</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Slightly Short</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
                    </property>
                   </item>
                  </widget>
@@ -1985,6 +2130,56 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutSurfingLiftSpeed">
+                <item>
+                 <widget class="QLabel" name="lblSurfingLiftSpeed">
+                  <property name="text">
+                   <string>Surfing Lift Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboSurfingLiftSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Slow</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Slow</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Very Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ludicrous Speed!</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutPiranhaPlantType">
                 <item>
                  <widget class="QLabel" name="lblPiranhaPlantType">
@@ -2013,6 +2208,56 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>Black</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutMaximumNumberOfPiranhaPlants">
+                <item>
+                 <widget class="QLabel" name="lblMaximumNumberOfPiranhaPlants">
+                  <property name="text">
+                   <string>Maximum Number of Piranha Plants:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboMaximumNumberOfPiranhaPlants">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>1</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>2</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>3</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>4</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>5 (Normal)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>6</string>
                    </property>
                   </item>
                  </widget>
@@ -2247,6 +2492,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn">
                 <property name="text">
                  <string>Disable all other enemies when flying Cheep-Cheeps spawn</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbPiranhaPlantsOnFirstLevel">
+                <property name="text">
+                 <string>Piranha plants on first level</string>
                 </property>
                </widget>
               </item>

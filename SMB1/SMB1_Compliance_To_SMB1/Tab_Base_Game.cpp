@@ -83,6 +83,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->sbWalkingHammerBros->setValue(11);
         this->ui->sbAutoScrollChancePerLevel->setValue(0);
         this->ui->comboBasicEnemySpeed->setCurrentIndex(1);
+        this->ui->comboBowserFlameFrequency->setCurrentIndex(2);
         this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
         this->ui->comboEnemyRevivalSpeed->setCurrentIndex(2);
@@ -116,6 +117,9 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblBasicEnemySpeed->setEnabled(!enabled);
     this->ui->comboBasicEnemySpeed->setEnabled(!enabled);
     this->ui->layoutBasicEnemySpeed->setEnabled(!enabled);
+    this->ui->lblBowserFlameFrequency->setEnabled(!enabled);
+    this->ui->comboBowserFlameFrequency->setEnabled(!enabled);
+    this->ui->layoutBowserFlameFrequency->setEnabled(!enabled);
     this->ui->lblBulletBillFiringRate->setEnabled(!enabled);
     this->ui->comboBulletBillFiringRate->setEnabled(!enabled);
     this->ui->layoutBulletBillFiringRate->setEnabled(!enabled);

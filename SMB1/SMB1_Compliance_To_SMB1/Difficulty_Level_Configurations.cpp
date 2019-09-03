@@ -74,6 +74,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
     pluginSettings->difficultyBasicEnemySpeed = difficultySettings.basicEnemySpeed;
+    pluginSettings->difficultyBowserFlameFrequency = difficultySettings.bowserFlameFrequency;
     pluginSettings->difficultyBulletBillFiringRate = difficultySettings.bulletBillFiringRate;
     pluginSettings->difficultyBulletBillSpeed = difficultySettings.bulletBillSpeed;
     pluginSettings->difficultyEnemyRevivalSpeed = difficultySettings.enemyRevivalSpeed;
@@ -117,6 +118,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyWalkingHammerBros = 11;
     pluginSettings->difficultyAutoScrollChancePerLevel = 0;
     pluginSettings->difficultyBasicEnemySpeed = 1;
+    pluginSettings->difficultyBowserFlameFrequency = 2;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
     pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
@@ -178,6 +180,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.piranhaPlantType = 1;
     difficultySettings.basicEnemySpeed = 3; //Normal
+    difficultySettings.bowserFlameFrequency = 2; //Normal
     difficultySettings.bulletBillFiringRate = 3; //Normal
     difficultySettings.bulletBillSpeed = 2;
     difficultySettings.enemyRevivalSpeed = 2; //Normal
@@ -209,6 +212,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.hammerBrosThrowRate = 1; //Extremely Infrequent
     difficultySettings.lakituRespawnSpeed = 2;
     difficultySettings.basicEnemySpeed = 1; //Very Slow
+    difficultySettings.bowserFlameFrequency = 1; //infrequent
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
     difficultySettings.unlimitedTime = true;
@@ -343,6 +347,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.hammerBrosThrowRate = 8; //ludicrous
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 7; //ludicrous
+    difficultySettings.bowserFlameFrequency = 2; //frequent
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
@@ -580,6 +585,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantType = 0; //0 is random here
     difficultySettings.basicEnemySpeed = 0; //0 is random here
+    difficultySettings.bowserFlameFrequency = 0; //0 is random here
+    difficultySettings.bulletBillFiringRate = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
     difficultySettings.enemyRevivalSpeed = 0; //0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here

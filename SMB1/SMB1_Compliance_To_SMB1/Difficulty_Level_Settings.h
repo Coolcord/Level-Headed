@@ -46,6 +46,7 @@ struct Difficulty_Level_Settings {
     bool superMarioOnDamage;
     int piranhaPlantType;
     int basicEnemySpeed;
+    int bowserFlameFrequency;
     int bulletBillFiringRate;
     int bulletBillSpeed;
     int enemyRevivalSpeed;

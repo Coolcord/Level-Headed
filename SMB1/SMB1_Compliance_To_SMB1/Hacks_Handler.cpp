@@ -237,6 +237,11 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 7);
     if (!this->writerPlugin->Hacks_Set_Bullet_Bill_Firing_Rate(speed)) return false;
 
+    //Handle the Bowser Flame Frequency
+    speed = this->pluginSettings->difficultyBowserFlameFrequency;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 3);
+    if (!this->writerPlugin->Hacks_Set_Bowser_Flame_Frequency(speed)) return false;
+
     //Handle the flying Cheep-Cheep jump height
     speed = this->pluginSettings->difficultyFlyingCheepCheepJumpHeight;
     if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 2);

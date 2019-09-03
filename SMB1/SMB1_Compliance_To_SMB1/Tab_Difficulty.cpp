@@ -13,6 +13,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
+    this->ui->comboBowserFlameFrequency->setCurrentIndex(this->pluginSettings->difficultyBowserFlameFrequency);
     this->ui->comboBulletBillFiringRate->setCurrentIndex(this->pluginSettings->difficultyBulletBillFiringRate);
     this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
     this->ui->comboEnemyRevivalSpeed->setCurrentIndex(this->pluginSettings->difficultyEnemyRevivalSpeed);
@@ -116,6 +117,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
+        this->pluginSettings->difficultyBowserFlameFrequency = this->ui->comboBowserFlameFrequency->currentIndex();
         this->pluginSettings->difficultyBulletBillFiringRate = this->ui->comboBulletBillFiringRate->currentIndex();
         this->pluginSettings->difficultyBulletBillSpeed = this->ui->comboBulletBillSpeed->currentIndex();
         this->pluginSettings->difficultyEnemyRevivalSpeed = this->ui->comboEnemyRevivalSpeed->currentIndex();
