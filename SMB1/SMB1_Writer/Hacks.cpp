@@ -270,7 +270,9 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     if (!this->Write_Bytes_To_Offset(0x17D3, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1823, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1849, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x1883, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    if (this->levelOffset->Get_ROM_Type() != ROM_Type::COOP_CGTI_1) {
+        if (!this->Write_Bytes_To_Offset(0x1883, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
+    }
     if (!this->Write_Bytes_To_Offset(0x18C8, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x190B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
