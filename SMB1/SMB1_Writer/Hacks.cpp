@@ -250,6 +250,8 @@ bool Hacks::Red_Piranha_Plants() {
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //nothing to do for now
+
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, static_cast<char>(0x00)))) return false;
