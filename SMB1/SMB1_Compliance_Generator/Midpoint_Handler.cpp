@@ -140,14 +140,8 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     if (absoluteX >= 0xA) {
         ++page;
         int length = 0x15-absoluteX;
-        if (x+(0x10-absoluteX) > 0x10) {
-            x = lastX;
-            return false;
-        }
-        if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) {
-            x = lastX;
-            return false;
-        }
+        assert(x+(0x10-absoluteX) <= 0x10);
+        assert(this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length));
         this->continuousEnemiesSpawner->Create_Midpoint_Continuous_Enemies_Spawner(0);
         x = length;
         return true;
