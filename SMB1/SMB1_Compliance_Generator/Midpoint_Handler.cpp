@@ -100,7 +100,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         //Place an island to ensure that the midpoint will be safe
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
         if (!this->object->Island(x, Physics::GROUND_Y+1, Random::Get_Instance().Get_Num(2)+(6-absoluteX))) return false;
-        x = this->object->Get_Last_Object_Length()+1;
+        x = this->object->Get_Last_Object_Length();
         this->continuousEnemiesSpawner->Create_Midpoint_Continuous_Enemies_Spawner(0);
         return true;
     }
