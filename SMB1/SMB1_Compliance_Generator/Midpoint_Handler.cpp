@@ -34,17 +34,13 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
     int page = this->object->Get_Current_Page();
 
     //Handle according to the level type
-    int tmpX = x;
     if (x < this->object->Get_Last_Object_Length()) x = this->object->Get_Last_Object_Length();
     if (this->object->Get_Num_Objects_Available() == 0) return; //midpoint may not be necessary
     switch (this->levelType) {
     case Level_Type::UNDERGROUND:
     case Level_Type::UNDERWATER:
     case Level_Type::STANDARD_OVERWORLD:
-        if (!this->Increment_Past_Standard_Overworld_Midpoint(x, page)) {
-            x = tmpX;
-            return; //unable to increment at this time
-        }
+        if (!this->Increment_Past_Standard_Overworld_Midpoint(x, page)) return; //unable to increment at this time
         break;
     case Level_Type::CASTLE:
         this->midpoint = 0;
@@ -52,10 +48,7 @@ void Midpoint_Handler::Handle_Midpoint(int &x) {
         return;
     case Level_Type::ISLAND:
     case Level_Type::BRIDGE:
-        if (!this->Increment_Past_Island_Midpoint(x, page)) {
-            x = tmpX;
-            return;
-        }
+        if (!this->Increment_Past_Island_Midpoint(x, page)) return; //unable to increment at this time
         break;
     default: assert(false); return;
     }
@@ -95,6 +88,7 @@ bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &p
 }
 
 bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
+    int lastX = x;
     int requiredObjects = 1;
     if (this->levelType == Level_Type::BRIDGE) ++requiredObjects;
     if (this->object->Get_Num_Objects_Available() < requiredObjects) return false;
@@ -138,6 +132,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
             if (!this->object->Island(tmpX, y, length)) return false;
         }
         x = this->object->Get_Last_Object_Length();
+        lastX = x;
         absoluteX = this->object->Get_Absolute_X(x);
     }
 
@@ -145,11 +140,18 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
     if (absoluteX >= 0xA) {
         ++page;
         int length = 0x15-absoluteX;
-        if (x+(0x10-absoluteX) > 0x10) return false;
-        if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) return false;
+        if (x+(0x10-absoluteX) > 0x10) {
+            x = lastX;
+            return false;
+        }
+        if (!this->object->Island(x+(0x10-absoluteX), Physics::GROUND_Y+1, length)) {
+            x = lastX;
+            return false;
+        }
         this->continuousEnemiesSpawner->Create_Midpoint_Continuous_Enemies_Spawner(0);
         x = length;
         return true;
     }
+    x = lastX;
     return false;
 }
