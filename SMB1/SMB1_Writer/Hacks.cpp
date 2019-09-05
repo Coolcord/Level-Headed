@@ -569,7 +569,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x4861, QByteArray(1, static_cast<char>(0xFE)))) return false;
     if (!this->Write_Bytes_To_Offset(0x486D, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x49D3, QByteArray(1, static_cast<char>(0x05)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x49D8, QByteArray(1, static_cast<char>(0xF7)))) return false;
     if (!this->Write_Bytes_To_Offset(0x4A82, QByteArray(1, static_cast<char>(0xE8)))) return false;
     if (!this->Write_Bytes_To_Offset(0x4B56, QByteArray(1, static_cast<char>(0x23)))) return false;
     if (!this->Write_Bytes_To_Offset(0x4B5C, QByteArray(1, static_cast<char>(0x01)))) return false;
