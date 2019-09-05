@@ -105,7 +105,7 @@ bool Sound::Bowser_Drop_Random() {
 
 bool Sound::Bowser_Flame_Random() {
     if (!this->Write_Bytes_To_Offset(0x7FDA, this->Random_Increment(this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("15161617171819191a1a1c1d1d1e1e1f1f1f1f1e1d1c1e1f1f1e1d1c1a181614").toLatin1())), 0x10))) return false;
-    return this->Write_Bytes_To_Offset(0x7691, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x20, 0x60))));
+    return this->Write_Bytes_To_Offset(0x7691, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x20, 0x53))));
 }
 
 bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0B060C0F0A09030D080D060C").toLatin1()))); }
