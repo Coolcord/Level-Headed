@@ -185,6 +185,7 @@ public:
     virtual bool Hacks_Spiny_Eggs_No_Eggs()=0;
     virtual bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super()=0;
     virtual bool Hacks_Unlimited_Time()=0;
+    virtual bool Hacks_Was_Vertical_Object_Limit_Removed()=0;
     virtual bool Hacks_Write_Watermark()=0;
 
     //Music Functions

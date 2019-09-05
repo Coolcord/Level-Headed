@@ -202,6 +202,7 @@ public:
     bool Hacks_Spiny_Eggs_No_Eggs();
     bool Hacks_Taking_Damage_As_Fire_Reverts_To_Super();
     bool Hacks_Unlimited_Time();
+    bool Hacks_Was_Vertical_Object_Limit_Removed();
     bool Hacks_Write_Watermark();
 
     //Music Functions

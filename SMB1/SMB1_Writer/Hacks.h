@@ -16,6 +16,7 @@ public:
     void Set_Graphics(Graphics *graphics);
     void Set_Powerups(Powerups *powerups);
     bool Was_Castle_Loop_Replaced_With_Autoscroll_Object();
+    bool Was_Vertical_Object_Limit_Removed();
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
     bool Black_Piranha_Plants();
@@ -97,6 +98,7 @@ private:
     bool wasCastleLoopReplacedWithFireBros;
     bool wasCastleLoopReplacedWithFlagpole1UP;
     bool wasCastleLoopReplacedWithFireFlower;
+    bool wasVerticalObjectLimitRemoved;
 };
 
 #endif // HACKS_H

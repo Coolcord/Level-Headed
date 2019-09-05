@@ -32,6 +32,7 @@ Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWr
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
     this->wasCastleLoopReplacedWithFireFlower = false;
+    this->wasVerticalObjectLimitRemoved = false;
 }
 
 void Hacks::Set_Graphics(Graphics *graphics) {
@@ -44,6 +45,10 @@ void Hacks::Set_Powerups(Powerups *powerups) {
 
 bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
     return this->wasCastleLoopReplacedWithAutoScrollObject;
+}
+
+bool Hacks::Was_Vertical_Object_Limit_Removed() {
+    return this->wasVerticalObjectLimitRemoved;
 }
 
 bool Hacks::Add_Luigi_Game() {
@@ -250,7 +255,7 @@ bool Hacks::Red_Piranha_Plants() {
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
-    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //nothing to do for now
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //currently not compatible with Co-op
 
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
@@ -270,14 +275,16 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     if (!this->Write_Bytes_To_Offset(0x17D3, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1823, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1849, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
-    if (this->levelOffset->Get_ROM_Type() != ROM_Type::COOP_CGTI_1) {
+    if (this->levelOffset->Get_ROM_Type() != ROM_Type::COOP_CGTI_1) { //this offset does not exist in Co-op
         if (!this->Write_Bytes_To_Offset(0x1883, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     }
     if (!this->Write_Bytes_To_Offset(0x18C8, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x190B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC0, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()))) return false;
+    this->wasVerticalObjectLimitRemoved = true;
+    return true;
 }
 
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {

@@ -748,6 +748,11 @@ bool SMB1_Writer::Hacks_Unlimited_Time() {
     return this->hacks->Unlimited_Time();
 }
 
+bool SMB1_Writer::Hacks_Was_Vertical_Object_Limit_Removed() {
+    if (!this->hacks) return false;
+    return this->hacks->Was_Vertical_Object_Limit_Removed();
+}
+
 bool SMB1_Writer::Hacks_Write_Watermark() {
     if (!this->hacks) return false;
     return this->hacks->Write_Watermark();
