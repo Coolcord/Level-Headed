@@ -52,8 +52,8 @@ struct Difficulty_Level_Settings {
     int bulletBillFiringRate;
     int bulletBillSpeed;
     int enemyRevivalSpeed;
-    int firebarLength;
-    int longFirebarLength;
+    int fireBarLength;
+    int longFireBarLength;
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
     bool speedyObjectsAndEnemies;

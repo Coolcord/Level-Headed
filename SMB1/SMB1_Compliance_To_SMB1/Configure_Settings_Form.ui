@@ -719,7 +719,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1256</y>
+            <y>0</y>
             <width>684</width>
             <height>2222</height>
            </rect>
@@ -1880,16 +1880,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutFirebarLength">
+               <layout class="QHBoxLayout" name="layoutFireBarLength">
                 <item>
-                 <widget class="QLabel" name="lblFirebarLength">
+                 <widget class="QLabel" name="lblFireBarLength">
                   <property name="text">
-                   <string>Firebar Length:</string>
+                   <string>Fire Bar Length:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboFirebarLength">
+                 <widget class="QComboBox" name="comboFireBarLength">
                   <item>
                    <property name="text">
                     <string>Random</string>
@@ -1915,16 +1915,16 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="layoutLongFirebarLength">
+               <layout class="QHBoxLayout" name="layoutLongFireBarLength">
                 <item>
-                 <widget class="QLabel" name="lblLongFirebarLength">
+                 <widget class="QLabel" name="lblLongFireBarLength">
                   <property name="text">
-                   <string>Long Firebar Length:</string>
+                   <string>Long Fire Bar Length:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboLongFirebarLength">
+                 <widget class="QComboBox" name="comboLongFireBarLength">
                   <item>
                    <property name="text">
                     <string>Random</string>

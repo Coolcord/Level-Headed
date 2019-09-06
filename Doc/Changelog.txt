@@ -7,14 +7,14 @@ Next Update (v0.3.3)
 + Basic enemy speed is now slower on Easy and Very Easy difficulties
 + Bowser Flames are now fired less frequently on Very Easy and more frequently on Brutal
 + Enemy revival speed is now modified on Random difficulty
-+ Firebars are now shorter on Easy and Very Easy difficulties
-+ Long Firebars are now shorter on Normal, Easy, and Very Easy difficulties
++ Fire Bars are now shorter on Easy and Very Easy difficulties
++ Long Fire Bars are now shorter on Normal, Easy, and Very Easy difficulties
 + Piranha Plants are now on the first level on Brutal difficulty
 + Fewer Piranha Plants spawn on Easy and Very Easy difficulties
 + Coin bounce animation, brick break animation, death animation, and Bowser bridge destruction animation can now be randomized
 + Added support for Infinite Lives and Permadeath in partially supported games
 + Added the remove vertical object limit patch by Chacky that can allow for more than 3 objects to be placed at one x coordinate
-- Into demos are disabled due to a compatibility issue with the new remove vertical object limit patch
+- Intro demos are disabled due to a compatibility issue with the new remove vertical object limit patch
 - Worlds can only be a max of 8 levels long instead of 9
 - Partially supported games are limited to 35 starting lives to help prevent graphical glitches
 

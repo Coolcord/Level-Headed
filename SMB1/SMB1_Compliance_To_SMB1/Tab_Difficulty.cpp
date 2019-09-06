@@ -17,8 +17,8 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboBulletBillFiringRate->setCurrentIndex(this->pluginSettings->difficultyBulletBillFiringRate);
     this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
     this->ui->comboEnemyRevivalSpeed->setCurrentIndex(this->pluginSettings->difficultyEnemyRevivalSpeed);
-    this->ui->comboFirebarLength->setCurrentIndex(this->pluginSettings->difficultyFirebarLength);
-    this->ui->comboLongFirebarLength->setCurrentIndex(this->pluginSettings->difficultyLongFirebarLength);
+    this->ui->comboFireBarLength->setCurrentIndex(this->pluginSettings->difficultyFireBarLength);
+    this->ui->comboLongFireBarLength->setCurrentIndex(this->pluginSettings->difficultyLongFireBarLength);
     this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(this->pluginSettings->difficultyFlyingCheepCheepJumpHeight);
     this->ui->comboHammerBrosThrowRate->setCurrentIndex(this->pluginSettings->difficultyHammerBrosThrowRate);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
@@ -128,8 +128,8 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyBulletBillFiringRate = this->ui->comboBulletBillFiringRate->currentIndex();
         this->pluginSettings->difficultyBulletBillSpeed = this->ui->comboBulletBillSpeed->currentIndex();
         this->pluginSettings->difficultyEnemyRevivalSpeed = this->ui->comboEnemyRevivalSpeed->currentIndex();
-        this->pluginSettings->difficultyFirebarLength = this->ui->comboFirebarLength->currentIndex();
-        this->pluginSettings->difficultyLongFirebarLength = this->ui->comboLongFirebarLength->currentIndex();
+        this->pluginSettings->difficultyFireBarLength = this->ui->comboFireBarLength->currentIndex();
+        this->pluginSettings->difficultyLongFireBarLength = this->ui->comboLongFireBarLength->currentIndex();
         this->pluginSettings->difficultyFlyingCheepCheepJumpHeight = this->ui->comboFlyingCheepCheepJumpHeight->currentIndex();
         this->pluginSettings->difficultyHammerBrosThrowRate = this->ui->comboHammerBrosThrowRate->currentIndex();
         this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();

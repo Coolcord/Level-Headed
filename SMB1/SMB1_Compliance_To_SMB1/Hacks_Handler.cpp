@@ -293,7 +293,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
     //Handle the Firebar length
-    switch (this->pluginSettings->difficultyFirebarLength) {
+    switch (this->pluginSettings->difficultyFireBarLength) {
     case 1:     speed = 4; break; //Very Short
     case 2:     speed = 5; break; //Short
     case 3:     speed = 6; break; //Normal
@@ -302,7 +302,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     if (!this->writerPlugin->Hacks_Set_Firebar_Length(speed)) return false;
 
     //Handle the Long Firebar length
-    switch (this->pluginSettings->difficultyLongFirebarLength) {
+    switch (this->pluginSettings->difficultyLongFireBarLength) {
     case 1:     speed = 8; break;  //Very Short
     case 2:     speed = 8; break;  //Short
     case 3:     speed = 10; break; //Slightly Short

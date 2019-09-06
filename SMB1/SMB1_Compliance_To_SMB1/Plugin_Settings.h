@@ -103,8 +103,8 @@ struct Plugin_Settings {
     int difficultyBulletBillFiringRate;
     int difficultyBulletBillSpeed;
     int difficultyEnemyRevivalSpeed;
-    int difficultyFirebarLength;
-    int difficultyLongFirebarLength;
+    int difficultyFireBarLength;
+    int difficultyLongFireBarLength;
     int difficultyFlyingCheepCheepJumpHeight;
     int difficultyHammerBrosThrowRate;
     bool difficultySpeedyObjectsAndEnemies;
