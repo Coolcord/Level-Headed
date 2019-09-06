@@ -1,80 +1,61 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-//Column-Row
-//=====Top Section=============
-//1-1 0x00 Gray
-//1-2 0x10 Silver
-//1-4 0x30 White
-
-//2-1 0x01 Dark Blue
-//2-2 0x11 Neon Blue
-//2-3 0x21 Maya Blue
-//2-4 0x31 Columbia Blue
-
-//3-1 0x02 Medium Blue
-//3-2 0x12 Blue Ribbon
-//3-3 0x22 Dodger Blue
-//3-4 0x32 Melrose Blue
-
-//4-1 0x03 Persian Indigo
-//4-2 0x13 Blue Violet
-//4-3 0x23 Heliotrope Violet
-//4-4 0x33 Lavender Blue
-
-//5-1 0x04 Dark Purple
-//5-2 0x14 Magenta
-//5-3 0x24 Heliotrope Purple
-//5-4 0x34 Mauve Purple
-
-//6-1 0x05 Fire Engine Red
-//6-2 0x15 Cerise Red
-//6-3 0x25 Hot Pink
-//6-4 0x35 Cotton Candy Pink
-
-//7-1 0x06 Fire Red
-//7-2 0x16 Persimmon Orange
-//7-3 0x26 Burnt Orange
-//7-4 0x36 Romantic Pink
-
-//8-1 0x07 Brown
-//8-2 0x17 Tenne Orange
-//8-3 0x27 Orange Peel
-//8-4 0x37 Cream Brulee Yellow
-//=====Top Section=============
-
-
-//=====Bottom Section==========
-//1-1 0x08 Verdun Green
-//1-2 0x18 Olive Green
-//1-3 0x28 Sunflower Yellow
-//1-4 0x38 Canary Yellow
-
-//2-1 0x09 Darker Green
-//2-2 0x19 Limeade Green
-//2-3 0x29 Spring Green
-//2-4 0x39 Sulu Green
-
-//3-1 0x0A Dark Green
-//3-2 0x1A Kelly Green
-//3-3 0x2A Screamin' Green
-//3-4 0x3A Madang Green
-
-//4-1 0x0B Parsley Green
-//4-2 0x1B Ocean Green
-//4-3 0x2B Pastel Green
-//4-4 0x3B Aquamarine
-
-//5-1 0x0C Chambray Blue
-//5-2 0x1C Boston Blue
-//5-3 0x2C Turquoise Blue
-//5-4 0x3C Electric Blue
-
-//6-3 0x2D Dim Gray
-//6-4 0x3D Light Gray
-
-//8-1 0x0F Black
-//=====Bottom Section==========
-
+enum Color {
+    WHITE = 0x30,
+    BLACK = 0x0F,
+    GRAY = 0x00,
+    GRAY_DARK = 0x2D,
+    GRAY_LIGHT = 0x3D,
+    GRAY_LIGHTEST = 0x10,
+    BLUE = 0x21,
+    BLUE_DARK = 0x12,
+    BLUE_DARKER = 0x02,
+    BLUE_DARKEST = 0x01,
+    BLUE_LIGHT = 0x11,
+    BLUE_LIGHTER = 0x22,
+    BLUE_LIGHTEST = 0x31,
+    BLUE_LIGHTEST_PURPLE = 0x32,
+    BROWN = 0x07,
+    BROWN_LIGHT = 0x17,
+    AQUAMARINE = 0x2B,
+    AQUAMARINE_LIGHT = 0x3B,
+    PURPLE = 0x13,
+    PURPLE_DARK = 0x03,
+    PURPLE_LIGHT = 0x23,
+    PURPLE_LIGHTEST = 0x33,
+    MAGENTA = 0x14,
+    MAGENTA_DARK = 0x04,
+    MAGENTA_LIGHT = 0x24,
+    MAGENTA_LIGHTEST = 0x34,
+    RED = 0x05,
+    RED_LIGHT = 0x15,
+    PINK = 0x25,
+    PINK_LIGHT = 0x35,
+    PINK_LIGHTEST = 0x36,
+    ORANGE = 0x26,
+    ORANGE_DARK = 0x16,
+    ORANGE_DARKEST = 0x06,
+    ORANGE_LIGHT = 0x27,
+    ORANGE_LIGHTEST = 0x37,
+    OLIVE = 0x18,
+    OLIVE_DARK = 0x08,
+    GREEN = 0x1A,
+    GREEN_DARK = 0x19,
+    GREEN_DARKER = 0x0A,
+    GREEN_DARKEST = 0x09,
+    GREEN_LIGHT = 0x29,
+    GREEN_LIGHTER = 0x2A,
+    GREEN_LIGHTEST = 0x3A,
+    GREEN_LIGHTEST_YELLOW = 0x39,
+    PARSLAY = 0x0B,
+    PARSLAY_LIGHT = 0x1B,
+    TURQUOISE = 0x2C,
+    TURQUOISE_DARK = 0x1C,
+    TURQUOISE_DARKEST = 0x0C,
+    TURQUOISE_LIGHT = 0x3C,
+    YELLOW = 0x28,
+    YELLOW_LIGHT = 0x38
+};
 
 #endif // COLOR_H
