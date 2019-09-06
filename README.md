@@ -28,11 +28,17 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
  ## FAQ
 
+**Q: What's new in "Gameplay Wrap-up" (v0.3.3)?**
+
+ A: v0.3.3 focuses on numerous minor gameplay features, such as new powerups and enemy behaviors. Most of these enemy behaviors are used to assist in making games easier or harder depending on the difficulty setting and are accomplished via ROM hacks. Midpoints can now also be used on every level (assuming it isn't a Castle level).
+
+ The largest feature of this update is Chacky's "Remove Vertical Object Limit" patch. This patch allows for more than 3 objects to be placed at one x coordinate, potentially allow for more complicated level designs. v0.3.3 only uses this patch to fix a rare bug, but future versions of the level generator will take full advantage of its features.
+
 **Q: What's new in "The Midpoints Strike Back!" (v0.3.2)?**
  
  A: Midpoints have, by far, been the most requested feature for Level-Headed. While the first public release of Level-Headed ("Water Vapor" v0.1.0) had midpoints, it was a very unreliable feature. In some circumstances, the player would be put in an unwinnable state or placed over a hole and die repeatedly until a game over. Attempts were made to fix the bugs in the system, but ultimately, it was determined that midpoints should be completely scrapped until a later date.
 
- Since then, more work as gone into the midpoint handler, and it's now ready to be reimplemented. However, there is a catch. In order for midpoints to work properly, worlds **must** have 4 levels each. Any more or less throw off what SMB1 expects, causing the wrong midpoint to be loaded. The fix for this requires assembly and will be implemented in v0.3.3.
+ Since then, more work as gone into the midpoint handler, and it's now ready to be reimplemented. However, there is a catch. In order for midpoints to work properly, worlds **must** have 4 levels each. Any more or less throw off what SMB1 expects, causing the wrong midpoint to be loaded. The fix for this requires assembly and has been implemented in v0.3.3.
  
  **Q: What's new in "Less Excess" (v0.3.1)?**
  
