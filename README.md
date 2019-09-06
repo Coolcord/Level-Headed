@@ -30,9 +30,9 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
 **Q: What's new in "Gameplay Wrap-up" (v0.3.3)?**
 
- A: v0.3.3 focuses on numerous minor gameplay features, such as new powerups and enemy behaviors. Most of these enemy behaviors are used to assist in making games easier or harder depending on the difficulty setting and are accomplished via ROM hacks. Midpoints can now also be used on every level (assuming it isn't a Castle level).
+ A: v0.3.3 focuses on numerous minor gameplay features, such as new powerups and enemy behaviors. Most of these enemy behaviors are used to assist in making games easier or harder depending on the difficulty setting and are accomplished via ROM hacks. New spiny egg behaviors have also been added to make Lakitus more interesting. Midpoints can now also be used on every level (assuming it isn't a castle level).
 
- The largest feature of this update is Chacky's "Remove Vertical Object Limit" patch. This patch allows for more than 3 objects to be placed at one x coordinate, potentially allow for more complicated level designs. v0.3.3 only uses this patch to fix a rare bug, but future versions of the level generator will take full advantage of its features.
+ The largest feature of this update is Chacky's "Remove Vertical Object Limit" patch. This patch allows for more than 3 objects to be placed at one x coordinate, potentially allowing for more complicated level designs. v0.3.3 only uses this patch to fix a rare bug, but future versions of the level generator will take full advantage of its features.
 
 **Q: What's new in "The Midpoints Strike Back!" (v0.3.2)?**
  
