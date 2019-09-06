@@ -149,6 +149,14 @@ bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
     return this->Write_Bytes_To_Offset(0x65ED, QByteArray(14, static_cast<char>(0xEA)));
 }
 
+bool Hacks::Idle_At_Intro_Demo() {
+    QByteArray buttons(21, static_cast<char>(0x00));
+    QByteArray timings(22, static_cast<char>(0xFF));
+    timings.data()[timings.size()-1] = static_cast<char>(0x00); //terminator byte
+    if (!this->Write_Bytes_To_Offset(0x0350, buttons)) return false;
+    return this->Write_Bytes_To_Offset(0x365, timings);
+}
+
 bool Hacks::Infinite_Lives() {
     if (!this->Set_Starting_Lives(1)) return false; //set the starting lives and fix the life counter bugs first
     if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
@@ -191,6 +199,7 @@ bool Hacks::Permadeath() {
 }
 
 bool Hacks::Random_Intro_Demo() {
+    if (this->wasVerticalObjectLimitRemoved) return this->Idle_At_Intro_Demo(); //Intro Demo is not compatible with the vertical object limit patch
     QByteArray buttons(21, static_cast<char>(0x01)); //default is holding right
     bool run = Random::Get_Instance().Get_Num(1);
     bool stopAfterJump = false;
@@ -283,6 +292,7 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC0, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()))) return false;
+    if (!this->Idle_At_Intro_Demo()) return false;
     this->wasVerticalObjectLimitRemoved = true;
     return true;
 }
