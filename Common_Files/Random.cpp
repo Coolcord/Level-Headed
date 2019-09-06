@@ -23,5 +23,7 @@ int Random::Get_Num(int min, int max) {
 }
 
 void Random::Seed(unsigned int seed) {
+    srand(seed);
+    qsrand(seed);
     this->randomGenerator->seed(seed);
 }
