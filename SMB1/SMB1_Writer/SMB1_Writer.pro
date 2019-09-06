@@ -14,6 +14,7 @@ CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Writer.cpp \
     Bowser_Bridge_Destroyer.cpp \
+    Colors.cpp \
     Item_Writer.cpp \
     Binary_Manipulator.cpp \
     Object_Writer.cpp \
@@ -41,6 +42,7 @@ SOURCES += SMB1_Writer.cpp \
 HEADERS += SMB1_Writer.h \
     Bowser_Bridge_Destroyer.h \
     Color.h \
+    Colors.h \
     ROM_Type.h \
     Item_Writer.h \
     Binary_Manipulator.h \
