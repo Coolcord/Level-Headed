@@ -40,6 +40,7 @@ SOURCES += SMB1_Writer.cpp \
 
 HEADERS += SMB1_Writer.h \
     Bowser_Bridge_Destroyer.h \
+    Color.h \
     ROM_Type.h \
     Item_Writer.h \
     Binary_Manipulator.h \
