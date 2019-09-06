@@ -13,8 +13,8 @@ Next Update (v0.3.3)
 + Fewer Piranha Plants spawn on Easy and Very Easy difficulties
 + Coin bounce animation, brick break animation, death animation, and Bowser bridge destruction animation can now be randomized
 + Added support for Infinite Lives and Permadeath in partially supported games
-+ Added the vertical object limit remover patch by Chacky that can allow for more than 3 objects to be placed at one x coordinate
-- Into demos are disabled due to a compatibility issue with the new vertical object limit remover patch
++ Added the remove vertical object limit patch by Chacky that can allow for more than 3 objects to be placed at one x coordinate
+- Into demos are disabled due to a compatibility issue with the new remove vertical object limit patch
 - Worlds can only be a max of 8 levels long instead of 9
 - Partially supported games are limited to 35 starting lives to help prevent graphical glitches
 

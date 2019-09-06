@@ -264,7 +264,7 @@ bool Hacks::Red_Piranha_Plants() {
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
-    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //currently not compatible with Co-op
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //not compatible with Co-op
 
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
@@ -292,7 +292,7 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC0, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()))) return false;
-    if (!this->Idle_At_Intro_Demo()) return false;
+    if (!this->Idle_At_Intro_Demo()) return false; //this patch breaks the intro demo, so just disable it
     this->wasVerticalObjectLimitRemoved = true;
     return true;
 }
