@@ -67,6 +67,7 @@ public:
 
 private:
     int Get_Color_Darkness_Weight(Color::Color color);
+    void Get_Color_RGB(Color::Color color, char &r, char &g, char &b);
 };
 
 #endif // COLORS_H
