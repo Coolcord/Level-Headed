@@ -2,6 +2,10 @@
 #include "../../Common_Files/Random.h"
 #include <assert.h>
 
+QByteArray Colors::Get_QByteArray_From_Color(Color::Color color) {
+    return QByteArray(1, static_cast<char>(this->Get_Hex_From_Color(color)));
+}
+
 int Colors::Get_Hex_From_Color(Color::Color color) {
     return static_cast<int>(color);
 }
@@ -15,7 +19,7 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x02:      color = Color::BLUE_DARKER; return true;
     case 0x03:      color = Color::PURPLE_DARK; return true;
     case 0x04:      color = Color::MAGENTA_DARK; return true;
-    case 0x05:      color = Color::RED; return true;
+    case 0x05:      color = Color::RED_DARK; return true;
     case 0x06:      color = Color::ORANGE_DARKEST; return true;
     case 0x07:      color = Color::BROWN; return true;
     case 0x08:      color = Color::OLIVE_DARK; return true;
@@ -31,7 +35,7 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x12:      color = Color::BLUE_DARK; return true;
     case 0x13:      color = Color::PURPLE; return true;
     case 0x14:      color = Color::MAGENTA; return true;
-    case 0x15:      color = Color::RED_LIGHT; return true;
+    case 0x15:      color = Color::RED; return true;
     case 0x16:      color = Color::ORANGE_DARK; return true;
     case 0x17:      color = Color::BROWN_LIGHT; return true;
     case 0x18:      color = Color::OLIVE; return true;
@@ -63,8 +67,8 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x32:      color = Color::BLUE_LIGHTEST_PURPLE; return true;
     case 0x33:      color = Color::PURPLE_LIGHTEST; return true;
     case 0x34:      color = Color::MAGENTA_LIGHTEST; return true;
-    case 0x35:      color = Color::PINK_LIGHT; return true;
-    case 0x36:      color = Color::PINK_LIGHTEST; return true;
+    case 0x35:      color = Color::RED_LIGHT; return true;
+    case 0x36:      color = Color::PINK_LIGHT; return true;
     case 0x37:      color = Color::ORANGE_LIGHTEST; return true;
     case 0x38:      color = Color::YELLOW_LIGHT; return true;
     case 0x39:      color = Color::GREEN_LIGHTEST_YELLOW; return true;
@@ -77,12 +81,39 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     }
 }
 
+Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Darkest_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Lightest_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Random_Base_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Random_Dark_Color_From_Color(Color::Color color) {
+
+}
+
+Color::Color Colors::Get_Random_Light_Color_From_Color(Color::Color color) {
+
+}
+
 Color::Color Colors::Which_Color_Is_Darker(Color::Color color1, Color::Color color2) {
     if (color1 == color2) return color1;
     int color1Weight = this->Get_Color_Darkness_Weight(color1);
     int color2Weight = this->Get_Color_Darkness_Weight(color2);
-    assert(color1Weight != color2Weight);
-    if (color1Weight > color2Weight) return color1;
+    if (color1Weight >= color2Weight) return color1;
     else return color2;
 }
 
@@ -96,64 +127,108 @@ Color::Color Colors::Which_Color_Is_Lighter(Color::Color color1, Color::Color co
 }
 
 Color::Color Colors::Get_Random_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
+    switch (Random::Get_Instance().Get_Num(53)) {
     default:    assert(false); return Color::BLACK;
-    case 0:     return this->Get_Random_Base_Color();
-    case 1:     return this->Get_Random_Dark_Color();
-    case 2:     return this->Get_Random_Light_Color();
+    case 0:     return Color::GRAY;
+    case 1:     return Color::BLUE_DARKEST;
+    case 2:     return Color::BLUE_DARKER;
+    case 3:     return Color::PURPLE_DARK;
+    case 4:     return Color::MAGENTA_DARK;
+    case 5:     return Color::RED_DARK;
+    case 6:     return Color::ORANGE_DARKEST;
+    case 7:     return Color::BROWN;
+    case 8:     return Color::OLIVE_DARK;
+    case 9:     return Color::GREEN_DARKEST;
+    case 10:    return Color::GREEN_DARKER;
+    case 11:    return Color::TURQUOISE_DARK;
+    case 12:    return Color::AQUAMARINE_DARK;
+    case 13:    return Color::BLACK;
+    case 14:    return Color::GRAY_LIGHTEST;
+    case 15:    return Color::BLUE;
+    case 16:    return Color::BLUE_DARK;
+    case 17:    return Color::PURPLE;
+    case 18:    return Color::MAGENTA;
+    case 19:    return Color::RED;
+    case 20:    return Color::ORANGE_DARK;
+    case 21:    return Color::BROWN_LIGHT;
+    case 22:    return Color::OLIVE;
+    case 23:    return Color::GREEN_DARK;
+    case 24:    return Color::GREEN;
+    case 25:    return Color::TURQUOISE;
+    case 26:    return Color::AQUAMARINE;
+    case 27:    return Color::WHITE;
+    case 28:    return Color::BLUE_LIGHTER;
+    case 29:    return Color::BLUE_LIGHT;
+    case 30:    return Color::PURPLE_LIGHT;
+    case 31:    return Color::MAGENTA_LIGHT;
+    case 32:    return Color::PINK;
+    case 33:    return Color::ORANGE;
+    case 34:    return Color::ORANGE_LIGHT;
+    case 35:    return Color::YELLOW;
+    case 36:    return Color::GREEN_LIGHT;
+    case 37:    return Color::GREEN_LIGHTER;
+    case 38:    return Color::TURQUOISE_LIGHT;
+    case 39:    return Color::AQUAMARINE_LIGHT;
+    case 40:    return Color::GRAY_DARK;
+    case 41:    return Color::BLUE_LIGHTEST;
+    case 42:    return Color::BLUE_LIGHTEST_PURPLE;
+    case 43:    return Color::PURPLE_LIGHTEST;
+    case 44:    return Color::MAGENTA_LIGHTEST;
+    case 45:    return Color::RED_LIGHT;
+    case 46:    return Color::PINK_LIGHT;
+    case 47:    return Color::ORANGE_LIGHTEST;
+    case 48:    return Color::YELLOW_LIGHT;
+    case 49:    return Color::GREEN_LIGHTEST_YELLOW;
+    case 50:    return Color::GREEN_LIGHTEST;
+    case 51:    return Color::TURQUOISE_LIGHTEST;
+    case 52:    return Color::AQUAMARINE_LIGHTEST;
+    case 53:    return Color::GRAY_LIGHT;
     }
 }
 
 Color::Color Colors::Get_Random_Base_Color() {
-    switch (Random::Get_Instance().Get_Num(10)) {
+    switch (Random::Get_Instance().Get_Num(8)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return this->Get_Random_Blue_Base_Color();
     case 1:     return this->Get_Random_Brown_Base_Color();
     case 2:     return this->Get_Random_Gray_Base_Color();
     case 3:     return this->Get_Random_Green_Base_Color();
-    case 4:     return this->Get_Random_Magenta_Base_Color();
-    case 5:     return this->Get_Random_Orange_Base_Color();
-    case 6:     return this->Get_Random_Pink_Base_Color();
-    case 7:     return this->Get_Random_Purple_Base_Color();
-    case 8:     return this->Get_Random_Red_Base_Color();
-    case 9:     return this->Get_Random_Turquoise_Base_Color();
-    case 10:    return this->Get_Random_Yellow_Base_Color();
+    case 4:     return this->Get_Random_Orange_Base_Color();
+    case 5:     return this->Get_Random_Pink_Base_Color();
+    case 6:     return this->Get_Random_Purple_Base_Color();
+    case 7:     return this->Get_Random_Red_Base_Color();
+    case 8:     return this->Get_Random_Yellow_Base_Color();
     }
 }
 
 Color::Color Colors::Get_Random_Dark_Color() {
-    switch (Random::Get_Instance().Get_Num(11)) {
+    switch (Random::Get_Instance().Get_Num(8)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return this->Get_Random_Blue_Dark_Color();
-    case 1:     return this->Get_Random_Brown_Dark_Color();
-    case 2:     return this->Get_Random_Gray_Dark_Color();
-    case 3:     return this->Get_Random_Green_Dark_Color();
-    case 4:     return this->Get_Random_Magenta_Dark_Color();
-    case 5:     return this->Get_Random_Orange_Dark_Color();
-    case 6:     return this->Get_Random_Pink_Dark_Color();
-    case 7:     return this->Get_Random_Purple_Dark_Color();
-    case 8:     return this->Get_Random_Red_Dark_Color();
-    case 9:     return this->Get_Random_Turquoise_Dark_Color();
-    case 10:    return this->Get_Random_Yellow_Dark_Color();
-    case 11:    return Color::BLACK;
+    case 1:     return this->Get_Random_Gray_Dark_Color();
+    case 2:     return this->Get_Random_Green_Dark_Color();
+    case 3:     return this->Get_Random_Orange_Dark_Color();
+    case 4:     return this->Get_Random_Pink_Dark_Color();
+    case 5:     return this->Get_Random_Purple_Dark_Color();
+    case 6:     return this->Get_Random_Red_Dark_Color();
+    case 7:     return this->Get_Random_Yellow_Dark_Color();
+    case 8:     return Color::BLACK;
     }
 }
 
 Color::Color Colors::Get_Random_Light_Color() {
-    switch (Random::Get_Instance().Get_Num(11)) {
+    switch (Random::Get_Instance().Get_Num(9)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return this->Get_Random_Blue_Light_Color();
     case 1:     return this->Get_Random_Brown_Light_Color();
     case 2:     return this->Get_Random_Gray_Light_Color();
     case 3:     return this->Get_Random_Green_Light_Color();
-    case 4:     return this->Get_Random_Magenta_Light_Color();
-    case 5:     return this->Get_Random_Orange_Light_Color();
-    case 6:     return this->Get_Random_Pink_Light_Color();
-    case 7:     return this->Get_Random_Purple_Light_Color();
-    case 8:     return this->Get_Random_Red_Light_Color();
-    case 9:     return this->Get_Random_Turquoise_Light_Color();
-    case 10:    return this->Get_Random_Yellow_Light_Color();
-    case 11:    return Color::WHITE;
+    case 4:     return this->Get_Random_Orange_Light_Color();
+    case 5:     return this->Get_Random_Pink_Light_Color();
+    case 6:     return this->Get_Random_Purple_Light_Color();
+    case 7:     return this->Get_Random_Red_Light_Color();
+    case 8:     return this->Get_Random_Yellow_Light_Color();
+    case 9:     return Color::WHITE;
     }
 }
 
@@ -167,12 +242,8 @@ Color::Color Colors::Get_Random_Blue_Color() {
 }
 
 Color::Color Colors::Get_Random_Brown_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
-    default:    assert(false); return Color::BLACK;
-    case 0:     return this->Get_Random_Brown_Base_Color();
-    case 1:     return this->Get_Random_Brown_Dark_Color();
-    case 2:     return this->Get_Random_Brown_Light_Color();
-    }
+    if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Brown_Base_Color();
+    else return this->Get_Random_Brown_Light_Color();
 }
 
 Color::Color Colors::Get_Random_Gray_Color() {
@@ -190,15 +261,6 @@ Color::Color Colors::Get_Random_Green_Color() {
     case 0:     return this->Get_Random_Green_Base_Color();
     case 1:     return this->Get_Random_Green_Dark_Color();
     case 2:     return this->Get_Random_Green_Light_Color();
-    }
-}
-
-Color::Color Colors::Get_Random_Magenta_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
-    default:    assert(false); return Color::BLACK;
-    case 0:     return this->Get_Random_Magenta_Base_Color();
-    case 1:     return this->Get_Random_Magenta_Dark_Color();
-    case 2:     return this->Get_Random_Magenta_Light_Color();
     }
 }
 
@@ -238,15 +300,6 @@ Color::Color Colors::Get_Random_Red_Color() {
     }
 }
 
-Color::Color Colors::Get_Random_Turquoise_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
-    default:    assert(false); return Color::BLACK;
-    case 0:     return this->Get_Random_Turquoise_Base_Color();
-    case 1:     return this->Get_Random_Turquoise_Dark_Color();
-    case 2:     return this->Get_Random_Turquoise_Light_Color();
-    }
-}
-
 Color::Color Colors::Get_Random_Yellow_Color() {
     switch (Random::Get_Instance().Get_Num(2)) {
     default:    assert(false); return Color::BLACK;
@@ -257,135 +310,157 @@ Color::Color Colors::Get_Random_Yellow_Color() {
 }
 
 Color::Color Colors::Get_Random_Blue_Base_Color() {
-
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::BLUE;
+    case 1:     return Color::BLUE_DARK;
+    case 2:     return Color::BLUE_LIGHT;
+    case 3:     return Color::AQUAMARINE;
+    }
 }
 
 Color::Color Colors::Get_Random_Blue_Dark_Color() {
-
+    switch (Random::Get_Instance().Get_Num(2)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::BLUE_DARKEST;
+    case 1:     return Color::BLUE_DARKER;
+    case 2:     return Color::AQUAMARINE_DARK;
+    }
 }
 
 Color::Color Colors::Get_Random_Blue_Light_Color() {
-
+    switch (Random::Get_Instance().Get_Num(4)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::BLUE_LIGHTER;
+    case 1:     return Color::BLUE_LIGHTEST;
+    case 2:     return Color::AQUAMARINE_LIGHT;
+    case 3:     return Color::AQUAMARINE_LIGHTEST;
+    case 4:     return Color::BLUE_LIGHTEST_PURPLE;
+    }
 }
 
 Color::Color Colors::Get_Random_Brown_Base_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Brown_Dark_Color() {
-
+    return Color::BROWN;
 }
 
 Color::Color Colors::Get_Random_Brown_Light_Color() {
-
+    return Color::BROWN_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Gray_Base_Color() {
-
+    if (Random::Get_Instance().Get_Num(1)) return Color::GRAY_LIGHT;
+    else return Color::GRAY;
 }
 
 Color::Color Colors::Get_Random_Gray_Dark_Color() {
-
+    return Color::GRAY_DARK;
 }
 
 Color::Color Colors::Get_Random_Gray_Light_Color() {
-
+    return Color::GRAY_LIGHTEST;
 }
 
 Color::Color Colors::Get_Random_Green_Base_Color() {
-
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::GREEN;
+    case 1:     return Color::GREEN_DARK;
+    case 2:     return Color::TURQUOISE;
+    case 3:     return Color::GREEN_LIGHT;
+    }
 }
 
 Color::Color Colors::Get_Random_Green_Dark_Color() {
-
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::GREEN_DARKER;
+    case 1:     return Color::GREEN_DARKEST;
+    case 2:     return Color::TURQUOISE_DARK;
+    case 3:     return Color::OLIVE_DARK;
+    }
 }
 
 Color::Color Colors::Get_Random_Green_Light_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Magenta_Base_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Magenta_Dark_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Magenta_Light_Color() {
-
+    switch (Random::Get_Instance().Get_Num(4)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::GREEN_LIGHTER;
+    case 1:     return Color::GREEN_LIGHTEST;
+    case 2:     return Color::GREEN_LIGHTEST_YELLOW;
+    case 3:     return Color::TURQUOISE_LIGHT;
+    case 4:     return Color::TURQUOISE_LIGHTEST;
+    }
 }
 
 Color::Color Colors::Get_Random_Orange_Base_Color() {
-
+    switch (Random::Get_Instance().Get_Num(4)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::ORANGE;
+    case 1:     return Color::ORANGE_DARK;
+    case 2:     return Color::ORANGE_LIGHT;
+    }
 }
 
 Color::Color Colors::Get_Random_Orange_Dark_Color() {
-
+    return Color::ORANGE_DARKEST;
 }
 
 Color::Color Colors::Get_Random_Orange_Light_Color() {
-
+    return Color::ORANGE_LIGHTEST;
 }
 
 Color::Color Colors::Get_Random_Pink_Base_Color() {
-
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::PINK;
+    case 1:     return Color::MAGENTA;
+    case 2:     return Color::MAGENTA_LIGHT;
+    }
 }
 
 Color::Color Colors::Get_Random_Pink_Dark_Color() {
-
+    return Color::MAGENTA_DARK;
 }
 
 Color::Color Colors::Get_Random_Pink_Light_Color() {
-
+    if (Random::Get_Instance().Get_Num(1)) return Color::PINK_LIGHT;
+    else return Color::MAGENTA_LIGHTEST;
 }
 
 Color::Color Colors::Get_Random_Purple_Base_Color() {
-
+    if (Random::Get_Instance().Get_Num(1)) return Color::PURPLE;
+    else return Color::PURPLE_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Purple_Dark_Color() {
-
+    return Color::PURPLE_DARK;
 }
 
 Color::Color Colors::Get_Random_Purple_Light_Color() {
-
+    return Color::PURPLE_LIGHTEST;
 }
 
 Color::Color Colors::Get_Random_Red_Base_Color() {
-
+    return Color::RED;
 }
 
 Color::Color Colors::Get_Random_Red_Dark_Color() {
-
+    return Color::RED_DARK;
 }
 
 Color::Color Colors::Get_Random_Red_Light_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Turquoise_Base_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Turquoise_Dark_Color() {
-
-}
-
-Color::Color Colors::Get_Random_Turquoise_Light_Color() {
-
+    return Color::RED_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Yellow_Base_Color() {
-
+    return Color::YELLOW;
 }
 
 Color::Color Colors::Get_Random_Yellow_Dark_Color() {
-
+    return Color::OLIVE;
 }
 
 Color::Color Colors::Get_Random_Yellow_Light_Color() {
-
+    return Color::YELLOW_LIGHT;
 }
 
 int Colors::Get_Color_Darkness_Weight(Color::Color color) {
@@ -402,7 +477,7 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::BLUE_DARKER:            r = static_cast<char>(0x28); g = static_cast<char>(0x00); b = static_cast<char>(0xB8); return; //2800b8
     case Color::PURPLE_DARK:            r = static_cast<char>(0x60); g = static_cast<char>(0x10); b = static_cast<char>(0xA0); return; //6010a0
     case Color::MAGENTA_DARK:           r = static_cast<char>(0x98); g = static_cast<char>(0x20); b = static_cast<char>(0x78); return; //982078
-    case Color::RED:                    r = static_cast<char>(0xB0); g = static_cast<char>(0x10); b = static_cast<char>(0x30); return; //b01030
+    case Color::RED_DARK:               r = static_cast<char>(0xB0); g = static_cast<char>(0x10); b = static_cast<char>(0x30); return; //b01030
     case Color::ORANGE_DARKEST:         r = static_cast<char>(0xA0); g = static_cast<char>(0x30); b = static_cast<char>(0x00); return; //a03000
     case Color::BROWN:                  r = static_cast<char>(0x74); g = static_cast<char>(0x40); b = static_cast<char>(0x00); return; //784000
     case Color::OLIVE_DARK:             r = static_cast<char>(0x48); g = static_cast<char>(0x58); b = static_cast<char>(0x00); return; //485800
@@ -416,7 +491,7 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::BLUE_DARK:              r = static_cast<char>(0x40); g = static_cast<char>(0x40); b = static_cast<char>(0xFF); return; //4040ff
     case Color::PURPLE:                 r = static_cast<char>(0x90); g = static_cast<char>(0x40); b = static_cast<char>(0xF0); return; //9040f0
     case Color::MAGENTA:                r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0xC0); return; //d840c0
-    case Color::RED_LIGHT:              r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0x60); return; //d84060
+    case Color::RED:                    r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0x60); return; //d84060
     case Color::ORANGE_DARK:            r = static_cast<char>(0xE0); g = static_cast<char>(0x50); b = static_cast<char>(0x00); return; //e05000
     case Color::BROWN_LIGHT:            r = static_cast<char>(0xC0); g = static_cast<char>(0x70); b = static_cast<char>(0x00); return; //c07000
     case Color::OLIVE:                  r = static_cast<char>(0x88); g = static_cast<char>(0x88); b = static_cast<char>(0x00); return; //888800
@@ -442,8 +517,8 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::BLUE_LIGHTEST_PURPLE:   r = static_cast<char>(0xA0); g = static_cast<char>(0xB8); b = static_cast<char>(0xFF); return; //a0b8ff
     case Color::PURPLE_LIGHTEST:        r = static_cast<char>(0xC0); g = static_cast<char>(0xB0); b = static_cast<char>(0xFF); return; //c0b0ff
     case Color::MAGENTA_LIGHTEST:       r = static_cast<char>(0xE0); g = static_cast<char>(0xB0); b = static_cast<char>(0xFF); return; //e0b0ff
-    case Color::PINK_LIGHT:             r = static_cast<char>(0xFF); g = static_cast<char>(0xB8); b = static_cast<char>(0xE8); return; //ffb8e8
-    case Color::PINK_LIGHTEST:          r = static_cast<char>(0xFF); g = static_cast<char>(0xC8); b = static_cast<char>(0xB8); return; //ffc8b8
+    case Color::RED_LIGHT:              r = static_cast<char>(0xFF); g = static_cast<char>(0xB8); b = static_cast<char>(0xE8); return; //ffb8e8
+    case Color::PINK_LIGHT:             r = static_cast<char>(0xFF); g = static_cast<char>(0xC8); b = static_cast<char>(0xB8); return; //ffc8b8
     case Color::ORANGE_LIGHTEST:        r = static_cast<char>(0xFF); g = static_cast<char>(0xD8); b = static_cast<char>(0xA0); return; //ffd8a0
     case Color::YELLOW_LIGHT:           r = static_cast<char>(0xFF); g = static_cast<char>(0xF0); b = static_cast<char>(0x90); return; //fff090
     case Color::GREEN_LIGHTEST_YELLOW:  r = static_cast<char>(0xC8); g = static_cast<char>(0xF0); b = static_cast<char>(0x80); return; //c8f080
