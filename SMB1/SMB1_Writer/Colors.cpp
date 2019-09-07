@@ -785,18 +785,18 @@ bool Colors::Is_Gray_Color(Color::Color color) {
 bool Colors::Is_Green_Color(Color::Color color) {
     switch (color) {
     default:                            return false;
-    case Color::GREEN:                   return true;
-    case Color::GREEN_DARK:              return true;
-    case Color::GREEN_DARKER:            return true;
-    case Color::GREEN_DARKEST:           return true;
-    case Color::GREEN_LIGHT:             return true;
-    case Color::GREEN_LIGHTER:           return true;
-    case Color::GREEN_LIGHTEST:          return true;
-    case Color::GREEN_LIGHTEST_YELLOW:   return true;
-    case Color::TURQUOISE:             return true;
-    case Color::TURQUOISE_DARK:        return true;
-    case Color::TURQUOISE_LIGHT:       return true;
-    case Color::TURQUOISE_LIGHTEST:    return true;
+    case Color::GREEN:                  return true;
+    case Color::GREEN_DARK:             return true;
+    case Color::GREEN_DARKER:           return true;
+    case Color::GREEN_DARKEST:          return true;
+    case Color::GREEN_LIGHT:            return true;
+    case Color::GREEN_LIGHTER:          return true;
+    case Color::GREEN_LIGHTEST:         return true;
+    case Color::GREEN_LIGHTEST_YELLOW:  return true;
+    case Color::TURQUOISE:              return true;
+    case Color::TURQUOISE_DARK:         return true;
+    case Color::TURQUOISE_LIGHT:        return true;
+    case Color::TURQUOISE_LIGHTEST:     return true;
     }
 }
 
