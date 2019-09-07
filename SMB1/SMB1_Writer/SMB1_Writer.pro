@@ -20,7 +20,7 @@ SOURCES += SMB1_Writer.cpp \
     Object_Writer.cpp \
     Header_Writer.cpp \
     Enemy_Writer.cpp \
-    Palette.cpp \
+    Palettes.cpp \
     SMB1_Writer_Accessors.cpp \
     ROM_Handler.cpp \
     ROM_Checksum.cpp \
@@ -44,7 +44,7 @@ HEADERS += SMB1_Writer.h \
     Bowser_Bridge_Destroyer.h \
     Color.h \
     Colors.h \
-    Palette.h \
+    Palettes.h \
     ROM_Type.h \
     Item_Writer.h \
     Binary_Manipulator.h \

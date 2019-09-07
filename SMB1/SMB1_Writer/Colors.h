@@ -12,15 +12,24 @@ public:
     QByteArray Get_QByteArray_From_Color(Color::Color color);
     int Get_Hex_From_Color(Color::Color color);
     bool Get_Color_From_Hex(int hex, Color::Color &color);
+    Color::Color Get_Darker_Shade_From_Color(Color::Color color);
+    Color::Color Get_Lighter_Shade_From_Color(Color::Color color);
     Color::Color Get_Slightly_Darker_Color_From_Color(Color::Color color);
     Color::Color Get_Slightly_Lighter_Color_From_Color(Color::Color color);
     Color::Color Get_Darkest_Color_From_Color(Color::Color color);
     Color::Color Get_Lightest_Color_From_Color(Color::Color color);
+    Color::Color Get_Darkest_Shade_From_Color(Color::Color color);
+    Color::Color Get_Lightest_Shade_From_Color(Color::Color color);
     Color::Color Get_Random_Base_Color_From_Color(Color::Color color);
     Color::Color Get_Random_Dark_Color_From_Color(Color::Color color);
     Color::Color Get_Random_Light_Color_From_Color(Color::Color color);
     Color::Color Which_Color_Is_Darker(Color::Color color1, Color::Color color2);
     Color::Color Which_Color_Is_Lighter(Color::Color color1, Color::Color color2);
+
+    Color::Color Get_Random_Darkest_Shade_Color();
+    Color::Color Get_Random_Dark_Shade_Color();
+    Color::Color Get_Random_Light_Shade_Color();
+    Color::Color Get_Random_Lightest_Shade_Color();
 
     Color::Color Get_Random_Color();
     Color::Color Get_Random_Base_Color();
@@ -67,6 +76,16 @@ public:
 private:
     int Get_Color_Darkness_Weight(Color::Color color);
     void Get_Color_RGB(Color::Color color, char &r, char &g, char &b);
+
+    bool Is_Blue_Color(Color::Color color);
+    bool Is_Brown_Color(Color::Color color);
+    bool Is_Gray_Color(Color::Color color);
+    bool Is_Green_Color(Color::Color color);
+    bool Is_Orange_Color(Color::Color color);
+    bool Is_Pink_Color(Color::Color color);
+    bool Is_Purple_Color(Color::Color color);
+    bool Is_Red_Color(Color::Color color);
+    bool Is_Yellow_Color(Color::Color color);
 };
 
 #endif // COLORS_H

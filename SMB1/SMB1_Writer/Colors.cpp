@@ -81,32 +81,219 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     }
 }
 
-Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
+Color::Color Colors::Get_Darker_Shade_From_Color(Color::Color color) {
+    int hex = this->Get_Hex_From_Color(color);
+    assert(hex >= 0x00 && hex <= 0x3F);
+    if (hex < 0x10) return color; //lightest shade available
+    hex -= 0x10;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
 
+Color::Color Colors::Get_Lighter_Shade_From_Color(Color::Color color) {
+    int hex = this->Get_Hex_From_Color(color);
+    assert(hex >= 0x00 && hex <= 0x3F);
+    if (hex >= 0x30) return color; //darkest shade available
+    hex += 0x10;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
+
+Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
+    switch (color) {
+    case Color::GRAY:                   return Color::GRAY_DARK;
+    case Color::BLUE_DARKEST:           return Color::BLACK;
+    case Color::BLUE_DARKER:            return Color::BLUE_DARKEST;
+    case Color::PURPLE_DARK:            return Color::BLACK;
+    case Color::MAGENTA_DARK:           return Color::BLACK;
+    case Color::RED_DARK:               return Color::BLACK;
+    case Color::ORANGE_DARKEST:         return Color::BLACK;
+    case Color::BROWN:                  return Color::BLACK;
+    case Color::OLIVE_DARK:             return Color::BLACK;
+    case Color::GREEN_DARKEST:          return Color::OLIVE_DARK;
+    case Color::GREEN_DARKER:           return Color::GREEN_DARKEST;
+    case Color::TURQUOISE_DARK:         return Color::GREEN_DARKER;
+    case Color::AQUAMARINE_DARK:        return Color::BLUE_DARKER;
+    case Color::BLACK:                  return Color::BLACK;
+    case Color::GRAY_LIGHTEST:          return Color::GRAY_LIGHT;
+    case Color::BLUE:                   return Color::BLUE_DARK;
+    case Color::BLUE_DARK:              return Color::BLUE_DARKER;
+    case Color::PURPLE:                 return Color::PURPLE_DARK;
+    case Color::MAGENTA:                return Color::MAGENTA_DARK;
+    case Color::RED:                    return Color::RED_DARK;
+    case Color::ORANGE_DARK:            return Color::BLACK;
+    case Color::BROWN_LIGHT:            return Color::BROWN;
+    case Color::OLIVE:                  return Color::OLIVE_DARK;
+    case Color::GREEN_DARK:             return Color::GREEN_DARKER;
+    case Color::GREEN:                  return Color::GREEN_DARK;
+    case Color::TURQUOISE:              return Color::TURQUOISE_DARK;
+    case Color::AQUAMARINE:             return Color::AQUAMARINE_DARK;
+    case Color::WHITE:                  return Color::GRAY_LIGHTEST;
+    case Color::BLUE_LIGHTER:           return Color::BLUE_LIGHT;
+    case Color::BLUE_LIGHT:             return Color::BLUE;
+    case Color::PURPLE_LIGHT:           return Color::PURPLE;
+    case Color::MAGENTA_LIGHT:          return Color::PINK;
+    case Color::PINK:                   return Color::MAGENTA;
+    case Color::ORANGE:                 return Color::ORANGE_DARK;
+    case Color::ORANGE_LIGHT:           return Color::ORANGE;
+    case Color::YELLOW:                 return Color::OLIVE;
+    case Color::GREEN_LIGHT:            return Color::GREEN;
+    case Color::GREEN_LIGHTER:          return Color::GREEN_LIGHT;
+    case Color::TURQUOISE_LIGHT:        return Color::TURQUOISE;
+    case Color::AQUAMARINE_LIGHT:       return Color::AQUAMARINE;
+    case Color::GRAY_DARK:              return Color::BLACK;
+    case Color::BLUE_LIGHTEST:          return Color::BLUE_LIGHTER;
+    case Color::BLUE_LIGHTEST_PURPLE:   return Color::BLUE_LIGHTEST;
+    case Color::PURPLE_LIGHTEST:        return Color::PURPLE_LIGHT;
+    case Color::MAGENTA_LIGHTEST:       return Color::MAGENTA_LIGHT;
+    case Color::RED_LIGHT:              return Color::RED_DARK;
+    case Color::PINK_LIGHT:             return Color::MAGENTA_LIGHT;
+    case Color::ORANGE_LIGHTEST:        return Color::ORANGE_LIGHT;
+    case Color::YELLOW_LIGHT:           return Color::YELLOW;
+    case Color::GREEN_LIGHTEST_YELLOW:  return Color::GREEN_LIGHTEST;
+    case Color::GREEN_LIGHTEST:         return Color::GREEN_LIGHTER;
+    case Color::TURQUOISE_LIGHTEST:     return Color::TURQUOISE_LIGHT;
+    case Color::AQUAMARINE_LIGHTEST:    return Color::AQUAMARINE_LIGHT;
+    case Color::GRAY_LIGHT:             return Color::GRAY;
+    }
+    assert(false); return Color::BLACK;
 }
 
 Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
-
+    switch (color) {
+    case Color::GRAY:                   return Color::GRAY_LIGHT;
+    case Color::BLUE_DARKEST:           return Color::BLUE_DARKER;
+    case Color::BLUE_DARKER:            return Color::BLUE_DARK;
+    case Color::PURPLE_DARK:            return Color::PURPLE;
+    case Color::MAGENTA_DARK:           return Color::MAGENTA;
+    case Color::RED_DARK:               return Color::RED;
+    case Color::ORANGE_DARKEST:         return Color::ORANGE_DARK;
+    case Color::BROWN:                  return Color::BROWN_LIGHT;
+    case Color::OLIVE_DARK:             return Color::OLIVE;
+    case Color::GREEN_DARKEST:          return Color::GREEN_DARKER;
+    case Color::GREEN_DARKER:           return Color::GREEN_DARK;
+    case Color::TURQUOISE_DARK:         return Color::TURQUOISE;
+    case Color::AQUAMARINE_DARK:        return Color::AQUAMARINE;
+    case Color::BLACK:                  return Color::GRAY_DARK;
+    case Color::GRAY_LIGHTEST:          return Color::WHITE;
+    case Color::BLUE:                   return Color::BLUE_LIGHT;
+    case Color::BLUE_DARK:              return Color::BLUE;
+    case Color::PURPLE:                 return Color::PURPLE_LIGHT;
+    case Color::MAGENTA:                return Color::PINK;
+    case Color::RED:                    return Color::RED_LIGHT;
+    case Color::ORANGE_DARK:            return Color::ORANGE;
+    case Color::BROWN_LIGHT:            return Color::ORANGE_LIGHTEST;
+    case Color::OLIVE:                  return Color::YELLOW;
+    case Color::GREEN_DARK:             return Color::GREEN;
+    case Color::GREEN:                  return Color::GREEN_LIGHT;
+    case Color::TURQUOISE:              return Color::TURQUOISE_LIGHT;
+    case Color::AQUAMARINE:             return Color::AQUAMARINE_LIGHT;
+    case Color::WHITE:                  return Color::WHITE;
+    case Color::BLUE_LIGHTER:           return Color::BLUE_LIGHTEST;
+    case Color::BLUE_LIGHT:             return Color::BLUE_LIGHTER;
+    case Color::PURPLE_LIGHT:           return Color::PURPLE_LIGHTEST;
+    case Color::MAGENTA_LIGHT:          return Color::MAGENTA_LIGHTEST;
+    case Color::PINK:                   return Color::MAGENTA_LIGHT;
+    case Color::ORANGE:                 return Color::ORANGE_LIGHT;
+    case Color::ORANGE_LIGHT:           return Color::ORANGE_LIGHTEST;
+    case Color::YELLOW:                 return Color::YELLOW_LIGHT;
+    case Color::GREEN_LIGHT:            return Color::GREEN_LIGHTER;
+    case Color::GREEN_LIGHTER:          return Color::GREEN_LIGHTEST;
+    case Color::TURQUOISE_LIGHT:        return Color::TURQUOISE_LIGHTEST;
+    case Color::AQUAMARINE_LIGHT:       return Color::AQUAMARINE_LIGHTEST;
+    case Color::GRAY_DARK:              return Color::GRAY;
+    case Color::BLUE_LIGHTEST:          return Color::BLUE_LIGHTEST_PURPLE;
+    case Color::BLUE_LIGHTEST_PURPLE:   return Color::WHITE;
+    case Color::PURPLE_LIGHTEST:        return Color::WHITE;
+    case Color::MAGENTA_LIGHTEST:       return Color::WHITE;
+    case Color::RED_LIGHT:              return Color::PINK;
+    case Color::PINK_LIGHT:             return Color::WHITE;
+    case Color::ORANGE_LIGHTEST:        return Color::WHITE;
+    case Color::YELLOW_LIGHT:           return Color::WHITE;
+    case Color::GREEN_LIGHTEST_YELLOW:  return Color::WHITE;
+    case Color::GREEN_LIGHTEST:         return Color::GREEN_LIGHTEST_YELLOW;
+    case Color::TURQUOISE_LIGHTEST:     return Color::WHITE;
+    case Color::AQUAMARINE_LIGHTEST:    return Color::WHITE;
+    case Color::GRAY_LIGHT:             return Color::WHITE;
+    }
+    assert(false); return Color::BLACK;
 }
 
 Color::Color Colors::Get_Darkest_Color_From_Color(Color::Color color) {
-
+    Color::Color previousColor = color;
+    if (this->Is_Gray_Color(color)) return Color::BLACK;
+    while (color != Color::BLACK) {
+        previousColor = color;
+        color = this->Get_Slightly_Darker_Color_From_Color(color);
+    }
+    return previousColor;
 }
 
 Color::Color Colors::Get_Lightest_Color_From_Color(Color::Color color) {
+    Color::Color previousColor = color;
+    if (this->Is_Gray_Color(color)) return Color::WHITE;
+    while (color != Color::WHITE) {
+        previousColor = color;
+        color = this->Get_Slightly_Lighter_Color_From_Color(color);
+    }
+    return previousColor;
+}
 
+Color::Color Colors::Get_Darkest_Shade_From_Color(Color::Color color) {
+    int hex = this->Get_Hex_From_Color(color);
+    assert(hex >= 0x00 && hex <= 0x3F);
+    hex = hex&0x0F;
+    hex += 0x30;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
+
+Color::Color Colors::Get_Lightest_Shade_From_Color(Color::Color color) {
+    if (color == Color::BLACK) return Color::GRAY_LIGHT;
+    int hex = this->Get_Hex_From_Color(color);
+    assert(hex >= 0x00 && hex <= 0x3F);
+    hex = hex&0x0F;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
 }
 
 Color::Color Colors::Get_Random_Base_Color_From_Color(Color::Color color) {
-
+    if (this->Is_Blue_Color(color)) return this->Get_Random_Blue_Base_Color();
+    if (this->Is_Brown_Color(color)) return this->Get_Random_Brown_Base_Color();
+    if (this->Is_Gray_Color(color)) return this->Get_Random_Gray_Base_Color();
+    if (this->Is_Green_Color(color)) return this->Get_Random_Green_Base_Color();
+    if (this->Is_Orange_Color(color)) return this->Get_Random_Orange_Base_Color();
+    if (this->Is_Pink_Color(color)) return this->Get_Random_Pink_Base_Color();
+    if (this->Is_Purple_Color(color)) return this->Get_Random_Purple_Base_Color();
+    if (this->Is_Red_Color(color)) return this->Get_Random_Red_Base_Color();
+    if (this->Is_Yellow_Color(color)) return this->Get_Random_Yellow_Base_Color();
+    assert(false); return Color::BLACK;
 }
 
 Color::Color Colors::Get_Random_Dark_Color_From_Color(Color::Color color) {
-
+    if (this->Is_Blue_Color(color)) return this->Get_Random_Blue_Dark_Color();
+    if (this->Is_Brown_Color(color)) return this->Get_Random_Brown_Base_Color();
+    if (this->Is_Gray_Color(color)) return this->Get_Random_Gray_Dark_Color();
+    if (this->Is_Green_Color(color)) return this->Get_Random_Green_Dark_Color();
+    if (this->Is_Orange_Color(color)) return this->Get_Random_Orange_Dark_Color();
+    if (this->Is_Pink_Color(color)) return this->Get_Random_Pink_Dark_Color();
+    if (this->Is_Purple_Color(color)) return this->Get_Random_Purple_Dark_Color();
+    if (this->Is_Red_Color(color)) return this->Get_Random_Red_Dark_Color();
+    if (this->Is_Yellow_Color(color)) return this->Get_Random_Yellow_Dark_Color();
+    assert(false); return Color::BLACK;
 }
 
 Color::Color Colors::Get_Random_Light_Color_From_Color(Color::Color color) {
-
+    if (this->Is_Blue_Color(color)) return this->Get_Random_Blue_Light_Color();
+    if (this->Is_Brown_Color(color)) return this->Get_Random_Brown_Light_Color();
+    if (this->Is_Gray_Color(color)) return this->Get_Random_Gray_Light_Color();
+    if (this->Is_Green_Color(color)) return this->Get_Random_Green_Light_Color();
+    if (this->Is_Orange_Color(color)) return this->Get_Random_Orange_Light_Color();
+    if (this->Is_Pink_Color(color)) return this->Get_Random_Pink_Light_Color();
+    if (this->Is_Purple_Color(color)) return this->Get_Random_Purple_Light_Color();
+    if (this->Is_Red_Color(color)) return this->Get_Random_Red_Light_Color();
+    if (this->Is_Yellow_Color(color)) return this->Get_Random_Yellow_Light_Color();
+    assert(false); return Color::BLACK;
 }
 
 Color::Color Colors::Which_Color_Is_Darker(Color::Color color1, Color::Color color2) {
@@ -124,6 +311,34 @@ Color::Color Colors::Which_Color_Is_Lighter(Color::Color color1, Color::Color co
     assert(color1Weight != color2Weight);
     if (color1Weight < color2Weight) return color1;
     else return color2;
+}
+
+Color::Color Colors::Get_Random_Darkest_Shade_Color() {
+    int hex = Random::Get_Instance().Get_Num(0x00, 0x0C);
+    Color::Color color = Color::BLACK;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
+
+Color::Color Colors::Get_Random_Dark_Shade_Color() {
+    int hex = Random::Get_Instance().Get_Num(0x10, 0x1D);
+    Color::Color color = Color::BLACK;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
+
+Color::Color Colors::Get_Random_Light_Shade_Color() {
+    int hex = Random::Get_Instance().Get_Num(0x21, 0x2D);
+    Color::Color color = Color::BLACK;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
+}
+
+Color::Color Colors::Get_Random_Lightest_Shade_Color() {
+    int hex = Random::Get_Instance().Get_Num(0x30, 0x3D);
+    Color::Color color = Color::BLACK;
+    assert(this->Get_Color_From_Hex(hex, color));
+    return color;
 }
 
 Color::Color Colors::Get_Random_Color() {
@@ -526,5 +741,112 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::TURQUOISE_LIGHTEST:     r = static_cast<char>(0xA0); g = static_cast<char>(0xFF); b = static_cast<char>(0xC8); return; //a0ffc8
     case Color::AQUAMARINE_LIGHTEST:    r = static_cast<char>(0xA0); g = static_cast<char>(0xFF); b = static_cast<char>(0xF0); return; //a0fff0
     case Color::GRAY_LIGHT:             r = static_cast<char>(0xA0); g = static_cast<char>(0xA0); b = static_cast<char>(0xA0); return; //a0a0a0
+    }
+}
+
+bool Colors::Is_Blue_Color(Color::Color color) {
+    switch (color) {
+    default:                            return false;
+    case Color::BLUE:                   return true;
+    case Color::BLUE_DARK:              return true;
+    case Color::BLUE_DARKER:            return true;
+    case Color::BLUE_DARKEST:           return true;
+    case Color::BLUE_LIGHT:             return true;
+    case Color::BLUE_LIGHTER:           return true;
+    case Color::BLUE_LIGHTEST:          return true;
+    case Color::BLUE_LIGHTEST_PURPLE:   return true;
+    case Color::AQUAMARINE:             return true;
+    case Color::AQUAMARINE_DARK:        return true;
+    case Color::AQUAMARINE_LIGHT:       return true;
+    case Color::AQUAMARINE_LIGHTEST:    return true;
+    }
+}
+
+bool Colors::Is_Brown_Color(Color::Color color) {
+    switch (color) {
+    default:                    return false;
+    case Color::BROWN:          return true;
+    case Color::BROWN_LIGHT:    return true;
+    }
+}
+
+bool Colors::Is_Gray_Color(Color::Color color) {
+    switch (color) {
+    default:                    return false;
+    case Color::GRAY:           return true;
+    case Color::GRAY_DARK:      return true;
+    case Color::GRAY_LIGHT:     return true;
+    case Color::GRAY_LIGHTEST:  return true;
+    case Color::BLACK:          return true;
+    case Color::WHITE:          return true;
+    }
+}
+
+bool Colors::Is_Green_Color(Color::Color color) {
+    switch (color) {
+    default:                            return false;
+    case Color::GREEN:                   return true;
+    case Color::GREEN_DARK:              return true;
+    case Color::GREEN_DARKER:            return true;
+    case Color::GREEN_DARKEST:           return true;
+    case Color::GREEN_LIGHT:             return true;
+    case Color::GREEN_LIGHTER:           return true;
+    case Color::GREEN_LIGHTEST:          return true;
+    case Color::GREEN_LIGHTEST_YELLOW:   return true;
+    case Color::TURQUOISE:             return true;
+    case Color::TURQUOISE_DARK:        return true;
+    case Color::TURQUOISE_LIGHT:       return true;
+    case Color::TURQUOISE_LIGHTEST:    return true;
+    }
+}
+
+bool Colors::Is_Orange_Color(Color::Color color) {
+    switch (color) {
+    default:                        return false;
+    case Color::ORANGE:             return true;
+    case Color::ORANGE_DARK:        return true;
+    case Color::ORANGE_DARKEST:     return true;
+    case Color::ORANGE_LIGHT:       return true;
+    case Color::ORANGE_LIGHTEST:    return true;
+    }
+}
+
+bool Colors::Is_Pink_Color(Color::Color color) {
+    switch (color) {
+    default:                        return false;
+    case Color::PINK:               return true;
+    case Color::PINK_LIGHT:         return true;
+    case Color::MAGENTA:            return true;
+    case Color::MAGENTA_DARK:       return true;
+    case Color::MAGENTA_LIGHT:      return true;
+    case Color::MAGENTA_LIGHTEST:   return true;
+    }
+}
+
+bool Colors::Is_Purple_Color(Color::Color color) {
+    switch (color) {
+    default:                        return false;
+    case Color::PURPLE:             return true;
+    case Color::PURPLE_DARK:        return true;
+    case Color::PURPLE_LIGHT:       return true;
+    case Color::PURPLE_LIGHTEST:    return true;
+    }
+}
+
+bool Colors::Is_Red_Color(Color::Color color) {
+    switch (color) {
+    default:                 return false;
+    case Color::RED:         return true;
+    case Color::RED_DARK:    return true;
+    case Color::RED_LIGHT:   return true;
+    }
+}
+
+bool Colors::Is_Yellow_Color(Color::Color color) {
+    switch (color) {
+    default:                    return false;
+    case Color::OLIVE:          return true;
+    case Color::YELLOW:         return true;
+    case Color::YELLOW_LIGHT:   return true;
     }
 }

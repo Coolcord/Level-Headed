@@ -13,6 +13,7 @@
 #include "Hacks.h"
 #include "Music.h"
 #include "Sound.h"
+#include "Palettes.h"
 #include "Powerups.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
@@ -45,6 +46,7 @@ SMB1_Writer::SMB1_Writer() {
     this->music = nullptr;
     this->sound = nullptr;
     this->graphics = nullptr;
+    this->palettes = nullptr;
     this->powerups = nullptr;
     this->sequentialArchiveHandler = nullptr;
     this->romHandler = nullptr;
@@ -105,6 +107,8 @@ void SMB1_Writer::Shutdown() {
     this->sound = nullptr;
     delete this->graphics;
     this->graphics = nullptr;
+    delete this->palettes;
+    this->palettes = nullptr;
     delete this->powerups;
     this->powerups = nullptr;
     delete this->sequentialArchiveHandler;
@@ -186,6 +190,8 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->sound = nullptr;
         delete this->graphics;
         this->graphics = nullptr;
+        delete this->palettes;
+        this->palettes = nullptr;
         delete this->powerups;
         this->powerups = nullptr;
         this->levelOffset = new Level_Offset(this->file, this->romHandler->Get_ROM_Type());
@@ -205,6 +211,7 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
         this->hacks = new Hacks(this->file, this->levelOffset, this->midpointWriter, this->sequentialArchiveHandler, this->text);
         this->music = new Music(this->file, this->levelOffset, this->sequentialArchiveHandler);
         this->sound = new Sound(this->file, this->levelOffset);
+        this->palettes = new Palettes(this->file, this->levelOffset);
         this->graphics = new Graphics(this->file, this->levelOffset, this->sequentialArchiveHandler, this->text);
         this->powerups = new Powerups(this->file, this->levelOffset, this->sequentialArchiveHandler, this->graphics, this->hacks);
         this->sequentialArchiveHandler->Set_File(this->file);

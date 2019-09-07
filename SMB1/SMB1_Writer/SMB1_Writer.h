@@ -22,6 +22,7 @@ class Sound;
 class Sequential_Archive_Handler;
 class Text;
 class Graphics;
+class Palettes;
 class Powerups;
 
 class SMB1_Writer : public SMB1_Writer_Interface {
@@ -259,6 +260,7 @@ public:
     bool Graphics_Apply_Graphics_Pack(int index);
     int Graphics_Get_Number_Of_Bonus_Graphics_Packs();
     int Graphics_Get_Number_Of_Graphics_Packs();
+    bool Graphics_Randomize_Palettes();
     bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();
     bool Graphics_Write_Title_Screen_For_2_Player_Game();
@@ -296,6 +298,7 @@ private:
     Sequential_Archive_Handler *sequentialArchiveHandler;
     Text *text;
     Graphics *graphics;
+    Palettes *palettes;
     Powerups *powerups;
     ROM_Handler *romHandler;
     QString applicationLocation;

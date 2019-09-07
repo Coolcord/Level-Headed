@@ -8,6 +8,7 @@
 #include "Hacks.h"
 #include "Music.h"
 #include "Sound.h"
+#include "Palettes.h"
 #include "Powerups.h"
 #include "Graphics.h"
 #include "Sequential_Archive_Handler.h"
@@ -992,6 +993,11 @@ int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Graphics_Packs() {
 int SMB1_Writer::Graphics_Get_Number_Of_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
+}
+
+bool SMB1_Writer::Graphics_Randomize_Palettes() {
+    if (!this->palettes) return false;
+    return this->palettes->Randomize_Palettes();
 }
 
 bool SMB1_Writer::Graphics_Change_1UP_Palette(int palette) {

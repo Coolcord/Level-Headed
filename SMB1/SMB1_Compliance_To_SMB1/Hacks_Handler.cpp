@@ -54,6 +54,9 @@ bool Hacks_Handler::Write_Hacks() {
 bool Hacks_Handler::Handle_Animations() {
     if (!this->pluginSettings->randomizeSomeAnimations) return true; //nothing to do
 
+    //TODO: Tie this to a pluginSettings variable and remove this line
+    if (!this->writerPlugin->Graphics_Randomize_Palettes()) return false;
+
     //Set the Intro Demo
     if (!this->writerPlugin->Hacks_Random_Intro_Demo()) return false;
 
