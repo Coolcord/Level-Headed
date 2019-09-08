@@ -12,7 +12,8 @@ public:
     bool Randomize_Palettes();
 
 private:
-    bool Random_Coin_Palette();
+    bool Coin_Palette_Random();
+    bool Sky_Palette_Random();
 
     Colors *colors;
 };

@@ -11,12 +11,13 @@ Palettes::~Palettes() {
 }
 
 bool Palettes::Randomize_Palettes() {
-    if (!this->Random_Coin_Palette()) return false;
+    if (!this->Coin_Palette_Random()) return false;
+    if (!this->Sky_Palette_Random()) return false;
 
     return true;
 }
 
-bool Palettes::Random_Coin_Palette() {
+bool Palettes::Coin_Palette_Random() {
     Color::Color nonShinyColor = Color::BLACK;
 
     //Determine how many colors to use in the flash animation
@@ -29,14 +30,19 @@ bool Palettes::Random_Coin_Palette() {
             colorLightest = Color::GRAY_LIGHTEST; colorLight = Color::GRAY_LIGHT; colorDark = Color::GRAY; colorDarkest = Color::GRAY_DARK;
         } else {
             //Possibly increment by a slight step up instead of a shade increase
+            bool colorsValid = false;
             if (Random::Get_Instance().Get_Num(1)) {
-                colorLight = this->colors->Get_Darker_Shade_From_Color(colorLightest);
-                colorDark = this->colors->Get_Darker_Shade_From_Color(colorLight);
-                colorDarkest = this->colors->Get_Darker_Shade_From_Color(colorDark);
-            } else {
                 colorLight = this->colors->Get_Slightly_Darker_Color_From_Color(colorLightest);
                 colorDark = this->colors->Get_Slightly_Darker_Color_From_Color(colorLight);
                 colorDarkest = this->colors->Get_Slightly_Darker_Color_From_Color(colorDark);
+                if (colorDark != Color::BLACK) colorsValid = true;
+            }
+
+            //Increment via Shade
+            if (!colorsValid) {
+                colorLight = this->colors->Get_Darker_Shade_From_Color(colorLightest);
+                colorDark = this->colors->Get_Darker_Shade_From_Color(colorLight);
+                colorDarkest = this->colors->Get_Darker_Shade_From_Color(colorDark);
             }
         }
         nonShinyColor = colorDark;
@@ -86,4 +92,14 @@ bool Palettes::Random_Coin_Palette() {
     if (!this->Write_Bytes_To_Offset(0x09E7, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //overworld
     if (!this->Write_Bytes_To_Offset(0x09EB, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underground
     return this->Write_Bytes_To_Offset(0x09EF, this->colors->Get_QByteArray_From_Color(nonShinyColor)); //castle
+}
+
+bool Palettes::Sky_Palette_Random() {
+    Color::Color overworldDay = this->colors->Get_Random_Sky_Color();
+    if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Blue_Color()))) return false; //underwater water color
+    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(overworldDay))) return false; //overworld day
+    if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
+    if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //castle
+
+    return true;
 }

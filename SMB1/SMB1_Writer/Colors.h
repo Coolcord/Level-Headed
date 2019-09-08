@@ -58,7 +58,6 @@ public:
     Color::Color Get_Random_Green_Dark_Color();
     Color::Color Get_Random_Green_Light_Color();
     Color::Color Get_Random_Orange_Base_Color();
-    Color::Color Get_Random_Orange_Dark_Color();
     Color::Color Get_Random_Orange_Light_Color();
     Color::Color Get_Random_Pink_Base_Color();
     Color::Color Get_Random_Pink_Dark_Color();
@@ -72,6 +71,11 @@ public:
     Color::Color Get_Random_Yellow_Base_Color();
     Color::Color Get_Random_Yellow_Dark_Color();
     Color::Color Get_Random_Yellow_Light_Color();
+
+    Color::Color Get_Random_Sky_Color();
+    Color::Color Get_Random_Sky_Blue_Color();
+    Color::Color Get_Random_Sky_Orange_Color();
+    Color::Color Get_Random_Sky_Pink_Color();
 
 private:
     int Get_Color_Darkness_Weight(Color::Color color);
