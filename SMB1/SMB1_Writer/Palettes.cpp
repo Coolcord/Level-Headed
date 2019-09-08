@@ -88,6 +88,7 @@ bool Palettes::Coin_Palette_Random() {
     }
 
     //Write the Non-shiny Block Colors
+    //TODO: ONLY PATCH THIS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
     if (!this->Write_Bytes_To_Offset(0x09E3, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underwater
     if (!this->Write_Bytes_To_Offset(0x09E7, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //overworld
     if (!this->Write_Bytes_To_Offset(0x09EB, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underground
@@ -95,11 +96,15 @@ bool Palettes::Coin_Palette_Random() {
 }
 
 bool Palettes::Sky_Palette_Random() {
-    Color::Color overworldDay = this->colors->Get_Random_Sky_Color();
-    if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Blue_Color()))) return false; //underwater water color
-    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(overworldDay))) return false; //overworld day
+    Color::Color waterColor = this->colors->Get_Random_Water_Color();
+    if (!this->Write_Bytes_To_Offset(0x0CC1, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color
+    if (!this->Write_Bytes_To_Offset(0x0CB9, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color (background behind coral)
+    if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //underwater sky color
+    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //overworld day
     if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
     if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //castle
-
-    return true;
+    if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Night
+    if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Snow
+    if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Night and Snow
+    return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color())); //Night and Freeze
 }

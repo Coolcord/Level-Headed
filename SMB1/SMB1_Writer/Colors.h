@@ -73,9 +73,12 @@ public:
     Color::Color Get_Random_Yellow_Light_Color();
 
     Color::Color Get_Random_Sky_Color();
+    Color::Color Get_Random_Sky_Day_Color();
+    Color::Color Get_Random_Sky_Night_Color();
     Color::Color Get_Random_Sky_Blue_Color();
     Color::Color Get_Random_Sky_Orange_Color();
     Color::Color Get_Random_Sky_Pink_Color();
+    Color::Color Get_Random_Water_Color();
 
 private:
     int Get_Color_Darkness_Weight(Color::Color color);

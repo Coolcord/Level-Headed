@@ -668,11 +668,25 @@ Color::Color Colors::Get_Random_Yellow_Light_Color() {
 }
 
 Color::Color Colors::Get_Random_Sky_Color() {
+    if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Sky_Day_Color();
+    else return this->Get_Random_Sky_Night_Color();
+}
+
+Color::Color Colors::Get_Random_Sky_Day_Color() {
     if (Random::Get_Instance().Get_Num(3) == 0) {
         if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Sky_Pink_Color();
         else return this->Get_Random_Sky_Orange_Color();
     } else {
         return this->Get_Random_Sky_Blue_Color();
+    }
+}
+
+Color::Color Colors::Get_Random_Sky_Night_Color() {
+    if (Random::Get_Instance().Get_Num(3) == 0) {
+        if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Sky_Pink_Color();
+        else return this->Get_Random_Sky_Orange_Color();
+    } else {
+        return Color::BLACK;
     }
 }
 
@@ -702,6 +716,16 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
     case 1:     return Color::PINK_DARK;
     case 2:     return Color::MAGENTA;
     case 3:     return Color::MAGENTA_LIGHT;
+    }
+}
+
+Color::Color Colors::Get_Random_Water_Color() {
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::BLUE;
+    case 1:     return Color::BLUE_DARK;
+    case 2:     return Color::BLUE_DARKEST;
+    case 3:     return Color::BLUE_DARKER;
     }
 }
 
