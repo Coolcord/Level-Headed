@@ -37,6 +37,7 @@ public:
 
     Color::Color Get_Random_Color();
     Color::Color Get_Random_Base_Color();
+    Color::Color Get_Random_Base_Color(int darkMin, int darkMax, int lightMin, int lightMax);
     Color::Color Get_Random_Dark_Color();
     Color::Color Get_Random_Light_Color();
 
@@ -83,6 +84,7 @@ public:
     Color::Color Get_Random_Sky_Blue_Color();
     Color::Color Get_Random_Sky_Orange_Color();
     Color::Color Get_Random_Sky_Pink_Color();
+    Color::Color Get_Random_Underground_Color();
     Color::Color Get_Random_Water_Color();
 
 private:
