@@ -27,9 +27,13 @@ public:
     Color::Color Which_Color_Is_Lighter(Color::Color color1, Color::Color color2);
 
     Color::Color Get_Random_Darkest_Shade_Color();
+    Color::Color Get_Random_Darkest_Shade_Color(int min, int max);
     Color::Color Get_Random_Dark_Shade_Color();
+    Color::Color Get_Random_Dark_Shade_Color(int min, int max);
     Color::Color Get_Random_Light_Shade_Color();
+    Color::Color Get_Random_Light_Shade_Color(int min, int max);
     Color::Color Get_Random_Lightest_Shade_Color();
+    Color::Color Get_Random_Lightest_Shade_Color(int min, int max);
 
     Color::Color Get_Random_Color();
     Color::Color Get_Random_Base_Color();
@@ -72,6 +76,7 @@ public:
     Color::Color Get_Random_Yellow_Dark_Color();
     Color::Color Get_Random_Yellow_Light_Color();
 
+    Color::Color Get_Random_Coral_Color();
     Color::Color Get_Random_Sky_Color();
     Color::Color Get_Random_Sky_Day_Color();
     Color::Color Get_Random_Sky_Night_Color();
@@ -81,6 +86,7 @@ public:
     Color::Color Get_Random_Water_Color();
 
 private:
+    bool Is_Shade_Min_Max_Valid(int min, int max);
     int Get_Color_Darkness_Weight(Color::Color color);
     void Get_Color_RGB(Color::Color color, char &r, char &g, char &b);
 

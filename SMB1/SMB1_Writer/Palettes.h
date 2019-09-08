@@ -14,6 +14,7 @@ public:
 private:
     bool Coin_Palette_Random();
     bool Sky_Palette_Random();
+    bool Underwater_Random();
 
     Colors *colors;
 };

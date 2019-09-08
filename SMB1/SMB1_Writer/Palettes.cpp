@@ -13,6 +13,7 @@ Palettes::~Palettes() {
 bool Palettes::Randomize_Palettes() {
     if (!this->Coin_Palette_Random()) return false;
     if (!this->Sky_Palette_Random()) return false;
+    if (!this->Underwater_Random()) return false;
 
     return true;
 }
@@ -96,9 +97,6 @@ bool Palettes::Coin_Palette_Random() {
 }
 
 bool Palettes::Sky_Palette_Random() {
-    Color::Color waterColor = this->colors->Get_Random_Water_Color();
-    if (!this->Write_Bytes_To_Offset(0x0CC1, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color
-    if (!this->Write_Bytes_To_Offset(0x0CB9, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color (background behind coral)
     if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //underwater sky color
     if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //overworld day
     if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
@@ -107,4 +105,18 @@ bool Palettes::Sky_Palette_Random() {
     if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Snow
     if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Night and Snow
     return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color())); //Night and Freeze
+}
+
+bool Palettes::Underwater_Random() {
+    Color::Color waterColor = this->colors->Get_Random_Water_Color();
+    if (!this->Write_Bytes_To_Offset(0x0CC1, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color
+    if (!this->Write_Bytes_To_Offset(0x0CB9, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color (background behind coral)
+
+    //Random Coral Colors
+    Color::Color coralColor1 = this->colors->Get_Random_Coral_Color();
+    Color::Color coralColor2 = this->colors->Get_Lighter_Shade_From_Color(coralColor1);
+    if (!this->Write_Bytes_To_Offset(0x0CB8, this->colors->Get_QByteArray_From_Color(coralColor1))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CBA, this->colors->Get_QByteArray_From_Color(coralColor2))) return false;
+
+    return true;
 }
