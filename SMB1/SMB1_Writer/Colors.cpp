@@ -725,7 +725,6 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
 }
 
 Color::Color Colors::Get_Random_Underground_Color() {
-    return Color::AQUAMARINE_LIGHT;
     switch (Random::Get_Instance().Get_Num(24)) {
     default:     assert(false); return Color::BLACK;
     case 0:      return Color::BLUE;
