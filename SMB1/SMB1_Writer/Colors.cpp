@@ -715,12 +715,48 @@ Color::Color Colors::Get_Random_Sky_Orange_Color() {
 }
 
 Color::Color Colors::Get_Random_Sky_Pink_Color() {
-    switch (Random::Get_Instance().Get_Num(3)) {
+    switch (Random::Get_Instance().Get_Num(2)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PINK;
     case 1:     return Color::PINK_DARK;
-    case 2:     return Color::MAGENTA;
-    case 3:     return Color::MAGENTA_LIGHT;
+    case 2:     return Color::MAGENTA_LIGHT;
+    }
+}
+
+Color::Color Colors::Get_Random_Tree_Dark_Color() {
+    if (Random::Get_Instance().Get_Num(3) == 0) {
+        if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Tree_Orange_Dark_Color();
+        else return this->Get_Random_Tree_Yellow_Dark_Color();
+    } else {
+        return this->Get_Random_Tree_Green_Dark_Color();
+    }
+}
+
+Color::Color Colors::Get_Random_Tree_Green_Dark_Color() {
+    if (Random::Get_Instance().Get_Num(1)) return Color::GREEN;
+    else return Color::GREEN_DARK;
+}
+
+Color::Color Colors::Get_Random_Tree_Orange_Dark_Color() {
+    if (Random::Get_Instance().Get_Num(1)) return Color::RED;
+    else return Color::BROWN_LIGHT;
+}
+
+Color::Color Colors::Get_Random_Tree_Yellow_Dark_Color() {
+    return Color::OLIVE;
+}
+
+Color::Color Colors::Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color darkColor) {
+    if (this->Is_Green_Color(darkColor)) {
+        if (Random::Get_Instance().Get_Num(1)) return Color::GREEN_LIGHT;
+        else return Color::GREEN_LIGHTER;
+    } else if (this->Is_Orange_Color(darkColor)) {
+        if (Random::Get_Instance().Get_Num(1)) return Color::RED_LIGHT;
+        else return Color::ORANGE;
+    } else if (this->Is_Yellow_Color(darkColor)) {
+        return Color::YELLOW;
+    } else {
+        assert(false); return Color::BLACK;
     }
 }
 

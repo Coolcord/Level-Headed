@@ -13,8 +13,10 @@ Palettes::~Palettes() {
 bool Palettes::Randomize_Palettes() {
     if (!this->Coin_Palette_Random()) return false;
     if (!this->Sky_Palette_Random()) return false;
+    if (!this->Overworld_Random()) return false;
     if (!this->Underground_Random()) return false;
     if (!this->Underwater_Random()) return false;
+    if (!this->Castle_Random()) return false;
 
     return true;
 }
@@ -108,6 +110,33 @@ bool Palettes::Sky_Palette_Random() {
     return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(Color::BLACK)); //Night and Freeze
 }
 
+bool Palettes::Castle_Random() {
+    Color::Color baseColor = this->colors->Get_Random_Underground_Color();
+    Color::Color darkColor = this->colors->Get_Darkest_Shade_From_Color(baseColor);
+    Color::Color lightColor = this->colors->Get_Lightest_Shade_From_Color(baseColor);
+    if (!this->Write_Bytes_To_Offset(0x0D28, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D29, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D2A, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
+
+    //Get a Random Lava Color
+    //TODO: ONLY PATCH THIS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
+    if (!this->Write_Bytes_To_Offset(0x0D2D, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Color()))) return false;
+
+    return this->Apply_Color_Glow(0x0D38, 0x0D40, baseColor, darkColor, lightColor);
+}
+
+bool Palettes::Overworld_Random() {
+    //Random Tree Colors
+    //TODO: ALLOW MORE EXTREME COLORS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
+    Color::Color darkColor = this->colors->Get_Random_Tree_Dark_Color();
+    Color::Color lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (!this->Write_Bytes_To_Offset(0x0CDC, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CDD, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CDE, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false; //water color
+    return true;
+}
+
 bool Palettes::Underground_Random() {
     //Random Brick Colors
     Color::Color baseColor = this->colors->Get_Random_Underground_Color();
@@ -116,32 +145,7 @@ bool Palettes::Underground_Random() {
     if (!this->Write_Bytes_To_Offset(0x0D04, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D05, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D06, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
-
-    //Possibly put "glow" on enemies
-    if (Random::Get_Instance().Get_Num(1)) {
-        //Green Group
-        if (!this->Write_Bytes_To_Offset(0x0D14, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
-
-        //Brown Group
-        if (!this->Write_Bytes_To_Offset(0x0D1C, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-        if (!this->Write_Bytes_To_Offset(0x0D1D, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
-        return this->Write_Bytes_To_Offset(0x0D1E, this->colors->Get_QByteArray_From_Color(baseColor));
-    } else {
-        Color::Color greenColor1 = Color::BLACK, greenColor2 = Color::BLACK, greenColor3 = Color::BLACK;
-        Color::Color brownColor1 = Color::BLACK, brownColor2 = Color::BLACK, brownColor3 = Color::BLACK;
-        assert(this->Get_Overworld_Green_Group_Colors(greenColor1, greenColor2, greenColor3));
-        assert(this->Get_Overworld_Brown_Group_Colors(brownColor1, brownColor2, brownColor3));
-
-        //Green Group
-        if (!this->Write_Bytes_To_Offset(0x0D14, this->colors->Get_QByteArray_From_Color(greenColor1))) return false;
-        if (!this->Write_Bytes_To_Offset(0x0D15, this->colors->Get_QByteArray_From_Color(greenColor2))) return false;
-        if (!this->Write_Bytes_To_Offset(0x0D16, this->colors->Get_QByteArray_From_Color(greenColor3))) return false;
-
-        //Brown Group
-        if (!this->Write_Bytes_To_Offset(0x0D1C, this->colors->Get_QByteArray_From_Color(brownColor1))) return false;
-        if (!this->Write_Bytes_To_Offset(0x0D1D, this->colors->Get_QByteArray_From_Color(brownColor2))) return false;
-        return this->Write_Bytes_To_Offset(0x0D1E, this->colors->Get_QByteArray_From_Color(brownColor3));
-    }
+    return this->Apply_Color_Glow(0x0D14, 0x0D1C, baseColor, darkColor, lightColor);
 }
 
 bool Palettes::Underwater_Random() {
@@ -163,6 +167,35 @@ bool Palettes::Underwater_Random() {
     if (!this->Write_Bytes_To_Offset(0x0CBE, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
 
     return true;
+}
+
+bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset, Color::Color baseColor, Color::Color darkColor, Color::Color lightColor) {
+    //TODO: ONLY CONSIDER APPLYING GLOW IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
+    //TODO: ADD A NEW MODE THAT USES A SAFER GLOW COLOR INSTEAD OF THE baseColor!!!
+    if (Random::Get_Instance().Get_Num(1)) {
+        //Green Group
+        if (!this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+
+        //Brown Group
+        if (!this->Write_Bytes_To_Offset(brownColorOffset, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+        if (!this->Write_Bytes_To_Offset(brownColorOffset+1, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+        return this->Write_Bytes_To_Offset(brownColorOffset+2, this->colors->Get_QByteArray_From_Color(baseColor));
+    } else { //no glow
+        Color::Color greenColor1 = Color::BLACK, greenColor2 = Color::BLACK, greenColor3 = Color::BLACK;
+        Color::Color brownColor1 = Color::BLACK, brownColor2 = Color::BLACK, brownColor3 = Color::BLACK;
+        assert(this->Get_Overworld_Green_Group_Colors(greenColor1, greenColor2, greenColor3));
+        assert(this->Get_Overworld_Brown_Group_Colors(brownColor1, brownColor2, brownColor3));
+
+        //Green Group
+        if (!this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(greenColor1))) return false;
+        if (!this->Write_Bytes_To_Offset(greenColorOffset+1, this->colors->Get_QByteArray_From_Color(greenColor2))) return false;
+        if (!this->Write_Bytes_To_Offset(greenColorOffset+2, this->colors->Get_QByteArray_From_Color(greenColor3))) return false;
+
+        //Brown Group
+        if (!this->Write_Bytes_To_Offset(brownColorOffset, this->colors->Get_QByteArray_From_Color(brownColor1))) return false;
+        if (!this->Write_Bytes_To_Offset(brownColorOffset+1, this->colors->Get_QByteArray_From_Color(brownColor2))) return false;
+        return this->Write_Bytes_To_Offset(brownColorOffset+2, this->colors->Get_QByteArray_From_Color(brownColor3));
+    }
 }
 
 bool Palettes::Get_Overworld_Green_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
