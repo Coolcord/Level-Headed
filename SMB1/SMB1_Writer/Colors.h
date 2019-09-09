@@ -84,9 +84,10 @@ public:
     Color::Color Get_Random_Sky_Blue_Color();
     Color::Color Get_Random_Sky_Orange_Color();
     Color::Color Get_Random_Sky_Pink_Color();
-    Color::Color Get_Random_Tree_Dark_Color();
     Color::Color Get_Random_Tree_Green_Dark_Color();
     Color::Color Get_Random_Tree_Orange_Dark_Color();
+    Color::Color Get_Random_Tree_Snow_Dark_Color();
+    Color::Color Get_Random_Tree_Snow_Outline_Color();
     Color::Color Get_Random_Tree_Yellow_Dark_Color();
     Color::Color Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color darkColor);
     Color::Color Get_Random_Underground_Color();

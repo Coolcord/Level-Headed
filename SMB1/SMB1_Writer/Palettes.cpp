@@ -101,11 +101,11 @@ bool Palettes::Coin_Palette_Random() {
 
 bool Palettes::Sky_Palette_Random() {
     if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //underwater sky color
-    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //overworld day
+    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //overworld day
     if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
     if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //castle
-    if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Night
-    if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //Snow
+    if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Night_Color()))) return false; //Night
+    if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //Snow
     if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //Night and Snow (also used underground when the snow palette is used)
     return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(Color::BLACK)); //Night and Freeze
 }
@@ -126,14 +126,38 @@ bool Palettes::Castle_Random() {
 }
 
 bool Palettes::Overworld_Random() {
+    //Random Water Color
+    if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false;
+
     //Random Tree Colors
     //TODO: ALLOW MORE EXTREME COLORS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
-    Color::Color darkColor = this->colors->Get_Random_Tree_Dark_Color();
+    Color::Color darkColor = this->colors->Get_Random_Tree_Green_Dark_Color();
     Color::Color lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
     if (!this->Write_Bytes_To_Offset(0x0CDC, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CDD, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CDE, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false; //water color
+
+    //Random Mushroom Colors (also affects trees)
+    darkColor = this->colors->Get_Random_Tree_Orange_Dark_Color();
+    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (!this->Write_Bytes_To_Offset(0x0D58, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D59, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D5A, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
+
+
+    //Random Snow Day Colors
+    darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
+    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (!this->Write_Bytes_To_Offset(0x0D48, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D49, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D4A, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Tree_Snow_Outline_Color()))) return false;
+
+    //Random Snow Night Colors
+    darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
+    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (!this->Write_Bytes_To_Offset(0x0D50, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D51, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D52, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Tree_Snow_Outline_Color()))) return false;
     return true;
 }
 

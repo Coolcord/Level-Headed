@@ -555,8 +555,8 @@ Color::Color Colors::Get_Random_Brown_Light_Color() {
 }
 
 Color::Color Colors::Get_Random_Gray_Base_Color() {
-    if (Random::Get_Instance().Get_Num(1)) return Color::GRAY_LIGHT;
-    else return Color::GRAY;
+    if (Random::Get_Instance().Get_Num(1)) return Color::GRAY;
+    else return Color::GRAY_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Gray_Dark_Color() {
@@ -723,15 +723,6 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
     }
 }
 
-Color::Color Colors::Get_Random_Tree_Dark_Color() {
-    if (Random::Get_Instance().Get_Num(3) == 0) {
-        if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Tree_Orange_Dark_Color();
-        else return this->Get_Random_Tree_Yellow_Dark_Color();
-    } else {
-        return this->Get_Random_Tree_Green_Dark_Color();
-    }
-}
-
 Color::Color Colors::Get_Random_Tree_Green_Dark_Color() {
     if (Random::Get_Instance().Get_Num(1)) return Color::GREEN;
     else return Color::GREEN_DARK;
@@ -742,21 +733,59 @@ Color::Color Colors::Get_Random_Tree_Orange_Dark_Color() {
     else return Color::BROWN_LIGHT;
 }
 
+Color::Color Colors::Get_Random_Tree_Snow_Dark_Color() {
+    if (Random::Get_Instance().Get_Num(1)) { //darker colors
+        if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Blue_Base_Color();
+        else return this->Get_Random_Gray_Base_Color();
+    } else { //lighter colors
+        if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Blue_Light_Color();
+        else return this->Get_Random_Gray_Light_Color();
+    }
+}
+
+Color::Color Colors::Get_Random_Tree_Snow_Outline_Color() {
+    switch (Random::Get_Instance().Get_Num(4)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::BLACK;
+    case 1:     return Color::GRAY;
+    case 2:     return Color::GRAY_DARK;
+    case 3:     return Color::GRAY_LIGHT;
+    case 4:     return Color::GRAY_LIGHTEST;
+    }
+}
+
 Color::Color Colors::Get_Random_Tree_Yellow_Dark_Color() {
     return Color::OLIVE;
 }
 
 Color::Color Colors::Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color darkColor) {
-    if (this->Is_Green_Color(darkColor)) {
+    switch (darkColor) {
+    default: assert(false); return Color::BLACK;
+    case Color::GREEN:
+    case Color::GREEN_DARK:     //Green
         if (Random::Get_Instance().Get_Num(1)) return Color::GREEN_LIGHT;
         else return Color::GREEN_LIGHTER;
-    } else if (this->Is_Orange_Color(darkColor)) {
+    case Color::RED:
+    case Color::BROWN_LIGHT:    //Orange
         if (Random::Get_Instance().Get_Num(1)) return Color::RED_LIGHT;
         else return Color::ORANGE;
-    } else if (this->Is_Yellow_Color(darkColor)) {
+    case Color::OLIVE:          //Yellow
         return Color::YELLOW;
-    } else {
-        assert(false); return Color::BLACK;
+    case Color::GRAY:
+    case Color::GRAY_LIGHT:
+    case Color::GRAY_LIGHTEST:
+    case Color::BLUE:
+    case Color::BLUE_DARK:
+    case Color::BLUE_LIGHT:
+    case Color::AQUAMARINE:     //Base Blues or Grays
+        if (Random::Get_Instance().Get_Num(1)) return Color::WHITE;
+        else return this->Get_Random_Blue_Light_Color();
+    case Color::BLUE_LIGHTER:
+    case Color::BLUE_LIGHTEST:
+    case Color::AQUAMARINE_LIGHT:
+    case Color::AQUAMARINE_LIGHTEST:
+    case Color::BLUE_LIGHTEST_PURPLE:  //Light Blues
+        return Color::WHITE;
     }
 }
 
