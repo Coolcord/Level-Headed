@@ -125,7 +125,7 @@ bool Hacks_Handler::Handle_Graphics() {
     if (!success) return false;
 
     int palette = this->pluginSettings->palette;
-    if (palette == 0) palette = Random::Get_Instance().Get_Num(1, 10);
+    if (palette == 0) palette = Random::Get_Instance().Get_Num(1, 8); //random up to Excessive
     if (!this->writerPlugin->Graphics_Randomize_Palettes(palette)) return false;
     return true;
 }

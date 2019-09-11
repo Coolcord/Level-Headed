@@ -723,6 +723,30 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
     }
 }
 
+Color::Color Colors::Get_Random_Pipe_Dark_Color() {
+    return this->Get_Random_Dark_Shade_Color(0x00, 0x0C);
+}
+
+Color::Color Colors::Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor) {
+    int hex = this->Get_Hex_From_Color(darkColor);
+    assert(hex >= 0x00 && hex <= 0x2F);
+    int addAmount = 0;
+    int index = hex&0x0F;
+    if (index > 0xC) {
+        switch (darkColor) {
+        default:                    assert(false); return Color::BLACK;
+        case Color::BLACK:          return Color::GRAY_DARK;
+        case Color::GRAY_DARK:      return Color::GRAY_LIGHTEST;
+        case Color::GRAY_LIGHT:     return Color::WHITE;
+        }
+    }
+    if (index == 0) addAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
+    else if (index == 0xC) addAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
+    else addAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
+    assert(this->Get_Color_From_Hex(hex+addAmount, darkColor));
+    return darkColor;
+}
+
 Color::Color Colors::Get_Random_Tree_Green_Dark_Color() {
     if (Random::Get_Instance().Get_Num(1)) return Color::GREEN;
     else return Color::GREEN_DARK;

@@ -97,11 +97,13 @@ bool Palettes::Coin_Palette_Random() {
     }
 
     //Write the Non-shiny Block Colors
-    //TODO: ONLY PATCH THIS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
-    if (!this->Write_Bytes_To_Offset(0x09E3, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underwater
-    if (!this->Write_Bytes_To_Offset(0x09E7, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //overworld
-    if (!this->Write_Bytes_To_Offset(0x09EB, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underground
-    return this->Write_Bytes_To_Offset(0x09EF, this->colors->Get_QByteArray_From_Color(nonShinyColor)); //castle
+    if (this->paletteMode >= 5) {
+        if (!this->Write_Bytes_To_Offset(0x09E3, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underwater
+        if (!this->Write_Bytes_To_Offset(0x09E7, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //overworld
+        if (!this->Write_Bytes_To_Offset(0x09EB, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underground
+        if (!this->Write_Bytes_To_Offset(0x09EF, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //castle
+    }
+    return true;
 }
 
 bool Palettes::Sky_Palette_Random() {
@@ -124,10 +126,19 @@ bool Palettes::Castle_Random() {
     if (!this->Write_Bytes_To_Offset(0x0D2A, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
 
     //Get a Random Lava Color
-    //TODO: ONLY PATCH THIS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
-    if (!this->Write_Bytes_To_Offset(0x0D2D, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Color()))) return false;
+    if (this->paletteMode >= 5) {
+        if (!this->Write_Bytes_To_Offset(0x0D2D, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Color()))) return false;
+    }
 
-    return this->Apply_Color_Glow(0x0D38, 0x0D40, baseColor, darkColor, lightColor);
+    //Handle Pipe Colors
+    //TODO: Handle Pipe Colors when paletteMode < 4. This will be based upon if a glow exists or not.
+    if (this->paletteMode == 4 || (this->paletteMode >= 5 && Random::Get_Instance().Get_Num(1))) {
+        if (!this->Get_Random_Pipe_Colors(0x0D24, lightColor)) return false;
+    } else if (this->paletteMode >= 5) {
+        if (!this->Get_Random_Pipe_Colors(0x0D24)) return false;
+    }
+
+    return this->Apply_Enemy_Color_Glow(0x0D38, 0x0D40, baseColor, darkColor, lightColor);
 }
 
 bool Palettes::Overworld_Random() {
@@ -174,7 +185,16 @@ bool Palettes::Underground_Random() {
     if (!this->Write_Bytes_To_Offset(0x0D04, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D05, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D06, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
-    return this->Apply_Color_Glow(0x0D14, 0x0D1C, baseColor, darkColor, lightColor);
+
+    //Handle Pipe Colors
+    //TODO: Handle Pipe Colors when paletteMode < 4. This will be based upon if a glow exists or not.
+    if (this->paletteMode == 4 || (this->paletteMode >= 5 && Random::Get_Instance().Get_Num(1))) {
+        if (!this->Get_Random_Pipe_Colors(0x0D00, lightColor)) return false;
+    } else if (this->paletteMode >= 5) {
+        if (!this->Get_Random_Pipe_Colors(0x0D00)) return false;
+    }
+
+    return this->Apply_Enemy_Color_Glow(0x0D14, 0x0D1C, baseColor, darkColor, lightColor);
 }
 
 bool Palettes::Underwater_Random() {
@@ -198,10 +218,13 @@ bool Palettes::Underwater_Random() {
     return true;
 }
 
-bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset, Color::Color baseColor, Color::Color darkColor, Color::Color lightColor) {
+bool Palettes::Apply_Enemy_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset, Color::Color baseColor, Color::Color darkColor, Color::Color lightColor) {
     //TODO: ONLY CONSIDER APPLYING GLOW IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
     //TODO: ADD A NEW MODE THAT USES A SAFER GLOW COLOR INSTEAD OF THE baseColor!!!
-    if (Random::Get_Instance().Get_Num(1)) {
+    bool useGlow = Random::Get_Instance().Get_Num(1);
+
+
+    if (useGlow) {
         //Green Group
         if (!this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
 
@@ -249,4 +272,19 @@ bool Palettes::Get_Overworld_Brown_Group_Colors(Color::Color &color1, Color::Col
     if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
     if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
     return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+}
+
+bool Palettes::Get_Random_Pipe_Colors(qint64 offset) {
+    return this->Get_Random_Pipe_Colors(offset, this->colors->Get_Random_Pipe_Dark_Color());
+}
+
+bool Palettes::Get_Random_Pipe_Colors(qint64 offset, Color::Color darkColor) {
+    darkColor = this->colors->Get_Darker_Shade_From_Color(this->colors->Get_Darker_Shade_From_Color(this->colors->Get_Lightest_Shade_From_Color(darkColor)));
+    Color::Color borderColor = Color::BLACK;
+    if (Random::Get_Instance().Get_Num(1)) borderColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+    Color::Color lightColor = this->colors->Get_Random_Pipe_Light_Color_From_Dark_Color(darkColor);
+    if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+    if (!this->Write_Bytes_To_Offset(offset+1, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+    if (!this->Write_Bytes_To_Offset(offset+2, this->colors->Get_QByteArray_From_Color(borderColor))) return false;
+    return true;
 }
