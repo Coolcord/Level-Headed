@@ -5,7 +5,7 @@
 
 class Sound : public Byte_Writer {
 public:
-    Sound(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    Sound(QFile *file, Level_Offset *levelOffset);
     bool Randomize_Sounds();
 
 private:

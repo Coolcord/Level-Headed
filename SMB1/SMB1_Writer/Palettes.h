@@ -21,10 +21,13 @@ private:
     bool Underground_Random();
     bool Underwater_Random();
 
-    bool Apply_Enemy_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset, Color::Color baseColor, Color::Color darkColor, Color::Color lightColor);
+    bool Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset, qint64 pipeColorOffset, Color::Color baseColor, Color::Color darkColor, Color::Color lightColor);
     bool Get_Overworld_Green_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
     bool Get_Overworld_Red_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
     bool Get_Overworld_Brown_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
+    bool Get_Overworld_Pipe_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
+    bool Get_Overworld_Brick_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
+    bool Get_Overworld_Score_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
     bool Get_Random_Pipe_Colors(qint64 offset);
     bool Get_Random_Pipe_Colors(qint64 offset, Color::Color darkColor);
 

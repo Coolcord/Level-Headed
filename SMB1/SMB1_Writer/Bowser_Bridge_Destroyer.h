@@ -5,7 +5,7 @@
 
 class Bowser_Bridge_Destroyer : public Byte_Writer {
 public:
-    Bowser_Bridge_Destroyer(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    Bowser_Bridge_Destroyer(QFile *file, Level_Offset *levelOffset);
     ~Bowser_Bridge_Destroyer() {}
     bool Alternating();
     bool Forwards();

@@ -34,7 +34,7 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x11:      color = Color::BLUE; return true;
     case 0x12:      color = Color::BLUE_DARK; return true;
     case 0x13:      color = Color::PURPLE; return true;
-    case 0x14:      color = Color::MAGENTA; return true;
+    case 0x14:      color = Color::PURPLE_LIGHT; return true;
     case 0x15:      color = Color::PINK_DARK; return true;
     case 0x16:      color = Color::RED; return true;
     case 0x17:      color = Color::BROWN_LIGHT; return true;
@@ -49,8 +49,8 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x20:      color = Color::WHITE; return true;
     case 0x21:      color = Color::BLUE_LIGHTER; return true;
     case 0x22:      color = Color::BLUE_LIGHT; return true;
-    case 0x23:      color = Color::PURPLE_LIGHT; return true;
-    case 0x24:      color = Color::MAGENTA_LIGHT; return true;
+    case 0x23:      color = Color::PURPLE_LIGHTER; return true;
+    case 0x24:      color = Color::MAGENTA; return true;
     case 0x25:      color = Color::PINK; return true;
     case 0x26:      color = Color::RED_LIGHT; return true;
     case 0x27:      color = Color::ORANGE; return true;
@@ -66,7 +66,7 @@ bool Colors::Get_Color_From_Hex(int hex, Color::Color &color) {
     case 0x31:      color = Color::BLUE_LIGHTEST; return true;
     case 0x32:      color = Color::BLUE_LIGHTEST_PURPLE; return true;
     case 0x33:      color = Color::PURPLE_LIGHTEST; return true;
-    case 0x34:      color = Color::MAGENTA_LIGHTEST; return true;
+    case 0x34:      color = Color::MAGENTA_LIGHT; return true;
     case 0x35:      color = Color::PINK_LIGHT; return true;
     case 0x36:      color = Color::RED_LIGHTEST; return true;
     case 0x37:      color = Color::ORANGE_LIGHT; return true;
@@ -121,8 +121,8 @@ Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
     case Color::BLUE:                   return Color::BLUE_DARK;
     case Color::BLUE_DARK:              return Color::BLUE_DARKER;
     case Color::PURPLE:                 return Color::PURPLE_DARKEST;
-    case Color::MAGENTA:                return Color::PINK_DARKEST;
-    case Color::PINK_DARK:              return Color::MAGENTA;
+    case Color::PURPLE_LIGHT:           return Color::PINK_DARKEST;
+    case Color::PINK_DARK:              return Color::PURPLE_LIGHT;
     case Color::RED:                    return Color::RED_DARK;
     case Color::BROWN_LIGHT:            return Color::BROWN;
     case Color::OLIVE:                  return Color::OLIVE_DARK;
@@ -133,9 +133,9 @@ Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
     case Color::WHITE:                  return Color::GRAY_LIGHTEST;
     case Color::BLUE_LIGHTER:           return Color::BLUE_LIGHT;
     case Color::BLUE_LIGHT:             return Color::BLUE;
-    case Color::PURPLE_LIGHT:           return Color::PURPLE;
-    case Color::MAGENTA_LIGHT:          return Color::PINK_DARK;
-    case Color::PINK:                   return Color::MAGENTA_LIGHT;
+    case Color::PURPLE_LIGHTER:         return Color::PURPLE;
+    case Color::MAGENTA:                return Color::PINK_DARK;
+    case Color::PINK:                   return Color::MAGENTA;
     case Color::RED_LIGHT:              return Color::RED;
     case Color::ORANGE:                 return Color::RED_LIGHT;
     case Color::YELLOW:                 return Color::OLIVE;
@@ -146,9 +146,9 @@ Color::Color Colors::Get_Slightly_Darker_Color_From_Color(Color::Color color) {
     case Color::GRAY_DARK:              return Color::BLACK;
     case Color::BLUE_LIGHTEST:          return Color::BLUE_LIGHTER;
     case Color::BLUE_LIGHTEST_PURPLE:   return Color::BLUE_LIGHTEST;
-    case Color::PURPLE_LIGHTEST:        return Color::PURPLE_LIGHT;
-    case Color::MAGENTA_LIGHTEST:       return Color::PINK;
-    case Color::PINK_LIGHT:             return Color::MAGENTA_LIGHTEST;
+    case Color::PURPLE_LIGHTEST:        return Color::PURPLE_LIGHTER;
+    case Color::MAGENTA_LIGHT:       return Color::PINK;
+    case Color::PINK_LIGHT:             return Color::MAGENTA_LIGHT;
     case Color::RED_LIGHTEST:           return Color::RED_LIGHT;
     case Color::ORANGE_LIGHT:           return Color::ORANGE;
     case Color::YELLOW_LIGHT:           return Color::YELLOW;
@@ -168,7 +168,7 @@ Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
     case Color::BLUE_DARKER:            return Color::BLUE_DARK;
     case Color::PURPLE_DARKEST:         return Color::PURPLE_DARK;
     case Color::PURPLE_DARK:            return Color::PINK_DARKEST;
-    case Color::PINK_DARKEST:           return Color::MAGENTA;
+    case Color::PINK_DARKEST:           return Color::PURPLE_LIGHT;
     case Color::RED_DARK:               return Color::RED;
     case Color::BROWN:                  return Color::BROWN_LIGHT;
     case Color::OLIVE_DARK:             return Color::OLIVE;
@@ -180,9 +180,9 @@ Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
     case Color::GRAY_LIGHTEST:          return Color::WHITE;
     case Color::BLUE:                   return Color::BLUE_LIGHT;
     case Color::BLUE_DARK:              return Color::BLUE;
-    case Color::PURPLE:                 return Color::PURPLE_LIGHT;
-    case Color::MAGENTA:                return Color::PINK_DARK;
-    case Color::PINK_DARK:              return Color::MAGENTA_LIGHT;
+    case Color::PURPLE:                 return Color::PURPLE_LIGHTER;
+    case Color::PURPLE_LIGHT:           return Color::PINK_DARK;
+    case Color::PINK_DARK:              return Color::MAGENTA;
     case Color::RED:                    return Color::RED_LIGHT;
     case Color::BROWN_LIGHT:            return Color::ORANGE_LIGHT;
     case Color::OLIVE:                  return Color::YELLOW;
@@ -193,9 +193,9 @@ Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
     case Color::WHITE:                  return Color::WHITE;
     case Color::BLUE_LIGHTER:           return Color::BLUE_LIGHTEST;
     case Color::BLUE_LIGHT:             return Color::BLUE_LIGHTER;
-    case Color::PURPLE_LIGHT:           return Color::PURPLE_LIGHTEST;
-    case Color::MAGENTA_LIGHT:          return Color::PINK;
-    case Color::PINK:                   return Color::MAGENTA_LIGHTEST;
+    case Color::PURPLE_LIGHTER:         return Color::PURPLE_LIGHTEST;
+    case Color::MAGENTA:                return Color::PINK;
+    case Color::PINK:                   return Color::MAGENTA_LIGHT;
     case Color::RED_LIGHT:              return Color::ORANGE;
     case Color::ORANGE:                 return Color::ORANGE_LIGHT;
     case Color::YELLOW:                 return Color::YELLOW_LIGHT;
@@ -207,7 +207,7 @@ Color::Color Colors::Get_Slightly_Lighter_Color_From_Color(Color::Color color) {
     case Color::BLUE_LIGHTEST:          return Color::BLUE_LIGHTEST_PURPLE;
     case Color::BLUE_LIGHTEST_PURPLE:   return Color::WHITE;
     case Color::PURPLE_LIGHTEST:        return Color::WHITE;
-    case Color::MAGENTA_LIGHTEST:       return Color::PINK_LIGHT;
+    case Color::MAGENTA_LIGHT:       return Color::PINK_LIGHT;
     case Color::PINK_LIGHT:             return Color::WHITE;
     case Color::RED_LIGHTEST:           return Color::WHITE;
     case Color::ORANGE_LIGHT:           return Color::WHITE;
@@ -387,7 +387,7 @@ Color::Color Colors::Get_Random_Color() {
     case 15:    return Color::BLUE;
     case 16:    return Color::BLUE_DARK;
     case 17:    return Color::PURPLE;
-    case 18:    return Color::MAGENTA;
+    case 18:    return Color::PURPLE_LIGHT;
     case 19:    return Color::PINK_DARK;
     case 20:    return Color::RED;
     case 21:    return Color::BROWN_LIGHT;
@@ -399,8 +399,8 @@ Color::Color Colors::Get_Random_Color() {
     case 27:    return Color::WHITE;
     case 28:    return Color::BLUE_LIGHTER;
     case 29:    return Color::BLUE_LIGHT;
-    case 30:    return Color::PURPLE_LIGHT;
-    case 31:    return Color::MAGENTA_LIGHT;
+    case 30:    return Color::PURPLE_LIGHTER;
+    case 31:    return Color::MAGENTA;
     case 32:    return Color::PINK;
     case 33:    return Color::RED_LIGHT;
     case 34:    return Color::ORANGE;
@@ -413,7 +413,7 @@ Color::Color Colors::Get_Random_Color() {
     case 41:    return Color::BLUE_LIGHTEST;
     case 42:    return Color::BLUE_LIGHTEST_PURPLE;
     case 43:    return Color::PURPLE_LIGHTEST;
-    case 44:    return Color::MAGENTA_LIGHTEST;
+    case 44:    return Color::MAGENTA_LIGHT;
     case 45:    return Color::PINK_LIGHT;
     case 46:    return Color::RED_LIGHTEST;
     case 47:    return Color::ORANGE_LIGHT;
@@ -607,12 +607,11 @@ Color::Color Colors::Get_Random_Orange_Light_Color() {
 }
 
 Color::Color Colors::Get_Random_Pink_Base_Color() {
-    switch (Random::Get_Instance().Get_Num(4)) {
+    switch (Random::Get_Instance().Get_Num(2)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PINK;
     case 1:     return Color::PINK_DARK;
     case 2:     return Color::MAGENTA;
-    case 3:     return Color::MAGENTA_LIGHT;
     }
 }
 
@@ -622,15 +621,16 @@ Color::Color Colors::Get_Random_Pink_Dark_Color() {
 
 Color::Color Colors::Get_Random_Pink_Light_Color() {
     if (Random::Get_Instance().Get_Num(1)) return Color::PINK_LIGHT;
-    else return Color::MAGENTA_LIGHTEST;
+    else return Color::MAGENTA_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Purple_Base_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PURPLE;
     case 1:     return Color::PURPLE_DARK;
     case 2:     return Color::PURPLE_LIGHT;
+    case 3:     return Color::PURPLE_LIGHTER;
     }
 }
 
@@ -719,7 +719,7 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PINK;
     case 1:     return Color::PINK_DARK;
-    case 2:     return Color::MAGENTA_LIGHT;
+    case 2:     return Color::MAGENTA;
     }
 }
 
@@ -795,13 +795,12 @@ Color::Color Colors::Get_Random_Tree_Snow_Dark_Color() {
 }
 
 Color::Color Colors::Get_Random_Tree_Snow_Outline_Color() {
-    switch (Random::Get_Instance().Get_Num(4)) {
+    switch (Random::Get_Instance().Get_Num(3)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::BLACK;
     case 1:     return Color::GRAY;
     case 2:     return Color::GRAY_DARK;
     case 3:     return Color::GRAY_LIGHT;
-    case 4:     return Color::GRAY_LIGHTEST;
     }
 }
 
@@ -846,7 +845,7 @@ Color::Color Colors::Get_Random_Underground_Color() {
     case 0:      return Color::BLUE;
     case 1:      return Color::BLUE_DARK;
     case 2:      return Color::PURPLE;
-    case 3:      return Color::MAGENTA;
+    case 3:      return Color::PURPLE_LIGHT;
     case 4:      return Color::PINK_DARK;
     case 5:      return Color::RED;
     case 6:      return Color::BROWN_LIGHT;
@@ -857,8 +856,8 @@ Color::Color Colors::Get_Random_Underground_Color() {
     case 11:     return Color::AQUAMARINE;
     case 12:     return Color::BLUE_LIGHTER;
     case 13:     return Color::BLUE_LIGHT;
-    case 14:     return Color::PURPLE_LIGHT;
-    case 15:     return Color::MAGENTA_LIGHT;
+    case 14:     return Color::PURPLE_LIGHTER;
+    case 15:     return Color::MAGENTA;
     case 16:     return Color::PINK;
     case 17:     return Color::RED_LIGHT;
     case 18:     return Color::ORANGE;
@@ -915,7 +914,7 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::BLUE:                   r = static_cast<char>(0x40); g = static_cast<char>(0x60); b = static_cast<char>(0xF8); return; //4060f8
     case Color::BLUE_DARK:              r = static_cast<char>(0x40); g = static_cast<char>(0x40); b = static_cast<char>(0xFF); return; //4040ff
     case Color::PURPLE:                 r = static_cast<char>(0x90); g = static_cast<char>(0x40); b = static_cast<char>(0xF0); return; //9040f0
-    case Color::MAGENTA:                r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0xC0); return; //d840c0
+    case Color::PURPLE_LIGHT:           r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0xC0); return; //d840c0
     case Color::PINK_DARK:              r = static_cast<char>(0xD8); g = static_cast<char>(0x40); b = static_cast<char>(0x60); return; //d84060
     case Color::RED:                    r = static_cast<char>(0xE0); g = static_cast<char>(0x50); b = static_cast<char>(0x00); return; //e05000
     case Color::BROWN_LIGHT:            r = static_cast<char>(0xC0); g = static_cast<char>(0x70); b = static_cast<char>(0x00); return; //c07000
@@ -927,8 +926,8 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::WHITE:                  r = static_cast<char>(0xFF); g = static_cast<char>(0xFF); b = static_cast<char>(0xFF); return; //ffffff
     case Color::BLUE_LIGHTER:           r = static_cast<char>(0x60); g = static_cast<char>(0xA0); b = static_cast<char>(0xFF); return; //60a0ff
     case Color::BLUE_LIGHT:             r = static_cast<char>(0x50); g = static_cast<char>(0x80); b = static_cast<char>(0xFF); return; //5080ff
-    case Color::PURPLE_LIGHT:           r = static_cast<char>(0xA0); g = static_cast<char>(0x70); b = static_cast<char>(0xFF); return; //a070ff
-    case Color::MAGENTA_LIGHT:          r = static_cast<char>(0xF0); g = static_cast<char>(0x60); b = static_cast<char>(0xFF); return; //f060ff
+    case Color::PURPLE_LIGHTER:         r = static_cast<char>(0xA0); g = static_cast<char>(0x70); b = static_cast<char>(0xFF); return; //a070ff
+    case Color::MAGENTA:                r = static_cast<char>(0xF0); g = static_cast<char>(0x60); b = static_cast<char>(0xFF); return; //f060ff
     case Color::PINK:                   r = static_cast<char>(0xFF); g = static_cast<char>(0x60); b = static_cast<char>(0xB0); return; //ff60b0
     case Color::RED_LIGHT:              r = static_cast<char>(0xFF); g = static_cast<char>(0x78); b = static_cast<char>(0x30); return; //ff7830
     case Color::ORANGE:                 r = static_cast<char>(0xFF); g = static_cast<char>(0xA0); b = static_cast<char>(0x00); return; //ffa000
@@ -941,7 +940,7 @@ void Colors::Get_Color_RGB(Color::Color color, char &r, char &g, char &b) {
     case Color::BLUE_LIGHTEST:          r = static_cast<char>(0x90); g = static_cast<char>(0xD0); b = static_cast<char>(0xFF); return; //90d0ff
     case Color::BLUE_LIGHTEST_PURPLE:   r = static_cast<char>(0xA0); g = static_cast<char>(0xB8); b = static_cast<char>(0xFF); return; //a0b8ff
     case Color::PURPLE_LIGHTEST:        r = static_cast<char>(0xC0); g = static_cast<char>(0xB0); b = static_cast<char>(0xFF); return; //c0b0ff
-    case Color::MAGENTA_LIGHTEST:       r = static_cast<char>(0xE0); g = static_cast<char>(0xB0); b = static_cast<char>(0xFF); return; //e0b0ff
+    case Color::MAGENTA_LIGHT:          r = static_cast<char>(0xE0); g = static_cast<char>(0xB0); b = static_cast<char>(0xFF); return; //e0b0ff
     case Color::PINK_LIGHT:             r = static_cast<char>(0xFF); g = static_cast<char>(0xB8); b = static_cast<char>(0xE8); return; //ffb8e8
     case Color::RED_LIGHTEST:           r = static_cast<char>(0xFF); g = static_cast<char>(0xC8); b = static_cast<char>(0xB8); return; //ffc8b8
     case Color::ORANGE_LIGHT:           r = static_cast<char>(0xFF); g = static_cast<char>(0xD8); b = static_cast<char>(0xA0); return; //ffd8a0
@@ -1028,7 +1027,6 @@ bool Colors::Is_Pink_Color(Color::Color color) {
     case Color::RED_LIGHTEST:       return true;
     case Color::MAGENTA:            return true;
     case Color::MAGENTA_LIGHT:      return true;
-    case Color::MAGENTA_LIGHTEST:   return true;
     }
 }
 
@@ -1039,6 +1037,7 @@ bool Colors::Is_Purple_Color(Color::Color color) {
     case Color::PURPLE_DARK:        return true;
     case Color::PURPLE_DARKEST:     return true;
     case Color::PURPLE_LIGHT:       return true;
+    case Color::PURPLE_LIGHTER:     return true;
     case Color::PURPLE_LIGHTEST:    return true;
     }
 }

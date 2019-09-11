@@ -1,5 +1,7 @@
 #include "Text.h"
 
+Text::Text(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {}
+
 bool Text::Set_Mario_Name(const QString &name) {
     if (name == "MARIO") return true; //assume there is nothing to do
     QString trimmedName = name;

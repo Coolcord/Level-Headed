@@ -4,7 +4,7 @@
 #include "Hacks.h"
 #include "Sequential_Archive_Handler.h"
 
-Powerups::Powerups(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics, Hacks *hacks) : Byte_Writer(file, levelOffset) {
+Powerups::Powerups(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics, Hacks *hacks) : Byte_Writer(f, lo) {
     assert(sequentialArchiveHandler); assert(graphics); assert(hacks);
     this->graphics = graphics;
     this->hacks = hacks;

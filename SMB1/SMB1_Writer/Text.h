@@ -7,7 +7,7 @@
 
 class Text : public Byte_Writer {
 public:
-    Text(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {}
+    Text(QFile *file, Level_Offset *levelOffset);
     ~Text() {}
     bool Set_Mario_Name(const QString &name);
     bool Set_Luigi_Name(const QString &name);

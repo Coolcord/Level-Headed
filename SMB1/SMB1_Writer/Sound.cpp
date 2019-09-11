@@ -4,6 +4,8 @@
 
 #include <QDebug>
 
+Sound::Sound(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {}
+
 bool Sound::Randomize_Sounds() {
     bool success = false;
 

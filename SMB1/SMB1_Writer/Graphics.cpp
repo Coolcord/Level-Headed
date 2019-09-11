@@ -27,7 +27,7 @@ const static QString STRING_SPINBALL_FLOWER = "Spinball Flower";
 const static QString STRING_TITLE_SCREEN_1P = "Title Screen 1P";
 const static QString STRING_TITLE_SCREEN_2P = "Title Screen 2P";
 
-Graphics::Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
+Graphics::Graphics(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(f, lo) {
     assert(text); assert(sequentialArchiveHandler);
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     this->sequentialArchiveHandler = sequentialArchiveHandler;

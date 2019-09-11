@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <QVector>
 
+Bowser_Bridge_Destroyer::Bowser_Bridge_Destroyer(QFile *f, Level_Offset *lo)  : Byte_Writer(f, lo) {}
+
 bool Bowser_Bridge_Destroyer::Alternating() {
     switch (Random::Get_Instance().Get_Num(0, 3)) {
     default:    assert(false); return false;

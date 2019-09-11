@@ -2,7 +2,7 @@
 #include "Sequential_Archive_Handler.h"
 #include <assert.h>
 
-Music::Music(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(file, levelOffset) {
+Music::Music(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(f, lo) {
     assert(sequentialArchiveHandler);
     this->sequentialArchiveHandler = sequentialArchiveHandler;
 }

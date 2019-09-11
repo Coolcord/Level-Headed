@@ -17,7 +17,7 @@ const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
 const static QString STRING_RED_PIRANHA_PLANTS = "Red Piranha Plants";
 const static QString STRING_SPINY_EGGS_EXPLODE_INTO_FLAMES = "Spiny Eggs Explode Into Flames";
 
-Hacks::Hacks(QFile *file, Level_Offset *levelOffset, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(file, levelOffset) {
+Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text) : Byte_Writer(f, lo) {
     assert(midpointWriter); assert(sequentialArchiveHandler); assert(text);
     this->powerups = nullptr;
     this->levelOffset = levelOffset;
