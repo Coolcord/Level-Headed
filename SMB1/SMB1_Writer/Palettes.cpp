@@ -4,13 +4,18 @@
 
 Palettes::Palettes(QFile *file, Level_Offset *levelOffset) : Byte_Writer(file, levelOffset) {
     this->colors = new Colors();
+    this->paletteMode = 1;
 }
 
 Palettes::~Palettes() {
     delete this->colors;
 }
 
-bool Palettes::Randomize_Palettes() {
+bool Palettes::Randomize_Palettes(int paletteMode) {
+    if (paletteMode < 1 || paletteMode > 10) return false;
+    this->paletteMode = paletteMode;
+    if (this->paletteMode == 1) return true; //original palette specified. Nothing more to do
+
     if (!this->Coin_Palette_Random()) return false;
     if (!this->Sky_Palette_Random()) return false;
     if (!this->Overworld_Random()) return false;

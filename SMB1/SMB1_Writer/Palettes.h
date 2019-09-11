@@ -10,7 +10,7 @@ class Palettes : public Byte_Writer {
 public:
     Palettes(QFile *file, Level_Offset *levelOffset);
     ~Palettes();
-    bool Randomize_Palettes();
+    bool Randomize_Palettes(int paletteMode);
 
 private:
     bool Coin_Palette_Random();
@@ -28,6 +28,7 @@ private:
     bool Get_Overworld_Brown_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
 
     Colors *colors;
+    int paletteMode;
 };
 
 #endif // PALETTE_H

@@ -229,6 +229,8 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Random_Sound_Effects", this->pluginSettings.randomSounds)) return false;
     if (!configFile.Set_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations)) return false;
     if (!configFile.Set_Value("Graphics", this->pluginSettings.graphics)) return false;
+    if (!configFile.Set_Value("Combine_Graphics_With_Other_Packs", this->pluginSettings.combineGraphicsWithOtherPacks)) return false;
+    if (!configFile.Set_Value("Palette", this->pluginSettings.palette)) return false;
     if (!configFile.Set_Value("Infinite_Lives", this->pluginSettings.infiniteLives)) return false;
     if (!configFile.Set_Value("Permadeath", this->pluginSettings.permadeath)) return false;
     if (!configFile.Set_Value("Number_Of_Lives", this->pluginSettings.numLives)) return false;
@@ -321,6 +323,8 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Random_Sound_Effects", this->pluginSettings.randomSounds);
     configFile.Get_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations);
     configFile.Get_Value("Graphics", this->pluginSettings.graphics);
+    configFile.Get_Value("Combine_Graphics_With_Other_Packs", this->pluginSettings.combineGraphicsWithOtherPacks);
+    configFile.Get_Value("Palette", this->pluginSettings.palette);
     configFile.Get_Value("Infinite_Lives", this->pluginSettings.infiniteLives);
     configFile.Get_Value("Permadeath", this->pluginSettings.permadeath);
     configFile.Get_Value("Number_Of_Lives", this->pluginSettings.numLives);
@@ -369,6 +373,8 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.randomSounds = true;
     this->pluginSettings.randomizeSomeAnimations = true;
     this->pluginSettings.graphics = 0;
+    this->pluginSettings.combineGraphicsWithOtherPacks = true;
+    this->pluginSettings.palette = 0;
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.permadeath = false;
     this->pluginSettings.numLives = 7;

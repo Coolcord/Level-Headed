@@ -42,6 +42,8 @@ struct Plugin_Settings {
     bool randomSounds;
     bool randomizeSomeAnimations;
     int graphics;
+    bool combineGraphicsWithOtherPacks;
+    int palette;
     bool infiniteLives;
     bool permadeath;
     int numLives;

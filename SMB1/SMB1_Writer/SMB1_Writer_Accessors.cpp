@@ -995,9 +995,15 @@ int SMB1_Writer::Graphics_Get_Number_Of_Graphics_Packs() {
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
 }
 
-bool SMB1_Writer::Graphics_Randomize_Palettes() {
+bool SMB1_Writer::Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
+    if (!this->sequentialArchiveHandler) return false;
+    this->sequentialArchiveHandler->Set_Combine_Graphics_Packs(combineGraphicsPacks);
+    return true;
+}
+
+bool SMB1_Writer::Graphics_Randomize_Palettes(int paletteMode) {
     if (!this->palettes) return false;
-    return this->palettes->Randomize_Palettes();
+    return this->palettes->Randomize_Palettes(paletteMode);
 }
 
 bool SMB1_Writer::Graphics_Change_1UP_Palette(int palette) {

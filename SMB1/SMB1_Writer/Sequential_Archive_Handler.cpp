@@ -15,6 +15,7 @@ const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Inva
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
+    this->combineGraphicsPacks = false;
     this->combineMusicPacks = false;
     this->file = nullptr;
     this->hexagonPlugin = nullptr;
@@ -43,6 +44,10 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->sequentialArchivePlugin = nullptr;
     delete this->invalidTones;
     this->invalidTones = nullptr;
+}
+
+void Sequential_Archive_Handler::Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
+    this->combineGraphicsPacks = combineGraphicsPacks;
 }
 
 void Sequential_Archive_Handler::Set_Combine_Music_Packs(bool combineMusicPacks) {

@@ -54,9 +54,6 @@ bool Hacks_Handler::Write_Hacks() {
 bool Hacks_Handler::Handle_Animations() {
     if (!this->pluginSettings->randomizeSomeAnimations) return true; //nothing to do
 
-    //TODO: Tie this to a pluginSettings variable and remove this line
-    if (!this->writerPlugin->Graphics_Randomize_Palettes()) return false;
-
     //Set the Intro Demo
     if (!this->writerPlugin->Hacks_Random_Intro_Demo()) return false;
 
@@ -117,6 +114,7 @@ bool Hacks_Handler::Handle_Music() {
 }
 
 bool Hacks_Handler::Handle_Graphics() {
+    assert(this->writerPlugin->Graphics_Set_Combine_Graphics_Packs(this->pluginSettings->combineGraphicsWithOtherPacks));
     int graphics = this->pluginSettings->graphics;
     if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphics_Packs())+1;
     bool success = false;
@@ -124,7 +122,12 @@ bool Hacks_Handler::Handle_Graphics() {
     case 1:     success = true; break; //original graphics
     default:    success = this->writerPlugin->Graphics_Apply_Graphics_Pack(graphics-2); break;
     }
-    return success;
+    if (!success) return false;
+
+    int palette = this->pluginSettings->palette;
+    if (palette == 0) palette = Random::Get_Instance().Get_Num(1, 10);
+    if (!this->writerPlugin->Graphics_Randomize_Palettes(palette)) return false;
+    return true;
 }
 
 bool Hacks_Handler::Handle_Lakitus() {
