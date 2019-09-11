@@ -85,6 +85,8 @@ public:
     Color::Color Get_Random_Sky_Orange_Color();
     Color::Color Get_Random_Sky_Pink_Color();
     Color::Color Get_Random_Pipe_Dark_Color();
+    Color::Color Get_Random_Pipe_Light_Color();
+    Color::Color Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor);
     Color::Color Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor);
     Color::Color Get_Random_Tree_Green_Dark_Color();
     Color::Color Get_Random_Tree_Orange_Dark_Color();

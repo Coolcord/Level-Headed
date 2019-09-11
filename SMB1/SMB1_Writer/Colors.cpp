@@ -727,6 +727,33 @@ Color::Color Colors::Get_Random_Pipe_Dark_Color() {
     return this->Get_Random_Dark_Shade_Color(0x00, 0x0C);
 }
 
+Color::Color Colors::Get_Random_Pipe_Light_Color() {
+    Color::Color color = this->Get_Random_Light_Shade_Color(0x00, 0x0D);
+    if (color == Color::GRAY_DARK) color = Color::GRAY;
+    return color;
+}
+
+Color::Color Colors::Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor) {
+    switch (lightColor) {
+    default:                    break;
+    case Color::GRAY:           return Color::GRAY_DARK;
+    case Color::GRAY_DARK:      return Color::BLACK;
+    case Color::GRAY_LIGHT:     return Color::GRAY;
+    case Color::GRAY_LIGHTEST:  return Color::GRAY_LIGHT;
+    case Color::WHITE:          return Color::GRAY_LIGHTEST;
+    }
+    int hex = this->Get_Hex_From_Color(lightColor);
+    assert(hex >= 0x00 && hex <= 0x2F);
+    int subAmount = 0;
+    int index = hex&0x0F;
+    assert(index <= 0x0C);
+    if (index == 0) subAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
+    else if (index == 0xC) subAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
+    else subAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
+    assert(this->Get_Color_From_Hex(hex-subAmount, lightColor));
+    return lightColor;
+}
+
 Color::Color Colors::Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor) {
     int hex = this->Get_Hex_From_Color(darkColor);
     assert(hex >= 0x00 && hex <= 0x2F);

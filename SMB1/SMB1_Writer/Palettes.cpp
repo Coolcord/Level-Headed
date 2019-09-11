@@ -278,11 +278,11 @@ bool Palettes::Get_Random_Pipe_Colors(qint64 offset) {
     return this->Get_Random_Pipe_Colors(offset, this->colors->Get_Random_Pipe_Dark_Color());
 }
 
-bool Palettes::Get_Random_Pipe_Colors(qint64 offset, Color::Color darkColor) {
-    darkColor = this->colors->Get_Darker_Shade_From_Color(this->colors->Get_Darker_Shade_From_Color(this->colors->Get_Lightest_Shade_From_Color(darkColor)));
+bool Palettes::Get_Random_Pipe_Colors(qint64 offset, Color::Color lightColor) {
+    lightColor = this->colors->Get_Darker_Shade_From_Color(this->colors->Get_Lightest_Shade_From_Color(lightColor));
     Color::Color borderColor = Color::BLACK;
-    if (Random::Get_Instance().Get_Num(1)) borderColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
-    Color::Color lightColor = this->colors->Get_Random_Pipe_Light_Color_From_Dark_Color(darkColor);
+    if (Random::Get_Instance().Get_Num(1)) borderColor = this->colors->Get_Darkest_Shade_From_Color(lightColor);
+    Color::Color darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
     if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(offset+1, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
     if (!this->Write_Bytes_To_Offset(offset+2, this->colors->Get_QByteArray_From_Color(borderColor))) return false;
