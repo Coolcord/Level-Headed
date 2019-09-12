@@ -30,6 +30,7 @@ public:
 
 private:
     bool Update_Fire_Mario_Skin_Color();
+    bool Force_Green_Palettes_To_Be_Green();
     bool Set_Primary_Powerup_Is_Fire_Based(bool isFireBased);
 
     Graphics *graphics;

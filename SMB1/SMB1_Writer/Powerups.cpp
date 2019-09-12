@@ -167,7 +167,6 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
 
 bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
     if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("302719").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0CCC, QByteArray(1, static_cast<char>(0x1A)))) return false; //make underwater green palette green
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("32CE").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, static_cast<char>(0x0D)))) return false;
     if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0xFF)))) return false;
@@ -176,6 +175,7 @@ bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
     if (!this->Write_Bytes_To_Offset(0x6D5D, QByteArray::fromHex(QString("01990202A981990602A941990A02A9C1").toLatin1()))) return false;
     if (!this->graphics->Apply_Luigis_Fire_Flower_Fix()) return false;
     if (!this->Update_Fire_Mario_Skin_Color()) return false;
+    if (!this->Force_Green_Palettes_To_Be_Green()) return false;
     if (!this->Set_Primary_Powerup_Is_Fire_Based(true)) return false;
     return true;
 }
@@ -237,7 +237,6 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
 
 bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0CCC, QByteArray(1, static_cast<char>(0x1A)))) return false; //make underwater green palette green
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("18E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA900").toLatin1()))) return false;
@@ -247,6 +246,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("71FDC9C1F17D1F070000000000000000").toLatin1()))) return false;
     if (!this->graphics->Apply_Slime_Flower_Fix()) return false;
     if (!this->Update_Fire_Mario_Skin_Color()) return false;
+    if (!this->Force_Green_Palettes_To_Be_Green()) return false;
     if (!this->Set_Primary_Powerup_Is_Fire_Based(false)) return false;
     return true;
 }
@@ -274,6 +274,12 @@ bool Powerups::Update_Fire_Mario_Skin_Color() {
     return this->Write_Bytes_To_Offset(0x05F1, bytes);
 }
 
+bool Powerups::Force_Green_Palettes_To_Be_Green() {
+    if (!this->Write_Bytes_To_Offset(0xCCC, QByteArray(1, static_cast<char>(0x1A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0xCF0, QByteArray(1, static_cast<char>(0x1A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0xD14, QByteArray(1, static_cast<char>(0x1A)))) return false;
+    return this->Write_Bytes_To_Offset(0xD38, QByteArray(1, static_cast<char>(0x1A)));
+}
 
 bool Powerups::Set_Primary_Powerup_Is_Fire_Based(bool isFireBased) {
     this->primaryPowerupIsFireBased = isFireBased;
