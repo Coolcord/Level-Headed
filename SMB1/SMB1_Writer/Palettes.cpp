@@ -146,37 +146,90 @@ bool Palettes::Castle_Random() {
 
 bool Palettes::Overworld_Random() {
     //Random Water Color
-    if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false;
+    if (this->paletteMode >= 9) {
+        if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Color()))) return false;
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false;
+    }
+
+    //Random Brick Color
+    if (this->paletteMode >= 9) {
+        Color::Color baseBrickColor = this->colors->Get_Random_Base_Color();
+        Color::Color lightBrickColor = this->colors->Get_Lightest_Shade_From_Color(baseBrickColor);
+        Color::Color outlineBrickColor = Color::BLACK;
+        switch (Random::Get_Instance().Get_Num(2)) {
+        default:    assert(false); break;
+        case 0:     break; //Black
+        case 1:     outlineBrickColor = Color::GRAY_DARK; break;
+        case 2:     outlineBrickColor = this->colors->Get_Darkest_Shade_From_Color(baseBrickColor); break;
+        }
+        if (baseBrickColor == Color::BLACK) outlineBrickColor = Color::GRAY_DARK;
+        if (!this->Write_Bytes_To_Offset(0x0CE0, this->colors->Get_QByteArray_From_Color(lightBrickColor))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0CE1, this->colors->Get_QByteArray_From_Color(baseBrickColor))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0CE2, this->colors->Get_QByteArray_From_Color(outlineBrickColor))) return false;
+    }
 
     //Random Tree Colors
-    //TODO: ALLOW MORE EXTREME COLORS IF A LESS RESTRICTIVE MODE IS SPECIFIED!!!
-    Color::Color darkColor = this->colors->Get_Random_Tree_Green_Dark_Color();
-    Color::Color lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    Color::Color darkColor = Color::BLACK, lightColor = Color::BLACK, outlineColor = Color::BLACK;
+    if (this->paletteMode < 7) {
+        darkColor = this->colors->Get_Random_Tree_Green_Dark_Color();
+        lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+        outlineColor = Color::BLACK;
+    } else {
+        lightColor = this->colors->Get_Random_Pipe_Light_Color();
+        darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
+        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
+        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+    }
     if (!this->Write_Bytes_To_Offset(0x0CDC, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CDD, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0CDE, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CDE, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
 
     //Random Mushroom Colors (also affects trees)
-    darkColor = this->colors->Get_Random_Tree_Orange_Dark_Color();
-    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (this->paletteMode < 7) {
+        darkColor = this->colors->Get_Random_Tree_Orange_Dark_Color();
+        lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+        outlineColor = Color::BLACK;
+    } else {
+        lightColor = this->colors->Get_Random_Pipe_Light_Color();
+        darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
+        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
+        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+    }
     if (!this->Write_Bytes_To_Offset(0x0D58, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D59, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0D5A, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D5A, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
 
 
     //Random Snow Day Colors
-    darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
-    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (this->paletteMode < 7) {
+        darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
+        lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+        outlineColor = this->colors->Get_Random_Tree_Snow_Outline_Color();
+    } else {
+        lightColor = this->colors->Get_Random_Pipe_Light_Color();
+        darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
+        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
+        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+    }
     if (!this->Write_Bytes_To_Offset(0x0D48, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D49, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0D4A, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Tree_Snow_Outline_Color()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D4A, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
 
     //Random Snow Night Colors
-    darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
-    lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+    if (this->paletteMode < 7) {
+        darkColor = this->colors->Get_Random_Tree_Snow_Dark_Color();
+        lightColor = this->colors->Get_Random_Tree_Light_Color_From_Dark_Color(darkColor);
+        outlineColor = this->colors->Get_Random_Tree_Snow_Outline_Color();
+    } else {
+        lightColor = this->colors->Get_Random_Pipe_Light_Color();
+        darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
+        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
+        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+    }
     if (!this->Write_Bytes_To_Offset(0x0D50, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D51, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0D52, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Tree_Snow_Outline_Color()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D52, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
     return true;
 }
 
