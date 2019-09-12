@@ -297,19 +297,17 @@ bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset
             if (!this->Get_Random_Pipe_Colors(pipeColorOffset, lightColor)) return false;
         }
 
-        if (useFullGlow) {
-            //Green Group
-            if (!this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+        //Brown Group
+        if (!this->Write_Bytes_To_Offset(brownColorOffset, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
+        if (!this->Write_Bytes_To_Offset(brownColorOffset+1, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
+        if (!this->Write_Bytes_To_Offset(brownColorOffset+2, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
 
-            //Brown Group
-            if (!this->Write_Bytes_To_Offset(brownColorOffset, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
-            if (!this->Write_Bytes_To_Offset(brownColorOffset+1, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
-            return this->Write_Bytes_To_Offset(brownColorOffset+2, this->colors->Get_QByteArray_From_Color(baseColor));
+        if (useFullGlow) {
+            return this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(baseColor)); //green group
         } else if (useSafeGlow) {
-            //Green Group
-            return this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(Color::AQUAMARINE));
+            return this->Write_Bytes_To_Offset(greenColorOffset, this->colors->Get_QByteArray_From_Color(Color::AQUAMARINE)); //green group
         } else {
-            assert(false);
+            assert(false); return false;
         }
     } else { //no glow
         //Pipe Colors
@@ -344,7 +342,6 @@ bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset
         if (!this->Write_Bytes_To_Offset(brownColorOffset+1, this->colors->Get_QByteArray_From_Color(brownColor2))) return false;
         return this->Write_Bytes_To_Offset(brownColorOffset+2, this->colors->Get_QByteArray_From_Color(brownColor3));
     }
-    return false;
 }
 
 bool Palettes::Get_Overworld_Green_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
