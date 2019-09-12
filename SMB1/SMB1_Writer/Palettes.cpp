@@ -107,14 +107,25 @@ bool Palettes::Coin_Palette_Random() {
 }
 
 bool Palettes::Sky_Palette_Random() {
-    if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //underwater sky color
-    if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //overworld day
-    if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
-    if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //castle
-    if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Night_Color()))) return false; //Night
-    if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //Snow
-    if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //Night and Snow (also used underground when the snow palette is used)
-    return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(Color::BLACK)); //Night and Freeze
+    if (this->paletteMode >= 10) {
+        if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //underwater sky color
+        if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //overworld day
+        if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //underground (this also affects the lives screen)
+        if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //castle
+        if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //Night
+        if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //Snow
+        if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color()))) return false; //Night and Snow (also used underground when the snow palette is used)
+        return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Base_Or_Dark_Color())); //Night and Freeze
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x05DF, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Color()))) return false; //underwater sky color
+        if (!this->Write_Bytes_To_Offset(0x05E0, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //overworld day
+        if (!this->Write_Bytes_To_Offset(0x05E1, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //underground (this also affects the lives screen)
+        if (!this->Write_Bytes_To_Offset(0x05E2, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //castle
+        if (!this->Write_Bytes_To_Offset(0x05E3, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Night_Color()))) return false; //Night
+        if (!this->Write_Bytes_To_Offset(0x05E4, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Sky_Day_Color()))) return false; //Snow
+        if (!this->Write_Bytes_To_Offset(0x05E5, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //Night and Snow (also used underground when the snow palette is used)
+        return this->Write_Bytes_To_Offset(0x05E6, this->colors->Get_QByteArray_From_Color(Color::BLACK)); //Night and Freeze
+    }
 }
 
 bool Palettes::Castle_Random() {
@@ -146,14 +157,14 @@ bool Palettes::Castle_Random() {
 
 bool Palettes::Overworld_Random() {
     //Random Water Color
-    if (this->paletteMode >= 9) {
+    if (this->paletteMode >= 8) {
         if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Color()))) return false;
     } else {
         if (!this->Write_Bytes_To_Offset(0x0CE5, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Water_Color()))) return false;
     }
 
     //Random Brick Color
-    if (this->paletteMode >= 9) {
+    if (this->paletteMode >= 8) {
         Color::Color baseBrickColor = this->colors->Get_Random_Base_Color();
         Color::Color lightBrickColor = this->colors->Get_Lightest_Shade_From_Color(baseBrickColor);
         Color::Color outlineBrickColor = Color::BLACK;
@@ -230,6 +241,9 @@ bool Palettes::Overworld_Random() {
     if (!this->Write_Bytes_To_Offset(0x0D50, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D51, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D52, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
+    if (this->paletteMode >= 9 && !this->Get_Random_Red_Green_Colors(0x0CF0)) return false; //green palette
+    if (this->paletteMode >= 10 && !this->Get_Random_Red_Green_Colors(0x0CF4)) return false; //red palette
+    if (this->paletteMode >= 9 && !this->Get_Random_Brown_Colors(0x0CFA)) return false; //brown palette
     return true;
 }
 
@@ -249,6 +263,7 @@ bool Palettes::Underground_Random() {
 
 bool Palettes::Underwater_Random() {
     Color::Color waterColor = this->colors->Get_Random_Water_Color();
+    if (this->paletteMode >= 10) waterColor = this->colors->Get_Random_Base_Or_Dark_Color();
     if (!this->Write_Bytes_To_Offset(0x0CC1, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color
 
     //Random Coral Colors
@@ -265,6 +280,9 @@ bool Palettes::Underwater_Random() {
     if (!this->Write_Bytes_To_Offset(0x0CBD, this->colors->Get_QByteArray_From_Color(color1))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CBE, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
 
+    if (this->paletteMode >= 9 && !this->Get_Random_Red_Green_Colors(0x0CCC)) return false; //green palette
+    if (this->paletteMode >= 10 && !this->Get_Random_Red_Green_Colors(0x0CD0)) return false; //red palette
+    if (this->paletteMode >= 6 && !this->Get_Random_Brown_Colors(0x0CD6)) return false; //brown palette
     return true;
 }
 
@@ -389,5 +407,37 @@ bool Palettes::Get_Random_Pipe_Colors(qint64 offset, Color::Color lightColor) {
     if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(offset+1, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
     if (!this->Write_Bytes_To_Offset(offset+2, this->colors->Get_QByteArray_From_Color(borderColor))) return false;
+    return true;
+}
+
+bool Palettes::Get_Random_Red_Green_Colors(qint64 offset) {
+    Color::Color baseColor = this->colors->Get_Random_Color();
+    if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+
+    if (this->paletteMode >= 10) {
+        if (!this->Write_Bytes_To_Offset(offset+1, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Lightest_Shade_Color()))) return false;
+        if (!this->Write_Bytes_To_Offset(offset+2, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Light_Shade_Color(0x1, 0xE)))) return false;
+    }
+    return true;
+}
+
+bool Palettes::Get_Random_Brown_Colors(qint64 offset) {
+    if (offset == 0x0CD6) { //underwater
+        Color::Color baseColor = this->colors->Get_Random_Light_Color();
+        if (!this->Write_Bytes_To_Offset(offset-1, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+
+        if (this->paletteMode >= 10) {
+            if (!this->Write_Bytes_To_Offset(offset-2, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Light_Shade_Color(0x1, 0xE)))) return false;
+            if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Lightest_Shade_Color()))) return false;
+        }
+    } else {
+        Color::Color baseColor = this->colors->Get_Random_Color();
+        if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
+
+        if (this->paletteMode >= 10) {
+            if (!this->Write_Bytes_To_Offset(offset-2, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Light_Shade_Color(0x1, 0xE)))) return false;
+            if (!this->Write_Bytes_To_Offset(offset-1, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Lightest_Shade_Color()))) return false;
+        }
+    }
     return true;
 }

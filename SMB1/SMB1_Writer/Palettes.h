@@ -30,6 +30,8 @@ private:
     bool Get_Overworld_Score_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3);
     bool Get_Random_Pipe_Colors(qint64 offset);
     bool Get_Random_Pipe_Colors(qint64 offset, Color::Color darkColor);
+    bool Get_Random_Red_Green_Colors(qint64 offset);
+    bool Get_Random_Brown_Colors(qint64 offset);
 
     Colors *colors;
     int paletteMode;

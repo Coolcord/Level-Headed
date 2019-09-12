@@ -166,7 +166,8 @@ bool Powerups::Replace_Fire_Flower_With_Hammer_Suit() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("302719").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("302719").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CCC, QByteArray(1, static_cast<char>(0x1A)))) return false; //make underwater green palette green
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("32CE").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, static_cast<char>(0x0D)))) return false;
     if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0xFF)))) return false;
@@ -235,7 +236,8 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CCC, QByteArray(1, static_cast<char>(0x1A)))) return false; //make underwater green palette green
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("18E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA900").toLatin1()))) return false;

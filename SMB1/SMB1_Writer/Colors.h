@@ -40,6 +40,7 @@ public:
     Color::Color Get_Random_Base_Color(int darkMin, int darkMax, int lightMin, int lightMax);
     Color::Color Get_Random_Dark_Color();
     Color::Color Get_Random_Light_Color();
+    Color::Color Get_Random_Base_Or_Dark_Color();
 
     Color::Color Get_Random_Blue_Color();
     Color::Color Get_Random_Brown_Color();

@@ -443,6 +443,11 @@ Color::Color Colors::Get_Random_Light_Color() {
     return this->Get_Random_Lightest_Shade_Color();
 }
 
+Color::Color Colors::Get_Random_Base_Or_Dark_Color() {
+    if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Base_Color();
+    else return this->Get_Random_Dark_Color();
+}
+
 Color::Color Colors::Get_Random_Blue_Color() {
     switch (Random::Get_Instance().Get_Num(2)) {
     default:    assert(false); return Color::BLACK;
