@@ -494,6 +494,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Riddled_With_Bullets(
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
+    difficultySettings.autoScroll = 11;
     difficultySettings.bridgeFlyingCheepCheeps = 11;
     difficultySettings.bridgeLakitus = 1;
     difficultySettings.bridgeOffscreenBulletBills = 11;
@@ -512,6 +513,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Lakitus_Challenge() {
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
     difficultySettings.standardOverworldLakitus = 1;
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
+    difficultySettings.autoScrollChancePerLevel = 0;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spinyEggBehavior = 0; //random

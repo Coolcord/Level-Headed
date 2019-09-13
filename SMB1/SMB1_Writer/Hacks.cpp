@@ -685,6 +685,7 @@ bool Hacks::Spiny_Eggs_Explode_Into_Flames() {
     //Flames can't move left or right
     this->spinyEggSpeedCap = 0;
     if (!this->Write_Bytes_To_Offset(0x60C4, QByteArray(1, static_cast<char>(0x00)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x687D, QByteArray(1, static_cast<char>(0x02)))) return false; //force color group to be red
 
     //Flame Sprites
     if (!this->Write_Bytes_To_Offset(0x88F0, QByteArray::fromHex(QString("00000000020B070E00000000000001030E070B02000000000301000000000000").toLatin1()))) return false;

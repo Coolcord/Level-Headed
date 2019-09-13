@@ -1,5 +1,5 @@
 Next Update (v0.3.4)
-Nothing here yet :(
++ Random Color Palettes
 
 Gameplay Wrap-up (v0.3.3)
 + Midpoints are always used regardless of how many levels there are per world

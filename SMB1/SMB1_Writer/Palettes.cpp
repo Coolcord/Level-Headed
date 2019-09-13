@@ -16,6 +16,7 @@ bool Palettes::Randomize_Palettes(int paletteMode) {
     this->paletteMode = paletteMode;
     if (this->paletteMode == 1) return true; //original palette specified. Nothing more to do
 
+    if (!this->Randomize_Color_Groups()) return false;
     if (!this->Coin_Palette_Random()) return false;
     if (!this->Sky_Palette_Random()) return false;
     if (!this->Overworld_Random()) return false;
@@ -96,9 +97,8 @@ bool Palettes::Coin_Palette_Random() {
         }
     }
 
-    //Write the Non-shiny Block Colors
+    //Write the Non-shiny Block Base Color
     if (this->paletteMode >= 5) {
-        if (!this->Write_Bytes_To_Offset(0x09E3, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underwater
         if (!this->Write_Bytes_To_Offset(0x09E7, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //overworld
         if (!this->Write_Bytes_To_Offset(0x09EB, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //underground
         if (!this->Write_Bytes_To_Offset(0x09EF, this->colors->Get_QByteArray_From_Color(nonShinyColor))) return false; //castle
@@ -141,6 +141,7 @@ bool Palettes::Castle_Random() {
         lightColor = this->colors->Get_Lightest_Shade_From_Color(baseColor);
         if (Random::Get_Instance().Get_Num(1)) outlineColor = this->colors->Get_Darkest_Shade_From_Color(baseColor);
     }
+    if (!this->Write_Bytes_To_Offset(0x09F0, this->colors->Get_QByteArray_From_Color(outlineColor))) return false; //nonshiny border color
     if (!this->Write_Bytes_To_Offset(0x0D28, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D29, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D2A, this->colors->Get_QByteArray_From_Color(outlineColor))) return false;
@@ -175,6 +176,7 @@ bool Palettes::Overworld_Random() {
         case 2:     outlineBrickColor = this->colors->Get_Darkest_Shade_From_Color(baseBrickColor); break;
         }
         if (baseBrickColor == Color::BLACK) outlineBrickColor = Color::GRAY_DARK;
+        if (!this->Write_Bytes_To_Offset(0x09E8, this->colors->Get_QByteArray_From_Color(outlineBrickColor))) return false; //nonshiny border color
         if (!this->Write_Bytes_To_Offset(0x0CE0, this->colors->Get_QByteArray_From_Color(lightBrickColor))) return false;
         if (!this->Write_Bytes_To_Offset(0x0CE1, this->colors->Get_QByteArray_From_Color(baseBrickColor))) return false;
         if (!this->Write_Bytes_To_Offset(0x0CE2, this->colors->Get_QByteArray_From_Color(outlineBrickColor))) return false;
@@ -253,6 +255,7 @@ bool Palettes::Underground_Random() {
     Color::Color darkColor = this->colors->Get_Darkest_Shade_From_Color(baseColor);
     Color::Color lightColor = this->colors->Get_Lightest_Shade_From_Color(baseColor);
     if (this->paletteMode > 2) {
+        if (!this->Write_Bytes_To_Offset(0x09EC, this->colors->Get_QByteArray_From_Color(baseColor))) return false; //nonshiny block border
         if (!this->Write_Bytes_To_Offset(0x0D04, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
         if (!this->Write_Bytes_To_Offset(0x0D05, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
         if (!this->Write_Bytes_To_Offset(0x0D06, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false;
@@ -264,6 +267,8 @@ bool Palettes::Underground_Random() {
 bool Palettes::Underwater_Random() {
     Color::Color waterColor = this->colors->Get_Random_Water_Color();
     if (this->paletteMode >= 10) waterColor = this->colors->Get_Random_Base_Or_Dark_Color();
+    if (!this->Write_Bytes_To_Offset(0x09E3, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color (behind coins)
+    if (!this->Write_Bytes_To_Offset(0x09E4, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //nonshiny block border
     if (!this->Write_Bytes_To_Offset(0x0CC1, this->colors->Get_QByteArray_From_Color(waterColor))) return false; //underwater water color
 
     //Random Coral Colors
@@ -283,6 +288,25 @@ bool Palettes::Underwater_Random() {
     if (this->paletteMode >= 9 && !this->Get_Random_Red_Green_Colors(0x0CCC)) return false; //green palette
     if (this->paletteMode >= 10 && !this->Get_Random_Red_Green_Colors(0x0CD0)) return false; //red palette
     if (this->paletteMode >= 6 && !this->Get_Random_Brown_Colors(0x0CD6)) return false; //brown palette
+    return true;
+}
+
+bool Palettes::Randomize_Color_Groups() {
+    if (!this->Write_Bytes_To_Offset(0x538E, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x21, 0x23))))) return false; //castle flag color
+    if (!this->Write_Bytes_To_Offset(0x6614, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x21, 0x22))))) return false; //vine color
+
+    //Lift Color
+    int color = Random::Get_Instance().Get_Num(1, 3);
+    if (!this->Write_Bytes_To_Offset(0x6614, QByteArray(1, static_cast<char>(color)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6D81, QByteArray(1, static_cast<char>(color)))) return false;
+
+    //Coin Color
+    color = Random::Get_Instance().Get_Num(1, 3);
+    if (!this->Write_Bytes_To_Offset(0x66C2, QByteArray(1, static_cast<char>(color)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x66C7, QByteArray(1, static_cast<char>(color+0x80)))) return false;
+
+    if (!this->Write_Bytes_To_Offset(0x687D, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(1, 3))))) return false; //spinies and spiny eggs
+    if (!this->Write_Bytes_To_Offset(0x687F, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(1, 3))))) return false; //flying cheep cheeps
     return true;
 }
 
@@ -312,6 +336,7 @@ bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset
     } else { //no glow
         //Pipe Colors
         if (this->paletteMode <= 3 && pipeColorOffset == 0x0D00) { //underground
+            if (!this->Write_Bytes_To_Offset(0x09EC, this->colors->Get_QByteArray_From_Color(Color::BLACK))) return false; //nonshiny block border
             Color::Color color1 = Color::BLACK, color2 = Color::BLACK, color3 = Color::BLACK;
             assert(this->Get_Overworld_Pipe_Group_Colors(color1, color2, color3));
             if (!this->Write_Bytes_To_Offset(pipeColorOffset, this->colors->Get_QByteArray_From_Color(color1))) return false;
