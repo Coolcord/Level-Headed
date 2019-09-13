@@ -916,37 +916,6 @@ Color::Color Colors::Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color da
     }
 }
 
-Color::Color Colors::Get_Random_Underground_Color() {
-    switch (Random::Get_Instance().Get_Num(24)) {
-    default:     assert(false); return Color::BLACK;
-    case 0:      return Color::BLUE;
-    case 1:      return Color::BLUE_DARK;
-    case 2:      return Color::PURPLE;
-    case 3:      return Color::PURPLE_LIGHT;
-    case 4:      return Color::PINK_DARK;
-    case 5:      return Color::RED;
-    case 6:      return Color::BROWN_LIGHT;
-    case 7:      return Color::OLIVE;
-    case 8:      return Color::GREEN_DARK;
-    case 9:      return Color::GREEN;
-    case 10:     return Color::TURQUOISE;
-    case 11:     return Color::AQUAMARINE;
-    case 12:     return Color::BLUE_LIGHTER;
-    case 13:     return Color::BLUE_LIGHT;
-    case 14:     return Color::PURPLE_LIGHTER;
-    case 15:     return Color::MAGENTA;
-    case 16:     return Color::PINK;
-    case 17:     return Color::RED_LIGHT;
-    case 18:     return Color::ORANGE;
-    case 19:     return Color::YELLOW;
-    case 20:     return Color::GREEN_LIGHT;
-    case 21:     return Color::GREEN_LIGHTER;
-    case 22:     return Color::TURQUOISE_LIGHT;
-    case 23:     return Color::AQUAMARINE_LIGHT;
-    case 24:     return Color::GRAY_DARK;
-    }
-}
-
 Color::Color Colors::Get_Random_Water_Color() {
     switch (Random::Get_Instance().Get_Num(3)) {
     default:    assert(false); return Color::BLACK;

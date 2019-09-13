@@ -98,7 +98,6 @@ public:
     Color::Color Get_Random_Tree_Snow_Outline_Color();
     Color::Color Get_Random_Tree_Yellow_Dark_Color();
     Color::Color Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color darkColor);
-    Color::Color Get_Random_Underground_Color();
     Color::Color Get_Random_Water_Color();
 
 private:
