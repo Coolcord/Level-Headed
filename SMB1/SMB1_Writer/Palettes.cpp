@@ -195,8 +195,7 @@ bool Palettes::Overworld_Random() {
     } else {
         lightColor = this->colors->Get_Random_Pipe_Light_Color();
         darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
-        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
-        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+        outlineColor = Color::BLACK;
     }
     if (!this->Write_Bytes_To_Offset(0x0CDC, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CDD, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
@@ -210,8 +209,7 @@ bool Palettes::Overworld_Random() {
     } else {
         lightColor = this->colors->Get_Random_Pipe_Light_Color();
         darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
-        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
-        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+        outlineColor = Color::BLACK;
     }
     if (!this->Write_Bytes_To_Offset(0x0D58, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D59, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
@@ -226,8 +224,7 @@ bool Palettes::Overworld_Random() {
     } else {
         lightColor = this->colors->Get_Random_Pipe_Light_Color();
         darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
-        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
-        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+        outlineColor = Color::BLACK;
     }
     if (!this->Write_Bytes_To_Offset(0x0D48, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D49, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
@@ -241,8 +238,7 @@ bool Palettes::Overworld_Random() {
     } else {
         lightColor = this->colors->Get_Random_Pipe_Light_Color();
         darkColor = this->colors->Get_Random_Pipe_Dark_Color_From_Light_Color(lightColor);
-        if (Random::Get_Instance().Get_Num(1)) outlineColor = Color::BLACK;
-        else outlineColor = this->colors->Get_Darkest_Shade_From_Color(darkColor);
+        outlineColor = Color::BLACK;
     }
     if (!this->Write_Bytes_To_Offset(0x0D50, this->colors->Get_QByteArray_From_Color(lightColor))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D51, this->colors->Get_QByteArray_From_Color(darkColor))) return false;
@@ -468,7 +464,7 @@ bool Palettes::Get_Random_Brown_Colors(qint64 offset) {
             if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(this->colors->Get_Random_Lightest_Shade_Color()))) return false;
         }
     } else {
-        Color::Color baseColor = this->colors->Get_Random_Color();
+        Color::Color baseColor = this->colors->Get_Random_Base_Or_Dark_Color();
         if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
 
         if (this->paletteMode >= 10) {

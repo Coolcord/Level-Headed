@@ -806,7 +806,7 @@ Color::Color Colors::Get_Random_Pipe_Dark_Color() {
 
 Color::Color Colors::Get_Random_Pipe_Light_Color() {
     Color::Color color = this->Get_Random_Light_Shade_Color(0x00, 0x0D);
-    if (color == Color::GRAY_DARK) color = Color::GRAY;
+    if (color == Color::GRAY_DARK) color = Color::GRAY_LIGHT;
     return color;
 }
 
