@@ -1,5 +1,6 @@
 #include "Colors.h"
 #include "../../Common_Files/Random.h"
+#include <QSet>
 #include <assert.h>
 
 QByteArray Colors::Get_QByteArray_From_Color(Color::Color color) {
@@ -427,7 +428,7 @@ Color::Color Colors::Get_Random_Color() {
 }
 
 Color::Color Colors::Get_Random_Base_Color() {
-    return this->Get_Random_Base_Color(0x00, 0x0D, 0x01, 0x0D);
+    return this->Get_Random_Base_Color(0x00, 0x0C, 0x01, 0x0D);
 }
 
 Color::Color Colors::Get_Random_Base_Color(int darkMin, int darkMax, int lightMin, int lightMax) {
@@ -446,6 +447,77 @@ Color::Color Colors::Get_Random_Light_Color() {
 Color::Color Colors::Get_Random_Base_Or_Dark_Color() {
     if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Base_Color();
     else return this->Get_Random_Dark_Color();
+}
+
+Color::Color Colors::Get_Random_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    //Populate the available colors
+    QSet<Color::Color> availableColors;
+    for (int i = 0; i < 54; ++i) {
+        switch (i) {
+        default:    assert(false); return Color::BLACK;
+        case 0:     availableColors.insert(Color::GRAY); break;
+        case 1:     availableColors.insert(Color::BLUE_DARKEST); break;
+        case 2:     availableColors.insert(Color::BLUE_DARKER); break;
+        case 3:     availableColors.insert(Color::PURPLE_DARKEST); break;
+        case 4:     availableColors.insert(Color::PURPLE_DARK); break;
+        case 5:     availableColors.insert(Color::PINK_DARKEST); break;
+        case 6:     availableColors.insert(Color::RED_DARK); break;
+        case 7:     availableColors.insert(Color::BROWN); break;
+        case 8:     availableColors.insert(Color::OLIVE_DARK); break;
+        case 9:     availableColors.insert(Color::GREEN_DARKEST); break;
+        case 10:    availableColors.insert(Color::GREEN_DARKER); break;
+        case 11:    availableColors.insert(Color::TURQUOISE_DARK); break;
+        case 12:    availableColors.insert(Color::AQUAMARINE_DARK); break;
+        case 13:    availableColors.insert(Color::BLACK); break;
+        case 14:    availableColors.insert(Color::GRAY_LIGHTEST); break;
+        case 15:    availableColors.insert(Color::BLUE); break;
+        case 16:    availableColors.insert(Color::BLUE_DARK); break;
+        case 17:    availableColors.insert(Color::PURPLE); break;
+        case 18:    availableColors.insert(Color::PURPLE_LIGHT); break;
+        case 19:    availableColors.insert(Color::PINK_DARK); break;
+        case 20:    availableColors.insert(Color::RED); break;
+        case 21:    availableColors.insert(Color::BROWN_LIGHT); break;
+        case 22:    availableColors.insert(Color::OLIVE); break;
+        case 23:    availableColors.insert(Color::GREEN_DARK); break;
+        case 24:    availableColors.insert(Color::GREEN); break;
+        case 25:    availableColors.insert(Color::TURQUOISE); break;
+        case 26:    availableColors.insert(Color::AQUAMARINE); break;
+        case 27:    availableColors.insert(Color::WHITE); break;
+        case 28:    availableColors.insert(Color::BLUE_LIGHTER); break;
+        case 29:    availableColors.insert(Color::BLUE_LIGHT); break;
+        case 30:    availableColors.insert(Color::PURPLE_LIGHTER); break;
+        case 31:    availableColors.insert(Color::MAGENTA); break;
+        case 32:    availableColors.insert(Color::PINK); break;
+        case 33:    availableColors.insert(Color::RED_LIGHT); break;
+        case 34:    availableColors.insert(Color::ORANGE); break;
+        case 35:    availableColors.insert(Color::YELLOW); break;
+        case 36:    availableColors.insert(Color::GREEN_LIGHT); break;
+        case 37:    availableColors.insert(Color::GREEN_LIGHTER); break;
+        case 38:    availableColors.insert(Color::TURQUOISE_LIGHT); break;
+        case 39:    availableColors.insert(Color::AQUAMARINE_LIGHT); break;
+        case 40:    availableColors.insert(Color::GRAY_DARK); break;
+        case 41:    availableColors.insert(Color::BLUE_LIGHTEST); break;
+        case 42:    availableColors.insert(Color::BLUE_LIGHTEST_PURPLE); break;
+        case 43:    availableColors.insert(Color::PURPLE_LIGHTEST); break;
+        case 44:    availableColors.insert(Color::MAGENTA_LIGHT); break;
+        case 45:    availableColors.insert(Color::PINK_LIGHT); break;
+        case 46:    availableColors.insert(Color::RED_LIGHTEST); break;
+        case 47:    availableColors.insert(Color::ORANGE_LIGHT); break;
+        case 48:    availableColors.insert(Color::YELLOW_LIGHT); break;
+        case 49:    availableColors.insert(Color::GREEN_LIGHTEST_YELLOW); break;
+        case 50:    availableColors.insert(Color::GREEN_LIGHTEST); break;
+        case 51:    availableColors.insert(Color::TURQUOISE_LIGHTEST); break;
+        case 52:    availableColors.insert(Color::AQUAMARINE_LIGHTEST); break;
+        case 53:    availableColors.insert(Color::GRAY_LIGHT); break;
+        }
+    }
+    for (int i = 0; i < excludedColors.size(); ++i) availableColors.remove(excludedColors.at(i)); //remove excluded colors
+    return availableColors.values().at(Random::Get_Instance().Get_Num(availableColors.size()-1));
 }
 
 Color::Color Colors::Get_Random_Blue_Color() {

@@ -2,6 +2,7 @@
 #define COLORS_H
 
 #include <QByteArray>
+#include <QVector>
 #include "Color.h"
 
 class Colors {
@@ -41,6 +42,8 @@ public:
     Color::Color Get_Random_Dark_Color();
     Color::Color Get_Random_Light_Color();
     Color::Color Get_Random_Base_Or_Dark_Color();
+    Color::Color Get_Random_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
 
     Color::Color Get_Random_Blue_Color();
     Color::Color Get_Random_Brown_Color();
