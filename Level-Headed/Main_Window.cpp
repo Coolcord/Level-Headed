@@ -30,6 +30,7 @@ Main_Window::Main_Window(QWidget *parent, QApplication *application) :
     this->interpreterPlugin = nullptr;
     this->updateThread = new Update_Thread(this, application, this->readableConfigFile, Version::VERSION_NUMBER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
     connect(this->updateThread, SIGNAL(Update_Available(const QString&, const QString&)), this, SLOT(on_Update_Available(const QString&, const QString&)));
+    connect(this->updateThread, SIGNAL(finished()), this, SLOT(on_Close()), Qt::UniqueConnection);
 }
 
 Main_Window::~Main_Window() {
@@ -188,6 +189,9 @@ void Main_Window::on_Main_Window_finished() {
     this->pluginHandler->Save_Currently_Loaded_Plugins(this->ui->comboBaseGame->currentText(), this->ui->comboLevelGenerator->currentText());
     delete this->pluginHandler;
     this->pluginHandler = nullptr;
+    this->updateThread->terminate();
+    delete this->updateThread;
+    this->updateThread = nullptr;
 }
 
 void Main_Window::on_Update_Available(const QString &newVersion, const QString &updatePage) {
