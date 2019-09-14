@@ -30,7 +30,6 @@ Main_Window::Main_Window(QWidget *parent, QApplication *application) :
     this->interpreterPlugin = nullptr;
     this->updateThread = new Update_Thread(this, application, this->readableConfigFile, Version::VERSION_NUMBER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
     connect(this->updateThread, SIGNAL(Update_Available(const QString&, const QString&)), this, SLOT(on_Update_Available(const QString&, const QString&)));
-    connect(this->updateThread, SIGNAL(finished()), this, SLOT(on_Close()), Qt::UniqueConnection);
 }
 
 Main_Window::~Main_Window() {
