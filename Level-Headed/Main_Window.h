@@ -26,6 +26,7 @@ public:
     bool Populate_Writers();
     bool Populate_Generators(const QString &writerPlugin);
     bool Load_Previous_Plugins();
+    void Shutdown();
 
 private slots:
     void Disable_All();

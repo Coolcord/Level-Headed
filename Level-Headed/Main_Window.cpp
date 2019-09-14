@@ -34,9 +34,7 @@ Main_Window::Main_Window(QWidget *parent, QApplication *application) :
 
 Main_Window::~Main_Window() {
     delete ui;
-    delete this->interpreterLoader;
-    delete this->readableConfigFile;
-    delete this->updateThread;
+    this->Shutdown();
 }
 
 void Main_Window::Check_For_Updates() {
@@ -125,6 +123,21 @@ bool Main_Window::Load_Previous_Plugins() {
     return true;
 }
 
+void Main_Window::Shutdown() {
+    if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
+    if (this->interpreterLoader) this->interpreterLoader->unload();
+    delete this->interpreterLoader;
+    this->interpreterLoader = nullptr;
+    this->interpreterPlugin = nullptr;
+    delete this->pluginHandler;
+    this->pluginHandler = nullptr;
+    if (this->updateThread) this->updateThread->terminate();
+    delete this->updateThread;
+    this->updateThread = nullptr;
+    delete this->readableConfigFile;
+    this->readableConfigFile = nullptr;
+}
+
 void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
     if (arg1 == nullptr || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Disable_All();
@@ -180,17 +193,8 @@ void Main_Window::Show_Unable_To_Load_Plugin_Error() {
 }
 
 void Main_Window::on_Main_Window_finished() {
-    if (this->interpreterPlugin) this->interpreterPlugin->Shutdown();
-    if (this->interpreterLoader) this->interpreterLoader->unload();
-    delete this->interpreterLoader;
-    this->interpreterLoader = nullptr;
-    this->interpreterPlugin = nullptr;
     this->pluginHandler->Save_Currently_Loaded_Plugins(this->ui->comboBaseGame->currentText(), this->ui->comboLevelGenerator->currentText());
-    delete this->pluginHandler;
-    this->pluginHandler = nullptr;
-    this->updateThread->terminate();
-    delete this->updateThread;
-    this->updateThread = nullptr;
+    this->Shutdown();
 }
 
 void Main_Window::on_Update_Available(const QString &newVersion, const QString &updatePage) {
