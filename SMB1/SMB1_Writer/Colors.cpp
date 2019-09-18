@@ -773,7 +773,7 @@ Color::Color Colors::Get_Random_Sky_Night_Color() {
 }
 
 Color::Color Colors::Get_Random_Sky_Blue_Color() {
-    switch (Random::Get_Instance().Get_Num(8)) {
+    switch (Random::Get_Instance().Get_Num(9)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::BLUE;
     case 1:     return Color::BLUE_DARK;
@@ -784,19 +784,25 @@ Color::Color Colors::Get_Random_Sky_Blue_Color() {
     case 6:     return Color::AQUAMARINE_DARK;
     case 7:     return Color::BLUE_LIGHTER;
     case 8:     return Color::AQUAMARINE_LIGHT;
+    case 9:     return Color::PURPLE_DARKEST;
     }
 }
 
 Color::Color Colors::Get_Random_Sky_Orange_Color() {
-    return Color::ORANGE;
+    if (Random::Get_Instance().Get_Num(1)) return Color::ORANGE;
+    else return Color::RED_LIGHT;
 }
 
 Color::Color Colors::Get_Random_Sky_Pink_Color() {
-    switch (Random::Get_Instance().Get_Num(2)) {
+    switch (Random::Get_Instance().Get_Num(7)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PINK;
     case 1:     return Color::PINK_DARK;
     case 2:     return Color::MAGENTA;
+    case 3:     return Color::PURPLE_DARK;
+    case 4:     return Color::PURPLE;
+    case 5:     return Color::PURPLE_LIGHT;
+    case 6:     return Color::PURPLE_LIGHTER;
     }
 }
 
