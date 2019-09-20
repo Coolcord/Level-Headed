@@ -794,7 +794,7 @@ Color::Color Colors::Get_Random_Sky_Orange_Color() {
 }
 
 Color::Color Colors::Get_Random_Sky_Pink_Color() {
-    switch (Random::Get_Instance().Get_Num(7)) {
+    switch (Random::Get_Instance().Get_Num(6)) {
     default:    assert(false); return Color::BLACK;
     case 0:     return Color::PINK;
     case 1:     return Color::PINK_DARK;
