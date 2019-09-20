@@ -1,5 +1,6 @@
 Next Update (v0.3.4)
 + Random Color Palettes
++ Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
 
 Gameplay Wrap-up (v0.3.3)
 + Midpoints are always used regardless of how many levels there are per world

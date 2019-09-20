@@ -49,6 +49,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyUndergroundOffscreenBulletBills = difficultySettings.undergroundOffscreenBulletBills;
     pluginSettings->difficultyUnderwaterBloopers = difficultySettings.underwaterBloopers;
     pluginSettings->difficultyUnderwaterFlyingCheepCheeps = difficultySettings.underwaterFlyingCheepCheeps;
+    pluginSettings->difficultyUnderwaterHammerBros = difficultySettings.underwaterHammerBros;
     pluginSettings->difficultyUnderwaterLakitus = difficultySettings.underwaterLakitus;
     pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = difficultySettings.underwaterSwimmingCheepCheeps;
     pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = difficultySettings.standardOverworldFlyingCheepCheeps;
@@ -169,6 +170,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.undergroundOffscreenBulletBills = 11;
     difficultySettings.underwaterBloopers = 4;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterHammerBros = 11;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.underwaterSwimmingCheepCheeps = 1;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
@@ -288,6 +290,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.undergroundOffscreenBulletBills = 8;
     difficultySettings.underwaterBloopers = 2;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterHammerBros = 7;
     difficultySettings.underwaterLakitus = 6;
     difficultySettings.underwaterSwimmingCheepCheeps = 1;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
@@ -328,6 +331,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.castleLakitus = 5;
     difficultySettings.castleOffscreenBulletBills = 2;
     difficultySettings.standardOverworldLakitus = 3;
+    difficultySettings.underwaterHammerBros = 3;
     difficultySettings.undergroundLakitus = 3;
     difficultySettings.underwaterLakitus = 3;
     difficultySettings.surfingLiftSpeed = 5; //Very Fast
@@ -412,6 +416,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_No_Hammer_
     difficultySettings.hammerTime = 11;
     difficultySettings.walkingHammerBros = 11;
     difficultySettings.hammerTimeIntensity = 0;
+    difficultySettings.underwaterHammerBros = 11;
     return difficultySettings;
 }
 
@@ -449,6 +454,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Walk_In_The_Park() {
     difficultySettings.undergroundLakitus = 11;
     difficultySettings.undergroundOffscreenBulletBills = 11;
     difficultySettings.underwaterFlyingCheepCheeps = 11;
+    difficultySettings.underwaterHammerBros = 11;
     difficultySettings.underwaterLakitus = 11;
     difficultySettings.underwaterSwimmingCheepCheeps = 11;
     difficultySettings.standardOverworldFlyingCheepCheeps = 11;
@@ -549,6 +555,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 20;
+    difficultySettings.underwaterHammerBros = 1;
     difficultySettings.replaceCastleLoops = 2;
     return difficultySettings;
 }
@@ -557,6 +564,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time()
     Difficulty_Level_Settings difficultySettings = this->Very_Hard();
     difficultySettings.hammerTime = 1;
     difficultySettings.hammerTimeIntensity = 100;
+    difficultySettings.underwaterHammerBros = 1;
     difficultySettings.replaceCastleLoops = 2;
     return difficultySettings;
 }
@@ -595,6 +603,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.undergroundOffscreenBulletBills = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterBloopers = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    difficultySettings.underwaterHammerBros = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterLakitus = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterSwimmingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;

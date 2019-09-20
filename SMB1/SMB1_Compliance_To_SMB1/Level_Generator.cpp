@@ -256,6 +256,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyUndergroundOffscreenBulletBills = this->pluginSettings->difficultyUndergroundOffscreenBulletBills;
     args.difficultyUnderwaterBloopers = this->pluginSettings->difficultyUnderwaterBloopers;
     args.difficultyUnderwaterFlyingCheepCheeps = this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps;
+    args.difficultyUnderwaterHammerBros = this->pluginSettings->difficultyUnderwaterHammerBros;
     args.difficultyUnderwaterLakitus = this->pluginSettings->difficultyUnderwaterLakitus;
     args.difficultyUnderwaterSwimmingCheepCheeps = this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps;
     args.difficultyStandardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;

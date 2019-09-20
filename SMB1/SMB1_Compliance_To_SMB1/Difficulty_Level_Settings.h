@@ -23,6 +23,7 @@ struct Difficulty_Level_Settings {
     int undergroundOffscreenBulletBills;
     int underwaterBloopers;
     int underwaterFlyingCheepCheeps;
+    int underwaterHammerBros;
     int underwaterLakitus;
     int underwaterSwimmingCheepCheeps;
     int standardOverworldFlyingCheepCheeps;

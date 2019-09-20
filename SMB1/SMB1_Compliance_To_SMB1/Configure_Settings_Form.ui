@@ -822,7 +822,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2222</height>
+            <height>2256</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1575,6 +1575,27 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QSpinBox" name="sbUnderwaterFlyingCheepCheeps">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>11</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutUnderwaterHammerBros">
+                <item>
+                 <widget class="QLabel" name="lblUnderwaterHammerBros">
+                  <property name="text">
+                   <string>Underwater Hammer Bros:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbUnderwaterHammerBros">
                   <property name="minimum">
                    <number>1</number>
                   </property>

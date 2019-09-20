@@ -38,6 +38,7 @@ struct SMB1_Compliance_Generator_Arguments {
     int difficultyUndergroundLakitus;
     int difficultyUndergroundOffscreenBulletBills;
     int difficultyUnderwaterFlyingCheepCheeps;
+    int difficultyUnderwaterHammerBros;
     int difficultyUnderwaterLakitus;
     int difficultyUnderwaterSwimmingCheepCheeps;
     int difficultyUnderwaterBloopers;

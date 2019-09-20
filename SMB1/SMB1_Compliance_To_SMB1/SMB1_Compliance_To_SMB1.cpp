@@ -196,6 +196,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Underground_Offscreen_Bullet_Bills", this->pluginSettings.difficultyUndergroundOffscreenBulletBills)) return false;
     if (!configFile.Set_Value("Difficulty_Underwater_Bloopers", this->pluginSettings.difficultyUnderwaterBloopers)) return false;
     if (!configFile.Set_Value("Difficulty_Underwater_Flying_Cheep_Cheeps", this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps)) return false;
+    if (!configFile.Set_Value("Difficulty_Underwater_Hammer_Bros", this->pluginSettings.difficultyUnderwaterHammerBros)) return false;
     if (!configFile.Set_Value("Difficulty_Underwater_Lakitus", this->pluginSettings.difficultyUnderwaterLakitus)) return false;
     if (!configFile.Set_Value("Difficulty_Underwater_Swimming_Cheep_Cheeps", this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps)) return false;
     if (!configFile.Set_Value("Difficulty_Standard_Overworld_Flying_Cheep_Cheeps", this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps)) return false;
@@ -290,6 +291,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Underground_Offscreen_Bullet_Bills", this->pluginSettings.difficultyUndergroundOffscreenBulletBills);
     configFile.Get_Value("Difficulty_Underwater_Bloopers", this->pluginSettings.difficultyUnderwaterBloopers);
     configFile.Get_Value("Difficulty_Underwater_Flying_Cheep_Cheeps", this->pluginSettings.difficultyUnderwaterFlyingCheepCheeps);
+    configFile.Get_Value("Difficulty_Underwater_Hammer_Bros", this->pluginSettings.difficultyUnderwaterHammerBros);
     configFile.Get_Value("Difficulty_Underwater_Lakitus", this->pluginSettings.difficultyUnderwaterLakitus);
     configFile.Get_Value("Difficulty_Underwater_Swimming_Cheep_Cheeps", this->pluginSettings.difficultyUnderwaterSwimmingCheepCheeps);
     configFile.Get_Value("Difficulty_Standard_Overworld_Flying_Cheep_Cheeps", this->pluginSettings.difficultyStandardOverworldFlyingCheepCheeps);

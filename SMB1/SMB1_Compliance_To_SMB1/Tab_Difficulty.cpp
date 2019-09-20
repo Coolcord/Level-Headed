@@ -44,6 +44,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbUndergroundOffscreenBulletBills->setValue(this->pluginSettings->difficultyUndergroundOffscreenBulletBills);
     this->ui->sbUnderwaterBloopers->setValue(this->pluginSettings->difficultyUnderwaterBloopers);
     this->ui->sbUnderwaterFlyingCheepCheeps->setValue(this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps);
+    this->ui->sbUnderwaterHammerBros->setValue(this->pluginSettings->difficultyUnderwaterHammerBros);
     this->ui->sbUnderwaterLakitus->setValue(this->pluginSettings->difficultyUnderwaterLakitus);
     this->ui->sbUnderwaterSwimmingCheepCheeps->setValue(this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps);
     this->ui->sbStandardOverworldFlyingCheepCheeps->setValue(this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps);
@@ -98,6 +99,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyUndergroundOffscreenBulletBills = this->ui->sbUndergroundOffscreenBulletBills->value();
         this->pluginSettings->difficultyUnderwaterBloopers = this->ui->sbUnderwaterBloopers->value();
         this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps = this->ui->sbUnderwaterFlyingCheepCheeps->value();
+        this->pluginSettings->difficultyUnderwaterHammerBros = this->ui->sbUnderwaterHammerBros->value();
         this->pluginSettings->difficultyUnderwaterLakitus = this->ui->sbUnderwaterLakitus->value();
         this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps = this->ui->sbUnderwaterSwimmingCheepCheeps->value();
         this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps = this->ui->sbStandardOverworldFlyingCheepCheeps->value();
