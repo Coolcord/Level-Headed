@@ -11,6 +11,8 @@
 
 #include <QDebug>
 
+const static QString STRING_ALLOW_PALETTES = Patch_Strings::STRING_COMMENT+" Palette: None";
+const static QString STRING_ALLOW_ONLY_COIN_PALETTES = Patch_Strings::STRING_COMMENT+" Palette: Coins";
 const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Invalid Tones: ";
 const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
 
@@ -28,6 +30,8 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->bonusGraphicsPacks = QStringList();
     this->bonusMusicPacks = QStringList();
     this->invalidTones = new QSet<int>();
+    this->allowPalettes = true;
+    this->allowOnlyCoinPalettes = false;
     this->romFolderLocation = romFolderLocation;
     this->pluginLocation = applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
     this->romsArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
@@ -82,6 +86,8 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     else graphicsPack = this->bonusGraphicsPacks.at(index-this->graphicsPackStrings.size());
 
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+graphicsPack);
+    if (!this->Get_Palettes_Allowed(patchBytes)) return false; //read if palettes are allowed
+
     qDebug() << "Using graphics pack " << graphicsPack;
     this->sequentialArchivePlugin->Close();
     if (patchBytes.isEmpty()) return false;
@@ -161,6 +167,14 @@ int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
 
 bool Sequential_Archive_Handler::Is_Tone_Invalid(int tone) {
     return this->invalidTones->contains(tone);
+}
+
+bool Sequential_Archive_Handler::Are_Color_Palettes_Allowed() {
+    return this->allowPalettes;
+}
+
+bool Sequential_Archive_Handler::Are_Only_Coin_Palettes_Allowed() {
+    return this->allowOnlyCoinPalettes;
 }
 
 QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType) {
@@ -308,6 +322,21 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
                 this->invalidTones->insert(tone);
             }
         }
+    }
+    return true;
+}
+
+bool Sequential_Archive_Handler::Get_Palettes_Allowed(const QByteArray &patchBytes) {
+    if (patchBytes.isEmpty()) return true; //nothing to do
+
+    //Read the patch file to get the invalid tones
+    QTextStream stream(patchBytes);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (this->hexagonPlugin->Is_Line_End_Of_Header(line)) return true;
+        if (line.startsWith(STRING_ALLOW_PALETTES)) this->allowPalettes = false;
+        if (line.startsWith(STRING_ALLOW_ONLY_COIN_PALETTES)) this->allowOnlyCoinPalettes = true;
     }
     return true;
 }

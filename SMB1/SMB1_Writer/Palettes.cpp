@@ -1,8 +1,11 @@
 #include "Palettes.h"
 #include "../../Common_Files/Random.h"
 #include "Colors.h"
+#include "Sequential_Archive_Handler.h"
 
-Palettes::Palettes(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {
+Palettes::Palettes(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler) : Byte_Writer(f, lo) {
+    assert(sequentialArchiveHandler);
+    this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->colors = new Colors();
     this->paletteMode = 1;
 }
@@ -13,8 +16,10 @@ Palettes::~Palettes() {
 
 bool Palettes::Randomize_Palettes(int paletteMode) {
     if (paletteMode < 1 || paletteMode > 10) return false;
+    if (!this->sequentialArchiveHandler->Are_Color_Palettes_Allowed()) return true; //nothing to do
     this->paletteMode = paletteMode;
     if (this->paletteMode == 1) return true; //original palette specified. Nothing more to do
+    if (this->sequentialArchiveHandler->Are_Only_Coin_Palettes_Allowed()) return this->Coin_Palette_Random(); //handle coin only mode
 
     if (!this->Randomize_Color_Groups()) return false;
     if (!this->Coin_Palette_Random()) return false;

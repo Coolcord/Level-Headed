@@ -5,10 +5,11 @@
 #include "Color.h"
 
 class Colors;
+class Sequential_Archive_Handler;
 
 class Palettes : public Byte_Writer {
 public:
-    Palettes(QFile *file, Level_Offset *levelOffset);
+    Palettes(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
     ~Palettes();
     bool Randomize_Palettes(int paletteMode);
 
@@ -36,6 +37,7 @@ private:
     bool Get_Random_Brown_Colors(qint64 offset);
 
     Colors *colors;
+    Sequential_Archive_Handler *sequentialArchiveHandler;
     int paletteMode;
 };
 
