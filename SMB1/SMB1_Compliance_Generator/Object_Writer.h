@@ -31,6 +31,7 @@ public:
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_1up(int x, int y);
+    bool Hidden_Block_With_1up_Only(int x, int y);
     bool Brick_With_Mushroom(int x, int y);
     bool Brick_With_Mushroom_Only(int x, int y);
     bool Brick_With_Star(int x, int y);
@@ -39,6 +40,7 @@ public:
     bool Brick_With_10_Coins_Only(int x, int y);
     bool Brick_With_1up(int x, int y);
     bool Brick_With_1up_Only(int x, int y);
+    bool Brick_With_Vine_Without_Pointer(int x, int y);
     bool Used_Block(int x, int y);
     bool Trampoline(int x, int y);
     bool Bullet_Bill_Turret(int x, int y, int height);
@@ -48,8 +50,10 @@ public:
     bool Horizontal_Coins(int x, int y, int length);
     bool Vertical_Bricks(int x, int y, int height);
     bool Vertical_Blocks(int x, int y, int height);
-    bool Corral(int x, int y, int height);
+    bool Coral(int x, int y, int height);
+    bool Underwater_Sideways_Pipe_Without_Pointer(int x, int y);
     bool Pipe(int x, int y, int height);
+    bool Enterable_Pipe_Without_Pointer(int x, int y, int height);
     bool Hole(int x, int length, bool filledWithWater = false);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
@@ -74,7 +78,8 @@ public:
     bool Balance_Lift_Horizontal_Rope(int x, int length);
     bool Steps(int x, int width);
     bool End_Steps(int x);
-    bool Pipe_Wall(int x);
+    bool Reverse_L_Pipe_Without_Pointer(int x);
+    bool Tall_Reverse_L_Pipe_Without_Pointer(int x);
     bool Nothing();
 
 

@@ -348,7 +348,7 @@ bool Object_Handler::Corral(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), height)) return false;
-    if (!this->writerPlugin->Object_Corral(x, y, height)) {
+    if (!this->writerPlugin->Object_Coral(x, y, height)) {
         errorCode = 3;
         return false;
     } else {

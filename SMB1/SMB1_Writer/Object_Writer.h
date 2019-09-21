@@ -6,10 +6,9 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include "Item_Writer.h"
 
-class Object_Writer : public Item_Writer
-{
+class Object_Writer : public Item_Writer {
 public:
-    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) {}
+    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     bool Fill_Buffer();
 
     bool Question_Block_With_Mushroom(int x, int y);
@@ -31,7 +30,7 @@ public:
     bool Horizontal_Coins(int x, int y, int length);
     bool Vertical_Bricks(int x, int y, int height);
     bool Vertical_Blocks(int x, int y, int height);
-    bool Corral(int x, int y, int height);
+    bool Coral(int x, int y, int height);
     bool Pipe(int x, int y, int height, bool enterable = false);
     bool Hole(int x, int length, bool filledWithWater = false);
     bool Bridge(int x, int yPlacement, int length);

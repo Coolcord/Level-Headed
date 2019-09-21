@@ -14,7 +14,6 @@ public:
     int Get_Current_Y();
     bool Write_Coordinates(int x, int y, bool handlePageFlag = true);
 
-
 protected:
     Item_Writer(const Item_Writer&);
     Item_Writer& operator=(const Item_Writer&);

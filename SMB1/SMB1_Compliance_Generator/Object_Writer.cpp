@@ -7,14 +7,14 @@
 #include "Physics.h"
 #include <assert.h>
 
-Object_Writer::Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Compliance_Generator_Arguments *args) : Item_Writer(stream, numBytesLeft) {
+Object_Writer::Object_Writer(QTextStream *s, int nbl, SMB1_Compliance_Generator_Arguments *args) : Item_Writer(s, nbl) {
     assert(args);
     this->args = args;
     this->lastObjectLength = 0;
     this->coinBlockZone = 0;
     this->powerupZone = 0;
     this->endObjectCount = Physics::MIN_END_OBJECTS;
-    this->totalBytes = numBytesLeft;
+    this->totalBytes = nbl;
     this->firstPageSafety = false;
     this->autoScrollActive = false;
     this->wereFlyingCheepCheepsSpawned = false;
@@ -215,6 +215,17 @@ bool Object_Writer::Hidden_Block_With_1up(int x, int y) {
     }
 }
 
+bool Object_Writer::Hidden_Block_With_1up_Only(int x, int y) {
+    if (y > 0xB) return false;
+    if (this->powerupZone == 0) {
+        if (this->Write_Object(x, y, Object_Item::STRING_HIDDEN_BLOCK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
+            this->powerupZone = this->MAX_POWERUP_ZONE;
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Object_Writer::Brick_With_Mushroom(int x, int y) {
     if (y > 0xB) return false;
     if (this->powerupZone == 0) {
@@ -315,6 +326,11 @@ bool Object_Writer::Brick_With_1up_Only(int x, int y) {
     return false;
 }
 
+bool Object_Writer::Brick_With_Vine_Without_Pointer(int x, int y) {
+    if (y > 0xB) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_VINE, Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Used_Block(int x, int y) {
     if (y > 0xB) return false;
     return this->Write_Object(x, y, Object_Item::STRING_USED_BLOCK, Physics::MIN_OBJECT_LENGTH, true);
@@ -372,16 +388,27 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     return this->Write_Object(x, y, Object_Item::STRING_VERTICAL_BLOCKS, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
 }
 
-bool Object_Writer::Corral(int x, int y, int height) {
+bool Object_Writer::Coral(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(x, y, Object_Item::STRING_CORRAL, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
+    return this->Write_Object(x, y, Object_Item::STRING_CORAL, QString::number(height), Physics::MIN_OBJECT_LENGTH, true);
+}
+
+bool Object_Writer::Underwater_Sideways_Pipe_Without_Pointer(int x, int y) {
+    if (y > 0xB) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_UNDERWATER_SIDEWAYS_PIPE, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Pipe(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 2 || height > 8) return false;
     return this->Write_Object(x, y, Object_Item::STRING_PIPE, QString::number(height), Physics::PIPE_LENGTH, true);
+}
+
+bool Object_Writer::Enterable_Pipe_Without_Pointer(int x, int y, int height) {
+    if (y > 0xB) return false;
+    if (height < 2 || height > 8) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString::number(height), Physics::PIPE_LENGTH, true);
 }
 
 bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
@@ -579,7 +606,11 @@ bool Object_Writer::End_Steps(int x) {
     return true;
 }
 
-bool Object_Writer::Pipe_Wall(int x) {
+bool Object_Writer::Reverse_L_Pipe_Without_Pointer(int x) {
+    return this->Write_Object(x, Object_Item::STRING_REVERSE_L_PIPE, true);
+}
+
+bool Object_Writer::Tall_Reverse_L_Pipe_Without_Pointer(int x) {
     return this->Write_Object(x, Object_Item::STRING_PIPE_WALL, Physics::PIPE_LENGTH, true);
 }
 

@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Writer::Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) : Item_Writer(buffer, headerWriter, roomIDHandler) {
+Enemy_Writer::Enemy_Writer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh) : Item_Writer(b, hw, ridh) {
     this->groupPageFlag = false;
     this->levelSlots = new QMap<QString, Level::Level>();
     this->Populate_Level_Slots();
@@ -317,7 +317,10 @@ bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
     if (this->currentX+x > 0xF) return false;
     if (!this->Write_Coordinates(x, 0xE)) return false;
     room = room&0x7F;
-    //TODO: Add the page flag to the room if it is set
+    if (this->pageFlag) {
+        this->pageFlag = false;
+        room += 128; //set the page flag in the room
+    }
     if (!this->Write_Byte_To_Buffer(room)) return false;
     return this->Write_Byte_To_Buffer(page);
 }
@@ -329,6 +332,11 @@ bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
     unsigned char roomID = ' ';
     if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
     int room = static_cast<int>(roomID);
+    room = room&0x7F;
+    if (this->pageFlag) {
+        this->pageFlag = false;
+        room += 128; //set the page flag in the room
+    }
     return this->Pipe_Pointer(x, room, page);
 }
 

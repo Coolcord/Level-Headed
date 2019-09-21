@@ -161,9 +161,9 @@ bool SMB1_Writer::Object_Vertical_Blocks(int x, int y, int height) {
     return this->objectWriter->Vertical_Blocks(x, y, height);
 }
 
-bool SMB1_Writer::Object_Corral(int x, int y, int height) {
+bool SMB1_Writer::Object_Coral(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Corral(x, y, height);
+    return this->objectWriter->Coral(x, y, height);
 }
 
 bool SMB1_Writer::Object_Pipe(int x, int y, int height, bool enterable) {

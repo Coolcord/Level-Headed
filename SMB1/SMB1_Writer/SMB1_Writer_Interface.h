@@ -63,7 +63,7 @@ public:
     virtual bool Object_Horizontal_Coins(int x, int y, int length)=0;
     virtual bool Object_Vertical_Bricks(int x, int y, int height)=0;
     virtual bool Object_Vertical_Blocks(int x, int y, int height)=0;
-    virtual bool Object_Corral(int x, int y, int height)=0;
+    virtual bool Object_Coral(int x, int y, int height)=0;
     virtual bool Object_Pipe(int x, int y, int height, bool enterable = false)=0;
     virtual bool Object_Hole(int x, int length, bool filledWithWater = false)=0;
     virtual bool Object_Bridge(int x, int yPlacement, int length)=0;

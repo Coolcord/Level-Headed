@@ -4,6 +4,8 @@
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include <assert.h>
 
+Object_Writer::Object_Writer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh) : Item_Writer(b, hw, ridh) {}
+
 bool Object_Writer::Write_Object(int x, int y, int objectByte) {
     return this->Write_Item(x, y, objectByte);
 }
@@ -137,7 +139,7 @@ bool Object_Writer::Vertical_Blocks(int x, int y, int height) {
     return this->Write_Object(x, y, 0x6, height-1);
 }
 
-bool Object_Writer::Corral(int x, int y, int height) {
+bool Object_Writer::Coral(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height > 16 || height < 1) return false;
     if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() != Level_Attribute::UNDERWATER) return false;

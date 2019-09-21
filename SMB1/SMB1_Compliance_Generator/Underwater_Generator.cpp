@@ -101,7 +101,7 @@ bool Underwater_Generator::Corral(int x) {
     if (Random::Get_Instance().Get_Num(3) == 0) height = Random::Get_Instance().Get_Num(7)+2;
     else height = Random::Get_Instance().Get_Num(3)+2;
     int y = Physics::GROUND_Y - height + 1;
-    assert(this->object->Corral(x, y, height));
+    assert(this->object->Coral(x, y, height));
     return true;
 }
 
@@ -146,7 +146,7 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
             else height = Random::Get_Instance().Get_Num(3)+2;
             if (blocksY-height < 1) height = Random::Get_Instance().Get_Num(blocksY-3)+2;
             int y = blocksY - height;
-            assert(this->object->Corral(x, y, height));
+            assert(this->object->Coral(x, y, height));
             x = 1;
             --numObjectsAvailable;
         } else {

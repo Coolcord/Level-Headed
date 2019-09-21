@@ -38,7 +38,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_HORIZONTAL_COINS, Object_Item::HORIZONTAL_COINS);
     this->objects->insert(Object_Item::STRING_VERTICAL_BRICKS, Object_Item::VERTICAL_BRICKS);
     this->objects->insert(Object_Item::STRING_VERTICAL_BLOCKS, Object_Item::VERTICAL_BLOCKS);
-    this->objects->insert(Object_Item::STRING_CORRAL, Object_Item::CORRAL);
+    this->objects->insert(Object_Item::STRING_CORAL, Object_Item::CORRAL);
     this->objects->insert(Object_Item::STRING_PIPE, Object_Item::PIPE);
     this->objects->insert(Object_Item::STRING_ENTERABLE_PIPE, Object_Item::ENTERABLE_PIPE);
     this->objects->insert(Object_Item::STRING_HOLE, Object_Item::HOLE);
