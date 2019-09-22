@@ -24,7 +24,12 @@ bool Pipe_Pointer_Writer::Pipe_Pointer(int x, int room, int page) {
     if (!this->enemy->Is_Byte_Valid(room) || !this->enemy->Is_Byte_Valid(page)) return false;
     if (!this->enemy->Is_Coordinate_Valid(x)) return false;
     --this->enemy->numBytesLeft;
-    return this->enemy->Write_Item(x, QString(Enemy_Item::STRING_PIPE_POINTER+" "+QString::number(room)+" "+QString::number(page)));
+    if (this->enemy->Write_Item(x, QString(Enemy_Item::STRING_PIPE_POINTER+" "+QString::number(x)+" "+QString::number(room)+" "+QString::number(page)))) {
+        this->enemy->Set_First_Enemy(false);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Pipe_Pointer_Writer::Enterable_Pipe(int x, int y, int height, int room, int page) {

@@ -4,8 +4,7 @@
 class Enemy_Writer;
 class Object_Writer;
 
-class Pipe_Pointer_Writer
-{
+class Pipe_Pointer_Writer {
 public:
     Pipe_Pointer_Writer(Object_Writer *object, Enemy_Writer *enemy);
     ~Pipe_Pointer_Writer() {}

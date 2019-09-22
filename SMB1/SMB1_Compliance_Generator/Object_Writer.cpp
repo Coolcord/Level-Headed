@@ -182,13 +182,7 @@ bool Object_Writer::Question_Block_With_Mushroom(int x, int y) {
 
 bool Object_Writer::Question_Block_With_Mushroom_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_QUESTION_BLOCK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Question_Block_With_Coin(int x, int y) {
@@ -217,13 +211,7 @@ bool Object_Writer::Hidden_Block_With_1up(int x, int y) {
 
 bool Object_Writer::Hidden_Block_With_1up_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_HIDDEN_BLOCK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_HIDDEN_BLOCK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_Mushroom(int x, int y) {
@@ -242,13 +230,7 @@ bool Object_Writer::Brick_With_Mushroom(int x, int y) {
 
 bool Object_Writer::Brick_With_Mushroom_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_MUSHROOM, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_Star(int x, int y) {
@@ -267,13 +249,7 @@ bool Object_Writer::Brick_With_Star(int x, int y) {
 
 bool Object_Writer::Brick_With_Star_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_STAR, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_10_Coins(int x, int y) {
@@ -292,13 +268,7 @@ bool Object_Writer::Brick_With_10_Coins(int x, int y) {
 
 bool Object_Writer::Brick_With_10_Coins_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->coinBlockZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_10_COINS, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->coinBlockZone = this->MAX_COIN_BLOCK_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_10_COINS, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_1up(int x, int y) {
@@ -317,13 +287,7 @@ bool Object_Writer::Brick_With_1up(int x, int y) {
 
 bool Object_Writer::Brick_With_1up_Only(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        }
-    }
-    return false;
+    return this->Write_Object(x, y, Object_Item::STRING_BRICK_WITH_1UP, Physics::MIN_OBJECT_LENGTH, true);
 }
 
 bool Object_Writer::Brick_With_Vine_Without_Pointer(int x, int y) {

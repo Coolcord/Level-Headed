@@ -314,7 +314,6 @@ bool Enemy_Writer::Page_Change(int page) {
 bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
     if (this->How_Many_Bytes_Left() < 3) return false;
     x = this->Handle_Group_Page_Flag(x);
-    if (this->currentX+x > 0xF) return false;
     if (!this->Write_Coordinates(x, 0xE)) return false;
     room = room&0x7F;
     if (this->pageFlag) {
@@ -332,11 +331,6 @@ bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
     unsigned char roomID = ' ';
     if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
     int room = static_cast<int>(roomID);
-    room = room&0x7F;
-    if (this->pageFlag) {
-        this->pageFlag = false;
-        room += 128; //set the page flag in the room
-    }
     return this->Pipe_Pointer(x, room, page);
 }
 
