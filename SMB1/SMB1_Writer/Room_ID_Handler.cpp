@@ -158,8 +158,8 @@ bool Room_ID_Handler::Change_Room_Attribute(unsigned char oldRoomID, Level_Attri
     //Copy the Room Order
     QVector<Level::Level> oldRoomOrder;
     for (i = 0; i < 36; ++i) {
-        assert(oldRoomIDs.contains(static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i])));
-        oldRoomOrder.append(oldRoomIDs[static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i])]);
+        assert(oldRoomIDs.contains(static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i]&0x7F)));
+        oldRoomOrder.append(oldRoomIDs[static_cast<unsigned char>(this->roomOrderWriter->buffer->data()[i]&0x7F)]);
     }
 
     //Copy the Header Address Tables
@@ -496,7 +496,7 @@ bool Room_ID_Handler::Update_Pipe_Pointers_At_Level(const QMap<unsigned char, Le
 void Room_ID_Handler::Populate_Room_IDs() {
     this->roomIDs->clear();
     this->roomIDs->insert(Level::WORLD_1_LEVEL_1, 0x25);
-    this->roomIDs->insert(Level::WORLD_1_LEVEL_2, 0xC0);
+    this->roomIDs->insert(Level::WORLD_1_LEVEL_2, 0x40);
     this->roomIDs->insert(Level::WORLD_1_LEVEL_3, 0x26);
     this->roomIDs->insert(Level::WORLD_1_LEVEL_4, 0x60);
     this->roomIDs->insert(Level::WORLD_2_LEVEL_1, 0x28);
@@ -527,6 +527,6 @@ void Room_ID_Handler::Populate_Room_IDs() {
     this->roomIDs->insert(Level::UNDERWATER_CASTLE, 0x02);
     this->roomIDs->insert(Level::CLOUD_BONUS_1, 0x2B);
     this->roomIDs->insert(Level::CLOUD_BONUS_2, 0x34);
-    this->roomIDs->insert(Level::UNDERGROUND_BONUS, 0xC2);
+    this->roomIDs->insert(Level::UNDERGROUND_BONUS, 0x42);
     this->roomIDs->insert(Level::WARP_ZONE, 0x2F);
 }
