@@ -3,9 +3,9 @@
 #include <QStringList>
 #include <assert.h>
 
-Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {
-    assert(writerPlugin);
-    this->writerPlugin = writerPlugin;
+Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
+    assert(wp);
+    this->writerPlugin = wp;
 }
 
 bool Enemy_Handler::Parse_Difficulty(const QString &value, bool &onlyHardMode) {
@@ -428,8 +428,8 @@ bool Enemy_Handler::Lift_Spawner(const QString &line, int &errorCode) {
     if (!this->Parse_Difficulty(elements.at(5), onlyHardMode)) return false;
 
     //Parse the movement direction
-    if (elements.at(3) == Enemy_Item::STRING_VERTICAL) up = true;
-    else if (elements.at(3) == Enemy_Item::STRING_HORIZONTAL) up = false;
+    if (elements.at(3) == Enemy_Item::STRING_UP) up = true;
+    else if (elements.at(3) == Enemy_Item::STRING_DOWN) up = false;
     else return false; //invalid direction
 
     //Parse the size

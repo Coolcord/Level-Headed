@@ -48,6 +48,7 @@ public:
 private:
     Enemy_Writer(const Enemy_Writer&);
     Enemy_Writer& operator=(const Enemy_Writer&);
+    bool Write_Enemy(int x, const QString &enemy);
     bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy);
     bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters);
     bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy);

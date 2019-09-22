@@ -41,6 +41,26 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
+    ../Common_SMB1_Files/Background.h \
+    ../Common_SMB1_Files/Background_String.h \
+    ../Common_SMB1_Files/Brick.h \
+    ../Common_SMB1_Files/Brick_String.h \
+    ../Common_SMB1_Files/Castle.h \
+    ../Common_SMB1_Files/Enemy_Item.h \
+    ../Common_SMB1_Files/Enemy_Item_String.h \
+    ../Common_SMB1_Files/Header_String.h \
+    ../Common_SMB1_Files/Level.h \
+    ../Common_SMB1_Files/Level_Attribute.h \
+    ../Common_SMB1_Files/Level_Attribute_String.h \
+    ../Common_SMB1_Files/Level_Compliment.h \
+    ../Common_SMB1_Files/Level_Compliment_String.h \
+    ../Common_SMB1_Files/Level_String.h \
+    ../Common_SMB1_Files/Level_Type.h \
+    ../Common_SMB1_Files/Level_Type_String.h \
+    ../Common_SMB1_Files/Object_Item.h \
+    ../Common_SMB1_Files/Object_Item_String.h \
+    ../Common_SMB1_Files/Scenery.h \
+    ../Common_SMB1_Files/Scenery_String.h \
     Midpoint_Handler.h \
     Object_Writer.h \
     Enemy_Writer.h \

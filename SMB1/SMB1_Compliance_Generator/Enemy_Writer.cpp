@@ -25,6 +25,16 @@ bool Enemy_Writer::Was_Lakitu_Spawned() {
     return this->wasLakituSpawned;
 }
 
+bool Enemy_Writer::Write_Enemy(int x, const QString &enemy) {
+    if (this->firstEnemy && x < 16) x += 16;
+    if (this->Write_Item(x, QString(enemy+" "+QString::number(x)))) {
+        this->firstEnemy = false;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool Enemy_Writer::Write_Enemy(int x, bool onlyHardMode, const QString &enemy) {
     if (this->firstEnemy && x < 16) x += 16;
     if (this->Write_Item(x, QString(enemy+" "+QString::number(x)+" "+this->Get_Difficulty_String(onlyHardMode)))) {
@@ -218,9 +228,9 @@ bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
 bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
     QString property = "";
     if (up) {
-        property = Enemy_Item::STRING_VERTICAL;
+        property = Enemy_Item::STRING_UP;
     } else {
-        property = Enemy_Item::STRING_HORIZONTAL;
+        property = Enemy_Item::STRING_DOWN;
     }
     property += " ";
     if (small) {
@@ -236,7 +246,7 @@ bool Enemy_Writer::Bowser(int x, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Warp_Zone(int x) {
-    return this->Write_Enemy(x, false, Enemy_Item::STRING_WARP_ZONE);
+    return this->Write_Enemy(x, Enemy_Item::STRING_WARP_ZONE);
 }
 
 bool Enemy_Writer::Toad(int x, bool onlyHardMode) {

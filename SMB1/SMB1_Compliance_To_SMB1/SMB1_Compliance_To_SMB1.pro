@@ -31,6 +31,26 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     ../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
+    ../Common_SMB1_Files/Background.h \
+    ../Common_SMB1_Files/Background_String.h \
+    ../Common_SMB1_Files/Brick.h \
+    ../Common_SMB1_Files/Brick_String.h \
+    ../Common_SMB1_Files/Castle.h \
+    ../Common_SMB1_Files/Enemy_Item.h \
+    ../Common_SMB1_Files/Enemy_Item_String.h \
+    ../Common_SMB1_Files/Header_String.h \
+    ../Common_SMB1_Files/Level.h \
+    ../Common_SMB1_Files/Level_Attribute.h \
+    ../Common_SMB1_Files/Level_Attribute_String.h \
+    ../Common_SMB1_Files/Level_Compliment.h \
+    ../Common_SMB1_Files/Level_Compliment_String.h \
+    ../Common_SMB1_Files/Level_String.h \
+    ../Common_SMB1_Files/Level_Type.h \
+    ../Common_SMB1_Files/Level_Type_String.h \
+    ../Common_SMB1_Files/Object_Item.h \
+    ../Common_SMB1_Files/Object_Item_String.h \
+    ../Common_SMB1_Files/Scenery.h \
+    ../Common_SMB1_Files/Scenery_String.h \
     SMB1_Compliance_Parser.h \
     Enemy_Handler.h \
     Object_Handler.h \

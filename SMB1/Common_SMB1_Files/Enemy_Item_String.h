@@ -54,6 +54,8 @@ namespace Enemy_Item {
     //Movement Direction
     const static QString STRING_VERTICAL = "Vertical";
     const static QString STRING_HORIZONTAL = "Horizontal";
+    const static QString STRING_UP = "Up";
+    const static QString STRING_DOWN = "Down";
 
     //Movement Style
     const static QString STRING_MOVING = "Moving";

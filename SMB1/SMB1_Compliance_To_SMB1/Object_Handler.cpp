@@ -5,9 +5,9 @@
 #include <QStringList>
 #include <assert.h>
 
-Object_Handler::Object_Handler(SMB1_Writer_Interface *writerPlugin) : Item_Handler(writerPlugin) {
-    assert(writerPlugin);
-    this->writerPlugin = writerPlugin;
+Object_Handler::Object_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
+    assert(wp);
+    this->writerPlugin = wp;
 
     //Build the map for Sceneries
     this->sceneries = new QMap<QString, Scenery::Scenery>();
