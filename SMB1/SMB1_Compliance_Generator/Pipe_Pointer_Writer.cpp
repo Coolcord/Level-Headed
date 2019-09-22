@@ -42,7 +42,7 @@ bool Pipe_Pointer_Writer::Reverse_L_Pipe(int x, int room, int page) {
 
 bool Pipe_Pointer_Writer::Tall_Reverse_L_Pipe(int x, int yPlacement, int room, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
-    if (yPlacement < 0x1 || yPlacement > 0xA) return false;
+    if (yPlacement < 0x3 || yPlacement > 0xA) return false;
     if (!this->Pipe_Pointer(x, room, page)) return false;
     return this->object->Write_Object(x, yPlacement, Object_Item::STRING_TALL_REVERSE_L_PIPE, Physics::REVERSE_L_PIPE_LENGTH, false);
 }

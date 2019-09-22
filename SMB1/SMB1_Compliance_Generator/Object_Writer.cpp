@@ -411,6 +411,11 @@ bool Object_Writer::Enterable_Pipe_Without_Pointer(int x, int y, int height) {
     return this->Write_Object(x, y, Object_Item::STRING_ENTERABLE_PIPE, QString::number(height), Physics::PIPE_LENGTH, true);
 }
 
+bool Object_Writer::Tall_Reverse_L_Pipe_Without_Pointer(int x, int y) {
+    if (y < 0x2 || y > 0xA) return false;
+    return this->Write_Object(x, y, Object_Item::STRING_TALL_REVERSE_L_PIPE, Physics::MIN_OBJECT_LENGTH, true);
+}
+
 bool Object_Writer::Hole(int x, int length, bool filledWithWater) {
     if (length < 1 || length > 16) return false;
     if (filledWithWater) {
@@ -610,8 +615,8 @@ bool Object_Writer::Reverse_L_Pipe_Without_Pointer(int x) {
     return this->Write_Object(x, Object_Item::STRING_REVERSE_L_PIPE, true);
 }
 
-bool Object_Writer::Tall_Reverse_L_Pipe_Without_Pointer(int x) {
-    return this->Write_Object(x, Object_Item::STRING_PIPE_WALL, Physics::PIPE_LENGTH, true);
+bool Object_Writer::Pipe_Wall(int x) {
+    return this->Write_Object(x, Object_Item::STRING_PIPE_WALL, true);
 }
 
 bool Object_Writer::Nothing() {

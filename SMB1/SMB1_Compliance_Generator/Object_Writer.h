@@ -54,6 +54,7 @@ public:
     bool Underwater_Sideways_Pipe_Without_Pointer(int x, int y);
     bool Pipe(int x, int y, int height);
     bool Enterable_Pipe_Without_Pointer(int x, int y, int height);
+    bool Tall_Reverse_L_Pipe_Without_Pointer(int x, int y);
     bool Hole(int x, int length, bool filledWithWater = false);
     bool Bridge(int x, int yPlacement, int length);
     bool Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length);
@@ -79,7 +80,7 @@ public:
     bool Steps(int x, int width);
     bool End_Steps(int x);
     bool Reverse_L_Pipe_Without_Pointer(int x);
-    bool Tall_Reverse_L_Pipe_Without_Pointer(int x);
+    bool Pipe_Wall(int x);
     bool Nothing();
 
 

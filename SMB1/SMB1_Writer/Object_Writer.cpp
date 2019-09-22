@@ -335,7 +335,7 @@ bool Object_Writer::End_Steps(int x) {
 }
 
 bool Object_Writer::Tall_Reverse_L_Pipe(int x, int yPlacement) {
-    if (yPlacement < 0x1 || yPlacement > 0xA) return false;
+    if (yPlacement < 0x3 || yPlacement > 0xA) return false;
     return this->Write_Object(x, 0xF, 0x4, yPlacement);
 }
 
