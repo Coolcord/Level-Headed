@@ -284,6 +284,7 @@ bool Enemy_Writer::Page_Change(int page) {
     int tmpLevelLength = this->levelLength;
     assert(this->Handle_Level_Length_On_Page_Change(page));
     if (this->Write_Item(0x0, QString(Enemy_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
+        this->firstEnemy = false;
         return true; //page skip successful
     } else {
         assert(false);

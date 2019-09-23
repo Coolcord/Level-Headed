@@ -101,7 +101,7 @@ bool Room_Order_Writer::Fix_Room_Order_Table_Header() {
     for (int i = 0; i < 36; ++i) {
         Level::Level level = Level::WORLD_1_LEVEL_1;
         bool endOfWorld = false;
-        assert(this->roomIDHandler->Get_Level_From_Room_ID(static_cast<unsigned char>(this->buffer->data()[i]), level));
+        assert(this->roomIDHandler->Get_Level_From_Room_ID(static_cast<unsigned char>(this->buffer->data()[i]&0x7F), level));
         assert(this->Scan_Level_For_End_Objects(level, endOfWorld));
         ++levels;
         if (endOfWorld) {
