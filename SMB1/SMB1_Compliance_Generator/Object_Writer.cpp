@@ -413,7 +413,7 @@ bool Object_Writer::Page_Change(int page) {
     int tmpPage = this->currentPage;
     int tmpLevelLength = this->levelLength;
     if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-    if (this->Write_Object(0x0, Object_Item::STRING_PAGE_CHANGE, QString::number(page), false)) {
+    if (this->Write_Item(0x0, QString(Object_Item::STRING_PAGE_CHANGE+" "+QString::number(page)))) {
         return true; //page skip successful
     } else {
         //Restore previous stats
