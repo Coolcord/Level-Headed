@@ -49,7 +49,7 @@ namespace Object_Item {
     const static QString STRING_CHANGE_BRICK_AND_SCENERY = "Change_Brick_And_Scenery";
     const static QString STRING_CHANGE_BACKGROUND = "Change_Background";
     const static QString STRING_LIFT_ROPE = "Lift_Rope";
-    const static QString STRING_BALANCE__LIFT_VERTICAL_ROPE = "Balance_Lift_Vertical_Rope";
+    const static QString STRING_BALANCE_LIFT_VERTICAL_ROPE = "Balance_Lift_Vertical_Rope";
     const static QString STRING_BALANCE_LIFT_HORIZONTAL_ROPE = "Balance_Lift_Horizontal_Rope";
     const static QString STRING_STEPS = "Steps";
     const static QString STRING_END_STEPS = "End_Steps";

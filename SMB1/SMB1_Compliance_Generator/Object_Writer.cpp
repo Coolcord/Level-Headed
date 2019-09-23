@@ -554,7 +554,7 @@ bool Object_Writer::Lift_Rope(int x) {
 
 bool Object_Writer::Balance_Lift_Vertical_Rope(int x, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(x, Object_Item::STRING_BALANCE__LIFT_VERTICAL_ROPE, length, false);
+    return this->Write_Object(x, Object_Item::STRING_BALANCE_LIFT_VERTICAL_ROPE, QString::number(length), Physics::MIN_OBJECT_LENGTH, false);
 }
 
 bool Object_Writer::Balance_Lift_Horizontal_Rope(int x, int length) {

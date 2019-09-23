@@ -43,7 +43,7 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objects->insert(Object_Item::STRING_ENTERABLE_PIPE, Object_Item::ENTERABLE_PIPE);
     this->objects->insert(Object_Item::STRING_HOLE, Object_Item::HOLE);
     this->objects->insert(Object_Item::STRING_HOLE_WITH_WATER, Object_Item::HOLE_WITH_WATER);
-    this->objects->insert(Object_Item::STRING_BALANCE__LIFT_VERTICAL_ROPE, Object_Item::BALANCE_LIFT_VERTICAL_ROPE);
+    this->objects->insert(Object_Item::STRING_BALANCE_LIFT_VERTICAL_ROPE, Object_Item::BALANCE_LIFT_VERTICAL_ROPE);
     this->objects->insert(Object_Item::STRING_BRIDGE, Object_Item::BRIDGE);
     this->objects->insert(Object_Item::STRING_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS);
     this->objects->insert(Object_Item::STRING_PAGE_CHANGE, Object_Item::PAGE_CHANGE);
