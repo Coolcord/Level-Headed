@@ -316,12 +316,12 @@ bool Object_Writer::Lift_Rope(int x) {
 
 bool Object_Writer::Balance_Lift_Vertical_Rope(int x, int length) {
     if (length > 16 || length < 1) return false;
-    return this->Write_Object(x, 0xC, 0x1, length-1);
+    return this->Write_Object(x, 0xF, 0x1, length-1);
 }
 
 bool Object_Writer::Balance_Lift_Horizontal_Rope(int x, int length) {
     if (length > 16 || length < 3) return false;
-    return this->Write_Object(x, 0xF, 0x1, length-1);
+    return this->Write_Object(x, 0xC, 0x1, length-1);
 }
 
 bool Object_Writer::Steps(int x, int width) {
