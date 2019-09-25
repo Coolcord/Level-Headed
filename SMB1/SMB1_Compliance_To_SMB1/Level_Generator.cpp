@@ -136,7 +136,7 @@ bool Level_Generator::Parse_Move_Enemy_Table(QTextStream &file, const QMap<QStri
 
 bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numLevelsPerWorld, int &lineNum, int &errorCode) {
     //Read the Level Lines
-    int currentLevelNum = 1;
+    int currentLevelNum = 0;
     int currentWorldNum = 1;
     bool success = false;
     do {
