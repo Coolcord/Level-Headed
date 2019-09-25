@@ -10,6 +10,7 @@ Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_I
     assert(levelOffsets);
     assert(roomIDHandler);
     this->buffer = new QByteArray(16, 0x00);
+    this->midpointMap = new QMap<Level::Level, int>();
     this->file = file;
     this->levelOffsets = levelOffsets;
     this->roomIDHandler = roomIDHandler;
@@ -18,6 +19,7 @@ Midpoint_Writer::Midpoint_Writer(QFile *file, Level_Offset *levelOffsets, Room_I
 
 Midpoint_Writer::~Midpoint_Writer() {
     delete this->buffer;
+    delete this->midpointMap;
 }
 
 bool Midpoint_Writer::Read_Midpoints() {
@@ -41,7 +43,14 @@ bool Midpoint_Writer::Write_Midpoints() {
     return this->file->write(this->buffer->data(), this->buffer->length()) == this->buffer->length();
 }
 
-bool Midpoint_Writer::Set_Midpoint(int worldNum, int levelNum, int value) {
+bool Midpoint_Writer::Get_Midpoint_At_Level(Level::Level level, int &midpoint) {
+    QMap<Level::Level, int>::iterator iter = this->midpointMap->find(level);
+    if (iter == this->midpointMap->end()) return false;
+    midpoint = iter.value();
+    return true;
+}
+
+bool Midpoint_Writer::Set_Midpoint(Level::Level level, int worldNum, int levelNum, int value) {
     //Swap worldNum with levelNum if using more than 4 levels per world
     if (this->moreThan4LevelsPerWorld) {
         int tmp = worldNum;
@@ -66,6 +75,7 @@ bool Midpoint_Writer::Set_Midpoint(int worldNum, int levelNum, int value) {
     if (highNibble) byte = (byte&0x0F)+static_cast<char>(value*0x10);
     else byte = (byte&0xF0)+static_cast<char>(value);
     this->buffer->data()[index] = byte;
+    this->midpointMap->insert(level, value);
     return true;
 }
 

@@ -60,6 +60,7 @@ public:
 
     //Room Table
     bool Room_Table_Set_Next_Level(Level::Level level);
+    bool Room_Table_Set_Midpoint_For_Duplicate_Level(Level::Level level, int worldNum, int levelNum);
 
     //Objects
     bool Object_Question_Block_With_Mushroom(int x, int y);

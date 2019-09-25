@@ -167,6 +167,14 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 return false;
             }
 
+            //Write the midpoint if the level has no script
+            if (elements.size() == 1) {
+                if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
+                    errorCode = 3;
+                    return false;
+                }
+            }
+
             //Parse the level if it has a script
             if (elements.size() == 2) {
                 QString scriptName = elements.at(1);

@@ -42,6 +42,7 @@ public:
 
     //Room Table
     virtual bool Room_Table_Set_Next_Level(Level::Level level)=0;
+    virtual bool Room_Table_Set_Midpoint_For_Duplicate_Level(Level::Level level, int worldNum, int levelNum)=0;
 
     //Objects
     virtual bool Object_Question_Block_With_Mushroom(int x, int y)=0;

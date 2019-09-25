@@ -57,13 +57,20 @@ bool SMB1_Writer::Header_Attribute(Level_Attribute::Level_Attribute attribute) {
 }
 
 bool SMB1_Writer::Header_Midpoint(int value) {
-    if (!this->Are_Buffers_Allocated()) return false;
-    return this->midpointWriter->Set_Midpoint(this->roomIDHandler->Get_Current_World_Num(), this->roomIDHandler->Get_Current_Level_Num(), value);
+    if (!this->midpointWriter) return false;
+    return this->midpointWriter->Set_Midpoint(this->roomIDHandler->Get_Current_Level(), this->roomIDHandler->Get_Current_World_Num(), this->roomIDHandler->Get_Current_Level_Num(), value);
 }
 
 bool SMB1_Writer::Room_Table_Set_Next_Level(Level::Level level) {
     if (!this->roomOrderWriter) return false;
     return this->roomOrderWriter->Set_Next_Level(level);
+}
+
+bool SMB1_Writer::Room_Table_Set_Midpoint_For_Duplicate_Level(Level::Level level, int worldNum, int levelNum) {
+    if (!this->midpointWriter) return false;
+    int value = 0;
+    if (!this->midpointWriter->Get_Midpoint_At_Level(level, value)) return false;
+    return this->midpointWriter->Set_Midpoint(level, worldNum, levelNum, value);
 }
 
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {
