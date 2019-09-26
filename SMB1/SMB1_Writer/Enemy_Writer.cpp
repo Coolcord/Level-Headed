@@ -311,8 +311,10 @@ bool Enemy_Writer::Page_Change(int page) {
     return true;
 }
 
-bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
+bool Enemy_Writer::Pipe_Pointer(int x, int room, int world, int page) {
     if (this->How_Many_Bytes_Left() < 3) return false;
+    if (page < 0 || page > 0x1F) return false;
+    if (world < 1 || world > 8) return false;
     x = this->Handle_Group_Page_Flag(x);
     if (!this->Write_Coordinates(x, 0xE)) return false;
     room = room&0x7F;
@@ -320,18 +322,19 @@ bool Enemy_Writer::Pipe_Pointer(int x, int room, int page) {
         this->pageFlag = false;
         room += 128; //set the page flag in the room
     }
+    page += (world-1)*0x20;
     if (!this->Write_Byte_To_Buffer(room)) return false;
     return this->Write_Byte_To_Buffer(page);
 }
 
-bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int page) {
+bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int world, int page) {
     QMap<QString, Level::Level>::Iterator iter = this->levelSlots->find(levelSlot);
     if (iter == this->levelSlots->end()) return false;
     Level::Level level = iter.value();
     unsigned char roomID = ' ';
     if (!this->roomIDHandler->Get_Room_ID_From_Level(level, roomID)) return false;
     int room = static_cast<int>(roomID);
-    return this->Pipe_Pointer(x, room, page);
+    return this->Pipe_Pointer(x, room, world, page);
 }
 
 void Enemy_Writer::Populate_Level_Slots() {

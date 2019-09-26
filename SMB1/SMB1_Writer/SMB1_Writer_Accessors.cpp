@@ -475,9 +475,9 @@ bool SMB1_Writer::Enemy_Page_Change(int page) {
     return this->enemyWriter->Page_Change(page);
 }
 
-bool SMB1_Writer::Enemy_Pipe_Pointer(int x, const QString &levelSlot, int page) {
+bool SMB1_Writer::Enemy_Pipe_Pointer(int x, const QString &levelSlot, int world, int page) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Pipe_Pointer(x, levelSlot, page);
+    return this->enemyWriter->Pipe_Pointer(x, levelSlot, world, page);
 }
 
 bool SMB1_Writer::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {
