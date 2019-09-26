@@ -140,16 +140,19 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
     int currentLevelNum = 0;
     int currentWorldNum = 1;
     QSet<Level::Level> bonusLevels;
-    bool success = false;
-    bool lastWasBonusLevel = false;
+    bool success = false, bonusSection = false, lastWasBonusLevel = false;
     do {
         ++lineNum;
         QString line = file.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (line.at(0) == '#') continue;
         if (line.startsWith("===")) {
-            success = true;
-            break;
+            if (bonusSection) {
+                success = true;
+                break;
+            } else {
+                bonusSection = true;
+            }
         } else {
             QStringList elements = line.split(' ');
             const QMap<QString, Level::Level>::const_iterator iter = levels.find(elements.at(0));
@@ -158,33 +161,41 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 return false;
             }
 
-            //Add the level to the room order table
-            if (lastWasBonusLevel) {
-                lastWasBonusLevel = false;
-            } else {
-                ++currentLevelNum;
-                if (currentLevelNum > numLevelsPerWorld) {
-                    ++currentWorldNum;
-                    currentLevelNum = 1;
-                }
-            }
+            //Handle the Room order
             Level::Level currentLevel = iter.value();
-            if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
-                errorCode = 3;
-                return false;
-            }
-
-            //Write the midpoint if the level has no script and is not a bonus level
-            bool bonusLevel = false;
-            if (elements.size() == 1) {
-                if (bonusLevels.find(currentLevel) == bonusLevels.end()) {
-                    if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
-                        errorCode = 3;
-                        return false;
-                    }
+            bool bonusLevel = bonusSection;
+            if (bonusSection) {
+                if (elements.size() != 2) {
+                    errorCode = 2; //syntax error
+                    return false;
+                }
+            } else {
+                //Add the level to the room order table
+                if (lastWasBonusLevel) {
+                    lastWasBonusLevel = false;
                 } else {
-                    bonusLevel = true;
-                    lastWasBonusLevel = true;
+                    ++currentLevelNum;
+                    if (currentLevelNum > numLevelsPerWorld) {
+                        ++currentWorldNum;
+                        currentLevelNum = 1;
+                    }
+                }
+                if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
+                    errorCode = 3;
+                    return false;
+                }
+
+                //Write the midpoint if the level has no script and is not a bonus level
+                if (elements.size() == 1) {
+                    if (bonusLevels.find(currentLevel) == bonusLevels.end()) {
+                        if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
+                            errorCode = 3;
+                            return false;
+                        }
+                    } else {
+                        bonusLevel = true;
+                        lastWasBonusLevel = true;
+                    }
                 }
             }
 
@@ -605,6 +616,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         //Write the level to the map
         if (!this->Write_To_Map(mapStream, levelOrder.at(i), args.fileName.split("/").last())) return false;
     }
+    if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
     if (!this->Write_To_Map(mapStream, Level_Type::STRING_BREAK)) return false;
 
     mapStream.flush();
