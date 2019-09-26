@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QDate>
+#include <QSet>
 #include <QTextStream>
 #include <QTime>
 #include <QDebug>
@@ -138,7 +139,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
     //Read the Level Lines
     int currentLevelNum = 0;
     int currentWorldNum = 1;
+    QSet<Level::Level> bonusLevels;
     bool success = false;
+    bool lastWasBonusLevel = false;
     do {
         ++lineNum;
         QString line = file.readLine().trimmed();
@@ -156,10 +159,14 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             }
 
             //Add the level to the room order table
-            ++currentLevelNum;
-            if (currentLevelNum > numLevelsPerWorld) {
-                ++currentWorldNum;
-                currentLevelNum = 1;
+            if (lastWasBonusLevel) {
+                lastWasBonusLevel = false;
+            } else {
+                ++currentLevelNum;
+                if (currentLevelNum > numLevelsPerWorld) {
+                    ++currentWorldNum;
+                    currentLevelNum = 1;
+                }
             }
             Level::Level currentLevel = iter.value();
             if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
@@ -167,11 +174,17 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 return false;
             }
 
-            //Write the midpoint if the level has no script
+            //Write the midpoint if the level has no script and is not a bonus level
+            bool bonusLevel = false;
             if (elements.size() == 1) {
-                if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
-                    errorCode = 3;
-                    return false;
+                if (bonusLevels.find(currentLevel) == bonusLevels.end()) {
+                    if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
+                        errorCode = 3;
+                        return false;
+                    }
+                } else {
+                    bonusLevel = true;
+                    lastWasBonusLevel = true;
                 }
             }
 
@@ -183,6 +196,16 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     return false;
                 }
                 scriptName.chop(1); scriptName = scriptName.remove(0, 1);
+
+                //Check if the level is a bonus level
+                QString lowerScriptName = scriptName.toLower();
+                if (lowerScriptName.contains("bonus")) {
+                    bonusLevel = true;
+                    lastWasBonusLevel = true;
+                    bonusLevels.insert(currentLevel);
+                }
+
+                //Allocate a new level
                 if (!this->writerPlugin->New_Level(currentLevel, currentWorldNum, currentLevelNum)) {
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                           "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
@@ -193,7 +216,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 SMB1_Compliance_Parser parser(this->writerPlugin);
                 int levelLineNum = 0;
                 QTextStream levelStream(this->sequentialArchivePlugin->Read_File("/" + scriptName), QIODevice::ReadOnly);
-                int levelErrorCode = parser.Parse_Level(&levelStream, levelLineNum);
+                int levelErrorCode = parser.Parse_Level(&levelStream, bonusLevel, levelLineNum);
                 errorCode = -1;
                 switch (levelErrorCode) {
                 case -1: //An error occurred and was handled within the parser
@@ -551,7 +574,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         QFile levelFile(args.fileName);
         if (!levelFile.open(QIODevice::ReadOnly)) return false;
         QTextStream levelStream(&levelFile);
-        int errorCode = parser.Parse_Level(&levelStream, lineNum);
+        int errorCode = parser.Parse_Level(&levelStream, false, lineNum);
         levelFile.close();
         switch (errorCode) {
         case -1: //An error occurred and was handled within the parser

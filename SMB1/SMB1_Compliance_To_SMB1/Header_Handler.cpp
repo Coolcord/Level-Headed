@@ -44,7 +44,7 @@ Header_Handler::~Header_Handler() {
     delete this->compliments;
 }
 
-bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
+bool Header_Handler::Parse_Header(bool bonusLevel, int &lineNum, int &errorCode) {
     assert(lineNum == 1);
     QStringList elements;
     int num = 0;
@@ -154,25 +154,34 @@ bool Header_Handler::Parse_Header(int &lineNum, int &errorCode) {
     }
 
     //Time
-    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
-    elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_TIME + ":") return false;
-    if (!this->Parse_Num(elements.at(1), num)) return false;
-    if (!this->writerPlugin->Header_Time(num)) {
-        errorCode = 3;
-        return false;
+    if (bonusLevel) {
+        if (!this->writerPlugin->Header_Time(0)) {
+            errorCode = 3;
+            return false;
+        }
+    } else {
+        line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
+        elements = line.split(' ');
+        if (elements.size() != 2) return false;
+        if (elements.at(0) != Header::STRING_TIME + ":") return false;
+        if (!this->Parse_Num(elements.at(1), num)) return false;
+        if (!this->writerPlugin->Header_Time(num)) {
+            errorCode = 3;
+            return false;
+        }
     }
 
     //Midpoint
-    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_MIDPOINT + ":", lineNum);
-    elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
-    if (!this->Parse_Num(elements.at(1), num)) return false;
-    if (!this->writerPlugin->Header_Midpoint(num)) {
-        errorCode = 3;
-        return false;
+    if (!bonusLevel) {
+        line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_MIDPOINT + ":", lineNum);
+        elements = line.split(' ');
+        if (elements.size() != 2) return false;
+        if (elements.at(0) != Header::STRING_MIDPOINT + ":") return false;
+        if (!this->Parse_Num(elements.at(1), num)) return false;
+        if (!this->writerPlugin->Header_Midpoint(num)) {
+            errorCode = 3;
+            return false;
+        }
     }
 
     //Seperator

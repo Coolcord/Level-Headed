@@ -16,8 +16,7 @@
 #include <QVector>
 #include <QString>
 
-class Level_Generator
-{
+class Level_Generator {
 public:
     Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                     SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin);

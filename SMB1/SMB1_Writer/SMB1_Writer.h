@@ -39,7 +39,6 @@ public:
     QString Install_ROM();
     bool Load_ROM_First_Time(QString &baseRomName);
     bool Load_ROM(const QString &fileName);
-    bool New_Bonus_Level(Level::Level level);
     bool New_Level(Level::Level level, int worldNum, int levelNum);
     bool Write_Level();
     int Get_Num_Object_Bytes();

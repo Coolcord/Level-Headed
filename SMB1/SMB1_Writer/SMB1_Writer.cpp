@@ -223,27 +223,25 @@ bool SMB1_Writer::Load_ROM_Offsets(bool cancel) {
     }
 }
 
-bool SMB1_Writer::New_Bonus_Level(Level::Level level) {
-    return this->New_Level(level, 0, 0);
-}
-
 bool SMB1_Writer::New_Level(Level::Level level, int worldNum, int levelNum) {
-    if (!this->file) return false; //the ROM needs to be loaded first
+    if (!this->file || !this->roomIDHandler) return false; //the ROM needs to be loaded first
 
     //Make sure that the buffers are empty
-    if (this->Are_Buffers_Allocated()) return false;
+    Level::Level previousLevel = this->roomIDHandler->Get_Current_Level();
+    this->roomIDHandler->Set_Current_Level(level);
+    if (this->Are_Buffers_Allocated()) {
+        this->roomIDHandler->Set_Current_Level(previousLevel);
+        return false;
+    }
 
     //Allocate Memory
+    this->roomIDHandler->Set_Current_World_Num(worldNum);
+    this->roomIDHandler->Set_Current_Level_Num(levelNum);
     this->objectOffset = this->levelOffset->Get_Level_Object_Offset(level);
     this->enemyOffset = this->levelOffset->Get_Level_Enemy_Offset(level);
     this->headerBuffer = new QByteArray();
     this->objectsBuffer = new QByteArray();
     this->enemiesBuffer = new QByteArray();
-
-    Level::Level previousLevel = this->roomIDHandler->Get_Current_Level();
-    this->roomIDHandler->Set_Current_Level(level);
-    this->roomIDHandler->Set_Current_World_Num(worldNum);
-    this->roomIDHandler->Set_Current_Level_Num(levelNum);
 
     //Read the Level
     if (!this->Read_Level_Header() || !this->Read_Objects() || !this->Read_Enemies()) {
@@ -256,15 +254,16 @@ bool SMB1_Writer::New_Level(Level::Level level, int worldNum, int levelNum) {
 }
 
 bool SMB1_Writer::Write_Level() {
-    if (!this->file) return false; //the ROM needs to be loaded first
+    if (!this->file || !this->levelOffset) return false; //the ROM needs to be loaded first
 
     //Make sure the offsets have been set
     if (this->objectOffset == BAD_OFFSET) return false;
-    if (this->enemyOffset == BAD_OFFSET) return false;
+    if (this->enemyOffset == BAD_OFFSET &&
+        this->levelOffset->Get_Level_Enemy_Offset(this->roomIDHandler->Get_Current_Level()) != BAD_OFFSET) return false;
 
     //Fill the object and enemy buffers if they aren't already full
     if (!this->objectWriter->Fill_Buffer()) return false;
-    if (!this->enemyWriter->Fill_Buffer()) return false;
+    if (this->enemyOffset != BAD_OFFSET && !this->enemyWriter->Fill_Buffer()) return false;
 
     //Write Header
     if (!this->Write_Buffer(this->objectOffset-2, this->headerBuffer)) return false;
@@ -273,7 +272,7 @@ bool SMB1_Writer::Write_Level() {
     if (!this->Write_Buffer(this->objectOffset, this->objectsBuffer)) return false;
 
     //Write Enemies
-    if (!this->Write_Buffer(this->enemyOffset, this->enemiesBuffer)) return false;
+    if (this->enemyOffset != BAD_OFFSET && !this->Write_Buffer(this->enemyOffset, this->enemiesBuffer)) return false;
 
     //Deallocate memory
     this->Deallocate_Buffers();
@@ -355,8 +354,8 @@ bool SMB1_Writer::Read_Enemies() {
     assert(this->roomIDHandler);
     assert(!this->enemyWriter);
     assert(this->enemiesBuffer->isEmpty());
-    if (this->enemyOffset == BAD_OFFSET || !this->enemiesBuffer || this->enemyWriter) return false;
-    if (this->enemyOffset == 0) return true; //nothing to read
+    if (this->enemyOffset == BAD_OFFSET) return true; //nothing to read
+    if (!this->enemiesBuffer || this->enemyWriter) return false;
     if (!this->file->seek(this->enemyOffset)) return false;
 
     //Read the enemies from the level
@@ -369,9 +368,16 @@ bool SMB1_Writer::Read_Enemies() {
 }
 
 bool SMB1_Writer::Are_Buffers_Allocated() {
-    return (this->headerBuffer != nullptr && this->objectsBuffer != nullptr && this->enemiesBuffer != nullptr
-            && this->objectOffset != BAD_OFFSET && this->enemyOffset != BAD_OFFSET
-            && this->objectWriter != nullptr && this->enemyWriter != nullptr && this->headerWriter != nullptr);
+    if (!this->roomIDHandler || !this->levelOffset) return false;
+    bool enemiesValid = false;
+    if (this->enemyOffset == BAD_OFFSET) {
+        enemiesValid = (this->enemiesBuffer == nullptr || this->enemiesBuffer->isEmpty()) && this->enemyWriter == nullptr;
+    } else {
+        if (this->levelOffset->Get_Level_Enemy_Offset(this->roomIDHandler->Get_Current_Level()) == BAD_OFFSET) return false;
+        enemiesValid = this->enemiesBuffer != nullptr && this->enemyWriter != nullptr;
+    }
+    bool headerAndObjectsValid = this->headerBuffer != nullptr && this->objectsBuffer != nullptr && this->objectOffset != BAD_OFFSET && this->objectWriter != nullptr && this->headerWriter != nullptr;
+    return enemiesValid && headerAndObjectsValid;
 }
 
 void SMB1_Writer::Deallocate_Buffers() {

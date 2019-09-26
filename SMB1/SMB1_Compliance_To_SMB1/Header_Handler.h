@@ -16,7 +16,7 @@ class Header_Handler : public Item_Handler
 public:
     Header_Handler(SMB1_Writer_Interface *writerPlugin, QTextStream *file);
     ~Header_Handler();
-    bool Parse_Header(int &lineNum, int &errorCode);
+    bool Parse_Header(bool bonusLevel, int &lineNum, int &errorCode);
 
 private:
     bool Parse_Through_Comments_Until_String(const QString &value, int &lineNum);

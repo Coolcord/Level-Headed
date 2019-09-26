@@ -27,19 +27,19 @@ SMB1_Compliance_Parser::~SMB1_Compliance_Parser() {
     delete this->enemyHandler;
 }
 
-int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream) {
+int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, bool bonusLevel) {
     int lineNum = 1;
-    return this->Parse_Level(stream, lineNum);
+    return this->Parse_Level(stream, bonusLevel, lineNum);
 }
 
-int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, int &lineNum) {
+int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, bool bonusLevel, int &lineNum) {
     //Open the file for reading
     if (stream->atEnd()) return 1;
     lineNum = 1;
     int errorCode = 2;
 
     //Parse the Header
-    if (!this->Parse_Header(stream, lineNum, errorCode)) return errorCode;
+    if (!this->Parse_Header(stream, bonusLevel, lineNum, errorCode)) return errorCode;
 
     //Make sure that there are objects to parse
     if (stream->atEnd()) return 2;
@@ -53,10 +53,10 @@ int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, int &lineNum) {
     return 0;
 }
 
-bool SMB1_Compliance_Parser::Parse_Header(QTextStream *file, int &lineNum, int &errorCode) {
+bool SMB1_Compliance_Parser::Parse_Header(QTextStream *file, bool bonusLevel, int &lineNum, int &errorCode) {
     assert(file);
     Header_Handler headerHandler(this->writerPlugin, file);
-    if (!headerHandler.Parse_Header(lineNum, errorCode)) return false;
+    if (!headerHandler.Parse_Header(bonusLevel, lineNum, errorCode)) return false;
 
     return true;
 }
