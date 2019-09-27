@@ -154,21 +154,14 @@ bool Header_Handler::Parse_Header(bool bonusLevel, int &lineNum, int &errorCode)
     }
 
     //Time
-    if (bonusLevel) {
-        if (!this->writerPlugin->Header_Time(0)) {
-            errorCode = 3;
-            return false;
-        }
-    } else {
-        line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
-        elements = line.split(' ');
-        if (elements.size() != 2) return false;
-        if (elements.at(0) != Header::STRING_TIME + ":") return false;
-        if (!this->Parse_Num(elements.at(1), num)) return false;
-        if (!this->writerPlugin->Header_Time(num)) {
-            errorCode = 3;
-            return false;
-        }
+    line = this->Parse_Through_Comments_Until_First_Word(Header::STRING_TIME + ":", lineNum);
+    elements = line.split(' ');
+    if (elements.size() != 2) return false;
+    if (elements.at(0) != Header::STRING_TIME + ":") return false;
+    if (!this->Parse_Num(elements.at(1), num)) return false;
+    if (!this->writerPlugin->Header_Time(num)) {
+        errorCode = 3;
+        return false;
     }
 
     //Midpoint
