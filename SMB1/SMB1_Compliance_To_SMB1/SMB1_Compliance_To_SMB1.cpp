@@ -87,6 +87,9 @@ bool SMB1_Compliance_To_SMB1::Run() {
         this->Update_ROM_Output_Location();
     }
 
+    //Get a new seed for the next generation, since this one was successful
+    this->pluginSettings.randomSeed = QString::number(QTime::currentTime().msecsSinceStartOfDay());
+
     //Unload plugins
     this->Shutdown();
     if (success) this->Show_Message("Game successfully generated!", false);

@@ -622,9 +622,6 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     mapStream.flush();
     map.close();
 
-    //Get a new seed for the next generation, since this one was successful
-    this->pluginSettings->randomSeed = QString::number(QTime::currentTime().msecsSinceStartOfDay());
-
     //Pack the Levels into a Sequential Archive
     if (!this->Load_Sequential_Archive_Plugin()) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
