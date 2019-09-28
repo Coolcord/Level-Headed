@@ -4,9 +4,11 @@
 #include "Tab_Interface.h"
 #include <QComboBox>
 
+class Tab_Base_Game;
+
 class Tab_Level_Generator : public Tab_Interface {
 public:
-    Tab_Level_Generator(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings);
+    Tab_Level_Generator(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings, Tab_Base_Game *tabBaseGame);
     void Load_Settings();
     void Save_Settings();
 
@@ -22,6 +24,7 @@ public:
 
 private:
     QString levelLocation;
+    Tab_Base_Game *tabBaseGame;
 };
 
 #endif // TAB_LEVEL_GENERATOR_H

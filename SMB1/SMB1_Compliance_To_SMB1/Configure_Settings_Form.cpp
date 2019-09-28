@@ -40,7 +40,7 @@ Configure_Settings_Form::Configure_Settings_Form(QWidget *parent, const QString 
 
     this->tabBaseGame = new Tab_Base_Game(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
     this->tabDifficulty = new Tab_Difficulty(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
-    this->tabLevelGenerator = new Tab_Level_Generator(this, applicationLocation, writerPlugin, this->ui, pluginSettings);
+    this->tabLevelGenerator = new Tab_Level_Generator(this, applicationLocation, writerPlugin, this->ui, pluginSettings, this->tabBaseGame);
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     this->Load_Settings();
     this->ui->tabWidget->setCurrentIndex(this->pluginSettings->tab);

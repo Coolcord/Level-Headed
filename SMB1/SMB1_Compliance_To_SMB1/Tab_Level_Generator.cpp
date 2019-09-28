@@ -2,13 +2,15 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "Configure_Settings_Form.h"
+#include "Tab_Base_Game.h"
 #include "ui_Configure_Settings_Form.h"
 #include <QDir>
 #include <QMessageBox>
 #include <QString>
 
-Tab_Level_Generator::Tab_Level_Generator(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings)
-    : Tab_Interface(parent, applicationLocation, writerPlugin, ui, pluginSettings) {
+Tab_Level_Generator::Tab_Level_Generator(QWidget *p, const QString &apl, SMB1_Writer_Interface *wp, Ui::Configure_Settings_Form *u, Plugin_Settings *ps, Tab_Base_Game *tabBaseGame)
+    : Tab_Interface(p, apl, wp, u, ps) {
+    assert(tabBaseGame); this->tabBaseGame = tabBaseGame;
     //Get the Level Scripts Location
     this->levelLocation = this->applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME;
     QDir dir(this->applicationLocation + "/" + Common_Strings::STRING_LEVELS);
@@ -168,6 +170,7 @@ void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
         this->ui->layoutGenerateNewLevelsWidget->hide();
         this->ui->layoutLevelScriptsWidget->show();
     }
+    this->tabBaseGame->Enable_Partial_Support_Mode(this->tabBaseGame->Is_Partial_Support_Mode_Enabled());
 }
 
 void Tab_Level_Generator::Enable_Random_Number_Of_Worlds(bool enable) {

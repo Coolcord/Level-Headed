@@ -1,6 +1,7 @@
 #ifndef TAB_BASE_GAME_H
 #define TAB_BASE_GAME_H
 
+#include <QSet>
 #include "Tab_Interface.h"
 
 class Tab_Base_Game : public Tab_Interface {

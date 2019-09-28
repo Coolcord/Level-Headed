@@ -4,10 +4,10 @@
 #include "../SMB1_Writer/ROM_Filename.h"
 #include <QDir>
 #include <QFileInfo>
-#include <QVector>
+#include <QSet>
 
-Tab_Base_Game::Tab_Base_Game(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings)
-    : Tab_Interface(parent, applicationLocation, writerPlugin, ui, pluginSettings) {
+Tab_Base_Game::Tab_Base_Game(QWidget *p, const QString &apl, SMB1_Writer_Interface *wp, Ui::Configure_Settings_Form *u, Plugin_Settings *ps)
+    : Tab_Interface(p, apl, wp, u, ps) {
     this->Populate_Installed_ROMs();
     this->Populate_Graphics_Packs();
     this->Populate_Music_Packs();
@@ -70,12 +70,17 @@ bool Tab_Base_Game::Is_Partial_Support_Mode_Enabled() {
 
 void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
-    QVector<int> asmDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
+    QSet<int> incompatibleASMDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
+    QSet<int> incompatibleScriptDifficulties = {9, 12, 14, 15, 16, 17, 18};
+    bool usingScripts = !this->ui->radioGenerateNewLevels->isChecked();
+    if (usingScripts) {
+        if (incompatibleScriptDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
+    }
     this->partialSupportMode = enabled;
     if (enabled) {
         this->Use_Original_Settings();
 
-        if (asmDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
+        if (incompatibleASMDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
         this->ui->sbLives->setMaximum(35);
         this->ui->cbGodMode->setChecked(false);
 
@@ -169,11 +174,21 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
     this->ui->cbUnlimitedTime->setEnabled(!enabled);
 
-    //Disable the ASM Difficulty Presents
-    for (int i = 0; i < asmDifficulties.size(); ++i) {
+    //Disable incompatible difficulties
+    for (int i = 0; i < this->ui->comboDifficulty->count(); ++i) {
         int value = 33;
-        if (enabled) value = 0;
-        this->ui->comboDifficulty->setItemData(asmDifficulties.at(i), value, Qt::UserRole-1);
+        if (enabled) {
+            if (usingScripts) {
+                if (incompatibleScriptDifficulties.constFind(i) != incompatibleScriptDifficulties.end() || incompatibleASMDifficulties.constFind(i) != incompatibleASMDifficulties.end()) value = 0;
+            } else {
+                if (incompatibleASMDifficulties.constFind(i) != incompatibleASMDifficulties.end()) value = 0;
+            }
+        } else {
+            if (usingScripts) {
+                if (incompatibleScriptDifficulties.constFind(i) != incompatibleScriptDifficulties.end()) value = 0;
+            }
+        }
+        this->ui->comboDifficulty->setItemData(i, value, Qt::UserRole-1);
     }
 }
 
