@@ -71,7 +71,7 @@ bool Tab_Base_Game::Is_Partial_Support_Mode_Enabled() {
 void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Reset All Settings to Original
     QSet<int> incompatibleASMDifficulties = {9, 11, 12, 13, 15, 20, 21, 22};
-    QSet<int> incompatibleScriptDifficulties = {9, 12, 14, 15, 16, 17, 18};
+    QSet<int> incompatibleScriptDifficulties = {9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
     bool usingScripts = !this->ui->radioGenerateNewLevels->isChecked();
     if (usingScripts) {
         if (incompatibleScriptDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
