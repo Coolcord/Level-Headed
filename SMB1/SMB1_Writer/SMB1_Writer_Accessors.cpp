@@ -320,6 +320,31 @@ bool SMB1_Writer::Object_Nothing(int x) {
     return this->objectWriter->Nothing(x);
 }
 
+bool SMB1_Writer::Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Enemy(x, y, onlyHardMode, allowHammerBros);
+}
+
+bool SMB1_Writer::Enemy_Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Enemy_Group(x, y, num, onlyHardMode);
+}
+
+bool SMB1_Writer::Enemy_Random_Fire_Bar(int x, int y, bool onlyHardMode) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Fire_Bar(x, y, onlyHardMode);
+}
+
+bool SMB1_Writer::Enemy_Random_Flying_Enemy(int x, int y, bool onlyHardMode) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Flying_Enemy(x, y, onlyHardMode);
+}
+
+bool SMB1_Writer::Enemy_Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Underwater_Enemy(x, y, onlyHardMode, allowHammerBros);
+}
+
 bool SMB1_Writer::Enemy_Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->enemyWriter->Green_Koopa(x, y, moving, onlyHardMode);

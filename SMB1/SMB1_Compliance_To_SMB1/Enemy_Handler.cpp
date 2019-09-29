@@ -1,4 +1,5 @@
 #include "Enemy_Handler.h"
+#include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Enemy_Item_String.h"
 #include <QStringList>
 #include <assert.h>
@@ -6,6 +7,16 @@
 Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
     assert(wp);
     this->writerPlugin = wp;
+    this->useRandomEnemies = true;
+    this->allowHammerBrosInRandomEnemies = true;
+}
+
+void Enemy_Handler::Set_Use_Random_Enemies(bool useRandomEnemies) {
+    this->useRandomEnemies = useRandomEnemies;
+}
+
+void Enemy_Handler::Set_Allow_Hammer_Bros_In_Random_Enemies(bool allowHammerBrosInRandomEnemies) {
+    this->allowHammerBrosInRandomEnemies = allowHammerBrosInRandomEnemies;
 }
 
 bool Enemy_Handler::Parse_Difficulty(const QString &value, bool &onlyHardMode) {
@@ -32,12 +43,13 @@ bool Enemy_Handler::Green_Koopa(const QString &line, int &errorCode) {
     if (elements.at(3) == Enemy_Item::STRING_MOVING) moving = true;
     else if (elements.at(3) == Enemy_Item::STRING_STOPPED) moving = false;
     else return false; //invalid movement type
-    if (!this->writerPlugin->Enemy_Green_Koopa(x, y, moving, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Green_Koopa(x, y, moving, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Red_Koopa(const QString &line, int &errorCode) {
@@ -47,12 +59,13 @@ bool Enemy_Handler::Red_Koopa(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Red_Koopa(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Red_Koopa(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Buzzy_Beetle(const QString &line, int &errorCode) {
@@ -62,12 +75,13 @@ bool Enemy_Handler::Buzzy_Beetle(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Buzzy_Beetle(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Buzzy_Beetle(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Hammer_Bro(const QString &line, int &errorCode) {
@@ -92,12 +106,13 @@ bool Enemy_Handler::Goomba(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Goomba(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Goomba(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Blooper(const QString &line, int &errorCode) {
@@ -107,12 +122,13 @@ bool Enemy_Handler::Blooper(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Blooper(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Underwater_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Blooper(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Bullet_Bill(const QString &line, int &errorCode) {
@@ -122,12 +138,13 @@ bool Enemy_Handler::Bullet_Bill(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Bullet_Bill(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Bullet_Bill(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Green_Paratroopa(const QString &line, int &errorCode) {
@@ -152,12 +169,14 @@ bool Enemy_Handler::Green_Paratroopa(const QString &line, int &errorCode) {
     } else {
         return false; //invalid movement type
     }
-    if (!this->writerPlugin->Enemy_Green_Paratroopa(x, y, moving, leaping, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies && !leaping) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else if (this->useRandomEnemies && leaping) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Green_Paratroopa(x, y, moving, leaping, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Red_Paratroopa(const QString &line, int &errorCode) {
@@ -167,12 +186,13 @@ bool Enemy_Handler::Red_Paratroopa(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Red_Paratroopa(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Red_Paratroopa(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Green_Cheep_Cheep(const QString &line, int &errorCode) {
@@ -182,12 +202,13 @@ bool Enemy_Handler::Green_Cheep_Cheep(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Green_Cheep_Cheep(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Green_Cheep_Cheep(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Red_Cheep_Cheep(const QString &line, int &errorCode) {
@@ -197,12 +218,13 @@ bool Enemy_Handler::Red_Cheep_Cheep(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Red_Cheep_Cheep(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Red_Cheep_Cheep(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Podoboo(const QString &line, int &errorCode) {
@@ -211,12 +233,13 @@ bool Enemy_Handler::Podoboo(const QString &line, int &errorCode) {
     int x = 0; bool onlyHardMode = false;
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Difficulty(elements.at(2), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Podoboo(x, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, Random::Get_Instance().Get_Num(0x1, 0xC), onlyHardMode);
+    else success = this->writerPlugin->Enemy_Podoboo(x, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Piranha_Plant(const QString &line, int &errorCode) {
@@ -256,12 +279,13 @@ bool Enemy_Handler::Spiny(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Spiny(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else success = this->writerPlugin->Enemy_Spiny(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Bowser_Fire_Spawner(const QString &line, int &errorCode) {
@@ -330,12 +354,12 @@ bool Enemy_Handler::Fire_Bar(const QString &line, int &errorCode) {
     else if (elements.at(4) == Enemy_Item::STRING_FAST) fast = true;
     else return false; //invalid speed
 
-    if (!this->writerPlugin->Enemy_Fire_Bar(x, y, clockwise, fast, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Fire_Bar(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Fire_Bar(x, y, clockwise, fast, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Large_Fire_Bar(const QString &line, int &errorCode) {
@@ -345,12 +369,13 @@ bool Enemy_Handler::Large_Fire_Bar(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(1), x)) return false;
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Difficulty(elements.at(3), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Large_Fire_Bar(x, y, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Fire_Bar(x, y, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Large_Fire_Bar(x, y, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Lift(const QString &line, int &errorCode) {
@@ -509,12 +534,13 @@ bool Enemy_Handler::Goomba_Group(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), num)) return false;
     if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Goomba_Group(x, y, num, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy_Group(x, y, num, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Goomba_Group(x, y, num, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Koopa_Group(const QString &line, int &errorCode) {
@@ -525,12 +551,13 @@ bool Enemy_Handler::Koopa_Group(const QString &line, int &errorCode) {
     if (!this->Parse_Num(elements.at(2), y)) return false;
     if (!this->Parse_Num(elements.at(3), num)) return false;
     if (!this->Parse_Difficulty(elements.at(4), onlyHardMode)) return false;
-    if (!this->writerPlugin->Enemy_Koopa_Group(x, y, num, onlyHardMode)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the enemy
+    bool success = false;
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Enemy_Group(x, y, num, onlyHardMode);
+    else success = this->writerPlugin->Enemy_Koopa_Group(x, y, num, onlyHardMode);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Enemy_Handler::Page_Change(const QString &line, int &errorCode) {

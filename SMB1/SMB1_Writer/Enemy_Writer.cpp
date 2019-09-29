@@ -1,4 +1,5 @@
 #include "Enemy_Writer.h"
+#include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include "../Common_SMB1_Files/Level_String.h"
 #include "Room_ID_Handler.h"
@@ -94,6 +95,72 @@ bool Enemy_Writer::Fill_Buffer() {
         assert(this->Write_Byte_To_Buffer(0xFF)); //fill the buffer with the terminator byte
     }
     return true;
+}
+
+bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+    int maxValue = 11;
+    if (allowHammerBros) ++maxValue;
+    int value = Random::Get_Instance().Get_Num(maxValue);
+    switch (value) {
+    default:    assert(false); return false;
+    case 0:     return this->Green_Koopa(x, y, true, onlyHardMode);
+    case 1:     return this->Red_Koopa(x, y, onlyHardMode);
+    case 2:     return this->Buzzy_Beetle(x, y, onlyHardMode);
+    case 3:     return this->Goomba(x, y, onlyHardMode);
+    case 4:     return this->Blooper(x, y, onlyHardMode);
+    case 5:     return this->Bullet_Bill(x, y, onlyHardMode);
+    case 6:     return this->Green_Paratroopa(x, y, true, true, onlyHardMode);
+    case 7:     return this->Green_Paratroopa(x, y, true, false, onlyHardMode);
+    case 8:     return this->Red_Paratroopa(x, 3, onlyHardMode);
+    case 9:     return this->Green_Cheep_Cheep(x, y, onlyHardMode);
+    case 10:    return this->Red_Cheep_Cheep(x, y, onlyHardMode);
+    case 11:    return this->Podoboo(x, onlyHardMode);
+    case 12:    return this->Hammer_Bro(x, y, onlyHardMode);
+    }
+}
+
+bool Enemy_Writer::Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {
+    if (Random::Get_Instance().Get_Num(1)) return this->Goomba_Group(x, y, num, onlyHardMode);
+    else return this->Koopa_Group(x, y, num, onlyHardMode);
+}
+
+bool Enemy_Writer::Random_Fire_Bar(int x, int y, bool onlyHardMode) {
+    switch (Random::Get_Instance().Get_Num(4)) {
+    default:    assert(false); return false;
+    case 0:     return this->Fire_Bar(x, y, false, false, onlyHardMode);
+    case 1:     return this->Fire_Bar(x, y, false, true, onlyHardMode);
+    case 2:     return this->Fire_Bar(x, y, true, false, onlyHardMode);
+    case 3:     return this->Fire_Bar(x, y, true, true, onlyHardMode);
+    case 4:     return this->Large_Fire_Bar(x, y, onlyHardMode);
+    }
+}
+
+bool Enemy_Writer::Random_Flying_Enemy(int x, int y, bool onlyHardMode) {
+    switch (Random::Get_Instance().Get_Num(6)) {
+    default:    assert(false); return false;
+    case 0:     return this->Blooper(x, y, onlyHardMode);
+    case 1:     return this->Bullet_Bill(x, y, onlyHardMode);
+    case 2:     return this->Green_Paratroopa(x, y, true, false, onlyHardMode);
+    case 3:     return this->Red_Paratroopa(x, 3, onlyHardMode);
+    case 4:     return this->Green_Cheep_Cheep(x, y, onlyHardMode);
+    case 5:     return this->Red_Cheep_Cheep(x, y, onlyHardMode);
+    case 6:     return this->Podoboo(x, onlyHardMode);
+    }
+}
+
+bool Enemy_Writer::Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+    int maxValue = 4;
+    if (allowHammerBros) ++maxValue;
+    int value = Random::Get_Instance().Get_Num(maxValue);
+    switch (value) {
+    default:    assert(false); return false;
+    case 0:     return this->Blooper(x, y, onlyHardMode);
+    case 1:     return this->Bullet_Bill(x, y, onlyHardMode);
+    case 2:     return this->Green_Paratroopa(x, y, true, false, onlyHardMode);
+    case 3:     return this->Red_Paratroopa(x, 3, onlyHardMode);
+    case 4:     return this->Podoboo(x, onlyHardMode);
+    case 5:     return this->Hammer_Bro(x, y, onlyHardMode);
+    }
 }
 
 bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {

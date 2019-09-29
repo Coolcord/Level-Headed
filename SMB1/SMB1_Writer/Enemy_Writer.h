@@ -12,6 +12,11 @@ public:
     ~Enemy_Writer();
     void Populate_Level_Slots();
     bool Fill_Buffer();
+    bool Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
+    bool Random_Enemy_Group(int x, int y, int num, bool onlyHardMode);
+    bool Random_Flying_Enemy(int x, int y, bool onlyHardMode);
+    bool Random_Fire_Bar(int x, int y, bool onlyHardMode);
+    bool Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
 
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
     bool Red_Koopa(int x, int y, bool onlyHardMode = false);

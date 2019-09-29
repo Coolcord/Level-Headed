@@ -503,7 +503,6 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
 
     //Seed the random number generator... the location here is important
     Random::Get_Instance().Seed(this->pluginSettings->randomSeed, 5);
-    qDebug().noquote() << "Seed: " << this->pluginSettings->randomSeed;
 
     //Randomly determine the number of max levels and levels per world if specified
     if (this->pluginSettings->randomNumWorlds) {
