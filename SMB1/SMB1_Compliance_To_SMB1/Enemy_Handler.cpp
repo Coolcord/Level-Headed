@@ -7,8 +7,8 @@
 Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
     assert(wp);
     this->writerPlugin = wp;
-    this->useRandomEnemies = true;
-    this->allowHammerBrosInRandomEnemies = true;
+    this->useRandomEnemies = false;
+    this->allowHammerBrosInRandomEnemies = false;
 }
 
 void Enemy_Handler::Set_Use_Random_Enemies(bool useRandomEnemies) {

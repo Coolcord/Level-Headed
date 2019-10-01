@@ -379,7 +379,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.hammerBrosThrowRate = 8; //ludicrous
     difficultySettings.lakituRespawnSpeed = 6;
     difficultySettings.basicEnemySpeed = 7; //ludicrous
-    difficultySettings.bowserFlameFrequency = 2; //frequent
+    difficultySettings.bowserFlameFrequency = 3; //frequent
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick

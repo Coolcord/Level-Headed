@@ -417,6 +417,10 @@ bool Hacks::Set_Brick_Break_Animation_Bounce_Height(int lowerHeight, int upperHe
 
 bool Hacks::Set_Bullet_Bill_Firing_Rate(int rate) {
     if (rate < 1 || rate > 7) return false;
+    if (rate == 7) {
+        if (!this->Write_Bytes_To_Offset(0x39FF, QByteArray(1, static_cast<char>(0x01)))) return false;
+        rate = 6; //the patch below glitches out when set to 7 or higher
+    }
     return this->Write_Bytes_To_Offset(0x39D2, QByteArray(1, static_cast<char>(rate-1)));
 }
 
