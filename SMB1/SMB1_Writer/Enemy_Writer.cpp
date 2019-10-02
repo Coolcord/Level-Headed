@@ -102,7 +102,7 @@ bool Enemy_Writer::Fill_Buffer() {
 }
 
 bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
-    int maxValue = 11;
+    int maxValue = 9;
     if (allowHammerBros) ++maxValue;
     int value = Random::Get_Instance().Get_Num(maxValue);
     switch (value) {
@@ -116,10 +116,8 @@ bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHamme
     case 6:     return this->Green_Paratroopa(x, y, true, true, onlyHardMode);
     case 7:     return this->Green_Paratroopa(x, this->Get_Random_Air_Y(), true, false, onlyHardMode);
     case 8:     return this->Red_Paratroopa(x, 3, onlyHardMode);
-    case 9:     return this->Green_Cheep_Cheep(x, this->Get_Random_Air_Y(), onlyHardMode);
-    case 10:    return this->Red_Cheep_Cheep(x, this->Get_Random_Air_Y(), onlyHardMode);
-    case 11:    return this->Podoboo(x, onlyHardMode);
-    case 12:    return this->Hammer_Bro(x, y, onlyHardMode);
+    case 9:     return this->Podoboo(x, onlyHardMode);
+    case 10:    return this->Hammer_Bro(x, y, onlyHardMode);
     }
 }
 
@@ -140,15 +138,13 @@ bool Enemy_Writer::Random_Fire_Bar(int x, int y, bool onlyHardMode) {
 }
 
 bool Enemy_Writer::Random_Flying_Enemy(int x, bool onlyHardMode) {
-    switch (Random::Get_Instance().Get_Num(6)) {
+    switch (Random::Get_Instance().Get_Num(4)) {
     default:    assert(false); return false;
     case 0:     return this->Blooper(x, this->Get_Random_Air_Y(), onlyHardMode);
     case 1:     return this->Bullet_Bill(x, this->Get_Random_Air_Y(), onlyHardMode);
     case 2:     return this->Green_Paratroopa(x, this->Get_Random_Air_Y(), true, false, onlyHardMode);
     case 3:     return this->Red_Paratroopa(x, 3, onlyHardMode);
-    case 4:     return this->Green_Cheep_Cheep(x, this->Get_Random_Air_Y(), onlyHardMode);
-    case 5:     return this->Red_Cheep_Cheep(x, this->Get_Random_Air_Y(), onlyHardMode);
-    case 6:     return this->Podoboo(x, onlyHardMode);
+    case 4:     return this->Podoboo(x, onlyHardMode);
     }
 }
 
