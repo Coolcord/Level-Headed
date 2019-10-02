@@ -107,6 +107,12 @@ if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running
     source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
     source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
     source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
+    if [ "$1" == "latest" ]; then
+        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/It Plays Itself' 'Levels/SMB1/It Plays Itself.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/Powerup Test' 'Levels/SMB1/Powerup Test.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/Vertical Limit Test' 'Levels/SMB1/Vertical Limit Test.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
+    fi
 else # assume we're on GNU/Linux or Mac
     mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/Plugins/
     cp source/Level-Headed/Level-Headed/Level-Headed Level-Headed
@@ -120,6 +126,12 @@ else # assume we're on GNU/Linux or Mac
     source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
     source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
     source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
+    if [ "$1" == "latest" ]; then
+        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/It Plays Itself' 'Levels/SMB1/It Plays Itself.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/Powerup Test' 'Levels/SMB1/Powerup Test.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/Vertical Limit Test' 'Levels/SMB1/Vertical Limit Test.lvls'
+        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
+    fi
 fi
 
 # Clean up
