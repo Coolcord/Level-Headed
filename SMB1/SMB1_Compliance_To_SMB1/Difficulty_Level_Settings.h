@@ -59,6 +59,7 @@ struct Difficulty_Level_Settings {
     int hammerBrosThrowRate;
     bool speedyObjectsAndEnemies;
     bool piranhaPlantsOnFirstLevel;
+    bool allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

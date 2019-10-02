@@ -11,7 +11,7 @@
 #include <QStringList>
 #include <QDebug>
 
-SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin) : SMB1_Compliance_Map() {
+SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies) : SMB1_Compliance_Map() {
     assert(this->objects);
     assert(this->enemies);
     assert(writerPlugin);
@@ -19,7 +19,7 @@ SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlug
 
     //Set up the item handlers
     this->objectHandler = new Object_Handler(this->writerPlugin);
-    this->enemyHandler = new Enemy_Handler(this->writerPlugin);
+    this->enemyHandler = new Enemy_Handler(this->writerPlugin, randomEnemies, allowHammerBrosInRandomEnemies);
 }
 
 SMB1_Compliance_Parser::~SMB1_Compliance_Parser() {

@@ -1,6 +1,7 @@
 Next Update (v0.3.4)
 + Random Color Palettes
 + Original SMB1 Levels (without castle loops) can be used with Level-Headed via level scripts
++ Enemies in level scripts can be randomized
 + Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
 
 Gameplay Wrap-up (v0.3.3)

@@ -87,6 +87,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
+    pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
@@ -204,6 +205,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -312,6 +314,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.longFireBarLength = 4; //Normal
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     difficultySettings.hammerBrosThrowRate = 4; //Normal
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -393,6 +396,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist() {
     difficultySettings.replaceCastleLoops = 2; //nothing
     difficultySettings.autoScroll = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -408,6 +412,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 8; //normal
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -417,6 +422,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_No_Hammer_
     difficultySettings.walkingHammerBros = 11;
     difficultySettings.hammerTimeIntensity = 0;
     difficultySettings.underwaterHammerBros = 11;
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -637,5 +643,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

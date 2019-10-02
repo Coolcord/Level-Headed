@@ -28,6 +28,7 @@ struct Plugin_Settings {
     int numWorlds;
     int numLevelsPerWorld;
     bool generateNewLevels;
+    bool randomEnemies;
     bool smbUtilityCompatibility;
     QString levelScripts;
     QString standardOverworldChance;
@@ -112,6 +113,7 @@ struct Plugin_Settings {
     int difficultyHammerBrosThrowRate;
     bool difficultySpeedyObjectsAndEnemies;
     bool difficultyPiranhaPlantsOnFirstLevel;
+    bool difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // PLUGIN_SETTINGS_H

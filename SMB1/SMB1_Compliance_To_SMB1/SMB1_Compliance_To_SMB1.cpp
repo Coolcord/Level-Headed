@@ -177,6 +177,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Number_Of_Worlds", this->pluginSettings.numWorlds)) return false;
     if (!configFile.Set_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld)) return false;
     if (!configFile.Set_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels)) return false;
+    if (!configFile.Set_Value("Random_Enemies", this->pluginSettings.randomEnemies)) return false;
     if (!configFile.Set_Value("SMB_Utility_Compatibility", this->pluginSettings.smbUtilityCompatibility)) return false;
     if (!configFile.Set_Value("Level_Scripts", this->pluginSettings.levelScripts)) return false;
     if (!configFile.Set_Value("Difficulty", this->pluginSettings.difficultyComboIndex)) return false;
@@ -254,6 +255,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate)) return false;
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel)) return false;
+    if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
     if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
     if (!configFile.Set_Value("Mario_Name", this->pluginSettings.marioName)) return false;
@@ -272,6 +274,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Number_Of_Worlds", this->pluginSettings.numWorlds);
     configFile.Get_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld);
     configFile.Get_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels);
+    configFile.Get_Value("Random_Enemies", this->pluginSettings.randomEnemies);
     configFile.Get_Value("SMB_Utility_Compatibility", this->pluginSettings.smbUtilityCompatibility);
     configFile.Get_Value("Level_Scripts", this->pluginSettings.levelScripts);
     configFile.Get_Value("Difficulty", this->pluginSettings.difficultyComboIndex);
@@ -349,6 +352,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate);
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel);
+    configFile.Get_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
     configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);
     configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);
@@ -364,6 +368,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.outputROMLocation = QString();
     this->pluginSettings.overwriteOuputROM = true;
     this->pluginSettings.generateNewLevels = true;
+    this->pluginSettings.randomEnemies = false;
     this->pluginSettings.smbUtilityCompatibility = false;
     this->pluginSettings.levelScripts = "";
     this->pluginSettings.standardOverworldChance = STRING_VERY_COMMON;

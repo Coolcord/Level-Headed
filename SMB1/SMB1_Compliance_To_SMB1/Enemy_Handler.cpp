@@ -4,18 +4,10 @@
 #include <QStringList>
 #include <assert.h>
 
-Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
+Enemy_Handler::Enemy_Handler(SMB1_Writer_Interface *wp, bool randomEnemies, bool allowHammerBrosInRandomEnemies) : Item_Handler(wp) {
     assert(wp);
     this->writerPlugin = wp;
-    this->useRandomEnemies = false;
-    this->allowHammerBrosInRandomEnemies = false;
-}
-
-void Enemy_Handler::Set_Use_Random_Enemies(bool useRandomEnemies) {
-    this->useRandomEnemies = useRandomEnemies;
-}
-
-void Enemy_Handler::Set_Allow_Hammer_Bros_In_Random_Enemies(bool allowHammerBrosInRandomEnemies) {
+    this->useRandomEnemies = randomEnemies;
     this->allowHammerBrosInRandomEnemies = allowHammerBrosInRandomEnemies;
 }
 
@@ -141,7 +133,7 @@ bool Enemy_Handler::Bullet_Bill(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Bullet_Bill(x, y, onlyHardMode);
     if (!success) errorCode = 3;
     return success;
@@ -172,8 +164,8 @@ bool Enemy_Handler::Green_Paratroopa(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies && !leaping) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
-    else if (this->useRandomEnemies && leaping) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    if (this->useRandomEnemies && leaping) success = this->writerPlugin->Enemy_Random_Enemy(x, y, onlyHardMode, this->allowHammerBrosInRandomEnemies);
+    else if (this->useRandomEnemies && !leaping) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Green_Paratroopa(x, y, moving, leaping, onlyHardMode);
     if (!success) errorCode = 3;
     return success;
@@ -189,7 +181,7 @@ bool Enemy_Handler::Red_Paratroopa(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Red_Paratroopa(x, y, onlyHardMode);
     if (!success) errorCode = 3;
     return success;
@@ -205,7 +197,7 @@ bool Enemy_Handler::Green_Cheep_Cheep(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Green_Cheep_Cheep(x, y, onlyHardMode);
     if (!success) errorCode = 3;
     return success;
@@ -221,7 +213,7 @@ bool Enemy_Handler::Red_Cheep_Cheep(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, y, onlyHardMode);
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Red_Cheep_Cheep(x, y, onlyHardMode);
     if (!success) errorCode = 3;
     return success;
@@ -236,7 +228,7 @@ bool Enemy_Handler::Podoboo(const QString &line, int &errorCode) {
 
     //Write the enemy
     bool success = false;
-    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, Random::Get_Instance().Get_Num(0x1, 0xC), onlyHardMode);
+    if (this->useRandomEnemies) success = this->writerPlugin->Enemy_Random_Flying_Enemy(x, onlyHardMode);
     else success = this->writerPlugin->Enemy_Podoboo(x, onlyHardMode);
     if (!success) errorCode = 3;
     return success;

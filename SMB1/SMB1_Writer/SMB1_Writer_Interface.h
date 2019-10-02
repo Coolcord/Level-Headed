@@ -97,7 +97,7 @@ public:
     //Enemies
     virtual bool Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros)=0;
     virtual bool Enemy_Random_Enemy_Group(int x, int y, int num, bool onlyHardMode)=0;
-    virtual bool Enemy_Random_Flying_Enemy(int x, int y, bool onlyHardMode)=0;
+    virtual bool Enemy_Random_Flying_Enemy(int x, bool onlyHardMode)=0;
     virtual bool Enemy_Random_Fire_Bar(int x, int y, bool onlyHardMode)=0;
     virtual bool Enemy_Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros)=0;
     virtual bool Enemy_Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false)=0;

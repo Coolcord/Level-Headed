@@ -335,9 +335,9 @@ bool SMB1_Writer::Enemy_Random_Fire_Bar(int x, int y, bool onlyHardMode) {
     return this->enemyWriter->Random_Fire_Bar(x, y, onlyHardMode);
 }
 
-bool SMB1_Writer::Enemy_Random_Flying_Enemy(int x, int y, bool onlyHardMode) {
+bool SMB1_Writer::Enemy_Random_Flying_Enemy(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Flying_Enemy(x, y, onlyHardMode);
+    return this->enemyWriter->Random_Flying_Enemy(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {

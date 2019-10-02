@@ -822,7 +822,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2286</height>
+            <height>2315</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2619,6 +2619,13 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts">
+                <property name="text">
+                 <string>Allow Hammer Bros when randomizing enemies in level scripts</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="verticalSpacer_28">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -2655,8 +2662,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>725</width>
-            <height>635</height>
+            <width>708</width>
+            <height>654</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2735,6 +2742,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QPushButton" name="btnClearAllRandomLevelScripts">
                 <property name="text">
                  <string>Clear All Random Level Scripts</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbRandomEnemies">
+                <property name="text">
+                 <string>Random Enemies</string>
                 </property>
                </widget>
               </item>

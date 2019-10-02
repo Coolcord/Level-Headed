@@ -14,7 +14,7 @@ public:
     bool Fill_Buffer();
     bool Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
     bool Random_Enemy_Group(int x, int y, int num, bool onlyHardMode);
-    bool Random_Flying_Enemy(int x, int y, bool onlyHardMode);
+    bool Random_Flying_Enemy(int x, bool onlyHardMode);
     bool Random_Fire_Bar(int x, int y, bool onlyHardMode);
     bool Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
 
@@ -58,6 +58,7 @@ private:
     bool Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode);
     bool Write_Group(int x, int y, int enemyByte, bool onlyHardMode);
     int Handle_Group_Page_Flag(int x);
+    int Get_Random_Air_Y();
 
     QMap<QString, Level::Level> *levelSlots;
     bool groupPageFlag;

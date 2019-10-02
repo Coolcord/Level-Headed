@@ -23,6 +23,7 @@ Tab_Level_Generator::Tab_Level_Generator(QWidget *p, const QString &apl, SMB1_Wr
 void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
+    this->ui->cbRandomEnemies->setChecked(this->pluginSettings->randomEnemies);
     this->ui->leRandomSeed->setText(this->pluginSettings->randomSeed);
     this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
     this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
@@ -41,6 +42,7 @@ void Tab_Level_Generator::Save_Settings() {
     this->pluginSettings->randomSeed = this->ui->leRandomSeed->text();
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
+        this->pluginSettings->randomEnemies = this->ui->cbRandomEnemies->isChecked();
     } else {
         this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
         this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
