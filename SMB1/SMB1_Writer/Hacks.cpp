@@ -321,6 +321,11 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("8A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB4C28BBA900952A4C"
             "28BBA92085FFB91E0060").toLatin1()))) return false;
+
+    //Make walking hammer bros wait a little bit before moving to avoid the pipe exit bug
+    if (!this->Write_Bytes_To_Offset(0x40AD, QByteArray::fromHex(QString("B002A9809002A9024C35C3").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x4341, QByteArray::fromHex(QString("4C9DC0").toLatin1()))) return false;
+
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, static_cast<char>(0x02)))) return false;
     if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, static_cast<char>(0x02)))) return false; //red palette for Bowser
@@ -766,7 +771,9 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
     //by YY
     --world;
     if (world < 0 || world > 0xF) return false;
-    return this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()));
+    if (!this->Write_Bytes_To_Offset(0x433A, QByteArray::fromHex(QString("9558AD5F07C90"+QString::number(world)+"B005A980").toLatin1()))) return false;
+    if (this->wasCastleLoopReplacedWithFireBros && !this->Write_Bytes_To_Offset(0x4341, QByteArray::fromHex(QString("4C9DC0").toLatin1()))) return false;
+    return true;
 }
 
 bool Hacks::Increase_Spiny_Egg_Speed(int amount) {
