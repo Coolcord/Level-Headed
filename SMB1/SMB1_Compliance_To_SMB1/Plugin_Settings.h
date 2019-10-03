@@ -114,6 +114,7 @@ struct Plugin_Settings {
     bool difficultySpeedyObjectsAndEnemies;
     bool difficultyPiranhaPlantsOnFirstLevel;
     bool difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts;
+    bool difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // PLUGIN_SETTINGS_H

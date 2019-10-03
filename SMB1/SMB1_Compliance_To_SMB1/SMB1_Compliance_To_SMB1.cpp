@@ -256,6 +256,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts)) return false;
+    if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
     if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
     if (!configFile.Set_Value("Mario_Name", this->pluginSettings.marioName)) return false;
@@ -353,6 +354,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel);
     configFile.Get_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
+    configFile.Get_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
     configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);
     configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);

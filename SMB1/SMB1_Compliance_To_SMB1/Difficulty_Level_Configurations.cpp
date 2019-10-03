@@ -88,6 +88,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
+    pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
@@ -206,6 +207,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -388,6 +390,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
     difficultySettings.piranhaPlantsOnFirstLevel = true;
+    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -423,6 +426,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_No_Hammer_
     difficultySettings.hammerTimeIntensity = 0;
     difficultySettings.underwaterHammerBros = 11;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -644,5 +648,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

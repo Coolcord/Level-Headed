@@ -60,6 +60,7 @@ struct Difficulty_Level_Settings {
     bool speedyObjectsAndEnemies;
     bool piranhaPlantsOnFirstLevel;
     bool allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
+    bool allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

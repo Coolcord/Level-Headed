@@ -14,6 +14,7 @@ public:
 private:
     bool Handle_Animations();
     bool Handle_Auto_Scroll();
+    bool Handle_Enemy_Groups();
     bool Handle_Music();
     bool Handle_Graphics();
     bool Handle_Lakitus();

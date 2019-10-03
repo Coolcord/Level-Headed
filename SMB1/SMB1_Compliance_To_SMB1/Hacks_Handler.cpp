@@ -45,6 +45,7 @@ bool Hacks_Handler::Write_Hacks() {
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_Partial_Game()) return false;
     }
+    if (!this->Handle_Enemy_Groups()) return false;
     if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;
     if (!this->pluginSettings->smbUtilityCompatibility && !this->writerPlugin->Hacks_Remove_Vertical_Object_Limit()) return false;
@@ -69,6 +70,14 @@ bool Hacks_Handler::Handle_Animations() {
 
     //Set the Coin Animation Bounce Height
     return this->writerPlugin->Hacks_Set_Coin_Animation_Bounce_Height(Random::Get_Instance().Get_Num(1, 9));
+}
+
+bool Hacks_Handler::Handle_Enemy_Groups() {
+    if (!this->pluginSettings->generateNewLevels && this->pluginSettings->randomEnemies) {
+        if (!this->writerPlugin->Hacks_Random_Goomba_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
+        if (!this->writerPlugin->Hacks_Random_Koopa_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
+    }
+   return true;
 }
 
 bool Hacks_Handler::Handle_Music() {

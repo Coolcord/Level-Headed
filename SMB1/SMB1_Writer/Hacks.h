@@ -34,6 +34,8 @@ public:
     bool Invincibility();
     bool Moon_Jump();
     bool Permadeath();
+    bool Random_Group_Enemy_Goomba(bool allowHammerBros);
+    bool Random_Group_Enemy_Koopa(bool allowHammerBros);
     bool Random_Intro_Demo();
     bool Real_Time();
     bool Red_Piranha_Plants();
@@ -84,6 +86,7 @@ private:
     bool Enable_Walking_Hammer_Bros_In_World(int world);
     bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();
+    bool Random_Enemy_Group(qint64 offset, bool allowHammerBros);
 
 
     Graphics *graphics;

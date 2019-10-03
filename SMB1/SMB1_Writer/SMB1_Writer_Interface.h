@@ -151,6 +151,8 @@ public:
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Permadeath()=0;
+    virtual bool Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros)=0;
+    virtual bool Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros)=0;
     virtual bool Hacks_Random_Intro_Demo()=0;
     virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Red_Piranha_Plants()=0;

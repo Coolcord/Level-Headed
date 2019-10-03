@@ -586,6 +586,16 @@ bool SMB1_Writer::Hacks_Permadeath() {
     return this->hacks->Permadeath();
 }
 
+bool SMB1_Writer::Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros) {
+    if (!this->hacks) return false;
+    return this->hacks->Random_Group_Enemy_Goomba(allowHammerBros);
+}
+
+bool SMB1_Writer::Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros) {
+    if (!this->hacks) return false;
+    return this->hacks->Random_Group_Enemy_Koopa(allowHammerBros);
+}
+
 bool SMB1_Writer::Hacks_Random_Intro_Demo() {
     if (!this->hacks) return false;
     return this->hacks->Random_Intro_Demo();

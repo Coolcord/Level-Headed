@@ -198,6 +198,14 @@ bool Hacks::Permadeath() {
     return this->Skip_Lives_Screen();
 }
 
+bool Hacks::Random_Group_Enemy_Goomba(bool allowHammerBros) {
+    return this->Random_Enemy_Group(0x4737, allowHammerBros);
+}
+
+bool Hacks::Random_Group_Enemy_Koopa(bool allowHammerBros) {
+    return this->Random_Enemy_Group(0x472C, allowHammerBros);
+}
+
 bool Hacks::Random_Intro_Demo() {
     if (this->wasVerticalObjectLimitRemoved) return this->Idle_At_Intro_Demo(); //Intro Demo is not compatible with the vertical object limit patch
     QByteArray buttons(21, static_cast<char>(0x01)); //default is holding right
@@ -796,4 +804,23 @@ bool Hacks::Skip_Lives_Screen() {
     }
     this->skipLivesScreen = true;
     return true;
+}
+
+bool Hacks::Random_Enemy_Group(qint64 offset, bool allowHammerBros) {
+    int byte = 0;
+    int maxValue = 8;
+    if (allowHammerBros) ++maxValue;
+    switch (Random::Get_Instance().Get_Num(maxValue)) {
+    case 0:     byte = 0x00; break; //Green Koopa
+    case 1:     byte = 0x01; break; //Red Koopa
+    case 2:     byte = 0x02; break; //Buzzy Beetle
+    case 3:     byte = 0x06; break; //Goomba
+    case 4:     byte = 0x07; break; //Blooper
+    case 5:     byte = 0x08; break; //Bullet Bill
+    case 6:     byte = 0x0C; break; //Podoboo
+    case 7:     byte = 0x0E; break; //Green Paratroopa (Leaping)
+    case 8:     byte = 0x10; break; //Green Paratroopa (L/R)
+    case 9:     byte = 0x05; break; //Hammer Bros
+    }
+    return this->Write_Bytes_To_Offset(offset, QByteArray(1, static_cast<char>(byte)));
 }
