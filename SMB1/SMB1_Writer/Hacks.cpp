@@ -331,7 +331,7 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
             "28BBA92085FFB91E0060").toLatin1()))) return false;
 
     //Make walking hammer bros wait a little bit before moving to avoid the pipe exit bug
-    if (!this->Write_Bytes_To_Offset(0x40AD, QByteArray::fromHex(QString("B002A9809002A9024C35C3").toLatin1()))) return false; //change the 02 in "A902" to the desired time
+    if (!this->Write_Bytes_To_Offset(0x40AD, QByteArray::fromHex(QString("B002A9809002A9044C35C3").toLatin1()))) return false; //change the 04 in "A9044C" to the desired time
     if (!this->Write_Bytes_To_Offset(0x4341, QByteArray::fromHex(QString("4C9DC0").toLatin1()))) return false;
 
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
