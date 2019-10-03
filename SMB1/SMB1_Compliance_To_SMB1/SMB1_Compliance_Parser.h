@@ -11,7 +11,7 @@ class Enemy_Handler;
 
 class SMB1_Compliance_Parser : public SMB1_Compliance_Map {
 public:
-    SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies);
+    SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies, bool allowLakitusInRandomEnemies, bool allowContinousEnemySpawners);
     ~SMB1_Compliance_Parser();
     int Parse_Level(QTextStream *stream, bool bonusLevel);
     int Parse_Level(QTextStream *stream, bool bonusLevel, int &lineNum);

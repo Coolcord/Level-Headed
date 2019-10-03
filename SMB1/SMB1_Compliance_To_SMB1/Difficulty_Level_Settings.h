@@ -61,6 +61,8 @@ struct Difficulty_Level_Settings {
     bool piranhaPlantsOnFirstLevel;
     bool allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     bool allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
+    bool allowLakitusWhenRandomizingEnemiesInLevelScripts;
+    bool allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

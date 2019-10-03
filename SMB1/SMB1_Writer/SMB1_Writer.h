@@ -47,6 +47,7 @@ public:
     bool Set_Output_ROM_Location(const QString &location);
 
     //Header
+    bool Header_Get_Current_Attribute(Level_Attribute::Level_Attribute &levelAttribute);
     bool Header_Time(int value);
     bool Header_Autowalk(bool value);
     bool Header_Starting_Position(Level_Attribute::Level_Attribute value);
@@ -113,7 +114,8 @@ public:
     bool Object_Nothing(int x);
 
     //Enemies
-    bool Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
+    bool Enemy_Random_Continous_Enemy_Spawner(int x, bool onlyHardMode);
+    bool Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners);
     bool Enemy_Random_Enemy_Group(int x, int y, int num, bool onlyHardMode);
     bool Enemy_Random_Fire_Bar(int x, int y, bool onlyHardMode);
     bool Enemy_Random_Flying_Enemy(int x, bool onlyHardMode);

@@ -25,6 +25,8 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel);
     this->ui->cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
     this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
+    this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts);
+    this->ui->cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbAutoScroll->setValue(this->pluginSettings->difficultyAutoScroll);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
@@ -140,6 +142,8 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel = this->ui->cbPiranhaPlantsOnFirstLevel->isChecked();
         this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts->isChecked();
         this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->isChecked();
+        this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->isChecked();
+        this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts->isChecked();
     } else { //get difficulty settings from the present
         assert(Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(this->pluginSettings->difficultyComboIndex, this->pluginSettings, partialSupport));
     }

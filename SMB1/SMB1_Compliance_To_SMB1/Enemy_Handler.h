@@ -5,7 +5,7 @@
 
 class Enemy_Handler : public Item_Handler {
 public:
-    Enemy_Handler(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies);
+    Enemy_Handler(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies, bool allowLakitusInRandomEnemies, bool allowContinousEnemySpawners);
     bool Green_Koopa(const QString &line, int &errorCode);
     bool Red_Koopa(const QString &line, int &errorCode);
     bool Buzzy_Beetle(const QString &line, int &errorCode);
@@ -41,10 +41,12 @@ public:
 
 private:
     bool Parse_Difficulty(const QString &value, bool &onlyHardMode);
-    int Get_Random_Air_Y();
+    bool Is_Underwater();
 
     bool useRandomEnemies;
     bool allowHammerBrosInRandomEnemies;
+    bool allowLakitusInRandomEnemies;
+    bool allowContinousEnemySpawners;
 };
 
 #endif // ENEMY_HANDLER_H

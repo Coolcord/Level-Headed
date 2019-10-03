@@ -101,7 +101,20 @@ bool Enemy_Writer::Fill_Buffer() {
     return true;
 }
 
-bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+bool Enemy_Writer::Random_Continous_Enemy_Spawner(int x, bool underwater, bool onlyHardMode) {
+    //Only do Bullet Bills or Cheep-Cheeps. Don't do Lakitus here
+    if (underwater) {
+        return this->Swimming_Cheep_Cheep_Spawner(x, false, onlyHardMode);
+    } else {
+        if (Random::Get_Instance().Get_Num(1)) return this->Bullet_Bill_Spawner(x, onlyHardMode);
+        else return this->Swimming_Cheep_Cheep_Spawner(x, true, onlyHardMode);
+    }
+}
+
+bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
+    Level_Attribute::Level_Attribute attribute = this->roomIDHandler->Get_Level_Attribute_From_Current_Level();
+    if (allowLakitus && Random::Get_Instance().Get_Num(10) == 0) return this->Lakitu(x, this->Get_Random_Air_Y(), onlyHardMode);
+    if (allowContinousEnemySpawners && attribute != Level_Attribute::UNDERWATER && Random::Get_Instance().Get_Num(10) == 0) return this->Random_Continous_Enemy_Spawner(x, false, onlyHardMode);
     int maxValue = 9;
     if (allowHammerBros) ++maxValue;
     int value = Random::Get_Instance().Get_Num(maxValue);

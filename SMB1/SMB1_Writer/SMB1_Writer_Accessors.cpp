@@ -15,6 +15,12 @@
 #include "Text.h"
 #include <QDebug>
 
+bool SMB1_Writer::Header_Get_Current_Attribute(Level_Attribute::Level_Attribute &levelAttribute) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    levelAttribute = this->roomIDHandler->Get_Level_Attribute_From_Current_Level();
+    return true;
+}
+
 bool SMB1_Writer::Header_Time(int value) {
     if (!this->Are_Buffers_Allocated()) return false;
     return this->headerWriter->Set_Time(value);
@@ -320,9 +326,16 @@ bool SMB1_Writer::Object_Nothing(int x) {
     return this->objectWriter->Nothing(x);
 }
 
-bool SMB1_Writer::Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+bool SMB1_Writer::Enemy_Random_Continous_Enemy_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Enemy(x, y, onlyHardMode, allowHammerBros);
+    Level_Attribute::Level_Attribute attribute = Level_Attribute::OVERWORLD;
+    if (!this->Header_Get_Current_Attribute(attribute)) return false;
+    return this->enemyWriter->Random_Continous_Enemy_Spawner(x, attribute == Level_Attribute::UNDERWATER, onlyHardMode);
+}
+
+bool SMB1_Writer::Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
+    if (!this->Are_Buffers_Allocated()) return false;
+    return this->enemyWriter->Random_Enemy(x, y, onlyHardMode, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
 }
 
 bool SMB1_Writer::Enemy_Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {

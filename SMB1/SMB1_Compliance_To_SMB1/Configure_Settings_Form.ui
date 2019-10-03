@@ -822,7 +822,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2344</height>
+            <height>2402</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2629,6 +2629,20 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
                  <string>Allow Hammer Bros. groups when randomizing enemies in level scripts</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbAllowLakitusWhenRandomizingEnemiesInLevelScripts">
+                <property name="text">
+                 <string>Allow Lakitus when randomizing enemies in level scripts</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts">
+                <property name="text">
+                 <string>Allow Bullet Bill and Cheep-Cheep spawners when randomizing enemies in level scripts</string>
                 </property>
                </widget>
               </item>

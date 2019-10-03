@@ -115,6 +115,8 @@ struct Plugin_Settings {
     bool difficultyPiranhaPlantsOnFirstLevel;
     bool difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     bool difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
+    bool difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts;
+    bool difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
 };
 
 #endif // PLUGIN_SETTINGS_H

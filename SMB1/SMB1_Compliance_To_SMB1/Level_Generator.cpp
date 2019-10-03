@@ -224,7 +224,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 }
 
                 //TODO: Make these error messages file specific
-                SMB1_Compliance_Parser parser(this->writerPlugin, this->pluginSettings->randomEnemies, this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
+                SMB1_Compliance_Parser parser(this->writerPlugin, this->pluginSettings->randomEnemies, this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts);
                 int levelLineNum = 0;
                 QTextStream levelStream(this->sequentialArchivePlugin->Read_File("/" + scriptName), QIODevice::ReadOnly);
                 int levelErrorCode = parser.Parse_Level(&levelStream, bonusLevel, levelLineNum);
@@ -499,7 +499,7 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     if (!this->Write_To_Map(mapStream, Header::STRING_MAP_NAME)) return false;
 
     //Set up the parser
-    SMB1_Compliance_Parser parser(this->writerPlugin, false, false);
+    SMB1_Compliance_Parser parser(this->writerPlugin, false, false, false, false);
 
     //Seed the random number generator... the location here is important
     Random::Get_Instance().Seed(this->pluginSettings->randomSeed, 5);

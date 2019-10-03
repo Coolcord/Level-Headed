@@ -5,14 +5,14 @@
 #include "../Common_SMB1_Files/Level.h"
 #include <QMap>
 
-class Enemy_Writer : public Item_Writer
-{
+class Enemy_Writer : public Item_Writer {
 public:
     Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     ~Enemy_Writer();
     void Populate_Level_Slots();
     bool Fill_Buffer();
-    bool Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros);
+    bool Random_Continous_Enemy_Spawner(int x, bool underwater, bool onlyHardMode);
+    bool Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners);
     bool Random_Enemy_Group(int x, int y, int num, bool onlyHardMode);
     bool Random_Flying_Enemy(int x, bool onlyHardMode);
     bool Random_Fire_Bar(int x, int y, bool onlyHardMode);

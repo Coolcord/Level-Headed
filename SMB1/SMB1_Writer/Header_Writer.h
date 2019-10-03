@@ -8,8 +8,7 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include "Binary_Manipulator.h"
 
-class Header_Writer
-{
+class Header_Writer {
 public:
     Header_Writer(QByteArray *buffer);
 

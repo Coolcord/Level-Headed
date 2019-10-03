@@ -89,6 +89,8 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
+    pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts;
+    pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
@@ -206,8 +208,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
-    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -267,6 +271,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.spawnerPriority = 2;
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
     difficultySettings.maxLevelLength = 3; //Short
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -317,6 +325,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.flyingCheepCheepJumpHeight = 2; //Normal
     difficultySettings.hammerBrosThrowRate = 4; //Normal
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -349,6 +358,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.bulletBillFiringRate = 4; //frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
     difficultySettings.hammerBrosThrowRate = 5; //Frequent
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -390,7 +400,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
     difficultySettings.piranhaPlantsOnFirstLevel = true;
+    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = true;
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = true;
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
@@ -416,6 +429,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.spinyEggBehavior = 8; //normal
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
     return difficultySettings;
 }
 
@@ -649,5 +663,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     return difficultySettings;
 }

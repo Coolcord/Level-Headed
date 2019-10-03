@@ -7,10 +7,9 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include <QMap>
 
-class Object_Handler : public Item_Handler
-{
+class Object_Handler : public Item_Handler {
 public:
-    Object_Handler(SMB1_Writer_Interface *writerPlugin);
+    Object_Handler(SMB1_Writer_Interface *writerPlugin, bool randomEnemies);
     ~Object_Handler();
 
     bool Question_Block_With_Mushroom(const QString &line, int &errorCode);
@@ -71,6 +70,7 @@ private:
     QMap<QString, Scenery::Scenery> *sceneries;
     QMap<QString, Brick::Brick> *bricks;
     QMap<QString, Background::Background> *backgrounds;
+    bool useRandomEnemies;
 };
 
 #endif // OBJECT_HANDLER_H

@@ -1,13 +1,15 @@
 #include "Object_Handler.h"
+#include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Scenery_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "../Common_SMB1_Files/Background_String.h"
 #include <QStringList>
 #include <assert.h>
 
-Object_Handler::Object_Handler(SMB1_Writer_Interface *wp) : Item_Handler(wp) {
+Object_Handler::Object_Handler(SMB1_Writer_Interface *wp, bool randomEnemies) : Item_Handler(wp) {
     assert(wp);
     this->writerPlugin = wp;
+    this->useRandomEnemies = randomEnemies;
 
     //Build the map for Sceneries
     this->sceneries = new QMap<QString, Scenery::Scenery>();
@@ -550,12 +552,17 @@ bool Object_Handler::Flying_Cheep_Cheep_Spawner(const QString &line, int &errorC
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    if (!this->writerPlugin->Object_Flying_Cheep_Cheep_Spawner(x)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the object
+    bool success = false;
+    if (this->useRandomEnemies && Random::Get_Instance().Get_Num(1)) {
+        Level_Attribute::Level_Attribute attribute = Level_Attribute::OVERWORLD;
+        if (!this->writerPlugin->Header_Get_Current_Attribute(attribute)) return false;
+        if (attribute == Level_Attribute::UNDERWATER) success = this->writerPlugin->Object_Swimming_Cheep_Cheep_Spawner(x);
+        else success = this->writerPlugin->Object_Bullet_Bill_Spawner(x);
+    } else success = this->writerPlugin->Object_Flying_Cheep_Cheep_Spawner(x);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Object_Handler::Swimming_Cheep_Cheep_Spawner(const QString &line, int &errorCode) {
@@ -576,12 +583,13 @@ bool Object_Handler::Bullet_Bill_Spawner(const QString &line, int &errorCode) {
     if (elements.size() != 2) return false;
     int x = 0;
     if (!this->Parse_Num(elements.at(1), x)) return false;
-    if (!this->writerPlugin->Object_Bullet_Bill_Spawner(x)) {
-        errorCode = 3;
-        return false;
-    } else {
-        return true;
-    }
+
+    //Write the object
+    bool success = false;
+    if (this->useRandomEnemies && Random::Get_Instance().Get_Num(1)) success = this->writerPlugin->Object_Flying_Cheep_Cheep_Spawner(x);
+    else success = this->writerPlugin->Object_Bullet_Bill_Spawner(x);
+    if (!success) errorCode = 3;
+    return success;
 }
 
 bool Object_Handler::Cancel_Spawner(const QString &line, int &errorCode) {
