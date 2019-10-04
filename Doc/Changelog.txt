@@ -3,6 +3,9 @@ Next Update (v0.3.4)
 + Original SMB1 Levels (without castle loops) can be used with Level-Headed via level scripts
 + Enemies in level scripts can be randomized
 + Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
++ Added Graphics (Mario Bros. Untold by Dark_Lord05)
++ Added Graphics (Super Rex Dash by SaveState)
++ Added Graphics (Neon Edition by Captain Gastronomicon)
 
 Gameplay Wrap-up (v0.3.3)
 + Midpoints are always used regardless of how many levels there are per world
