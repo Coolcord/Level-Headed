@@ -6,15 +6,9 @@
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
 #include <assert.h>
+#include <QDebug>
 #include <QFileInfo>
 #include <QTextStream>
-
-#include <QDebug>
-
-const static QString STRING_ALLOW_PALETTES = Patch_Strings::STRING_COMMENT+" Palette: None";
-const static QString STRING_ALLOW_ONLY_COIN_PALETTES = Patch_Strings::STRING_COMMENT+" Palette: Coins";
-const static QString STRING_INVALID_TONES = Patch_Strings::STRING_COMMENT+" Invalid Tones: ";
-const static QString STRING_COMPATIBLE_SECTION = Patch_Strings::STRING_COMMENT+" Compatible:";
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
     this->combineGraphicsPacks = false;
@@ -295,7 +289,7 @@ QStringList Sequential_Archive_Handler::Get_Compatible_Music_Packs(const QByteAr
             line = line.remove(0, Patch_Strings::STRING_COMMENT.size()).trimmed();
             compatibleMusicPacks.append(line);
         } else { //find the compatible section
-            if (line == STRING_COMPATIBLE_SECTION) compatibleSection = true;
+            if (line == Fix_Strings::STRING_COMPATIBLE_SECTION) compatibleSection = true;
         }
     }
     return compatibleMusicPacks;
@@ -311,9 +305,9 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
         QString line = stream.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (this->hexagonPlugin->Is_Line_End_Of_Header(line)) return true;
-        if (line.startsWith(STRING_COMPATIBLE_SECTION)) return true;
-        if (line.startsWith(STRING_INVALID_TONES)) {
-            line = line.remove(0, STRING_INVALID_TONES.size()).trimmed();
+        if (line.startsWith(Fix_Strings::STRING_COMPATIBLE_SECTION)) return true;
+        if (line.startsWith(Fix_Strings::STRING_INVALID_TONES)) {
+            line = line.remove(0, Fix_Strings::STRING_INVALID_TONES.size()).trimmed();
             QStringList tones = line.split(',');
             for (int i = 0; i < tones.size(); ++i) {
                 bool valid = false;
@@ -335,8 +329,8 @@ bool Sequential_Archive_Handler::Get_Palettes_Allowed(const QByteArray &patchByt
         QString line = stream.readLine().trimmed();
         if (line.isEmpty()) continue;
         if (this->hexagonPlugin->Is_Line_End_Of_Header(line)) return true;
-        if (line.startsWith(STRING_ALLOW_PALETTES)) this->allowPalettes = false;
-        if (line.startsWith(STRING_ALLOW_ONLY_COIN_PALETTES)) this->allowOnlyCoinPalettes = true;
+        if (line.startsWith(Fix_Strings::STRING_ALLOW_PALETTES)) this->allowPalettes = false;
+        if (line.startsWith(Fix_Strings::STRING_ALLOW_ONLY_COIN_PALETTES)) this->allowOnlyCoinPalettes = true;
     }
     return true;
 }
