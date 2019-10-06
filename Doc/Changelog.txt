@@ -4,6 +4,7 @@ Next Update (v0.3.4)
 + Enemies in level scripts can be randomized
 + Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
 + Added Graphics (Mario Bros. Untold by Dark_Lord05)
++ Added Graphics (Super Luigi Forgotten Adventure (Rev B) by Googie)
 + Added Graphics (Super Rex Dash by SaveState)
 + Added Graphics (Neon Edition by Captain Gastronomicon)
 
