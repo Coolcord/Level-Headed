@@ -73,6 +73,15 @@ bool Hacks::Always_Autoscroll() {
                                                                            "F05AA41DAD5507C003F014C908B008AD8507F0032058D9AD2307D0404CC2AFC9509039A001").toLatin1()));
 }
 
+bool Hacks::Always_Force_Continue_Code() {
+    //Note: With this hack, once the game has been beaten, it is impossible to start from World 1 unless the game is reset!
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        return false; //not compatible
+    } else {
+        return this->Write_Bytes_To_Offset(0x02EE, QByteArray::fromHex(QString("EAEA").toLatin1()));
+    }
+}
+
 bool Hacks::Black_Piranha_Plants() {
     if (!this->Write_Bytes_To_Offset(0x53E2, QByteArray(1, static_cast<char>(0x0D)))) return false;
     if (!this->Write_Bytes_To_Offset(0x53FF, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;

@@ -19,6 +19,7 @@ public:
     bool Was_Vertical_Object_Limit_Removed();
     bool Add_Luigi_Game();
     bool Always_Autoscroll();
+    bool Always_Force_Continue_Code();
     bool Black_Piranha_Plants();
     bool Destroy_Bowser_Bridge_Randomly();
     bool Disable_Intro_Demo();

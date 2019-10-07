@@ -540,6 +540,11 @@ bool SMB1_Writer::Hacks_Always_Autoscroll() {
     return this->hacks->Always_Autoscroll();
 }
 
+bool SMB1_Writer::Hacks_Always_Force_Continue_Code() {
+    if (!this->hacks) return false;
+    return this->hacks->Always_Force_Continue_Code();
+}
+
 bool SMB1_Writer::Hacks_Black_Piranha_Plants() {
     if (!this->hacks) return false;
     return this->hacks->Black_Piranha_Plants();
