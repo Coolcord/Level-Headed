@@ -27,6 +27,285 @@ QString Graphics_Combiner::Get_Mario_Patch_Name() {
     return this->marioPatchName;
 }
 
+QStack<qint64> Graphics_Combiner::Get_Air_Bubble_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Blooper_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x678A); offsets.push(0x6790);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bowser_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6820); offsets.push(0x6826); offsets.push(0x682C); offsets.push(0x6832);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bowser_Fire_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Brick_Piece_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bullet_Bill_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6838);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Buzzy_Beetle_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x674E); offsets.push(0x6754); offsets.push(0x67C0); offsets.push(0x67C6); offsets.push(0x67CC); offsets.push(0x67D2);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Castle_Flag_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Cheep_Cheep_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6796); offsets.push(0x679C);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Coin_Animation_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Explosion_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Fireball_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Flagpole_Flag_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Goomba_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x67A2); offsets.push(0x67D8);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Hammer_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Hammer_Bro_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x67F6); offsets.push(0x67FC); offsets.push(0x6802); offsets.push(0x6808);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Jump_Spring_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C5C); offsets.push(0x0C64);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Jump_Spring_Animation_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x683E); offsets.push(0x6844); offsets.push(0x684A);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Koopa_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x675A); offsets.push(0x6760); offsets.push(0x6766); offsets.push(0x676C); offsets.push(0x67A8); offsets.push(0x67AE); offsets.push(0x67B4); offsets.push(0x67BA);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Lakitu_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x67DE); offsets.push(0x67E4);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Lift_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Mario_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6E28); offsets.push(0x6E30); offsets.push(0x6E38); offsets.push(0x6E40); offsets.push(0x6E48); offsets.push(0x6E50); offsets.push(0x6E58); offsets.push(0x6E60); offsets.push(0x6E68);
+    offsets.push(0x6E70); offsets.push(0x6E78); offsets.push(0x6E80); offsets.push(0x6E88); offsets.push(0x6E90); offsets.push(0x6E98); offsets.push(0x6EA0); offsets.push(0x6EA8); offsets.push(0x6EB0); offsets.push(0x6EB8);
+    offsets.push(0x6EC0); offsets.push(0x6EC8); offsets.push(0x6ED0); offsets.push(0x6ED8); offsets.push(0x6EE0); offsets.push(0x6EE8); offsets.push(0x6EF0);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_One_Up_Font_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Peach_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x67EA);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Piranha_Plant_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x680E); offsets.push(0x6814);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Podoboo_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x681A);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Score_Font_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Sky_Lift_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Spiny_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6772); offsets.push(0x6778);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Spiny_Egg_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x677E); offsets.push(0x6784);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Toad_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x67F0);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Axe_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0CB0);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Brick_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0BD0); offsets.push(0x0BD4); offsets.push(0x0BD8); offsets.push(0x0BDC); offsets.push(0x0BE0); offsets.push(0x0C00); offsets.push(0x0C04); offsets.push(0x0C08);
+    offsets.push(0x0C10); offsets.push(0x0C14); offsets.push(0x0C18); offsets.push(0x0C1C); offsets.push(0x0C20); offsets.push(0x0C24); offsets.push(0x0C28); offsets.push(0x0C2C); offsets.push(0x0C30); offsets.push(0x0C34);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Brick_Block_Animation_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x6BDD);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bowser_Bridge_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C98);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bridge_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0B4C); offsets.push(0x0C48);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Bullet_Bill_Cannon_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C4C); offsets.push(0x0C50); offsets.push(0x0C54);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Castle_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C44);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Chain_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0B50);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Cloud_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C94);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Coin_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0CA4); offsets.push(0x0CA8);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Coin_Icon_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Coral_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0BA8);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Fire_Flower_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Flagpole_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0BB0); offsets.push(0x0BB4);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Font_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Mushroom_Powerup_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Mushroom_Platform_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0B84); offsets.push(0x0B88); offsets.push(0x0B8C); offsets.push(0x0BF8); offsets.push(0x0BFC);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Overworld_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C0C);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Pipe_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C68); offsets.push(0x0C6C); offsets.push(0x0B60); offsets.push(0x0B64); offsets.push(0x0B68); offsets.push(0x0B6C); offsets.push(0x0B70); offsets.push(0x0B74);
+    offsets.push(0x0B90); offsets.push(0x0B94); offsets.push(0x0B98); offsets.push(0x0B9C); offsets.push(0x0BA0); offsets.push(0x0BA4);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Question_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C9C); offsets.push(0x0CA0); offsets.push(0x0CAC);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Rope_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0BBC); offsets.push(0x0BC0); offsets.push(0x0BC4); offsets.push(0x0BC8);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Selector_Icon_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Solid_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C40);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Starman_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Tree_Platform_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0B78); offsets.push(0x0B7C); offsets.push(0x0B80); offsets.push(0x0BEC);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Underwater_Block_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C60);
+    return offsets;
+}
+
+QStack<qint64> Graphics_Combiner::Get_Vine_Offsets() {
+    return QStack<qint64>();
+}
+
+QStack<qint64> Graphics_Combiner::Get_Water_Offsets() {
+    QStack<qint64> offsets; offsets.push(0x0C8C);
+    return offsets;
+}
+
 void Graphics_Combiner::Initialize_Tile_Order_Map() {
     this->Deallocate_Tile_Order_Map();
     this->tileOrderMap = new QMap<qint64, QByteArray*>();
