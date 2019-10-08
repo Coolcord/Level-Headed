@@ -26,6 +26,7 @@ QString Graphics_Combiner::Get_Mario_Patch_Name() {
 }
 
 bool Graphics_Combiner::Combine_All_Except_Mario() {
+    if (!this->sequentialArchiveHandler->Are_Color_Palettes_Allowed() || this->sequentialArchiveHandler->Are_Only_Coin_Palettes_Allowed()) return true; //nothing to do
     if (!this->Combine_Air_Bubble()) return false;
     if (!this->Combine_Blooper()) return false;
     if (!this->Combine_Bowser()) return false;
