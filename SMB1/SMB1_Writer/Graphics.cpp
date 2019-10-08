@@ -33,7 +33,7 @@ Graphics::Graphics(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *seque
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->text = text;
-    this->graphicsCombiner = new Graphics_Combiner();
+    this->graphicsCombiner = new Graphics_Combiner(f, lo, sequentialArchiveHandler, this);
 }
 
 Graphics::~Graphics() {
@@ -57,14 +57,14 @@ bool Graphics::Apply_Title_Screen_1P_Fix(qint64 &versionOffset) {
     QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
+    return this->sequentialArchiveHandler->Apply_Hexagon_Patch(patchBytes);
 }
 
 bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
     QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
-    return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
+    return this->sequentialArchiveHandler->Apply_Hexagon_Patch(patchBytes);
 }
 
 bool Graphics::Change_1UP_Palette(int palette) {
@@ -104,6 +104,12 @@ bool Graphics::Make_Sprite_Tiles_Transparent(const QByteArray &tiles) {
 bool Graphics::Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes) {
     unsigned char c = static_cast<unsigned char>(tileID);
     qint64 spriteGraphicsOffset = 0x8010+(c*0x10); //get the graphics offset for the tile
+    return this->Read_Bytes_From_Offset(spriteGraphicsOffset, 16, graphicsBytes);
+}
+
+bool Graphics::Read_Graphics_Bytes_From_Background_Tile_ID(char tileID, QByteArray &graphicsBytes) {
+    unsigned char c = static_cast<unsigned char>(tileID);
+    qint64 spriteGraphicsOffset = 0x9010+(c*0x10); //get the graphics offset for the tile
     return this->Read_Bytes_From_Offset(spriteGraphicsOffset, 16, graphicsBytes);
 }
 

@@ -254,7 +254,6 @@ public:
     virtual bool Graphics_Combine_Mario()=0;
     virtual int Graphics_Get_Number_Of_Bonus_Graphics_Packs()=0;
     virtual int Graphics_Get_Number_Of_Graphics_Packs()=0;
-    virtual bool Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks)=0;
     virtual bool Graphics_Randomize_Palettes(int paletteMode)=0;
     virtual bool Graphics_Change_1UP_Palette(int palette)=0;
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;

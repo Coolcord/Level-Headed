@@ -11,7 +11,6 @@
 #include <QTextStream>
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
-    this->combineGraphicsPacks = false;
     this->combineMusicPacks = false;
     this->file = nullptr;
     this->hexagonPlugin = nullptr;
@@ -44,10 +43,6 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->invalidTones = nullptr;
 }
 
-void Sequential_Archive_Handler::Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
-    this->combineGraphicsPacks = combineGraphicsPacks;
-}
-
 void Sequential_Archive_Handler::Set_Combine_Music_Packs(bool combineMusicPacks) {
     this->combineMusicPacks = combineMusicPacks;
 }
@@ -59,12 +54,7 @@ void Sequential_Archive_Handler::Set_File(QFile *file) {
 bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName, const QString &fixType) {
     QByteArray patchBytes = this->Read_Graphics_Fix(fixName, fixType);
     if (patchBytes.isEmpty()) return true; //nothing to apply
-    return this->Apply_Graphics_Fix(patchBytes);
-}
-
-bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QByteArray &patchBytes) {
-    int lineNum = 0;
-    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+    return this->Apply_Hexagon_Patch(patchBytes);
 }
 
 bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
@@ -89,6 +79,30 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
     bool success = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
     if (success) this->lastAppliedGraphicsPack = graphicsPack;
     return success;
+}
+
+bool Sequential_Archive_Handler::Apply_Graphics_Sprite(const QString &spriteName, const QString &patchName) {
+    QByteArray patchBytes = this->Read_Graphics_Sprite(spriteName, patchName);
+    if (patchBytes.isEmpty()) return true; //nothing to apply
+    return this->Apply_Hexagon_Patch(patchBytes);
+}
+
+bool Sequential_Archive_Handler::Apply_Random_Graphics_Sprite(const QString &spriteName) {
+    QString patchName;
+    QByteArray patchBytes = this->Read_Random_Graphics_Sprite(spriteName, patchName);
+    if (patchBytes.isEmpty()) return true; //nothing to apply
+    return this->Apply_Hexagon_Patch(patchBytes);
+}
+
+bool Sequential_Archive_Handler::Apply_Random_Graphics_Sprite(const QString &spriteName, QString &patchName) {
+    QByteArray patchBytes = this->Read_Random_Graphics_Sprite(spriteName, patchName);
+    if (patchBytes.isEmpty()) return true; //nothing to apply
+    return this->Apply_Hexagon_Patch(patchBytes);
+}
+
+bool Sequential_Archive_Handler::Apply_Hexagon_Patch(const QByteArray &patchBytes) {
+    int lineNum = 0;
+    return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
 }
 
 bool Sequential_Archive_Handler::Apply_Music_Pack_At_Index(int index) {
@@ -180,6 +194,28 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName,
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
     if (graphicsPack.isEmpty()) graphicsPack = this->lastAppliedGraphicsPack;
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+fixType+"/"+fixName+"/"+graphicsPack);
+    this->sequentialArchivePlugin->Close();
+    return patchBytes;
+}
+
+QByteArray Sequential_Archive_Handler::Read_Graphics_Sprite(const QString &patchName, const QString &spriteName) {
+    if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName+"/"+patchName);
+    this->sequentialArchivePlugin->Close();
+    return patchBytes;
+}
+
+QByteArray Sequential_Archive_Handler::Read_Random_Graphics_Sprite(const QString &spriteName, QString &patchName) {
+    if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
+    if (!this->sequentialArchivePlugin->Change_Directory("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName)) return QByteArray();
+    QStringList files = this->sequentialArchivePlugin->Get_Files();
+    int num = Random::Get_Instance().Get_Num(files.size());
+    if (num == files.size()) return QByteArray(); //don't apply anything
+    patchName = files.at(num);
+    qDebug().noquote() << spriteName+": \""+patchName+"\"";
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName+"/"+patchName);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
 }

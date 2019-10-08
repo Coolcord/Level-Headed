@@ -11,12 +11,14 @@ class Sequential_Archive_Handler {
 public:
     Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation);
     ~Sequential_Archive_Handler();
-    void Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
     bool Apply_Graphics_Fix(const QString &fixName, const QString &fixType);
-    bool Apply_Graphics_Fix(const QByteArray &patchBytes);
     bool Apply_Graphics_Pack_At_Index(int index);
+    bool Apply_Graphics_Sprite(const QString &spriteName, const QString &patchName);
+    bool Apply_Random_Graphics_Sprite(const QString &spriteName);
+    bool Apply_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
+    bool Apply_Hexagon_Patch(const QByteArray &patchBytes);
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Bonus_Graphics_Packs();
     QStringList Get_Bonus_Music_Packs();
@@ -34,6 +36,8 @@ public:
     bool Are_Only_Coin_Palettes_Allowed();
     QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType);
     QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType, QString graphicsPack);
+    QByteArray Read_Graphics_Sprite(const QString &spriteName, const QString &patchName);
+    QByteArray Read_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
     bool Is_Hexagon_Line_End_Of_Header(const QString &line);
     bool Install_ROM_Patches(const QString &romName);
 
@@ -55,7 +59,6 @@ private:
     QSet<int> *invalidTones;
     bool allowPalettes;
     bool allowOnlyCoinPalettes;
-    bool combineGraphicsPacks;
     bool combineMusicPacks;
     Hexagon_Interface *hexagonPlugin;
     Sequential_Archive_Interface *sequentialArchivePlugin;

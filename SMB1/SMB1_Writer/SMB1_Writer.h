@@ -272,7 +272,6 @@ public:
     bool Graphics_Combine_Mario();
     int Graphics_Get_Number_Of_Bonus_Graphics_Packs();
     int Graphics_Get_Number_Of_Graphics_Packs();
-    bool Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     bool Graphics_Randomize_Palettes(int paletteMode);
     bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();

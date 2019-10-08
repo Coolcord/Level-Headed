@@ -16,6 +16,7 @@ SOURCES += SMB1_Writer.cpp \
     Bowser_Bridge_Destroyer.cpp \
     Colors.cpp \
     Graphics_Combiner.cpp \
+    Graphics_Offsets.cpp \
     Item_Writer.cpp \
     Binary_Manipulator.cpp \
     Object_Writer.cpp \
@@ -66,6 +67,7 @@ HEADERS += SMB1_Writer.h \
     Color.h \
     Colors.h \
     Graphics_Combiner.h \
+    Graphics_Offsets.h \
     Palettes.h \
     ROM_Type.h \
     Item_Writer.h \

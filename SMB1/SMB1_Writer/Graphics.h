@@ -32,6 +32,7 @@ public:
     bool Combine_Mario();
     bool Make_Sprite_Tiles_Transparent(const QByteArray &tiles);
     bool Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes);
+    bool Read_Graphics_Bytes_From_Background_Tile_ID(char tileID, QByteArray &graphicsBytes);
     bool Perform_Horizontal_Flip(QByteArray &graphicsBytes);
     bool Perform_Vertical_Flip(QByteArray &graphicsBytes);
     bool Write_Graphics_Bytes_To_Sprite_Tile_ID(char tileID, const QByteArray &graphicsBytes);

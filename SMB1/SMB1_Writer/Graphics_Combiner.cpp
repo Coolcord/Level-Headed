@@ -1,22 +1,20 @@
 #include "Graphics_Combiner.h"
+#include "Graphics.h"
+#include "Graphics_Offsets.h"
+#include "Sequential_Archive_Handler.h"
+#include <QSet>
 
-Graphics_Combiner::Graphics_Combiner() {
+Graphics_Combiner::Graphics_Combiner(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics) : Byte_Writer(f, lo) {
+    assert(sequentialArchiveHandler); assert(graphics);
     this->marioPatchName = QString();
     this->brickPatchName = QString();
-    this->tileOrderMap = nullptr;
-    this->Initialize_Tile_Order_Map();
+    this->sequentialArchiveHandler = sequentialArchiveHandler;
+    this->graphics = graphics;
+    this->graphicsOffsets = new Graphics_Offsets();
 }
 
 Graphics_Combiner::~Graphics_Combiner() {
-    this->Deallocate_Tile_Order_Map();
-}
-
-bool Graphics_Combiner::Combine_All_Except_Mario() {
-
-}
-
-bool Graphics_Combiner::Combine_Mario() {
-
+    delete this->graphicsOffsets;
 }
 
 QString Graphics_Combiner::Get_Brick_Patch_Name() {
@@ -27,432 +25,401 @@ QString Graphics_Combiner::Get_Mario_Patch_Name() {
     return this->marioPatchName;
 }
 
-QStack<qint64> Graphics_Combiner::Get_Air_Bubble_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_All_Except_Mario() {
+    if (!this->Combine_Air_Bubble()) return false;
+    if (!this->Combine_Blooper()) return false;
+    if (!this->Combine_Bowser()) return false;
+    if (!this->Combine_Bowser_Fire()) return false;
+    if (!this->Combine_Brick_Piece()) return false;
+    if (!this->Combine_Bullet_Bill()) return false;
+    if (!this->Combine_Buzzy_Beetle()) return false;
+    if (!this->Combine_Castle_Flag()) return false;
+    if (!this->Combine_Cheep_Cheep()) return false;
+    if (!this->Combine_Coin_Animation()) return false;
+    if (!this->Combine_Explosion()) return false;
+    if (!this->Combine_Fireball()) return false;
+    if (!this->Combine_Fire_Flower()) return false;
+    if (!this->Combine_Flagpole_Flag()) return false;
+    if (!this->Combine_Goomba()) return false;
+    if (!this->Combine_Hammer()) return false;
+    if (!this->Combine_Hammer_Bro()) return false;
+    if (!this->Combine_Jump_Spring()) return false;
+    if (!this->Combine_Koopa()) return false;
+    if (!this->Combine_Lakitu()) return false;
+    if (!this->Combine_Lift()) return false;
+    if (!this->Combine_Mushroom_Powerup()) return false;
+    if (!this->Combine_One_Up_Font()) return false;
+    if (!this->Combine_Peach()) return false;
+    if (!this->Combine_Piranha_Plant()) return false;
+    if (!this->Combine_Podoboo()) return false;
+    if (!this->Combine_Score_Font()) return false;
+    if (!this->Combine_Sky_Lift()) return false;
+    if (!this->Combine_Spiny()) return false;
+    if (!this->Combine_Spiny_Egg()) return false;
+    if (!this->Combine_Starman()) return false;
+    if (!this->Combine_Toad()) return false;
+    if (!this->Combine_Axe()) return false;
+    if (!this->Combine_Brick_Block()) return false;
+    if (!this->Combine_Bowser_Bridge()) return false;
+    if (!this->Combine_Bridge()) return false;
+    if (!this->Combine_Bullet_Bill_Cannon()) return false;
+    if (!this->Combine_Castle_Block()) return false;
+    if (!this->Combine_Chain()) return false;
+    if (!this->Combine_Cloud_Block()) return false;
+    if (!this->Combine_Coin()) return false;
+    if (!this->Combine_Coin_Icon()) return false;
+    if (!this->Combine_Coral()) return false;
+    if (!this->Combine_Flagpole()) return false;
+    if (!this->Combine_Font()) return false;
+    if (!this->Combine_Mushroom_Platform()) return false;
+    if (!this->Combine_Overworld_Block()) return false;
+    if (!this->Combine_Pipe()) return false;
+    if (!this->Combine_Question_Block()) return false;
+    if (!this->Combine_Rope()) return false;
+    if (!this->Combine_Selector_Icon()) return false;
+    if (!this->Combine_Solid_Block()) return false;
+    if (!this->Combine_Tree_Platform()) return false;
+    if (!this->Combine_Underwater_Block()) return false;
+    if (!this->Combine_Vine()) return false;
+    if (!this->Combine_Water()) return false;
+    return true;
 }
 
-QStack<qint64> Graphics_Combiner::Get_Blooper_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x678A); offsets.push(0x6790);
-    return offsets;
+bool Graphics_Combiner::Combine_Air_Bubble() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Air_Bubble_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Air Bubble");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bowser_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6820); offsets.push(0x6826); offsets.push(0x682C); offsets.push(0x6832);
-    return offsets;
+bool Graphics_Combiner::Combine_Blooper() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Blooper_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Blooper");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bowser_Fire_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Bowser() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bowser_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Brick_Piece_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Bowser_Fire() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bowser_Fire_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser Fire");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bullet_Bill_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6838);
-    return offsets;
+bool Graphics_Combiner::Combine_Brick_Piece() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Brick_Piece_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Brick Piece");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Buzzy_Beetle_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x674E); offsets.push(0x6754); offsets.push(0x67C0); offsets.push(0x67C6); offsets.push(0x67CC); offsets.push(0x67D2);
-    return offsets;
+bool Graphics_Combiner::Combine_Bullet_Bill() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bullet_Bill_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bullet Bill");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Castle_Flag_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Buzzy_Beetle() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Buzzy_Beetle_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Buzzy Beetle");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Cheep_Cheep_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6796); offsets.push(0x679C);
-    return offsets;
+bool Graphics_Combiner::Combine_Castle_Flag() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Castle_Flag_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Castle Flag");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Coin_Animation_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Cheep_Cheep() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Cheep_Cheep_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Cheep Cheep");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Explosion_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Coin_Animation() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Coin_Animation_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Coin Animation");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Fireball_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Explosion() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Explosion_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Explosion");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Flagpole_Flag_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Fireball() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Fireball_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Fireball");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Goomba_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x67A2); offsets.push(0x67D8);
-    return offsets;
+bool Graphics_Combiner::Combine_Fire_Flower() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Fire_Flower_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Fire Flower");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Hammer_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Flagpole_Flag() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Flagpole_Flag_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Flagpole Flag");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Hammer_Bro_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x67F6); offsets.push(0x67FC); offsets.push(0x6802); offsets.push(0x6808);
-    return offsets;
+bool Graphics_Combiner::Combine_Goomba() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Goomba_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Goomba");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Jump_Spring_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C5C); offsets.push(0x0C64);
-    return offsets;
+bool Graphics_Combiner::Combine_Hammer() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Hammer_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Hammer");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Jump_Spring_Animation_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x683E); offsets.push(0x6844); offsets.push(0x684A);
-    return offsets;
+bool Graphics_Combiner::Combine_Hammer_Bro() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Hammer_Bro_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Hammer Bro");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Koopa_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x675A); offsets.push(0x6760); offsets.push(0x6766); offsets.push(0x676C); offsets.push(0x67A8); offsets.push(0x67AE); offsets.push(0x67B4); offsets.push(0x67BA);
-    return offsets;
+bool Graphics_Combiner::Combine_Jump_Spring() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Jump_Spring_Animation_Offsets(), true)) return true;
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Jump_Spring_Base_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Jump Spring");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Lakitu_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x67DE); offsets.push(0x67E4);
-    return offsets;
+bool Graphics_Combiner::Combine_Koopa() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Koopa_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Koopa");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Lift_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Lakitu() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Lakitu_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Lakitu");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Mario_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6E28); offsets.push(0x6E30); offsets.push(0x6E38); offsets.push(0x6E40); offsets.push(0x6E48); offsets.push(0x6E50); offsets.push(0x6E58); offsets.push(0x6E60); offsets.push(0x6E68);
-    offsets.push(0x6E70); offsets.push(0x6E78); offsets.push(0x6E80); offsets.push(0x6E88); offsets.push(0x6E90); offsets.push(0x6E98); offsets.push(0x6EA0); offsets.push(0x6EA8); offsets.push(0x6EB0); offsets.push(0x6EB8);
-    offsets.push(0x6EC0); offsets.push(0x6EC8); offsets.push(0x6ED0); offsets.push(0x6ED8); offsets.push(0x6EE0); offsets.push(0x6EE8); offsets.push(0x6EF0);
-    return offsets;
+bool Graphics_Combiner::Combine_Lift() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Lift_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Lift");
 }
 
-QStack<qint64> Graphics_Combiner::Get_One_Up_Font_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Mario() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mario_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Mario", this->marioPatchName);
 }
 
-QStack<qint64> Graphics_Combiner::Get_Peach_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x67EA);
-    return offsets;
+bool Graphics_Combiner::Combine_Mushroom_Powerup() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mushroom_Powerup_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Piranha_Plant_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x680E); offsets.push(0x6814);
-    return offsets;
+bool Graphics_Combiner::Combine_One_Up_Font() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_One_Up_Font_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Font One Up");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Podoboo_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x681A);
-    return offsets;
+bool Graphics_Combiner::Combine_Peach() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Peach_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Score_Font_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Piranha_Plant() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Piranha_Plant_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Piranha Plant");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Sky_Lift_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Podoboo() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Podoboo_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Podoboo");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Spiny_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6772); offsets.push(0x6778);
-    return offsets;
+bool Graphics_Combiner::Combine_Score_Font() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Score_Font_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Font Score");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Spiny_Egg_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x677E); offsets.push(0x6784);
-    return offsets;
+bool Graphics_Combiner::Combine_Sky_Lift() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Sky_Lift_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Lift Sky");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Toad_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x67F0);
-    return offsets;
+bool Graphics_Combiner::Combine_Spiny() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Spiny_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Spiny");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Axe_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0CB0);
-    return offsets;
+bool Graphics_Combiner::Combine_Spiny_Egg() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Spiny_Egg_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Spiny Egg");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Brick_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BD0); offsets.push(0x0BD4); offsets.push(0x0BD8); offsets.push(0x0BDC); offsets.push(0x0BE0); offsets.push(0x0C00); offsets.push(0x0C04); offsets.push(0x0C08);
-    offsets.push(0x0C10); offsets.push(0x0C14); offsets.push(0x0C18); offsets.push(0x0C1C); offsets.push(0x0C20); offsets.push(0x0C24); offsets.push(0x0C28); offsets.push(0x0C2C); offsets.push(0x0C30); offsets.push(0x0C34);
-    return offsets;
+bool Graphics_Combiner::Combine_Starman() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Starman_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Starman");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Brick_Block_Animation_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6BDD);
-    return offsets;
+bool Graphics_Combiner::Combine_Toad() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Toad_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bowser_Bridge_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C98);
-    return offsets;
+bool Graphics_Combiner::Combine_Axe() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Axe_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Axe");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bridge_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0B4C); offsets.push(0x0C48);
-    return offsets;
+bool Graphics_Combiner::Combine_Brick_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Brick_Block_Offsets(), false)) return true;
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Brick_Block_Animation_Offsets(), true)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Brick Block", this->brickPatchName);
 }
 
-QStack<qint64> Graphics_Combiner::Get_Bullet_Bill_Cannon_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C4C); offsets.push(0x0C50); offsets.push(0x0C54);
-    return offsets;
+bool Graphics_Combiner::Combine_Bowser_Bridge() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bowser_Bridge_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser Bridge");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Castle_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C44);
-    return offsets;
+bool Graphics_Combiner::Combine_Bridge() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bridge_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bridge");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Chain_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0B50);
-    return offsets;
+bool Graphics_Combiner::Combine_Bullet_Bill_Cannon() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bullet_Bill_Cannon_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bullet Bill Cannon");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Cloud_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C94);
-    return offsets;
+bool Graphics_Combiner::Combine_Castle_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Castle_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Block Castle");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Coin_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0CA4); offsets.push(0x0CA8);
-    return offsets;
+bool Graphics_Combiner::Combine_Chain() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Chain_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Chain");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Coin_Icon_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Cloud_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Cloud_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Block Cloud");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Coral_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BA8);
-    return offsets;
+bool Graphics_Combiner::Combine_Coin() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Coin_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Coin");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Fire_Flower_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Coin_Icon() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Coin_Icon_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Coin Icon");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Flagpole_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BB0); offsets.push(0x0BB4);
-    return offsets;
+bool Graphics_Combiner::Combine_Coral() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Coral_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Coral");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Font_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Flagpole() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Flagpole_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Flagpole");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Mushroom_Powerup_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Font() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Font_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Font");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Mushroom_Platform_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0B84); offsets.push(0x0B88); offsets.push(0x0B8C); offsets.push(0x0BF8); offsets.push(0x0BFC);
-    return offsets;
+bool Graphics_Combiner::Combine_Mushroom_Platform() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mushroom_Platform_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Island Mushroom");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Overworld_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C0C);
-    return offsets;
+bool Graphics_Combiner::Combine_Overworld_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Overworld_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Block Overworld");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Pipe_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C68); offsets.push(0x0C6C); offsets.push(0x0B60); offsets.push(0x0B64); offsets.push(0x0B68); offsets.push(0x0B6C); offsets.push(0x0B70); offsets.push(0x0B74);
-    offsets.push(0x0B90); offsets.push(0x0B94); offsets.push(0x0B98); offsets.push(0x0B9C); offsets.push(0x0BA0); offsets.push(0x0BA4);
-    return offsets;
+bool Graphics_Combiner::Combine_Pipe() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Pipe_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Pipe");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Question_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C9C); offsets.push(0x0CA0); offsets.push(0x0CAC);
-    return offsets;
+bool Graphics_Combiner::Combine_Question_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Question_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Question Block");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Rope_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BBC); offsets.push(0x0BC0); offsets.push(0x0BC4); offsets.push(0x0BC8);
-    return offsets;
+bool Graphics_Combiner::Combine_Rope() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Rope_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Rope");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Selector_Icon_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Selector_Icon() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Selector_Icon_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Selector Icon");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Solid_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C40);
-    return offsets;
+bool Graphics_Combiner::Combine_Solid_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Solid_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Solid Block");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Starman_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Tree_Platform() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Tree_Platform_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Island Tree");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Tree_Platform_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0B78); offsets.push(0x0B7C); offsets.push(0x0B80); offsets.push(0x0BEC);
-    return offsets;
+bool Graphics_Combiner::Combine_Underwater_Block() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Underwater_Block_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Block Underwater");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Underwater_Block_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C60);
-    return offsets;
+bool Graphics_Combiner::Combine_Vine() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Vine_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Vine");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Vine_Offsets() {
-    return QStack<qint64>();
+bool Graphics_Combiner::Combine_Water() {
+    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Water_Offsets(), false)) return true;
+    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Water");
 }
 
-QStack<qint64> Graphics_Combiner::Get_Water_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0C8C);
-    return offsets;
-}
+bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets, bool sprite) {
+    if (offsets.isEmpty()) return false; //no new tiles
 
-void Graphics_Combiner::Initialize_Tile_Order_Map() {
-    this->Deallocate_Tile_Order_Map();
-    this->tileOrderMap = new QMap<qint64, QByteArray*>();
-    this->tileOrderMap->insert(0xB4C, new QByteArray(QByteArray::fromHex(QString("24C024C0").toLatin1())));
-    this->tileOrderMap->insert(0xB50, new QByteArray(QByteArray::fromHex(QString("247F7F24").toLatin1())));
-    this->tileOrderMap->insert(0xB60, new QByteArray(QByteArray::fromHex(QString("60646165").toLatin1())));
-    this->tileOrderMap->insert(0xB64, new QByteArray(QByteArray::fromHex(QString("62666367").toLatin1())));
-    this->tileOrderMap->insert(0xB68, new QByteArray(QByteArray::fromHex(QString("60646165").toLatin1())));
-    this->tileOrderMap->insert(0xB6C, new QByteArray(QByteArray::fromHex(QString("62666367").toLatin1())));
-    this->tileOrderMap->insert(0xB70, new QByteArray(QByteArray::fromHex(QString("68686969").toLatin1())));
-    this->tileOrderMap->insert(0xB74, new QByteArray(QByteArray::fromHex(QString("26266A6A").toLatin1())));
-    this->tileOrderMap->insert(0xB78, new QByteArray(QByteArray::fromHex(QString("4B4C4D4E").toLatin1())));
-    this->tileOrderMap->insert(0xB7C, new QByteArray(QByteArray::fromHex(QString("4D4F4D4F").toLatin1())));
-    this->tileOrderMap->insert(0xB80, new QByteArray(QByteArray::fromHex(QString("4D4E5051").toLatin1())));
-    this->tileOrderMap->insert(0xB84, new QByteArray(QByteArray::fromHex(QString("6B702C2D").toLatin1())));
-    this->tileOrderMap->insert(0xB88, new QByteArray(QByteArray::fromHex(QString("6C716D72").toLatin1())));
-    this->tileOrderMap->insert(0xB8C, new QByteArray(QByteArray::fromHex(QString("6E736F74").toLatin1())));
-    this->tileOrderMap->insert(0xB90, new QByteArray(QByteArray::fromHex(QString("868A878B").toLatin1())));
-    this->tileOrderMap->insert(0xB94, new QByteArray(QByteArray::fromHex(QString("888C888C").toLatin1())));
-    this->tileOrderMap->insert(0xB98, new QByteArray(QByteArray::fromHex(QString("898D6969").toLatin1())));
-    this->tileOrderMap->insert(0xB9C, new QByteArray(QByteArray::fromHex(QString("8E918F92").toLatin1())));
-    this->tileOrderMap->insert(0xBA0, new QByteArray(QByteArray::fromHex(QString("26932693").toLatin1())));
-    this->tileOrderMap->insert(0xBA4, new QByteArray(QByteArray::fromHex(QString("90946969").toLatin1())));
-    this->tileOrderMap->insert(0xBA8, new QByteArray(QByteArray::fromHex(QString("A4E9EAEB").toLatin1())));
-    this->tileOrderMap->insert(0xBB0, new QByteArray(QByteArray::fromHex(QString("242F243D").toLatin1())));
-    this->tileOrderMap->insert(0xBB4, new QByteArray(QByteArray::fromHex(QString("A2A2A3A3").toLatin1())));
-    this->tileOrderMap->insert(0xBBC, new QByteArray(QByteArray::fromHex(QString("A2A2A3A3").toLatin1())));
-    this->tileOrderMap->insert(0xBC0, new QByteArray(QByteArray::fromHex(QString("99249924").toLatin1())));
-    this->tileOrderMap->insert(0xBC4, new QByteArray(QByteArray::fromHex(QString("24A23E3F").toLatin1())));
-    this->tileOrderMap->insert(0xBC8, new QByteArray(QByteArray::fromHex(QString("5B5C24A3").toLatin1())));
-    this->tileOrderMap->insert(0xBD0, new QByteArray(QByteArray::fromHex(QString("9D479E47").toLatin1())));
-    this->tileOrderMap->insert(0xBD4, new QByteArray(QByteArray::fromHex(QString("47472727").toLatin1())));
-    this->tileOrderMap->insert(0xBD8, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xBDC, new QByteArray(QByteArray::fromHex(QString("27274747").toLatin1())));
-    this->tileOrderMap->insert(0xBE0, new QByteArray(QByteArray::fromHex(QString("A947AA47").toLatin1())));
-    this->tileOrderMap->insert(0xBEC, new QByteArray(QByteArray::fromHex(QString("52525252").toLatin1())));
-    this->tileOrderMap->insert(0xBF8, new QByteArray(QByteArray::fromHex(QString("75BA76BB").toLatin1())));
-    this->tileOrderMap->insert(0xBFC, new QByteArray(QByteArray::fromHex(QString("BABABBBB").toLatin1())));
-    this->tileOrderMap->insert(0xC00, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC04, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC08, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC0C, new QByteArray(QByteArray::fromHex(QString("B4B6B5B7").toLatin1())));
-    this->tileOrderMap->insert(0xC10, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC14, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC18, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC1C, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC20, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC24, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC28, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC2C, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC30, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC34, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC40, new QByteArray(QByteArray::fromHex(QString("ABACADAE").toLatin1())));
-    this->tileOrderMap->insert(0xC44, new QByteArray(QByteArray::fromHex(QString("5D5E5D5E").toLatin1())));
-    this->tileOrderMap->insert(0xC48, new QByteArray(QByteArray::fromHex(QString("C124C124").toLatin1())));
-    this->tileOrderMap->insert(0xC4C, new QByteArray(QByteArray::fromHex(QString("C6C8C7C9").toLatin1())));
-    this->tileOrderMap->insert(0xC50, new QByteArray(QByteArray::fromHex(QString("CACCCBCD").toLatin1())));
-    this->tileOrderMap->insert(0xC54, new QByteArray(QByteArray::fromHex(QString("2A2A4040").toLatin1())));
-    this->tileOrderMap->insert(0xC5C, new QByteArray(QByteArray::fromHex(QString("24472447").toLatin1())));
-    this->tileOrderMap->insert(0xC60, new QByteArray(QByteArray::fromHex(QString("82838485").toLatin1())));
-    this->tileOrderMap->insert(0xC64, new QByteArray(QByteArray::fromHex(QString("24472447").toLatin1())));
-    this->tileOrderMap->insert(0xC68, new QByteArray(QByteArray::fromHex(QString("868A878B").toLatin1())));
-    this->tileOrderMap->insert(0xC6C, new QByteArray(QByteArray::fromHex(QString("8E918F92").toLatin1())));
-    this->tileOrderMap->insert(0xC8C, new QByteArray(QByteArray::fromHex(QString("41264126").toLatin1())));
-    this->tileOrderMap->insert(0xC94, new QByteArray(QByteArray::fromHex(QString("B0B1B2B3").toLatin1())));
-    this->tileOrderMap->insert(0xC98, new QByteArray(QByteArray::fromHex(QString("77797779").toLatin1())));
-    this->tileOrderMap->insert(0xC9C, new QByteArray(QByteArray::fromHex(QString("53555456").toLatin1())));
-    this->tileOrderMap->insert(0xCA0, new QByteArray(QByteArray::fromHex(QString("53555456").toLatin1())));
-    this->tileOrderMap->insert(0xCA4, new QByteArray(QByteArray::fromHex(QString("A5A7A6A8").toLatin1())));
-    this->tileOrderMap->insert(0xCA8, new QByteArray(QByteArray::fromHex(QString("C2C4C3C5").toLatin1())));
-    this->tileOrderMap->insert(0xCAC, new QByteArray(QByteArray::fromHex(QString("5759585A").toLatin1())));
-    this->tileOrderMap->insert(0xCB0, new QByteArray(QByteArray::fromHex(QString("7B7D7C7E").toLatin1())));
-    this->tileOrderMap->insert(0x674E, new QByteArray(QByteArray::fromHex(QString("FCFCAAABACAD").toLatin1())));
-    this->tileOrderMap->insert(0x6754, new QByteArray(QByteArray::fromHex(QString("FCFCAEAFB0B1").toLatin1())));
-    this->tileOrderMap->insert(0x675A, new QByteArray(QByteArray::fromHex(QString("FCA5A6A7A8A9").toLatin1())));
-    this->tileOrderMap->insert(0x6760, new QByteArray(QByteArray::fromHex(QString("FCA0A1A2A3A4").toLatin1())));
-    this->tileOrderMap->insert(0x6766, new QByteArray(QByteArray::fromHex(QString("69A56AA7A8A9").toLatin1())));
-    this->tileOrderMap->insert(0x676C, new QByteArray(QByteArray::fromHex(QString("6BA06CA2A3A4").toLatin1())));
-    this->tileOrderMap->insert(0x6772, new QByteArray(QByteArray::fromHex(QString("FCFC96979899").toLatin1())));
-    this->tileOrderMap->insert(0x6778, new QByteArray(QByteArray::fromHex(QString("FCFC9A9B9C9D").toLatin1())));
-    this->tileOrderMap->insert(0x677E, new QByteArray(QByteArray::fromHex(QString("FCFC8F8E8E8F").toLatin1())));
-    this->tileOrderMap->insert(0x6784, new QByteArray(QByteArray::fromHex(QString("FCFC95949495").toLatin1())));
-    this->tileOrderMap->insert(0x678A, new QByteArray(QByteArray::fromHex(QString("FCFCDCDCDFDF").toLatin1())));
-    this->tileOrderMap->insert(0x6790, new QByteArray(QByteArray::fromHex(QString("DCDCDDDDDEDE").toLatin1())));
-    this->tileOrderMap->insert(0x6796, new QByteArray(QByteArray::fromHex(QString("FCFCB2B3B4B5").toLatin1())));
-    this->tileOrderMap->insert(0x679C, new QByteArray(QByteArray::fromHex(QString("FCFCB6B3B7B5").toLatin1())));
-    this->tileOrderMap->insert(0x67A2, new QByteArray(QByteArray::fromHex(QString("FCFC70717273").toLatin1())));
-    this->tileOrderMap->insert(0x67A8, new QByteArray(QByteArray::fromHex(QString("FCFC6E6E6F6F").toLatin1())));
-    this->tileOrderMap->insert(0x67AE, new QByteArray(QByteArray::fromHex(QString("FCFC6D6D6F6F").toLatin1())));
-    this->tileOrderMap->insert(0x67B4, new QByteArray(QByteArray::fromHex(QString("FCFC6F6F6E6E").toLatin1())));
-    this->tileOrderMap->insert(0x67BA, new QByteArray(QByteArray::fromHex(QString("FCFC6F6F6D6D").toLatin1())));
-    this->tileOrderMap->insert(0x67C0, new QByteArray(QByteArray::fromHex(QString("FCFCF4F4F5F5").toLatin1())));
-    this->tileOrderMap->insert(0x67C6, new QByteArray(QByteArray::fromHex(QString("FCFCF4F4F5F5").toLatin1())));
-    this->tileOrderMap->insert(0x67CC, new QByteArray(QByteArray::fromHex(QString("FCFCF5F5F4F4").toLatin1())));
-    this->tileOrderMap->insert(0x67D2, new QByteArray(QByteArray::fromHex(QString("FCFCF5F5F4F4").toLatin1())));
-    this->tileOrderMap->insert(0x67D8, new QByteArray(QByteArray::fromHex(QString("FCFCFCFCEFEF").toLatin1())));
-    this->tileOrderMap->insert(0x67DE, new QByteArray(QByteArray::fromHex(QString("B9B8BBBABCBC").toLatin1())));
-    this->tileOrderMap->insert(0x67E4, new QByteArray(QByteArray::fromHex(QString("FCFCBDBDBCBC").toLatin1())));
-    this->tileOrderMap->insert(0x67EA, new QByteArray(QByteArray::fromHex(QString("7A7BDADBD8D8").toLatin1())));
-    this->tileOrderMap->insert(0x67F0, new QByteArray(QByteArray::fromHex(QString("CDCDCECECFCF").toLatin1())));
-    this->tileOrderMap->insert(0x67F6, new QByteArray(QByteArray::fromHex(QString("7D7CD18CD3D2").toLatin1())));
-    this->tileOrderMap->insert(0x67FC, new QByteArray(QByteArray::fromHex(QString("7D7C89888B8A").toLatin1())));
-    this->tileOrderMap->insert(0x6802, new QByteArray(QByteArray::fromHex(QString("D5D4E3E2D3D2").toLatin1())));
-    this->tileOrderMap->insert(0x6808, new QByteArray(QByteArray::fromHex(QString("D5D4E3E28B8A").toLatin1())));
-    this->tileOrderMap->insert(0x680E, new QByteArray(QByteArray::fromHex(QString("E5E5E6E6EBEB").toLatin1())));
-    this->tileOrderMap->insert(0x6814, new QByteArray(QByteArray::fromHex(QString("ECECEDEDEEEE").toLatin1())));
-    this->tileOrderMap->insert(0x681A, new QByteArray(QByteArray::fromHex(QString("FCFCD0D0D7D7").toLatin1())));
-    this->tileOrderMap->insert(0x6820, new QByteArray(QByteArray::fromHex(QString("BFBEC1C0C2FC").toLatin1())));
-    this->tileOrderMap->insert(0x6826, new QByteArray(QByteArray::fromHex(QString("C4C3C6C5C8C7").toLatin1())));
-    this->tileOrderMap->insert(0x682C, new QByteArray(QByteArray::fromHex(QString("BFBECAC9C2FC").toLatin1())));
-    this->tileOrderMap->insert(0x6832, new QByteArray(QByteArray::fromHex(QString("C4C3C6C5CCCB").toLatin1())));
-    this->tileOrderMap->insert(0x6838, new QByteArray(QByteArray::fromHex(QString("FCFCE8E7EAE9").toLatin1())));
-    this->tileOrderMap->insert(0x683E, new QByteArray(QByteArray::fromHex(QString("F2F2F3F3F2F2").toLatin1())));
-    this->tileOrderMap->insert(0x6844, new QByteArray(QByteArray::fromHex(QString("F1F1F1F1FCFC").toLatin1())));
-    this->tileOrderMap->insert(0x684A, new QByteArray(QByteArray::fromHex(QString("F0F0FCFCFCFC").toLatin1())));
-    this->tileOrderMap->insert(0x6BDD, new QByteArray(QByteArray::fromHex(QString("85858686").toLatin1())));
-    this->tileOrderMap->insert(0x6E28, new QByteArray(QByteArray::fromHex(QString("0102030405060708").toLatin1())));
-    this->tileOrderMap->insert(0x6E30, new QByteArray(QByteArray::fromHex(QString("090A0B0C0D0E0F10").toLatin1())));
-    this->tileOrderMap->insert(0x6E38, new QByteArray(QByteArray::fromHex(QString("1112131415161718").toLatin1())));
-    this->tileOrderMap->insert(0x6E40, new QByteArray(QByteArray::fromHex(QString("191A1B1C1D1E1F20").toLatin1())));
-    this->tileOrderMap->insert(0x6E48, new QByteArray(QByteArray::fromHex(QString("2122232425262708").toLatin1())));
-    this->tileOrderMap->insert(0x6E50, new QByteArray(QByteArray::fromHex(QString("0928292A2B2C2D08").toLatin1())));
-    this->tileOrderMap->insert(0x6E58, new QByteArray(QByteArray::fromHex(QString("090A0B0C302C2D08").toLatin1())));
-    this->tileOrderMap->insert(0x6E60, new QByteArray(QByteArray::fromHex(QString("090A0B2E2F2C2D08").toLatin1())));
-    this->tileOrderMap->insert(0x6E68, new QByteArray(QByteArray::fromHex(QString("0928292A2B5C5D08").toLatin1())));
-    this->tileOrderMap->insert(0x6E70, new QByteArray(QByteArray::fromHex(QString("090A0B0C0D5E5FFC").toLatin1())));
-    this->tileOrderMap->insert(0x6E78, new QByteArray(QByteArray::fromHex(QString("FC080958595A5A08").toLatin1())));
-    this->tileOrderMap->insert(0x6E80, new QByteArray(QByteArray::fromHex(QString("0928292A2B0E0FFC").toLatin1())));
-    this->tileOrderMap->insert(0x6E88, new QByteArray(QByteArray::fromHex(QString("FCFCFC32333435FC").toLatin1())));
-    this->tileOrderMap->insert(0x6E90, new QByteArray(QByteArray::fromHex(QString("FCFCFC36373839FC").toLatin1())));
-    this->tileOrderMap->insert(0x6E98, new QByteArray(QByteArray::fromHex(QString("FCFCFC3A373B3CFC").toLatin1())));
-    this->tileOrderMap->insert(0x6EA0, new QByteArray(QByteArray::fromHex(QString("FCFCFC3D3E3F40FC").toLatin1())));
-    this->tileOrderMap->insert(0x6EA8, new QByteArray(QByteArray::fromHex(QString("FCFCFC32414243FC").toLatin1())));
-    this->tileOrderMap->insert(0x6EB0, new QByteArray(QByteArray::fromHex(QString("FCFCFC32334445FC").toLatin1())));
-    this->tileOrderMap->insert(0x6EB8, new QByteArray(QByteArray::fromHex(QString("FCFCFC32334447FC").toLatin1())));
-    this->tileOrderMap->insert(0x6EC0, new QByteArray(QByteArray::fromHex(QString("FCFCFC32334849FC").toLatin1())));
-    this->tileOrderMap->insert(0x6EC8, new QByteArray(QByteArray::fromHex(QString("FCFCFC32339091FC").toLatin1())));
-    this->tileOrderMap->insert(0x6ED0, new QByteArray(QByteArray::fromHex(QString("FCFCFC3A379293FC").toLatin1())));
-    this->tileOrderMap->insert(0x6ED8, new QByteArray(QByteArray::fromHex(QString("FCFCFC9E9E9F9FFC").toLatin1())));
-    this->tileOrderMap->insert(0x6EE0, new QByteArray(QByteArray::fromHex(QString("FCFCFC3A374F4FFC").toLatin1())));
-    this->tileOrderMap->insert(0x6EE8, new QByteArray(QByteArray::fromHex(QString("FC00014C4D4E4E00").toLatin1())));
-    this->tileOrderMap->insert(0x6EF0, new QByteArray(QByteArray::fromHex(QString("014C4D4A4A4B4B31").toLatin1())));
-}
+    //Read the old tiles
+    QSet<char> tiles;
+    QByteArray oldTiles;
+    QStack<qint64> oldOffsets = offsets;
+    if (sprite) tiles.insert(static_cast<char>(0xFC));
+    else tiles.insert(static_cast<char>(0x24));
+    int tileOrderSize = 0;
 
-void Graphics_Combiner::Deallocate_Tile_Order_Map() {
-    if (this->tileOrderMap) {
-        for (QByteArray *bytes : this->tileOrderMap->values()) delete bytes;
+    //Read the original tiles
+    while (!oldOffsets.isEmpty()) {
+        qint64 offset = oldOffsets.pop();
+        QByteArray *oldTiles = this->graphicsOffsets->Get_Values_At_Offset_And_Never_Fail(offset);
+        if (tileOrderSize == 0) tileOrderSize = oldTiles->size();
+        else assert(oldTiles->size() == tileOrderSize);
+        for (char c : *oldTiles) tiles.insert(c);
     }
-    delete this->tileOrderMap;
+
+    //Compare against the new tiles
+    while (!offsets.isEmpty()) {
+        qint64 offset = offsets.pop();
+        QByteArray newTiles;
+        assert(this->Read_Bytes_From_Offset(offset, tileOrderSize, newTiles));
+        assert(newTiles.size() == tileOrderSize);
+
+        //Update blank tiles
+        for (int i = 0; i < newTiles.size(); ++i) {
+            if (this->Is_Tile_Blank(newTiles.at(i), sprite)) {
+                if (sprite) newTiles.data()[i] = static_cast<char>(0xFC);
+                else newTiles.data()[i] = static_cast<char>(0x24);
+            }
+        }
+
+        for (char c : newTiles) {
+            if (!tiles.contains(c)) return true;
+        }
+    }
+    return false;
+}
+
+bool Graphics_Combiner::Is_Tile_Blank(char tileID, bool sprite) {
+    QByteArray graphicsBytes;
+    if (sprite) assert(this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(tileID, graphicsBytes));
+    else assert(this->graphics->Read_Graphics_Bytes_From_Background_Tile_ID(tileID, graphicsBytes));
+    for (int i = 0; i < graphicsBytes.size(); ++i) {
+        if (graphicsBytes.at(i) != static_cast<char>(0x00)) return false;
+    }
+    return true;
 }
