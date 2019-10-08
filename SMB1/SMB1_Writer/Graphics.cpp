@@ -2,6 +2,7 @@
 #include "../../Common_Files/Version.h"
 #include "../Common_SMB1_Files/Fix_Strings.h"
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
+#include "Graphics_Combiner.h"
 #include "Level_Offset.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
@@ -32,6 +33,11 @@ Graphics::Graphics(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *seque
     this->versionOffset = DEFAULT_VERSION_OFFSET;
     this->sequentialArchiveHandler = sequentialArchiveHandler;
     this->text = text;
+    this->graphicsCombiner = new Graphics_Combiner();
+}
+
+Graphics::~Graphics() {
+    delete this->graphicsCombiner;
 }
 
 bool Graphics::Apply_Bone_Caster_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BONE_CASTER, Fix_Strings::STRING_GRAPHICS_PACK); }
@@ -48,14 +54,14 @@ bool Graphics::Apply_Slime_Flower_Fix() { return this->sequentialArchiveHandler-
 bool Graphics::Apply_Spinball_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINBALL_FLOWER, Fix_Strings::STRING_GRAPHICS_PACK); }
 
 bool Graphics::Apply_Title_Screen_1P_Fix(qint64 &versionOffset) {
-    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P, Fix_Strings::STRING_GRAPHICS_PACK);
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
 }
 
 bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
-    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P, Fix_Strings::STRING_GRAPHICS_PACK);
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
     return this->sequentialArchiveHandler->Apply_Graphics_Fix(patchBytes);
@@ -64,6 +70,14 @@ bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
 bool Graphics::Change_1UP_Palette(int palette) {
     if (palette < 0 || palette > 3) return false;
     return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(palette)));
+}
+
+bool Graphics::Combine_Graphics() {
+    return this->graphicsCombiner->Combine_All_Except_Mario();
+}
+
+bool Graphics::Combine_Mario() {
+    return this->graphicsCombiner->Combine_Mario();
 }
 
 bool Graphics::Make_Sprite_Tiles_Transparent(const QByteArray &tiles) {

@@ -33,6 +33,7 @@ public:
     bool Are_Color_Palettes_Allowed();
     bool Are_Only_Coin_Palettes_Allowed();
     QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType);
+    QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType, QString graphicsPack);
     bool Is_Hexagon_Line_End_Of_Header(const QString &line);
     bool Install_ROM_Patches(const QString &romName);
 

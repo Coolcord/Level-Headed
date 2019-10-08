@@ -3,15 +3,16 @@
 
 #include "Byte_Writer.h"
 #include <QByteArray>
+#include <QMap>
 
+class Graphics_Combiner;
 class Text;
 class Sequential_Archive_Handler;
 
-class Graphics : public Byte_Writer
-{
+class Graphics : public Byte_Writer {
 public:
     Graphics(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler, Text *text);
-    ~Graphics() {}
+    ~Graphics();
     bool Apply_Bone_Caster_Fix();
     bool Apply_Coin_Flinger_Fix();
     bool Apply_Cutter_Flower_Fix();
@@ -27,6 +28,8 @@ public:
     bool Apply_Title_Screen_1P_Fix(qint64 &versionOffset);
     bool Apply_Title_Screen_2P_Fix(qint64 &versionOffset);
     bool Change_1UP_Palette(int palette);
+    bool Combine_Graphics();
+    bool Combine_Mario();
     bool Make_Sprite_Tiles_Transparent(const QByteArray &tiles);
     bool Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes);
     bool Perform_Horizontal_Flip(QByteArray &graphicsBytes);
@@ -40,8 +43,11 @@ private:
     bool Write_Title_Screen_Core();
     QByteArray Get_Version_Bytes();
     void Get_Version_Offset_From_Title_Screen_Fix(const QByteArray &patchBytes, qint64 &versionOffset);
+    void Initialize_Tile_Order_Map();
+    void Deallocate_Tile_Order_Map();
     char Reverse_Bits(char byte);
 
+    Graphics_Combiner *graphicsCombiner;
     Text *text;
     Sequential_Archive_Handler *sequentialArchiveHandler;
     qint64 versionOffset;

@@ -1045,6 +1045,16 @@ bool SMB1_Writer::Graphics_Apply_Graphics_Pack(int index) {
     return this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index);
 }
 
+bool SMB1_Writer::Graphics_Combine_Graphics() {
+    if (!this->graphics) return false;
+    return this->graphics->Combine_Graphics();
+}
+
+bool SMB1_Writer::Graphics_Combine_Mario() {
+    if (!this->graphics) return false;
+    return this->graphics->Combine_Mario();
+}
+
 int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Bonus_Graphics_Packs();

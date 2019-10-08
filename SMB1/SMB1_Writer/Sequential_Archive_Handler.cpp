@@ -172,9 +172,14 @@ bool Sequential_Archive_Handler::Are_Only_Coin_Palettes_Allowed() {
 }
 
 QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType) {
+    return this->Read_Graphics_Fix(fixName, fixType, this->lastAppliedGraphicsPack);
+}
+
+QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType, QString graphicsPack) {
     if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
-    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+fixType+"/"+fixName+"/"+this->lastAppliedGraphicsPack);
+    if (graphicsPack.isEmpty()) graphicsPack = this->lastAppliedGraphicsPack;
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+fixType+"/"+fixName+"/"+graphicsPack);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
 }

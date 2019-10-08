@@ -268,6 +268,8 @@ public:
     QStringList Graphics_Get_Bonus_Graphics_Packs();
     QStringList Graphics_Get_Graphics_Packs();
     bool Graphics_Apply_Graphics_Pack(int index);
+    bool Graphics_Combine_Graphics();
+    bool Graphics_Combine_Mario();
     int Graphics_Get_Number_Of_Bonus_Graphics_Packs();
     int Graphics_Get_Number_Of_Graphics_Packs();
     bool Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
