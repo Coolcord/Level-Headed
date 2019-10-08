@@ -248,6 +248,7 @@ QStack<qint64> Graphics_Offsets::Get_Font_Offsets() {
 
 QStack<qint64> Graphics_Offsets::Get_Mushroom_Platform_Offsets() {
     QStack<qint64> offsets; offsets.push(0x0B84); offsets.push(0x0B88); offsets.push(0x0B8C); offsets.push(0x0BF8); offsets.push(0x0BFC);
+     offsets.push(0x0B54); offsets.push(0x0B5C); //tall trees share mushroom tiles
     return offsets;
 }
 
@@ -309,6 +310,8 @@ void Graphics_Offsets::Initialize_Tile_Order_Map() {
     //=========================================================================================================================
     this->tileOrderMap->insert(0xB4C, new QByteArray(QByteArray::fromHex(QString("24C024C0").toLatin1())));
     this->tileOrderMap->insert(0xB50, new QByteArray(QByteArray::fromHex(QString("247F7F24").toLatin1())));
+    this->tileOrderMap->insert(0xB54, new QByteArray(QByteArray::fromHex(QString("B8BAB9BB").toLatin1())));
+    this->tileOrderMap->insert(0xB5C, new QByteArray(QByteArray::fromHex(QString("BABCBBBD").toLatin1())));
     this->tileOrderMap->insert(0xB60, new QByteArray(QByteArray::fromHex(QString("60646165").toLatin1())));
     this->tileOrderMap->insert(0xB64, new QByteArray(QByteArray::fromHex(QString("62666367").toLatin1())));
     this->tileOrderMap->insert(0xB68, new QByteArray(QByteArray::fromHex(QString("60646165").toLatin1())));

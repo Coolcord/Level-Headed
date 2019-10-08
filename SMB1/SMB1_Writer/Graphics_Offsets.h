@@ -69,6 +69,7 @@ public:
     QStack<qint64> Get_Rope_Offsets();
     QStack<qint64> Get_Selector_Icon_Offsets();
     QStack<qint64> Get_Solid_Block_Offsets();
+    QStack<qint64> Get_Tall_Tree_Offsets();
     QStack<qint64> Get_Tree_Platform_Offsets();
     QStack<qint64> Get_Underwater_Block_Offsets();
     QStack<qint64> Get_Vine_Offsets();
