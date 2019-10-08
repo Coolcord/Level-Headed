@@ -250,11 +250,12 @@ public:
     virtual QStringList Graphics_Get_Bonus_Graphics_Packs()=0;
     virtual QStringList Graphics_Get_Graphics_Packs()=0;
     virtual bool Graphics_Apply_Graphics_Pack(int index)=0;
-    virtual bool Graphics_Combine_Graphics()=0;
+    virtual bool Graphics_Combine_Graphics()=0; //only call this with the original graphics
     virtual bool Graphics_Combine_Mario()=0;
     virtual int Graphics_Get_Number_Of_Bonus_Graphics_Packs()=0;
     virtual int Graphics_Get_Number_Of_Graphics_Packs()=0;
     virtual bool Graphics_Randomize_Palettes(int paletteMode)=0;
+    virtual bool Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks)=0;
     virtual bool Graphics_Change_1UP_Palette(int palette)=0;
     virtual bool Graphics_Write_Title_Screen_For_1_Player_Game()=0;
     virtual bool Graphics_Write_Title_Screen_For_2_Player_Game()=0;

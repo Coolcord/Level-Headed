@@ -11,6 +11,7 @@
 #include <QTextStream>
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
+    this->combineGraphicsPacks = false;
     this->combineMusicPacks = false;
     this->file = nullptr;
     this->hexagonPlugin = nullptr;
@@ -41,6 +42,18 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->sequentialArchivePlugin = nullptr;
     delete this->invalidTones;
     this->invalidTones = nullptr;
+}
+
+bool Sequential_Archive_Handler::Get_Combine_Graphics_Packs() {
+    return this->combineGraphicsPacks;
+}
+
+bool Sequential_Archive_Handler::Get_Combine_Music_Packs() {
+    return this->combineMusicPacks;
+}
+
+void Sequential_Archive_Handler::Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
+    this->combineGraphicsPacks = combineGraphicsPacks;
 }
 
 void Sequential_Archive_Handler::Set_Combine_Music_Packs(bool combineMusicPacks) {
@@ -209,10 +222,13 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Sprite(const QString &patch
 QByteArray Sequential_Archive_Handler::Read_Random_Graphics_Sprite(const QString &spriteName, QString &patchName) {
     if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
-    if (!this->sequentialArchivePlugin->Change_Directory("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName)) return QByteArray();
+    if (!this->sequentialArchivePlugin->Change_Directory("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName)) { this->sequentialArchivePlugin->Close(); return QByteArray(); }
     QStringList files = this->sequentialArchivePlugin->Get_Files();
-    int num = Random::Get_Instance().Get_Num(files.size());
-    if (num == files.size()) return QByteArray(); //don't apply anything
+    int num = Random::Get_Instance().Get_Num((files.size()*2)-1);
+    if (num >= files.size()) {
+        this->sequentialArchivePlugin->Close();
+        return QByteArray(); //don't apply anything
+    }
     patchName = files.at(num);
     qDebug().noquote() << spriteName+": \""+patchName+"\"";
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName+"/"+patchName);

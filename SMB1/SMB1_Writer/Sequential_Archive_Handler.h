@@ -11,6 +11,9 @@ class Sequential_Archive_Handler {
 public:
     Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation);
     ~Sequential_Archive_Handler();
+    bool Get_Combine_Graphics_Packs();
+    bool Get_Combine_Music_Packs();
+    void Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
     bool Apply_Graphics_Fix(const QString &fixName, const QString &fixType);
@@ -59,6 +62,7 @@ private:
     QSet<int> *invalidTones;
     bool allowPalettes;
     bool allowOnlyCoinPalettes;
+    bool combineGraphicsPacks;
     bool combineMusicPacks;
     Hexagon_Interface *hexagonPlugin;
     Sequential_Archive_Interface *sequentialArchivePlugin;

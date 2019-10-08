@@ -1041,13 +1041,16 @@ QStringList SMB1_Writer::Graphics_Get_Graphics_Packs() {
 }
 
 bool SMB1_Writer::Graphics_Apply_Graphics_Pack(int index) {
-    if (!this->sequentialArchiveHandler) return false;
-    return this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index);
+    if (!this->sequentialArchiveHandler || !this->graphics) return false;
+    if (!this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index)) return false;
+    if (this->sequentialArchiveHandler->Get_Combine_Graphics_Packs()) return this->graphics->Combine_Graphics();
+    else return true;
 }
 
 bool SMB1_Writer::Graphics_Combine_Graphics() {
-    if (!this->graphics) return false;
-    return this->graphics->Combine_Graphics();
+    if (!this->sequentialArchiveHandler || !this->graphics) return false;
+    if (this->sequentialArchiveHandler->Get_Combine_Graphics_Packs()) return this->graphics->Combine_Graphics();
+    else return true;
 }
 
 bool SMB1_Writer::Graphics_Combine_Mario() {
@@ -1068,6 +1071,12 @@ int SMB1_Writer::Graphics_Get_Number_Of_Graphics_Packs() {
 bool SMB1_Writer::Graphics_Randomize_Palettes(int paletteMode) {
     if (!this->palettes) return false;
     return this->palettes->Randomize_Palettes(paletteMode);
+}
+
+bool SMB1_Writer::Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
+    if (!this->sequentialArchiveHandler) return false;
+    this->sequentialArchiveHandler->Set_Combine_Graphics_Packs(combineGraphicsPacks);
+    return true;
 }
 
 bool SMB1_Writer::Graphics_Change_1UP_Palette(int palette) {
