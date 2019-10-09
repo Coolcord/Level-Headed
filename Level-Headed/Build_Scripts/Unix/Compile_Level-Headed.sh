@@ -95,43 +95,32 @@ mkdir -p Plugins/Writers/
 # Install Plugins and Data
 releaseDirectory=source/Level-Headed/Level-Headed/release
 if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running in a Windows OS
-    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/release/Plugins/
-    cp source/Level-Headed/Level-Headed/release/Level-Headed.exe Level-Headed.exe
-    chmod +x Level-Headed.exe
-    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/release/SMB1_Compliance_Generator.dll Plugins/Generators/SMB1_Compliance_Generator.dll
-    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/release/SMB1_Compliance_To_SMB1.dll Plugins/Interpreters/SMB1_Compliance_To_SMB1.dll
-    cp source/Level-Headed/SMB1/SMB1_Writer/release/SMB1_Writer.dll Plugins/Writers/SMB1_Writer.dll
-    cp source/Hexagon/Hexagon/release/Hexagon.dll Plugins/Hexagon.dll
-    cp source/Sequential_Archive/Sequential_Archive/release/Sequential_Archive.dll Plugins/Sequential_Archive.dll
-    cp source/Sequential_Archive/Sequential_Archive/release/Sequential_Archive.dll source/Sequential_Archive/Sequential_Archive_Manager/release/Plugins/Sequential_Archive.dll
-    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
-    if [ "$1" == "latest" ]; then
-        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/release/Sequential_Archive_Manager.exe --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
-    fi
+    dllExt=".dll"
+    exeExt=".exe"
+    binDir="/release"
 else # assume we're on GNU/Linux or Mac
-    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/Plugins/
-    cp source/Level-Headed/Level-Headed/Level-Headed Level-Headed
-    chmod +x Level-Headed
-    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/libSMB1_Compliance_Generator.so Plugins/Generators/SMB1_Compliance_Generator.so
-    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/libSMB1_Compliance_To_SMB1.so Plugins/Interpreters/SMB1_Compliance_To_SMB1.so
-    cp source/Level-Headed/SMB1/SMB1_Writer/libSMB1_Writer.so Plugins/Writers/SMB1_Writer.so
-    cp source/Hexagon/Hexagon/libHexagon.so Plugins/Hexagon.so
-    cp source/Sequential_Archive/Sequential_Archive/libSequential_Archive.so Plugins/Sequential_Archive.so
-    cp source/Sequential_Archive/Sequential_Archive/libSequential_Archive.so source/Sequential_Archive/Sequential_Archive_Manager/Plugins/Sequential_Archive.so
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
-    source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
-    if [ "$1" == "latest" ]; then
-        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
-        source/Sequential_Archive/Sequential_Archive_Manager/Sequential_Archive_Manager --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
-    fi
+    dllExt=".so"
+    exeExt=""
+    binDir=""
+fi
+mkdir -p source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/
+cp source/Level-Headed/Level-Headed"$binDir"/Level-Headed.exe Level-Headed.exe
+chmod +x Level-Headed"$exeExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_Generator"$binDir"/SMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1"$binDir"/SMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Writer"$binDir"/SMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
+cp source/Hexagon/Hexagon"$binDir"/Hexagon"$dllExt" Plugins/Hexagon"$dllExt"
+cp source/Sequential_Archive/Sequential_Archive"$binDir"/Sequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
+cp source/Sequential_Archive/Sequential_Archive"$binDir"/Sequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/Sequential_Archive"$dllExt"
+echo Packing assets...
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
+if [ "$1" == "latest" ]; then
+    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
+    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
+    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
+    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
 fi
 
 # Clean up
