@@ -294,7 +294,7 @@ int Enemy_Spawner::Calculate_Number_Of_Enemies() {
 
 int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEnemies) {
     int averageDistance = 4;
-    assert(totalSpaces-x >= 0);
+    if (totalSpaces-x < 0) return 1; //level is too short to use all enemies
     if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
     if (averageDistance > 11) averageDistance = 11;
     int minimumDistance = this->args->difficultyMinimumEnemyDistance;

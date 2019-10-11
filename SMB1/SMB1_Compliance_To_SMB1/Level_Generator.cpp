@@ -419,7 +419,7 @@ bool Level_Generator::Delete_Old_Level_Generations() {
     }
 
     //Delete old generations
-    const int MAX_OLD_GENERATIONS = 50;
+    const int MAX_OLD_GENERATIONS = 15;
     int generations = 0;
     QStringList nameFilters;
     nameFilters << "Random*"+Common_Strings::STRING_LEVELS_EXTENSION;

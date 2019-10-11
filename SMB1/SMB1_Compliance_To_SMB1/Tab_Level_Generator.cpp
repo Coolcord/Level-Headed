@@ -131,23 +131,28 @@ void Tab_Level_Generator::Populate_Level_Scripts_ComboBox() {
     QStringList filters; filters.append("*"+Common_Strings::STRING_LEVELS_EXTENSION);
     QStringList levelFolders = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot, QDir::Name);
     QStringList validLevelFolders;
+    QStringList validTechDemoFolders;
     QStringList validRandomFolders;
-    foreach (QString level, levelFolders) {
+    for (QString level : levelFolders) {
         level.chop(Common_Strings::STRING_LEVELS_EXTENSION.size());
         if (level.startsWith("Random ")) validRandomFolders.append(level);
+        else if (level.startsWith("(Tech Demo)")) validTechDemoFolders.append(level);
         else validLevelFolders.append(level);
     }
 
     //Add the valid folders to the ComboBox
-    if (validLevelFolders.isEmpty() && validRandomFolders.isEmpty()) {
+    if (validLevelFolders.isEmpty() && validRandomFolders.isEmpty() && validTechDemoFolders.isEmpty()) {
         this->ui->comboLevelScripts->addItem(STRING_NO_LEVEL_SCRIPTS_FOUND);
     } else {
         if (!validLevelFolders.isEmpty()) this->ui->comboLevelScripts->addItems(validLevelFolders);
+        if (!validTechDemoFolders.isEmpty()) this->ui->comboLevelScripts->addItems(validTechDemoFolders);
         if (!validRandomFolders.isEmpty()) this->ui->comboLevelScripts->addItems(validRandomFolders);
     }
 
     //Use the last selected level scripts
-    if (validLevelFolders.contains(this->pluginSettings->levelScripts) || validRandomFolders.contains(this->pluginSettings->levelScripts)) {
+    if (validLevelFolders.contains(this->pluginSettings->levelScripts)
+            || validRandomFolders.contains(this->pluginSettings->levelScripts)
+            || validTechDemoFolders.contains(this->pluginSettings->levelScripts)) {
         this->ui->comboLevelScripts->setCurrentText(this->pluginSettings->levelScripts);
     } else {
         this->ui->comboLevelScripts->setCurrentIndex(0);
