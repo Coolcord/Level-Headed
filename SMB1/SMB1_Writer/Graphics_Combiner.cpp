@@ -2,6 +2,7 @@
 #include "Graphics.h"
 #include "Graphics_Offsets.h"
 #include "Sequential_Archive_Handler.h"
+#include <QMap>
 #include <QSet>
 
 Graphics_Combiner::Graphics_Combiner(QFile *f, Level_Offset *lo, Sequential_Archive_Handler *sequentialArchiveHandler, Graphics *graphics) : Byte_Writer(f, lo) {
@@ -377,11 +378,11 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
     if (offsets.isEmpty()) return false; //no new tiles
 
     //Read the old tiles
-    QSet<char> tiles;
+    QMap<char, bool> tiles;
     QByteArray oldTiles;
     QStack<qint64> oldOffsets = offsets;
-    if (sprite) tiles.insert(static_cast<char>(0xFC));
-    else tiles.insert(static_cast<char>(0x24));
+    if (sprite) tiles.insert(static_cast<char>(0xFC), true);
+    else tiles.insert(static_cast<char>(0x24), true);
     int tileOrderSize = 0;
 
     //Read the original tiles
@@ -390,7 +391,7 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
         QByteArray *oldTiles = this->graphicsOffsets->Get_Values_At_Offset_And_Never_Fail(offset);
         if (tileOrderSize == 0) tileOrderSize = oldTiles->size();
         else assert(oldTiles->size() == tileOrderSize);
-        for (char c : *oldTiles) tiles.insert(c);
+        for (char c : *oldTiles) tiles.insert(c, false);
     }
 
     //Compare against the new tiles
@@ -403,13 +404,21 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
         //Update blank tiles
         for (int i = 0; i < newTiles.size(); ++i) {
             if (this->Is_Tile_Blank(newTiles.at(i), sprite)) {
+                tiles.insert(newTiles.at(i), true); //mark the old tile as safe to use
                 if (sprite) newTiles.data()[i] = static_cast<char>(0xFC);
                 else newTiles.data()[i] = static_cast<char>(0x24);
             }
         }
 
+        //Check to see if any new tiles were used
         for (char c : newTiles) {
-            if (!tiles.contains(c)) return true;
+            if (tiles.contains(c)) tiles.insert(c, true);
+            else return true;
+        }
+
+        //Make sure all tiles were used
+        for (QMap<char, bool>::iterator iter = tiles.begin(); iter != tiles.end(); ++iter) {
+            if (!iter.value()) return true;
         }
     }
     return false;

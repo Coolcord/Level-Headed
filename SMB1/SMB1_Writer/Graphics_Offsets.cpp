@@ -184,7 +184,8 @@ QStack<qint64> Graphics_Offsets::Get_Axe_Offsets() {
 
 QStack<qint64> Graphics_Offsets::Get_Brick_Block_Offsets() {
     QStack<qint64> offsets; offsets.push(0x0BD0); offsets.push(0x0BD4); offsets.push(0x0BD8); offsets.push(0x0BDC); offsets.push(0x0BE0); offsets.push(0x0C00); offsets.push(0x0C04); offsets.push(0x0C08);
-    offsets.push(0x0C10); offsets.push(0x0C14); offsets.push(0x0C18); offsets.push(0x0C1C); offsets.push(0x0C20); offsets.push(0x0C24); offsets.push(0x0C28); offsets.push(0x0C2C); offsets.push(0x0C30); offsets.push(0x0C34);
+    offsets.push(0x0C10); offsets.push(0x0C14); offsets.push(0x0C18); offsets.push(0x0C1C); offsets.push(0x0C20); offsets.push(0x0C24); offsets.push(0x0C28); offsets.push(0x0C2C); offsets.push(0x0C30);
+    offsets.push(0x0C34);
     return offsets;
 }
 
