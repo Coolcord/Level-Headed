@@ -1,4 +1,5 @@
 #include "Graphics_Combiner.h"
+#include "Color.h"
 #include "Graphics.h"
 #include "Graphics_Offsets.h"
 #include "Sequential_Archive_Handler.h"
@@ -200,6 +201,11 @@ bool Graphics_Combiner::Combine_Mario() {
 
 bool Graphics_Combiner::Combine_Mushroom_Powerup() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mushroom_Powerup_Offsets(), true)) return true;
+
+    //Make sure the red palette does not have black for color 3
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
+    if (bytes.at(0) == Color::BLACK) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom");
 }
 

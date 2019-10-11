@@ -321,7 +321,7 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>90</width>
+                    <width>110</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -372,12 +372,12 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>Extreme</string>
+                    <string>+ Extreme</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>No Limits</string>
+                    <string>+ No Limits</string>
                    </property>
                   </item>
                  </widget>
@@ -455,7 +455,7 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>90</width>
+                    <width>110</width>
                     <height>0</height>
                    </size>
                   </property>
