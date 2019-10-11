@@ -285,8 +285,6 @@ bool Hacks::Remove_Vertical_Object_Limit() {
 
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x111F, QByteArray(1, static_cast<char>(0x00)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x1140, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x1519, QByteArray(1, static_cast<char>(0x0A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x152B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1584, QByteArray::fromHex(QString("85043003DE8504").toLatin1()))) return false;
