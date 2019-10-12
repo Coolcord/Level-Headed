@@ -45,6 +45,8 @@ struct Plugin_Settings {
     int graphics;
     bool combineGraphicsWithOtherPacks;
     int palette;
+    int marioSprite;
+    int marioSpritePalette;
     bool infiniteLives;
     bool permadeath;
     int numLives;

@@ -32,6 +32,8 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(this->pluginSettings->combineGraphicsWithOtherPacks);
     this->ui->comboPalette->setCurrentIndex(this->pluginSettings->palette);
+    this->ui->comboMarioSprite->setCurrentIndex(this->pluginSettings->marioSprite);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(this->pluginSettings->marioSpritePalette);
     this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
     this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
     this->ui->leMarioName->setText(this->pluginSettings->marioName);
@@ -52,6 +54,8 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     this->pluginSettings->combineGraphicsWithOtherPacks = this->ui->cbCombineWithOtherGraphicsPacks->isChecked();
     this->pluginSettings->palette = this->ui->comboPalette->currentIndex();
+    this->pluginSettings->marioSprite = this->ui->comboMarioSprite->currentIndex();
+    this->pluginSettings->marioSpritePalette = this->ui->comboMarioSpritePalette->currentIndex();
     this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
     this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
     this->pluginSettings->marioName = this->ui->leMarioName->text();
@@ -196,6 +200,8 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->radio2PlayerGame->setChecked(true);
     this->ui->comboGraphics->setCurrentIndex(1);
     this->ui->comboPalette->setCurrentIndex(1);
+    this->ui->comboMarioSprite->setCurrentIndex(2);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(1);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(false);
     this->ui->comboMusic->setCurrentIndex(2);
     this->ui->comboTone->setCurrentIndex(1);
@@ -212,6 +218,8 @@ void Tab_Base_Game::Use_Random_Settings() {
     this->ui->radioAddLuigiGame->setChecked(true);
     this->ui->comboGraphics->setCurrentIndex(0);
     this->ui->comboPalette->setCurrentIndex(0);
+    this->ui->comboMarioSprite->setCurrentIndex(0);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(0);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(true);
     this->ui->comboMusic->setCurrentIndex(0);
     this->ui->comboTone->setCurrentIndex(0);
