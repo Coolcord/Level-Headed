@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -423,7 +423,7 @@ p, li { white-space: pre-wrap; }
                 <item row="1" column="0">
                  <widget class="QComboBox" name="comboMarioSprite">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -441,29 +441,39 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="lblMarioSpritePalette">
                   <property name="text">
-                   <string>Palette:</string>
+                   <string>Mario Sprite Palette:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
                  <widget class="QComboBox" name="comboMarioSpritePalette">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>110</width>
+                    <width>0</width>
                     <height>0</height>
                    </size>
                   </property>
                   <item>
                    <property name="text">
-                    <string>Random</string>
+                    <string>Random (No Randomly Generated)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Random All</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Randomly Generated</string>
                    </property>
                   </item>
                   <item>

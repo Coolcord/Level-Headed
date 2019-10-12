@@ -749,6 +749,112 @@ Color::Color Colors::Get_Random_Coral_Color() {
     else return this->Get_Random_Dark_Shade_Color(0x03, 0x0D);
 }
 
+Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Mario_Secondary_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    //Populate the available colors
+    QSet<Color::Color> availableColors;
+    for (int i = 0; i < 28; ++i) {
+        switch (i) {
+        default:    assert(false); return Color::BLACK;
+        case 0:     availableColors.insert(Color::GRAY); break;
+        case 1:     availableColors.insert(Color::BLUE_DARKEST); break;
+        case 2:     availableColors.insert(Color::BLUE_DARKER); break;
+        case 3:     availableColors.insert(Color::PURPLE_DARKEST); break;
+        case 4:     availableColors.insert(Color::PURPLE_DARK); break;
+        case 5:     availableColors.insert(Color::PINK_DARKEST); break;
+        case 6:     availableColors.insert(Color::RED_DARK); break;
+        case 7:     availableColors.insert(Color::BROWN); break;
+        case 8:     availableColors.insert(Color::OLIVE_DARK); break;
+        case 9:     availableColors.insert(Color::GREEN_DARKEST); break;
+        case 10:    availableColors.insert(Color::GREEN_DARKER); break;
+        case 11:    availableColors.insert(Color::TURQUOISE_DARK); break;
+        case 12:    availableColors.insert(Color::AQUAMARINE_DARK); break;
+        case 13:    availableColors.insert(Color::BLACK); break;
+        case 14:    availableColors.insert(Color::BLUE); break;
+        case 15:    availableColors.insert(Color::BLUE_DARK); break;
+        case 16:    availableColors.insert(Color::PURPLE); break;
+        case 17:    availableColors.insert(Color::PURPLE_LIGHT); break;
+        case 18:    availableColors.insert(Color::PINK_DARK); break;
+        case 19:    availableColors.insert(Color::RED); break;
+        case 20:    availableColors.insert(Color::BROWN_LIGHT); break;
+        case 21:    availableColors.insert(Color::OLIVE); break;
+        case 22:    availableColors.insert(Color::GREEN_DARK); break;
+        case 23:    availableColors.insert(Color::GREEN); break;
+        case 24:    availableColors.insert(Color::TURQUOISE); break;
+        case 25:    availableColors.insert(Color::AQUAMARINE); break;
+        case 26:    availableColors.insert(Color::ORANGE); break;
+        case 27:    availableColors.insert(Color::GRAY_DARK); break;
+        }
+    }
+    for (int i = 0; i < excludedColors.size(); ++i) availableColors.remove(excludedColors.at(i)); //remove excluded colors
+    return availableColors.values().at(Random::Get_Instance().Get_Num(availableColors.size()-1));
+}
+
+Color::Color Colors::Get_Random_Pipe_Dark_Color() {
+    return this->Get_Random_Dark_Shade_Color(0x00, 0x0C);
+}
+
+Color::Color Colors::Get_Random_Pipe_Light_Color() {
+    Color::Color color = this->Get_Random_Light_Shade_Color(0x00, 0x0D);
+    if (color == Color::GRAY_DARK) color = Color::GRAY_LIGHT;
+    return color;
+}
+
+Color::Color Colors::Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor) {
+    switch (lightColor) {
+    default:                    break;
+    case Color::GRAY:           return Color::GRAY_DARK;
+    case Color::GRAY_DARK:      return Color::BLACK;
+    case Color::GRAY_LIGHT:     return Color::GRAY;
+    case Color::GRAY_LIGHTEST:  return Color::GRAY_LIGHT;
+    case Color::WHITE:          return Color::GRAY_LIGHTEST;
+    }
+    int hex = this->Get_Hex_From_Color(lightColor);
+    assert(hex >= 0x00 && hex <= 0x2F);
+    int subAmount = 0;
+    int index = hex&0x0F;
+    assert(index <= 0x0C);
+    if (index == 0) subAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
+    else if (index == 0xC) subAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
+    else subAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
+    assert(this->Get_Color_From_Hex(hex-subAmount, lightColor));
+    return lightColor;
+}
+
+Color::Color Colors::Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor) {
+    int hex = this->Get_Hex_From_Color(darkColor);
+    assert(hex >= 0x00 && hex <= 0x2F);
+    int addAmount = 0;
+    int index = hex&0x0F;
+    if (index > 0xC) {
+        switch (darkColor) {
+        default:                    assert(false); return Color::BLACK;
+        case Color::BLACK:          return Color::GRAY_DARK;
+        case Color::GRAY_DARK:      return Color::GRAY_LIGHTEST;
+        case Color::GRAY_LIGHT:     return Color::WHITE;
+        }
+    }
+    if (index == 0) addAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
+    else if (index == 0xC) addAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
+    else addAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
+    assert(this->Get_Color_From_Hex(hex+addAmount, darkColor));
+    return darkColor;
+}
+
+Color::Color Colors::Get_Random_Skin_Color() {
+    switch (Random::Get_Instance().Get_Num(3)) {
+    default:    assert(false); return Color::BLACK;
+    case 0:     return Color::ORANGE;
+    case 1:     return Color::ORANGE_LIGHT;
+    case 2:     return Color::RED_LIGHTEST;
+    case 3:     return Color::RED_LIGHT;
+    }
+}
+
 Color::Color Colors::Get_Random_Sky_Color() {
     if (Random::Get_Instance().Get_Num(1)) return this->Get_Random_Sky_Day_Color();
     else return this->Get_Random_Sky_Night_Color();
@@ -804,57 +910,6 @@ Color::Color Colors::Get_Random_Sky_Pink_Color() {
     case 5:     return Color::PURPLE_LIGHT;
     case 6:     return Color::PURPLE_LIGHTER;
     }
-}
-
-Color::Color Colors::Get_Random_Pipe_Dark_Color() {
-    return this->Get_Random_Dark_Shade_Color(0x00, 0x0C);
-}
-
-Color::Color Colors::Get_Random_Pipe_Light_Color() {
-    Color::Color color = this->Get_Random_Light_Shade_Color(0x00, 0x0D);
-    if (color == Color::GRAY_DARK) color = Color::GRAY_LIGHT;
-    return color;
-}
-
-Color::Color Colors::Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor) {
-    switch (lightColor) {
-    default:                    break;
-    case Color::GRAY:           return Color::GRAY_DARK;
-    case Color::GRAY_DARK:      return Color::BLACK;
-    case Color::GRAY_LIGHT:     return Color::GRAY;
-    case Color::GRAY_LIGHTEST:  return Color::GRAY_LIGHT;
-    case Color::WHITE:          return Color::GRAY_LIGHTEST;
-    }
-    int hex = this->Get_Hex_From_Color(lightColor);
-    assert(hex >= 0x00 && hex <= 0x2F);
-    int subAmount = 0;
-    int index = hex&0x0F;
-    assert(index <= 0x0C);
-    if (index == 0) subAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
-    else if (index == 0xC) subAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
-    else subAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
-    assert(this->Get_Color_From_Hex(hex-subAmount, lightColor));
-    return lightColor;
-}
-
-Color::Color Colors::Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor) {
-    int hex = this->Get_Hex_From_Color(darkColor);
-    assert(hex >= 0x00 && hex <= 0x2F);
-    int addAmount = 0;
-    int index = hex&0x0F;
-    if (index > 0xC) {
-        switch (darkColor) {
-        default:                    assert(false); return Color::BLACK;
-        case Color::BLACK:          return Color::GRAY_DARK;
-        case Color::GRAY_DARK:      return Color::GRAY_LIGHTEST;
-        case Color::GRAY_LIGHT:     return Color::WHITE;
-        }
-    }
-    if (index == 0) addAmount = Random::Get_Instance().Get_Num(0x10, 0x11);
-    else if (index == 0xC) addAmount = Random::Get_Instance().Get_Num(0x0F, 0x10);
-    else addAmount = Random::Get_Instance().Get_Num(0x0F, 0x11);
-    assert(this->Get_Color_From_Hex(hex+addAmount, darkColor));
-    return darkColor;
 }
 
 Color::Color Colors::Get_Random_Tree_Green_Dark_Color() {
@@ -930,6 +985,12 @@ Color::Color Colors::Get_Random_Water_Color() {
     case 2:     return Color::BLUE_DARKEST;
     case 3:     return Color::BLUE_DARKER;
     }
+}
+
+void Colors::Swap_Colors(Color::Color &color1, Color::Color &color2) {
+    Color::Color tmpColor = color1;
+    color1 = color2;
+    color2 = tmpColor;
 }
 
 bool Colors::Is_Shade_Min_Max_Valid(int min, int max) {

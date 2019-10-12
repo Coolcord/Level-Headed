@@ -147,6 +147,17 @@ bool Hacks_Handler::Handle_Graphics() {
     case 1:     success = true; break; //use Mario Sprite included in graphics pack
     default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-2); break;
     }
+    if (!success) return false;
+
+    palette = this->pluginSettings->marioSpritePalette;
+    if (palette == 0) palette = 3; //TODO: Write Random (No Randomly Generated)
+    else if (palette == 1) palette = 3; //TODO: Write Random All
+    switch (palette) {
+    default:    assert(false); break;
+    case 2:     success = this->writerPlugin->Graphics_Randomize_Mario_Sprite_Palette(); break; //Randomly Generated
+    case 3:     success = true; break; //Original
+    }
+
     return success;
 }
 

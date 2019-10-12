@@ -279,6 +279,7 @@ public:
     int Graphics_Get_Number_Of_Graphics_Packs();
     int Graphics_Get_Number_Of_Mario_Sprites();
     bool Graphics_Randomize_Palettes(int paletteMode);
+    bool Graphics_Randomize_Mario_Sprite_Palette();
     bool Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     bool Graphics_Change_1UP_Palette(int palette);
     bool Graphics_Write_Title_Screen_For_1_Player_Game();

@@ -32,6 +32,35 @@ bool Palettes::Randomize_Palettes(int paletteMode) {
     return true;
 }
 
+bool Palettes::Randomize_Mario_Sprite_Palette() {
+    QVector<Color::Color> usedColors;
+    Color::Color skinColor = this->colors->Get_Random_Skin_Color();
+    usedColors.append(skinColor);
+    Color::Color marioPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
+    usedColors.append(marioPrimary);
+    Color::Color luigiPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
+    usedColors.append(luigiPrimary);
+    Color::Color marioSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
+    usedColors.append(marioSecondary);
+    Color::Color luigiSecondary = Color::BLACK;
+
+    //Possibly use the same secondary color for both Mario and Luigi
+    if (Random::Get_Instance().Get_Num(1)) {
+        luigiSecondary = marioSecondary;
+    } else {
+        luigiSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
+        usedColors.append(luigiSecondary);
+    }
+    if (!this->Write_Bytes_To_Offset(0x05E8, this->colors->Get_QByteArray_From_Color(marioPrimary))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05E9, this->colors->Get_QByteArray_From_Color(skinColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05EA, this->colors->Get_QByteArray_From_Color(marioSecondary))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05EC, this->colors->Get_QByteArray_From_Color(luigiPrimary))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05ED, this->colors->Get_QByteArray_From_Color(skinColor))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05EE, this->colors->Get_QByteArray_From_Color(luigiSecondary))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F1, this->colors->Get_QByteArray_From_Color(skinColor))) return false;
+    return true;
+}
+
 bool Palettes::Coin_Palette_Random() {
     Color::Color nonShinyColor = Color::BLACK;
 

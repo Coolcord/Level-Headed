@@ -82,16 +82,19 @@ public:
     Color::Color Get_Random_Yellow_Light_Color();
 
     Color::Color Get_Random_Coral_Color();
+    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Pipe_Dark_Color();
+    Color::Color Get_Random_Pipe_Light_Color();
+    Color::Color Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor);
+    Color::Color Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor);
+    Color::Color Get_Random_Skin_Color();
     Color::Color Get_Random_Sky_Color();
     Color::Color Get_Random_Sky_Day_Color();
     Color::Color Get_Random_Sky_Night_Color();
     Color::Color Get_Random_Sky_Blue_Color();
     Color::Color Get_Random_Sky_Orange_Color();
     Color::Color Get_Random_Sky_Pink_Color();
-    Color::Color Get_Random_Pipe_Dark_Color();
-    Color::Color Get_Random_Pipe_Light_Color();
-    Color::Color Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor);
-    Color::Color Get_Random_Pipe_Light_Color_From_Dark_Color(Color::Color darkColor);
     Color::Color Get_Random_Tree_Green_Dark_Color();
     Color::Color Get_Random_Tree_Orange_Dark_Color();
     Color::Color Get_Random_Tree_Snow_Dark_Color();
@@ -99,6 +102,8 @@ public:
     Color::Color Get_Random_Tree_Yellow_Dark_Color();
     Color::Color Get_Random_Tree_Light_Color_From_Dark_Color(Color::Color darkColor);
     Color::Color Get_Random_Water_Color();
+
+    void Swap_Colors(Color::Color &color1, Color::Color &color2);
 
 private:
     bool Is_Shade_Min_Max_Valid(int min, int max);

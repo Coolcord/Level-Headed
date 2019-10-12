@@ -1103,6 +1103,11 @@ bool SMB1_Writer::Graphics_Randomize_Palettes(int paletteMode) {
     return this->palettes->Randomize_Palettes(paletteMode);
 }
 
+bool SMB1_Writer::Graphics_Randomize_Mario_Sprite_Palette() {
+    if (!this->palettes) return false;
+    return this->palettes->Randomize_Mario_Sprite_Palette();
+}
+
 bool SMB1_Writer::Graphics_Set_Combine_Graphics_Packs(bool combineGraphicsPacks) {
     if (!this->sequentialArchiveHandler) return false;
     this->sequentialArchiveHandler->Set_Combine_Graphics_Packs(combineGraphicsPacks);

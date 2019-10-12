@@ -12,6 +12,7 @@ public:
     Palettes(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
     ~Palettes();
     bool Randomize_Palettes(int paletteMode);
+    bool Randomize_Mario_Sprite_Palette();
 
 private:
     bool Coin_Palette_Random();
