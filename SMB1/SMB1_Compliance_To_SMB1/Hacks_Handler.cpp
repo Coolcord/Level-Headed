@@ -123,6 +123,7 @@ bool Hacks_Handler::Handle_Music() {
 }
 
 bool Hacks_Handler::Handle_Graphics() {
+    //Write the Graphics Pack
     if (!this->writerPlugin->Graphics_Set_Combine_Graphics_Packs(this->pluginSettings->combineGraphicsWithOtherPacks)) return false;
     int graphics = this->pluginSettings->graphics;
     if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphics_Packs())+1;
@@ -133,10 +134,20 @@ bool Hacks_Handler::Handle_Graphics() {
     }
     if (!success) return false;
 
+    //Randomize the Palette
     int palette = this->pluginSettings->palette;
     if (palette == 0) palette = Random::Get_Instance().Get_Num(1, 8); //random up to Excessive
     if (!this->writerPlugin->Graphics_Randomize_Palettes(palette)) return false;
-    return true;
+
+    //Write the Mario Sprite
+    int marioSprite = this->pluginSettings->marioSprite;
+    if (marioSprite == 0) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites())+1;
+    success = false;
+    switch (marioSprite) {
+    case 1:     success = true; break; //use Mario Sprite included in graphics pack
+    default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-2); break;
+    }
+    return success;
 }
 
 bool Hacks_Handler::Handle_Lakitus() {

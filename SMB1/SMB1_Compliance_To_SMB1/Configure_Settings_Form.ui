@@ -438,11 +438,6 @@ p, li { white-space: pre-wrap; }
                     <string>Graphics Pack Default</string>
                    </property>
                   </item>
-                  <item>
-                   <property name="text">
-                    <string>Original (by Nintendo)</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item row="0" column="1">

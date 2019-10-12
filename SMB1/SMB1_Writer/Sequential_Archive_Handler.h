@@ -19,20 +19,26 @@ public:
     bool Apply_Graphics_Fix(const QString &fixName, const QString &fixType);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Graphics_Sprite(const QString &spriteName, const QString &patchName);
+    bool Apply_Mario_Sprite_At_Index(int index);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
     bool Apply_Hexagon_Patch(const QByteArray &patchBytes);
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Bonus_Graphics_Packs();
+    QStringList Get_Bonus_Mario_Sprites();
     QStringList Get_Bonus_Music_Packs();
     QStringList Get_Graphics_Packs();
+    QStringList Get_Mario_Sprites();
     QString Get_Graphics_Pack_At_Index(int index);
     QString Get_Last_Applied_Graphics_Pack();
+    QString Get_Last_Applied_Mario_Sprite();
     QStringList Get_Music_Packs();
     QString Get_Music_Pack_At_Index(int index);
     int Get_Number_Of_Bonus_Graphics_Packs();
+    int Get_Number_Of_Bonus_Mario_Sprites();
     int Get_Number_Of_Bonus_Music_Packs();
     int Get_Number_Of_Graphics_Packs();
+    int Get_Number_Of_Mario_Sprites();
     int Get_Number_Of_Music_Packs();
     bool Is_Tone_Invalid(int tone);
     bool Are_Color_Palettes_Allowed();
@@ -69,8 +75,10 @@ private:
     QPluginLoader *hexagonLoader;
     QPluginLoader *sequentialArchiveLoader;
     QStringList bonusGraphicsPacks;
+    QStringList bonusMarioSprites;
     QStringList bonusMusicPacks;
     QStringList graphicsPackStrings;
+    QStringList marioSpriteStrings;
     QStringList musicPackStrings;
     QString romFolderLocation;
     QString pluginLocation;
@@ -78,6 +86,7 @@ private:
     QString graphicsPacksArchiveLocation;
     QString musicPacksArchiveLocation;
     QString lastAppliedGraphicsPack;
+    QString lastAppliedMarioSprite;
 };
 
 #endif // SEQUENTIAL_ARCHIVE_HANDLER_H

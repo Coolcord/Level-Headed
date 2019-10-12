@@ -19,9 +19,12 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->hexagonLoader = nullptr;
     this->sequentialArchiveLoader = nullptr;
     this->lastAppliedGraphicsPack = QString();
+    this->lastAppliedMarioSprite = QString();
     this->graphicsPackStrings = QStringList();
+    this->marioSpriteStrings = QStringList();
     this->musicPackStrings = QStringList();
     this->bonusGraphicsPacks = QStringList();
+    this->bonusMarioSprites = QStringList();
     this->bonusMusicPacks = QStringList();
     this->invalidTones = new QSet<int>();
     this->allowPalettes = true;
@@ -100,6 +103,28 @@ bool Sequential_Archive_Handler::Apply_Graphics_Sprite(const QString &spriteName
     return this->Apply_Hexagon_Patch(patchBytes);
 }
 
+bool Sequential_Archive_Handler::Apply_Mario_Sprite_At_Index(int index) {
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Mario_Sprites();
+    assert(index < this->marioSpriteStrings.size()+this->bonusMarioSprites.size());
+    if (!this->file) return false;
+    if (!this->Load_Plugins_If_Necessary()) return false;
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return false;
+
+    //Get the correct pack from either bonuses or regular packs
+    QString marioSprite;
+    if (index < this->marioSpriteStrings.size()) marioSprite = this->marioSpriteStrings.at(index);
+    else marioSprite = this->bonusMarioSprites.at(index-this->marioSpriteStrings.size());
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/Sprites/Mario/"+marioSprite);
+
+    qDebug() << "Using Mario Sprite " << marioSprite;
+    this->sequentialArchivePlugin->Close();
+    if (patchBytes.isEmpty()) return false;
+    int lineNum = 0;
+    bool success = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
+    if (success) this->lastAppliedMarioSprite = marioSprite;
+    return success;
+}
+
 bool Sequential_Archive_Handler::Apply_Random_Graphics_Sprite(const QString &spriteName) {
     QString patchName;
     QByteArray patchBytes = this->Read_Random_Graphics_Sprite(spriteName, patchName);
@@ -127,6 +152,11 @@ QStringList Sequential_Archive_Handler::Get_Bonus_Graphics_Packs() {
     return this->bonusGraphicsPacks;
 }
 
+QStringList Sequential_Archive_Handler::Get_Bonus_Mario_Sprites() {
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Mario_Sprites();
+    return this->bonusMarioSprites;
+}
+
 QStringList Sequential_Archive_Handler::Get_Bonus_Music_Packs() {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     return this->bonusMusicPacks;
@@ -141,6 +171,26 @@ QStringList Sequential_Archive_Handler::Get_Graphics_Packs() {
     return this->graphicsPackStrings;
 }
 
+QStringList Sequential_Archive_Handler::Get_Mario_Sprites() {
+    if (!this->marioSpriteStrings.isEmpty()) return this->marioSpriteStrings;
+    if (!this->Load_Plugins_If_Necessary()) return this->marioSpriteStrings;
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return this->marioSpriteStrings;
+    if (!this->sequentialArchivePlugin->Change_Directory("/Sprites/Mario")) return this->marioSpriteStrings;
+    this->Get_HEXP_Files_From_File_List(this->marioSpriteStrings, this->bonusMarioSprites);
+
+    //Prepend the original patch if it exists
+    QString originalName = "Original (by Nintendo).hexp";
+    for (int i = 0; i < this->marioSpriteStrings.size(); ++i) {
+        if (this->marioSpriteStrings.at(i) == originalName) {
+            this->marioSpriteStrings.removeAt(i);
+            this->marioSpriteStrings.prepend(originalName);
+            break;
+        }
+    }
+    this->sequentialArchivePlugin->Close();
+    return this->marioSpriteStrings;
+}
+
 QString Sequential_Archive_Handler::Get_Graphics_Pack_At_Index(int index) {
     if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
     assert(index < this->graphicsPackStrings.size());
@@ -149,6 +199,10 @@ QString Sequential_Archive_Handler::Get_Graphics_Pack_At_Index(int index) {
 
 QString Sequential_Archive_Handler::Get_Last_Applied_Graphics_Pack() {
     return this->lastAppliedGraphicsPack;
+}
+
+QString Sequential_Archive_Handler::Get_Last_Applied_Mario_Sprite() {
+    return this->lastAppliedMarioSprite;
 }
 
 QStringList Sequential_Archive_Handler::Get_Music_Packs() {
@@ -171,6 +225,11 @@ int Sequential_Archive_Handler::Get_Number_Of_Bonus_Graphics_Packs() {
     return this->bonusGraphicsPacks.size();
 }
 
+int Sequential_Archive_Handler::Get_Number_Of_Bonus_Mario_Sprites() {
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Graphics_Packs();
+    return this->bonusMarioSprites.size();
+}
+
 int Sequential_Archive_Handler::Get_Number_Of_Bonus_Music_Packs() {
     if (this->musicPackStrings.isEmpty()) this->Get_Music_Packs();
     return this->bonusMusicPacks.size();
@@ -179,6 +238,11 @@ int Sequential_Archive_Handler::Get_Number_Of_Bonus_Music_Packs() {
 int Sequential_Archive_Handler::Get_Number_Of_Graphics_Packs() {
     if (this->graphicsPackStrings.isEmpty()) this->Get_Graphics_Packs();
     return this->graphicsPackStrings.size();
+}
+
+int Sequential_Archive_Handler::Get_Number_Of_Mario_Sprites() {
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Graphics_Packs();
+    return this->marioSpriteStrings.size();
 }
 
 int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {

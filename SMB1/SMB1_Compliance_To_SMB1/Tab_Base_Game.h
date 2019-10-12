@@ -19,6 +19,7 @@ public:
 private:
     void Populate_Installed_ROMs();
     void Populate_Graphics_Packs();
+    void Populate_Mario_Sprites();
     void Populate_Music_Packs();
 
     bool partialSupportMode;

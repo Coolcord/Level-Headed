@@ -10,6 +10,7 @@ Tab_Base_Game::Tab_Base_Game(QWidget *p, const QString &apl, SMB1_Writer_Interfa
     : Tab_Interface(p, apl, wp, u, ps) {
     this->Populate_Installed_ROMs();
     this->Populate_Graphics_Packs();
+    this->Populate_Mario_Sprites();
     this->Populate_Music_Packs();
     this->partialSupportMode = false;
 }
@@ -254,6 +255,16 @@ void Tab_Base_Game::Populate_Graphics_Packs() {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
     }
     this->ui->comboGraphics->addItems(packs);
+}
+
+void Tab_Base_Game::Populate_Mario_Sprites() {
+    QStringList packsWithExtension = this->writerPlugin->Graphics_Get_Mario_Sprites();
+    packsWithExtension += this->writerPlugin->Graphics_Get_Bonus_Mario_Sprites();
+    QStringList packs;
+    for (int i = 0; i < packsWithExtension.size(); ++i) {
+        packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
+    }
+    this->ui->comboMarioSprite->addItems(packs);
 }
 
 void Tab_Base_Game::Populate_Music_Packs() {

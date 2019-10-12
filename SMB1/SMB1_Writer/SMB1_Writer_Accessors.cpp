@@ -1030,9 +1030,19 @@ QString SMB1_Writer::Graphics_Get_Last_Applied_Graphics_Pack() {
     return this->sequentialArchiveHandler->Get_Last_Applied_Graphics_Pack();
 }
 
+QString SMB1_Writer::Graphics_Get_Last_Applied_Mario_Sprite() {
+    if (!this->sequentialArchiveHandler) return QString();
+    return this->sequentialArchiveHandler->Get_Last_Applied_Mario_Sprite();
+}
+
 QStringList SMB1_Writer::Graphics_Get_Bonus_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return QStringList();
     return this->sequentialArchiveHandler->Get_Bonus_Graphics_Packs();
+}
+
+QStringList SMB1_Writer::Graphics_Get_Bonus_Mario_Sprites() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Bonus_Mario_Sprites();
 }
 
 QStringList SMB1_Writer::Graphics_Get_Graphics_Packs() {
@@ -1040,11 +1050,21 @@ QStringList SMB1_Writer::Graphics_Get_Graphics_Packs() {
     return this->sequentialArchiveHandler->Get_Graphics_Packs();
 }
 
+QStringList SMB1_Writer::Graphics_Get_Mario_Sprites() {
+    if (!this->sequentialArchiveHandler) return QStringList();
+    return this->sequentialArchiveHandler->Get_Mario_Sprites();
+}
+
 bool SMB1_Writer::Graphics_Apply_Graphics_Pack(int index) {
     if (!this->sequentialArchiveHandler || !this->graphics) return false;
     if (!this->sequentialArchiveHandler->Apply_Graphics_Pack_At_Index(index)) return false;
     if (this->sequentialArchiveHandler->Get_Combine_Graphics_Packs()) return this->graphics->Combine_Graphics();
     else return true;
+}
+
+bool SMB1_Writer::Graphics_Apply_Mario_Sprite(int index) {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Mario_Sprite_At_Index(index);
 }
 
 bool SMB1_Writer::Graphics_Combine_Graphics() {
@@ -1063,9 +1083,19 @@ int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Graphics_Packs() {
     return this->sequentialArchiveHandler->Get_Number_Of_Bonus_Graphics_Packs();
 }
 
+int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Mario_Sprites() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Bonus_Mario_Sprites();
+}
+
 int SMB1_Writer::Graphics_Get_Number_Of_Graphics_Packs() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Get_Number_Of_Graphics_Packs();
+}
+
+int SMB1_Writer::Graphics_Get_Number_Of_Mario_Sprites() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Get_Number_Of_Mario_Sprites();
 }
 
 bool SMB1_Writer::Graphics_Randomize_Palettes(int paletteMode) {
