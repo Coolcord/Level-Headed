@@ -271,6 +271,7 @@ public:
     QStringList Graphics_Get_Graphics_Packs();
     QStringList Graphics_Get_Mario_Sprites();
     bool Graphics_Apply_Graphics_Pack(int index);
+    bool Graphics_Apply_Mario_Palette_Present(int present);
     bool Graphics_Apply_Mario_Sprite(int index);
     bool Graphics_Combine_Graphics(); //only call this with the original graphics
     bool Graphics_Combine_Mario();

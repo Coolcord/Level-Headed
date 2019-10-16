@@ -220,7 +220,7 @@ void Tab_Base_Game::Use_Random_Settings() {
     this->ui->comboGraphics->setCurrentIndex(0);
     this->ui->comboPalette->setCurrentIndex(0);
     this->ui->comboMarioSprite->setCurrentIndex(0);
-    this->ui->comboMarioSpritePalette->setCurrentIndex(0);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(3);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(true);
     this->ui->comboMusic->setCurrentIndex(0);
     this->ui->comboTone->setCurrentIndex(0);

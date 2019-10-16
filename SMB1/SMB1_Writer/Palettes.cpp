@@ -61,6 +61,28 @@ bool Palettes::Randomize_Mario_Sprite_Palette() {
     return true;
 }
 
+bool Palettes::Apply_Mario_Palette_Present(int present) {
+    switch (present) {
+    default: return false;
+    case 0: //SMB1 (Original)
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("162718").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("302719").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("372716").toLatin1()));
+    case 1: //SMB1 DX
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("162718").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("192718").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("372716").toLatin1()));
+    case 2: //SMB2 (SMW)
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("162702").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("1A2702").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("302716").toLatin1()));
+    case 3: //SMB3
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("16360F").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("2A360F").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("273616").toLatin1()));
+    }
+}
+
 bool Palettes::Coin_Palette_Random() {
     Color::Color nonShinyColor = Color::BLACK;
 

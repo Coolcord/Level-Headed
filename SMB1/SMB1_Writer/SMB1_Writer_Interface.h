@@ -253,6 +253,7 @@ public:
     virtual QStringList Graphics_Get_Graphics_Packs()=0;
     virtual QStringList Graphics_Get_Mario_Sprites()=0;
     virtual bool Graphics_Apply_Graphics_Pack(int index)=0;
+    virtual bool Graphics_Apply_Mario_Palette_Present(int present)=0;
     virtual bool Graphics_Apply_Mario_Sprite(int index)=0;
     virtual bool Graphics_Combine_Graphics()=0; //only call this with the original graphics
     virtual int Graphics_Get_Number_Of_Bonus_Graphics_Packs()=0;

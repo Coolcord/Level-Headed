@@ -13,6 +13,7 @@ public:
     ~Palettes();
     bool Randomize_Palettes(int paletteMode);
     bool Randomize_Mario_Sprite_Palette();
+    bool Apply_Mario_Palette_Present(int present);
 
 private:
     bool Coin_Palette_Random();

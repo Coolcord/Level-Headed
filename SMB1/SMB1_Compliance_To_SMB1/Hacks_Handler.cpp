@@ -150,12 +150,16 @@ bool Hacks_Handler::Handle_Graphics() {
     if (!success) return false;
 
     palette = this->pluginSettings->marioSpritePalette;
-    if (palette == 0) palette = 3; //TODO: Write Random (No Randomly Generated)
-    else if (palette == 1) palette = 3; //TODO: Write Random All
-    switch (palette) {
-    default:    assert(false); break;
-    case 2:     success = this->writerPlugin->Graphics_Randomize_Mario_Sprite_Palette(); break; //Randomly Generated
-    case 3:     success = true; break; //Original
+    if (palette == 0) palette = Random::Get_Instance().Get_Num(3, 7); //Random (No Randomly Generated)
+    else if (palette == 1) palette = Random::Get_Instance().Get_Num(2, 7); //Random All
+    if (palette > 3) {
+        success = this->writerPlugin->Graphics_Apply_Mario_Palette_Present(palette-4);
+    } else {
+        switch (palette) {
+        default:    assert(false); break;
+        case 2:     success = this->writerPlugin->Graphics_Randomize_Mario_Sprite_Palette(); break; //Randomly Generated
+        case 3:     success = true; break; //Mario Sprite Default
+        }
     }
 
     return success;

@@ -1062,6 +1062,11 @@ bool SMB1_Writer::Graphics_Apply_Graphics_Pack(int index) {
     else return true;
 }
 
+bool SMB1_Writer::Graphics_Apply_Mario_Palette_Present(int present) {
+    if (!this->palettes) return false;
+    return this->palettes->Apply_Mario_Palette_Present(present);
+}
+
 bool SMB1_Writer::Graphics_Apply_Mario_Sprite(int index) {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Apply_Mario_Sprite_At_Index(index);

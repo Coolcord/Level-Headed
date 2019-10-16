@@ -478,7 +478,27 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>Original</string>
+                    <string>Mario Sprite Default</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SMB1 (Original)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SMB1 DX</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SMB2 (SMW)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SMB3</string>
                    </property>
                   </item>
                  </widget>
