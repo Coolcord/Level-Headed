@@ -226,7 +226,7 @@ int Sequential_Archive_Handler::Get_Number_Of_Bonus_Graphics_Packs() {
 }
 
 int Sequential_Archive_Handler::Get_Number_Of_Bonus_Mario_Sprites() {
-    if (this->marioSpriteStrings.isEmpty()) this->Get_Graphics_Packs();
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Mario_Sprites();
     return this->bonusMarioSprites.size();
 }
 
@@ -241,7 +241,7 @@ int Sequential_Archive_Handler::Get_Number_Of_Graphics_Packs() {
 }
 
 int Sequential_Archive_Handler::Get_Number_Of_Mario_Sprites() {
-    if (this->marioSpriteStrings.isEmpty()) this->Get_Graphics_Packs();
+    if (this->marioSpriteStrings.isEmpty()) this->Get_Mario_Sprites();
     return this->marioSpriteStrings.size();
 }
 
