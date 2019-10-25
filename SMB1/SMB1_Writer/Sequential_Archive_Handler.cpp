@@ -114,7 +114,7 @@ bool Sequential_Archive_Handler::Apply_Mario_Sprite_At_Index(int index) {
     QString marioSprite;
     if (index < this->marioSpriteStrings.size()) marioSprite = this->marioSpriteStrings.at(index);
     else marioSprite = this->bonusMarioSprites.at(index-this->marioSpriteStrings.size());
-    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/Sprites/Mario/"+marioSprite);
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/Mario/"+marioSprite);
 
     qDebug() << "Using Mario Sprite " << marioSprite;
     this->sequentialArchivePlugin->Close();
@@ -175,7 +175,7 @@ QStringList Sequential_Archive_Handler::Get_Mario_Sprites() {
     if (!this->marioSpriteStrings.isEmpty()) return this->marioSpriteStrings;
     if (!this->Load_Plugins_If_Necessary()) return this->marioSpriteStrings;
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return this->marioSpriteStrings;
-    if (!this->sequentialArchivePlugin->Change_Directory("/Sprites/Mario")) return this->marioSpriteStrings;
+    if (!this->sequentialArchivePlugin->Change_Directory("/Mario")) return this->marioSpriteStrings;
     this->Get_HEXP_Files_From_File_List(this->marioSpriteStrings, this->bonusMarioSprites);
 
     //Prepend the original patch if it exists
