@@ -40,28 +40,28 @@ Graphics::~Graphics() {
     delete this->graphicsCombiner;
 }
 
-bool Graphics::Apply_Bone_Caster_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_BONE_CASTER, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Coin_Flinger_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_COIN_FLINGER, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Cutter_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_CUTTER_FLOWER, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Double_Jump_Star_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_DOUBLE_JUMP_STAR, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Fire_Star_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_FIRE_STAR, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Hammer_Suit_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_HAMMER_SUIT, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Luigis_Fire_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_LUIGIS_FIRE_FLOWER, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Pink_Fury_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_PINK_FURY, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Poison_Bubbles_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_POISON_BUBBLES, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Power_Wand_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_POWER_WAND, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Slime_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SLIME_FLOWER, Fix_Strings::STRING_GRAPHICS_PACK); }
-bool Graphics::Apply_Spinball_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Graphics_Fix(STRING_SPINBALL_FLOWER, Fix_Strings::STRING_GRAPHICS_PACK); }
+bool Graphics::Apply_Bone_Caster_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_BONE_CASTER); }
+bool Graphics::Apply_Coin_Flinger_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_COIN_FLINGER); }
+bool Graphics::Apply_Cutter_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_CUTTER_FLOWER); }
+bool Graphics::Apply_Double_Jump_Star_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_DOUBLE_JUMP_STAR); }
+bool Graphics::Apply_Fire_Star_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_FIRE_STAR); }
+bool Graphics::Apply_Hammer_Suit_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_HAMMER_SUIT); }
+bool Graphics::Apply_Luigis_Fire_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_LUIGIS_FIRE_FLOWER); }
+bool Graphics::Apply_Pink_Fury_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_PINK_FURY); }
+bool Graphics::Apply_Poison_Bubbles_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_POISON_BUBBLES); }
+bool Graphics::Apply_Power_Wand_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_POWER_WAND); }
+bool Graphics::Apply_Slime_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_SLIME_FLOWER); }
+bool Graphics::Apply_Spinball_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_SPINBALL_FLOWER); }
 
 bool Graphics::Apply_Title_Screen_1P_Fix(qint64 &versionOffset) {
-    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_1P, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
     return this->sequentialArchiveHandler->Apply_Hexagon_Patch(patchBytes);
 }
 
 bool Graphics::Apply_Title_Screen_2P_Fix(qint64 &versionOffset) {
-    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P, Fix_Strings::STRING_GRAPHICS_PACK, this->graphicsCombiner->Get_Brick_Patch_Name());
+    QByteArray patchBytes = this->sequentialArchiveHandler->Read_Graphics_Fix(STRING_TITLE_SCREEN_2P, this->graphicsCombiner->Get_Brick_Patch_Name());
     if (patchBytes.isEmpty()) return true; //nothing to do
     this->Get_Version_Offset_From_Title_Screen_Fix(patchBytes, versionOffset);
     return this->sequentialArchiveHandler->Apply_Hexagon_Patch(patchBytes);

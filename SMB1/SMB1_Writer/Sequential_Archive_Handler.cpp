@@ -67,10 +67,15 @@ void Sequential_Archive_Handler::Set_File(QFile *file) {
     this->file = file;
 }
 
-bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName, const QString &fixType) {
-    QByteArray patchBytes = this->Read_Graphics_Fix(fixName, fixType);
+bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName) {
+    QByteArray patchBytes = this->Read_Graphics_Fix(fixName);
     if (patchBytes.isEmpty()) return true; //nothing to apply
     return this->Apply_Hexagon_Patch(patchBytes);
+}
+
+bool Sequential_Archive_Handler::Apply_Mario_Sprite_And_Graphics_Fixes(const QString &fixName) {
+    if (!this->Apply_Graphics_Fix(fixName)) return false;
+    return this->Apply_Mario_Sprite_Fix(fixName);
 }
 
 bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
@@ -99,6 +104,12 @@ bool Sequential_Archive_Handler::Apply_Graphics_Pack_At_Index(int index) {
 
 bool Sequential_Archive_Handler::Apply_Graphics_Sprite(const QString &spriteName, const QString &patchName) {
     QByteArray patchBytes = this->Read_Graphics_Sprite(spriteName, patchName);
+    if (patchBytes.isEmpty()) return true; //nothing to apply
+    return this->Apply_Hexagon_Patch(patchBytes);
+}
+
+bool Sequential_Archive_Handler::Apply_Mario_Sprite_Fix(const QString &fixName) {
+    QByteArray patchBytes = this->Read_Mario_Sprite_Fix(fixName);
     if (patchBytes.isEmpty()) return true; //nothing to apply
     return this->Apply_Hexagon_Patch(patchBytes);
 }
@@ -262,15 +273,18 @@ bool Sequential_Archive_Handler::Are_Only_Coin_Palettes_Allowed() {
     return this->allowOnlyCoinPalettes;
 }
 
-QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType) {
-    return this->Read_Graphics_Fix(fixName, fixType, this->lastAppliedGraphicsPack);
+QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName) {
+    return this->Read_Graphics_Fix(fixName, this->lastAppliedGraphicsPack);
 }
 
-QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, const QString &fixType, QString graphicsPack) {
+QByteArray Sequential_Archive_Handler::Read_Graphics_Fix(const QString &fixName, QString graphicsPack) {
     if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
-    if (graphicsPack.isEmpty()) graphicsPack = this->lastAppliedGraphicsPack;
-    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+fixType+"/"+fixName+"/"+graphicsPack);
+    if (graphicsPack.isEmpty()) {
+        graphicsPack = this->lastAppliedGraphicsPack;
+        if (graphicsPack.isEmpty()) return QByteArray();
+    }
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+Fix_Strings::STRING_GRAPHICS_PACK+"/"+fixName+"/"+graphicsPack);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
 }
@@ -279,6 +293,22 @@ QByteArray Sequential_Archive_Handler::Read_Graphics_Sprite(const QString &patch
     if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName+"/"+patchName);
+    this->sequentialArchivePlugin->Close();
+    return patchBytes;
+}
+
+QByteArray Sequential_Archive_Handler::Read_Mario_Sprite_Fix(const QString &fixName) {
+    return this->Read_Mario_Sprite_Fix(fixName, this->lastAppliedMarioSprite);
+}
+
+QByteArray Sequential_Archive_Handler::Read_Mario_Sprite_Fix(const QString &fixName, QString marioSprite) {
+    if (!this->file || !this->Load_Plugins_If_Necessary()) return QByteArray();
+    if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
+    if (marioSprite.isEmpty()) {
+        marioSprite = this->lastAppliedMarioSprite;
+        if (marioSprite.isEmpty()) return QByteArray();
+    }
+    QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_FIXES+"/"+Fix_Strings::STRING_MARIO_SPRITE+"/"+fixName+"/"+marioSprite);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
 }

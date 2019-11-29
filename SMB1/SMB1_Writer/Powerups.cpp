@@ -47,7 +47,7 @@ bool Powerups::Replace_1UP_With_Swimming_Mushroom() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Bone_Caster() {
-    if (!this->Write_Bytes_To_Offset(0x5F2, QByteArray(1, static_cast<char>(0x2D)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F2, QByteArray(1, static_cast<char>(0x2D)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("30D0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, static_cast<char>(0xFC)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D8, QByteArray(1, static_cast<char>(0x02)))) return false;
@@ -65,7 +65,7 @@ bool Powerups::Replace_Fire_Flower_With_Bone_Caster() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Coin_Flinger() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("13270A").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("13270A").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3660, QByteArray::fromHex(QString("0185FE").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("18E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, static_cast<char>(0xFA)))) return false;
@@ -105,7 +105,7 @@ bool Powerups::Replace_Fire_Flower_With_Cutter_Flower() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Double_Jump_Star() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("142702").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("142702").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1151, QByteArray::fromHex(QString("2046B6EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2F0F, QByteArray(1, static_cast<char>(0x6E)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3191, QByteArray::fromHex(QString("2024B6").toLatin1()))) return false;
@@ -125,7 +125,7 @@ bool Powerups::Replace_Fire_Flower_With_Double_Jump_Star() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Fire_Star() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray(1, static_cast<char>(0x05)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray(1, static_cast<char>(0x05)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3643, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x365F, QByteArray::fromHex(QString("EAEAEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("639D").toLatin1()))) return false;
@@ -181,7 +181,7 @@ bool Powerups::Replace_Fire_Flower_With_Luigis_Fire_Flower() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Pink_Fury() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("242706").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("242706").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3660, QByteArray(1, static_cast<char>(0x08)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3671, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("2DD3").toLatin1()))) return false;
@@ -200,7 +200,7 @@ bool Powerups::Replace_Fire_Flower_With_Pink_Fury() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Poison_Bubbles() {
-    if (!this->Write_Bytes_To_Offset(0x5F2, QByteArray(1, static_cast<char>(0x12)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F2, QByteArray(1, static_cast<char>(0x12)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D8, QByteArray(1, static_cast<char>(0x08)))) return false;
@@ -252,7 +252,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
 }
 
 bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
-    if (!this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("3D2D0F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("2D3D0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3671, QByteArray(3, static_cast<char>(0xEA)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36C4, QByteArray(1, static_cast<char>(0x05)))) return false;
     if (!this->Write_Bytes_To_Offset(0x36D6, QByteArray(1, static_cast<char>(0x07)))) return false;

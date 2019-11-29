@@ -16,9 +16,11 @@ public:
     void Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
-    bool Apply_Graphics_Fix(const QString &fixName, const QString &fixType);
+    bool Apply_Graphics_Fix(const QString &fixName);
+    bool Apply_Mario_Sprite_And_Graphics_Fixes(const QString &fixName);
     bool Apply_Graphics_Pack_At_Index(int index);
     bool Apply_Graphics_Sprite(const QString &spriteName, const QString &patchName);
+    bool Apply_Mario_Sprite_Fix(const QString &fixName);
     bool Apply_Mario_Sprite_At_Index(int index);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
@@ -43,9 +45,11 @@ public:
     bool Is_Tone_Invalid(int tone);
     bool Are_Color_Palettes_Allowed();
     bool Are_Only_Coin_Palettes_Allowed();
-    QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType);
-    QByteArray Read_Graphics_Fix(const QString &fixName, const QString &fixType, QString graphicsPack);
+    QByteArray Read_Graphics_Fix(const QString &fixName);
+    QByteArray Read_Graphics_Fix(const QString &fixName, QString graphicsPack);
     QByteArray Read_Graphics_Sprite(const QString &spriteName, const QString &patchName);
+    QByteArray Read_Mario_Sprite_Fix(const QString &fixName);
+    QByteArray Read_Mario_Sprite_Fix(const QString &fixName, QString marioSprite);
     QByteArray Read_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
     bool Is_Hexagon_Line_End_Of_Header(const QString &line);
     bool Install_ROM_Patches(const QString &romName);

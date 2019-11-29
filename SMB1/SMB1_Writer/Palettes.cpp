@@ -76,9 +76,13 @@ bool Palettes::Apply_Mario_Palette_Present(int present) {
         if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("162702").toLatin1()))) return false;
         if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("1A2702").toLatin1()))) return false;
         return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("302716").toLatin1()));
-    case 3: //SMB3
+    case 3: //SMB3 (Black Overalls)
         if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("16360F").toLatin1()))) return false;
         if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("2A360F").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("273616").toLatin1()));
+    case 4: //SMB3 (Blue Overalls)
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("163602").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("1A3602").toLatin1()))) return false;
         return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("273616").toLatin1()));
     }
 }

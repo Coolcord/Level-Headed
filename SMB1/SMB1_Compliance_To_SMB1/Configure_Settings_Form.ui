@@ -498,7 +498,12 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>SMB3</string>
+                    <string>SMB3 (Black Overalls)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SMB3 (Blue Overalls)</string>
                    </property>
                   </item>
                  </widget>
