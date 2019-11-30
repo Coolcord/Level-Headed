@@ -1,9 +1,17 @@
 #include "Text.h"
 
-Text::Text(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {}
+Text::Text(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {
+    this->specialP1Name = QString();
+    this->specialP2Name = QString();
+}
 
 bool Text::Set_Mario_Name(const QString &name) {
-    if (name == "MARIO") return true; //assume there is nothing to do
+    const QString MARIO_NAME = "MARIO";
+    QString upperName = name.toUpper();
+    if (upperName == MARIO_NAME) {
+        if (!this->specialP1Name.isEmpty() && this->specialP1Name != MARIO_NAME) return this->Set_Mario_Name(this->specialP1Name);
+        else return true; //assume there is nothing to do
+    }
     QString trimmedName = name;
     if (trimmedName.size() > 5) trimmedName.resize(5);
     QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
@@ -19,7 +27,12 @@ bool Text::Set_Mario_Name(const QString &name) {
 }
 
 bool Text::Set_Luigi_Name(const QString &name) {
-    if (name == "LUIGI") return true; //assume there is nothing to do
+    const QString LUIGI_NAME = "LUIGI";
+    QString upperName = name.toUpper();
+    if (upperName == LUIGI_NAME) {
+        if (!this->specialP2Name.isEmpty() && this->specialP2Name != LUIGI_NAME) return this->Set_Luigi_Name(this->specialP2Name);
+        else return true; //assume there is nothing to do
+    }
     QString trimmedName = name;
     if (trimmedName.size() > 5) trimmedName.resize(5);
     QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
@@ -30,6 +43,16 @@ bool Text::Set_Luigi_Name(const QString &name) {
     if (!this->Write_Bytes_To_Offset(0x07FD, leftJustified)) return false; //HUD, Time Up, Game Over
     if (!this->Write_Bytes_To_Offset(0x0D85, nameBytes+exclamationBytes)) return false; //Thank you Luigi!
     return true;
+}
+
+void Text::Set_Special_P1_Name(const QString &name) {
+    if (name.size() > 5) return;
+    this->specialP1Name = name.toUpper();
+}
+
+void Text::Set_Special_P2_Name(const QString &name) {
+    if (name.size() > 5) return;
+    this->specialP2Name = name.toUpper();
 }
 
 QByteArray Text::Convert_String_To_SMB_Bytes(const QString &string) {

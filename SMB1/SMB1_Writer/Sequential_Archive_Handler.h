@@ -7,6 +7,8 @@
 #include <QString>
 #include <QSet>
 
+class Text;
+
 class Sequential_Archive_Handler {
 public:
     Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation);
@@ -16,6 +18,7 @@ public:
     void Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
     void Set_Combine_Music_Packs(bool combineMusicPacks);
     void Set_File(QFile *file);
+    void Set_Text(Text *text);
     bool Apply_Graphics_Fix(const QString &fixName);
     bool Apply_Mario_Sprite_And_Graphics_Fixes(const QString &fixName);
     bool Apply_Graphics_Pack_At_Index(int index);
@@ -66,6 +69,7 @@ private:
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();
     QByteArray Read_Music_Pack(const QString &musicPackString);
+    QString Read_Attribute_From_Patch_Header(const QByteArray &patchBytes, const QString &attribute);
     bool Removed_Installed_ROM_Patches_On_Failure(const QStringList &patches, const QString &extension);
 
     QFile *file;
@@ -78,6 +82,7 @@ private:
     Sequential_Archive_Interface *sequentialArchivePlugin;
     QPluginLoader *hexagonLoader;
     QPluginLoader *sequentialArchiveLoader;
+    Text *text;
     QStringList bonusGraphicsPacks;
     QStringList bonusMarioSprites;
     QStringList bonusMusicPacks;

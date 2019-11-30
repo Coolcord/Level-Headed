@@ -5,12 +5,14 @@
 #include "../Common_SMB1_Files/Fix_Strings.h"
 #include "../../../Hexagon/Hexagon/Patch_Strings.h"
 #include "SMB1_Writer_Strings.h"
+#include "Text.h"
 #include <assert.h>
 #include <QDebug>
 #include <QFileInfo>
 #include <QTextStream>
 
 Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation) {
+    this->text = nullptr;
     this->combineGraphicsPacks = false;
     this->combineMusicPacks = false;
     this->file = nullptr;
@@ -67,6 +69,10 @@ void Sequential_Archive_Handler::Set_File(QFile *file) {
     this->file = file;
 }
 
+void Sequential_Archive_Handler::Set_Text(Text *text) {
+    this->text = text;
+}
+
 bool Sequential_Archive_Handler::Apply_Graphics_Fix(const QString &fixName) {
     QByteArray patchBytes = this->Read_Graphics_Fix(fixName);
     if (patchBytes.isEmpty()) return true; //nothing to apply
@@ -115,6 +121,7 @@ bool Sequential_Archive_Handler::Apply_Mario_Sprite_Fix(const QString &fixName) 
 }
 
 bool Sequential_Archive_Handler::Apply_Mario_Sprite_At_Index(int index) {
+    assert(this->text);
     if (this->marioSpriteStrings.isEmpty()) this->Get_Mario_Sprites();
     assert(index < this->marioSpriteStrings.size()+this->bonusMarioSprites.size());
     if (!this->file) return false;
@@ -126,6 +133,8 @@ bool Sequential_Archive_Handler::Apply_Mario_Sprite_At_Index(int index) {
     if (index < this->marioSpriteStrings.size()) marioSprite = this->marioSpriteStrings.at(index);
     else marioSprite = this->bonusMarioSprites.at(index-this->marioSpriteStrings.size());
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/Mario/"+marioSprite);
+    this->text->Set_Special_P1_Name(this->Read_Attribute_From_Patch_Header(patchBytes, "P1 Name"));
+    this->text->Set_Special_P2_Name(this->Read_Attribute_From_Patch_Header(patchBytes, "P2 Name"));
 
     qDebug() << "Using Mario Sprite " << marioSprite;
     this->sequentialArchivePlugin->Close();
@@ -539,6 +548,17 @@ QByteArray Sequential_Archive_Handler::Read_Music_Pack(const QString &musicPackS
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+musicPackString);
     this->sequentialArchivePlugin->Close();
     return patchBytes;
+}
+
+QString Sequential_Archive_Handler::Read_Attribute_From_Patch_Header(const QByteArray &patchBytes, const QString &attribute) {
+    QTextStream stream(patchBytes);
+    QString id = Patch_Strings::STRING_COMMENT+" "+attribute;
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (line.startsWith(id)) return line.remove(0, id.size()+2); //remove following colon and space
+        if (line.startsWith(Patch_Strings::STRING_OFFSET)) return QString();
+    }
+    return QString();
 }
 
 bool Sequential_Archive_Handler::Removed_Installed_ROM_Patches_On_Failure(const QStringList &patches, const QString &extension) {
