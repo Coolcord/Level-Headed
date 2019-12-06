@@ -66,6 +66,7 @@ QString ROM_Handler::Install_ROM() {
 
         //ROM must be invalid
         if (romType == ROM_Type::INVALID) {
+            file.close();
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                   "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
             return QString();
