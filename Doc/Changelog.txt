@@ -4,6 +4,7 @@ Next Update (v0.3.4)
 + Random Color Palettes
 + Graphics packs can now be combined with compatible packs
 + Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
++ Invalid ROM headers will now be ignored when installing a new ROM
 + Added Graphics (Mario Bros. Untold by Dark_Lord05)
 + Added Graphics (Super Luigi Forgotten Adventure (Rev B) by Googie)
 + Added Graphics (Super Rex Dash by SaveState)

@@ -53,13 +53,23 @@ QString ROM_Handler::Install_ROM() {
     }
 
     //Verify ROM Checksum
+    QByteArray buffer = file.readAll();
     QString checksum = this->romChecksum->Get_ROM_Checksum(&file);
     Unfixed_ROM_Type::Unfixed_ROM_Type unfixedROMType = this->romChecksum->Get_Unfixed_ROM_Type_From_Checksum(checksum);
     ROM_Type::ROM_Type romType = this->romChecksum->Get_ROM_Type_From_Unfixed_ROM_Type(unfixedROMType);
     if (romType == ROM_Type::INVALID) {
-        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
-        return QString();
+        //Try again without the header
+        buffer = buffer.remove(0, 0x10);
+        checksum = this->romChecksum->Get_ROM_Checksum(buffer);
+        unfixedROMType = this->romChecksum->Get_Unfixed_ROM_Type_From_Checksum(checksum);
+        romType = this->romChecksum->Get_ROM_Type_From_Unfixed_ROM_Type(unfixedROMType);
+
+        //ROM must be invalid
+        if (romType == ROM_Type::INVALID) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
+            return QString();
+        }
     }
 
     //Check if the current ROM is already installed
@@ -87,7 +97,6 @@ QString ROM_Handler::Install_ROM() {
     //Install the ROM
     file.reset();
     installedFile.reset();
-    QByteArray buffer = file.readAll();
     if (!this->romChecksum->Apply_Fixes_To_Match_Checksum(buffer, unfixedROMType)) {
         file.close();
         installedFile.close();

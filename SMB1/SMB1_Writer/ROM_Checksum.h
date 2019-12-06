@@ -13,6 +13,7 @@ public:
     ROM_Checksum();
     ~ROM_Checksum();
     QString Get_ROM_Checksum(QFile *file);
+    QString Get_ROM_Checksum(QByteArray &buffer);
     Unfixed_ROM_Type::Unfixed_ROM_Type Get_Unfixed_ROM_Type_From_Checksum(const QString &romChecksum);
     ROM_Type::ROM_Type Get_ROM_Type_From_Checksum(const QString &romChecksum);
     QString Get_ROM_Filename_From_Checksum(const QString &romChecksum);
