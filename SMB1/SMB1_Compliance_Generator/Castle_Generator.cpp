@@ -4,7 +4,7 @@
 #include "Physics.h"
 #include <assert.h>
 
-Castle_Generator::Castle_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {
+Castle_Generator::Castle_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *a) : Level_Generator(file, a) {
     this->itemSpawner = new Item_Spawner(this->object, Level_Type::CASTLE);
 }
 
@@ -206,7 +206,7 @@ bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
     for (int i = numPlatforms; i > 0; --i) {
         x = this->object->Get_Last_Object_Length()+Random::Get_Instance().Get_Num(3)+2; //between 2 and 5
         int length = Random::Get_Instance().Get_Num(3)+2; //between 2 and 5
-        int y = this->Get_Random_Y();;
+        int y = this->Get_Random_Y();
         if (i == 1 && y < 5) y = 5;
         assert(this->object->Horizontal_Blocks(x, y, length));
 
@@ -314,7 +314,7 @@ bool Castle_Generator::Coin_Tease(int x) {
 }
 
 bool Castle_Generator::Item_Tease(int x) {
-    if (this->object->Get_Num_Objects_Available() < 6) return false;
+    if (this->object->Get_Num_Objects_Available() < 7) return false;
 
     Brick::Brick brick;
     switch (Random::Get_Instance().Get_Num(4)) {

@@ -5,12 +5,12 @@
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(object) {
-    assert(object);
+End_Spawner::End_Spawner(Object_Writer *ow, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
+    assert(ow);
     assert(enemy);
     assert(args);
     assert(requiredEnemySpawns);
-    this->object = object;
+    this->object = ow;
     this->enemy = enemy;
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
