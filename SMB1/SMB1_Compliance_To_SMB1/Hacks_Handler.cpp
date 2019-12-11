@@ -141,11 +141,12 @@ bool Hacks_Handler::Handle_Graphics() {
 
     //Write the Mario Sprite
     int marioSprite = this->pluginSettings->marioSprite;
-    if (marioSprite == 0) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites())+1;
+    if (marioSprite == 0) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites())+2;
+    else if (marioSprite == 1) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites()+this->writerPlugin->Graphics_Get_Number_Of_Bonus_Mario_Sprites())+2;
     success = false;
     switch (marioSprite) {
-    case 1:     success = true; break; //use Mario Sprite included in graphics pack
-    default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-2); break;
+    case 2:     success = true; break; //use Mario Sprite included in graphics pack
+    default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-3); break;
     }
     if (!success) return false;
 

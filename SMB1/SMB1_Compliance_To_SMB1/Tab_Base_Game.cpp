@@ -201,7 +201,7 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->radio2PlayerGame->setChecked(true);
     this->ui->comboGraphics->setCurrentIndex(1);
     this->ui->comboPalette->setCurrentIndex(1);
-    this->ui->comboMarioSprite->setCurrentIndex(1);
+    this->ui->comboMarioSprite->setCurrentIndex(2);
     this->ui->comboMarioSpritePalette->setCurrentIndex(3);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(false);
     this->ui->comboMusic->setCurrentIndex(2);

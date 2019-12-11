@@ -1072,6 +1072,11 @@ bool SMB1_Writer::Graphics_Apply_Mario_Sprite(int index) {
     return this->sequentialArchiveHandler->Apply_Mario_Sprite_At_Index(index);
 }
 
+bool SMB1_Writer::Graphics_Was_Mario_Sprite_A_Bonus_Sprite() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Was_Mario_Sprite_A_Bonus_Sprite();
+}
+
 bool SMB1_Writer::Graphics_Combine_Graphics() {
     if (!this->sequentialArchiveHandler || !this->graphics) return false;
     if (this->sequentialArchiveHandler->Get_Combine_Graphics_Packs()) return this->graphics->Combine_Graphics();

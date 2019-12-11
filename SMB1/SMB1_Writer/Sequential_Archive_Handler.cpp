@@ -31,6 +31,7 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->invalidTones = new QSet<int>();
     this->allowPalettes = true;
     this->allowOnlyCoinPalettes = false;
+    this->wasMarioSpriteABonusSprite = false;
     this->romFolderLocation = romFolderLocation;
     this->pluginLocation = applicationLocation + "/" + Common_Strings::STRING_PLUGINS + "/";
     this->romsArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
@@ -47,6 +48,10 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->sequentialArchivePlugin = nullptr;
     delete this->invalidTones;
     this->invalidTones = nullptr;
+}
+
+bool Sequential_Archive_Handler::Was_Mario_Sprite_A_Bonus_Sprite() {
+    return this->wasMarioSpriteABonusSprite;
 }
 
 bool Sequential_Archive_Handler::Get_Combine_Graphics_Packs() {
@@ -141,7 +146,10 @@ bool Sequential_Archive_Handler::Apply_Mario_Sprite_At_Index(int index) {
     if (patchBytes.isEmpty()) return false;
     int lineNum = 0;
     bool success = this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
-    if (success) this->lastAppliedMarioSprite = marioSprite;
+    if (success) {
+        this->lastAppliedMarioSprite = marioSprite;
+        if (index >= this->marioSpriteStrings.size()) this->wasMarioSpriteABonusSprite = true;
+    }
     return success;
 }
 

@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -430,7 +430,12 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <item>
                    <property name="text">
-                    <string>Random</string>
+                    <string>Random (Only Mario)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Random All</string>
                    </property>
                   </item>
                   <item>

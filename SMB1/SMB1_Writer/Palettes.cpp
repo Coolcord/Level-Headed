@@ -62,6 +62,7 @@ bool Palettes::Randomize_Mario_Sprite_Palette() {
 }
 
 bool Palettes::Apply_Mario_Palette_Present(int present) {
+    if (this->sequentialArchiveHandler->Was_Mario_Sprite_A_Bonus_Sprite()) return true; //nothing to do
     switch (present) {
     default: return false;
     case 0: //SMB1 (Original)

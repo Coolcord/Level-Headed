@@ -13,6 +13,7 @@ class Sequential_Archive_Handler {
 public:
     Sequential_Archive_Handler(const QString &applicationLocation, const QString &romFolderLocation);
     ~Sequential_Archive_Handler();
+    bool Was_Mario_Sprite_A_Bonus_Sprite();
     bool Get_Combine_Graphics_Packs();
     bool Get_Combine_Music_Packs();
     void Set_Combine_Graphics_Packs(bool combineGraphicsPacks);
@@ -78,6 +79,7 @@ private:
     bool allowOnlyCoinPalettes;
     bool combineGraphicsPacks;
     bool combineMusicPacks;
+    bool wasMarioSpriteABonusSprite;
     Hexagon_Interface *hexagonPlugin;
     Sequential_Archive_Interface *sequentialArchivePlugin;
     QPluginLoader *hexagonLoader;
