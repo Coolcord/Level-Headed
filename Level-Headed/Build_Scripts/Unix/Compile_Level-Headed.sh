@@ -98,20 +98,23 @@ if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running
     dllExt=".dll"
     exeExt=".exe"
     binDir="/release"
+    libPrefix=""
 else # assume we're on GNU/Linux or Mac
+    releaseDirectory=source/Level-Headed/Level-Headed
     dllExt=".so"
     exeExt=""
     binDir=""
+    libPrefix="lib"
 fi
 mkdir -p source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/
 cp source/Level-Headed/Level-Headed"$binDir"/Level-Headed.exe Level-Headed.exe
 chmod +x Level-Headed"$exeExt"
-cp source/Level-Headed/SMB1/SMB1_Compliance_Generator"$binDir"/SMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
-cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1"$binDir"/SMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
-cp source/Level-Headed/SMB1/SMB1_Writer"$binDir"/SMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
-cp source/Hexagon/Hexagon"$binDir"/Hexagon"$dllExt" Plugins/Hexagon"$dllExt"
-cp source/Sequential_Archive/Sequential_Archive"$binDir"/Sequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
-cp source/Sequential_Archive/Sequential_Archive"$binDir"/Sequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/Sequential_Archive"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_Generator"$binDir"/"$libPrefix"SMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1"$binDir"/"$libPrefix"SMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Writer"$binDir"/"$libPrefix"SMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
+cp source/Hexagon/Hexagon"$binDir"/"$libPrefix"Hexagon"$dllExt" Plugins/Hexagon"$dllExt"
+cp source/Sequential_Archive/Sequential_Archive"$binDir"/"$libPrefix"Sequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
+cp source/Sequential_Archive/Sequential_Archive"$binDir"/"$libPrefix"Sequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/Sequential_Archive"$dllExt"
 echo Packing assets...
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
