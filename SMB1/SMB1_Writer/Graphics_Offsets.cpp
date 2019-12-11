@@ -121,9 +121,9 @@ QStack<qint64> Graphics_Offsets::Get_Lift_Offsets() {
 }
 
 QStack<qint64> Graphics_Offsets::Get_Mario_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x6E28); offsets.push(0x6E30); offsets.push(0x6E38); offsets.push(0x6E40); offsets.push(0x6E48); offsets.push(0x6E50); offsets.push(0x6E58); offsets.push(0x6E60); offsets.push(0x6E68);
-    offsets.push(0x6E70); offsets.push(0x6E78); offsets.push(0x6E80); offsets.push(0x6E88); offsets.push(0x6E90); offsets.push(0x6E98); offsets.push(0x6EA0); offsets.push(0x6EA8); offsets.push(0x6EB0); offsets.push(0x6EB8);
-    offsets.push(0x6EC0); offsets.push(0x6EC8); offsets.push(0x6ED0); offsets.push(0x6ED8); offsets.push(0x6EE0); offsets.push(0x6EE8); offsets.push(0x6EF0);
+    QStack<qint64> offsets; offsets.push(0x6E27); offsets.push(0x6E2F); offsets.push(0x6E37); offsets.push(0x6E3F); offsets.push(0x6E47); offsets.push(0x6E4F); offsets.push(0x6E57); offsets.push(0x6E5F); offsets.push(0x6E67);
+    offsets.push(0x6E6F); offsets.push(0x6E77); offsets.push(0x6E7F); offsets.push(0x6E87); offsets.push(0x6E8F); offsets.push(0x6E97); offsets.push(0x6E9F); offsets.push(0x6EA7); offsets.push(0x6EAF); offsets.push(0x6EB7);
+    offsets.push(0x6EBF); offsets.push(0x6EC7); offsets.push(0x6ECF); offsets.push(0x6ED7); offsets.push(0x6EDF); offsets.push(0x6EE7); offsets.push(0x6EEF);
     return offsets;
 }
 
