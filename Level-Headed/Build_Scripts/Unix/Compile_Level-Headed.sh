@@ -107,7 +107,7 @@ else # assume we're on GNU/Linux or Mac
     libPrefix="lib"
 fi
 mkdir -p source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/
-cp source/Level-Headed/Level-Headed"$binDir"/Level-Headed.exe Level-Headed.exe
+cp source/Level-Headed/Level-Headed"$binDir"/Level-Headed"$exeExt" Level-Headed"$exeExt"
 chmod +x Level-Headed"$exeExt"
 cp source/Level-Headed/SMB1/SMB1_Compliance_Generator"$binDir"/"$libPrefix"SMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
 cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1"$binDir"/"$libPrefix"SMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
