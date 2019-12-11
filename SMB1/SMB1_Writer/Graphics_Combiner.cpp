@@ -216,6 +216,11 @@ bool Graphics_Combiner::Combine_One_Up_Font() {
 
 bool Graphics_Combiner::Combine_Peach() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Peach_Offsets(), true)) return true;
+
+    //Make sure the red palette does not have black for color 3
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
+    if (bytes.at(0) == Color::BLACK) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach");
 }
 
@@ -256,6 +261,11 @@ bool Graphics_Combiner::Combine_Starman() {
 
 bool Graphics_Combiner::Combine_Toad() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Toad_Offsets(), true)) return true;
+
+    //Make sure the red palette does not have black for color 3
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
+    if (bytes.at(0) == Color::BLACK) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad");
 }
 
