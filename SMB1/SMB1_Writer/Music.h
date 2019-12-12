@@ -9,6 +9,7 @@ class Music : public Byte_Writer {
 public:
     Music(QFile *file, Level_Offset *levelOffset, Sequential_Archive_Handler *sequentialArchiveHandler);
     ~Music() {}
+    bool Get_Last_Tone_Color();
     bool Disable_Music();
     bool Tone_Color_1();
     bool Tone_Color_2();
@@ -31,6 +32,7 @@ public:
 
 private:
     Sequential_Archive_Handler *sequentialArchiveHandler;
+    int lastToneColor;
 };
 
 #endif // MUSIC_H

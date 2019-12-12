@@ -3,9 +3,11 @@
 
 #include "Byte_Writer.h"
 
+class Music;
+
 class Sound : public Byte_Writer {
 public:
-    Sound(QFile *file, Level_Offset *levelOffset);
+    Sound(QFile *file, Level_Offset *levelOffset, Music *music);
     bool Randomize_Sounds();
 
 private:
@@ -44,6 +46,8 @@ private:
     char Square_2_Key_Random(char byte);
     char Square_2_Key_Up(char byte);
     char Square_2_Key_Down(char byte);
+
+    Music *music;
 };
 
 #endif // SOUND_H

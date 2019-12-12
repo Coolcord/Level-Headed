@@ -1,10 +1,13 @@
 #include "Sound.h"
 #include "../../Common_Files/Random.h"
+#include "Music.h"
 #include <assert.h>
 
 #include <QDebug>
 
-Sound::Sound(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {}
+Sound::Sound(QFile *f, Level_Offset *lo, Music *music) : Byte_Writer(f, lo) {
+    this->music = music;
+}
 
 bool Sound::Randomize_Sounds() {
     bool success = false;
@@ -107,7 +110,9 @@ bool Sound::Bowser_Drop_Random() {
 
 bool Sound::Bowser_Flame_Random() {
     if (!this->Write_Bytes_To_Offset(0x7FDA, this->Random_Increment(this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("15161617171819191a1a1c1d1d1e1e1f1f1f1f1e1d1c1e1f1f1e1d1c1a181614").toLatin1())), 0x10))) return false;
-    return this->Write_Bytes_To_Offset(0x7691, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x20, 0x53))));
+    int max = 0x53;
+    if (this->music->Get_Last_Tone_Color() == 1) max = 0x3E; //work around a very rare bug with tone color 1 (Bowser Fire loops after death)
+    return this->Write_Bytes_To_Offset(0x7691, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x20, max))));
 }
 
 bool Sound::Brick_Break_1() { return this->Write_Bytes_To_Offset(0x763F, this->Possibly_Reverse_Notes(QByteArray::fromHex(QString("0B060C0F0A09030D080D060C").toLatin1()))); }
