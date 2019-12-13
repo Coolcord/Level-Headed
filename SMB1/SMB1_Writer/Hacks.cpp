@@ -27,6 +27,7 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->spinyEggSpeedCap = 0x18;
     this->skipLivesScreen = false;
     this->isHammerSuitActive = false;
+    this->permadeath = false;
     this->wasCastleLoopReplacedWithAutoScrollObject = false;
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
@@ -203,7 +204,10 @@ bool Hacks::Permadeath() {
 
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
-    return this->Skip_Lives_Screen();
+    if (this->wasCastleLoopReplacedWithFlagpole1UP && !this->Write_Bytes_To_Offset(0x4080, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
+    if (!this->Skip_Lives_Screen()) return false;
+    this->permadeath = true;
+    return true;
 }
 
 bool Hacks::Random_Group_Enemy_Goomba(bool allowHammerBros) {
@@ -364,6 +368,7 @@ bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
 bool Hacks::Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
     if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D007EE5A07A94085FE60").toLatin1()))) return false;
+    if (this->permadeath && !this->Write_Bytes_To_Offset(0x4080, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing if permadeath is active
     if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("206BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()))) return false;
     this->wasCastleLoopReplacedWithFlagpole1UP = true;

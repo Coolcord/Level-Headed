@@ -99,6 +99,7 @@ private:
     int spinyEggSpeedCap;
     bool skipLivesScreen;
     bool isHammerSuitActive;
+    bool permadeath;
     bool wasCastleLoopReplacedWithAutoScrollObject;
     bool wasCastleLoopReplacedWithFireBros;
     bool wasCastleLoopReplacedWithFlagpole1UP;
