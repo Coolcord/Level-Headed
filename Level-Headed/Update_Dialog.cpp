@@ -27,6 +27,7 @@ Update_Dialog::~Update_Dialog() {
 
 void Update_Dialog::on_Update_Dialog_accepted() {
     QDesktopServices::openUrl(QUrl(this->updatePage));
+    QCoreApplication::quit();
 }
 
 void Update_Dialog::on_Update_Dialog_rejected() {
