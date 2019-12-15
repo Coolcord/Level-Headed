@@ -38,6 +38,7 @@ public:
     bool Random_Group_Enemy_Goomba(bool allowHammerBros);
     bool Random_Group_Enemy_Koopa(bool allowHammerBros);
     bool Random_Intro_Demo();
+    bool Random_True_Bowser_Characters();
     bool Real_Time();
     bool Red_Piranha_Plants();
     bool Remove_Vertical_Object_Limit();

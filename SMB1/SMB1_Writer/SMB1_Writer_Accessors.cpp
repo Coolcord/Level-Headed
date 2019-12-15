@@ -619,6 +619,11 @@ bool SMB1_Writer::Hacks_Random_Intro_Demo() {
     return this->hacks->Random_Intro_Demo();
 }
 
+bool SMB1_Writer::Hacks_Random_True_Bowser_Characters() {
+    if (!this->hacks) return false;
+    return this->hacks->Random_True_Bowser_Characters();
+}
+
 bool SMB1_Writer::Hacks_Real_Time() {
     if (!this->hacks) return false;
     return this->hacks->Real_Time();

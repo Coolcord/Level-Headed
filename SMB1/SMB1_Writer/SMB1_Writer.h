@@ -175,6 +175,7 @@ public:
     bool Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros);
     bool Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros);
     bool Hacks_Random_Intro_Demo();
+    bool Hacks_Random_True_Bowser_Characters();
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();

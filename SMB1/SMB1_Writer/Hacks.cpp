@@ -9,7 +9,7 @@
 #include "Text.h"
 #include <assert.h>
 #include <cmath>
-#include <QDebug>
+#include <QVector>
 
 const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
@@ -268,6 +268,47 @@ bool Hacks::Random_Intro_Demo() {
 
     if (!this->Write_Bytes_To_Offset(0x0350, buttons)) return false;
     return this->Write_Bytes_To_Offset(0x365, timings);
+}
+
+bool Hacks::Random_True_Bowser_Characters() {
+    //Populate the Possible Enemies
+    QByteArray bytes(8, static_cast<char>(0x2D));
+    const int TOTAL_POSSIBLE_ENEMIES = 9;
+    QVector<char> possibleEnemies(TOTAL_POSSIBLE_ENEMIES, static_cast<char>(0x00));
+    for (int i = 0; i < TOTAL_POSSIBLE_ENEMIES; ++i) {
+        switch (i) {
+        default:     assert(false); return false;
+        case 0:      possibleEnemies[i] = static_cast<char>(0x00); break; //Green Koopa (+1 for Red)
+        case 1:      possibleEnemies[i] = static_cast<char>(0x02); break; //Buzzy Beetle
+        case 2:      possibleEnemies[i] = static_cast<char>(0x05); break; //Hammer Bro
+        case 3:      possibleEnemies[i] = static_cast<char>(0x06); break; //Goomba
+        case 4:      possibleEnemies[i] = static_cast<char>(0x07); break; //Blooper
+        case 5:      possibleEnemies[i] = static_cast<char>(0x08); break; //Bullet Bill
+        case 6:      possibleEnemies[i] = static_cast<char>(0x0A); break; //Green Cheep-Cheep (+1 for Red)
+        case 7:      possibleEnemies[i] = static_cast<char>(0x11); break; //Lakitu
+        case 8:      possibleEnemies[i] = static_cast<char>(0x12); break; //Spiny
+        }
+    }
+
+    //Populate the Enemies to be Written
+    for (int i = 0; i < 8; ++i) {
+        //Get a Unique Random Enemy
+        int index = Random::Get_Instance().Get_Num(possibleEnemies.size()-1);
+        char value = possibleEnemies.at(index);
+
+        //Get Random Enemy Colors
+        switch (value) {
+        default:                    break;
+        case 0x00: case 0x0A:       value += Random::Get_Instance().Get_Num(1); break;
+        }
+
+        //Save the Enemy
+        bytes.data()[i] = value;
+        possibleEnemies.removeAt(index);
+    }
+    bytes.data()[7] = static_cast<char>(0x2D); //make sure the final Bowser is the true Bowser
+    if (!this->Write_Bytes_To_Offset(0x5787, QByteArray::fromHex(QString("C00F").toLatin1()))) return false; //force all enemies to be flipped (up to world 0xF)
+    return this->Write_Bytes_To_Offset(0x5746, bytes);
 }
 
 bool Hacks::Real_Time() {
@@ -529,6 +570,9 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
     if (!this->Write_Bytes_To_Offset(0x512B, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false;
     if (!this->Write_Bytes_To_Offset(0x515D, QByteArray(1, static_cast<char>(value)))) return false; //world Bowser does not breathe fire (last world)
     if (!this->Write_Bytes_To_Offset(0x5161, QByteArray(1, static_cast<char>(startHardModeOnWorld)))) return false; //world Bowser starts breathing fire
+
+    //Correct Bowser's "True" Form
+    if (!this->Write_Bytes_To_Offset(0x5746+value, QByteArray(8-value, static_cast<char>(0x2D)))) return false;
 
     //Apply the Walking Hammer Bros patch
     assert(this->difficultyWalkingHammerBros >= 1 && this->difficultyWalkingHammerBros <= 11);

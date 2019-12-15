@@ -64,6 +64,9 @@ bool Hacks_Handler::Handle_Animations() {
     //Set the Death Animation Jump Height
     if (!this->writerPlugin->Hacks_Set_Death_Animation_Jump_Height(Random::Get_Instance().Get_Num(0, 7))) return false;
 
+    //Handle "True" Bowser Forms
+    if (!this->writerPlugin->Hacks_Random_True_Bowser_Characters()) return false;
+
     //Handle the Bowser Bridge Destruction Order
     if (!this->writerPlugin->Hacks_Destroy_Bowser_Bridge_Randomly()) return false;
     if (!this->writerPlugin->Hacks_Set_Bowser_Bridge_Destruction_Speed(Random::Get_Instance().Get_Num(1, 7))) return false;
