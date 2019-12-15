@@ -1,3 +1,6 @@
+Next Update (v0.3.5)
+Nothing here yet :(
+
 Graphical Wrap-up (v0.3.4)
 + Original SMB1 Levels (without castle loops) can be used with Level-Headed via level scripts
 + Enemies in level scripts can be randomized
