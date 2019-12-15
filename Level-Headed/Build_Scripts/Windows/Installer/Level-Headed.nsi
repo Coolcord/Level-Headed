@@ -76,6 +76,7 @@ Section -MainProgram
 ${INSTALL_TYPE}
 SetOverwrite on
 SetOutPath "$INSTDIR"
+ExecWait "TASKKILL /F /IM Level-Headed.exe"
 RmDir /r "$INSTDIR\Levels\SMB1"
 File "C:\Installer\Level-Headed.exe"
 File "C:\Installer\Files\libgcc_s_dw2-1.dll"
