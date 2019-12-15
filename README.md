@@ -28,6 +28,10 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
  ## FAQ
 
+**Q: What's new in "Graphical Wrap-up" (v0.3.4)?**
+
+ A: This update focuses on implementing the remaining graphical features that were planned. While more graphics packs and player sprites may be included in future updates, development will no longer focus on these elements. These new features include the color palette randomizer, the graphics combiner, the player palette randomizer, and the new player sprites. The other important feature of this update is the ability to use the *original levels* from SMB1 with Level-Headed. This basically allows Level-Headed to act more like a traditional randomizer for the players who prefer that feature. Enemies in level scripts can now also be randomized, allowing for a new experience with the original game, or a more unique take on the randomly generated levels.
+
 **Q: What's new in "Gameplay Wrap-up" (v0.3.3)?**
 
  A: v0.3.3 focuses on numerous minor gameplay features, such as new powerups and enemy behaviors. Most of these enemy behaviors are used to assist in making games easier or harder depending on the difficulty setting and are accomplished via ROM hacks. New spiny egg behaviors have also been added to make Lakitus more interesting. Midpoints can now also be used on every level (assuming it isn't a castle level).
