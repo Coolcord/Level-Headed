@@ -2,7 +2,7 @@
 
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
-!define VERSION "0.3.3.0"
+!define VERSION "0.3.4.0"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "C:\Installer\LICENSE.txt"
@@ -74,8 +74,9 @@ InstallDir "$PROGRAMFILES\Coolcord\Level-Headed"
 
 Section -MainProgram
 ${INSTALL_TYPE}
-SetOverwrite ifnewer
+SetOverwrite on
 SetOutPath "$INSTDIR"
+RmDir /r "$INSTDIR\Levels\SMB1"
 File "C:\Installer\Level-Headed.exe"
 File "C:\Installer\Files\libgcc_s_dw2-1.dll"
 File "C:\Installer\Files\libstdc++-6.dll"
@@ -89,11 +90,10 @@ File "C:\Installer\Files\Data\SMB1\Graphics.sa"
 File "C:\Installer\Files\Data\SMB1\Music.sa"
 File "C:\Installer\Files\Data\SMB1\ROMs.sa"
 SetOutPath "$INSTDIR\Levels\SMB1"
-File "C:\Installer\Files\Levels\SMB1\Coin Test.lvls"
-File "C:\Installer\Files\Levels\SMB1\It Plays Itself.lvls"
-File "C:\Installer\Files\Levels\SMB1\Powerup Test.lvls"
-File "C:\Installer\Files\Levels\SMB1\SMB1 1-1.lvls"
-File "C:\Installer\Files\Levels\SMB1\Vertical Limit Test.lvls"
+File "C:\Installer\Files\Levels\SMB1\(Tech Demo) It Plays Itself.lvls"
+File "C:\Installer\Files\Levels\SMB1\(Tech Demo) Powerup Test.lvls"
+File "C:\Installer\Files\Levels\SMB1\(Tech Demo) Vertical Limit Test.lvls"
+File "C:\Installer\Files\Levels\SMB1\Super Mario Bros. 1 (Original Levels without Castle Loops).lvls"
 SetOutPath "$INSTDIR\Plugins"
 File "C:\Installer\Files\Plugins\Hexagon.dll"
 File "C:\Installer\Files\Plugins\Sequential_Archive.dll"

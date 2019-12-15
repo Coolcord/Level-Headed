@@ -20,9 +20,9 @@ git clone https://github.com/Coolcord/C_Common_Code.git
 # Revert to stable code
 if [ -z $1 ] || [ $1 != "latest" ]; then
     echo Using stable code...
-    cd Level-Headed/; git checkout tags/v0.3.3 &> /dev/null
-    cd ../Level-Headed_Data/; git checkout tags/v0.3.3 &> /dev/null
-    cd ../Hexagon/; git checkout tags/v1.1.1-1 &> /dev/null
+    cd Level-Headed/; git checkout tags/v0.3.4 &> /dev/null
+    cd ../Level-Headed_Data/; git checkout tags/v0.3.4 &> /dev/null
+    cd ../Hexagon/; git checkout ce999b7830af8da2d013acc8dc353bd386739513 &> /dev/null
     cd ../Sequential_Archive/; git checkout tags/v1.1.1-1 &> /dev/null
     cd ../C_Common_Code/; git checkout 74510d309a2344890725f151c928cd7df20c59fa &> /dev/null
     cd ..
@@ -119,12 +119,10 @@ echo Packing assets...
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
-if [ "$1" == "latest" ]; then
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
-fi
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
+source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Original Levels without Castle Loops)' 'Levels/SMB1/Super Mario Bros. 1 (Original Levels without Castle Loops).lvls'
 
 # Clean up
 rm -rf source/

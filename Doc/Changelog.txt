@@ -1,14 +1,28 @@
-Next Update (v0.3.4)
+Graphical Wrap-up (v0.3.4)
 + Original SMB1 Levels (without castle loops) can be used with Level-Headed via level scripts
 + Enemies in level scripts can be randomized
-+ Random Color Palettes
 + Graphics packs can now be combined with compatible packs
++ Random Color Palettes for graphics packs
++ 5 new Mario sprite color palettes that can be set independently from the graphics packs (SMB1, SMB2 (SMW), SMB3 (Black Overalls), and SMB3 (Blue Overalls))
++ Added the option for randomly generated player color palettes
 + Hammer Bros no longer spawn underwater when playing on Normal, Easy, and Very Easy difficulties
 + Invalid ROM headers will now be ignored when installing a new ROM
 + Added Graphics (Mario Bros. Untold by Dark_Lord05)
 + Added Graphics (Super Luigi Forgotten Adventure (Rev B) by Googie)
 + Added Graphics (Super Rex Dash by SaveState)
 + Added Graphics (Neon Edition by Captain Gastronomicon)
++ Added Mario Player Sprite (SMB1 Modern)
++ Added Mario Player Sprite (SMB2)
++ Added Mario Player Sprite (SMB3)
++ Added Mario Player Sprite (SMW)
++ Added Mario Player Sprite (Hyper)
++ Added Mario Player Sprite (MCB)
++ Added Bonus Player Sprite (Link by Dr. Mario)
++ Added Bonus Player Sprite (Luigi by Googie)
++ Added Bonus Player Sprite (Peach by Googie)
++ Added Bonus Player Sprite (Toad by AlexAR)
++ Added Bonus Player Sprite (Wario by Sics)
++ Added Bonus Player Sprite (Yoshi by teeporage777)
 
 Gameplay Wrap-up (v0.3.3)
 + Midpoints are always used regardless of how many levels there are per world
