@@ -46,7 +46,6 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Goomba()) return false;
     if (!this->Combine_Hammer()) return false;
     if (!this->Combine_Hammer_Bro()) return false;
-    if (!this->Combine_Jump_Spring()) return false;
     if (!this->Combine_Koopa()) return false;
     if (!this->Combine_Lakitu()) return false;
     if (!this->Combine_Lift()) return false;
@@ -62,7 +61,6 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Starman()) return false;
     if (!this->Combine_Toad()) return false;
     if (!this->Combine_Axe()) return false;
-    if (!this->Combine_Brick_Block()) return false;
     if (!this->Combine_Bowser_Bridge()) return false;
     if (!this->Combine_Bridge()) return false;
     if (!this->Combine_Bullet_Bill_Cannon()) return false;
@@ -85,6 +83,8 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Underwater_Block()) return false;
     if (!this->Combine_Vine()) return false;
     if (!this->Combine_Water()) return false;
+    //if (!this->Combine_Brick_Block()) return false; //messes with the title screen
+    //if (!this->Combine_Jump_Spring()) return false; //messes with the title screen
     return true;
 }
 
@@ -174,6 +174,7 @@ bool Graphics_Combiner::Combine_Hammer_Bro() {
 }
 
 bool Graphics_Combiner::Combine_Jump_Spring() {
+     //Affects the Title Screen
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Jump_Spring_Animation_Offsets(), true)) return true;
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Jump_Spring_Base_Offsets(), false)) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Jump Spring");
@@ -275,6 +276,7 @@ bool Graphics_Combiner::Combine_Axe() {
 }
 
 bool Graphics_Combiner::Combine_Brick_Block() {
+    //Affects the Title Screen
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Brick_Block_Offsets(), false)) return true;
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Brick_Block_Animation_Offsets(), true)) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Brick Block", this->brickPatchName);
@@ -430,11 +432,6 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
         for (char c : newTiles) {
             if (tiles.contains(c)) tiles.insert(c, true);
             else return true;
-        }
-
-        //Make sure all tiles were used
-        for (QMap<char, bool>::iterator iter = tiles.begin(); iter != tiles.end(); ++iter) {
-            if (!iter.value()) return true;
         }
     }
     return false;

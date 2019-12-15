@@ -339,37 +339,17 @@ void Graphics_Offsets::Initialize_Tile_Order_Map() {
     this->tileOrderMap->insert(0xBC0, new QByteArray(QByteArray::fromHex(QString("99249924").toLatin1())));
     this->tileOrderMap->insert(0xBC4, new QByteArray(QByteArray::fromHex(QString("24A23E3F").toLatin1())));
     this->tileOrderMap->insert(0xBC8, new QByteArray(QByteArray::fromHex(QString("5B5C24A3").toLatin1())));
-    this->tileOrderMap->insert(0xBD0, new QByteArray(QByteArray::fromHex(QString("9D479E47").toLatin1())));
-    this->tileOrderMap->insert(0xBD4, new QByteArray(QByteArray::fromHex(QString("47472727").toLatin1())));
-    this->tileOrderMap->insert(0xBD8, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xBDC, new QByteArray(QByteArray::fromHex(QString("27274747").toLatin1())));
-    this->tileOrderMap->insert(0xBE0, new QByteArray(QByteArray::fromHex(QString("A947AA47").toLatin1())));
     this->tileOrderMap->insert(0xBEC, new QByteArray(QByteArray::fromHex(QString("52525252").toLatin1())));
     this->tileOrderMap->insert(0xBF8, new QByteArray(QByteArray::fromHex(QString("75BA76BB").toLatin1())));
     this->tileOrderMap->insert(0xBFC, new QByteArray(QByteArray::fromHex(QString("BABABBBB").toLatin1())));
-    this->tileOrderMap->insert(0xC00, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC04, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC08, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
     this->tileOrderMap->insert(0xC0C, new QByteArray(QByteArray::fromHex(QString("B4B6B5B7").toLatin1())));
-    this->tileOrderMap->insert(0xC10, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC14, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC18, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC1C, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC20, new QByteArray(QByteArray::fromHex(QString("45474547").toLatin1())));
-    this->tileOrderMap->insert(0xC24, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC28, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC2C, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC30, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
-    this->tileOrderMap->insert(0xC34, new QByteArray(QByteArray::fromHex(QString("47474747").toLatin1())));
     this->tileOrderMap->insert(0xC40, new QByteArray(QByteArray::fromHex(QString("ABACADAE").toLatin1())));
     this->tileOrderMap->insert(0xC44, new QByteArray(QByteArray::fromHex(QString("5D5E5D5E").toLatin1())));
     this->tileOrderMap->insert(0xC48, new QByteArray(QByteArray::fromHex(QString("C124C124").toLatin1())));
     this->tileOrderMap->insert(0xC4C, new QByteArray(QByteArray::fromHex(QString("C6C8C7C9").toLatin1())));
     this->tileOrderMap->insert(0xC50, new QByteArray(QByteArray::fromHex(QString("CACCCBCD").toLatin1())));
     this->tileOrderMap->insert(0xC54, new QByteArray(QByteArray::fromHex(QString("2A2A4040").toLatin1())));
-    this->tileOrderMap->insert(0xC5C, new QByteArray(QByteArray::fromHex(QString("24472447").toLatin1())));
     this->tileOrderMap->insert(0xC60, new QByteArray(QByteArray::fromHex(QString("82838485").toLatin1())));
-    this->tileOrderMap->insert(0xC64, new QByteArray(QByteArray::fromHex(QString("24472447").toLatin1())));
     this->tileOrderMap->insert(0xC68, new QByteArray(QByteArray::fromHex(QString("868A878B").toLatin1())));
     this->tileOrderMap->insert(0xC6C, new QByteArray(QByteArray::fromHex(QString("8E918F92").toLatin1())));
     this->tileOrderMap->insert(0xC8C, new QByteArray(QByteArray::fromHex(QString("41264126").toLatin1())));
@@ -421,10 +401,6 @@ void Graphics_Offsets::Initialize_Tile_Order_Map() {
     this->tileOrderMap->insert(0x682C, new QByteArray(QByteArray::fromHex(QString("BFBECAC9C2FC").toLatin1())));
     this->tileOrderMap->insert(0x6832, new QByteArray(QByteArray::fromHex(QString("C4C3C6C5CCCB").toLatin1())));
     this->tileOrderMap->insert(0x6838, new QByteArray(QByteArray::fromHex(QString("FCFCE8E7EAE9").toLatin1())));
-    this->tileOrderMap->insert(0x683E, new QByteArray(QByteArray::fromHex(QString("F2F2F3F3F2F2").toLatin1())));
-    this->tileOrderMap->insert(0x6844, new QByteArray(QByteArray::fromHex(QString("F1F1F1F1FCFC").toLatin1())));
-    this->tileOrderMap->insert(0x684A, new QByteArray(QByteArray::fromHex(QString("F0F0FCFCFCFC").toLatin1())));
-    this->tileOrderMap->insert(0x6BDD, new QByteArray(QByteArray::fromHex(QString("85858686").toLatin1())));
     //=========================================================================================================================
 }
 

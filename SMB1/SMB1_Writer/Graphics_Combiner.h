@@ -38,7 +38,7 @@ public:
     bool Combine_Goomba();
     bool Combine_Hammer();
     bool Combine_Hammer_Bro();
-    bool Combine_Jump_Spring();
+    bool Combine_Jump_Spring(); //affects the title screen
     bool Combine_Koopa();
     bool Combine_Lakitu();
     bool Combine_Lift();
@@ -57,7 +57,7 @@ public:
 
     //Background
     bool Combine_Axe();
-    bool Combine_Brick_Block();
+    bool Combine_Brick_Block(); //affects the title screen
     bool Combine_Bowser_Bridge();
     bool Combine_Bridge();
     bool Combine_Bullet_Bill_Cannon();
