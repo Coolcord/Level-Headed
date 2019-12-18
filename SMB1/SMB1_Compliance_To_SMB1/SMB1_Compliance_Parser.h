@@ -15,6 +15,7 @@ public:
     ~SMB1_Compliance_Parser();
     int Parse_Level(QTextStream *stream, bool bonusLevel);
     int Parse_Level(QTextStream *stream, bool bonusLevel, int &lineNum);
+    bool Was_Auto_Scroll_Used();
 
 private:
     bool Parse_Header(QTextStream *file, bool bonusLevel, int &lineNum, int &errorCode);
@@ -25,6 +26,7 @@ private:
     SMB1_Writer_Interface *writerPlugin;
     Object_Handler *objectHandler;
     Enemy_Handler *enemyHandler;
+    bool wasAutoScrollUsed;
 };
 
 #endif // SMB1_COMPLIANCE_PARSER_H

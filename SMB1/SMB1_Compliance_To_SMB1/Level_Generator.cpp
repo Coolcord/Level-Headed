@@ -256,6 +256,13 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                                           "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
                     return false;
                 }
+
+                //Disable the Intro Demo if the first level is an auto scroller
+                if (currentWorldNum == 1 && currentLevelNum == 1 && parser.Was_Auto_Scroll_Used() && !this->writerPlugin->Hacks_Disable_Intro_Demo()) {
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
+                    return false;
+                }
             }
         }
     } while (!file.atEnd());
@@ -607,6 +614,13 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         }
 
         if (!this->writerPlugin->Write_Level()) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
+            return false;
+        }
+
+        //Disable the Intro Demo if the first level is an auto scroller
+        if (i == 0 && parser.Was_Auto_Scroll_Used() && !this->writerPlugin->Hacks_Disable_Intro_Demo()) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                   "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
             return false;

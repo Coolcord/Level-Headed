@@ -16,6 +16,7 @@ SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlug
     assert(this->enemies);
     assert(writerPlugin);
     this->writerPlugin = writerPlugin;
+    this->wasAutoScrollUsed = false;
 
     //Set up the item handlers
     this->objectHandler = new Object_Handler(this->writerPlugin, randomEnemies);
@@ -33,6 +34,8 @@ int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, bool bonusLevel) {
 }
 
 int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, bool bonusLevel, int &lineNum) {
+    this->wasAutoScrollUsed = false;
+
     //Open the file for reading
     if (stream->atEnd()) return 1;
     lineNum = 1;
@@ -51,6 +54,10 @@ int SMB1_Compliance_Parser::Parse_Level(QTextStream *stream, bool bonusLevel, in
     if (!stream->atEnd()) return 2;
 
     return 0;
+}
+
+bool SMB1_Compliance_Parser::Was_Auto_Scroll_Used() {
+    return this->wasAutoScrollUsed;
 }
 
 bool SMB1_Compliance_Parser::Parse_Header(QTextStream *file, bool bonusLevel, int &lineNum, int &errorCode) {
@@ -190,7 +197,9 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
     case Object_Item::SCROLL_STOP_WARP_ZONE:
         return this->objectHandler->Scroll_Stop(line, true, errorCode);
     case Object_Item::TOGGLE_AUTO_SCROLL:
-        return this->objectHandler->Toggle_Auto_Scroll(line, errorCode);
+        if (!this->objectHandler->Toggle_Auto_Scroll(line, errorCode)) return false;
+        this->wasAutoScrollUsed = true;
+        return true;
     case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:
         return this->objectHandler->Flying_Cheep_Cheep_Spawner(line, errorCode);
     case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:

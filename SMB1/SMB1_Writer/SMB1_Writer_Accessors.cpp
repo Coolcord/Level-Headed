@@ -555,6 +555,11 @@ bool SMB1_Writer::Hacks_Destroy_Bowser_Bridge_Randomly() {
     return this->hacks->Destroy_Bowser_Bridge_Randomly();
 }
 
+bool SMB1_Writer::Hacks_Disable_Intro_Demo() {
+    if (!this->hacks) return false;
+    return this->hacks->Disable_Intro_Demo();
+}
+
 bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Start_With_Fire_Flower_On_Room_Change()) return false;

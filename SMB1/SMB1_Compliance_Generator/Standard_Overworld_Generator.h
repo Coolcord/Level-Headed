@@ -6,8 +6,7 @@
 class Simple_Object_Spawner;
 class Common_Pattern_Spawner;
 
-class Standard_Overworld_Generator : public Level_Generator
-{
+class Standard_Overworld_Generator : public Level_Generator {
 public:
     Standard_Overworld_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {}
     ~Standard_Overworld_Generator();
