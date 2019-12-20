@@ -16,13 +16,17 @@ bool Text::Set_Mario_Name(const QString &name) {
     if (trimmedName.size() > 5) trimmedName.resize(5);
     QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
     QByteArray spaceBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), ' ')));
-    QByteArray exclamationBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), '!')));
     QByteArray leftJustified = nameBytes+spaceBytes;
 
     if (!this->Write_Bytes_To_Offset(0x0765, leftJustified)) return false; //HUD
     if (!this->Write_Bytes_To_Offset(0x07AB, leftJustified)) return false; //Time Up
     if (!this->Write_Bytes_To_Offset(0x07BE, leftJustified)) return false; //Game Over
-    if (!this->Write_Bytes_To_Offset(0x0D71, nameBytes+exclamationBytes)) return false; //Thank you Mario!
+    if (trimmedName.size() > 0) { //Thank you Mario!
+        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", "THANK YOU "+trimmedName+"!")))) return false;
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", "THANK YOU!")))) return false;
+    }
+    if (trimmedName.size() > 0) this->Find_And_Replace_Next_Instance(MARIO_NAME+" GAME", trimmedName+" GAME", 0x9ED1, 0xA010); //Title Screen
     return true;
 }
 
@@ -37,11 +41,15 @@ bool Text::Set_Luigi_Name(const QString &name) {
     if (trimmedName.size() > 5) trimmedName.resize(5);
     QByteArray nameBytes = this->Convert_String_To_SMB_Bytes(trimmedName);
     QByteArray spaceBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), ' ')));
-    QByteArray exclamationBytes = this->Convert_String_To_SMB_Bytes(QString(QByteArray(5-trimmedName.size(), '!')));
     QByteArray leftJustified = nameBytes+spaceBytes;
 
     if (!this->Write_Bytes_To_Offset(0x07FD, leftJustified)) return false; //HUD, Time Up, Game Over
-    if (!this->Write_Bytes_To_Offset(0x0D85, nameBytes+exclamationBytes)) return false; //Thank you Luigi!
+    if (trimmedName.size() > 0) { //Thank you Luigi!
+        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", "THANK YOU "+trimmedName+"!")))) return false;
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", "THANK YOU!")))) return false;
+    }
+    if (trimmedName.size() > 0) this->Find_And_Replace_Next_Instance(LUIGI_NAME+" GAME", trimmedName+" GAME", 0x9ED1, 0xA010); //Title Screen
     return true;
 }
 
@@ -103,4 +111,103 @@ QByteArray Text::Convert_String_To_SMB_Bytes(const QString &string) {
         }
     }
     return bytes;
+}
+
+QString Text::Convert_SMB_Bytes_To_String(const QByteArray &bytes) {
+    QString string = QString();
+    for (int i = 0; i < bytes.size(); ++i) {
+        switch (static_cast<int>(bytes.at(i))) {
+        default:        string += " "; break; //unsupported character. Simply use a space instead
+        case 0x00:      string += "0"; break;
+        case 0x01:      string += "1"; break;
+        case 0x02:      string += "2"; break;
+        case 0x03:      string += "3"; break;
+        case 0x04:      string += "4"; break;
+        case 0x05:      string += "5"; break;
+        case 0x06:      string += "6"; break;
+        case 0x07:      string += "7"; break;
+        case 0x08:      string += "8"; break;
+        case 0x09:      string += "9"; break;
+        case 0x0A:      string += "A"; break;
+        case 0x0B:      string += "B"; break;
+        case 0x0C:      string += "C"; break;
+        case 0x0D:      string += "D"; break;
+        case 0x0E:      string += "E"; break;
+        case 0x0F:      string += "F"; break;
+        case 0x10:      string += "G"; break;
+        case 0x11:      string += "H"; break;
+        case 0x12:      string += "I"; break;
+        case 0x13:      string += "J"; break;
+        case 0x14:      string += "K"; break;
+        case 0x15:      string += "L"; break;
+        case 0x16:      string += "M"; break;
+        case 0x17:      string += "N"; break;
+        case 0x18:      string += "O"; break;
+        case 0x19:      string += "P"; break;
+        case 0x1A:      string += "Q"; break;
+        case 0x1B:      string += "R"; break;
+        case 0x1C:      string += "S"; break;
+        case 0x1D:      string += "T"; break;
+        case 0x1E:      string += "U"; break;
+        case 0x1F:      string += "V"; break;
+        case 0x20:      string += "W"; break;
+        case 0x21:      string += "X"; break;
+        case 0x22:      string += "Y"; break;
+        case 0x23:      string += "Z"; break;
+        case 0x24:      string += " "; break;
+        case 0x28:      string += "-"; break;
+        case 0x2B:      string += "!"; break;
+        case 0xAF:      string += "."; break;
+        }
+    }
+    return string;
+}
+
+bool Text::Find_And_Replace_Next_Instance(const QString &oldText, QString newText, qint64 startingOffset, qint64 endingOffset) {
+    if (newText.size() > oldText.size()) return false; //larger insertions are not supported
+    if (newText.size() < oldText.size()) { //add spaces to pad the new text if it is too small
+        int numberOfSpaces = oldText.size() - newText.size();
+        QString spaces(numberOfSpaces, QChar(' '));
+        newText += spaces;
+    }
+    assert(oldText.size() == newText.size());
+
+    //Read the search area
+    int amount = static_cast<int>(endingOffset - startingOffset);
+    if (amount <= 0) return false;
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(startingOffset, amount, bytes)) return false;
+
+    //Determine what to search for
+    QByteArray oldTextBytes = this->Convert_String_To_SMB_Bytes(oldText);
+    QByteArray newTextBytes = this->Convert_String_To_SMB_Bytes(newText);
+
+    //Start the search
+    int currentByte = 0;
+    qint64 replaceOffset = 0;
+    bool instanceFound = false;
+    for (int i = 0; i < bytes.size() && !instanceFound; ++i) {
+        if (bytes.at(i) == oldTextBytes.at(currentByte)) {
+            ++currentByte;
+            if (oldTextBytes.size() == currentByte) {
+                instanceFound = true;
+                replaceOffset = (startingOffset+i)-(currentByte-1);
+            }
+        } else {
+            currentByte = 0;
+        }
+    }
+
+    //Perform the replace
+    if (!instanceFound) return false;
+    return this->Write_Bytes_To_Offset(replaceOffset, newTextBytes);
+}
+
+QString Text::Get_Centered_Text(const QString &oldText, const QString &newText) {
+    if (newText.size() >= oldText.size()) return newText;
+    int offsetAmount = oldText.size() - newText.size();
+    QString centeredText = newText+QString(QByteArray(offsetAmount/2, ' '));
+    int spacesRemaining = oldText.size()-centeredText.size();
+    centeredText = QString(QByteArray(spacesRemaining, ' '))+centeredText;
+    return centeredText;
 }

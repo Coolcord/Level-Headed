@@ -24,7 +24,6 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Music()) return false;
         if (this->pluginSettings->randomSounds && !this->writerPlugin->Sound_Randomize_Sounds()) return false;
         if (!this->Handle_Animations()) return false;
-        if (!this->Handle_Names()) return false;
         if (!this->Handle_God_Mode()) return false;
         if (this->pluginSettings->difficultyUnlimitedTime && !this->writerPlugin->Hacks_Unlimited_Time()) return false;
         if (this->pluginSettings->addLuigiGame) {
@@ -33,6 +32,7 @@ bool Hacks_Handler::Write_Hacks() {
         } else {
             if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
         }
+        if (!this->Handle_Names()) return false;
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
         if (!this->Handle_Powerup()) return false; //must be applied BEFORE Lakitus
         if (!this->Handle_Secondary_Mushroom()) return false;
