@@ -11,6 +11,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
+    this->ui->cbEuropeanBlooperSwimHeight->setChecked(this->pluginSettings->difficultyEuropeanBlooperSwimHeight);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
     this->ui->comboBowserFlameFrequency->setCurrentIndex(this->pluginSettings->difficultyBowserFlameFrequency);
@@ -119,7 +120,6 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyAutoScrollChancePerLevel = this->ui->sbAutoScrollChancePerLevel->value();
         this->pluginSettings->difficultyLakituSpawnChancePerLevel = this->ui->sbLakituSpawnChancePerLevel->value();
         this->pluginSettings->difficultyLakituRespawnSpeed = this->ui->comboLakituRespawnSpeed->currentIndex();
-        this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultySpinyEggBehavior = this->ui->comboSpinyEggBehavior->currentIndex();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->isChecked();
         this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->ui->cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn->isChecked();
@@ -128,7 +128,8 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
         this->pluginSettings->difficultyMaxNumberOfPiranhaPlants = this->ui->comboMaxNumberOfPiranhaPlants->currentIndex();
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
-        this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->checkState();
+        this->pluginSettings->difficultyEuropeanBlooperSwimHeight = this->ui->cbEuropeanBlooperSwimHeight->isChecked();
+        this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
         this->pluginSettings->difficultyBowserFlameFrequency = this->ui->comboBowserFlameFrequency->currentIndex();
         this->pluginSettings->difficultyBulletBillFiringRate = this->ui->comboBulletBillFiringRate->currentIndex();

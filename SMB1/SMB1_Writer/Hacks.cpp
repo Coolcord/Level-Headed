@@ -130,6 +130,10 @@ bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
     return true; //this patch will be applied when the number of worlds is set
 }
 
+bool Hacks::European_Blooper_Swim_Height() {
+    return this->Write_Bytes_To_Offset(0x4C3C, QByteArray(1, static_cast<char>(0x0C)));
+}
+
 bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, static_cast<char>(0x8F)));
 }

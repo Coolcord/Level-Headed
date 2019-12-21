@@ -67,6 +67,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyAutoScrollChancePerLevel = difficultySettings.autoScrollChancePerLevel;
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
+    pluginSettings->difficultyEuropeanBlooperSwimHeight = difficultySettings.europeanBlooperSwimHeight;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
     pluginSettings->difficultySpinyEggBehavior = difficultySettings.spinyEggBehavior;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
@@ -137,6 +138,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyLakituRespawnSpeed = 3;
+    pluginSettings->difficultyEuropeanBlooperSwimHeight = false;
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
@@ -188,6 +190,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.autoScrollChancePerLevel = 25;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
+    difficultySettings.europeanBlooperSwimHeight = false;
     difficultySettings.lakituThrowArc = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
@@ -399,6 +402,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bulletBillSpeed = 5; //ludicrous
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
+    difficultySettings.europeanBlooperSwimHeight = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = true;
@@ -640,6 +644,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.maxLevelLength = 0; //0 is random here
     difficultySettings.autoScrollChancePerLevel = Random::Get_Instance().Get_Num(100);
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Instance().Get_Num(100);
+    difficultySettings.europeanBlooperSwimHeight = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.spinyEggBehavior = 0; //0 is random here
     difficultySettings.lakituRespawnSpeed = 0; //0 is random here

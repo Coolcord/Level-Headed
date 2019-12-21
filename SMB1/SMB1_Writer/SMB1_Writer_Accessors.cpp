@@ -584,6 +584,11 @@ bool SMB1_Writer::Hacks_Enable_Walking_Hammer_Bros(int difficulty) {
     return this->hacks->Enable_Walking_Hammer_Bros(difficulty);
 }
 
+bool SMB1_Writer::Hacks_European_Blooper_Swim_Height() {
+    if (!this->hacks) return false;
+    return this->hacks->European_Blooper_Swim_Height();
+}
+
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

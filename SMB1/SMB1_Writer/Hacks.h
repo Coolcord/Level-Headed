@@ -26,6 +26,7 @@ public:
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();
     bool Enable_Walking_Hammer_Bros(int difficulty);
+    bool European_Blooper_Swim_Height();
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();

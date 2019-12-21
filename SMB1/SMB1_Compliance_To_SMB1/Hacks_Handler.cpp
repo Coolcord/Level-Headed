@@ -317,6 +317,9 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     else speed = 5;
     if (!this->writerPlugin->Hacks_Set_Flying_Cheep_Cheep_Jump_Height(speed)) return false;
 
+    //Handle the European Blooper Swim Height
+    if (this->pluginSettings->difficultyEuropeanBlooperSwimHeight && !this->writerPlugin->Hacks_European_Blooper_Swim_Height()) return false;
+
     //Handle the Hammer Bros throw rate
     speed = this->pluginSettings->difficultyHammerBrosThrowRate;
     int easySpeed = 0, hardSpeed = 0;

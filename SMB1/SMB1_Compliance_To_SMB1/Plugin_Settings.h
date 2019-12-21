@@ -53,6 +53,7 @@ struct Plugin_Settings {
     bool godMode;
     bool addLuigiGame;
     bool superMarioOnDamage;
+    bool difficultyEuropeanBlooperSwimHeight;
     bool lakituThrowArc;
     int powerup;
     int secondaryMushroom;
