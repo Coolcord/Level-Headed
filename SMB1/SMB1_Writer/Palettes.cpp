@@ -85,6 +85,14 @@ bool Palettes::Apply_Mario_Palette_Present(int present) {
         if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("163602").toLatin1()))) return false;
         if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("1A3602").toLatin1()))) return false;
         return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("273616").toLatin1()));
+    case 5: //Hyper
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("16370C").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("19370C").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("273707").toLatin1()));
+    case 6: //MCB
+        if (!this->Write_Bytes_To_Offset(0x5E8, QByteArray::fromHex(QString("163605").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x5EC, QByteArray::fromHex(QString("2A3609").toLatin1()))) return false;
+        return this->Write_Bytes_To_Offset(0x5F0, QByteArray::fromHex(QString("372716").toLatin1()));
     }
 }
 

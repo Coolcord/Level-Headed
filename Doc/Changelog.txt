@@ -1,5 +1,6 @@
 Next Update (v0.3.5)
 + Bowser's "True" form (enemy death animation) is now randomized
++ 2 new Mario sprite color palettes (Hyper and MCB)
 
 Graphical Wrap-up (v0.3.4)
 + Original SMB1 Levels (without castle loops) can be used with Level-Headed via level scripts

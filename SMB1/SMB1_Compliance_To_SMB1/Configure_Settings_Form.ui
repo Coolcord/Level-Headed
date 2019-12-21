@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -509,6 +509,16 @@ p, li { white-space: pre-wrap; }
                   <item>
                    <property name="text">
                     <string>SMB3 (Blue Overalls)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Hyper</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>MCB</string>
                    </property>
                   </item>
                  </widget>
