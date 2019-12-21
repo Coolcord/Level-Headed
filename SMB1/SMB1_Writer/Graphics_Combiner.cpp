@@ -434,6 +434,11 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
             else return true;
         }
     }
+
+    //Make sure all tiles were used
+    for (QMap<char, bool>::iterator iter = tiles.begin(); iter != tiles.end(); ++iter) {
+        if (!iter.value()) return true;
+    }
     return false;
 }
 

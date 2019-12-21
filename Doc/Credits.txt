@@ -118,6 +118,9 @@ https://www.youtube.com/watch?v=PcjYkNcp8QI
 SMB Continued (by Captain Gastronomicon)
 https://www.romhacking.net/hacks/4201/
 
+Sonic the Hedgehog in Super Mario Bros.
+https://www.romhacking.net/hacks/3902/
+
 Strange Mario Bros. (by acmlm)
 https://www.romhacking.net/hacks/14/
 
@@ -283,6 +286,7 @@ Author Unknown - Contact Coolcord at coolcord24@tutanota.com if you know who mad
 Hyper Mario
 Link Bros
 Mario 2001
+Music 11
 Super Bubba Bros.
 Super Mario Bros. Nonstop
 Techno! Mario Bros
