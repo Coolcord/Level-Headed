@@ -31,10 +31,11 @@ public:
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
     bool Hard_Mode_Does_Not_Affect_Lift_Size();
-    bool Idle_At_Intro_Demo();
     bool Infinite_Lives();
     bool Invincibility();
+    bool Mario_Stands_Still_At_Intro_Demo();
     bool Moon_Jump();
+    bool Only_Jump_At_Intro_Demo();
     bool Permadeath();
     bool Random_Group_Enemy_Goomba(bool allowHammerBros);
     bool Random_Group_Enemy_Koopa(bool allowHammerBros);

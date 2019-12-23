@@ -1,6 +1,7 @@
 Next Update (v0.3.5)
 + Bowser's "True" form (enemy death animation) is now randomized
 + Blooper swim height can now be set to the European version (Super Mario can be hit by Bloopers when standing on the sea floor)
++ Mario now jumps at the title screen when the vertical object limit patch is applied
 + 2 new Mario sprite color palettes (Hyper and MCB)
 + Added Bonus Player Sprite (Sonic by Kengen)
 + Added Music (Bad Apple)
