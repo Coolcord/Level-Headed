@@ -934,7 +934,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1723</y>
+            <y>0</y>
             <width>708</width>
             <height>2431</height>
            </rect>
@@ -1822,6 +1822,9 @@ p, li { white-space: pre-wrap; }
                  <widget class="QSpinBox" name="sbAutoScrollChancePerLevel">
                   <property name="suffix">
                    <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
                   </property>
                   <property name="maximum">
                    <number>100</number>
@@ -2721,7 +2724,7 @@ p, li { white-space: pre-wrap; }
                  <string>Revert to Super Mario after taking damage</string>
                 </property>
                 <property name="tristate">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>

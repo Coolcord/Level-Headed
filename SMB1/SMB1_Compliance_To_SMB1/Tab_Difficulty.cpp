@@ -127,7 +127,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultySurfingLiftSpeed = this->ui->comboSurfingLiftSpeed->currentIndex();
         this->pluginSettings->difficultyPiranhaPlantType = this->ui->comboPiranhaPlantType->currentIndex();
         this->pluginSettings->difficultyMaxNumberOfPiranhaPlants = this->ui->comboMaxNumberOfPiranhaPlants->currentIndex();
-        this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->checkState();
+        this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->isChecked();
         this->pluginSettings->difficultyEuropeanBlooperSwimHeight = this->ui->cbEuropeanBlooperSwimHeight->isChecked();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
