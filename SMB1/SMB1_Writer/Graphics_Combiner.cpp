@@ -72,7 +72,6 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Coral()) return false;
     if (!this->Combine_Flagpole()) return false;
     if (!this->Combine_Font()) return false;
-    if (!this->Combine_Mushroom_Platform()) return false;
     if (!this->Combine_Overworld_Block()) return false;
     if (!this->Combine_Pipe()) return false;
     if (!this->Combine_Question_Block()) return false;
@@ -83,6 +82,7 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Underwater_Block()) return false;
     if (!this->Combine_Vine()) return false;
     if (!this->Combine_Water()) return false;
+    //if (!this->Combine_Mushroom_Platform()) return false; //messes with backgrounds
     //if (!this->Combine_Brick_Block()) return false; //messes with the title screen
     //if (!this->Combine_Jump_Spring()) return false; //messes with the title screen
     return true;

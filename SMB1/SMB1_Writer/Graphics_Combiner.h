@@ -69,7 +69,7 @@ public:
     bool Combine_Coral();
     bool Combine_Flagpole();
     bool Combine_Font();
-    bool Combine_Mushroom_Platform();
+    bool Combine_Mushroom_Platform(); //affects the backgrounds
     bool Combine_Overworld_Block();
     bool Combine_Pipe();
     bool Combine_Question_Block();
