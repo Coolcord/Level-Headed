@@ -268,7 +268,7 @@ bool Castle_Generator::Two_Object_Hole(int x) {
     x = Random::Get_Instance().Get_Num(3)+2; //between 2 and 5
     //Possibly add a Podoboo
     if (Random::Get_Instance().Get_Num(1) == 0) {
-        int podobooX = Random::Get_Instance().Get_Num(x-2)+1;
+        int podobooX = Random::Get_Instance().Get_Num(1, x);
         if (this->requiredEnemySpawns->Is_Safe_To_Add_Required_Enemy_Spawn(podobooX)) {
             assert(this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::PODOBOO, podobooX));
         }
