@@ -1,4 +1,5 @@
-Next Update (v0.3.5)
+Original Levels 7-2 Fix (v0.3.5)
++ Fixed the broken pipe pointer in 7-2 in the original levels so that it is now completable
 + Bowser's "True" form (enemy death animation) is now randomized
 + Blooper swim height can now be set to the European version (Super Mario can be hit by Bloopers when standing on the sea floor)
 + Podoboos in castles are no longer limited to the left side of holes
