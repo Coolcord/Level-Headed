@@ -132,8 +132,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>725</width>
-            <height>670</height>
+            <width>733</width>
+            <height>679</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -935,8 +935,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>708</width>
-            <height>2431</height>
+            <width>716</width>
+            <height>2357</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2807,8 +2807,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>725</width>
-            <height>670</height>
+            <width>733</width>
+            <height>679</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2891,10 +2891,19 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="cbRandomEnemies">
-                <property name="text">
-                 <string>Random Enemies</string>
+               <widget class="QGroupBox" name="groupLevelScriptSettings">
+                <property name="title">
+                 <string>Level Script Settings</string>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QCheckBox" name="cbRandomEnemies">
+                   <property name="text">
+                    <string>Random Enemies</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
