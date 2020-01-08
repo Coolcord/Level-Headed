@@ -1,3 +1,6 @@
+Next Update (v0.3.6)
++ 1-Up coin limit for hidden blocks has been removed
+
 Original Levels 7-2 Fix (v0.3.5)
 + Fixed the broken pipe pointer in 7-2 in the original levels so that it is now completable
 + Bowser's "True" form (enemy death animation) is now randomized

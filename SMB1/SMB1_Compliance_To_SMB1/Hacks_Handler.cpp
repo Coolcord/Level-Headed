@@ -234,6 +234,7 @@ bool Hacks_Handler::Handle_Level_Length() {
 }
 
 bool Hacks_Handler::Handle_Lives() {
+    if (!this->writerPlugin->Hacks_Disable_One_Up_Coin_Limits()) return false;
     if (this->pluginSettings->infiniteLives) return this->writerPlugin->Hacks_Infinite_Lives();
     else if (this->pluginSettings->permadeath) return this->writerPlugin->Hacks_Permadeath();
     else return this->writerPlugin->Hacks_Set_Starting_Lives(this->pluginSettings->numLives);

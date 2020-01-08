@@ -14,11 +14,17 @@ void Random::Seed(const QString &seed, unsigned int instance) {
 
 int Random::Get_Num(int max) {
     assert(this->instance != 0);
+    assert(max >= 0);
+    if (max == 0) return 0;
     return this->randomGenerator->bounded(max+1);
 }
 
 int Random::Get_Num(int min, int max) {
     assert(this->instance != 0);
+    assert(min >= 0);
+    assert(max >= 0);
+    assert(min <= max);
+    if (max == 0) return 0;
     return this->randomGenerator->bounded(min, max+1);
 }
 

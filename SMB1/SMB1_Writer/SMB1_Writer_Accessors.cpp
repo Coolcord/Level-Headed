@@ -560,6 +560,11 @@ bool SMB1_Writer::Hacks_Disable_Intro_Demo() {
     return this->hacks->Disable_Intro_Demo();
 }
 
+bool SMB1_Writer::Hacks_Disable_One_Up_Coin_Limits() {
+    if (!this->hacks) return false;
+    return this->hacks->Disable_One_Up_Coin_Limits();
+}
+
 bool SMB1_Writer::Hacks_Enable_God_Mode() {
     if (!this->hacks) return false;
     if (!this->hacks->Start_With_Fire_Flower_On_Room_Change()) return false;

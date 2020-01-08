@@ -116,6 +116,10 @@ bool Hacks::Disable_Intro_Demo() {
     return this->Write_Bytes_To_Offset(0x2D0, QByteArray::fromHex(QString("EAEAEA").toLatin1()));
 }
 
+bool Hacks::Disable_One_Up_Coin_Limits() {
+    return this->Write_Bytes_To_Offset(0x32D2, QByteArray(8, static_cast<char>(0x00)));
+}
+
 bool Hacks::Enable_Hitting_Underwater_Blocks() {
     return this->Write_Bytes_To_Offset(0x5CEA, QByteArray(5, static_cast<char>(0xEA)));
 }

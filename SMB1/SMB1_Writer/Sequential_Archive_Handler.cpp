@@ -335,13 +335,15 @@ QByteArray Sequential_Archive_Handler::Read_Random_Graphics_Sprite(const QString
     if (!this->sequentialArchivePlugin->Open(this->graphicsPacksArchiveLocation)) return QByteArray();
     if (!this->sequentialArchivePlugin->Change_Directory("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName)) { this->sequentialArchivePlugin->Close(); return QByteArray(); }
     QStringList files = this->sequentialArchivePlugin->Get_Files();
-    int num = Random::Get_Instance().Get_Num((files.size()*2)-1); //use random sprite half of the time
-    //int num = Random::Get_Instance().Get_Num(files.size());
+
+    //Use random sprite half of the time
+    int num = Random::Get_Instance().Get_Num(files.size()*2);
     if (num >= files.size()) {
         this->sequentialArchivePlugin->Close();
         return QByteArray(); //don't apply anything
     }
     patchName = files.at(num);
+
     qDebug().noquote() << spriteName+": \""+patchName+"\"";
     QByteArray patchBytes = this->sequentialArchivePlugin->Read_File("/"+Fix_Strings::STRING_SPRITES+"/"+spriteName+"/"+patchName);
     this->sequentialArchivePlugin->Close();

@@ -23,6 +23,7 @@ public:
     bool Black_Piranha_Plants();
     bool Destroy_Bowser_Bridge_Randomly();
     bool Disable_Intro_Demo();
+    bool Disable_One_Up_Coin_Limits();
     bool Enable_Hitting_Underwater_Blocks();
     bool Enable_Piranha_Plants_On_First_Level();
     bool Enable_Walking_Hammer_Bros(int difficulty);
