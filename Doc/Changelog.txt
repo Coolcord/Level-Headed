@@ -1,6 +1,8 @@
 Next Update (v0.3.6)
 + Fire Bros. throw rate has been nerfed
 + 1-Up coin limit for hidden blocks has been removed
++ Purist Difficulties now load and save correctly
++ Added Graphics (Fuji Mario Bros. by JY Co.)
 
 Original Levels 7-2 Fix (v0.3.5)
 + Fixed the broken pipe pointer in 7-2 in the original levels so that it is now completable
