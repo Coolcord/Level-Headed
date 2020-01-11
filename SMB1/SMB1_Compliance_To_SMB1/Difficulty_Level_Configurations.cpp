@@ -424,16 +424,30 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scrol
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
     difficultySettings.walkingHammerBros = 11;
+    difficultySettings.basicEnemySpeed = 3;
+    difficultySettings.bowserFlameFrequency = 2;
+    difficultySettings.bulletBillFiringRate = 3;
+    difficultySettings.bulletBillSpeed = 2;
+    difficultySettings.enemyRevivalSpeed = 2;
+    difficultySettings.fireBarLength = 3;
+    difficultySettings.longFireBarLength = 4;
+    difficultySettings.flyingCheepCheepJumpHeight = 2;
+    difficultySettings.hammerBrosThrowRate = 4;
+    difficultySettings.lakituRespawnSpeed = 3;
+    difficultySettings.surfingLiftSpeed = 3;
+    difficultySettings.piranhaPlantType = 1;
+    difficultySettings.maxNumberOfPiranhaPlants = 5;
+    difficultySettings.spinyEggBehavior = 8;
     difficultySettings.replaceCastleLoops = 3; //auto scroll
-    difficultySettings.piranhaPlantType = 1; //green
-    difficultySettings.lakituRespawnSpeed = 3; //normal
+    difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.lakituThrowArc = false;
-    difficultySettings.superMarioOnDamage = false;
+    difficultySettings.europeanBlooperSwimHeight = false;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
-    difficultySettings.spinyEggBehavior = 8; //normal
-    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
-    difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.piranhaPlantsOnFirstLevel = false;
+    difficultySettings.superMarioOnDamage = false;
+    difficultySettings.unlimitedTime = false;
+    difficultySettings.noEnemies = false;
     return difficultySettings;
 }
 
