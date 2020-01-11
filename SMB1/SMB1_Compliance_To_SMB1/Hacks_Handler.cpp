@@ -38,8 +38,8 @@ bool Hacks_Handler::Write_Hacks() {
         if (!this->Handle_Secondary_Mushroom()) return false;
         if (!this->Handle_Piranha_Plants()) return false;
         if (!this->Handle_Lakitus()) return false;
-        if (!this->Handle_Enemy_Speed()) return false;
         if (!this->Handle_Replace_Castle_Loop()) return false;
+        if (!this->Handle_Enemy_Speed()) return false;
         if (!this->writerPlugin->Hacks_Enable_Walking_Hammer_Bros(this->pluginSettings->difficultyWalkingHammerBros)) return false;
         if (!this->writerPlugin->Hacks_Fix_Life_Counter_Bugs()) return false;
     } else {
@@ -324,20 +324,38 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     //Handle the Hammer Bros throw rate
     speed = this->pluginSettings->difficultyHammerBrosThrowRate;
     int easySpeed = 0, hardSpeed = 0;
-    switch (speed) {
-    default: assert(false); return false;
-    case 1:     easySpeed = 108; hardSpeed = 88; break;
-    case 2:     easySpeed = 88; hardSpeed = 68; break;
-    case 3:     easySpeed = 68; hardSpeed = 48; break;
-    case 4:     easySpeed = 48; hardSpeed = 28; break;
-    case 5:     easySpeed = 28; hardSpeed = 16; break;
-    case 6:     easySpeed = 16; hardSpeed = 9; break;
-    case 7:     easySpeed = 9; hardSpeed = 5; break;
-    case 8:     easySpeed = 1; hardSpeed = 1; break;
-    case 0:
-        easySpeed = Random::Get_Instance().Get_Num(1, 108);
-        hardSpeed = Random::Get_Instance().Get_Num(easySpeed, 108);
-        break;
+    if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 4) { //Fire Bros. Throw Rates
+        switch (speed) {
+        default: assert(false); return false;
+        case 1:     easySpeed = 248; hardSpeed = 218; break;
+        case 2:     easySpeed = 208; hardSpeed = 178; break;
+        case 3:     easySpeed = 168; hardSpeed = 138; break;
+        case 4:     easySpeed = 128; hardSpeed = 108; break;
+        case 5:     easySpeed = 102; hardSpeed = 82; break;
+        case 6:     easySpeed = 75; hardSpeed = 55; break;
+        case 7:     easySpeed = 48; hardSpeed = 28; break;
+        case 8:     easySpeed = 18; hardSpeed = 13; break;
+        case 0:
+            easySpeed = Random::Get_Instance().Get_Num(13, 248);
+            hardSpeed = Random::Get_Instance().Get_Num(easySpeed, 248);
+            break;
+        }
+    } else { //Hammer Bros. Throw Rates
+        switch (speed) {
+        default: assert(false); return false;
+        case 1:     easySpeed = 108; hardSpeed = 88; break;
+        case 2:     easySpeed = 88; hardSpeed = 68; break;
+        case 3:     easySpeed = 68; hardSpeed = 48; break;
+        case 4:     easySpeed = 48; hardSpeed = 28; break;
+        case 5:     easySpeed = 28; hardSpeed = 16; break;
+        case 6:     easySpeed = 16; hardSpeed = 9; break;
+        case 7:     easySpeed = 9; hardSpeed = 5; break;
+        case 8:     easySpeed = 1; hardSpeed = 1; break;
+        case 0:
+            easySpeed = Random::Get_Instance().Get_Num(1, 108);
+            hardSpeed = Random::Get_Instance().Get_Num(easySpeed, 108);
+            break;
+        }
     }
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
 
