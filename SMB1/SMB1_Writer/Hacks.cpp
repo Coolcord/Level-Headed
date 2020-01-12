@@ -418,6 +418,7 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
     if (!this->Write_Bytes_To_Offset(0x3B36, QByteArray(1, static_cast<char>(0x60)))) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("8A18690DAAA01BA90020F0E3A608C900F00EB5AC300DA9FD95ACB5DB29F895DB4C28BBA900952A4C"
             "28BBA92085FFB91E0060").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5131, QByteArray(1, static_cast<char>(0x1F)))) return false; //Bowser Fireball throwing speed
     if (!this->Write_Bytes_To_Offset(0x64E8, QByteArray::fromHex(QString("0202C2C2").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6870, QByteArray(1, static_cast<char>(0x02)))) return false;
     if (!this->Write_Bytes_To_Offset(0x6881, QByteArray(2, static_cast<char>(0x02)))) return false; //red palette for Bowser
