@@ -430,12 +430,12 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <item>
                    <property name="text">
-                    <string>Random (Only Mario)</string>
+                    <string>Random All</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Random All</string>
+                    <string>Random (Only Mario)</string>
                    </property>
                   </item>
                   <item>

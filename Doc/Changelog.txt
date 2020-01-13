@@ -1,7 +1,8 @@
 Next Update (v0.3.6)
-+ Fire Bros. can now be seen on Normal difficulty games
++ Fire Bros. can now be seen in Normal difficulty games
 + Fire Bros. throw rate has been nerfed
 + Bowser's fireball throw rate has been nerfed
++ Random All is now the default Mario sprite option for Random
 + 1-Up coin limit for hidden blocks has been removed
 + Purist difficulties now load and save correctly
 + Added Graphics (Fuji Mario Bros. by JY Co.)
