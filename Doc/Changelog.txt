@@ -1,4 +1,5 @@
 Next Update (v0.3.6)
++ Fire Bros. can now be seen on Normal difficulty games
 + Fire Bros. throw rate has been nerfed
 + Bowser's fireball throw rate has been nerfed
 + 1-Up coin limit for hidden blocks has been removed

@@ -185,7 +185,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.noEnemies = false;
     difficultySettings.unlimitedTime = false;
     difficultySettings.hammerTimeIntensity = 10;
-    difficultySettings.replaceCastleLoops = 3; //autoscroll
+    difficultySettings.replaceCastleLoops = 1; //Random Normal
     difficultySettings.maxLevelLength = 4; //Normal
     difficultySettings.autoScrollChancePerLevel = 25;
     difficultySettings.lakituSpawnChancePerLevel = 35;
@@ -313,7 +313,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.standardOverworldOffscreenBulletBills = 11;
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.spinyEggBehavior = 1; //Random (No Bounce)
-    difficultySettings.replaceCastleLoops = 1; //random hard
+    difficultySettings.replaceCastleLoops = 1; //Random Normal
     difficultySettings.maxLevelLength = 5; //Long
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = false;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;

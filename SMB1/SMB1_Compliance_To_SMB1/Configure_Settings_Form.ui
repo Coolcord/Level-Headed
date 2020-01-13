@@ -934,7 +934,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1466</y>
+            <y>0</y>
             <width>716</width>
             <height>2357</height>
            </rect>
@@ -2578,7 +2578,7 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
-                    <string>Random Hard (Auto Scroll, Fire Bros.)</string>
+                    <string>Random Normal (Auto Scroll, Fire Bros.)</string>
                    </property>
                   </item>
                   <item>
