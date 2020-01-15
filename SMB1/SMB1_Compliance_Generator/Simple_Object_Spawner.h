@@ -4,8 +4,7 @@
 #include "Object_Spawner.h"
 #include "../Common_SMB1_Files/Level_Type.h"
 
-class Simple_Object_Spawner : public Object_Spawner
-{
+class Simple_Object_Spawner : public Object_Spawner {
 public:
     Simple_Object_Spawner(Object_Writer *object, Level_Type::Level_Type levelType);
     bool Spawn_Simple_Object(int x);

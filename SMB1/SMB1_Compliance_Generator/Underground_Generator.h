@@ -6,8 +6,7 @@
 class Simple_Object_Spawner;
 class Common_Pattern_Spawner;
 
-class Underground_Generator : public Level_Generator
-{
+class Underground_Generator : public Level_Generator {
 public:
     Underground_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {}
     ~Underground_Generator();

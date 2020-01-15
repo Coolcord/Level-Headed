@@ -13,6 +13,7 @@ TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_Generator.cpp \
+    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.cpp \
     Midpoint_Handler.cpp \
     Object_Writer.cpp \
     Enemy_Writer.cpp \
@@ -38,10 +39,10 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Castle_Generator.cpp \
     Pipe_Exit_Generator.cpp \
     Continuous_Enemies_Spawner.cpp \
-    ../../Common_Files/Random.cpp \
-    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.cpp
+    ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
+    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h \
     ../Common_SMB1_Files/Background.h \
     ../Common_SMB1_Files/Background_String.h \
     ../Common_SMB1_Files/Brick.h \
@@ -92,8 +93,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Castle_Generator.h \
     Pipe_Exit_Generator.h \
     Difficulty.h \
-    Continuous_Enemies_Spawner.h \
-    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h
+    Continuous_Enemies_Spawner.h
 OTHER_FILES +=
 
 unix {

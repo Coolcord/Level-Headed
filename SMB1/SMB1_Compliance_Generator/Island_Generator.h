@@ -5,8 +5,7 @@
 
 class Item_Spawner;
 
-class Island_Generator : public Level_Generator
-{
+class Island_Generator : public Level_Generator {
 public:
     Island_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     ~Island_Generator();

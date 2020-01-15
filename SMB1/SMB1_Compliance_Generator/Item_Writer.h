@@ -4,8 +4,7 @@
 #include <QTextStream>
 #include <QString>
 
-class Item_Writer
-{
+class Item_Writer {
 public:
     Item_Writer(QTextStream *stream, int numBytesLeft);
     virtual ~Item_Writer() {}

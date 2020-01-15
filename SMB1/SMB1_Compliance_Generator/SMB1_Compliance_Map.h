@@ -6,8 +6,7 @@
 #include <QMap>
 #include <QString>
 
-class SMB1_Compliance_Map
-{
+class SMB1_Compliance_Map {
 public:
     SMB1_Compliance_Map();
     ~SMB1_Compliance_Map();

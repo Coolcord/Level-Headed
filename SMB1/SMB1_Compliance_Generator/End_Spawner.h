@@ -10,8 +10,7 @@
 class Enemy_Writer;
 class Required_Enemy_Spawns;
 
-class End_Spawner : public Object_Spawner
-{
+class End_Spawner : public Object_Spawner {
 public:
     End_Spawner(Object_Writer *object, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
     bool Is_End_Written();

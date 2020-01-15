@@ -4,8 +4,7 @@
 #include "Object_Writer.h"
 #include "../Common_SMB1_Files/Level_Type.h"
 
-class Object_Spawner
-{
+class Object_Spawner {
 public:
     Object_Spawner(Object_Writer *object);
 

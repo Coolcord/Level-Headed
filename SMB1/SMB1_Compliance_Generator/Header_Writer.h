@@ -9,8 +9,7 @@
 #include "../Common_SMB1_Files/Level_Type.h"
 #include <QFile>
 
-class Header_Writer
-{
+class Header_Writer {
 public:
     Header_Writer(QFile *file);
     bool Write_Header(Level_Type::Level_Type type, Level_Attribute::Level_Attribute attribute, Brick::Brick brick, Background::Background background, Scenery::Scenery scenery, Level_Compliment::Level_Compliment compliment,

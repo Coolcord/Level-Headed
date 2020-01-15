@@ -17,8 +17,7 @@
 
 class Continuous_Enemies_Spawner;
 
-class Level_Generator
-{
+class Level_Generator {
 public:
     Level_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     ~Level_Generator();

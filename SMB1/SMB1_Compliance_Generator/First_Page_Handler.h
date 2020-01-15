@@ -6,8 +6,7 @@
 
 class Object_Writer;
 
-class First_Page_Handler
-{
+class First_Page_Handler {
 public:
     First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle, bool useAutoScroll);
     void Handle_First_Page(int &x);

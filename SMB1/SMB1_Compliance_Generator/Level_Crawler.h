@@ -6,8 +6,7 @@
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 
-class Level_Crawler : public SMB1_Compliance_Map
-{
+class Level_Crawler : public SMB1_Compliance_Map {
 public:
     Level_Crawler(QFile *file);
     ~Level_Crawler();
