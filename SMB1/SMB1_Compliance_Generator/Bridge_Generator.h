@@ -5,8 +5,7 @@
 
 class Item_Spawner;
 
-class Bridge_Generator : public Level_Generator
-{
+class Bridge_Generator : public Level_Generator {
 public:
     Bridge_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     ~Bridge_Generator();

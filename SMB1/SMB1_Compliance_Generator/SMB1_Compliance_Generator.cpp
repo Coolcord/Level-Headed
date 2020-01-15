@@ -40,26 +40,14 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     //Determine which level generator to use
     bool success = false;
     switch (args.levelType) {
-    case Level_Type::STANDARD_OVERWORLD:
-        success = this->Generate_Standard_Overworld_Level(&file, &args);
-        break;
-    case Level_Type::UNDERGROUND:
-        success = this->Generate_Underground_Level(&file, &args);
-        break;
-    case Level_Type::UNDERWATER:
-        success = this->Generate_Underwater_Level(&file, &args);
-        break;
-    case Level_Type::CASTLE:
-        success = this->Generate_Castle_Level(&file, &args);
-        break;
-    case Level_Type::BRIDGE:
-        success = this->Generate_Bridge_Level(&file, &args);
-        break;
-    case Level_Type::ISLAND:
-        success = this->Generate_Island_Level(&file, &args);
-        break;
-    case Level_Type::PIPE_EXIT:
-        assert(false);
+    default:                                assert(false); return false;
+    case Level_Type::STANDARD_OVERWORLD:    success = this->Generate_Standard_Overworld_Level(&file, &args); break;
+    case Level_Type::UNDERGROUND:           success = this->Generate_Underground_Level(&file, &args); break;
+    case Level_Type::UNDERWATER:            success = this->Generate_Underwater_Level(&file, &args); break;
+    case Level_Type::CASTLE:                success = this->Generate_Castle_Level(&file, &args); break;
+    case Level_Type::BRIDGE:                success = this->Generate_Bridge_Level(&file, &args); break;
+    case Level_Type::ISLAND:                success = this->Generate_Island_Level(&file, &args); break;
+    case Level_Type::PIPE_EXIT:             success = this->Generate_Pipe_Exit_Level(&file, &args); break;
     }
 
     file.close();

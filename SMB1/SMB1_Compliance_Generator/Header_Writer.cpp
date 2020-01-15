@@ -1,5 +1,5 @@
 #include "Header_Writer.h"
-#include <assert.h>
+#include "../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../Common_SMB1_Files/Level_Type_String.h"
 #include "../Common_SMB1_Files/Header_String.h"
@@ -11,6 +11,7 @@
 #include <QTime>
 #include <QDate>
 #include <QDebug>
+#include <assert.h>
 
 Header_Writer::Header_Writer(QFile *file) {
     assert(file);
@@ -23,115 +24,119 @@ bool Header_Writer::Write_Header(Level_Type::Level_Type type, Level_Attribute::L
     if (this->written) return false; //cannot write the header twice
 
     //Prepare the buffer
-    QString buffer = "";
-    buffer += Header::STRING_NAME + Common_Strings::STRING_NEW_LINE;
+    Text_Insertion_Buffer buffer;
+    buffer.Insert_At_End(Header::STRING_NAME);
 
     //Add the notes section
-    buffer += Level_Type::STRING_BREAK + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_COOLCORD + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A") + "." + Common_Strings::STRING_NEW_LINE;
+    buffer.Insert_At_End(Level_Type::STRING_BREAK);
+    buffer.Insert_At_End(Header::STRING_COOLCORD);
+    buffer.Insert_At_End(Header::STRING_CREATED + " " + QDate::currentDate().toString("dddd, MMMM dd, yyyy") + ", at " + QTime::currentTime().toString("hh:mm:ss A") + ".");
     //Handle the Level Type
-    buffer += Header::STRING_TYPE + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_TYPE + ": ");
     switch (type) {
-    case Level_Type::STANDARD_OVERWORLD:    buffer += Level_Type::STRING_STANDARD_OVERWORLD + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Type::ISLAND:                buffer += Level_Type::STRING_ISLAND + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Type::BRIDGE:                buffer += Level_Type::STRING_BRIDGE + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Type::UNDERGROUND:           buffer += Level_Type::STRING_UNDERGROUND + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Type::UNDERWATER:            buffer += Level_Type::STRING_UNDERWATER + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Type::CASTLE:                buffer += Level_Type::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
+    case Level_Type::STANDARD_OVERWORLD:    buffer.Insert_At_End(Level_Type::STRING_STANDARD_OVERWORLD); break;
+    case Level_Type::ISLAND:                buffer.Insert_At_End(Level_Type::STRING_ISLAND); break;
+    case Level_Type::BRIDGE:                buffer.Insert_At_End(Level_Type::STRING_BRIDGE); break;
+    case Level_Type::UNDERGROUND:           buffer.Insert_At_End(Level_Type::STRING_UNDERGROUND); break;
+    case Level_Type::UNDERWATER:            buffer.Insert_At_End(Level_Type::STRING_UNDERWATER); break;
+    case Level_Type::CASTLE:                buffer.Insert_At_End(Level_Type::STRING_CASTLE); break;
     default:                                return false;
     }
-    buffer += Header::STRING_DIFFICULTY + ": " + QString::number(difficulty) + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength) + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects) + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies) + Common_Strings::STRING_NEW_LINE;
-    buffer += Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers) + Common_Strings::STRING_NEW_LINE;
-    buffer += Level_Type::STRING_BREAK + Common_Strings::STRING_NEW_LINE;
+    buffer.Insert_At_End(Header::STRING_DIFFICULTY + ": " + QString::number(difficulty));
+    buffer.Insert_At_End(Header::STRING_LEVEL_LENGTH + ": " + QString::number(levelLength));
+    buffer.Insert_At_End(Header::STRING_NUMBER_OF_OBJECTS + ": " + QString::number(numObjects));
+    buffer.Insert_At_End(Header::STRING_NUMBER_OF_ENEMIES + ": " + QString::number(numEnemies));
+    buffer.Insert_At_End(Header::STRING_NUMBER_OF_PIPE_POINTERS + ": " + QString::number(numPipePointers));
+    buffer.Insert_At_End(Level_Type::STRING_BREAK);
 
     //Handle the Level Attribute
-    buffer += Header::STRING_ATTRIBUTE + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_ATTRIBUTE + ": ");
     switch (attribute) {
-    case Level_Attribute::UNDERWATER:   buffer += Level_Attribute::STRING_UNDERWATER + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::OVERWORLD:    buffer += Level_Attribute::STRING_OVERWORLD + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::UNDERGROUND:  buffer += Level_Attribute::STRING_UNDERGROUND + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::CASTLE:       buffer += Level_Attribute::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
+    case Level_Attribute::UNDERWATER:   buffer.Insert_At_End(Level_Attribute::STRING_UNDERWATER); break;
+    case Level_Attribute::OVERWORLD:    buffer.Insert_At_End(Level_Attribute::STRING_OVERWORLD); break;
+    case Level_Attribute::UNDERGROUND:  buffer.Insert_At_End(Level_Attribute::STRING_UNDERGROUND); break;
+    case Level_Attribute::CASTLE:       buffer.Insert_At_End(Level_Attribute::STRING_CASTLE); break;
     }
 
     //Handle the Starting Position
-    buffer += Header::STRING_STARTING_POSITION + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_STARTING_POSITION + ": ");
     switch (attribute) { //use the same starting position as the attribute of the level
-    case Level_Attribute::UNDERWATER:   buffer += Level_Attribute::STRING_UNDERWATER + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::OVERWORLD:    buffer += Level_Attribute::STRING_OVERWORLD + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::UNDERGROUND:  buffer += Level_Attribute::STRING_UNDERGROUND + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Attribute::CASTLE:       buffer += Level_Attribute::STRING_CASTLE + Common_Strings::STRING_NEW_LINE; break;
+    case Level_Attribute::UNDERWATER:   buffer.Insert_At_End(Level_Attribute::STRING_UNDERWATER); break;
+    case Level_Attribute::OVERWORLD:    buffer.Insert_At_End(Level_Attribute::STRING_OVERWORLD); break;
+    case Level_Attribute::UNDERGROUND:  buffer.Insert_At_End(Level_Attribute::STRING_UNDERGROUND); break;
+    case Level_Attribute::CASTLE:       buffer.Insert_At_End(Level_Attribute::STRING_CASTLE); break;
     }
 
     //Handle the Brick
-    buffer += Header::STRING_BRICK + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_BRICK + ": ");
     switch (brick) {
-    case Brick::NO_BRICKS:                          buffer += Brick::STRING_NO_BRICKS + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE:                            buffer += Brick::STRING_SURFACE + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING:                buffer += Brick::STRING_SURFACE_AND_CEILING + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING_3:              buffer += Brick::STRING_SURFACE_AND_CEILING_3 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING_4:              buffer += Brick::STRING_SURFACE_AND_CEILING_4 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING_8:              buffer += Brick::STRING_SURFACE_AND_CEILING_8 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_4_AND_CEILING:              buffer += Brick::STRING_SURFACE_4_AND_CEILING + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_4_AND_CEILING_3:            buffer += Brick::STRING_SURFACE_4_AND_CEILING_3 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_4_AND_CEILING_4:            buffer += Brick::STRING_SURFACE_4_AND_CEILING_4 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_5_AND_CEILING:              buffer += Brick::STRING_SURFACE_5_AND_CEILING + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::CEILING:                            buffer += Brick::STRING_CEILING + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_5_AND_CEILING_4:            buffer += Brick::STRING_SURFACE_5_AND_CEILING_4 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_8_AND_CEILING:              buffer += Brick::STRING_SURFACE_8_AND_CEILING + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   buffer += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   buffer += Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4 + Common_Strings::STRING_NEW_LINE; break;
-    case Brick::ALL:                                buffer += Brick::STRING_ALL + Common_Strings::STRING_NEW_LINE; break;
+    case Brick::NO_BRICKS:                          buffer.Insert_At_End(Brick::STRING_NO_BRICKS); break;
+    case Brick::SURFACE:                            buffer.Insert_At_End(Brick::STRING_SURFACE); break;
+    case Brick::SURFACE_AND_CEILING:                buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING); break;
+    case Brick::SURFACE_AND_CEILING_3:              buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING_3); break;
+    case Brick::SURFACE_AND_CEILING_4:              buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING_4); break;
+    case Brick::SURFACE_AND_CEILING_8:              buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING_8); break;
+    case Brick::SURFACE_4_AND_CEILING:              buffer.Insert_At_End(Brick::STRING_SURFACE_4_AND_CEILING); break;
+    case Brick::SURFACE_4_AND_CEILING_3:            buffer.Insert_At_End(Brick::STRING_SURFACE_4_AND_CEILING_3); break;
+    case Brick::SURFACE_4_AND_CEILING_4:            buffer.Insert_At_End(Brick::STRING_SURFACE_4_AND_CEILING_4); break;
+    case Brick::SURFACE_5_AND_CEILING:              buffer.Insert_At_End(Brick::STRING_SURFACE_5_AND_CEILING); break;
+    case Brick::CEILING:                            buffer.Insert_At_End(Brick::STRING_CEILING); break;
+    case Brick::SURFACE_5_AND_CEILING_4:            buffer.Insert_At_End(Brick::STRING_SURFACE_5_AND_CEILING_4); break;
+    case Brick::SURFACE_8_AND_CEILING:              buffer.Insert_At_End(Brick::STRING_SURFACE_8_AND_CEILING); break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:   buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5); break;
+    case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:   buffer.Insert_At_End(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4); break;
+    case Brick::ALL:                                buffer.Insert_At_End(Brick::STRING_ALL); break;
     }
 
     //Handle the Background
-    buffer += Header::STRING_BACKGROUND + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_BACKGROUND + ": ");
     switch (background) {
-    case Background::BLANK_BACKGROUND:  buffer += Background::STRING_BLANK_BACKGROUND + Common_Strings::STRING_NEW_LINE; break;
-    case Background::IN_WATER:          buffer += Background::STRING_IN_WATER + Common_Strings::STRING_NEW_LINE; break;
-    case Background::CASTLE_WALL:       buffer += Background::STRING_CASTLE_WALL + Common_Strings::STRING_NEW_LINE; break;
-    case Background::OVER_WATER:        buffer += Background::STRING_OVER_WATER + Common_Strings::STRING_NEW_LINE; break;
-    case Background::NIGHT:             buffer += Background::STRING_NIGHT + Common_Strings::STRING_NEW_LINE; break;
-    case Background::SNOW:              buffer += Background::STRING_SNOW + Common_Strings::STRING_NEW_LINE; break;
-    case Background::NIGHT_AND_SNOW:    buffer += Background::STRING_NIGHT_AND_SNOW + Common_Strings::STRING_NEW_LINE; break;
-    case Background::NIGHT_AND_FREEZE:  buffer += Background::STRING_NIGHT_AND_FREEZE + Common_Strings::STRING_NEW_LINE; break;
+    case Background::BLANK_BACKGROUND:  buffer.Insert_At_End(Background::STRING_BLANK_BACKGROUND); break;
+    case Background::IN_WATER:          buffer.Insert_At_End(Background::STRING_IN_WATER); break;
+    case Background::CASTLE_WALL:       buffer.Insert_At_End(Background::STRING_CASTLE_WALL); break;
+    case Background::OVER_WATER:        buffer.Insert_At_End(Background::STRING_OVER_WATER); break;
+    case Background::NIGHT:             buffer.Insert_At_End(Background::STRING_NIGHT); break;
+    case Background::SNOW:              buffer.Insert_At_End(Background::STRING_SNOW); break;
+    case Background::NIGHT_AND_SNOW:    buffer.Insert_At_End(Background::STRING_NIGHT_AND_SNOW); break;
+    case Background::NIGHT_AND_FREEZE:  buffer.Insert_At_End(Background::STRING_NIGHT_AND_FREEZE); break;
     }
 
     //Handle the Scenery
-    buffer += Header::STRING_SCENERY + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_SCENERY + ": ");
     switch (scenery) {
-    case Scenery::NO_SCENERY:   buffer += Scenery::STRING_NO_SCENERY + Common_Strings::STRING_NEW_LINE; break;
-    case Scenery::ONLY_CLOUDS:  buffer += Scenery::STRING_ONLY_CLOUDS + Common_Strings::STRING_NEW_LINE; break;
-    case Scenery::MOUNTAINS:    buffer += Scenery::STRING_MOUNTAINS + Common_Strings::STRING_NEW_LINE; break;
-    case Scenery::FENCES:       buffer += Scenery::STRING_FENCES + Common_Strings::STRING_NEW_LINE; break;
+    case Scenery::NO_SCENERY:   buffer.Insert_At_End(Scenery::STRING_NO_SCENERY); break;
+    case Scenery::ONLY_CLOUDS:  buffer.Insert_At_End(Scenery::STRING_ONLY_CLOUDS); break;
+    case Scenery::MOUNTAINS:    buffer.Insert_At_End(Scenery::STRING_MOUNTAINS); break;
+    case Scenery::FENCES:       buffer.Insert_At_End(Scenery::STRING_FENCES); break;
     }
 
     //Handle the Level Compliment
-    buffer += Header::STRING_COMPLIMENT + ": ";
+    buffer.Add_To_Line_Buffer(Header::STRING_COMPLIMENT + ": ");
     switch (compliment) {
-    case Level_Compliment::TREES:               buffer += Level_Compliment::STRING_TREES + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Compliment::MUSHROOMS:           buffer += Level_Compliment::STRING_MUSHROOMS + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Compliment::BULLET_BILL_TURRETS: buffer += Level_Compliment::STRING_BULLET_BILL_TURRETS + Common_Strings::STRING_NEW_LINE; break;
-    case Level_Compliment::CLOUDS:              buffer += Level_Compliment::STRING_CLOUDS + Common_Strings::STRING_NEW_LINE; break;
+    case Level_Compliment::TREES:               buffer.Insert_At_End(Level_Compliment::STRING_TREES); break;
+    case Level_Compliment::MUSHROOMS:           buffer.Insert_At_End(Level_Compliment::STRING_MUSHROOMS); break;
+    case Level_Compliment::BULLET_BILL_TURRETS: buffer.Insert_At_End(Level_Compliment::STRING_BULLET_BILL_TURRETS); break;
+    case Level_Compliment::CLOUDS:              buffer.Insert_At_End(Level_Compliment::STRING_CLOUDS); break;
     }
 
     //Time
-    buffer += Header::STRING_TIME + ": " + QString::number(time) + Common_Strings::STRING_NEW_LINE;
+    buffer.Insert_At_End(Header::STRING_TIME + ": " + QString::number(time));
 
     //Midpoint
-    buffer += Header::STRING_MIDPOINT + ": " + QString::number(halfwayPoint) + Common_Strings::STRING_NEW_LINE;
-    buffer += Level_Type::STRING_BREAK + Common_Strings::STRING_NEW_LINE;
+    buffer.Insert_At_End(Header::STRING_MIDPOINT + ": " + QString::number(halfwayPoint));
+    buffer.Insert_At_End(Level_Type::STRING_BREAK);
 
+    //TODO: Remove this and write it after objects and enemies are ready
     //Append the current file's contents to the buffer
+    //==================================================================
     if (!this->file->seek(0)) return false;
-    buffer += QString(this->file->readAll());
+    QTextStream stream(this->file);
+    while (!stream.atEnd()) buffer.Insert_At_End(stream.readLine().trimmed());
+    if (!this->file->seek(0)) return false;
+    //==================================================================
 
     //Write the new file
-    if (!this->file->seek(0)) return false;
-    if (this->file->write(buffer.toUtf8().data()) == -1) return false;
+    if (!buffer.Write_To_File(this->file)) return false;
 
     this->written = true;
     return true;
