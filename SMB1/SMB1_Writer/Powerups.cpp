@@ -43,7 +43,7 @@ bool Powerups::Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
 bool Powerups::Replace_1UP_With_Swimming_Mushroom() {
     if (!this->Write_Bytes_To_Offset(0xD7A, QByteArray::fromHex(QString("AD0407F006CE04074CED90EE04074C1BD8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x584A, QByteArray::fromHex(QString("4C6A8D").toLatin1()))) return false;
-    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(0x00)));
+    return this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(0x03)));
 }
 
 bool Powerups::Replace_Fire_Flower_With_Bone_Caster() {

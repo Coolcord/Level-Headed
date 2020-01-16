@@ -416,14 +416,14 @@ bool Hacks_Handler::Handle_Powerup() {
 bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Handle random values first
     int secondaryMushroom = this->pluginSettings->secondaryMushroom;
-    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2)+2; //1-Up, Poison, Swimming
-    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Instance().Get_Num(3)+2; //1-Up, Poison, Swimming, Mystery
+    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2, 5); //Random All
+    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Instance().Get_Num(2, 3); //1-Up or Poison
 
     //Handle the Mystery Mushroom
     bool randomPalette = false;
     if (secondaryMushroom == 5) {
         randomPalette = true;
-        secondaryMushroom = Random::Get_Instance().Get_Num(3)+2; //1-Up, Poison, Swimming, Poison or 1-Up
+        secondaryMushroom = Random::Get_Instance().Get_Num(2, 5); //1-Up, Poison, or Swimming
     }
 
     //Apply the necessary patch
@@ -439,7 +439,7 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     if (!randomPalette) return true;
 
     //Change the palette if it is a Mystery Mushroom
-    return this->writerPlugin->Graphics_Change_1UP_Palette(Random::Get_Instance().Get_Num(3));
+    return this->writerPlugin->Graphics_Change_1UP_Palette(3); //black group
 }
 
 bool Hacks_Handler::Handle_Names() {
