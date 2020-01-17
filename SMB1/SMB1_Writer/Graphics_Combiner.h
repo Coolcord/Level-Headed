@@ -73,7 +73,6 @@ public:
     bool Combine_Overworld_Block();
     bool Combine_Pipe();
     bool Combine_Question_Block();
-    bool Combine_Rope();
     bool Combine_Selector_Icon();
     bool Combine_Solid_Block();
     bool Combine_Tree_Platform();

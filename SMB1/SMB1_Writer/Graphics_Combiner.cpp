@@ -75,7 +75,6 @@ bool Graphics_Combiner::Combine_All_Except_Mario() {
     if (!this->Combine_Overworld_Block()) return false;
     if (!this->Combine_Pipe()) return false;
     if (!this->Combine_Question_Block()) return false;
-    if (!this->Combine_Rope()) return false;
     if (!this->Combine_Selector_Icon()) return false;
     if (!this->Combine_Solid_Block()) return false;
     if (!this->Combine_Tree_Platform()) return false;
@@ -355,11 +354,6 @@ bool Graphics_Combiner::Combine_Pipe() {
 bool Graphics_Combiner::Combine_Question_Block() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Question_Block_Offsets(), false)) return true;
     return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Question Block");
-}
-
-bool Graphics_Combiner::Combine_Rope() {
-    if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Rope_Offsets(), false)) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Rope");
 }
 
 bool Graphics_Combiner::Combine_Selector_Icon() {

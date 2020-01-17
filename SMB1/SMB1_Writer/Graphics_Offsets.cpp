@@ -239,7 +239,7 @@ QStack<qint64> Graphics_Offsets::Get_Coral_Offsets() {
 }
 
 QStack<qint64> Graphics_Offsets::Get_Flagpole_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BB0); offsets.push(0x0BB4);
+    QStack<qint64> offsets; offsets.push(0x0BB0); offsets.push(0x0BB4); offsets.push(0x0BBC); offsets.push(0x0BC0); offsets.push(0x0BC4); offsets.push(0x0BC8);
     return offsets;
 }
 
@@ -266,11 +266,6 @@ QStack<qint64> Graphics_Offsets::Get_Pipe_Offsets() {
 
 QStack<qint64> Graphics_Offsets::Get_Question_Block_Offsets() {
     QStack<qint64> offsets; offsets.push(0x0C9C); offsets.push(0x0CA0); offsets.push(0x0CAC);
-    return offsets;
-}
-
-QStack<qint64> Graphics_Offsets::Get_Rope_Offsets() {
-    QStack<qint64> offsets; offsets.push(0x0BBC); offsets.push(0x0BC0); offsets.push(0x0BC4); offsets.push(0x0BC8);
     return offsets;
 }
 

@@ -66,7 +66,6 @@ public:
     QStack<qint64> Get_Overworld_Block_Offsets();
     QStack<qint64> Get_Pipe_Offsets();
     QStack<qint64> Get_Question_Block_Offsets();
-    QStack<qint64> Get_Rope_Offsets();
     QStack<qint64> Get_Selector_Icon_Offsets();
     QStack<qint64> Get_Solid_Block_Offsets();
     QStack<qint64> Get_Tall_Tree_Offsets();
