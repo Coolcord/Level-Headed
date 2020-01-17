@@ -234,7 +234,6 @@ public:
 
     //Powerups
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
-    virtual bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario()=0;
     virtual bool Powerups_Replace_1UP_With_Swimming_Mushroom()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Bone_Caster()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Coin_Flinger()=0;

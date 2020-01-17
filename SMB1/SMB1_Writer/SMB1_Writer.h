@@ -252,7 +252,6 @@ public:
 
     //Powerups
     bool Powerups_Replace_1UP_With_Poison_Mushroom();
-    bool Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
     bool Powerups_Replace_1UP_With_Swimming_Mushroom();
     bool Powerups_Replace_Fire_Flower_With_Bone_Caster();
     bool Powerups_Replace_Fire_Flower_With_Coin_Flinger();

@@ -975,11 +975,6 @@ bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom() {
     return this->powerups->Replace_1UP_With_Poison_Mushroom();
 }
 
-bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario() {
-    if (!this->powerups) return false;
-    return this->powerups->Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario();
-}
-
 bool SMB1_Writer::Powerups_Replace_1UP_With_Swimming_Mushroom() {
     if (!this->powerups) return false;
     return this->powerups->Replace_1UP_With_Swimming_Mushroom();

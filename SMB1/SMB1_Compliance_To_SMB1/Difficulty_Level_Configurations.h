@@ -17,12 +17,15 @@ public:
     void Hard(Plugin_Settings *pluginSettings, bool disableASM);
     void Very_Hard(Plugin_Settings *pluginSettings, bool disableASM);
     void Brutal(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM);
-    void Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_Easy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_Normal(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_Hard(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_Easy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_Normal(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_Hard(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal(Plugin_Settings *pluginSettings, bool disableASM);
+    void Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard(Plugin_Settings *pluginSettings, bool disableASM);
     void Walk_In_The_Park(Plugin_Settings *pluginSettings, bool disableASM);
     void Just_Keep_Scrolling(Plugin_Settings *pluginSettings, bool disableASM);
     void Riddled_With_Bullets(Plugin_Settings *pluginSettings, bool disableASM);
@@ -36,6 +39,7 @@ public:
 
 private:
     void Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings);
+    void Purist(Difficulty_Level_Settings &difficultySettings);
 
     Difficulty_Level_Settings Normal();
     Difficulty_Level_Settings Very_Easy();
@@ -43,12 +47,15 @@ private:
     Difficulty_Level_Settings Hard();
     Difficulty_Level_Settings Very_Hard();
     Difficulty_Level_Settings Brutal();
-    Difficulty_Level_Settings Purist();
-    Difficulty_Level_Settings Purist_And_Auto_Scroll();
-    Difficulty_Level_Settings Purist_And_No_Hammer_Bros();
-    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc();
-    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll();
-    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros();
+    Difficulty_Level_Settings Purist_Easy();
+    Difficulty_Level_Settings Purist_Normal();
+    Difficulty_Level_Settings Purist_Hard();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_Easy();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_Normal();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_Hard();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal();
+    Difficulty_Level_Settings Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard();
     Difficulty_Level_Settings Walk_In_The_Park();
     Difficulty_Level_Settings Just_Keep_Scrolling();
     Difficulty_Level_Settings Riddled_With_Bullets();

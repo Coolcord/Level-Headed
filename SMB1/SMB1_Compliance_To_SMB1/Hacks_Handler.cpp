@@ -416,14 +416,14 @@ bool Hacks_Handler::Handle_Powerup() {
 bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Handle random values first
     int secondaryMushroom = this->pluginSettings->secondaryMushroom;
-    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2, 5); //Random All
+    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2, 4); //Random All
     else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Instance().Get_Num(2, 3); //1-Up or Poison
 
     //Handle the Mystery Mushroom
     bool randomPalette = false;
     if (secondaryMushroom == 5) {
         randomPalette = true;
-        secondaryMushroom = Random::Get_Instance().Get_Num(2, 5); //1-Up, Poison, or Swimming
+        secondaryMushroom = Random::Get_Instance().Get_Num(2, 4); //1-Up, Poison, or Swimming
     }
 
     //Apply the necessary patch
@@ -433,13 +433,13 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     case 2:     success = true; break; //1-Up
     case 3:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
     case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
-    case 5:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom_If_Not_Fire_Mario(); break;
     }
     if (!success) return false;
     if (!randomPalette) return true;
 
     //Change the palette if it is a Mystery Mushroom
-    return this->writerPlugin->Graphics_Change_1UP_Palette(3); //black group
+    if (Random::Get_Instance().Get_Num(1)) return this->writerPlugin->Graphics_Change_1UP_Palette(1); //green
+    else return this->writerPlugin->Graphics_Change_1UP_Palette(3); //black
 }
 
 bool Hacks_Handler::Handle_Names() {

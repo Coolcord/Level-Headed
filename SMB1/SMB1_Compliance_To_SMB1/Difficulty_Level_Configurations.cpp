@@ -10,12 +10,15 @@ void Difficulty_Level_Configurations::Normal(Plugin_Settings *pluginSettings, bo
 void Difficulty_Level_Configurations::Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Hard(), pluginSettings, disableASM);}
 void Difficulty_Level_Configurations::Very_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Very_Hard(), pluginSettings, disableASM);}
 void Difficulty_Level_Configurations::Brutal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Brutal(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Auto_Scroll(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_No_Hammer_Bros(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(), pluginSettings, disableASM);}
-void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_Easy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_Normal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_Normal(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_Hard(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_Easy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Normal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_Normal(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_Hard(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal(), pluginSettings, disableASM);}
+void Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard(), pluginSettings, disableASM);}
 void Difficulty_Level_Configurations::Walk_In_The_Park(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Walk_In_The_Park(), pluginSettings, disableASM);}
 void Difficulty_Level_Configurations::Just_Keep_Scrolling(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Just_Keep_Scrolling(), pluginSettings, disableASM);}
 void Difficulty_Level_Configurations::Riddled_With_Bullets(Plugin_Settings *pluginSettings, bool disableASM) {this->Apply_Difficulty_Settings_To_Plugin_Settings(this->Riddled_With_Bullets(), pluginSettings, disableASM);}
@@ -106,21 +109,24 @@ bool Difficulty_Level_Configurations::Update_Plugin_Settings_For_Difficulty_Pres
     case 5:  Difficulty_Level_Configurations().Hard(pluginSettings, partialSupport); return true;
     case 6:  Difficulty_Level_Configurations().Very_Hard(pluginSettings, partialSupport); return true;
     case 7:  Difficulty_Level_Configurations().Brutal(pluginSettings, partialSupport); return true;
-    case 8:  Difficulty_Level_Configurations().Purist(pluginSettings, partialSupport); return true;
-    case 9:  Difficulty_Level_Configurations().Purist_And_Auto_Scroll(pluginSettings, partialSupport); return true;
-    case 10: Difficulty_Level_Configurations().Purist_And_No_Hammer_Bros(pluginSettings, partialSupport); return true;
-    case 11: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc(pluginSettings, partialSupport); return true;
-    case 12: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll(pluginSettings, partialSupport); return true;
-    case 13: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros(pluginSettings, partialSupport); return true;
-    case 14: Difficulty_Level_Configurations().Walk_In_The_Park(pluginSettings, partialSupport); return true;
-    case 15: Difficulty_Level_Configurations().Just_Keep_Scrolling(pluginSettings, partialSupport); return true;
-    case 16: Difficulty_Level_Configurations().Riddled_With_Bullets(pluginSettings, partialSupport); return true;
-    case 17: Difficulty_Level_Configurations().Lakitus_Challenge(pluginSettings, partialSupport); return true;
-    case 18: Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(pluginSettings, partialSupport); return true;
-    case 19: Difficulty_Level_Configurations().Hammer_Time(pluginSettings, partialSupport); return true;
-    case 20: Difficulty_Level_Configurations().Extreme_Hammer_Time(pluginSettings, partialSupport); return true;
-    case 21: Difficulty_Level_Configurations().Turn_Up_The_Heat(pluginSettings, partialSupport); return true;
-    case 22: Difficulty_Level_Configurations().Too_Hot_To_Handle(pluginSettings, partialSupport); return true;
+    case 8:  Difficulty_Level_Configurations().Purist_Easy(pluginSettings, partialSupport); return true;
+    case 9:  Difficulty_Level_Configurations().Purist_Normal(pluginSettings, partialSupport); return true;
+    case 10: Difficulty_Level_Configurations().Purist_Hard(pluginSettings, partialSupport); return true;
+    case 11: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_Easy(pluginSettings, partialSupport); return true;
+    case 12: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_Normal(pluginSettings, partialSupport); return true;
+    case 13: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_Hard(pluginSettings, partialSupport); return true;
+    case 14: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy(pluginSettings, partialSupport); return true;
+    case 15: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal(pluginSettings, partialSupport); return true;
+    case 16: Difficulty_Level_Configurations().Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard(pluginSettings, partialSupport); return true;
+    case 17: Difficulty_Level_Configurations().Walk_In_The_Park(pluginSettings, partialSupport); return true;
+    case 18: Difficulty_Level_Configurations().Just_Keep_Scrolling(pluginSettings, partialSupport); return true;
+    case 19: Difficulty_Level_Configurations().Riddled_With_Bullets(pluginSettings, partialSupport); return true;
+    case 20: Difficulty_Level_Configurations().Lakitus_Challenge(pluginSettings, partialSupport); return true;
+    case 21: Difficulty_Level_Configurations().Cheep_Cheep_Frenzy(pluginSettings, partialSupport); return true;
+    case 22: Difficulty_Level_Configurations().Hammer_Time(pluginSettings, partialSupport); return true;
+    case 23: Difficulty_Level_Configurations().Extreme_Hammer_Time(pluginSettings, partialSupport); return true;
+    case 24: Difficulty_Level_Configurations().Turn_Up_The_Heat(pluginSettings, partialSupport); return true;
+    case 25: Difficulty_Level_Configurations().Too_Hot_To_Handle(pluginSettings, partialSupport); return true;
     }
 }
 
@@ -150,6 +156,36 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = false;
     pluginSettings->superMarioOnDamage = false;
     pluginSettings->difficultyUnlimitedTime = false;
+}
+
+void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficultySettings) {
+    difficultySettings.autoScroll = 11;
+    difficultySettings.autoScrollChancePerLevel = 0;
+    difficultySettings.walkingHammerBros = 11;
+    difficultySettings.basicEnemySpeed = 3;
+    difficultySettings.bowserFlameFrequency = 2;
+    difficultySettings.bulletBillFiringRate = 3;
+    difficultySettings.bulletBillSpeed = 2;
+    difficultySettings.enemyRevivalSpeed = 2;
+    difficultySettings.fireBarLength = 3;
+    difficultySettings.longFireBarLength = 4;
+    difficultySettings.flyingCheepCheepJumpHeight = 2;
+    difficultySettings.hammerBrosThrowRate = 4;
+    difficultySettings.lakituRespawnSpeed = 3;
+    difficultySettings.surfingLiftSpeed = 3;
+    difficultySettings.piranhaPlantType = 1;
+    difficultySettings.maxNumberOfPiranhaPlants = 5;
+    difficultySettings.spinyEggBehavior = 8;
+    difficultySettings.replaceCastleLoops = 2; //nothing
+    difficultySettings.speedyObjectsAndEnemies = false;
+    difficultySettings.lakituThrowArc = false;
+    difficultySettings.europeanBlooperSwimHeight = false;
+    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
+    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
+    difficultySettings.piranhaPlantsOnFirstLevel = false;
+    difficultySettings.superMarioOnDamage = false;
+    difficultySettings.unlimitedTime = false;
+    difficultySettings.noEnemies = false;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
@@ -411,72 +447,58 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist() {
-    Difficulty_Level_Settings difficultySettings = this->Purist_And_Auto_Scroll();
-    difficultySettings.replaceCastleLoops = 2; //nothing
-    difficultySettings.autoScroll = 11;
-    difficultySettings.autoScrollChancePerLevel = 0;
-    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_Easy() {
+    Difficulty_Level_Settings difficultySettings = this->Easy();
+    this->Purist(difficultySettings);
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Auto_Scroll() {
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_Normal() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
-    difficultySettings.buzzyBeetlesReplaceLoneGoombas = 7;
-    difficultySettings.walkingHammerBros = 11;
-    difficultySettings.basicEnemySpeed = 3;
-    difficultySettings.bowserFlameFrequency = 2;
-    difficultySettings.bulletBillFiringRate = 3;
-    difficultySettings.bulletBillSpeed = 2;
-    difficultySettings.enemyRevivalSpeed = 2;
-    difficultySettings.fireBarLength = 3;
-    difficultySettings.longFireBarLength = 4;
-    difficultySettings.flyingCheepCheepJumpHeight = 2;
-    difficultySettings.hammerBrosThrowRate = 4;
-    difficultySettings.lakituRespawnSpeed = 3;
-    difficultySettings.surfingLiftSpeed = 3;
-    difficultySettings.piranhaPlantType = 1;
-    difficultySettings.maxNumberOfPiranhaPlants = 5;
-    difficultySettings.spinyEggBehavior = 8;
-    difficultySettings.replaceCastleLoops = 3; //auto scroll
-    difficultySettings.speedyObjectsAndEnemies = false;
-    difficultySettings.lakituThrowArc = false;
-    difficultySettings.europeanBlooperSwimHeight = false;
-    difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
-    difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
-    difficultySettings.piranhaPlantsOnFirstLevel = false;
-    difficultySettings.superMarioOnDamage = false;
-    difficultySettings.unlimitedTime = false;
-    difficultySettings.noEnemies = false;
+    this->Purist(difficultySettings);
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_No_Hammer_Bros() {
-    Difficulty_Level_Settings difficultySettings = this->Purist();
-    difficultySettings.hammerTime = 11;
-    difficultySettings.walkingHammerBros = 11;
-    difficultySettings.hammerTimeIntensity = 0;
-    difficultySettings.underwaterHammerBros = 11;
-    difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
-    difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_Hard() {
+    Difficulty_Level_Settings difficultySettings = this->Hard();
+    this->Purist(difficultySettings);
+    difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc() {
-    Difficulty_Level_Settings difficultySettings = this->Purist();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Easy() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_Easy();
     difficultySettings.lakituThrowArc = true;
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_Auto_Scroll() {
-    Difficulty_Level_Settings difficultySettings = this->Purist_And_Auto_Scroll();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Normal() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_Normal();
     difficultySettings.lakituThrowArc = true;
     return difficultySettings;
 }
 
-Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_No_Hammer_Bros() {
-    Difficulty_Level_Settings difficultySettings = this->Purist_And_No_Hammer_Bros();
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_Hard() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_Hard();
     difficultySettings.lakituThrowArc = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Easy() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_Lakitu_Throw_Arc_Easy();
+    difficultySettings.europeanBlooperSwimHeight = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Normal() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_Lakitu_Throw_Arc_Normal();
+    difficultySettings.europeanBlooperSwimHeight = true;
+    return difficultySettings;
+}
+
+Difficulty_Level_Settings Difficulty_Level_Configurations::Purist_And_Lakitu_Throw_Arc_And_European_Bloopers_Hard() {
+    Difficulty_Level_Settings difficultySettings = this->Purist_And_Lakitu_Throw_Arc_Hard();
+    difficultySettings.europeanBlooperSwimHeight = true;
     return difficultySettings;
 }
 

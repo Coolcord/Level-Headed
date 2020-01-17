@@ -1082,32 +1082,47 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist (Only original behaviors)</string>
+                 <string>-&gt; Purist (Only original behaviors) -&gt; Easy</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist + Auto Scroll</string>
+                 <string>-&gt; Purist (Only original behaviors) -&gt; Normal</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist + No Hammer Bros.</string>
+                 <string>-&gt; Purist (Only original behaviors) -&gt; Hard</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist + Lakitu Throw Arc</string>
+                 <string>-&gt; Purist + Lakitu Throw Arc -&gt; Easy</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist + Lakitu Throw Arc + Auto Scroll</string>
+                 <string>-&gt; Purist + Lakitu Throw Arc -&gt; Normal</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>-&gt; Purist + Lakitu Throw Arc + No Hammer Bros.</string>
+                 <string>-&gt; Purist + Lakitu Throw Arc -&gt; Hard</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc + European Bloopers -&gt; Easy</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc + European Bloopers -&gt; Normal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-&gt; Purist + Lakitu Throw Arc + European Bloopers -&gt; Hard</string>
                 </property>
                </item>
                <item>
