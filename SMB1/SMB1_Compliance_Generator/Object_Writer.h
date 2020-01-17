@@ -9,7 +9,7 @@
 
 class Object_Writer : public Item_Writer {
 public:
-    Object_Writer(QTextStream *stream, int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
+    Object_Writer(int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
     ~Object_Writer() {}
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);

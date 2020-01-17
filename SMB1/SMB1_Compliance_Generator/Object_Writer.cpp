@@ -7,7 +7,7 @@
 #include "Physics.h"
 #include <assert.h>
 
-Object_Writer::Object_Writer(QTextStream *s, int nbl, SMB1_Compliance_Generator_Arguments *args) : Item_Writer(s, nbl) {
+Object_Writer::Object_Writer(int nbl, SMB1_Compliance_Generator_Arguments *args) : Item_Writer(nbl) {
     assert(args);
     this->args = args;
     this->lastObjectLength = 0;

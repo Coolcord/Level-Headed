@@ -1,17 +1,18 @@
 #include "Level_Crawler.h"
-#include "Physics.h"
+#include "../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h"
 #include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
+#include "Physics.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
 #include <QVector>
 
-Level_Crawler::Level_Crawler(QFile *file) : SMB1_Compliance_Map() {
-    assert(file);
-    this->file = file;
+Level_Crawler::Level_Crawler(Text_Insertion_Buffer *objectsBuffer) : SMB1_Compliance_Map() {
+    assert(objectsBuffer);
+    this->objectsBuffer = objectsBuffer;
     this->endDetected = false;
     this->safeSize = 0;
     this->badCoordinates = new QMap<QString, bool>();
@@ -47,8 +48,6 @@ void Level_Crawler::Populate_Brick_Map() {
 }
 
 bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
-    if (!this->file || !this->file->isOpen() || !this->file->isReadable()) return false;
-    if (!this->file->reset()) return false;
     this->brick = startingBrick;
     this->nextBrick = startingBrick;
     this->endDetected = false;
@@ -58,14 +57,12 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     int holeCrawlSteps = 0;
     //Read the Objects to Determine Safe Spots to Place Enemies
     QString line;
+    this->objectsBuffer->Seek_To_Before_Beginning();
     do {
-        line = this->file->readLine().trimmed();
-
+        line = this->objectsBuffer->Get_Next_Line();
         assert(this->Parse_Object(line, x, holeCrawlSteps));
-
-        if (!endDetected) safeSize = x-1;
-
-    } while (line != nullptr && !this->file->atEnd());
+        if (!this->endDetected) this->safeSize = x-1;
+    } while (!this->objectsBuffer->At_End());
 
     return true;
     //return this->Draw_Map(); //Debug code
@@ -535,8 +532,8 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     int length = 0;
     QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->end();
 
-    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(elements.at(0));
-    if (iter == this->objects->end()) return false; //not found
+    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objectsMap->find(elements.at(0));
+    if (iter == this->objectsMap->end()) return false; //not found
     switch (iter.value()) {
     case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
     case Object_Item::QUESTION_BLOCK_WITH_COIN:

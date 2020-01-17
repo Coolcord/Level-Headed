@@ -6,7 +6,7 @@
 
 class Enemy_Writer : public Item_Writer {
 public:
-    Enemy_Writer(QTextStream *stream, int numBytesLeft);
+    Enemy_Writer(int numBytesLeft);
     ~Enemy_Writer() {}
     bool Get_First_Enemy();
     void Set_First_Enemy(bool value);

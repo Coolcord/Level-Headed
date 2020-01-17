@@ -28,10 +28,11 @@ protected:
     int Get_Random_X(int min, bool firstPage = false);
     int Get_Safe_Random_X();
     void Handle_Auto_Scroll_Start(int &x);
+    bool Write_Buffers_To_File();
 
     Level_Generator(const Level_Generator&);
     Level_Generator& operator=(const Level_Generator&);
-    QTextStream *stream;
+    QFile *file;
     Continuous_Enemies_Spawner *continuousEnemiesSpawner;
     Header_Writer *header;
     Object_Writer *object;

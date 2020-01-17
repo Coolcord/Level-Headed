@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Writer::Enemy_Writer(QTextStream *s, int nbl) : Item_Writer(s, nbl) {
+Enemy_Writer::Enemy_Writer(int nbl) : Item_Writer(nbl) {
     this->firstEnemy = true;
     this->lakituIsActive = false;
     this->wasLakituSpawned = false;

@@ -4,10 +4,9 @@
 #include <assert.h>
 #include <QDebug>
 
-Item_Writer::Item_Writer(QTextStream *stream, int numBytesLeft) {
-    assert(stream);
+Item_Writer::Item_Writer(int numBytesLeft) {
     assert(numBytesLeft >= 0);
-    this->stream = stream;
+    this->buffer = new Text_Insertion_Buffer();
     this->numItems = 0;
     this->levelLength = 0;
     this->numBytesLeft = numBytesLeft;
@@ -54,11 +53,18 @@ bool Item_Writer::Will_Page_Flag_Be_Tripped(int x) {
     return (simulatedCurrentX > 0xF);
 }
 
+bool Item_Writer::Write_Buffer_To_File(QFile *file) {
+    return this->buffer->Write_To_File(file);
+}
+
+Text_Insertion_Buffer *Item_Writer::Get_Buffer() {
+    return this->buffer;
+}
+
 bool Item_Writer::Write_Item(int x, const QString &item) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    *(this->stream) << item << Common_Strings::STRING_NEW_LINE;
-    if (this->stream->status() != QTextStream::Ok) return false;
+    this->buffer->Insert_At_End(item);
 
     //Keep track of the level stats
     this->numBytesLeft -= 2;

@@ -12,8 +12,8 @@
 #include <QDebug>
 
 SMB1_Compliance_Parser::SMB1_Compliance_Parser(SMB1_Writer_Interface *writerPlugin, bool randomEnemies, bool allowHammerBrosInRandomEnemies, bool allowLakitusInRandomEnemies, bool allowContinousEnemySpawners) : SMB1_Compliance_Map() {
-    assert(this->objects);
-    assert(this->enemies);
+    assert(this->objectsMap);
+    assert(this->enemiesMap);
     assert(writerPlugin);
     this->writerPlugin = writerPlugin;
     this->wasAutoScrollUsed = false;
@@ -119,8 +119,8 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
     QString object = elements.at(0);
-    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objects->find(object);
-    if (iter == this->objects->end()) return false; //not found
+    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objectsMap->find(object);
+    if (iter == this->objectsMap->end()) return false; //not found
     switch (iter.value()) {
     case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
         return this->objectHandler->Question_Block_With_Mushroom(line, errorCode);
@@ -236,8 +236,8 @@ bool SMB1_Compliance_Parser::Parse_Enemy(const QString &line, int &errorCode) {
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
     QString enemy = elements.at(0);
-    QMap<QString, Enemy_Item::Enemy_Item>::iterator iter = this->enemies->find(enemy);
-    if (iter == this->enemies->end()) return false; //not found
+    QMap<QString, Enemy_Item::Enemy_Item>::iterator iter = this->enemiesMap->find(enemy);
+    if (iter == this->enemiesMap->end()) return false; //not found
     switch (iter.value()) {
     case Enemy_Item::GREEN_KOOPA:           return this->enemyHandler->Green_Koopa(line, errorCode);
     case Enemy_Item::RED_KOOPA:             return this->enemyHandler->Red_Koopa(line, errorCode);

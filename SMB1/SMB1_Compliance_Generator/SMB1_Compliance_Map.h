@@ -12,8 +12,8 @@ public:
     ~SMB1_Compliance_Map();
 
 protected:
-    QMap<QString, Object_Item::Object_Item> *objects;
-    QMap<QString, Enemy_Item::Enemy_Item> *enemies;
+    QMap<QString, Object_Item::Object_Item> *objectsMap;
+    QMap<QString, Enemy_Item::Enemy_Item> *enemiesMap;
 
 private:
     void Populate_Object_Map();

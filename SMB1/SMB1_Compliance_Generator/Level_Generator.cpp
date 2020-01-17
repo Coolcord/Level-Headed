@@ -1,19 +1,21 @@
 #include "../../Common_Files/Random.h"
+#include "../Common_SMB1_Files/Level_Type_String.h"
 #include "Continuous_Enemies_Spawner.h"
 #include "Level_Generator.h"
+#include <QTextStream>
 #include <assert.h>
 
 Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     assert(file);
     assert(args);
+    this->file = file;
     this->args = args;
-    this->header = new Header_Writer(file);
-    this->stream = new QTextStream(file);
-    this->object = new Object_Writer(this->stream, this->args->numObjectBytes, this->args);
-    this->enemy = new Enemy_Writer(this->stream, this->args->numEnemyBytes);
+    this->header = new Header_Writer();
+    this->object = new Object_Writer(this->args->numObjectBytes, this->args);
+    this->enemy = new Enemy_Writer(this->args->numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Writer(this->object, this->enemy);
     this->requiredEnemySpawns = new Required_Enemy_Spawns(this->object, this->enemy, this->pipePointer, this->args);
-    this->enemySpawner = new Enemy_Spawner(file, this->stream, this->object, this->enemy, this->requiredEnemySpawns, this->args);
+    this->enemySpawner = new Enemy_Spawner(this->object, this->enemy, this->requiredEnemySpawns, this->args);
     this->continuousEnemiesSpawner = new Continuous_Enemies_Spawner(this->args, this->object, this->requiredEnemySpawns);
     this->end = new End_Spawner(this->object, this->enemy, this->args, this->requiredEnemySpawns, this->args->useAutoScroll);
     this->midpointHandler = new Midpoint_Handler(this->object, this->continuousEnemiesSpawner, this->args, this->args->levelType);
@@ -21,7 +23,6 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
 }
 
 Level_Generator::~Level_Generator() {
-    delete this->stream;
     delete this->continuousEnemiesSpawner;
     delete this->header;
     delete this->object;
@@ -70,4 +71,17 @@ void Level_Generator::Handle_Auto_Scroll_Start(int &x) {
         if (this->object->Get_Absolute_X(x) == 0xF) ++x;
         assert(this->object->Toggle_Auto_Scroll(x));
     }
+}
+
+bool Level_Generator::Write_Buffers_To_File() {
+    QTextStream stream(this->file);
+    if (!this->file->seek(0)) return false;
+    if (!this->header->Write_Buffer_To_File(this->file)) return false;
+    stream << Level_Type::STRING_BREAK << endl;
+    if (!this->object->Write_Buffer_To_File(this->file)) return false;
+    stream << Level_Type::STRING_BREAK << endl;
+    if (!this->enemy->Write_Buffer_To_File(this->file)) return false;
+    stream << Level_Type::STRING_BREAK << endl;
+    stream.flush();
+    return true;
 }

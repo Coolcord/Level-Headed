@@ -58,9 +58,10 @@ bool Castle_Generator::Generate_Level() {
     assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE_4_AND_CEILING_3));
 
     //Write the header last
-    return this->header->Write_Header(Level_Type::CASTLE, Level_Attribute::CASTLE, Brick::SURFACE_4_AND_CEILING_3, Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::CASTLE, Level_Attribute::CASTLE, Brick::SURFACE_4_AND_CEILING_3, Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
-                                      this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0);
+                                      this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0)) return false;
+    return this->Write_Buffers_To_File();
 }
 
 int Castle_Generator::Get_Lowest_Y_From_Brick(Brick::Brick brick) {

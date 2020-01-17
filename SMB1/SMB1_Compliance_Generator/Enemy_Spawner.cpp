@@ -5,24 +5,21 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "Difficulty.h"
-#include "../Common_SMB1_Files/Level_Type_String.h"
 #include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(QFile *file, QTextStream *stream, Object_Writer *objects, Enemy_Writer *enemies,
+Enemy_Spawner::Enemy_Spawner(Object_Writer *object, Enemy_Writer *enemy,
                              Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args) {
-    assert(file); assert(stream); assert(objects); assert(enemies); assert(requiredEnemySpawns);
+    assert(object); assert(enemy); assert(requiredEnemySpawns);
     assert(args); assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
-    this->file = file;
-    this->stream = stream;
-    this->objects = objects;
-    this->enemies = enemies;
+    this->object = object;
+    this->enemy = enemy;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->args = args;
-    this->levelCrawler = new Level_Crawler(this->file);
+    this->levelCrawler = new Level_Crawler(this->object->Get_Buffer());
     this->emergencySpawnMode = false;
 }
 
@@ -31,12 +28,7 @@ Enemy_Spawner::~Enemy_Spawner() {
 }
 
 bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
-    this->stream->flush();
-    if (this->stream->status() != QTextStream::Ok) return false;
-
     if (!this->levelCrawler->Crawl_Level(startingBrick)) return false;
-    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::STRING_NEW_LINE;
-    if (this->stream->status() != QTextStream::Ok) return false;
     int x = 16;
     int lastX = x;
     int y = 0;
@@ -75,11 +67,11 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
 
         //Determine what type of enemies to spawn
         bool forceHammerBro = false;
-        if (this->args->levelType == Level_Type::UNDERWATER) forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyUnderwaterHammerBros && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
-        else forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        if (this->args->levelType == Level_Type::UNDERWATER) forceHammerBro = !this->object->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyUnderwaterHammerBros && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        else forceHammerBro = !this->object->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         bool noEnemies = this->args->difficultyNoEnemies;
-        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
-        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn) noEnemies = this->objects->Were_Flying_Cheep_Cheeps_Spawned();
+        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemy->Is_Lakitu_Active();
+        if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn) noEnemies = this->object->Were_Flying_Cheep_Cheeps_Spawned();
         if (forceHammerBro) {
             size = this->Common_Enemy(x, y, lastX, size, true, noEnemies);
         } else {
@@ -141,17 +133,13 @@ bool Enemy_Spawner::Spawn_Enemies(Brick::Brick startingBrick) {
         this->emergencySpawnMode = true;
         this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
     }
-
-    //Add a seperator at the end of the file
-    *(this->stream) << Level_Type::STRING_BREAK << Common_Strings::STRING_NEW_LINE;
-    if (this->stream->status() != QTextStream::Ok) return false;
     return true;
 }
 
 bool Enemy_Spawner::Handle_Required_Enemies(int &lastX) {
     if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() == 0) return false; //nothing to do
-    assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
-    if (this->enemies->Get_Num_Bytes_Left() <= this->requiredEnemySpawns->Get_Num_Required_Bytes()+1) this->emergencySpawnMode = true;
+    assert(this->enemy->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_Required_Bytes());
+    if (this->enemy->Get_Num_Bytes_Left() <= this->requiredEnemySpawns->Get_Num_Required_Bytes()+1) this->emergencySpawnMode = true;
     if (this->emergencySpawnMode) return this->Handle_Required_Enemies_In_Emergency_Spawn_Mode(lastX);
     bool enemySpawned = false;
     while (this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
@@ -172,7 +160,7 @@ bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) 
 
 bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount) {
     //Skip the page change if necessary
-    if (this->enemies->Get_Current_Page() >= page-1) {
+    if (this->enemy->Get_Current_Page() >= page-1) {
         return true;
     }
 
@@ -182,19 +170,19 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
             //Spawn a page change if necessary
             if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
                 int page = lastX/16;
-                assert(this->enemies->Page_Change(page));
+                assert(this->enemy->Page_Change(page));
                 x = (page*16);
                 lastX = x;
             }
             this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
         }
         //Check to see if the page change can be skipped now
-        if (this->enemies->Get_Current_Page() >= page-1) return true;
+        if (this->enemy->Get_Current_Page() >= page-1) return true;
     }
 
     //Spawn the page change if necessary
     if ((this->requiredEnemySpawns->Get_Num_Bytes_Left()/2) <= enemyAmount) {
-        assert(this->enemies->Page_Change(page));
+        assert(this->enemy->Page_Change(page));
         x = (page*16);
         lastX = x;
         y = Physics::GROUND_Y;
@@ -360,10 +348,10 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     assert(numEnemies == 2 || numEnemies == 3);
     switch (Random::Get_Instance().Get_Num(1)) {
     case 0: //Goombas
-        assert(this->enemies->Goomba_Group(spawnX, tmpY, numEnemies));
+        assert(this->enemy->Goomba_Group(spawnX, tmpY, numEnemies));
         break;
     case 1: //Koopas
-        assert(this->enemies->Koopa_Group(spawnX, tmpY, numEnemies));
+        assert(this->enemy->Koopa_Group(spawnX, tmpY, numEnemies));
         break;
     default:
         assert(false);
@@ -371,6 +359,16 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     x = tmpX;
     y = tmpY;
     return numEnemies+1; //return the size the enemies take up
+}
+
+Enemy_Writer *Enemy_Spawner::getEnemies() const
+{
+    return enemy;
+}
+
+void Enemy_Spawner::setEnemies(Enemy_Writer *value)
+{
+    enemy = value;
 }
 
 int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies) {
@@ -385,7 +383,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         if (!noEnemies && !forceHammerBro && canSpawnBlooper) {
             int spawnX = x - lastX;
             y = Random::Get_Instance().Get_Num(9)+1;
-            assert(this->enemies->Blooper(spawnX, y));
+            assert(this->enemy->Blooper(spawnX, y));
             return 1;
         }
     }
@@ -405,7 +403,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         }
         if (spawnParatroopa) {
             int spawnX = tmpX-lastX;
-            assert(this->enemies->Green_Paratroopa(spawnX, tmpY));
+            assert(this->enemy->Green_Paratroopa(spawnX, tmpY));
             x = tmpX;
             y = tmpY;
             return 1;
@@ -428,16 +426,16 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     if (noEnemies) {
         return 0;
     } else if (forceHammerBro) {
-        assert(this->enemies->Hammer_Bro(spawnX, tmpY));
+        assert(this->enemy->Hammer_Bro(spawnX, tmpY));
     } else {
         switch (this->args->levelType) {
         case Level_Type::STANDARD_OVERWORLD:
             random = Random::Get_Instance().Get_Num(8);
             if (random < 3) {
-                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-                else assert(this->enemies->Goomba(spawnX, tmpY));
-            } else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
-            else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemy->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemy->Goomba(spawnX, tmpY));
+            } else if (random < 6) assert(this->enemy->Green_Koopa(spawnX, tmpY));
+            else if (random < 9) assert(this->enemy->Red_Koopa(spawnX, tmpY));
             else assert(false);
             break;
         case Level_Type::BRIDGE:
@@ -445,13 +443,13 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 0:
             case 1:
             case 2:
-                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+                assert(this->enemy->Red_Koopa(spawnX, tmpY)); break;
             case 3:
-                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-                else assert(this->enemies->Goomba(spawnX, tmpY));
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemy->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemy->Goomba(spawnX, tmpY));
                 break;
             case 4:
-                assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+                assert(this->enemy->Green_Koopa(spawnX, tmpY)); break;
             default:
                 assert(false);
             }
@@ -462,13 +460,13 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 1:
             case 2:
             case 3:
-                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+                assert(this->enemy->Red_Koopa(spawnX, tmpY)); break;
             case 4:
-                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-                else assert(this->enemies->Goomba(spawnX, tmpY));
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemy->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemy->Goomba(spawnX, tmpY));
                 break;
             case 5:
-                assert(this->enemies->Green_Koopa(spawnX, tmpY)); break;
+                assert(this->enemy->Green_Koopa(spawnX, tmpY)); break;
             default:
                 assert(false);
             }
@@ -478,9 +476,9 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
         case Level_Type::CASTLE:
             random = (Random::Get_Instance().Get_Num(5));
             if (random < 3) {
-                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
-                else assert(this->enemies->Goomba(spawnX, tmpY));
-            } else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
+                if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemy->Buzzy_Beetle(spawnX, tmpY));
+                else assert(this->enemy->Goomba(spawnX, tmpY));
+            } else if (random < 6) assert(this->enemy->Green_Koopa(spawnX, tmpY));
             else assert(false);
             break;
         default:

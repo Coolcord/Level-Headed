@@ -6,9 +6,12 @@
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 
+class Object_Writer;
+class Text_Insertion_Buffer;
+
 class Level_Crawler : public SMB1_Compliance_Map {
 public:
-    Level_Crawler(QFile *file);
+    Level_Crawler(Text_Insertion_Buffer *objectsBuffer);
     ~Level_Crawler();
     bool Crawl_Level(Brick::Brick startingBrick);
     int Get_Safe_Size();
@@ -38,10 +41,10 @@ private:
     int Get_X_From_Key(const QString &key);
     int Get_Y_From_Key(const QString &key);
 
+    Text_Insertion_Buffer *objectsBuffer;
     Brick::Brick brick;
     Brick::Brick nextBrick;
     QMap<QString, Brick::Brick> *bricks;
-    QFile *file;
     bool endDetected;
     int safeSize;
     QMap<QString, bool> *badCoordinates;
