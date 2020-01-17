@@ -505,7 +505,7 @@ bool Palettes::Get_Random_Pipe_Colors(qint64 offset, Color::Color lightColor) {
 }
 
 bool Palettes::Get_Random_Red_Green_Colors(qint64 offset) {
-    QByteArray bytes; QVector<Color::Color> excludedColors; excludedColors.append(Color::BLACK);
+    QByteArray bytes; QVector<Color::Color> excludedColors;
     if (offset == 0x0CCC || offset == 0x0CD0) { //underwater
         if (!this->Read_Bytes_From_Offset(0x0CC1, 1, bytes)) return false;
         excludedColors.append(static_cast<Color::Color>(bytes.at(0)));
@@ -513,7 +513,8 @@ bool Palettes::Get_Random_Red_Green_Colors(qint64 offset) {
         if (!this->Read_Bytes_From_Offset(0x05E0, 1, bytes)) return false;
         excludedColors.append(static_cast<Color::Color>(bytes.at(0)));
     }
-    Color::Color baseColor = this->colors->Get_Random_Color_Excluding_Colors(excludedColors);
+    Color::Color baseColor = this->colors->Get_Random_Darkest_Shade_Color_Excluding_Colors(excludedColors);
+    if (Random::Get_Instance().Get_Num(1)) baseColor = this->colors->Get_Random_Dark_Shade_Color_Excluding_Colors(excludedColors);
     if (!this->Write_Bytes_To_Offset(offset, this->colors->Get_QByteArray_From_Color(baseColor))) return false;
 
     if (this->paletteMode >= 10) {

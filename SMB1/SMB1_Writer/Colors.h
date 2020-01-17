@@ -36,6 +36,16 @@ public:
     Color::Color Get_Random_Lightest_Shade_Color();
     Color::Color Get_Random_Lightest_Shade_Color(int min, int max);
 
+    Color::Color Get_Random_Darkest_Shade_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Darkest_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Dark_Shade_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Dark_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Light_Shade_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Light_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Lightest_Shade_Color_Excluding_Colors(Color::Color excludedColor);
+    Color::Color Get_Random_Lightest_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors, int min, int max);
+
     Color::Color Get_Random_Color();
     Color::Color Get_Random_Base_Color();
     Color::Color Get_Random_Base_Color(int darkMin, int darkMax, int lightMin, int lightMax);

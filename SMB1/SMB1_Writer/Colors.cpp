@@ -367,6 +367,54 @@ Color::Color Colors::Get_Random_Lightest_Shade_Color(int min, int max) {
     return color;
 }
 
+Color::Color Colors::Get_Random_Darkest_Shade_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Darkest_Shade_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Darkest_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    return this->Get_Random_Shade_Color_Excluding_Colors(excludedColors, 0x01, 0x0D);
+}
+
+Color::Color Colors::Get_Random_Dark_Shade_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Dark_Shade_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Dark_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    return this->Get_Random_Shade_Color_Excluding_Colors(excludedColors, 0x11, 0x1C);
+}
+
+Color::Color Colors::Get_Random_Light_Shade_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Light_Shade_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Light_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    return this->Get_Random_Shade_Color_Excluding_Colors(excludedColors, 0x21, 0x2D);
+}
+
+Color::Color Colors::Get_Random_Lightest_Shade_Color_Excluding_Colors(Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Lightest_Shade_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Lightest_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+    return this->Get_Random_Shade_Color_Excluding_Colors(excludedColors, 0x30, 0x3D);
+}
+
+Color::Color Colors::Get_Random_Shade_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors, int min, int max) {
+    //Populate the available colors
+    QSet<Color::Color> availableColors;
+    for (int i = min; i < max; ++i) {
+        Color::Color color = Color::BLACK;
+        assert(this->Get_Color_From_Hex(i, color));
+        availableColors.insert(color);
+    }
+    for (int i = 0; i < excludedColors.size(); ++i) availableColors.remove(excludedColors.at(i)); //remove excluded colors
+    return availableColors.values().at(Random::Get_Instance().Get_Num(availableColors.size()-1));
+}
+
 Color::Color Colors::Get_Random_Color() {
     switch (Random::Get_Instance().Get_Num(53)) {
     default:    assert(false); return Color::BLACK;
