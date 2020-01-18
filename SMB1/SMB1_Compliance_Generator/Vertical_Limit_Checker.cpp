@@ -26,6 +26,7 @@ bool Vertical_Limit_Checker::Does_Level_Exceed_Vertical_Object_Limit(Object_Writ
         case Object_Item::BOWSER_BRIDGE:            length = 13; break;
         case Object_Item::CANNON:                   length = 1; break;
         case Object_Item::CORRAL:                   length = 1; break;
+        case Object_Item::END_STEPS:                length = 9; break;
         case Object_Item::PIPE:                     length = 2; break;
         case Object_Item::ENTERABLE_PIPE:           length = 2; break;
         case Object_Item::PIPE_WALL:                length = 4; break;
