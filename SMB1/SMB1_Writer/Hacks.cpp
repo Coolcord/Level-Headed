@@ -243,7 +243,7 @@ bool Hacks::Permadeath() {
 
     if (!this->Write_Bytes_To_Offset(0x04F6, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Write_Bytes_To_Offset(0x3C2B, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
-    if (this->wasCastleLoopReplacedWithFlagpole1UP && !this->Write_Bytes_To_Offset(0x4080, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
+    if (this->wasCastleLoopReplacedWithFlagpole1UP && !this->Write_Bytes_To_Offset(0x4087, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing
     if (!this->Skip_Lives_Screen()) return false;
     this->permadeath = true;
     return true;
@@ -438,17 +438,17 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
 
 bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
     if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
-    if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4C79C0").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x4089, QByteArray::fromHex(QString("A9028D5607A9008D540720A4EF4CC586").toLatin1()))) return false;
-    if (this->skipLivesScreen && !this->Write_Bytes_To_Offset(0x4093, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4C7FC0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x408F, QByteArray::fromHex(QString("A9028D5607A9008D540720A4EF4CC586").toLatin1()))) return false;
+    if (this->skipLivesScreen && !this->Write_Bytes_To_Offset(0x4099, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
     this->wasCastleLoopReplacedWithFireFlower = true;
     return true;
 }
 
 bool Hacks::Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
     if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
-    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D007EE5A07A94085FE60").toLatin1()))) return false;
-    if (this->permadeath && !this->Write_Bytes_To_Offset(0x4080, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing if permadeath is active
+    if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D00EAD5A07C962B003EE5A07A94085FE60").toLatin1()))) return false;
+    if (this->permadeath && !this->Write_Bytes_To_Offset(0x4087, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing if permadeath is active
     if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("206BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x6551, QByteArray::fromHex(QString("FDFE").toLatin1()))) return false;
     this->wasCastleLoopReplacedWithFlagpole1UP = true;
@@ -895,7 +895,7 @@ bool Hacks::Increase_Spiny_Egg_Speed(int amount) {
 
 bool Hacks::Skip_Lives_Screen() {
     if (this->wasCastleLoopReplacedWithFireFlower) {
-        if (!this->Write_Bytes_To_Offset(0x4093, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x4099, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
     } else {
         //if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1()))) return false;
         if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("F01CEA").toLatin1()))) return false;
