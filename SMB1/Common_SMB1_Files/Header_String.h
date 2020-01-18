@@ -29,6 +29,7 @@ namespace Header {
     const static QString STRING_NUMBER_OF_PIPE_POINTERS = "Number of Pipe Pointers";
     const static QString STRING_NUMBER_OF_WORLDS = "Number_of_Worlds";
     const static QString STRING_NUMBER_OF_LEVELS_PER_WORLD = "Number_of_Levels_per_World";
+    const static QString STRING_EXCEEDS_VERTICAL_OBJECT_LIMIT = "Exceeds_Vertical_Object_Limit";
     const static QString STRING_OBJECT_MOVE_TABLE_COMMENT = "# Object Move Table";
     const static QString STRING_ENEMY_MOVE_TABLE_COMMENT = "# Enemy Move Table";
     const static QString STRING_BONUS_AREA_LIST_COMMENT = "# Bonus Areas";

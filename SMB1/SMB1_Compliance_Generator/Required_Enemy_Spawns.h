@@ -12,12 +12,12 @@ class Pipe_Pointer_Writer;
 
 class Required_Enemy_Spawns {
 public:
-    Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
+    Required_Enemy_Spawns(Object_Writer *objects, Enemy_Writer *enemies, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x, int y);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, Extra_Enemy_Args args, int x);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, Extra_Enemy_Args args, int x, int y);
     bool Is_Safe_To_Add_Required_Enemy_Spawn(int x);
     int Get_Num_Bytes_Left();
     int Get_Num_End_Bytes();
@@ -42,12 +42,12 @@ private:
         Extra_Enemy_Args args;
     };
 
-    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x);
+    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, bool &disableSafety, int x);
 
     SMB1_Compliance_Generator_Arguments *args;
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
-    Object_Writer *object;
-    Enemy_Writer *enemy;
+    Object_Writer *objects;
+    Enemy_Writer *enemies;
     Pipe_Pointer_Writer *pipePointer;
     int numRequiredBytes;
     int numEndBytes;

@@ -48,7 +48,6 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Enemy_Groups()) return false;
     if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;
-    if (!this->pluginSettings->smbUtilityCompatibility && !this->writerPlugin->Hacks_Remove_Vertical_Object_Limit()) return false;
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 

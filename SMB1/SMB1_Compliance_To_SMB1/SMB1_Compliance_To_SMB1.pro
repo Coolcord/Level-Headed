@@ -13,6 +13,7 @@ TEMPLATE = lib
 CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_To_SMB1.cpp \
+    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.cpp \
     Enemy_Handler.cpp \
     Object_Handler.cpp \
     Item_Handler.cpp \
@@ -31,6 +32,7 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     ../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp
 
 HEADERS += SMB1_Compliance_To_SMB1.h \
+    ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h \
     ../Common_SMB1_Files/Background.h \
     ../Common_SMB1_Files/Background_String.h \
     ../Common_SMB1_Files/Brick.h \

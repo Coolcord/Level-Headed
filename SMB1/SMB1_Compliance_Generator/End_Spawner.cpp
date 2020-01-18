@@ -5,13 +5,13 @@
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *ow, Enemy_Writer *enemy, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
+End_Spawner::End_Spawner(Object_Writer *ow, Enemy_Writer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
     assert(ow);
-    assert(enemy);
+    assert(enemies);
     assert(args);
     assert(requiredEnemySpawns);
     this->object = ow;
-    this->enemy = enemy;
+    this->enemies = enemies;
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
@@ -39,7 +39,7 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
     if (this->endWritten) return false; //can't write another end
     int numObjectsLeft = this->object->Get_Num_Objects_Left();
     assert(numObjectsLeft >= this->endObjectCount);
-    assert(this->enemy->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_End_Bytes());
+    assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_End_Bytes());
 
     //Handle each end pattern accordingly
     if (forceWrite || numObjectsLeft == this->endObjectCount ||
@@ -219,7 +219,7 @@ bool End_Spawner::Shortest_With_Brick_End(int x) {
 
 bool End_Spawner::Shortest_Castle(int x) {
     if (this->object->Get_Num_Objects_Left() < 10) return false;
-    if (this->enemy->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 0) return false;
+    if (this->enemies->Get_Num_Bytes_Left()-this->requiredEnemySpawns->Get_Num_Required_Bytes() < 0) return false;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 

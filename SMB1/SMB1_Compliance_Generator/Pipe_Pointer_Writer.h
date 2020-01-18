@@ -6,7 +6,7 @@ class Object_Writer;
 
 class Pipe_Pointer_Writer {
 public:
-    Pipe_Pointer_Writer(Object_Writer *object, Enemy_Writer *enemy);
+    Pipe_Pointer_Writer(Object_Writer *objects, Enemy_Writer *enemies);
     ~Pipe_Pointer_Writer() {}
     bool Pipe_Pointer(int x, int room, int page);
     bool Enterable_Pipe(int x, int y, int height, int room, int page);
@@ -20,8 +20,8 @@ private:
     Pipe_Pointer_Writer& operator=(const Pipe_Pointer_Writer&);
     bool Is_Safe_To_Write_Pipe_Pointer();
 
-    Enemy_Writer *enemy;
-    Object_Writer *object;
+    Enemy_Writer *enemies;
+    Object_Writer *objects;
 };
 
 #endif // PIPE_POINTER_WRITER_H

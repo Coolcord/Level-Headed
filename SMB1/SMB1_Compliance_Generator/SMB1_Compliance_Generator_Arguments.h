@@ -20,6 +20,8 @@ struct SMB1_Compliance_Generator_Arguments {
     Level_Type::Level_Type levelType;
     bool useAutoScroll;
     bool useMidpoints;
+    bool doesLevelExceedVerticalObjectLimit;
+    bool useVerticalObjectLimit;
     int difficulty;
     int difficultyBulletTime;
     int difficultyHammerTime;

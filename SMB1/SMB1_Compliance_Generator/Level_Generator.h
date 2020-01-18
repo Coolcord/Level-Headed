@@ -35,8 +35,8 @@ protected:
     QFile *file;
     Continuous_Enemies_Spawner *continuousEnemiesSpawner;
     Header_Writer *header;
-    Object_Writer *object;
-    Enemy_Writer *enemy;
+    Object_Writer *objects;
+    Enemy_Writer *enemies;
     Pipe_Pointer_Writer *pipePointer;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Enemy_Spawner *enemySpawner;

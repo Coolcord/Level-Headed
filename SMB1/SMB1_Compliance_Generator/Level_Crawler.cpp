@@ -56,13 +56,12 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     int x = 0;
     int holeCrawlSteps = 0;
     //Read the Objects to Determine Safe Spots to Place Enemies
-    QString line;
     this->objectsBuffer->Seek_To_Before_Beginning();
-    do {
-        line = this->objectsBuffer->Get_Next_Line();
+    while (!this->objectsBuffer->At_End()) {
+        QString line = this->objectsBuffer->Get_Next_Line();
         assert(this->Parse_Object(line, x, holeCrawlSteps));
         if (!this->endDetected) this->safeSize = x-1;
-    } while (!this->objectsBuffer->At_End());
+    }
 
     return true;
     //return this->Draw_Map(); //Debug code

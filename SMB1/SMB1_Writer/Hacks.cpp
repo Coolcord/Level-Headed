@@ -7,9 +7,10 @@
 #include "Powerups.h"
 #include "Sequential_Archive_Handler.h"
 #include "Text.h"
+#include <QDebug>
+#include <QVector>
 #include <assert.h>
 #include <cmath>
-#include <QVector>
 
 const static QString STRING_FIRE_BROS = "Fire Bros";
 const static QString STRING_BLACK_PIRANHA_PLANTS = "Black Piranha Plants";
@@ -363,7 +364,11 @@ bool Hacks::Red_Piranha_Plants() {
 }
 
 bool Hacks::Remove_Vertical_Object_Limit() {
-    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) return true; //not compatible with Co-op
+    qDebug() << "Vertical Object Limit will be removed!";
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        qDebug() << "Error: Vertical Object Limit cannot be removed in the Co-op ROM!";
+        return false; //not compatible with Co-op
+    }
 
     //by Chacky
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;

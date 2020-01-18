@@ -16,6 +16,8 @@
 #include <QVector>
 #include <QString>
 
+class Text_Insertion_Buffer;
+
 class Level_Generator {
 public:
     Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
@@ -43,11 +45,12 @@ private:
     bool Parse_Move_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
     bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
     bool Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> &levelOrder, int numLevels);
-    bool Write_Move_Objects_Map(QTextStream &mapStream);
-    bool Write_Move_Enemies_Map(QTextStream &mapStream);
-    bool Write_To_Map(QTextStream &mapStream, const QString &string);
-    bool Write_To_Map(QTextStream &mapStream, Level::Level level, const QString &fileName = "");
+    bool Write_Move_Objects_Map(Text_Insertion_Buffer &mapBuffer);
+    bool Write_Move_Enemies_Map(Text_Insertion_Buffer &mapBuffer);
+    bool Write_To_Map(Text_Insertion_Buffer &mapBuffer, const QString &string);
+    bool Write_To_Map(Text_Insertion_Buffer &mapBuffer, Level::Level level, const QString &fileName = "");
     bool Load_Sequential_Archive_Plugin();
+    bool Parse_Boolean(const QString &string, bool &value);
 
     QWidget *parent;
     QString applicationLocation;

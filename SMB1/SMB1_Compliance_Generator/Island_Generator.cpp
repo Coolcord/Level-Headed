@@ -8,7 +8,7 @@
 #include <assert.h>
 
 Island_Generator::Island_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args) : Level_Generator(file, args) {
-    this->itemSpawner = new Item_Spawner(this->object, Level_Type::ISLAND);
+    this->itemSpawner = new Item_Spawner(this->objects, Level_Type::ISLAND);
 }
 
 Island_Generator::~Island_Generator() {
@@ -16,21 +16,21 @@ Island_Generator::~Island_Generator() {
 }
 
 bool Island_Generator::Generate_Level() {
-    int x = this->object->Get_Last_Object_Length();
+    int x = this->objects->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
 
     //Create the level
     while (!this->end->Is_End_Written()) {
-        x = this->object->Get_Last_Object_Length();
+        x = this->objects->Get_Last_Object_Length();
         this->midpointHandler->Handle_Midpoint(x);
         x = this->Get_Safe_Jump_Distance(x);
 
         //TODO: Add support for spawning coins and item boxes above islands
-        if (this->object->Get_Num_Objects_Available() >= 2 && Random::Get_Instance().Get_Num(4) == 0) assert(this->Spawn_Two_Islands(x));
+        if (this->objects->Get_Num_Objects_Available() >= 2 && Random::Get_Instance().Get_Num(4) == 0) assert(this->Spawn_Two_Islands(x));
         else assert(this->Spawn_Basic_Island(x));
 
-        assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->object->Get_Last_Object_Length())));
+        assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->objects->Get_Last_Object_Length())));
     }
 
     //Spawn the Enemies
@@ -38,8 +38,8 @@ bool Island_Generator::Generate_Level() {
 
     //Write the header last
     if (!this->header->Write_Header_To_Buffer(Level_Type::ISLAND, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
-                                      this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0)) return false;
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
+                                      this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();
 }
 
@@ -47,12 +47,12 @@ bool Island_Generator::Spawn_Intro(int &x) {
     //Decrement x a bit to match SMB1's style
     int autoScrollX = 4;
     this->Handle_Auto_Scroll_Start(autoScrollX);
-    if (this->object->Is_Auto_Scroll_Active()) x -= autoScrollX;
+    if (this->objects->Is_Auto_Scroll_Active()) x -= autoScrollX;
     assert(x >= 0);
-    assert(this->object->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
+    assert(this->objects->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
     this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
-    this->object->Set_Last_Object_Length(1);
-    assert(this->object->Get_Absolute_X(0) == 0x00);
+    this->objects->Set_Last_Object_Length(1);
+    assert(this->objects->Get_Absolute_X(0) == 0x00);
     return true;
 }
 
@@ -78,7 +78,7 @@ int Island_Generator::Get_Safe_Jump_Distance(int min) {
 }
 
 int Island_Generator::Get_Island_Y() {
-    int y = this->object->Get_Current_Y();
+    int y = this->objects->Get_Current_Y();
 
     //Determine whether to go up or down
     bool up = Random::Get_Instance().Get_Num(1) == 0;
@@ -95,17 +95,17 @@ int Island_Generator::Get_Island_Y() {
 }
 
 bool Island_Generator::Spawn_Basic_Island(int x) {
-    if (this->object->Get_Num_Objects_Available() < 1) return false;
+    if (this->objects->Get_Num_Objects_Available() < 1) return false;
     int y = this->Get_Island_Y();
     int length = this->Get_Island_Length();
-    assert(this->object->Island(x, y, length));
+    assert(this->objects->Island(x, y, length));
     this->itemSpawner->Spawn_Random_Item(0, length-1, y, Physics::HIGHEST_Y, 0);
     return true;
 }
 
 bool Island_Generator::Spawn_Two_Islands(int x) {
     //Determine lowest y
-    int y = this->object->Get_Current_Y();
+    int y = this->objects->Get_Current_Y();
 
     //The bottom island should spawn between 5 at the highest and 11 at the lowest
     if (y-4 > 5) { //at these heights, the last y value is relevant
@@ -115,7 +115,7 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
     }
     int bottomLength = this->Get_Island_Length(5);
     int bottomY = y;
-    assert(this->object->Island(x, y, bottomLength));
+    assert(this->objects->Island(x, y, bottomLength));
 
     //The top island should spawn 3 - 4 blocks above the bottom island (prefer 4)
     assert(y > 4);
@@ -131,22 +131,22 @@ bool Island_Generator::Spawn_Two_Islands(int x) {
 
     //X should be incremented by at least 1
     x = Random::Get_Instance().Get_Num((bottomLength-topLength)-1)+1;
-    assert(this->object->Island(x, y, topLength));
+    assert(this->objects->Island(x, y, topLength));
 
     //Fix the last object length
     assert(x+topLength <= bottomLength);
     bool incremented = false;
     if (x+topLength < bottomLength) {
-        this->object->Increment_Last_Object_Length(bottomLength-(x+topLength));
+        this->objects->Increment_Last_Object_Length(bottomLength-(x+topLength));
         incremented = true;
     }
-    int lastObjectLength = this->object->Get_Last_Object_Length();
+    int lastObjectLength = this->objects->Get_Last_Object_Length();
     int randomItemX = this->itemSpawner->Spawn_Random_Item(0, topLength-1, y, Physics::HIGHEST_Y, 0);
     lastObjectLength -= randomItemX;
     assert(lastObjectLength >= 0);
-    this->object->Set_Last_Object_Length(lastObjectLength);
+    this->objects->Set_Last_Object_Length(lastObjectLength);
 
     //Make sure the y is reasonable
-    if (incremented) this->object->Set_Current_Y(bottomY);
+    if (incremented) this->objects->Set_Current_Y(bottomY);
     return true;
 }

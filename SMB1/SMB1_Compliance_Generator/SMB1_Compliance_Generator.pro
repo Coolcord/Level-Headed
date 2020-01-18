@@ -20,6 +20,7 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Header_Writer.cpp \
     Item_Writer.cpp \
     Level_Generator.cpp \
+    SMB1_Compliance_Object_Parser.cpp \
     Standard_Overworld_Generator.cpp \
     Pipe_Pointer_Writer.cpp \
     Simple_Object_Spawner.cpp \
@@ -39,7 +40,8 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Castle_Generator.cpp \
     Pipe_Exit_Generator.cpp \
     Continuous_Enemies_Spawner.cpp \
-    ../../Common_Files/Random.cpp
+    ../../Common_Files/Random.cpp \
+    Vertical_Limit_Checker.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h \
@@ -69,6 +71,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Header_Writer.h \
     Item_Writer.h \
     Level_Generator.h \
+    SMB1_Compliance_Object_Parser.h \
     Standard_Overworld_Generator.h \
     Pipe_Pointer_Writer.h \
     Simple_Object_Spawner.h \
@@ -93,7 +96,8 @@ HEADERS += SMB1_Compliance_Generator.h \
     Castle_Generator.h \
     Pipe_Exit_Generator.h \
     Difficulty.h \
-    Continuous_Enemies_Spawner.h
+    Continuous_Enemies_Spawner.h \
+    Vertical_Limit_Checker.h
 OTHER_FILES +=
 
 unix {

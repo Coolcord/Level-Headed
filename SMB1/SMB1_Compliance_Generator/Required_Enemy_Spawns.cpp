@@ -5,13 +5,13 @@
 #include <QDebug>
 #include <assert.h>
 
-Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemy, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
+Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemies, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
-    assert(enemy);
+    assert(enemies);
     assert(pipePointer);
     assert(args);
-    this->object = object;
-    this->enemy = enemy;
+    this->objects = object;
+    this->enemies = enemies;
     this->pipePointer = pipePointer;
     this->args = args;
     this->numRequiredBytes = 0;
@@ -57,7 +57,7 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     int previousNumRequiredBytes = this->numRequiredBytes;
     bool disableCoordinateSafety = false;
     assert(Determine_Bytes_Required_For_Required_Enemy_Spawn(enemy, disableCoordinateSafety, x));
-    if (this->numRequiredBytes+this->numEndBytes > this->enemy->Get_Num_Bytes_Left()) {
+    if (this->numRequiredBytes+this->numEndBytes > this->enemies->Get_Num_Bytes_Left()) {
         this->numRequiredBytes = previousNumRequiredBytes;
         return false;
     }
@@ -65,7 +65,7 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enem
     Required_Enemy_Spawn enemySpawn;
     enemySpawn.enemy = enemy;
     enemySpawn.args = args;
-    enemySpawn.x = this->object->Get_Level_Length() + x;
+    enemySpawn.x = this->objects->Get_Level_Length() + x;
     enemySpawn.y = y;
     enemySpawn.numRequiredBytes = this->numRequiredBytes - previousNumRequiredBytes;
     enemySpawn.disableCoordinateSafety = disableCoordinateSafety;
@@ -86,7 +86,7 @@ bool Required_Enemy_Spawns::Is_Safe_To_Add_Required_Enemy_Spawn(int x) {
 }
 
 int Required_Enemy_Spawns::Get_Num_Bytes_Left() {
-    return this->enemy->Get_Num_Bytes_Left()-(this->numEndBytes+this->numRequiredBytes);
+    return this->enemies->Get_Num_Bytes_Left()-(this->numEndBytes+this->numRequiredBytes);
 }
 
 int Required_Enemy_Spawns::Get_Num_End_Bytes() {
@@ -94,7 +94,7 @@ int Required_Enemy_Spawns::Get_Num_End_Bytes() {
 }
 
 bool Required_Enemy_Spawns::Set_Num_End_Bytes(int value) {
-    if (this->numRequiredBytes+value > this->enemy->Get_Num_Bytes_Left()) return false;
+    if (this->numRequiredBytes+value > this->enemies->Get_Num_Bytes_Left()) return false;
     this->numEndBytes = value;
     return true;
 }
@@ -118,15 +118,15 @@ Extra_Enemy_Args Required_Enemy_Spawns::Get_Initialized_Extra_Enemy_Args() {
 
 bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     if (this->requiredEnemies->isEmpty()) return false;
-    bool firstEnemy = this->enemy->Get_First_Enemy();
-    this->enemy->Set_First_Enemy(false);
+    bool firstEnemy = this->enemies->Get_First_Enemy();
+    this->enemies->Set_First_Enemy(false);
     int nextX = this->requiredEnemies->first().x;
     int y = this->requiredEnemies->first().y;
 
     //Ignore enemies that spawn after a cancel spawner upon request
     Extra_Enemy_Args args = this->requiredEnemies->first().args;
     if (!args.allowSpawnAfterCancelSpawner) {
-        int cancelSpawnerX = this->object->Get_Cancel_Spawner_X();
+        int cancelSpawnerX = this->objects->Get_Cancel_Spawner_X();
         if (cancelSpawnerX != -1 && nextX >= cancelSpawnerX) {
             this->requiredEnemies->pop_front();
             this->numRequiredBytes -= numRequiredBytes;
@@ -135,13 +135,13 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     }
 
     //Handle the x values
-    int previousX = this->enemy->Get_Level_Length();
+    int previousX = this->enemies->Get_Level_Length();
     assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);
 
     int numRequiredBytes = this->requiredEnemies->first().numRequiredBytes;
-    assert(this->requiredEnemies->front().numRequiredBytes <= this->enemy->Get_Num_Bytes_Left());
+    assert(this->requiredEnemies->front().numRequiredBytes <= this->enemies->Get_Num_Bytes_Left());
     bool disableCoordinateSafety = this->requiredEnemies->front().disableCoordinateSafety;
     assert(x >= 0);
     Enemy_Item::Enemy_Item enemy = this->requiredEnemies->first().enemy;
@@ -156,47 +156,47 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     } else if (x > 0x10) { //spawn the page change
         assert(numRequiredBytes > 3);
         int page = nextX/16;
-        assert(this->enemy->Page_Change(page));
+        assert(this->enemies->Page_Change(page));
         previousX = page*16;
         x = nextX - previousX;
         assert(x < 0x10);
     }
 
-    this->enemy->Set_Coordinate_Safety(!disableCoordinateSafety);
+    this->enemies->Set_Coordinate_Safety(!disableCoordinateSafety);
     this->requiredEnemies->pop_front();
     bool success = false;
     switch (enemy) {
-    case Enemy_Item::GREEN_KOOPA:           success = this->enemy->Green_Koopa(x, y, args.moving, args.onlyHardMode); break;
-    case Enemy_Item::RED_KOOPA:             success = this->enemy->Red_Koopa(x, y, args.onlyHardMode); break;
-    case Enemy_Item::BUZZY_BEETLE:          success = this->enemy->Buzzy_Beetle(x, y, args.onlyHardMode); break;
-    case Enemy_Item::HAMMER_BRO:            success = this->enemy->Hammer_Bro(x, y, args.onlyHardMode); break;
-    case Enemy_Item::GOOMBA:                success = this->enemy->Goomba(x, y, args.onlyHardMode); break;
-    case Enemy_Item::BLOOPER:               success = this->enemy->Blooper(x, y, args.onlyHardMode); break;
-    case Enemy_Item::BULLET_BILL:           success = this->enemy->Bullet_Bill(x, y, args.onlyHardMode); break;
-    case Enemy_Item::GREEN_PARATROOPA:      success = this->enemy->Green_Paratroopa(x, y, args.moving, args.leaping, args.onlyHardMode); break;
-    case Enemy_Item::RED_PARATROOPA:        success = this->enemy->Red_Paratroopa(x, y, args.onlyHardMode); break;
-    case Enemy_Item::GREEN_CHEEP_CHEEP:     success = this->enemy->Green_Cheep_Cheep(x, y, args.onlyHardMode); break;
-    case Enemy_Item::RED_CHEEP_CHEEP:       success = this->enemy->Red_Cheep_Cheep(x, y, args.onlyHardMode); break;
-    case Enemy_Item::PODOBOO:               success = this->enemy->Podoboo(x, args.onlyHardMode); break;
-    case Enemy_Item::PIRANHA_PLANT:          success = this->enemy->Piranha_Plant(x, y, args.onlyHardMode); break;
-    case Enemy_Item::LAKITU:                success = this->enemy->Lakitu(x, y, args.onlyHardMode); break;
-    case Enemy_Item::SPINY:                 success = this->enemy->Spiny(x, y, args.onlyHardMode); break;
-    case Enemy_Item::BOWSER_FIRE_SPAWNER:   success = this->enemy->Bowser_Fire_Spawner(x, args.onlyHardMode); break;
-    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   success = this->enemy->Swimming_Cheep_Cheep_Spawner(x, args.leaping, args.onlyHardMode); break;
-    case Enemy_Item::BULLET_BILL_SPAWNER:   success = this->enemy->Bullet_Bill_Spawner(x, args.onlyHardMode); break;
-    case Enemy_Item::FIRE_BAR:              success = this->enemy->Fire_Bar(x, y, args.clockwise, args.fast, args.onlyHardMode); break;
-    case Enemy_Item::LARGE_FIRE_BAR:        success = this->enemy->Large_Fire_Bar(x, y, args.onlyHardMode); break;
-    case Enemy_Item::LIFT:                  success = this->enemy->Lift(x, y, args.vertical, args.onlyHardMode); break;
-    case Enemy_Item::FALLING_LIFT:          success = this->enemy->Falling_Lift(x, y, args.onlyHardMode); break;
-    case Enemy_Item::BALANCE_LIFT:          success = this->enemy->Balance_Lift(x, y, args.onlyHardMode); break;
-    case Enemy_Item::SURFING_LIFT:          success = this->enemy->Surfing_Lift(x, y, args.onlyHardMode); break;
-    case Enemy_Item::LIFT_SPAWNER:          success = this->enemy->Lift_Spawner(x, y, args.up, args.small, args.onlyHardMode); break;
-    case Enemy_Item::BOWSER:                success = this->enemy->Bowser(x, args.onlyHardMode); break;
-    case Enemy_Item::WARP_ZONE:             success = this->enemy->Warp_Zone(x); break;
+    case Enemy_Item::GREEN_KOOPA:           success = this->enemies->Green_Koopa(x, y, args.moving, args.onlyHardMode); break;
+    case Enemy_Item::RED_KOOPA:             success = this->enemies->Red_Koopa(x, y, args.onlyHardMode); break;
+    case Enemy_Item::BUZZY_BEETLE:          success = this->enemies->Buzzy_Beetle(x, y, args.onlyHardMode); break;
+    case Enemy_Item::HAMMER_BRO:            success = this->enemies->Hammer_Bro(x, y, args.onlyHardMode); break;
+    case Enemy_Item::GOOMBA:                success = this->enemies->Goomba(x, y, args.onlyHardMode); break;
+    case Enemy_Item::BLOOPER:               success = this->enemies->Blooper(x, y, args.onlyHardMode); break;
+    case Enemy_Item::BULLET_BILL:           success = this->enemies->Bullet_Bill(x, y, args.onlyHardMode); break;
+    case Enemy_Item::GREEN_PARATROOPA:      success = this->enemies->Green_Paratroopa(x, y, args.moving, args.leaping, args.onlyHardMode); break;
+    case Enemy_Item::RED_PARATROOPA:        success = this->enemies->Red_Paratroopa(x, y, args.onlyHardMode); break;
+    case Enemy_Item::GREEN_CHEEP_CHEEP:     success = this->enemies->Green_Cheep_Cheep(x, y, args.onlyHardMode); break;
+    case Enemy_Item::RED_CHEEP_CHEEP:       success = this->enemies->Red_Cheep_Cheep(x, y, args.onlyHardMode); break;
+    case Enemy_Item::PODOBOO:               success = this->enemies->Podoboo(x, args.onlyHardMode); break;
+    case Enemy_Item::PIRANHA_PLANT:          success = this->enemies->Piranha_Plant(x, y, args.onlyHardMode); break;
+    case Enemy_Item::LAKITU:                success = this->enemies->Lakitu(x, y, args.onlyHardMode); break;
+    case Enemy_Item::SPINY:                 success = this->enemies->Spiny(x, y, args.onlyHardMode); break;
+    case Enemy_Item::BOWSER_FIRE_SPAWNER:   success = this->enemies->Bowser_Fire_Spawner(x, args.onlyHardMode); break;
+    case Enemy_Item::CHEEP_CHEEP_SPAWNER:   success = this->enemies->Swimming_Cheep_Cheep_Spawner(x, args.leaping, args.onlyHardMode); break;
+    case Enemy_Item::BULLET_BILL_SPAWNER:   success = this->enemies->Bullet_Bill_Spawner(x, args.onlyHardMode); break;
+    case Enemy_Item::FIRE_BAR:              success = this->enemies->Fire_Bar(x, y, args.clockwise, args.fast, args.onlyHardMode); break;
+    case Enemy_Item::LARGE_FIRE_BAR:        success = this->enemies->Large_Fire_Bar(x, y, args.onlyHardMode); break;
+    case Enemy_Item::LIFT:                  success = this->enemies->Lift(x, y, args.vertical, args.onlyHardMode); break;
+    case Enemy_Item::FALLING_LIFT:          success = this->enemies->Falling_Lift(x, y, args.onlyHardMode); break;
+    case Enemy_Item::BALANCE_LIFT:          success = this->enemies->Balance_Lift(x, y, args.onlyHardMode); break;
+    case Enemy_Item::SURFING_LIFT:          success = this->enemies->Surfing_Lift(x, y, args.onlyHardMode); break;
+    case Enemy_Item::LIFT_SPAWNER:          success = this->enemies->Lift_Spawner(x, y, args.up, args.small, args.onlyHardMode); break;
+    case Enemy_Item::BOWSER:                success = this->enemies->Bowser(x, args.onlyHardMode); break;
+    case Enemy_Item::WARP_ZONE:             success = this->enemies->Warp_Zone(x); break;
     case Enemy_Item::PIPE_POINTER:          success = this->pipePointer->Pipe_Pointer(x, args.room, args.page); break;
-    case Enemy_Item::TOAD:                  success = this->enemy->Toad(x); break;
-    case Enemy_Item::GOOMBA_GROUP:          success = this->enemy->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
-    case Enemy_Item::KOOPA_GROUP:           success = this->enemy->Koopa_Group(x, y, args.num, args.onlyHardMode); break;
+    case Enemy_Item::TOAD:                  success = this->enemies->Toad(x); break;
+    case Enemy_Item::GOOMBA_GROUP:          success = this->enemies->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
+    case Enemy_Item::KOOPA_GROUP:           success = this->enemies->Koopa_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::PAGE_CHANGE:           assert(false); return false;
     default:                                assert(false); return false;
     }
@@ -204,9 +204,9 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
         this->numRequiredBytes -= numRequiredBytes;
         lastX = nextX;
     } else {
-        this->enemy->Set_First_Enemy(firstEnemy);
+        this->enemies->Set_First_Enemy(firstEnemy);
     }
-    this->enemy->Set_Coordinate_Safety(true);
+    this->enemies->Set_Coordinate_Safety(true);
     return success;
 }
 
@@ -252,7 +252,7 @@ bool Required_Enemy_Spawns::Mark_Enemy_As_Spawned() {
 bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x) {
     int previousRequiredX = 0;
     if (!this->requiredEnemies->isEmpty()) previousRequiredX = this->requiredEnemies->last().x;
-    int currentX = this->object->Get_Level_Length() + x;
+    int currentX = this->objects->Get_Level_Length() + x;
     int distance = currentX - previousRequiredX;
     assert(distance >= 0);
     disableSafety = false;
@@ -273,7 +273,7 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
 
     int numBytes = tmpNumRequiredBytes - this->numRequiredBytes;
     assert(numBytes > 0);
-    if (this->numRequiredBytes+this->numEndBytes+numBytes > this->enemy->Get_Num_Bytes_Left()) return false;
+    if (this->numRequiredBytes+this->numEndBytes+numBytes > this->enemies->Get_Num_Bytes_Left()) return false;
     this->numRequiredBytes = tmpNumRequiredBytes;
     return true;
 }

@@ -12,25 +12,25 @@ Underground_Generator::~Underground_Generator() {
 }
 
 bool Underground_Generator::Generate_Level() {
-    this->simpleObjectSpawner = new Simple_Object_Spawner(this->object, Level_Type::UNDERGROUND);
-    this->commonPatternSpawner = new Common_Pattern_Spawner(this->object, Level_Type::UNDERGROUND);
+    this->simpleObjectSpawner = new Simple_Object_Spawner(this->objects, Level_Type::UNDERGROUND);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::UNDERGROUND);
 
-    int x = this->object->Get_Last_Object_Length();
+    int x = this->objects->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
 
     //Create the level
     while (!this->end->Is_End_Written()) {
         this->midpointHandler->Handle_Midpoint(x);
-        x = this->Get_Random_X(x, this->object->Get_First_Page_Safety());
-        if (this->object->Get_Num_Objects_Available() >= 3) {
+        x = this->Get_Random_X(x, this->objects->Get_First_Page_Safety());
+        if (this->objects->Get_Num_Objects_Available() >= 3) {
             int random = Random::Get_Instance().Get_Num(5);
             if (random < 3) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else if (random < 4) assert(this->Brick_Pattern_Distraction(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
-        x = this->object->Get_Last_Object_Length();
+        x = this->objects->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies
@@ -38,16 +38,16 @@ bool Underground_Generator::Generate_Level() {
 
     //Write the header last
     if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
-                                      this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0)) return false;
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
+                                      this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();
 }
 
 bool Underground_Generator::Spawn_Intro(int &x) {
-    if (this->object->Get_Num_Objects_Available() < 2) return false;
-    this->object->Set_First_Page_Safety(false); //undground levels can ignore the first page safety
-    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE, Scenery::NO_SCENERY));
-    assert(this->object->Change_Brick_And_Scenery(5, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    if (this->objects->Get_Num_Objects_Available() < 2) return false;
+    this->objects->Set_First_Page_Safety(false); //undground levels can ignore the first page safety
+    assert(this->objects->Change_Brick_And_Scenery(0, Brick::SURFACE, Scenery::NO_SCENERY));
+    assert(this->objects->Change_Brick_And_Scenery(5, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
     int autoScrollX = 0;
     this->Handle_Auto_Scroll_Start(autoScrollX);
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(16);
@@ -60,9 +60,9 @@ bool Underground_Generator::Spawn_Intro(int &x) {
 }
 
 bool Underground_Generator::Brick_Pattern_Distraction(int x) {
-    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    int numObjectsAvailable = this->objects->Get_Num_Objects_Available();
     if (numObjectsAvailable < 2) return false;
-    if (x == this->object->Get_Last_Object_Length()) ++x;
+    if (x == this->objects->Get_Last_Object_Length()) ++x;
     if (x > 0x10) x = 0x10;
 
     //Determine which kind of brick pattern to use
@@ -79,12 +79,12 @@ bool Underground_Generator::Brick_Pattern_Distraction(int x) {
     case 8:     brick = Brick::SURFACE_AND_CEILING_AND_MIDDLE_4; break;
     default:    assert(false); return false;
     }
-    assert(this->object->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
+    assert(this->objects->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
     --numObjectsAvailable;
 
     //The length of the brick pattern will be between 2 and 8
-    assert(this->object->Change_Brick_And_Scenery(Random::Get_Instance().Get_Num(6)+2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
-    this->object->Set_Last_Object_Length(2);
+    assert(this->objects->Change_Brick_And_Scenery(Random::Get_Instance().Get_Num(6)+2, Brick::SURFACE_AND_CEILING, Scenery::NO_SCENERY));
+    this->objects->Set_Last_Object_Length(2);
     --numObjectsAvailable;
 
     //TODO: Possibly follow the SMB 1-2 style from here

@@ -28,7 +28,7 @@ void SMB1_Compliance_Generator::Seed_Random_Number_Generator_Instance(const QStr
     Random::Get_Instance().Seed(seed, 3);
 }
 
-bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Arguments args) {
+bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Arguments &args) {
     if (this->applicationLocation.isEmpty()) return false;
 
     //Create a new file for writing

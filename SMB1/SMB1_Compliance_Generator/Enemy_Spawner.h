@@ -12,7 +12,7 @@ class Required_Enemy_Spawns;
 
 class Enemy_Spawner {
 public:
-    Enemy_Spawner(Object_Writer *object, Enemy_Writer *enemy, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
+    Enemy_Spawner(Object_Writer *objects, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
     ~Enemy_Spawner();
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
@@ -37,8 +37,8 @@ private:
     int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies);
 
-    Enemy_Writer *enemy;
-    Object_Writer *object;
+    Enemy_Writer *enemies;
+    Object_Writer *objects;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Crawler *levelCrawler;
     bool emergencySpawnMode;

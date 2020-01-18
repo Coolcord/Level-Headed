@@ -8,7 +8,7 @@
 #include <assert.h>
 
 bool Underwater_Generator::Generate_Level() {
-    int x = this->object->Get_Last_Object_Length();
+    int x = this->objects->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
 
@@ -28,8 +28,8 @@ bool Underwater_Generator::Generate_Level() {
         default: assert(false); return false;
         }
 
-        assert(this->end->Handle_End(this->Get_Underwater_X(this->object->Get_Last_Object_Length())));
-        x = this->object->Get_Last_Object_Length();
+        assert(this->end->Handle_End(this->Get_Underwater_X(this->objects->Get_Last_Object_Length())));
+        x = this->objects->Get_Last_Object_Length();
     }
 
     //Spawn the Enemies
@@ -37,8 +37,8 @@ bool Underwater_Generator::Generate_Level() {
 
     //Write the header last
     if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
-                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->object->Get_Level_Length(),
-                                      this->object->Get_Num_Items(), this->enemy->Get_Num_Items(), 0)) return false;
+                                      this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
+                                      this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();
 }
 
@@ -57,7 +57,7 @@ int Underwater_Generator::Get_Underwater_X(int min) {
 }
 
 bool Underwater_Generator::Spawn_Intro(int &x) {
-    if (this->object->Get_Num_Objects_Available() < 1) return false;
+    if (this->objects->Get_Num_Objects_Available() < 1) return false;
     int autoScrollX = 4;
     this->Handle_Auto_Scroll_Start(autoScrollX);
     Enemy_Item::Enemy_Item enemyItem = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
@@ -67,8 +67,8 @@ bool Underwater_Generator::Spawn_Intro(int &x) {
 }
 
 bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
-    if (this->object->Get_Num_Objects_Available() < 2) return false;
-    if (x == this->object->Get_Last_Object_Length()) ++x;
+    if (this->objects->Get_Num_Objects_Available() < 2) return false;
+    if (x == this->objects->Get_Last_Object_Length()) ++x;
     if (x > 0x10) x = 0x10;
 
     //Determine which kind of brick pattern to use
@@ -86,28 +86,28 @@ bool Underwater_Generator::Brick_Pattern_Distraction(int x) {
     case 9:     brick = Brick::SURFACE_AND_CEILING_AND_MIDDLE_4; break;
     default:    assert(false); return false;
     }
-    assert(this->object->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
+    assert(this->objects->Change_Brick_And_Scenery(x, brick, Scenery::NO_SCENERY));
 
     //The length of the brick pattern will be between 2 and 8
-    assert(this->object->Change_Brick_And_Scenery(Random::Get_Instance().Get_Num(6)+2, Brick::SURFACE, Scenery::NO_SCENERY));
-    this->object->Set_Last_Object_Length(2);
+    assert(this->objects->Change_Brick_And_Scenery(Random::Get_Instance().Get_Num(6)+2, Brick::SURFACE, Scenery::NO_SCENERY));
+    this->objects->Set_Last_Object_Length(2);
     return true;
 }
 
 bool Underwater_Generator::Corral(int x) {
-    if (this->object->Get_Num_Objects_Available() < 1) return false;
+    if (this->objects->Get_Num_Objects_Available() < 1) return false;
 
     //The corral can be anywhere between 2 - 9 in height
     int height = 0;
     if (Random::Get_Instance().Get_Num(3) == 0) height = Random::Get_Instance().Get_Num(7)+2;
     else height = Random::Get_Instance().Get_Num(3)+2;
     int y = Physics::GROUND_Y - height + 1;
-    assert(this->object->Coral(x, y, height));
+    assert(this->objects->Coral(x, y, height));
     return true;
 }
 
 bool Underwater_Generator::Corral_Series(int x) {
-    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    int numObjectsAvailable = this->objects->Get_Num_Objects_Available();
     if (numObjectsAvailable < 3) return false;
 
     //Use between 3 and 5 corral
@@ -126,13 +126,13 @@ bool Underwater_Generator::Corral_Series(int x) {
 }
 
 bool Underwater_Generator::Corral_On_Blocks(int x) {
-    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    int numObjectsAvailable = this->objects->Get_Num_Objects_Available();
     if (numObjectsAvailable < 1) return false;
 
     //Determine the length of the horizontal blocks
     int length = Random::Get_Instance().Get_Num(3)+2; //length should be between 2 and 5
     int blocksY = Random::Get_Instance().Get_Num(7)+3; //y should be between 3 and 10
-    assert(this->object->Horizontal_Blocks(x, blocksY, length));
+    assert(this->objects->Horizontal_Blocks(x, blocksY, length));
     --numObjectsAvailable;
 
     //Spawn the corral
@@ -147,7 +147,7 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
             else height = Random::Get_Instance().Get_Num(3)+2;
             if (blocksY-height < 1) height = Random::Get_Instance().Get_Num(blocksY-3)+2;
             int y = blocksY - height;
-            assert(this->object->Coral(x, y, height));
+            assert(this->objects->Coral(x, y, height));
             x = 1;
             --numObjectsAvailable;
         } else {
@@ -157,12 +157,12 @@ bool Underwater_Generator::Corral_On_Blocks(int x) {
 
     //Fix the object length
     assert(remainingLength >= 0);
-    if (remainingLength > 0) this->object->Increment_Last_Object_Length(remainingLength);
+    if (remainingLength > 0) this->objects->Increment_Last_Object_Length(remainingLength);
     return true;
 }
 
 bool Underwater_Generator::Hole(int x) {
-    int numObjectsAvailable = this->object->Get_Num_Objects_Available();
+    int numObjectsAvailable = this->objects->Get_Num_Objects_Available();
     if (numObjectsAvailable < 1) return false;
 
     int holeLength = Random::Get_Instance().Get_Num(6)+2; //length is from 2 to 8
@@ -175,14 +175,14 @@ bool Underwater_Generator::Hole(int x) {
     if (sideBarriers) {
         firstHeight = Random::Get_Instance().Get_Num(4)+2; //height is from 2 to 6
         secondHeight = Random::Get_Instance().Get_Num(4)+2;
-        assert(this->object->Vertical_Blocks(x, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
-        assert(this->object->Vertical_Blocks(1, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
+        assert(this->objects->Vertical_Blocks(x, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
+        assert(this->objects->Vertical_Blocks(1, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
         x = 1;
     }
-    assert(this->object->Hole(x, holeLength));
+    assert(this->objects->Hole(x, holeLength));
     if (sideBarriers) {
-        assert(this->object->Vertical_Blocks(holeLength, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
-        assert(this->object->Vertical_Blocks(1, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
+        assert(this->objects->Vertical_Blocks(holeLength, (Physics::GROUND_Y+1)-secondHeight, secondHeight));
+        assert(this->objects->Vertical_Blocks(1, (Physics::GROUND_Y+1)-firstHeight, firstHeight));
         x = 1;
     }
     return true;
