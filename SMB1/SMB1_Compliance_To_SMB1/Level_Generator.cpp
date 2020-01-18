@@ -123,7 +123,7 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numLevelsPerWorld
         return false;
     }
 
-    //Parse the Exceeds Vertial Object Limit Option
+    //Parse the Exceeds Vertical Object Limit Option
     line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_EXCEEDS_VERTICAL_OBJECT_LIMIT + ":", lineNum);
     elements = line.split(' ');
     if (elements.size() != 2) return false;
@@ -135,6 +135,8 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numLevelsPerWorld
             qDebug() << "WARNING: Vertical Object Limit was requested to be removed, but it is disabled!";
         } else {
             if (!this->writerPlugin->Hacks_Remove_Vertical_Object_Limit()) {
+                QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                      "This ROM is not compatible with the selected level scripts! Please consider using a fully supported ROM!", Common_Strings::STRING_OK);
                 errorCode = 3;
                 return false;
             }
@@ -509,12 +511,14 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
     QDir dir(this->levelLocation);
     if (!dir.exists(generationName)) {
         if (!dir.mkdir(generationName)) {
-            //TODO: Show a read/write error here
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Level-Headed does not have read/write permissions to the Levels directory!", Common_Strings::STRING_OK);
             return false;
         }
     } else {
         if (!dir.cd(generationName) || !dir.removeRecursively()) {
-            //TODO: Show a read/write error here
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                  "Level-Headed does not have read/write permissions to the Levels directory!", Common_Strings::STRING_OK);
             return false;
         }
     }
@@ -669,15 +673,8 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         assert(valueUpdated);
 
         //Apply the Patch
-        if (this->pluginSettings->smbUtilityCompatibility) {
-            qDebug() << "WARNING: Vertical Object Limit was requested to be removed, but it is disabled!";
-        } else {
-            if (!this->writerPlugin->Hacks_Remove_Vertical_Object_Limit()) {
-                QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                      "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
-                return false;
-            }
-        }
+        if (this->pluginSettings->smbUtilityCompatibility) qDebug() << "WARNING: Vertical Object Limit was requested to be removed, but it is disabled!";
+        else assert(this->writerPlugin->Hacks_Remove_Vertical_Object_Limit());
     }
 
     //Write the Map Buffer to a file

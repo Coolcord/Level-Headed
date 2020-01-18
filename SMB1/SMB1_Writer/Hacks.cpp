@@ -366,7 +366,7 @@ bool Hacks::Red_Piranha_Plants() {
 bool Hacks::Remove_Vertical_Object_Limit() {
     qDebug() << "Vertical Object Limit will be removed!";
     if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
-        qDebug() << "Error: Vertical Object Limit cannot be removed in the Co-op ROM!";
+        qDebug() << "Error: Vertical Object Limit cannot be removed from the Co-op ROM!";
         return false; //not compatible with Co-op
     }
 
