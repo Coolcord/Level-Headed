@@ -1,14 +1,17 @@
-#ifndef ITEM_WRITER_H
-#define ITEM_WRITER_H
+#ifndef ITEM_BUFFER_H
+#define ITEM_BUFFER_H
 
-#include "../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h"
 #include <QFile>
 #include <QString>
 
-class Item_Writer {
+struct Object_Buffer_Data;
+struct Enemy_Buffer_Data;
+struct Extra_Enemy_Args;
+
+class Item_Buffer {
 public:
-    Item_Writer(int numBytesLeft);
-    virtual ~Item_Writer() { delete this->buffer; }
+    Item_Buffer(int numBytesLeft);
+    virtual ~Item_Buffer() {}
     int Get_Num_Bytes_Left();
     int Get_Num_Items();
     int Get_Level_Length();
@@ -18,19 +21,20 @@ public:
     int Get_Current_Page();
     void Set_Coordinate_Safety(bool value);
     bool Will_Page_Flag_Be_Tripped(int x);
-    bool Write_Buffer_To_File(QFile *file);
-    Text_Insertion_Buffer *Get_Buffer();
 
 protected:
-    Item_Writer(const Item_Writer&);
-    Item_Writer& operator=(const Item_Writer&);
-    bool Write_Item(int x, const QString &item);
+    Item_Buffer(const Item_Buffer&);
+    Item_Buffer& operator=(const Item_Buffer&);
     virtual bool Is_Coordinate_Valid(int coordinate)=0;
     bool Is_Byte_Valid(int byte);
     bool Is_Safe_To_Write_Item(int numBytes = 2);
     bool Handle_Level_Length_On_Page_Change(int page);
+    Object_Buffer_Data Get_Empty_Object_Buffer_Data();
+    Enemy_Buffer_Data Get_Empty_Enemy_Buffer_Data();
+    Extra_Enemy_Args Get_Empty_Enemy_Args();
+    Extra_Enemy_Args Get_Empty_Enemy_Args(bool onlyHardMode);
+    void Update_Level_Stats(int x);
 
-    Text_Insertion_Buffer *buffer;
     int numBytesLeft;
     int numItems;
     int levelLength;
@@ -40,4 +44,4 @@ protected:
     bool coordinateSafety;
 };
 
-#endif // ITEM_WRITER_H
+#endif // ITEM_BUFFER_H

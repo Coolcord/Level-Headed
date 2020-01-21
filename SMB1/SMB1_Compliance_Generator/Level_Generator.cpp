@@ -2,7 +2,6 @@
 #include "../../Common_Files/Random.h"
 #include "../Common_SMB1_Files/Level_Type_String.h"
 #include "Continuous_Enemies_Spawner.h"
-#include "Vertical_Limit_Checker.h"
 #include <QTextStream>
 #include <assert.h>
 
@@ -12,9 +11,9 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
     this->file = file;
     this->args = args;
     this->header = new Header_Writer();
-    this->objects = new Object_Writer(this->args->numObjectBytes, this->args);
-    this->enemies = new Enemy_Writer(this->args->numEnemyBytes);
-    this->pipePointer = new Pipe_Pointer_Writer(this->objects, this->enemies);
+    this->objects = new Object_Buffer(this->args->numObjectBytes, this->args);
+    this->enemies = new Enemy_Buffer(this->args->numEnemyBytes);
+    this->pipePointer = new Pipe_Pointer_Buffer(this->objects, this->enemies);
     this->requiredEnemySpawns = new Required_Enemy_Spawns(this->objects, this->enemies, this->pipePointer, this->args);
     this->enemySpawner = new Enemy_Spawner(this->objects, this->enemies, this->requiredEnemySpawns, this->args);
     this->continuousEnemiesSpawner = new Continuous_Enemies_Spawner(this->args, this->objects, this->requiredEnemySpawns);
@@ -75,7 +74,7 @@ void Level_Generator::Handle_Auto_Scroll_Start(int &x) {
 }
 
 bool Level_Generator::Write_Buffers_To_File() {
-    this->args->doesLevelExceedVerticalObjectLimit = Vertical_Limit_Checker().Does_Level_Exceed_Vertical_Object_Limit(this->objects);
+    this->args->doesLevelExceedVerticalObjectLimit = this->objects->Did_Level_Exceed_Vertical_Object_Limit();
     QTextStream stream(this->file);
     if (!this->file->seek(0)) return false;
     if (!this->header->Write_Buffer_To_File(this->file)) return false;

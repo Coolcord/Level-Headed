@@ -1,8 +1,8 @@
 #include "First_Page_Handler.h"
-#include "Object_Writer.h"
+#include "Object_Buffer.h"
 #include <assert.h>
 
-First_Page_Handler::First_Page_Handler(Object_Writer *object, Background::Background headerBackground, Castle::Castle castle, bool useAutoScroll) {
+First_Page_Handler::First_Page_Handler(Object_Buffer *object, Background::Background headerBackground, Castle::Castle castle, bool useAutoScroll) {
     assert(object);
     this->object = object;
     this->headerBackground = headerBackground;

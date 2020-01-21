@@ -1,50 +1,26 @@
 #include "Level_Crawler.h"
-#include "../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h"
 #include "../../Common_Files/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
+#include "Object_Buffer.h"
+#include "Object_Buffer_Data.h"
 #include "Physics.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
 #include <QVector>
 
-Level_Crawler::Level_Crawler(Text_Insertion_Buffer *objectsBuffer) : SMB1_Compliance_Map() {
-    assert(objectsBuffer);
-    this->objectsBuffer = objectsBuffer;
+Level_Crawler::Level_Crawler(Object_Buffer *objects) {
+    assert(objects);
+    this->objects = objects;
     this->endDetected = false;
     this->safeSize = 0;
     this->badCoordinates = new QMap<QString, bool>();
-
-    //Build the map for Bricks
-    this->bricks = new QMap<QString, Brick::Brick>();
-    this->Populate_Brick_Map();
 }
 
 Level_Crawler::~Level_Crawler() {
-    delete this->bricks;
     delete this->badCoordinates;
-}
-
-void Level_Crawler::Populate_Brick_Map() {
-    this->bricks->clear();
-    this->bricks->insert(Brick::STRING_NO_BRICKS, Brick::NO_BRICKS);
-    this->bricks->insert(Brick::STRING_SURFACE, Brick::SURFACE);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING, Brick::SURFACE_AND_CEILING);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_3, Brick::SURFACE_AND_CEILING_3);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_4, Brick::SURFACE_AND_CEILING_4);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_8, Brick::SURFACE_AND_CEILING_8);
-    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING, Brick::SURFACE_4_AND_CEILING);
-    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_3, Brick::SURFACE_4_AND_CEILING_3);
-    this->bricks->insert(Brick::STRING_SURFACE_4_AND_CEILING_4, Brick::SURFACE_4_AND_CEILING_4);
-    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING, Brick::SURFACE_5_AND_CEILING);
-    this->bricks->insert(Brick::STRING_CEILING, Brick::CEILING);
-    this->bricks->insert(Brick::STRING_SURFACE_5_AND_CEILING_4, Brick::SURFACE_5_AND_CEILING_4);
-    this->bricks->insert(Brick::STRING_SURFACE_8_AND_CEILING, Brick::SURFACE_8_AND_CEILING);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5, Brick::SURFACE_AND_CEILING_AND_MIDDLE_5);
-    this->bricks->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4, Brick::SURFACE_AND_CEILING_AND_MIDDLE_4);
-    this->bricks->insert(Brick::STRING_ALL, Brick::ALL);
 }
 
 bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
@@ -52,15 +28,16 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     this->nextBrick = startingBrick;
     this->endDetected = false;
     this->safeSize = 0;
-
     int x = 0;
     int holeCrawlSteps = 0;
+
     //Read the Objects to Determine Safe Spots to Place Enemies
-    this->objectsBuffer->Seek_To_Before_Beginning();
-    while (!this->objectsBuffer->At_End()) {
-        QString line = this->objectsBuffer->Get_Next_Line();
-        assert(this->Parse_Object(line, x, holeCrawlSteps));
+    this->objects->Seek_To_Beginning();
+    while (!this->objects->At_End()) {
+        Object_Buffer_Data data = this->objects->Get_Current();
+        assert(this->Parse_Object(data, x, holeCrawlSteps));
         if (!this->endDetected) this->safeSize = x-1;
+        this->objects->Seek_To_Next();
     }
 
     return true;
@@ -320,85 +297,55 @@ void Level_Crawler::Crawl_Forward(int x, int spaces) {
             break;
         case Brick::SURFACE_AND_CEILING_3:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1);
-            for (int i = 0; i < 3; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 3; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_AND_CEILING_4:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1);
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_AND_CEILING_8:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1);
-            for (int i = 0; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 8; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_4_AND_CEILING:
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_4_AND_CEILING_3:
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
-            for (int i = 0; i < 3; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
+            for (int i = 0; i < 3; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_4_AND_CEILING_4:
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_5_AND_CEILING:
-            for (int i = 0; i < 5; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
+            for (int i = 0; i < 5; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::CEILING:
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_5_AND_CEILING_4:
-            for (int i = 0; i < 5; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 5; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_8_AND_CEILING:
-            for (int i = 0; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
+            for (int i = 0; i < 8; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
-            for (int i = 3; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 3; i < 8; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
-            for (int i = 3; i < 7; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 3; i < 7; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         case Brick::ALL:
-            for (int i = 0; i <= Physics::GROUND_Y+1; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 0; i <= Physics::GROUND_Y+1; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         }
     }
@@ -422,32 +369,22 @@ void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSte
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_AND_CEILING_3:
-            for (int i = 0; i < 3; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 3; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_AND_CEILING_4:
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_AND_CEILING_8:
-            for (int i = 0; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 8; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_4_AND_CEILING:
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_4_AND_CEILING_3:
-            for (int i = 0; i < 3; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 3; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_4_AND_CEILING_4:
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_5_AND_CEILING:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y-3);
@@ -458,32 +395,22 @@ void Level_Crawler::Crawl_Forward_With_Hole(int x, int spaces, int &holeCrawlSte
             break;
         case Brick::SURFACE_5_AND_CEILING_4:
             this->Mark_Bad_Coordinate(x, Physics::GROUND_Y-3);
-            for (int i = 0; i < 4; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
-            }
+            for (int i = 0; i < 4; ++i) this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y+i);
             break;
         case Brick::SURFACE_8_AND_CEILING:
-            for (int i = 4; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
-            }
+            for (int i = 4; i < 8; ++i) this->Mark_Bad_Coordinate(x, Physics::GROUND_Y+1-i);
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
             break;
         case Brick::SURFACE_AND_CEILING_AND_MIDDLE_5:
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
-            for (int i = 3; i < 8; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 3; i < 8; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:
             this->Mark_Bad_Coordinate(x, Physics::HIGHEST_Y);
-            for (int i = 3; i < 7; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 3; i < 7; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         case Brick::ALL:
-            for (int i = 0; i <= Physics::GROUND_Y+1; ++i) {
-                this->Mark_Bad_Coordinate(x, i);
-            }
+            for (int i = 0; i <= Physics::GROUND_Y+1; ++i) this->Mark_Bad_Coordinate(x, i);
             break;
         }
     }
@@ -516,24 +443,16 @@ QString Level_Crawler::Make_Key(int x, int y) {
     return (QString::number(x) + "x" + QString::number(y));
 }
 
-bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlSteps) {
-    if (line == nullptr || line.isEmpty()) return false;
-    QStringList elements = line.split(' ');
-
+bool Level_Crawler::Parse_Object(const Object_Buffer_Data &data, int &x, int &holeCrawlSteps) {
     //Crawl forward according to the brick pattern
-    bool valid = false;
-    int steps = elements.at(1).toInt(&valid);
-    assert(valid);
+    int steps = data.x;
     if (holeCrawlSteps == 0) this->Crawl_Forward(x, steps);
     else this->Crawl_Forward_With_Hole(x, steps, holeCrawlSteps);
     x += steps;
     int y = 0;
     int length = 0;
-    QMap<QString, Brick::Brick>::iterator brickIter = this->bricks->end();
 
-    QMap<QString, Object_Item::Object_Item>::iterator iter = this->objectsMap->find(elements.at(0));
-    if (iter == this->objectsMap->end()) return false; //not found
-    switch (iter.value()) {
+    switch (data.objectItem) {
     case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
     case Object_Item::QUESTION_BLOCK_WITH_COIN:
     case Object_Item::BRICK_WITH_MUSHROOM:
@@ -542,99 +461,59 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
     case Object_Item::BRICK_WITH_10_COINS:
     case Object_Item::BRICK_WITH_1UP:
     case Object_Item::USED_BLOCK:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
+        y = data.y;
         this->Mark_Bad_Coordinate(x, y);
         return true;
     case Object_Item::UNDERWATER_SIDEWAYS_PIPE:
     case Object_Item::TRAMPOLINE:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
+        y = data.y;
         this->Mark_Bad_Coordinate(x, y);
         this->Mark_Bad_Coordinate(x, y+1);
         return true;
     case Object_Item::ISLAND:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x+i, y);
-        }
+        y = data.y;
+        length = data.length;
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x+i, y);
         return true;
     case Object_Item::HORIZONTAL_BRICKS:
     case Object_Item::HORIZONTAL_BLOCKS:
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x+i, y);
-        }
+        y = data.y;
+        length = data.length;
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x+i, y);
         return true;
-    case Object_Item::CANNON:
-    case Object_Item::CORRAL:
+    case Object_Item::BULLET_BILL_TURRET:
+    case Object_Item::CORAL:
     case Object_Item::VERTICAL_BRICKS:
     case Object_Item::VERTICAL_BLOCKS:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x, y+i);
-        }
+        y = data.y;
+        length = data.height;
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x, y+i);
         return true;
     case Object_Item::HORIZONTAL_COINS:
         return true; //ignore coins
     case Object_Item::PIPE:
     case Object_Item::ENTERABLE_PIPE:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x, y+i);
-        }
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x+1, y+i);
-        }
+        y = data.y;
+        length = data.height;
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x, y+i);
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x+1, y+i);
         return true;
     case Object_Item::HOLE:
     case Object_Item::HOLE_WITH_WATER:
-        valid = false;
-        length = elements.at(2).toInt(&valid);
-        assert(valid);
+        length = data.length;
         holeCrawlSteps = length;
         return true;
     case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
         this->Clear_X(x);
         return true;
     case Object_Item::BRIDGE:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
-        valid = false;
-        length = elements.at(3).toInt(&valid);
-        assert(valid);
-        for (int i = 0; i < length; ++i) {
-            this->Mark_Bad_Coordinate(x+i, y);
-        }
+        y = data.y;
+        length = data.length;
+        for (int i = 0; i < length; ++i) this->Mark_Bad_Coordinate(x+i, y);
         return true;
     case Object_Item::PAGE_CHANGE:
-        valid = false;
-        length = elements.at(2).toInt(&valid);
-        assert(valid);
+        length = data.page;
         this->Crawl_Forward(x, (length*16)-x);
         x = length * 16;
         return true;
@@ -644,9 +523,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         this->Mark_Bad_Coordinate(x+1, Physics::GROUND_Y-1);
         this->Mark_Bad_Coordinate(x+1, Physics::GROUND_Y);
         for (int i = 0; i < 2; ++i) {
-            for (int j = Physics::GROUND_Y; j > Physics::GROUND_Y-4; --j) {
-                this->Mark_Bad_Coordinate(x+i, j);
-            }
+            for (int j = Physics::GROUND_Y; j > Physics::GROUND_Y-4; --j) this->Mark_Bad_Coordinate(x+i, j);
         }
         return true;
     case Object_Item::FLAGPOLE:
@@ -655,9 +532,7 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::CASTLE:
     case Object_Item::BIG_CASTLE:
-        for (int i = 0; i < 5; ++i) {
-            this->Mark_Bad_X(x+i);
-        }
+        for (int i = 0; i < 5; ++i) this->Mark_Bad_X(x+i);
         return true;
     case Object_Item::AXE:
         this->endDetected = true;
@@ -668,40 +543,28 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         return true;
     case Object_Item::BOWSER_BRIDGE:
         this->endDetected = true;
-        for (int i = 0; i < 13; ++i) {
-            this->Mark_Bad_Coordinate(x+i, 8);
-        }
+        for (int i = 0; i < 13; ++i) this->Mark_Bad_Coordinate(x+i, 8);
         return true;
     case Object_Item::LIFT_ROPE:
         this->Mark_Bad_X(x);
         return true;
     case Object_Item::STEPS:
         y = Physics::GROUND_Y;
-        valid = false;
-        length = elements.at(2).toInt(&valid);
-        assert(valid);
+        length = data.length;
         for (int i = 0; i < length; ++i) {
-            for (int j = 0; j <= i; ++j) {
-                this->Mark_Bad_Coordinate(x+i, y-j);
-            }
+            for (int j = 0; j <= i; ++j) this->Mark_Bad_Coordinate(x+i, y-j);
         }
         return true;
     case Object_Item::END_STEPS:
         this->endDetected = true;
         y = Physics::GROUND_Y;
         for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j <= i; ++j) {
-                this->Mark_Bad_Coordinate(x+i, y-j);
-            }
+            for (int j = 0; j <= i; ++j) this->Mark_Bad_Coordinate(x+i, y-j);
         }
-        for (int i = 0; i < 8; ++i) {
-            this->Mark_Bad_Coordinate(x+8, y-i);
-        }
+        for (int i = 0; i < 8; ++i) this->Mark_Bad_Coordinate(x+8, y-i);
         return true;
     case Object_Item::TALL_REVERSE_L_PIPE:
-        valid = false;
-        y = elements.at(2).toInt(&valid);
-        assert(valid);
+        y = data.y;
         this->Mark_Bad_Coordinate(x, y);
         this->Mark_Bad_Coordinate(x, y+1);
         this->Mark_Bad_Coordinate(x+1, y);
@@ -710,14 +573,10 @@ bool Level_Crawler::Parse_Object(const QString &line, int &x, int &holeCrawlStep
         this->Mark_Bad_X(x+3);
         return true;
     case Object_Item::PIPE_WALL:
-        for (int i = 0; i < 2; ++i) {
-            this->Mark_Bad_X(x+i);
-        }
+        for (int i = 0; i < 2; ++i) this->Mark_Bad_X(x+i);
         return true;
     case Object_Item::CHANGE_BRICK_AND_SCENERY:
-        brickIter = this->bricks->find(elements.at(2));
-        assert(brickIter != this->bricks->end()); //not found
-        this->nextBrick = brickIter.value();
+        this->nextBrick = data.brick;
         return true;
     case Object_Item::HIDDEN_BLOCK_WITH_COIN:
     case Object_Item::HIDDEN_BLOCK_WITH_1UP:

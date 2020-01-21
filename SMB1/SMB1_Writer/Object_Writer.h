@@ -6,9 +6,9 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include "Item_Writer.h"
 
-class Object_Writer : public Item_Writer {
+class Object_Buffer : public Item_Buffer {
 public:
-    Object_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
+    Object_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     bool Fill_Buffer();
 
     bool Question_Block_With_Mushroom(int x, int y);
@@ -62,8 +62,8 @@ public:
     bool Nothing(int x);
 
 private:
-    Object_Writer(const Object_Writer&);
-    Object_Writer& operator=(const Object_Writer&);
+    Object_Buffer(const Object_Buffer&);
+    Object_Buffer& operator=(const Object_Buffer&);
     bool Write_Object(int x, int y, int objectByte);
     bool Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit);
 };

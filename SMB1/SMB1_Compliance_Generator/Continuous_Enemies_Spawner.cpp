@@ -1,12 +1,12 @@
 #include "Continuous_Enemies_Spawner.h"
 #include "../../Common_Files/Random.h"
-#include "Object_Writer.h"
+#include "Object_Buffer.h"
 #include "Required_Enemy_Spawns.h"
 #include <array>
 #include <algorithm>
 #include <assert.h>
 
-Continuous_Enemies_Spawner::Continuous_Enemies_Spawner(SMB1_Compliance_Generator_Arguments *args, Object_Writer *object, Required_Enemy_Spawns *requiredEnemySpawns) {
+Continuous_Enemies_Spawner::Continuous_Enemies_Spawner(SMB1_Compliance_Generator_Arguments *args, Object_Buffer *object, Required_Enemy_Spawns *requiredEnemySpawns) {
     assert(args);
     assert(object);
     assert(requiredEnemySpawns);

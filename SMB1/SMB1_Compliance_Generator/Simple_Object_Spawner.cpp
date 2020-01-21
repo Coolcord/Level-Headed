@@ -1,11 +1,11 @@
 #include "../../Common_Files/Random.h"
 #include "Simple_Object_Spawner.h"
-#include "Object_Writer.h"
+#include "Object_Buffer.h"
 #include "Physics.h"
 #include <assert.h>
 #include <QTime>
 
-Simple_Object_Spawner::Simple_Object_Spawner(Object_Writer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
+Simple_Object_Spawner::Simple_Object_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
     this->levelType = levelType;
     switch (this->levelType) {
     case Level_Type::STANDARD_OVERWORLD:

@@ -1,9 +1,9 @@
 #include "../../Common_Files/Random.h"
 #include "Item_Spawner.h"
-#include "Object_Writer.h"
+#include "Object_Buffer.h"
 #include <assert.h>
 
-Item_Spawner::Item_Spawner(Object_Writer *object, Level_Type::Level_Type levelType) {
+Item_Spawner::Item_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType) {
     this->object = object;
     this->levelType = levelType;
 }

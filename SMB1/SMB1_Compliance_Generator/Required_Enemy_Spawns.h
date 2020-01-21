@@ -6,13 +6,13 @@
 #include "Extra_Enemy_Args.h"
 #include <QQueue>
 
-class Object_Writer;
-class Enemy_Writer;
-class Pipe_Pointer_Writer;
+class Object_Buffer;
+class Enemy_Buffer;
+class Pipe_Pointer_Buffer;
 
 class Required_Enemy_Spawns {
 public:
-    Required_Enemy_Spawns(Object_Writer *objects, Enemy_Writer *enemies, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
+    Required_Enemy_Spawns(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x, int y);
@@ -46,9 +46,9 @@ private:
 
     SMB1_Compliance_Generator_Arguments *args;
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
-    Object_Writer *objects;
-    Enemy_Writer *enemies;
-    Pipe_Pointer_Writer *pipePointer;
+    Object_Buffer *objects;
+    Enemy_Buffer *enemies;
+    Pipe_Pointer_Buffer *pipePointer;
     int numRequiredBytes;
     int numEndBytes;
 };

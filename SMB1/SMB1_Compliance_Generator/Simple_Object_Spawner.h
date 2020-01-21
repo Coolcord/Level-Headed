@@ -6,7 +6,7 @@
 
 class Simple_Object_Spawner : public Object_Spawner {
 public:
-    Simple_Object_Spawner(Object_Writer *object, Level_Type::Level_Type levelType);
+    Simple_Object_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType);
     bool Spawn_Simple_Object(int x);
 
 private:

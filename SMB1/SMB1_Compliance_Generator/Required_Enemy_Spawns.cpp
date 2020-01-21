@@ -1,11 +1,11 @@
 #include "Required_Enemy_Spawns.h"
-#include "Object_Writer.h"
-#include "Enemy_Writer.h"
-#include "Pipe_Pointer_Writer.h"
+#include "Object_Buffer.h"
+#include "Enemy_Buffer.h"
+#include "Pipe_Pointer_Buffer.h"
 #include <QDebug>
 #include <assert.h>
 
-Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Writer *object, Enemy_Writer *enemies, Pipe_Pointer_Writer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
+Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Buffer *object, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
     assert(enemies);
     assert(pipePointer);
@@ -109,7 +109,8 @@ Extra_Enemy_Args Required_Enemy_Spawns::Get_Initialized_Extra_Enemy_Args() {
     args.small = false;
     args.vertical = false;
     args.up = true;
-    args.room = 0;
+    args.level = Level::WORLD_1_LEVEL_1;
+    args.world = 0;
     args.page = 0;
     args.num = 3;
     args.allowSpawnAfterCancelSpawner = true;
@@ -178,7 +179,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::GREEN_CHEEP_CHEEP:     success = this->enemies->Green_Cheep_Cheep(x, y, args.onlyHardMode); break;
     case Enemy_Item::RED_CHEEP_CHEEP:       success = this->enemies->Red_Cheep_Cheep(x, y, args.onlyHardMode); break;
     case Enemy_Item::PODOBOO:               success = this->enemies->Podoboo(x, args.onlyHardMode); break;
-    case Enemy_Item::PIRANHA_PLANT:          success = this->enemies->Piranha_Plant(x, y, args.onlyHardMode); break;
+    case Enemy_Item::PIRANHA_PLANT:         success = this->enemies->Piranha_Plant(x, y, args.onlyHardMode); break;
     case Enemy_Item::LAKITU:                success = this->enemies->Lakitu(x, y, args.onlyHardMode); break;
     case Enemy_Item::SPINY:                 success = this->enemies->Spiny(x, y, args.onlyHardMode); break;
     case Enemy_Item::BOWSER_FIRE_SPAWNER:   success = this->enemies->Bowser_Fire_Spawner(x, args.onlyHardMode); break;
@@ -193,7 +194,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::LIFT_SPAWNER:          success = this->enemies->Lift_Spawner(x, y, args.up, args.small, args.onlyHardMode); break;
     case Enemy_Item::BOWSER:                success = this->enemies->Bowser(x, args.onlyHardMode); break;
     case Enemy_Item::WARP_ZONE:             success = this->enemies->Warp_Zone(x); break;
-    case Enemy_Item::PIPE_POINTER:          success = this->pipePointer->Pipe_Pointer(x, args.room, args.page); break;
+    case Enemy_Item::PIPE_POINTER:          success = this->pipePointer->Pipe_Pointer(x, args.level, args.world, args.page); break;
     case Enemy_Item::TOAD:                  success = this->enemies->Toad(x); break;
     case Enemy_Item::GOOMBA_GROUP:          success = this->enemies->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::KOOPA_GROUP:           success = this->enemies->Koopa_Group(x, y, args.num, args.onlyHardMode); break;

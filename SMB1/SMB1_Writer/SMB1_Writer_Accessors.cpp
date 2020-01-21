@@ -81,441 +81,441 @@ bool SMB1_Writer::Room_Table_Set_Midpoint_For_Duplicate_Level(Level::Level level
 
 bool SMB1_Writer::Object_Question_Block_With_Mushroom(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Question_Block_With_Mushroom(x, y);
+    return this->objectBuffer->Question_Block_With_Mushroom(x, y);
 }
 
 bool SMB1_Writer::Object_Question_Block_With_Coin(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Question_Block_With_Coin(x, y);
+    return this->objectBuffer->Question_Block_With_Coin(x, y);
 }
 
 bool SMB1_Writer::Object_Hidden_Block_With_Coin(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Hidden_Block_With_Coin(x, y);
+    return this->objectBuffer->Hidden_Block_With_Coin(x, y);
 }
 
 bool SMB1_Writer::Object_Hidden_Block_With_1up(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Hidden_Block_With_1up(x, y);
+    return this->objectBuffer->Hidden_Block_With_1up(x, y);
 }
 
 bool SMB1_Writer::Object_Brick_With_Mushroom(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Brick_With_Mushroom(x, y);
+    return this->objectBuffer->Brick_With_Mushroom(x, y);
 }
 
 bool SMB1_Writer::Object_Brick_With_Vine(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Brick_With_Vine(x, y);
+    return this->objectBuffer->Brick_With_Vine(x, y);
 }
 
 bool SMB1_Writer::Object_Brick_With_Star(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Brick_With_Star(x, y);
+    return this->objectBuffer->Brick_With_Star(x, y);
 }
 
 bool SMB1_Writer::Object_Brick_With_10_Coins(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Brick_With_10_Coins(x, y);
+    return this->objectBuffer->Brick_With_10_Coins(x, y);
 }
 
 bool SMB1_Writer::Object_Brick_With_1up(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Brick_With_1up(x, y);
+    return this->objectBuffer->Brick_With_1up(x, y);
 }
 
 bool SMB1_Writer::Object_Underwater_Sideways_Pipe(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Underwater_Sideways_Pipe(x, y);
+    return this->objectBuffer->Underwater_Sideways_Pipe(x, y);
 }
 
 bool SMB1_Writer::Object_Used_Block(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Used_Block(x, y);
+    return this->objectBuffer->Used_Block(x, y);
 }
 
 bool SMB1_Writer::Object_Trampoline(int x, int y) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Trampoline(x, y);
+    return this->objectBuffer->Trampoline(x, y);
 }
 
 bool SMB1_Writer::Object_Cannon(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Bullet_Bill_Turret(x, y, height);
+    return this->objectBuffer->Bullet_Bill_Turret(x, y, height);
 }
 
 bool SMB1_Writer::Object_Island(int x, int y, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Island(x, y, length);
+    return this->objectBuffer->Island(x, y, length);
 }
 
 bool SMB1_Writer::Object_Horizontal_Bricks(int x, int y, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Horizontal_Bricks(x, y, length);
+    return this->objectBuffer->Horizontal_Bricks(x, y, length);
 }
 
 bool SMB1_Writer::Object_Horizontal_Blocks(int x, int y, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Horizontal_Blocks(x, y, length);
+    return this->objectBuffer->Horizontal_Blocks(x, y, length);
 }
 
 bool SMB1_Writer::Object_Horizontal_Coins(int x, int y, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Horizontal_Coins(x, y, length);
+    return this->objectBuffer->Horizontal_Coins(x, y, length);
 }
 
 bool SMB1_Writer::Object_Vertical_Bricks(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Vertical_Bricks(x, y, height);
+    return this->objectBuffer->Vertical_Bricks(x, y, height);
 }
 
 bool SMB1_Writer::Object_Vertical_Blocks(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Vertical_Blocks(x, y, height);
+    return this->objectBuffer->Vertical_Blocks(x, y, height);
 }
 
 bool SMB1_Writer::Object_Coral(int x, int y, int height) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Coral(x, y, height);
+    return this->objectBuffer->Coral(x, y, height);
 }
 
 bool SMB1_Writer::Object_Pipe(int x, int y, int height, bool enterable) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Pipe(x, y, height, enterable);
+    return this->objectBuffer->Pipe(x, y, height, enterable);
 }
 
 bool SMB1_Writer::Object_Hole(int x, int length, bool filledWithWater) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Hole(x, length, filledWithWater);
+    return this->objectBuffer->Hole(x, length, filledWithWater);
 }
 
 bool SMB1_Writer::Object_Bridge(int x, int yPlacement, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Bridge(x, yPlacement, length);
+    return this->objectBuffer->Bridge(x, yPlacement, length);
 }
 
 bool SMB1_Writer::Object_Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Horizontal_Question_Blocks_With_Coins(x, yPlacement, length);
+    return this->objectBuffer->Horizontal_Question_Blocks_With_Coins(x, yPlacement, length);
 }
 
 bool SMB1_Writer::Object_Page_Change(int page) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Page_Change(page);
+    return this->objectBuffer->Page_Change(page);
 }
 
 bool SMB1_Writer::Object_Reverse_L_Pipe(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Reverse_L_Pipe(x);
+    return this->objectBuffer->Reverse_L_Pipe(x);
 }
 
 bool SMB1_Writer::Object_Flagpole(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Flagpole(x);
+    return this->objectBuffer->Flagpole(x);
 }
 
 bool SMB1_Writer::Object_Castle(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Castle(x);
+    return this->objectBuffer->Castle(x);
 }
 
 bool SMB1_Writer::Object_Big_Castle(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Big_Castle(x);
+    return this->objectBuffer->Big_Castle(x);
 }
 
 bool SMB1_Writer::Object_Axe(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Axe(x);
+    return this->objectBuffer->Axe(x);
 }
 
 bool SMB1_Writer::Object_Axe_Rope(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Axe_Rope(x);
+    return this->objectBuffer->Axe_Rope(x);
 }
 
 bool SMB1_Writer::Object_Bowser_Bridge(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Bowser_Bridge(x);
+    return this->objectBuffer->Bowser_Bridge(x);
 }
 
 bool SMB1_Writer::Object_Scroll_Stop(int x, bool warpZone) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Scroll_Stop(x, warpZone);
+    return this->objectBuffer->Scroll_Stop(x, warpZone);
 }
 
 bool SMB1_Writer::Object_Toggle_Auto_Scroll(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
     if (!this->hacks) return false;
-    if (!this->hacks->Was_Castle_Loop_Replaced_With_Autoscroll_Object()) return this->objectWriter->Nothing(x);
-    else return this->objectWriter->Toggle_Auto_Scroll(x);
+    if (!this->hacks->Was_Castle_Loop_Replaced_With_Autoscroll_Object()) return this->objectBuffer->Nothing(x);
+    else return this->objectBuffer->Toggle_Auto_Scroll(x);
 }
 
 bool SMB1_Writer::Object_Flying_Cheep_Cheep_Spawner(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Flying_Cheep_Cheep_Spawner(x);
+    return this->objectBuffer->Flying_Cheep_Cheep_Spawner(x);
 }
 
 bool SMB1_Writer::Object_Swimming_Cheep_Cheep_Spawner(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Swimming_Cheep_Cheep_Spawner(x);
+    return this->objectBuffer->Swimming_Cheep_Cheep_Spawner(x);
 }
 
 bool SMB1_Writer::Object_Bullet_Bill_Spawner(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Bullet_Bill_Spawner(x);
+    return this->objectBuffer->Bullet_Bill_Spawner(x);
 }
 
 bool SMB1_Writer::Object_Cancel_Spawner(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Cancel_Spawner(x);
+    return this->objectBuffer->Cancel_Spawner(x);
 }
 
 bool SMB1_Writer::Object_Loop_Command(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Loop_Command(x);
+    return this->objectBuffer->Loop_Command(x);
 }
 
 bool SMB1_Writer::Object_Change_Brick_And_Scenery(int x, Brick::Brick brick, Scenery::Scenery scenery) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Change_Brick_And_Scenery(x, brick, scenery);
+    return this->objectBuffer->Change_Brick_And_Scenery(x, brick, scenery);
 }
 
 bool SMB1_Writer::Object_Change_Background(int x, Background::Background background) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Change_Background(x, background);
+    return this->objectBuffer->Change_Background(x, background);
 }
 
 bool SMB1_Writer::Object_Lift_Rope(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Lift_Rope(x);
+    return this->objectBuffer->Lift_Rope(x);
 }
 
 bool SMB1_Writer::Object_Balance_Lift_Vertical_Rope(int x, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Balance_Lift_Vertical_Rope(x, length);
+    return this->objectBuffer->Balance_Lift_Vertical_Rope(x, length);
 }
 
 bool SMB1_Writer::Object_Balance_Lift_Horizontal_Rope(int x, int length) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Balance_Lift_Horizontal_Rope(x, length);
+    return this->objectBuffer->Balance_Lift_Horizontal_Rope(x, length);
 }
 
 bool SMB1_Writer::Object_Steps(int x, int width) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Steps(x, width);
+    return this->objectBuffer->Steps(x, width);
 }
 
 bool SMB1_Writer::Object_End_Steps(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->End_Steps(x);
+    return this->objectBuffer->End_Steps(x);
 }
 
 bool SMB1_Writer::Object_Tall_Reverse_L_Pipe(int x, int yPlacement) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Tall_Reverse_L_Pipe(x, yPlacement);
+    return this->objectBuffer->Tall_Reverse_L_Pipe(x, yPlacement);
 }
 
 bool SMB1_Writer::Object_Pipe_Wall(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Pipe_Wall(x);
+    return this->objectBuffer->Pipe_Wall(x);
 }
 
 bool SMB1_Writer::Object_Nothing(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->objectWriter->Nothing(x);
+    return this->objectBuffer->Nothing(x);
 }
 
 bool SMB1_Writer::Enemy_Random_Continous_Enemy_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
     Level_Attribute::Level_Attribute attribute = Level_Attribute::OVERWORLD;
     if (!this->Header_Get_Current_Attribute(attribute)) return false;
-    return this->enemyWriter->Random_Continous_Enemy_Spawner(x, attribute == Level_Attribute::UNDERWATER, onlyHardMode);
+    return this->enemyBuffer->Random_Continous_Enemy_Spawner(x, attribute == Level_Attribute::UNDERWATER, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Enemy(x, y, onlyHardMode, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
+    return this->enemyBuffer->Random_Enemy(x, y, onlyHardMode, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
 }
 
 bool SMB1_Writer::Enemy_Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Enemy_Group(x, y, num, onlyHardMode);
+    return this->enemyBuffer->Random_Enemy_Group(x, y, num, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Random_Fire_Bar(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Fire_Bar(x, y, onlyHardMode);
+    return this->enemyBuffer->Random_Fire_Bar(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Random_Flying_Enemy(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Flying_Enemy(x, onlyHardMode);
+    return this->enemyBuffer->Random_Flying_Enemy(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Random_Underwater_Enemy(x, y, onlyHardMode, allowHammerBros);
+    return this->enemyBuffer->Random_Underwater_Enemy(x, y, onlyHardMode, allowHammerBros);
 }
 
 bool SMB1_Writer::Enemy_Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Green_Koopa(x, y, moving, onlyHardMode);
+    return this->enemyBuffer->Green_Koopa(x, y, moving, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Red_Koopa(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Red_Koopa(x, y, onlyHardMode);
+    return this->enemyBuffer->Red_Koopa(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Buzzy_Beetle(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Buzzy_Beetle(x, y, onlyHardMode);
+    return this->enemyBuffer->Buzzy_Beetle(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Hammer_Bro(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Hammer_Bro(x, y, onlyHardMode);
+    return this->enemyBuffer->Hammer_Bro(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Goomba(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Goomba(x, y, onlyHardMode);
+    return this->enemyBuffer->Goomba(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Blooper(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Blooper(x, y, onlyHardMode);
+    return this->enemyBuffer->Blooper(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Bullet_Bill(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bullet_Bill(x, y, onlyHardMode);
+    return this->enemyBuffer->Bullet_Bill(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Green_Paratroopa(int x, int y, bool moving, bool leaping, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Green_Paratroopa(x, y, moving, leaping, onlyHardMode);
+    return this->enemyBuffer->Green_Paratroopa(x, y, moving, leaping, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Red_Paratroopa(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Red_Paratroopa(x, y, onlyHardMode);
+    return this->enemyBuffer->Red_Paratroopa(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Green_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Green_Cheep_Cheep(x, y, onlyHardMode);
+    return this->enemyBuffer->Green_Cheep_Cheep(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Red_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Red_Cheep_Cheep(x, y, onlyHardMode);
+    return this->enemyBuffer->Red_Cheep_Cheep(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Podoboo(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Podoboo(x, onlyHardMode);
+    return this->enemyBuffer->Podoboo(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Piranha_Plant(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Piranha_Plant(x, y, onlyHardMode);
+    return this->enemyBuffer->Piranha_Plant(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Lakitu(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Lakitu(x, y, onlyHardMode);
+    return this->enemyBuffer->Lakitu(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Spiny(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Spiny(x, y, onlyHardMode);
+    return this->enemyBuffer->Spiny(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Bowser_Fire_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bowser_Fire_Spawner(x, onlyHardMode);
+    return this->enemyBuffer->Bowser_Fire_Spawner(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Swimming_Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
+    return this->enemyBuffer->Swimming_Cheep_Cheep_Spawner(x, leaping, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Bullet_Bill_Spawner(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bullet_Bill_Spawner(x, onlyHardMode);
+    return this->enemyBuffer->Bullet_Bill_Spawner(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Fire_Bar(x, y, clockwise, fast, onlyHardMode);
+    return this->enemyBuffer->Fire_Bar(x, y, clockwise, fast, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Large_Fire_Bar(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Large_Fire_Bar(x, y, onlyHardMode);
+    return this->enemyBuffer->Large_Fire_Bar(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Lift(int x, int y, bool vertical, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Lift(x, y, vertical, onlyHardMode);
+    return this->enemyBuffer->Lift(x, y, vertical, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Falling_Lift(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Falling_Lift(x, y, onlyHardMode);
+    return this->enemyBuffer->Falling_Lift(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Balance_Lift(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Balance_Lift(x, y, onlyHardMode);
+    return this->enemyBuffer->Balance_Lift(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Surfing_Lift(int x, int y, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Surfing_Lift(x, y, onlyHardMode);
+    return this->enemyBuffer->Surfing_Lift(x, y, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Lift_Spawner(x, y, up, small, onlyHardMode);
+    return this->enemyBuffer->Lift_Spawner(x, y, up, small, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Bowser(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Bowser(x, onlyHardMode);
+    return this->enemyBuffer->Bowser(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Warp_Zone(int x) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Warp_Zone(x);
+    return this->enemyBuffer->Warp_Zone(x);
 }
 
 bool SMB1_Writer::Enemy_Toad(int x, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Toad(x, onlyHardMode);
+    return this->enemyBuffer->Toad(x, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Goomba_Group(int x, int y, int num, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Goomba_Group(x, y, num, onlyHardMode);
+    return this->enemyBuffer->Goomba_Group(x, y, num, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Koopa_Group(x, y, num, onlyHardMode);
+    return this->enemyBuffer->Koopa_Group(x, y, num, onlyHardMode);
 }
 
 bool SMB1_Writer::Enemy_Page_Change(int page) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Page_Change(page);
+    return this->enemyBuffer->Page_Change(page);
 }
 
 bool SMB1_Writer::Enemy_Pipe_Pointer(int x, const QString &levelSlot, int world, int page) {
     if (!this->Are_Buffers_Allocated()) return false;
-    return this->enemyWriter->Pipe_Pointer(x, levelSlot, world, page);
+    return this->enemyBuffer->Pipe_Pointer(x, levelSlot, world, page);
 }
 
 bool SMB1_Writer::Send_Object_Bytes_From_One_Level_To_Another(Level::Level fromLevel, Level::Level toLevel, int numBytes) {

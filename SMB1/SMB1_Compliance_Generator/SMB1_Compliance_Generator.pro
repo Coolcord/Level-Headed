@@ -14,15 +14,15 @@ CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_Generator.cpp \
     ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.cpp \
+    Enemy_Buffer.cpp \
+    Item_Buffer.cpp \
     Midpoint_Handler.cpp \
-    Object_Writer.cpp \
-    Enemy_Writer.cpp \
     Header_Writer.cpp \
-    Item_Writer.cpp \
     Level_Generator.cpp \
+    Object_Buffer.cpp \
+    Pipe_Pointer_Buffer.cpp \
     SMB1_Compliance_Object_Parser.cpp \
     Standard_Overworld_Generator.cpp \
-    Pipe_Pointer_Writer.cpp \
     Simple_Object_Spawner.cpp \
     End_Spawner.cpp \
     Common_Pattern_Spawner.cpp \
@@ -40,8 +40,7 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Castle_Generator.cpp \
     Pipe_Exit_Generator.cpp \
     Continuous_Enemies_Spawner.cpp \
-    ../../Common_Files/Random.cpp \
-    Vertical_Limit_Checker.cpp
+    ../../Common_Files/Random.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h \
@@ -65,15 +64,17 @@ HEADERS += SMB1_Compliance_Generator.h \
     ../Common_SMB1_Files/Object_Item_String.h \
     ../Common_SMB1_Files/Scenery.h \
     ../Common_SMB1_Files/Scenery_String.h \
+    Enemy_Buffer.h \
+    Enemy_Buffer_Data.h \
+    Item_Buffer.h \
     Midpoint_Handler.h \
-    Object_Writer.h \
-    Enemy_Writer.h \
     Header_Writer.h \
-    Item_Writer.h \
     Level_Generator.h \
+    Object_Buffer.h \
+    Object_Buffer_Data.h \
+    Pipe_Pointer_Buffer.h \
     SMB1_Compliance_Object_Parser.h \
     Standard_Overworld_Generator.h \
-    Pipe_Pointer_Writer.h \
     Simple_Object_Spawner.h \
     Physics.h \
     SMB1_Compliance_Generator_Interface.h \
@@ -96,8 +97,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Castle_Generator.h \
     Pipe_Exit_Generator.h \
     Difficulty.h \
-    Continuous_Enemies_Spawner.h \
-    Vertical_Limit_Checker.h
+    Continuous_Enemies_Spawner.h
 OTHER_FILES +=
 
 unix {

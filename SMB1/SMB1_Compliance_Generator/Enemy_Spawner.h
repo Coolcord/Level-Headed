@@ -5,19 +5,19 @@
 #include "../Common_SMB1_Files/Level_Type.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 
-class Enemy_Writer;
-class Object_Writer;
+class Enemy_Buffer;
+class Object_Buffer;
 class Level_Crawler;
 class Required_Enemy_Spawns;
 
 class Enemy_Spawner {
 public:
-    Enemy_Spawner(Object_Writer *objects, Enemy_Writer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
+    Enemy_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies, Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args);
     ~Enemy_Spawner();
     bool Spawn_Enemies(Brick::Brick startingBrick);
 
-    Enemy_Writer *getEnemies() const;
-    void setEnemies(Enemy_Writer *value);
+    Enemy_Buffer *getEnemies() const;
+    void setEnemies(Enemy_Buffer *value);
 
 private:
     bool Handle_Required_Enemies(int &lastX);
@@ -37,8 +37,8 @@ private:
     int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies);
 
-    Enemy_Writer *enemies;
-    Object_Writer *objects;
+    Enemy_Buffer *enemies;
+    Object_Buffer *objects;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Crawler *levelCrawler;
     bool emergencySpawnMode;

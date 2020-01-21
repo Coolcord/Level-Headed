@@ -6,17 +6,17 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Writer::Enemy_Writer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh) : Item_Writer(b, hw, ridh) {
+Enemy_Buffer::Enemy_Buffer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh) : Item_Buffer(b, hw, ridh) {
     this->groupPageFlag = false;
     this->levelSlots = new QMap<QString, Level::Level>();
     this->Populate_Level_Slots();
 }
 
-Enemy_Writer::~Enemy_Writer() {
+Enemy_Buffer::~Enemy_Buffer() {
     delete this->levelSlots;
 }
 
-bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
+bool Enemy_Buffer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
     if (y > 0xF || y == 0xE) return false; //enemies must exist between 0x0 and 0xD. 0xF is allowed for "Nothing"
     assert(enemyByte >= 0x0);
     if (onlyHardMode) {
@@ -30,7 +30,7 @@ bool Enemy_Writer::Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode) {
     return this->Write_Item(x, y, enemyByte);
 }
 
-bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
+bool Enemy_Buffer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
     if (y < 0x0 || y > 0xD) return false; //enemies must exist between 0x0 and 0xD
     assert(enemyByte >= 0x0);
     if (onlyHardMode) {
@@ -74,7 +74,7 @@ bool Enemy_Writer::Write_Group(int x, int y, int enemyByte, bool onlyHardMode) {
     return this->Write_Byte_To_Buffer(enemyByte);
 }
 
-int Enemy_Writer::Handle_Group_Page_Flag(int x) {
+int Enemy_Buffer::Handle_Group_Page_Flag(int x) {
     if (this->groupPageFlag) {
         if (this->currentX + x > 0xF) {
             this->groupPageFlag = false;
@@ -86,11 +86,11 @@ int Enemy_Writer::Handle_Group_Page_Flag(int x) {
     return x;
 }
 
-int Enemy_Writer::Get_Random_Air_Y() {
+int Enemy_Buffer::Get_Random_Air_Y() {
     return Random::Get_Instance().Get_Num(1, 10);
 }
 
-bool Enemy_Writer::Fill_Buffer() {
+bool Enemy_Buffer::Fill_Buffer() {
     while (this->Is_Safe_To_Write_Item()) {
         assert(this->Write_Byte_To_Buffer(0xFF));
         assert(this->Write_Byte_To_Buffer(0xFF));
@@ -101,7 +101,7 @@ bool Enemy_Writer::Fill_Buffer() {
     return true;
 }
 
-bool Enemy_Writer::Random_Continous_Enemy_Spawner(int x, bool underwater, bool onlyHardMode) {
+bool Enemy_Buffer::Random_Continous_Enemy_Spawner(int x, bool underwater, bool onlyHardMode) {
     //Only do Bullet Bills or Cheep-Cheeps. Don't do Lakitus here
     if (underwater) {
         return this->Swimming_Cheep_Cheep_Spawner(x, false, onlyHardMode);
@@ -111,7 +111,7 @@ bool Enemy_Writer::Random_Continous_Enemy_Spawner(int x, bool underwater, bool o
     }
 }
 
-bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
+bool Enemy_Buffer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
     Level_Attribute::Level_Attribute attribute = this->roomIDHandler->Get_Level_Attribute_From_Current_Level();
     if (allowLakitus && Random::Get_Instance().Get_Num(10) == 0) return this->Lakitu(x, this->Get_Random_Air_Y(), onlyHardMode);
     if (allowContinousEnemySpawners && attribute != Level_Attribute::UNDERWATER && Random::Get_Instance().Get_Num(10) == 0) return this->Random_Continous_Enemy_Spawner(x, false, onlyHardMode);
@@ -134,12 +134,12 @@ bool Enemy_Writer::Random_Enemy(int x, int y, bool onlyHardMode, bool allowHamme
     }
 }
 
-bool Enemy_Writer::Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {
+bool Enemy_Buffer::Random_Enemy_Group(int x, int y, int num, bool onlyHardMode) {
     if (Random::Get_Instance().Get_Num(1)) return this->Goomba_Group(x, y, num, onlyHardMode);
     else return this->Koopa_Group(x, y, num, onlyHardMode);
 }
 
-bool Enemy_Writer::Random_Fire_Bar(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Random_Fire_Bar(int x, int y, bool onlyHardMode) {
     switch (Random::Get_Instance().Get_Num(4)) {
     default:    assert(false); return false;
     case 0:     return this->Fire_Bar(x, y, false, false, onlyHardMode);
@@ -150,7 +150,7 @@ bool Enemy_Writer::Random_Fire_Bar(int x, int y, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Random_Flying_Enemy(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Random_Flying_Enemy(int x, bool onlyHardMode) {
     switch (Random::Get_Instance().Get_Num(4)) {
     default:    assert(false); return false;
     case 0:     return this->Blooper(x, this->Get_Random_Air_Y(), onlyHardMode);
@@ -161,7 +161,7 @@ bool Enemy_Writer::Random_Flying_Enemy(int x, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
+bool Enemy_Buffer::Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool allowHammerBros) {
     int maxValue = 4;
     if (allowHammerBros) ++maxValue;
     int value = Random::Get_Instance().Get_Num(maxValue);
@@ -176,7 +176,7 @@ bool Enemy_Writer::Random_Underwater_Enemy(int x, int y, bool onlyHardMode, bool
     }
 }
 
-bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
+bool Enemy_Buffer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
     if (moving) {
         return this->Write_Enemy(x, y+1, 0x00, onlyHardMode);
     } else {
@@ -184,31 +184,31 @@ bool Enemy_Writer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Red_Koopa(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Red_Koopa(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x03, onlyHardMode);
 }
 
-bool Enemy_Writer::Buzzy_Beetle(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Buzzy_Beetle(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x02, onlyHardMode);
 }
 
-bool Enemy_Writer::Hammer_Bro(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Hammer_Bro(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x05, onlyHardMode);
 }
 
-bool Enemy_Writer::Goomba(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Goomba(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x06, onlyHardMode);
 }
 
-bool Enemy_Writer::Blooper(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Blooper(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x07, onlyHardMode);
 }
 
-bool Enemy_Writer::Bullet_Bill(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Bullet_Bill(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x08, onlyHardMode);
 }
 
-bool Enemy_Writer::Green_Paratroopa(int x, int y, bool moving, bool leaping, bool onlyHardMode) {
+bool Enemy_Buffer::Green_Paratroopa(int x, int y, bool moving, bool leaping, bool onlyHardMode) {
     if (moving) {
         if (leaping) {
             return this->Write_Enemy(x, y+1, 0x0E, onlyHardMode);
@@ -220,39 +220,39 @@ bool Enemy_Writer::Green_Paratroopa(int x, int y, bool moving, bool leaping, boo
     }
 }
 
-bool Enemy_Writer::Red_Paratroopa(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Red_Paratroopa(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0F, onlyHardMode);
 }
 
-bool Enemy_Writer::Green_Cheep_Cheep(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Green_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0A, onlyHardMode);
 }
 
-bool Enemy_Writer::Red_Cheep_Cheep(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Red_Cheep_Cheep(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0B, onlyHardMode);
 }
 
-bool Enemy_Writer::Podoboo(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Podoboo(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0xC, 0x0C, onlyHardMode);
 }
 
-bool Enemy_Writer::Piranha_Plant(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Piranha_Plant(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x0D, onlyHardMode);
 }
 
-bool Enemy_Writer::Lakitu(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Lakitu(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x11, onlyHardMode);
 }
 
-bool Enemy_Writer::Spiny(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Spiny(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x12, onlyHardMode);
 }
 
-bool Enemy_Writer::Bowser_Fire_Spawner(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Bowser_Fire_Spawner(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0xD, 0x15, onlyHardMode);
 }
 
-bool Enemy_Writer::Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
+bool Enemy_Buffer::Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHardMode) {
     if (leaping) {
         return this->Write_Enemy(x, 0xD, 0x14, onlyHardMode);
     } else {
@@ -261,12 +261,12 @@ bool Enemy_Writer::Swimming_Cheep_Cheep_Spawner(int x, bool leaping, bool onlyHa
     }
 }
 
-bool Enemy_Writer::Bullet_Bill_Spawner(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Bullet_Bill_Spawner(int x, bool onlyHardMode) {
     if (this->roomIDHandler->Get_Level_Attribute_From_Current_Level() == Level_Attribute::UNDERWATER) return false;
     return this->Write_Enemy(x, 0xD, 0x17, onlyHardMode);
 }
 
-bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {
+bool Enemy_Buffer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHardMode) {
     if (clockwise) {
         if (fast) {
             return this->Write_Enemy(x, y+2, 0x1C, onlyHardMode);
@@ -282,11 +282,11 @@ bool Enemy_Writer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHa
     }
 }
 
-bool Enemy_Writer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+2, 0x1F, onlyHardMode);
 }
 
-bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
+bool Enemy_Buffer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
     if (vertical) {
         return this->Write_Enemy(x, y+1, 0x25, onlyHardMode);
     } else {
@@ -294,19 +294,19 @@ bool Enemy_Writer::Lift(int x, int y, bool vertical, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Falling_Lift(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Falling_Lift(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x29, onlyHardMode);
 }
 
-bool Enemy_Writer::Balance_Lift(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Balance_Lift(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x24, onlyHardMode);
 }
 
-bool Enemy_Writer::Surfing_Lift(int x, int y, bool onlyHardMode) {
+bool Enemy_Buffer::Surfing_Lift(int x, int y, bool onlyHardMode) {
     return this->Write_Enemy(x, y+1, 0x2A, onlyHardMode);
 }
 
-bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
+bool Enemy_Buffer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHardMode) {
     if (up) {
         if (small) {
             return this->Write_Enemy(x, y+1, 0x2B, onlyHardMode);
@@ -322,19 +322,19 @@ bool Enemy_Writer::Lift_Spawner(int x, int y, bool up, bool small, bool onlyHard
     }
 }
 
-bool Enemy_Writer::Bowser(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Bowser(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0x8, 0x2D, onlyHardMode);
 }
 
-bool Enemy_Writer::Warp_Zone(int x) {
+bool Enemy_Buffer::Warp_Zone(int x) {
     return this->Write_Enemy(x, 0x7, 0x34, false);
 }
 
-bool Enemy_Writer::Toad(int x, bool onlyHardMode) {
+bool Enemy_Buffer::Toad(int x, bool onlyHardMode) {
     return this->Write_Enemy(x, 0x0, 0x35, onlyHardMode);
 }
 
-bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
+bool Enemy_Buffer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6) {
         if (num == 2) {
             return this->Write_Group(x, y, 0x39, onlyHardMode);
@@ -356,7 +356,7 @@ bool Enemy_Writer::Goomba_Group(int x, int y, int num, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
+bool Enemy_Buffer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     if (y == 0x6) {
         if (num == 2) {
             return this->Write_Group(x, y, 0x3D, onlyHardMode);
@@ -378,7 +378,7 @@ bool Enemy_Writer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
     }
 }
 
-bool Enemy_Writer::Page_Change(int page) {
+bool Enemy_Buffer::Page_Change(int page) {
     if (page < 0x0 || page > 0xFF) return false;
     if (!this->Is_Safe_To_Write_Item()) return false;
     if (!this->Write_Byte_To_Buffer(0x0F)) return false;
@@ -391,7 +391,7 @@ bool Enemy_Writer::Page_Change(int page) {
     return true;
 }
 
-bool Enemy_Writer::Pipe_Pointer(int x, int room, int world, int page) {
+bool Enemy_Buffer::Pipe_Pointer(int x, int room, int world, int page) {
     if (this->How_Many_Bytes_Left() < 3) return false;
     if (page < 0 || page > 0x1F) return false;
     if (world < 1 || world > 8) return false;
@@ -407,7 +407,7 @@ bool Enemy_Writer::Pipe_Pointer(int x, int room, int world, int page) {
     return this->Write_Byte_To_Buffer(page);
 }
 
-bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int world, int page) {
+bool Enemy_Buffer::Pipe_Pointer(int x, const QString &levelSlot, int world, int page) {
     QMap<QString, Level::Level>::Iterator iter = this->levelSlots->find(levelSlot);
     if (iter == this->levelSlots->end()) return false;
     Level::Level level = iter.value();
@@ -417,7 +417,7 @@ bool Enemy_Writer::Pipe_Pointer(int x, const QString &levelSlot, int world, int 
     return this->Pipe_Pointer(x, room, world, page);
 }
 
-void Enemy_Writer::Populate_Level_Slots() {
+void Enemy_Buffer::Populate_Level_Slots() {
     this->levelSlots->clear();
     this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_1, Level::WORLD_1_LEVEL_1);
     this->levelSlots->insert(Level::STRING_WORLD_1_LEVEL_2, Level::WORLD_1_LEVEL_2);

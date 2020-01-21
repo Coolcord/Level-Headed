@@ -7,12 +7,12 @@
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Object_Spawner.h"
 
-class Enemy_Writer;
+class Enemy_Buffer;
 class Required_Enemy_Spawns;
 
 class End_Spawner : public Object_Spawner {
 public:
-    End_Spawner(Object_Writer *object, Enemy_Writer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
+    End_Spawner(Object_Buffer *object, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
     bool Is_End_Written();
     bool Handle_End(int x);
     bool Handle_End(int x, bool forceWrite);
@@ -35,7 +35,7 @@ private:
     bool One_Block_Bridge_End(int x);
     bool Spawn_Castle();
 
-    Enemy_Writer *enemies;
+    Enemy_Buffer *enemies;
     SMB1_Compliance_Generator_Arguments *args;
     Required_Enemy_Spawns *requiredEnemySpawns;
     End_Pattern::End_Pattern endPattern;

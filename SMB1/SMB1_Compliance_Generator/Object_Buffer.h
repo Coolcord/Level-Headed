@@ -1,16 +1,24 @@
-#ifndef OBJECT_WRITER_H
-#define OBJECT_WRITER_H
+#ifndef OBJECT_BUFFER_H
+#define OBJECT_BUFFER_H
 
+#include "Item_Buffer.h"
 #include "../Common_SMB1_Files/Background.h"
 #include "../Common_SMB1_Files/Brick.h"
+#include "../Common_SMB1_Files/Object_Item.h"
 #include "../Common_SMB1_Files/Scenery.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
-#include "Item_Writer.h"
+#include <QFile>
+#include <QLinkedList>
+#include <QVector>
 
-class Object_Writer : public Item_Writer {
+struct Object_Buffer_Data;
+
+class Object_Buffer : public Item_Buffer {
 public:
-    Object_Writer(int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
-    ~Object_Writer() {}
+    Object_Buffer(int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
+    ~Object_Buffer();
+    bool Write_Buffer_To_File(QFile *file);
+    bool Did_Level_Exceed_Vertical_Object_Limit();
     int Get_Last_Object_Length();
     void Increment_Last_Object_Length(int value);
     void Set_Last_Object_Length(int value);
@@ -83,16 +91,30 @@ public:
     bool Pipe_Wall(int x);
     bool Nothing();
 
+    //Buffer Navigation
+    bool Is_Empty();
+    bool At_Beginning();
+    bool At_End();
+    void Seek_To_Beginning();
+    void Seek_To_Next();
+    void Seek_To_Previous();
+    void Seek_To_End();
+    Object_Buffer_Data Get_Current();
 
 private:
-    Object_Writer(const Object_Writer&);
-    Object_Writer& operator=(const Object_Writer&);
-    bool Write_Object(int x, const QString &object, bool platform);
-    bool Write_Object(int x, const QString &object, int length, bool platform);
-    bool Write_Object(int x, const QString &object, const QString &parameters, bool platform);
-    bool Write_Object(int x, const QString &object, const QString &parameters, int length, bool platform);
-    bool Write_Object(int x, int y, const QString &object, int length, bool platform);
-    bool Write_Object(int x, int y, const QString &object, const QString &parameters, int length, bool platform);
+    Object_Buffer(const Object_Buffer&);
+    Object_Buffer& operator=(const Object_Buffer&);
+    bool Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int length);
+    bool Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int y, int length);
+    bool Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int y, int height, int length);
+    bool Write_Object(int x, Background::Background background);
+    bool Write_Object(int x, Brick::Brick brick, Scenery::Scenery scenery);
+    bool Write_Object(int page);
+    void Check_Vertical_Object_Limit(int length);
+    QString Get_String_From_Object_Item(Object_Item::Object_Item objectItem);
+    QString Get_String_From_Background(Background::Background background);
+    QString Get_String_From_Brick(Brick::Brick brick);
+    QString Get_String_From_Scenery(Scenery::Scenery scenery);
     void Handle_Zones(int x);
     bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int coordinate);
@@ -101,6 +123,10 @@ private:
     const static int MAX_POWERUP_ZONE = 24;
 
     SMB1_Compliance_Generator_Arguments *args;
+    QLinkedList<Object_Buffer_Data> *objectBuffer;
+    QLinkedList<Object_Buffer_Data>::iterator objectBufferIter;
+    QVector<int> *objectsAtXCoordinates;
+    bool exceededVerticalObjectLimit;
     int lastObjectLength;
     bool lastObjectIsPlatform;
     int coinBlockZone;
@@ -113,7 +139,7 @@ private:
     bool wasAutoScrollUsed;
     int cancelSpawnerX;
 
-    friend class Pipe_Pointer_Writer;
+    friend class Pipe_Pointer_Buffer;
 };
 
-#endif // OBJECT_WRITER_H
+#endif // OBJECT_BUFFER_H

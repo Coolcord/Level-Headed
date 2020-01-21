@@ -8,8 +8,8 @@
 
 class Level_Offset;
 class Midpoint_Writer;
-class Object_Writer;
-class Enemy_Writer;
+class Object_Buffer;
+class Enemy_Buffer;
 class Header_Writer;
 class Enemy_Bytes_Tracker;
 class ROM_Handler;
@@ -310,8 +310,8 @@ private:
     QByteArray *enemiesBuffer;
     Level_Offset *levelOffset;
     Midpoint_Writer *midpointWriter;
-    Object_Writer *objectWriter;
-    Enemy_Writer *enemyWriter;
+    Object_Buffer *objectBuffer;
+    Enemy_Buffer *enemyBuffer;
     Header_Writer *headerWriter;
     Enemy_Bytes_Tracker *enemyBytesTracker;
     Room_ID_Handler *roomIDHandler;

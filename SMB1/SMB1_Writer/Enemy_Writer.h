@@ -5,10 +5,10 @@
 #include "../Common_SMB1_Files/Level.h"
 #include <QMap>
 
-class Enemy_Writer : public Item_Writer {
+class Enemy_Buffer : public Item_Buffer {
 public:
-    Enemy_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
-    ~Enemy_Writer();
+    Enemy_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
+    ~Enemy_Buffer();
     void Populate_Level_Slots();
     bool Fill_Buffer();
     bool Random_Continous_Enemy_Spawner(int x, bool underwater, bool onlyHardMode);
@@ -53,8 +53,8 @@ public:
     bool Pipe_Pointer(int x, const QString &levelSlot, int world, int page);
 
 private:
-    Enemy_Writer(const Enemy_Writer&);
-    Enemy_Writer& operator=(const Enemy_Writer&);
+    Enemy_Buffer(const Enemy_Buffer&);
+    Enemy_Buffer& operator=(const Enemy_Buffer&);
     bool Write_Enemy(int x, int y, int enemyByte, bool onlyHardMode);
     bool Write_Group(int x, int y, int enemyByte, bool onlyHardMode);
     int Handle_Group_Page_Flag(int x);

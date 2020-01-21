@@ -52,8 +52,8 @@ bool SMB1_Compliance_Object_Parser::Parse_Line(const QString &line, Object_Item:
     case Object_Item::HORIZONTAL_BRICKS:
     case Object_Item::HORIZONTAL_BLOCKS:
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
-    case Object_Item::CANNON:
-    case Object_Item::CORRAL:
+    case Object_Item::BULLET_BILL_TURRET:
+    case Object_Item::CORAL:
     case Object_Item::VERTICAL_BRICKS:
     case Object_Item::VERTICAL_BLOCKS:
     case Object_Item::HORIZONTAL_COINS:

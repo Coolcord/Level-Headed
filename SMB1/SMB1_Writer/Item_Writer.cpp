@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <QDebug>
 
-Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) {
+Item_Buffer::Item_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler) {
     assert(buffer);
     assert(headerWriter);
     assert(roomIDHandler);
@@ -19,23 +19,23 @@ Item_Writer::Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_I
     this->currentByte = 0;
 }
 
-int Item_Writer::Get_Current_Page() {
+int Item_Buffer::Get_Current_Page() {
     return this->currentPage;
 }
 
-int Item_Writer::Get_Current_X() {
+int Item_Buffer::Get_Current_X() {
     return this->currentX;
 }
 
-int Item_Writer::Get_Current_Y() {
+int Item_Buffer::Get_Current_Y() {
     return this->currentY;
 }
 
-bool Item_Writer::Is_Safe_To_Write_Item() {
+bool Item_Buffer::Is_Safe_To_Write_Item() {
     return (this->How_Many_Bytes_Left() >= 2);
 }
 
-bool Item_Writer::Write_Item(int x, int y, int itemByte) {
+bool Item_Buffer::Write_Item(int x, int y, int itemByte) {
     if (!this->Is_Safe_To_Write_Item()) return false;
     if (!this->Write_Coordinates(x, y)) return false;
     if (this->pageFlag) {
@@ -46,7 +46,7 @@ bool Item_Writer::Write_Item(int x, int y, int itemByte) {
     return this->Write_Byte_To_Buffer(itemByte);
 }
 
-bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
+bool Item_Buffer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     if (y < 0x0 || y > 0xF) return false; //make sure the y is valid
 
     //Handle the x coordinate
@@ -72,13 +72,13 @@ bool Item_Writer::Write_Coordinates(int x, int y, bool handlePageFlag) {
     return this->Write_Byte_To_Buffer(positionByte);
 }
 
-bool Item_Writer::Write_Byte_To_Buffer(int byte) {
+bool Item_Buffer::Write_Byte_To_Buffer(int byte) {
     if (this->currentByte >= this->bufferSize) return false; //no more space!
     this->buffer->data()[this->currentByte] = static_cast<char>(byte); //write the byte
     ++this->currentByte;
     return true;
 }
 
-int Item_Writer::How_Many_Bytes_Left() {
+int Item_Buffer::How_Many_Bytes_Left() {
     return (this->bufferSize - this->currentByte);
 }

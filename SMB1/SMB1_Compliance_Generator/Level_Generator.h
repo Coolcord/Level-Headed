@@ -4,9 +4,9 @@
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include "Header_Writer.h"
-#include "Object_Writer.h"
-#include "Enemy_Writer.h"
-#include "Pipe_Pointer_Writer.h"
+#include "Object_Buffer.h"
+#include "Enemy_Buffer.h"
+#include "Pipe_Pointer_Buffer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Enemy_Spawner.h"
 #include "End_Spawner.h"
@@ -35,9 +35,9 @@ protected:
     QFile *file;
     Continuous_Enemies_Spawner *continuousEnemiesSpawner;
     Header_Writer *header;
-    Object_Writer *objects;
-    Enemy_Writer *enemies;
-    Pipe_Pointer_Writer *pipePointer;
+    Object_Buffer *objects;
+    Enemy_Buffer *enemies;
+    Pipe_Pointer_Buffer *pipePointer;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Enemy_Spawner *enemySpawner;
     End_Spawner *end;

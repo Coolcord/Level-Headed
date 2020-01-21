@@ -6,17 +6,17 @@
 class Header_Writer;
 class Room_ID_Handler;
 
-class Item_Writer {
+class Item_Buffer {
 public:
-    Item_Writer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
+    Item_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     int Get_Current_Page();
     int Get_Current_X();
     int Get_Current_Y();
     bool Write_Coordinates(int x, int y, bool handlePageFlag = true);
 
 protected:
-    Item_Writer(const Item_Writer&);
-    Item_Writer& operator=(const Item_Writer&);
+    Item_Buffer(const Item_Buffer&);
+    Item_Buffer& operator=(const Item_Buffer&);
     bool Is_Safe_To_Write_Item();
     bool Write_Item(int x, int y, int itemByte);
     bool Write_Byte_To_Buffer(int byte);

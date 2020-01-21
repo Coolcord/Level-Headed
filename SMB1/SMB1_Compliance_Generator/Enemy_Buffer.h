@@ -1,13 +1,20 @@
-#ifndef ENEMY_WRITER_H
-#define ENEMY_WRITER_H
+#ifndef ENEMY_BUFFER_H
+#define ENEMY_BUFFER_H
 
-#include "Item_Writer.h"
+#include "Item_Buffer.h"
+#include "../Common_SMB1_Files/Enemy_Item.h"
+#include "../Common_SMB1_Files/Level.h"
+#include <QFile>
+#include <QLinkedList>
 #include <QString>
 
-class Enemy_Writer : public Item_Writer {
+struct Enemy_Buffer_Data;
+
+class Enemy_Buffer : public Item_Buffer {
 public:
-    Enemy_Writer(int numBytesLeft);
-    ~Enemy_Writer() {}
+    Enemy_Buffer(int numBytesLeft);
+    ~Enemy_Buffer();
+    bool Write_Buffer_To_File(QFile *file);
     bool Get_First_Enemy();
     void Set_First_Enemy(bool value);
     bool Is_Lakitu_Active();
@@ -39,28 +46,40 @@ public:
     bool Surfing_Lift(int x, int y, bool onlyHardMode = false);
     bool Lift_Spawner(int x, int y, bool up = true, bool small = false, bool onlyHardMode = false);
     bool Bowser(int x, bool onlyHardMode = false);
-    bool Warp_Zone(int x);
+    bool Warp_Zone(int x, bool onlyHardMode = false);
     bool Toad(int x, bool onlyHardMode = false);
     bool Goomba_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Page_Change(int page);
 
+    //Buffer Navigation
+    bool Is_Empty();
+    bool At_Beginning();
+    bool At_End();
+    void Seek_To_Beginning();
+    void Seek_To_Next();
+    void Seek_To_Previous();
+    void Seek_To_End();
+    Enemy_Buffer_Data Get_Current();
+
 private:
-    Enemy_Writer(const Enemy_Writer&);
-    Enemy_Writer& operator=(const Enemy_Writer&);
-    bool Write_Enemy(int x, const QString &enemy);
-    bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy);
-    bool Write_Enemy(int x, bool onlyHardMode, const QString &enemy, const QString &parameters);
-    bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy);
-    bool Write_Enemy(int x, int y, bool onlyHardMode, const QString &enemy, const QString &parameters);
-    QString Get_Difficulty_String(bool onlyHardMode);
+    Enemy_Buffer(const Enemy_Buffer&);
+    Enemy_Buffer& operator=(const Enemy_Buffer&);
+    bool Write_Enemy(int page);
+    bool Write_Enemy(int x, Level::Level level, int world, int page);
+    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, const Extra_Enemy_Args &args, int x);
+    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, const Extra_Enemy_Args &args, int x, int y);
     bool Is_Coordinate_Valid(int coordinate);
+    QString Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem);
+    QString Get_String_From_Level(Level::Level level);
 
     bool firstEnemy;
     bool lakituIsActive;
     bool wasLakituSpawned;
+    QLinkedList<Enemy_Buffer_Data> *enemyBuffer;
+    QLinkedList<Enemy_Buffer_Data>::iterator enemyBufferIter;
 
-    friend class Pipe_Pointer_Writer;
+    friend class Pipe_Pointer_Buffer;
 };
 
-#endif // ENEMY_WRITER_H
+#endif // ENEMY_BUFFER_H

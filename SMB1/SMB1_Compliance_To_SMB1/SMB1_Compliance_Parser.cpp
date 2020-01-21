@@ -146,7 +146,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Used_Block(line, errorCode);
     case Object_Item::TRAMPOLINE:
         return this->objectHandler->Trampoline(line, errorCode);
-    case Object_Item::CANNON:
+    case Object_Item::BULLET_BILL_TURRET:
         return this->objectHandler->Cannon(line, errorCode);
     case Object_Item::ISLAND:
         return this->objectHandler->Island(line, errorCode);
@@ -160,7 +160,7 @@ bool SMB1_Compliance_Parser::Parse_Object(const QString &line, int &errorCode) {
         return this->objectHandler->Vertical_Bricks(line, errorCode);
     case Object_Item::VERTICAL_BLOCKS:
         return this->objectHandler->Vertical_Blocks(line, errorCode);
-    case Object_Item::CORRAL:
+    case Object_Item::CORAL:
         return this->objectHandler->Corral(line, errorCode);
     case Object_Item::PIPE:
         return this->objectHandler->Pipe(line, false, errorCode);

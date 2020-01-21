@@ -1,11 +1,11 @@
 #include "../../Common_Files/Random.h"
 #include "End_Spawner.h"
-#include "Enemy_Writer.h"
+#include "Enemy_Buffer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Writer *ow, Enemy_Writer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
+End_Spawner::End_Spawner(Object_Buffer *ow, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
     assert(ow);
     assert(enemies);
     assert(args);

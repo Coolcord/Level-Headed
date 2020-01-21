@@ -31,14 +31,14 @@ void SMB1_Compliance_Map::Populate_Object_Map() {
     this->objectsMap->insert(Object_Item::STRING_UNDERWATER_SIDEWAYS_PIPE, Object_Item::UNDERWATER_SIDEWAYS_PIPE);
     this->objectsMap->insert(Object_Item::STRING_USED_BLOCK, Object_Item::USED_BLOCK);
     this->objectsMap->insert(Object_Item::STRING_TRAMPOLINE, Object_Item::TRAMPOLINE);
-    this->objectsMap->insert(Object_Item::STRING_BULLET_BILL_TURRET, Object_Item::CANNON);
+    this->objectsMap->insert(Object_Item::STRING_BULLET_BILL_TURRET, Object_Item::BULLET_BILL_TURRET);
     this->objectsMap->insert(Object_Item::STRING_ISLAND, Object_Item::ISLAND);
     this->objectsMap->insert(Object_Item::STRING_HORIZONTAL_BRICKS, Object_Item::HORIZONTAL_BRICKS);
     this->objectsMap->insert(Object_Item::STRING_HORIZONTAL_BLOCKS, Object_Item::HORIZONTAL_BLOCKS);
     this->objectsMap->insert(Object_Item::STRING_HORIZONTAL_COINS, Object_Item::HORIZONTAL_COINS);
     this->objectsMap->insert(Object_Item::STRING_VERTICAL_BRICKS, Object_Item::VERTICAL_BRICKS);
     this->objectsMap->insert(Object_Item::STRING_VERTICAL_BLOCKS, Object_Item::VERTICAL_BLOCKS);
-    this->objectsMap->insert(Object_Item::STRING_CORAL, Object_Item::CORRAL);
+    this->objectsMap->insert(Object_Item::STRING_CORAL, Object_Item::CORAL);
     this->objectsMap->insert(Object_Item::STRING_PIPE, Object_Item::PIPE);
     this->objectsMap->insert(Object_Item::STRING_ENTERABLE_PIPE, Object_Item::ENTERABLE_PIPE);
     this->objectsMap->insert(Object_Item::STRING_HOLE, Object_Item::HOLE);

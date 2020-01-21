@@ -1,13 +1,13 @@
 #include "Midpoint_Handler.h"
 #include "../../Common_Files/Random.h"
 #include "Continuous_Enemies_Spawner.h"
-#include "Object_Writer.h"
+#include "Object_Buffer.h"
 #include "Physics.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include <QDebug>
 #include <assert.h>
 
-Midpoint_Handler::Midpoint_Handler(Object_Writer *object, Continuous_Enemies_Spawner *continuousEnemiesSpawner, SMB1_Compliance_Generator_Arguments *args, Level_Type::Level_Type levelType) {
+Midpoint_Handler::Midpoint_Handler(Object_Buffer *object, Continuous_Enemies_Spawner *continuousEnemiesSpawner, SMB1_Compliance_Generator_Arguments *args, Level_Type::Level_Type levelType) {
     assert(object);
     assert(continuousEnemiesSpawner);
     assert(args);

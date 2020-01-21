@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <QDebug>
 
-Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Writer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
+Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
     this->availableObjects = 0;
     this->levelType = levelType;
     switch (this->levelType) {

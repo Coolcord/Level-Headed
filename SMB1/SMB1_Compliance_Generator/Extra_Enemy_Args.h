@@ -1,6 +1,8 @@
 #ifndef EXTRA_ENEMY_ARGS_H
 #define EXTRA_ENEMY_ARGS_H
 
+#include "../Common_SMB1_Files/Level.h"
+
 struct Extra_Enemy_Args {
     bool onlyHardMode;
     bool moving;
@@ -10,7 +12,8 @@ struct Extra_Enemy_Args {
     bool small;
     bool vertical;
     bool up;
-    int room;
+    Level::Level level;
+    int world;
     int page;
     int num;
     bool allowSpawnAfterCancelSpawner;

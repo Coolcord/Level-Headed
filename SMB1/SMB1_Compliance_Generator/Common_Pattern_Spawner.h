@@ -6,7 +6,7 @@
 
 class Common_Pattern_Spawner : public Object_Spawner {
 public:
-    Common_Pattern_Spawner(Object_Writer *object, Level_Type::Level_Type levelType);
+    Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType);
     bool Spawn_Common_Pattern(int x);
 
 private:

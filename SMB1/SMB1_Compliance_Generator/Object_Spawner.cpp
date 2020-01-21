@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <QTime>
 
-Object_Spawner::Object_Spawner(Object_Writer *object) {
+Object_Spawner::Object_Spawner(Object_Buffer *object) {
     assert(object);
     this->object = object;
 }

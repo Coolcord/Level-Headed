@@ -1,17 +1,16 @@
 #ifndef LEVEL_CRAWLER_H
 #define LEVEL_CRAWLER_H
 
-#include "SMB1_Compliance_Map.h"
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 
-class Object_Writer;
-class Text_Insertion_Buffer;
+class Object_Buffer;
+class Object_Buffer_Data;
 
-class Level_Crawler : public SMB1_Compliance_Map {
+class Level_Crawler {
 public:
-    Level_Crawler(Text_Insertion_Buffer *objectsBuffer);
+    Level_Crawler(Object_Buffer *objects);
     ~Level_Crawler();
     bool Crawl_Level(Brick::Brick startingBrick);
     int Get_Safe_Size();
@@ -25,7 +24,6 @@ public:
     bool Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse = false);
 
 private:
-    void Populate_Brick_Map();
     bool Is_Coordinate_Safe(int x, int y);
     bool Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y);
     void Crawl_Forward(int x, int spaces);
@@ -34,17 +32,16 @@ private:
     void Mark_Bad_X(int x);
     void Clear_X(int x);
     QString Make_Key(int x, int y);
-    bool Parse_Object(const QString &line, int &x, int &holeCrawlSteps);
+    bool Parse_Object(const Object_Buffer_Data &data, int &x, int &holeCrawlSteps);
 
     //Debug Functions
     bool Draw_Map();
     int Get_X_From_Key(const QString &key);
     int Get_Y_From_Key(const QString &key);
 
-    Text_Insertion_Buffer *objectsBuffer;
+    Object_Buffer *objects;
     Brick::Brick brick;
     Brick::Brick nextBrick;
-    QMap<QString, Brick::Brick> *bricks;
     bool endDetected;
     int safeSize;
     QMap<QString, bool> *badCoordinates;

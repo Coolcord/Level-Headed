@@ -35,8 +35,8 @@ SMB1_Writer::SMB1_Writer() {
     this->enemiesBuffer = nullptr;
     this->enemyBytesTracker = nullptr;
     this->levelOffset = nullptr;
-    this->objectWriter = nullptr;
-    this->enemyWriter = nullptr;
+    this->objectBuffer = nullptr;
+    this->enemyBuffer = nullptr;
     this->headerWriter = nullptr;
     this->roomIDHandler = nullptr;
     this->roomOrderWriter = nullptr;
@@ -263,8 +263,8 @@ bool SMB1_Writer::Write_Level() {
         this->levelOffset->Get_Level_Enemy_Offset(this->roomIDHandler->Get_Current_Level()) != BAD_OFFSET) return false;
 
     //Fill the object and enemy buffers if they aren't already full
-    if (!this->objectWriter->Fill_Buffer()) return false;
-    if (this->enemyOffset != BAD_OFFSET && !this->enemyWriter->Fill_Buffer()) return false;
+    if (!this->objectBuffer->Fill_Buffer()) return false;
+    if (this->enemyOffset != BAD_OFFSET && !this->enemyBuffer->Fill_Buffer()) return false;
 
     //Write Header
     if (!this->Write_Buffer(this->objectOffset-2, this->headerBuffer)) return false;
@@ -328,9 +328,9 @@ bool SMB1_Writer::Read_Objects() {
     assert(this->file);
     assert(this->headerBuffer);
     assert(this->headerWriter);
-    assert(!this->objectWriter);
+    assert(!this->objectBuffer);
     assert(this->objectsBuffer->isEmpty());
-    if (this->objectOffset == BAD_OFFSET || !this->objectsBuffer || this->objectWriter) return false;
+    if (this->objectOffset == BAD_OFFSET || !this->objectsBuffer || this->objectBuffer) return false;
     if (!this->file->seek(this->objectOffset)) return false;
 
     QByteArray buffer(2, ' ');
@@ -343,7 +343,7 @@ bool SMB1_Writer::Read_Objects() {
         ret = this->file->read(buffer.data(), 2);
     }
 
-    this->objectWriter = new Object_Writer(this->objectsBuffer, this->headerWriter, this->roomIDHandler);
+    this->objectBuffer = new Object_Buffer(this->objectsBuffer, this->headerWriter, this->roomIDHandler);
     return true;
 }
 
@@ -353,10 +353,10 @@ bool SMB1_Writer::Read_Enemies() {
     assert(this->headerWriter);
     assert(this->enemyBytesTracker);
     assert(this->roomIDHandler);
-    assert(!this->enemyWriter);
+    assert(!this->enemyBuffer);
     assert(this->enemiesBuffer->isEmpty());
     if (this->enemyOffset == BAD_OFFSET) return true; //nothing to read
-    if (!this->enemiesBuffer || this->enemyWriter) return false;
+    if (!this->enemiesBuffer || this->enemyBuffer) return false;
     if (!this->file->seek(this->enemyOffset)) return false;
 
     //Read the enemies from the level
@@ -364,7 +364,7 @@ bool SMB1_Writer::Read_Enemies() {
     this->enemiesBuffer->append(this->file->read(bufferSize));
     if (this->enemiesBuffer->size() != bufferSize) return false;
 
-    this->enemyWriter = new Enemy_Writer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
+    this->enemyBuffer = new Enemy_Buffer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
     return true;
 }
 
@@ -372,12 +372,12 @@ bool SMB1_Writer::Are_Buffers_Allocated() {
     if (!this->roomIDHandler || !this->levelOffset) return false;
     bool enemiesValid = false;
     if (this->enemyOffset == BAD_OFFSET) {
-        enemiesValid = (this->enemiesBuffer == nullptr || this->enemiesBuffer->isEmpty()) && this->enemyWriter == nullptr;
+        enemiesValid = (this->enemiesBuffer == nullptr || this->enemiesBuffer->isEmpty()) && this->enemyBuffer == nullptr;
     } else {
         if (this->levelOffset->Get_Level_Enemy_Offset(this->roomIDHandler->Get_Current_Level()) == BAD_OFFSET) return false;
-        enemiesValid = this->enemiesBuffer != nullptr && this->enemyWriter != nullptr;
+        enemiesValid = this->enemiesBuffer != nullptr && this->enemyBuffer != nullptr;
     }
-    bool headerAndObjectsValid = this->headerBuffer != nullptr && this->objectsBuffer != nullptr && this->objectOffset != BAD_OFFSET && this->objectWriter != nullptr && this->headerWriter != nullptr;
+    bool headerAndObjectsValid = this->headerBuffer != nullptr && this->objectsBuffer != nullptr && this->objectOffset != BAD_OFFSET && this->objectBuffer != nullptr && this->headerWriter != nullptr;
     return enemiesValid && headerAndObjectsValid;
 }
 
@@ -385,14 +385,14 @@ void SMB1_Writer::Deallocate_Buffers() {
     delete this->headerBuffer;
     delete this->objectsBuffer;
     delete this->enemiesBuffer;
-    delete this->objectWriter;
-    delete this->enemyWriter;
+    delete this->objectBuffer;
+    delete this->enemyBuffer;
     delete this->headerWriter;
     this->headerBuffer = nullptr;
     this->objectsBuffer = nullptr;
     this->enemiesBuffer = nullptr;
-    this->objectWriter = nullptr;
-    this->enemyWriter = nullptr;
+    this->objectBuffer = nullptr;
+    this->enemyBuffer = nullptr;
     this->headerWriter = nullptr;
     this->objectOffset = BAD_OFFSET;
     this->enemyOffset = BAD_OFFSET;

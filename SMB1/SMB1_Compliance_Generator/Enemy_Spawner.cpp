@@ -1,6 +1,6 @@
 #include "Enemy_Spawner.h"
-#include "Enemy_Writer.h"
-#include "Object_Writer.h"
+#include "Enemy_Buffer.h"
+#include "Object_Buffer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Level_Crawler.h"
 #include "Physics.h"
@@ -11,7 +11,7 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Spawner::Enemy_Spawner(Object_Writer *objects, Enemy_Writer *enemies,
+Enemy_Spawner::Enemy_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies,
                              Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args) {
     assert(objects); assert(enemies); assert(requiredEnemySpawns);
     assert(args); assert(args->difficulty >= Difficulty::DIFFICULTY_MIN && args->difficulty <= Difficulty::DIFFICULTY_MAX);
@@ -19,7 +19,7 @@ Enemy_Spawner::Enemy_Spawner(Object_Writer *objects, Enemy_Writer *enemies,
     this->enemies = enemies;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->args = args;
-    this->levelCrawler = new Level_Crawler(this->objects->Get_Buffer());
+    this->levelCrawler = new Level_Crawler(this->objects);
     this->emergencySpawnMode = false;
 }
 
@@ -361,12 +361,12 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     return numEnemies+1; //return the size the enemies take up
 }
 
-Enemy_Writer *Enemy_Spawner::getEnemies() const
+Enemy_Buffer *Enemy_Spawner::getEnemies() const
 {
     return enemies;
 }
 
-void Enemy_Spawner::setEnemies(Enemy_Writer *value)
+void Enemy_Spawner::setEnemies(Enemy_Buffer *value)
 {
     enemies = value;
 }
