@@ -27,15 +27,15 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Create_Midpoint_Continuous_En
     case Enemy_Item::NOTHING: break;
     case Enemy_Item::BULLET_BILL_SPAWNER:
         if (this->args->levelType == Level_Type::UNDERWATER) {
-            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
+            if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
             else assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
         } else {
-            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
+            if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
             else assert(this->object->Bullet_Bill_Spawner(x));
         }
         break;
     case Enemy_Item::CHEEP_CHEEP_SPAWNER:
-        if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
+        if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
         else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
         break;
     case Enemy_Item::LAKITU:
@@ -120,7 +120,7 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Determine_Continuous_Enemies_
 
 Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Flying_Cheep_Cheeps(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty) {
-        if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
+        if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
         else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
         return Enemy_Item::CHEEP_CHEEP_SPAWNER;
     }
@@ -139,10 +139,10 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Laki
 Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Offscreen_Bullet_Bills(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty) {
         if (this->args->levelType == Level_Type::UNDERWATER) {
-            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
+            if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Swimming_Cheep_Cheep_Spawner(x+1));
             else assert(this->object->Swimming_Cheep_Cheep_Spawner(x));
         } else {
-            if (this->object->Get_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
+            if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Bullet_Bill_Spawner(x+1));
             else assert(this->object->Bullet_Bill_Spawner(x));
         }
         return Enemy_Item::BULLET_BILL_SPAWNER;

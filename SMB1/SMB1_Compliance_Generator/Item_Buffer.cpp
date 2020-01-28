@@ -3,8 +3,6 @@
 #include "../Common_SMB1_Files/Background.h"
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Scenery.h"
-#include "Enemy_Buffer_Data.h"
-#include "Object_Buffer_Data.h"
 #include "Physics.h"
 #include <assert.h>
 #include <QDebug>
@@ -16,8 +14,11 @@ Item_Buffer::Item_Buffer(int numBytesLeft) {
     this->numBytesLeft = numBytesLeft;
     this->currentPage = 0;
     this->currentX = 0;
+    this->currentAbsoluteX = 0;
     this->currentY = Physics::GROUND_Y+1;
     this->coordinateSafety = true;
+    this->itemBuffer = new QLinkedList<Buffer_Data>();
+    this->itemBufferIter = this->itemBuffer->begin();
 }
 
 int Item_Buffer::Get_Num_Bytes_Left() {
@@ -40,7 +41,11 @@ void Item_Buffer::Set_Current_Y(int value) {
     this->currentY = value;
 }
 
-int Item_Buffer::Get_Absolute_X(int x) {
+int Item_Buffer::Get_Absolute_X() {
+    return this->currentAbsoluteX;
+}
+
+int Item_Buffer::Get_Page_Relative_Absolute_X(int x) {
     return ((this->currentX+x)%0x10);
 }
 
@@ -73,47 +78,114 @@ bool Item_Buffer::Handle_Level_Length_On_Page_Change(int page) {
     }
     this->currentPage = page;
     this->currentX = 0;
-    this->levelLength = page*(0x10);
+    this->currentAbsoluteX = page*(0x10);
+    this->levelLength = this->currentAbsoluteX;
     return true;
-}
-
-Object_Buffer_Data Item_Buffer::Get_Empty_Object_Buffer_Data() {
-    Object_Buffer_Data emptyBufferData;
-    emptyBufferData.objectItem = Object_Item::NOTHING;
-    emptyBufferData.x = 0; emptyBufferData.y = 0; emptyBufferData.length = 1; emptyBufferData.platform = false;
-    emptyBufferData.height = 1; emptyBufferData.page = 0;
-    emptyBufferData.brick = Brick::NO_BRICKS; emptyBufferData.scenery = Scenery::NO_SCENERY; emptyBufferData.background = Background::BLANK_BACKGROUND;
-    return emptyBufferData;
-}
-
-Enemy_Buffer_Data Item_Buffer::Get_Empty_Enemy_Buffer_Data() {
-    Enemy_Buffer_Data emptyBufferData;
-    emptyBufferData.x = 0; emptyBufferData.y = 0;
-    emptyBufferData.enemyItem = Enemy_Item::NOTHING; emptyBufferData.args = this->Get_Empty_Enemy_Args();
-    return emptyBufferData;
-}
-
-Extra_Enemy_Args Item_Buffer::Get_Empty_Enemy_Args() {
-    return this->Get_Empty_Enemy_Args(false);
-}
-
-Extra_Enemy_Args Item_Buffer::Get_Empty_Enemy_Args(bool onlyHardMode) {
-    Extra_Enemy_Args args;
-    args.onlyHardMode = onlyHardMode; args.moving = false; args.leaping = false; args.clockwise = false;
-    args.fast = false; args.small = false; args.vertical = false; args.up = false;
-    args.allowSpawnAfterCancelSpawner = true;
-    args.level = Level::WORLD_1_LEVEL_1;
-    args.world = 0; args.page = 0; args.num = 0;
-    return args;
 }
 
 void Item_Buffer::Update_Level_Stats(int x) {
     this->numBytesLeft -= 2;
     this->levelLength += x;
     this->currentX += x;
+    this->currentAbsoluteX += x;
     while (this->currentX > 0xF) {
         this->currentX -= 0x10;
         ++this->currentPage;
     }
     ++this->numItems;
+}
+
+bool Item_Buffer::Is_Empty() {
+    return this->itemBuffer->isEmpty();
+}
+
+bool Item_Buffer::At_Beginning() {
+    return this->itemBufferIter == this->itemBuffer->begin();
+}
+
+bool Item_Buffer::At_End() {
+    return this->itemBufferIter == this->itemBuffer->end();
+}
+
+bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
+    if (absoluteX < 0) return false; //out of range!
+    if (absoluteX == 0) { this->Seek_To_Beginning(); return true; }
+    if (absoluteX > this->levelLength+31) return false; //out of range!
+    if (absoluteX > this->levelLength) { this->Seek_To_End(); return true; }
+
+    //Compare against the current x to make sure that
+    if (absoluteX == this->currentAbsoluteX) return true; //nothing to do
+    if (currentAbsoluteX < absoluteX) {
+        if (this->At_End()) return true; //nothing to do
+
+        //Check if this is the correct absolute x
+        this->Seek_To_Next();
+        int tmpX = this->Get_Absolute_X();
+        this->Seek_To_Previous();
+        if (tmpX > absoluteX) return true; //nothing to do
+    }
+
+    //Seek through the level to find the coordinate
+    bool found = false;
+    if (absoluteX < levelLength/2) { //start from the beginning
+        this->Seek_To_Beginning();
+        while (!this->At_End() && !found) {
+            Buffer_Data data = this->Get_Current();
+            if (data.absoluteX > absoluteX) found = true;
+            if (found) this->Seek_To_Previous(); //roll back one, as we have passed the absolute X
+            else this->Seek_To_Next();
+        }
+    } else { //start from the end
+        this->Seek_To_End();
+        bool beginningChecked = false;
+        while (!beginningChecked && !found) {
+            Buffer_Data data = this->Get_Current();
+            if (data.absoluteX <= absoluteX) found = true;
+            if (!found) {
+                if (this->At_Beginning()) beginningChecked = true;
+                else this->Seek_To_Previous();
+            }
+        }
+    }
+    assert(found);
+    return true;
+}
+
+void Item_Buffer::Seek_To_Beginning() {
+    this->itemBufferIter = this->itemBuffer->begin();
+    Buffer_Data data = *this->itemBufferIter;
+    this->currentAbsoluteX -= data.x;
+    this->currentX = this->currentAbsoluteX%0x10;
+    this->currentPage = this->currentAbsoluteX/0x10;
+}
+
+void Item_Buffer::Seek_To_Next() {
+    if (!this->At_End()) {
+        ++this->itemBufferIter;
+        Buffer_Data data = *this->itemBufferIter;
+        this->currentAbsoluteX -= data.x;
+        this->currentX = this->currentAbsoluteX%0x10;
+        this->currentPage = this->currentAbsoluteX/0x10;
+    }
+}
+
+void Item_Buffer::Seek_To_Previous() {
+    if (!this->At_Beginning()) {
+        --this->itemBufferIter;
+        Buffer_Data data = *this->itemBufferIter;
+        this->currentAbsoluteX -= data.x;
+        this->currentX = this->currentAbsoluteX%0x10;
+        this->currentPage = this->currentAbsoluteX/0x10;
+    }
+}
+
+void Item_Buffer::Seek_To_End() {
+    this->itemBufferIter = this->itemBuffer->end();
+    this->currentAbsoluteX = this->levelLength;
+    this->currentX = this->currentAbsoluteX%0x10;
+    this->currentPage = this->currentAbsoluteX/0x10;
+}
+
+Buffer_Data Item_Buffer::Get_Current() {
+    return this->At_End() ? Buffer_Data() : *this->itemBufferIter;
 }

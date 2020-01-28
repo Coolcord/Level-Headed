@@ -64,14 +64,13 @@ HEADERS += SMB1_Compliance_Generator.h \
     ../Common_SMB1_Files/Object_Item_String.h \
     ../Common_SMB1_Files/Scenery.h \
     ../Common_SMB1_Files/Scenery_String.h \
+    Buffer_Data.h \
     Enemy_Buffer.h \
-    Enemy_Buffer_Data.h \
     Item_Buffer.h \
     Midpoint_Handler.h \
     Header_Writer.h \
     Level_Generator.h \
     Object_Buffer.h \
-    Object_Buffer_Data.h \
     Pipe_Pointer_Buffer.h \
     SMB1_Compliance_Object_Parser.h \
     Standard_Overworld_Generator.h \

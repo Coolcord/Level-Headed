@@ -8,7 +8,7 @@
 #include <QLinkedList>
 #include <QString>
 
-struct Enemy_Buffer_Data;
+class Buffer_Data;
 
 class Enemy_Buffer : public Item_Buffer {
 public:
@@ -52,23 +52,13 @@ public:
     bool Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Page_Change(int page);
 
-    //Buffer Navigation
-    bool Is_Empty();
-    bool At_Beginning();
-    bool At_End();
-    void Seek_To_Beginning();
-    void Seek_To_Next();
-    void Seek_To_Previous();
-    void Seek_To_End();
-    Enemy_Buffer_Data Get_Current();
-
 private:
     Enemy_Buffer(const Enemy_Buffer&);
     Enemy_Buffer& operator=(const Enemy_Buffer&);
     bool Write_Enemy(int page);
     bool Write_Enemy(int x, Level::Level level, int world, int page);
-    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, const Extra_Enemy_Args &args, int x);
-    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, const Extra_Enemy_Args &args, int x, int y);
+    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x);
+    bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x, int y);
     bool Is_Coordinate_Valid(int coordinate);
     QString Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem);
     QString Get_String_From_Level(Level::Level level);
@@ -76,8 +66,6 @@ private:
     bool firstEnemy;
     bool lakituIsActive;
     bool wasLakituSpawned;
-    QLinkedList<Enemy_Buffer_Data> *enemyBuffer;
-    QLinkedList<Enemy_Buffer_Data>::iterator enemyBufferIter;
 
     friend class Pipe_Pointer_Buffer;
 };

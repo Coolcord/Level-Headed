@@ -91,16 +91,6 @@ public:
     bool Pipe_Wall(int x);
     bool Nothing();
 
-    //Buffer Navigation
-    bool Is_Empty();
-    bool At_Beginning();
-    bool At_End();
-    void Seek_To_Beginning();
-    void Seek_To_Next();
-    void Seek_To_Previous();
-    void Seek_To_End();
-    Object_Buffer_Data Get_Current();
-
 private:
     Object_Buffer(const Object_Buffer&);
     Object_Buffer& operator=(const Object_Buffer&);
@@ -123,8 +113,6 @@ private:
     const static int MAX_POWERUP_ZONE = 24;
 
     SMB1_Compliance_Generator_Arguments *args;
-    QLinkedList<Object_Buffer_Data> *objectBuffer;
-    QLinkedList<Object_Buffer_Data>::iterator objectBufferIter;
     QVector<int> *objectsAtXCoordinates;
     bool exceededVerticalObjectLimit;
     int lastObjectLength;

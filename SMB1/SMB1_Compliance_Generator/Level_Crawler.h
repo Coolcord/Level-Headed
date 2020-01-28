@@ -5,8 +5,8 @@
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include <QFile>
 
+class Buffer_Data;
 class Object_Buffer;
-class Object_Buffer_Data;
 
 class Level_Crawler {
 public:
@@ -32,7 +32,7 @@ private:
     void Mark_Bad_X(int x);
     void Clear_X(int x);
     QString Make_Key(int x, int y);
-    bool Parse_Object(const Object_Buffer_Data &data, int &x, int &holeCrawlSteps);
+    bool Parse_Object(const Buffer_Data &data, int &x, int &holeCrawlSteps);
 
     //Debug Functions
     bool Draw_Map();

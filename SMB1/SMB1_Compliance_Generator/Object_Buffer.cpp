@@ -4,7 +4,7 @@
 #include "../Common_SMB1_Files/Scenery_String.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
 #include "Enemy_Spawner.h"
-#include "Object_Buffer_Data.h"
+#include "Buffer_Data.h"
 #include "Physics.h"
 #include <QTextStream>
 #include <assert.h>
@@ -24,19 +24,17 @@ Object_Buffer::Object_Buffer(int nbl, SMB1_Compliance_Generator_Arguments *args)
     this->exceededVerticalObjectLimit = false;
     this->cancelSpawnerX = -1;
     this->objectsAtXCoordinates = new QVector<int>(0x400, 0); //holds up to 40 pages of coordinates
-    this->objectBuffer = new QLinkedList<Object_Buffer_Data>();
-    this->objectBufferIter = this->objectBuffer->begin();
 }
 
 Object_Buffer::~Object_Buffer() {
     delete this->objectsAtXCoordinates;
-    delete this->objectBuffer;
+    delete this->itemBuffer;
 }
 
 bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
     QTextStream stream(file);
-    for (QLinkedList<Object_Buffer_Data>::iterator iter = this->objectBuffer->begin(); iter != this->objectBuffer->end(); ++iter) {
-        Object_Buffer_Data data = *iter;
+    for (QLinkedList<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {
+        Buffer_Data data = *iter;
         switch (data.objectItem) {
         case Object_Item::REVERSE_L_PIPE:
         case Object_Item::FLAGPOLE:
@@ -183,12 +181,13 @@ void Object_Buffer::Set_End_Object_Count(int value) {
 bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int length) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = objectItem;
     objectBufferData.platform = platform;
     objectBufferData.x = x;
     objectBufferData.length = length;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX+x;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -201,13 +200,14 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     if (!this->Is_Y_Valid(y)) return false;
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = objectItem;
     objectBufferData.platform = platform;
     objectBufferData.x = x;
     objectBufferData.y = y;
     objectBufferData.length = length;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX+x;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -221,13 +221,14 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     if (!this->Is_Y_Valid(y)) return false;
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = objectItem;
     objectBufferData.platform = platform;
     objectBufferData.x = x;
     objectBufferData.y = y;
     objectBufferData.height = height;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX+x;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -240,11 +241,12 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
 bool Object_Buffer::Write_Object(int x, Background::Background background) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = Object_Item::CHANGE_BACKGROUND;
     objectBufferData.x = x;
     objectBufferData.background = background;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX+x;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -254,12 +256,13 @@ bool Object_Buffer::Write_Object(int x, Background::Background background) {
 bool Object_Buffer::Write_Object(int x, Brick::Brick brick, Scenery::Scenery scenery) {
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = Object_Item::CHANGE_BRICK_AND_SCENERY;
     objectBufferData.x = x;
     objectBufferData.brick = brick;
     objectBufferData.scenery = scenery;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX+x;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -272,10 +275,11 @@ bool Object_Buffer::Write_Object(int page) {
     int relativeX = (0x10*page)-this->levelLength;
     if (relativeX < 0) return false;
     if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-    Object_Buffer_Data objectBufferData = this->Get_Empty_Object_Buffer_Data();
+    Buffer_Data objectBufferData;
     objectBufferData.objectItem = Object_Item::PAGE_CHANGE;
     objectBufferData.page = page;
-    this->objectBufferIter = this->objectBuffer->insert(this->objectBufferIter+1, objectBufferData);
+    objectBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->Handle_Zones(relativeX);
     this->Check_Vertical_Object_Limit(1);
@@ -625,7 +629,7 @@ bool Object_Buffer::Enterable_Pipe_Without_Pointer(int x, int y, int height) {
 
 bool Object_Buffer::Tall_Reverse_L_Pipe_Without_Pointer(int x, int y) {
     if (y < 0x2 || y > 0xA) return false;
-    return this->Write_Object(Object_Item::TALL_REVERSE_L_PIPE, true, x, y, 4);
+    return this->Write_Object(Object_Item::TALL_REVERSE_L_PIPE, true, x, y, Physics::REVERSE_L_PIPE_LENGTH);
 }
 
 bool Object_Buffer::Hole(int x, int length, bool filledWithWater) {
@@ -672,22 +676,22 @@ bool Object_Buffer::Big_Castle(int x) {
 }
 
 bool Object_Buffer::Axe(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::AXE, false, x, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Axe_Rope(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::AXE_ROPE, false, x, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Bowser_Bridge(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::BOWSER_BRIDGE, false, x, Physics::BOWSER_BRIDGE_LENGTH);
 }
 
 bool Object_Buffer::Scroll_Stop(int x, bool warpZone) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     if (warpZone) {
         return this->Write_Object(Object_Item::SCROLL_STOP_WARP_ZONE, false, x, Physics::MIN_OBJECT_LENGTH);
     } else {
@@ -696,7 +700,7 @@ bool Object_Buffer::Scroll_Stop(int x, bool warpZone) {
 }
 
 bool Object_Buffer::Toggle_Auto_Scroll(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     if (this->Write_Object(Object_Item::TOGGLE_AUTO_SCROLL, false, x, Physics::MIN_OBJECT_LENGTH)) {
         this->wasAutoScrollUsed = true;
         this->autoScrollActive = !this->autoScrollActive;
@@ -707,24 +711,24 @@ bool Object_Buffer::Toggle_Auto_Scroll(int x) {
 }
 
 bool Object_Buffer::Flying_Cheep_Cheep_Spawner(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     if (!this->Write_Object(Object_Item::FLYING_CHEEP_CHEEP_SPAWNER, false, x, Physics::MIN_OBJECT_LENGTH)) return false;
     this->wereFlyingCheepCheepsSpawned = true;
     return true;
 }
 
 bool Object_Buffer::Swimming_Cheep_Cheep_Spawner(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER, false, x, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Bullet_Bill_Spawner(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::BULLET_BILL_SPAWNER, false, x, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Cancel_Spawner(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     if (this->Write_Object(Object_Item::CANCEL_SPAWNER, false, x, Physics::MIN_OBJECT_LENGTH)) {
         this->cancelSpawnerX = this->levelLength;
         return true;
@@ -734,7 +738,7 @@ bool Object_Buffer::Cancel_Spawner(int x) {
 }
 
 bool Object_Buffer::Loop_Command(int x) {
-    if (this->Get_Absolute_X(x) == 0xF) return false;
+    if (this->Get_Page_Relative_Absolute_X(x) == 0xF) return false;
     return this->Write_Object(Object_Item::LOOP_COMMAND, false, x, Physics::MIN_OBJECT_LENGTH);
 }
 
@@ -774,22 +778,13 @@ bool Object_Buffer::End_Steps(int x) {
 }
 
 bool Object_Buffer::Reverse_L_Pipe_Without_Pointer(int x) {
-    return this->Write_Object(Object_Item::REVERSE_L_PIPE, true, x, 4);
+    return this->Write_Object(Object_Item::REVERSE_L_PIPE, true, x, Physics::REVERSE_L_PIPE_LENGTH);
 }
 
 bool Object_Buffer::Pipe_Wall(int x) {
-    return this->Write_Object(Object_Item::PIPE_WALL, true, x, 4);
+    return this->Write_Object(Object_Item::PIPE_WALL, true, x, Physics::REVERSE_L_PIPE_LENGTH);
 }
 
 bool Object_Buffer::Nothing() {
     return this->Write_Object(Object_Item::NOTHING, false, 0, Physics::MIN_OBJECT_LENGTH);
 }
-
-bool Object_Buffer::Is_Empty() { return this->objectBuffer->isEmpty(); }
-bool Object_Buffer::At_Beginning() { return this->objectBufferIter == this->objectBuffer->begin(); }
-bool Object_Buffer::At_End() { return this->objectBufferIter == this->objectBuffer->end(); }
-void Object_Buffer::Seek_To_Beginning() { this->objectBufferIter = this->objectBuffer->begin(); }
-void Object_Buffer::Seek_To_Next() { if (!this->At_End()) ++this->objectBufferIter; }
-void Object_Buffer::Seek_To_Previous() { if (!this->At_Beginning()) --this->objectBufferIter; }
-void Object_Buffer::Seek_To_End() { this->objectBufferIter = this->objectBuffer->end(); }
-Object_Buffer_Data Object_Buffer::Get_Current() { return this->At_End() ? this->Get_Empty_Object_Buffer_Data() : *this->objectBufferIter; }

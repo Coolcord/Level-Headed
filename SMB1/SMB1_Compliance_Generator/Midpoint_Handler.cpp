@@ -71,7 +71,7 @@ int Midpoint_Handler::Get_Midpoint() {
 bool Midpoint_Handler::Increment_Past_Standard_Overworld_Midpoint(int &x, int &page) {
     //Absolute coordinates 0x2 - 0x4 must be clear
     //Increment to 0x5 to fix
-    int absoluteX = this->object->Get_Absolute_X(x);
+    int absoluteX = this->object->Get_Page_Relative_Absolute_X(x);
     if (absoluteX < 0x3) {
         if (x+(5-absoluteX) > 0x10) return false;
         else x += (5-absoluteX);
@@ -95,7 +95,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
 
     //Absolute coordinates 0x2 - 0x4 must be clear
     //Increment to 0x5 to fix
-    int absoluteX = this->object->Get_Absolute_X(x);
+    int absoluteX = this->object->Get_Page_Relative_Absolute_X(x);
     if (absoluteX < 0x3) {
         //Place an island to ensure that the midpoint will be safe
         if (this->object->Will_Page_Flag_Be_Tripped(x)) ++page;
@@ -110,7 +110,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         //Try to randomize the distance
         int tmpX = x+Random::Get_Instance().Get_Num(3)+1;
         if (tmpX > 0x10) tmpX = x;
-        absoluteX = this->object->Get_Absolute_X(tmpX);
+        absoluteX = this->object->Get_Page_Relative_Absolute_X(tmpX);
         //Determine the length
         int length = (0xB-absoluteX)+Random::Get_Instance().Get_Num(2);
         if (length < 3) length = 3;
@@ -133,7 +133,7 @@ bool Midpoint_Handler::Increment_Past_Island_Midpoint(int &x, int &page) {
         }
         x = this->object->Get_Last_Object_Length();
         lastX = x;
-        absoluteX = this->object->Get_Absolute_X(x);
+        absoluteX = this->object->Get_Page_Relative_Absolute_X(x);
     }
 
     //Attempt to spawn an island at absoluteX 0x0

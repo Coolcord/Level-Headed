@@ -147,7 +147,7 @@ void Castle_Generator::Handle_Bowser_Fire() {
         if (this->objects->Get_Num_Objects_Available() < (this->args->numObjectBytes/6)+2 ||
                 (this->args->maxLevelLength > 0 && this->objects->Get_Level_Length() > static_cast<int>((static_cast<double>(this->args->maxLevelLength)/3.0)*2.0)) ||
                 (this->args->maxLevelLength-this->objects->Get_Level_Length() < 48)) {
-            if (this->objects->Get_Absolute_X(0) == 0xF) assert(this->objects->Cancel_Spawner(1));
+            if (this->objects->Get_Page_Relative_Absolute_X(0) == 0xF) assert(this->objects->Cancel_Spawner(1));
             else assert(this->objects->Cancel_Spawner(0));
             this->bowserFireReadyToSpawn = true;
         }

@@ -4,7 +4,6 @@
 #include "../Common_SMB1_Files/Object_Item_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "Object_Buffer.h"
-#include "Object_Buffer_Data.h"
 #include "Physics.h"
 #include <QTime>
 #include <QDebug>
@@ -34,7 +33,7 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
     //Read the Objects to Determine Safe Spots to Place Enemies
     this->objects->Seek_To_Beginning();
     while (!this->objects->At_End()) {
-        Object_Buffer_Data data = this->objects->Get_Current();
+        Buffer_Data data = this->objects->Get_Current();
         assert(this->Parse_Object(data, x, holeCrawlSteps));
         if (!this->endDetected) this->safeSize = x-1;
         this->objects->Seek_To_Next();
@@ -443,7 +442,7 @@ QString Level_Crawler::Make_Key(int x, int y) {
     return (QString::number(x) + "x" + QString::number(y));
 }
 
-bool Level_Crawler::Parse_Object(const Object_Buffer_Data &data, int &x, int &holeCrawlSteps) {
+bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawlSteps) {
     //Crawl forward according to the brick pattern
     int steps = data.x;
     if (holeCrawlSteps == 0) this->Crawl_Forward(x, steps);

@@ -162,7 +162,7 @@ void End_Spawner::Handle_Auto_Scroll() {
         --this->endObjectCount;
         if (!this->object->Is_Auto_Scroll_Active()) return; //don't bother deactivating if it isn't active
         int tmpX = 0;
-        if (this->object->Get_Absolute_X(tmpX) == 0xF) ++tmpX;
+        if (this->object->Get_Page_Relative_Absolute_X(tmpX) == 0xF) ++tmpX;
         assert(this->object->Toggle_Auto_Scroll(tmpX));
     }
 }
@@ -176,14 +176,14 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     if (this->object->Get_Num_Objects_Left() < Physics::MIN_END_OBJECTS) return false;
 
     //Spawn the end of the level
-    int absoluteX = this->object->Get_Absolute_X(x);
+    int absoluteX = this->object->Get_Page_Relative_Absolute_X(x);
 
     //Handle the problem case of spawning at the edge of a page
     if (absoluteX == 0xF) {
         if (x < 0x10) ++x;
         else --x;
     }
-    absoluteX = this->object->Get_Absolute_X(x);
+    absoluteX = this->object->Get_Page_Relative_Absolute_X(x);
     assert(absoluteX != 0xF);
 
     //Write the End Pattern
@@ -199,7 +199,7 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
 
     //Handle the Scroll Stop
     x = 0x09;
-    if (this->object->Get_Absolute_X(x) == 0xF) --x;
+    if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
     if (!this->object->Scroll_Stop(x, false)) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
 
@@ -224,7 +224,7 @@ bool End_Spawner::Shortest_Castle(int x) {
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
 
     //Ensure that Bowser lands on an EVEN page and Toad lands on an ODD page!
-    x = 0xF - this->object->Get_Absolute_X(0);
+    x = 0xF - this->object->Get_Page_Relative_Absolute_X(0);
     if (this->object->Get_Current_Page()%2 == 0) { //page is even
         x += 0x10; //increment to an odd numbered page
         this->object->Set_Coordinate_Safety(false);
@@ -280,7 +280,7 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
         ++y;
         --height;
     }
-    if (this->object->Get_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
+    if (this->object->Get_Page_Relative_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
     else assert(this->object->Cancel_Spawner(0));
 
     //Change the brick type back to surface

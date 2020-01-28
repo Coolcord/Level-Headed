@@ -68,7 +68,7 @@ int Level_Generator::Get_Safe_Random_X() {
 
 void Level_Generator::Handle_Auto_Scroll_Start(int &x) {
     if (this->args->useAutoScroll) {
-        if (this->objects->Get_Absolute_X(x) == 0xF) ++x;
+        if (this->objects->Get_Page_Relative_Absolute_X(x) == 0xF) ++x;
         assert(this->objects->Toggle_Auto_Scroll(x));
     }
 }

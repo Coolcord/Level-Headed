@@ -52,7 +52,7 @@ bool Island_Generator::Spawn_Intro(int &x) {
     assert(this->objects->Change_Brick_And_Scenery(x, Brick::NO_BRICKS, Scenery::ONLY_CLOUDS));
     this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(0);
     this->objects->Set_Last_Object_Length(1);
-    assert(this->objects->Get_Absolute_X(0) == 0x00);
+    assert(this->objects->Get_Page_Relative_Absolute_X(0) == 0x00);
     return true;
 }
 
