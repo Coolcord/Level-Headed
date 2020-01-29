@@ -89,6 +89,64 @@ bool Level_Crawler::Is_Coordinate_Used(int x, int y) {
     return this->usedCoordinates->contains(this->Make_Key(x, y));
 }
 
+bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
+    Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y);
+    switch (objectItem) {
+    case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:             return true;
+    case Object_Item::QUESTION_BLOCK_WITH_COIN:                 return true;
+    case Object_Item::HIDDEN_BLOCK_WITH_COIN:                   return true;
+    case Object_Item::HIDDEN_BLOCK_WITH_1UP:                    return true;
+    case Object_Item::BRICK_WITH_MUSHROOM:                      return true;
+    case Object_Item::BRICK_WITH_VINE:                          return true;
+    case Object_Item::BRICK_WITH_STAR:                          return true;
+    case Object_Item::BRICK_WITH_10_COINS:                      return true;
+    case Object_Item::BRICK_WITH_1UP:                           return true;
+    case Object_Item::UNDERWATER_SIDEWAYS_PIPE:                 return true;
+    case Object_Item::USED_BLOCK:                               return true;
+    case Object_Item::TRAMPOLINE:                               return false;
+    case Object_Item::BULLET_BILL_TURRET:                       return true;
+    case Object_Item::ISLAND:                                   return true;
+    case Object_Item::HORIZONTAL_BRICKS:                        return true;
+    case Object_Item::HORIZONTAL_BLOCKS:                        return true;
+    case Object_Item::HORIZONTAL_COINS:                         return false;
+    case Object_Item::VERTICAL_BRICKS:                          return true;
+    case Object_Item::VERTICAL_BLOCKS:                          return true;
+    case Object_Item::CORAL:                                    return true;
+    case Object_Item::PIPE:                                     return true;
+    case Object_Item::ENTERABLE_PIPE:                           return true;
+    case Object_Item::HOLE:                                     return false;
+    case Object_Item::HOLE_WITH_WATER:                          return false;
+    case Object_Item::BRIDGE:                                   return true;
+    case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    return true;
+    case Object_Item::PAGE_CHANGE:                              return false;
+    case Object_Item::REVERSE_L_PIPE:                           return true;
+    case Object_Item::FLAGPOLE:                                 return false;
+    case Object_Item::CASTLE:                                   return false;
+    case Object_Item::BIG_CASTLE:                               return false;
+    case Object_Item::AXE:                                      return false;
+    case Object_Item::AXE_ROPE:                                 return false;
+    case Object_Item::BOWSER_BRIDGE:                            return true;
+    case Object_Item::SCROLL_STOP:                              return false;
+    case Object_Item::SCROLL_STOP_WARP_ZONE:                    return false;
+    case Object_Item::TOGGLE_AUTO_SCROLL:                       return false;
+    case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:               return false;
+    case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:             return false;
+    case Object_Item::BULLET_BILL_SPAWNER:                      return false;
+    case Object_Item::CANCEL_SPAWNER:                           return false;
+    case Object_Item::LOOP_COMMAND:                             return false;
+    case Object_Item::CHANGE_BRICK_AND_SCENERY:                 return false;
+    case Object_Item::CHANGE_BACKGROUND:                        return false;
+    case Object_Item::LIFT_ROPE:                                return false;
+    case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:               return false;
+    case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:             return false;
+    case Object_Item::STEPS:                                    return true;
+    case Object_Item::END_STEPS:                                return true;
+    case Object_Item::TALL_REVERSE_L_PIPE:                      return true;
+    case Object_Item::PIPE_WALL:                                return true;
+    case Object_Item::NOTHING:                                  return false;
+    }
+}
+
 Object_Item::Object_Item Level_Crawler::Get_Object_At_Coordinate(int x, int y) {
     QHash<QString, Object_Item::Object_Item>::iterator iter = this->usedCoordinates->find(this->Make_Key(x, y));
     if (iter == this->usedCoordinates->end()) return Object_Item::NOTHING;
@@ -295,6 +353,7 @@ bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawl
     case Object_Item::HORIZONTAL_BRICKS:
     case Object_Item::HORIZONTAL_BLOCKS:
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
+    case Object_Item::HORIZONTAL_COINS:
         y = data.y;
         length = data.length;
         for (int i = 0; i < length; ++i) this->Mark_Used_Coordinate(data.objectItem, x+i, y);
@@ -307,8 +366,6 @@ bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawl
         length = data.height;
         for (int i = 0; i < length; ++i) this->Mark_Used_Coordinate(data.objectItem, x, y+i);
         return true;
-    case Object_Item::HORIZONTAL_COINS:
-        return true; //ignore coins
     case Object_Item::PIPE:
     case Object_Item::ENTERABLE_PIPE:
         y = data.y;
@@ -373,7 +430,6 @@ bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawl
         }
         return true;
     case Object_Item::END_STEPS:
-        this->endDetected = true;
         y = Physics::GROUND_Y;
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j <= i; ++j) this->Mark_Used_Coordinate(data.objectItem, x+i, y-j);
@@ -390,7 +446,7 @@ bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawl
         this->Mark_Used_X(data.objectItem, x+3);
         return true;
     case Object_Item::PIPE_WALL:
-        for (int i = 0; i < 2; ++i) this->Mark_Used_X(data.objectItem, x+i);
+        for (int i = 2; i < 4; ++i) this->Mark_Used_X(data.objectItem, x+i);
         return true;
     case Object_Item::CHANGE_BRICK_AND_SCENERY:
         this->nextBrick = data.brick;

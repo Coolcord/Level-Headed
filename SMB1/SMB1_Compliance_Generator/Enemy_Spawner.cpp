@@ -360,7 +360,7 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
 bool Enemy_Spawner::Is_Coordinate_Safe(int x, int y) {
     if (this->levelCrawler->Is_Coordinate_Empty(x, y)) {
         //Ground is expected to be below the enemy
-        if (this->levelCrawler->Is_Coordinate_Used(x, y+1)) return true;
+        if (this->levelCrawler->Is_Coordinate_A_Platform(x, y+1)) return true;
     }
     return false;
 }
