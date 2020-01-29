@@ -13,6 +13,7 @@ Castle_Generator::~Castle_Generator() {
 }
 
 bool Castle_Generator::Generate_Level() {
+    this->levelCrawler->Set_Level_Attribute(Level_Attribute::CASTLE);
     this->levelCrawler->Set_Starting_Brick(Brick::SURFACE_4_AND_CEILING_3);
     this->bowserFireReadyToSpawn = false;
     this->bowserFireSpawned = false;
@@ -60,7 +61,7 @@ bool Castle_Generator::Generate_Level() {
     assert(this->enemySpawner->Spawn_Enemies());
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::CASTLE, Level_Attribute::CASTLE, this->levelCrawler->Get_Starting_Brick(), Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::CASTLE, this->levelCrawler->Get_Level_Attribute(), this->levelCrawler->Get_Starting_Brick(), Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
                                       this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();

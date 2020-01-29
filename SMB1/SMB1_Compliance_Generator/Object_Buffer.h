@@ -26,6 +26,8 @@ public:
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
+    bool Reserve_Objects(int amount);
+    bool Free_Reserved_Objects(int amount);
     bool Were_Flying_Cheep_Cheeps_Spawned();
     bool Is_Auto_Scroll_Active();
     bool Was_Auto_Scroll_Used();
@@ -117,6 +119,7 @@ private:
     int coinBlockZone;
     int powerupZone;
     int endObjectCount;
+    int reservedObjectCount;
     int totalBytes;
     bool firstPageSafety;
     bool autoScrollActive;

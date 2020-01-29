@@ -16,8 +16,8 @@ private:
     bool Find_Usable_Blocks();
     bool Distribute_Question_Block_Powerups();
     bool Distribute_Hidden_Powerups();
-    bool Distribute_One_Ups();
     bool Distribute_Ten_Coin_Blocks();
+    bool Reserve_Powerup_Objects();
 
     Object_Buffer *objects;
     Level_Crawler *levelCrawler;

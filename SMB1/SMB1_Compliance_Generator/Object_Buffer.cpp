@@ -17,6 +17,7 @@ Object_Buffer::Object_Buffer(int nbl, SMB1_Compliance_Generator_Arguments *args)
     this->coinBlockZone = 0;
     this->powerupZone = 0;
     this->endObjectCount = Physics::MIN_END_OBJECTS;
+    this->reservedObjectCount = 0;
     this->totalBytes = nbl;
     this->firstPageSafety = false;
     this->autoScrollActive = false;
@@ -143,7 +144,19 @@ int Object_Buffer::Get_Num_Objects_Left() {
 }
 
 int Object_Buffer::Get_Num_Objects_Available() {
-    return (this->Get_Num_Objects_Left()-this->endObjectCount);
+    return (this->Get_Num_Objects_Left()-this->endObjectCount)-this->reservedObjectCount;
+}
+
+bool Object_Buffer::Reserve_Objects(int amount) {
+    if (this->Get_Num_Objects_Available() > amount) return false;
+    this->reservedObjectCount += amount;
+    return true;
+}
+
+bool Object_Buffer::Free_Reserved_Objects(int amount) {
+    if (this->reservedObjectCount > amount) { this->reservedObjectCount = 0; return false; }
+    this->reservedObjectCount -= amount;
+    return true;
 }
 
 bool Object_Buffer::Were_Flying_Cheep_Cheeps_Spawned() {

@@ -8,6 +8,7 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->objects = objects;
     this->levelCrawler = levelCrawler;
     this->args = args;
+    assert(this->Reserve_Powerup_Objects());
 }
 
 bool Powerup_Distributor::Distribute_Powerups() {
@@ -16,7 +17,6 @@ bool Powerup_Distributor::Distribute_Powerups() {
     if (!this->Find_Usable_Blocks()) return false;
     if (!this->Distribute_Question_Block_Powerups()) return false;
     if (!this->Distribute_Hidden_Powerups()) return false;
-    if (!this->Distribute_One_Ups()) return false;
     return this->Distribute_Ten_Coin_Blocks();
 }
 
@@ -32,10 +32,10 @@ bool Powerup_Distributor::Distribute_Hidden_Powerups() {
 
 }
 
-bool Powerup_Distributor::Distribute_One_Ups() {
+bool Powerup_Distributor::Distribute_Ten_Coin_Blocks() {
 
 }
 
-bool Powerup_Distributor::Distribute_Ten_Coin_Blocks() {
-
+bool Powerup_Distributor::Reserve_Powerup_Objects() {
+    return true; //TODO: REMOVE THIS!!!
 }
