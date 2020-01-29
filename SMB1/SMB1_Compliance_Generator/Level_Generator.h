@@ -10,7 +10,9 @@
 #include "Required_Enemy_Spawns.h"
 #include "Enemy_Spawner.h"
 #include "End_Spawner.h"
+#include "Level_Crawler.h"
 #include "Midpoint_Handler.h"
+#include "Powerup_Distributor.h"
 #include "First_Page_Handler.h"
 #include <QFile>
 #include <QTextStream>
@@ -41,7 +43,9 @@ protected:
     Required_Enemy_Spawns *requiredEnemySpawns;
     Enemy_Spawner *enemySpawner;
     End_Spawner *end;
+    Level_Crawler *levelCrawler;
     Midpoint_Handler *midpointHandler;
+    Powerup_Distributor *powerupDistributor;
     First_Page_Handler *firstPageHandler;
     SMB1_Compliance_Generator_Arguments *args;
 };

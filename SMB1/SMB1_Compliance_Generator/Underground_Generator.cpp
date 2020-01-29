@@ -15,6 +15,7 @@ bool Underground_Generator::Generate_Level() {
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->objects, Level_Type::UNDERGROUND);
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::UNDERGROUND);
 
+    this->levelCrawler->Set_Starting_Brick(Brick::ALL);
     int x = this->objects->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
@@ -33,11 +34,12 @@ bool Underground_Generator::Generate_Level() {
         x = this->objects->Get_Last_Object_Length();
     }
 
-    //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::ALL));
+    //Handle Additional Passes
+    assert(this->powerupDistributor->Distribute_Powerups());
+    assert(this->enemySpawner->Spawn_Enemies());
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, Brick::ALL, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERGROUND, Level_Attribute::UNDERGROUND, this->levelCrawler->Get_Starting_Brick(), this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
                                       this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();

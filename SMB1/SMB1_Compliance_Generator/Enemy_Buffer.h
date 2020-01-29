@@ -8,8 +8,6 @@
 #include <QLinkedList>
 #include <QString>
 
-class Buffer_Data;
-
 class Enemy_Buffer : public Item_Buffer {
 public:
     Enemy_Buffer(int numBytesLeft);

@@ -9,9 +9,10 @@
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include <QFile>
 #include <QLinkedList>
+#include <QMap>
 #include <QVector>
 
-struct Object_Buffer_Data;
+struct Block_Data;
 
 class Object_Buffer : public Item_Buffer {
 public:
@@ -33,21 +34,17 @@ public:
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
     void Set_End_Object_Count(int value);
+    QMap<QString, Block_Data> *Get_Question_Blocks();
+    QMap<QString, Block_Data> *Get_Brick_Blocks();
 
     bool Question_Block_With_Mushroom(int x, int y);
-    bool Question_Block_With_Mushroom_Only(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_1up(int x, int y);
-    bool Hidden_Block_With_1up_Only(int x, int y);
     bool Brick_With_Mushroom(int x, int y);
-    bool Brick_With_Mushroom_Only(int x, int y);
     bool Brick_With_Star(int x, int y);
-    bool Brick_With_Star_Only(int x, int y);
     bool Brick_With_10_Coins(int x, int y);
-    bool Brick_With_10_Coins_Only(int x, int y);
     bool Brick_With_1up(int x, int y);
-    bool Brick_With_1up_Only(int x, int y);
     bool Brick_With_Vine_Without_Pointer(int x, int y);
     bool Used_Block(int x, int y);
     bool Trampoline(int x, int y);
@@ -108,12 +105,12 @@ private:
     void Handle_Zones(int x);
     bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int coordinate);
-
-    const static int MAX_COIN_BLOCK_ZONE = 24;
-    const static int MAX_POWERUP_ZONE = 24;
+    void Insert_Into_Block_Map(int y, int length, bool verticalGroup, QMap<QString, Block_Data> *blocks);
 
     SMB1_Compliance_Generator_Arguments *args;
     QVector<int> *objectsAtXCoordinates;
+    QMap<QString, Block_Data> *questionBlocks;
+    QMap<QString, Block_Data> *brickBlocks;
     bool exceededVerticalObjectLimit;
     int lastObjectLength;
     bool lastObjectIsPlatform;

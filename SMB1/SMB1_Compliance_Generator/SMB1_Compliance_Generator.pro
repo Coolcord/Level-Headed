@@ -21,6 +21,7 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Level_Generator.cpp \
     Object_Buffer.cpp \
     Pipe_Pointer_Buffer.cpp \
+    Powerup_Distributor.cpp \
     SMB1_Compliance_Object_Parser.cpp \
     Standard_Overworld_Generator.cpp \
     Simple_Object_Spawner.cpp \
@@ -64,6 +65,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     ../Common_SMB1_Files/Object_Item_String.h \
     ../Common_SMB1_Files/Scenery.h \
     ../Common_SMB1_Files/Scenery_String.h \
+    Block_Data.h \
     Buffer_Data.h \
     Enemy_Buffer.h \
     Item_Buffer.h \
@@ -72,6 +74,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Level_Generator.h \
     Object_Buffer.h \
     Pipe_Pointer_Buffer.h \
+    Powerup_Distributor.h \
     SMB1_Compliance_Object_Parser.h \
     Standard_Overworld_Generator.h \
     Simple_Object_Spawner.h \

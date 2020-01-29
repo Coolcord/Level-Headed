@@ -15,6 +15,10 @@ Level_Crawler::Level_Crawler(Object_Buffer *objects) {
     this->objects = objects;
     this->endDetected = false;
     this->safeSize = 0;
+    this->levelCrawled = false;
+    this->startingBrick = Brick::SURFACE;
+    this->brick = Brick::SURFACE;
+    this->nextBrick = Brick::SURFACE;
     this->badCoordinates = new QMap<QString, bool>();
 }
 
@@ -22,9 +26,11 @@ Level_Crawler::~Level_Crawler() {
     delete this->badCoordinates;
 }
 
-bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
-    this->brick = startingBrick;
-    this->nextBrick = startingBrick;
+bool Level_Crawler::Crawl_Level() {
+    if (this->levelCrawled) return true; //don't crawl the level more than once
+
+    this->brick = this->startingBrick;
+    this->nextBrick = this->startingBrick;
     this->endDetected = false;
     this->safeSize = 0;
     int x = 0;
@@ -39,242 +45,36 @@ bool Level_Crawler::Crawl_Level(Brick::Brick startingBrick) {
         this->objects->Seek_To_Next();
     }
 
+    this->levelCrawled = true;
     return true;
     //return this->Draw_Map(); //Debug code
+}
+
+bool Level_Crawler::Recrawl_Level() {
+    this->levelCrawled = false;
+    return this->Crawl_Level();
+}
+
+Brick::Brick Level_Crawler::Get_Starting_Brick() {
+    return this->startingBrick;
+}
+
+void Level_Crawler::Set_Starting_Brick(Brick::Brick startingBrick) {
+    this->startingBrick = startingBrick;
+    this->brick = startingBrick;
+    this->nextBrick = startingBrick;
 }
 
 int Level_Crawler::Get_Safe_Size() {
     return this->safeSize;
 }
 
-bool Level_Crawler::Find_Safe_Coordinate(int &x, int &y, int lastX) {
-    return this->Find_Safe_Coordinate(1, x, y, lastX);
+bool Level_Crawler::Is_Coordinate_Empty(int x, int y) {
+    return !this->Is_Coordinate_Used(x, y);
 }
 
-bool Level_Crawler::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bool reverse) {
-    assert(size > 0);
-    if (reverse) {
-        for (int i = lastX+15; i >= x; --i) {
-            int safeY = 0;
-            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
-                if (size == 1) {
-                    x = i;
-                    y = safeY;
-                    return true;
-                } else {
-                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
-                        //Only return true on the last iteration if it is valid
-                        if (j == i+size-1) {
-                            x = i;
-                            y = safeY;
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        for (int i = x; i <= lastX+15; ++i) {
-            int safeY = 0;
-            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
-                if (size == 1) {
-                    x = i;
-                    y = safeY;
-                    return true;
-                } else {
-                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
-                        //Only return true on the last iteration if it is valid
-                        if (j == i+size-1) {
-                            x = i;
-                            y = safeY;
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
-bool Level_Crawler::Find_Safe_Coordinate_At_Y(int &x, int y, int lastX) {
-    return this->Find_Safe_Coordinate_At_Y(1, x, y, lastX);
-}
-
-bool Level_Crawler::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX, bool reverse) {
-    assert(size > 0);
-    int numValid = 0;
-    int incrementLastX = 15;
-    if (size > 1) incrementLastX = 13;
-    if (reverse) {
-        for (int i = lastX+incrementLastX; i <= x; --i) { //use 0xD for enemy groups
-            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
-            else numValid = 0;
-            if (numValid == size) {
-                x = i;
-                return true;
-            }
-        }
-    } else {
-        for (int i = x; i <= lastX+incrementLastX; ++i) { //use 0xD for enemy groups
-            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
-            else numValid = 0;
-            if (numValid == size) {
-                x = i-size+1;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Level_Crawler::Find_Safe_Coordinate_At_X(int x, int &y) {
-    for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-        if (this->Is_Coordinate_Safe(x, i)) {
-            y = i;
-            return true;
-        }
-    }
-    return false;
-}
-
-//TODO: Remove the j > 1 if check and implement it into the for loops
-bool Level_Crawler::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
-    if (reverse) {
-        for (int i = lastX+15; i >= x; --i) {
-            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
-                //Check to see if a regular enemy can spawn here first
-                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
-                    //The two coordinates above cannot be solid objects
-                    if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
-                    if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
-                    //Safe coordinate found
-                    x = i;
-                    y = j;
-                    return true;
-                }
-            }
-        }
-    } else {
-        for (int i = x; i <= lastX+15; ++i) {
-            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
-                //Check to see if a regular enemy can spawn here first
-                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
-                    //The two coordinates above cannot be solid objects
-                    if (this->badCoordinates->contains(this->Make_Key(i, j-1))) continue;
-                    if (this->badCoordinates->contains(this->Make_Key(i, j-2))) continue;
-                    //Safe coordinate found
-                    x = i;
-                    y = j;
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-//TODO: Don't allow these to spawn above y 2
-bool Level_Crawler::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
-    if (reverse) {
-        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-            for (int j = lastX+15; j >= x; --j) {
-                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
-                    //Y was set in the function
-                    x = j;
-                    return true;
-                }
-            }
-        }
-    } else {
-        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-            for (int j = x; j <= lastX+15; ++j) {
-                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
-                    //Y was set in the function
-                    x = j;
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-//TODO: Don't allow these to spawn above y 2
-bool Level_Crawler::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
-    if (!this->Is_Coordinate_Safe(x, y)) return false;
-    //Scan up to 4 blocks above the ground
-    int scanDistance = 4;
-    if (y < 4) scanDistance = y+1;
-    for (int i = y-Random::Get_Instance().Get_Num(scanDistance-1), numScanned = 0; numScanned < scanDistance; i <= 0 ? i = y : --i) {
-        //Scan possible flight path
-        int numValid = 0;
-        bool invalid = false;
-        for (int j = x; j >= x-Physics::PARATROOPA_FLY_DISTANCE+1; --j) {
-            //At least 3 spaces should not have collision
-            if (!this->badCoordinates->contains(this->Make_Key(j, i))) ++numValid;
-            //Prevent a bug with paratroopas getting stuck in walls after being stomped
-            if (this->Is_Coordinate_Safe(j, i-2)) invalid = true;
-        }
-        if (numValid >= 3 && !invalid) {
-            y = i;
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Level_Crawler::Find_Safe_Red_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
-    if (reverse) {
-        for (int i = lastX+15; i >= x; --i) {
-            //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
-            for (int j = Random::Get_Instance().Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
-                //Make sure the red paratroopa has a clear flight path
-                bool valid = true;
-                for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {
-                    if (this->badCoordinates->contains(this->Make_Key(i, k))) {
-                        valid = false;
-                        break;
-                    }
-                }
-                if (valid) {
-                    x = i;
-                    y = j;
-                    return true;
-                }
-            }
-        }
-    } else {
-        for (int i = x; i <= lastX+15; ++i) {
-            //Red paratroopas cannot be spawned lower than y = 4, otherwise they will not behave properly
-            for (int j = Random::Get_Instance().Get_Num(4), numChecked = 0; numChecked < 6; j = (j+1)%5, ++numChecked) {
-                //Make sure the red paratroopa has a clear flight path
-                bool valid = true;
-                for (int k = j; k < j+Physics::PARATROOPA_FLY_DISTANCE; ++k) {
-                    if (this->badCoordinates->contains(this->Make_Key(i, k))) {
-                        valid = false;
-                        break;
-                    }
-                }
-                if (valid) {
-                    x = i;
-                    y = j;
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-bool Level_Crawler::Is_Coordinate_Safe(int x, int y) {
-    QString key = this->Make_Key(x, y);
-    if (!this->badCoordinates->contains(key)) {
-        key = this->Make_Key(x, y+1);
-        //Ground is expected to be below the enemy
-        if (this->badCoordinates->contains(key)) return true;
-    }
-    return false;
+bool Level_Crawler::Is_Coordinate_Used(int x, int y) {
+    return this->badCoordinates->contains(this->Make_Key(x, y));
 }
 
 void Level_Crawler::Crawl_Forward(int x, int spaces) {

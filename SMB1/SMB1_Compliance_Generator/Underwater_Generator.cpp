@@ -8,6 +8,7 @@
 #include <assert.h>
 
 bool Underwater_Generator::Generate_Level() {
+    this->levelCrawler->Set_Starting_Brick(Brick::SURFACE);
     int x = this->objects->Get_Last_Object_Length();
     this->firstPageHandler->Handle_First_Page(x);
     assert(this->Spawn_Intro(x));
@@ -32,11 +33,12 @@ bool Underwater_Generator::Generate_Level() {
         x = this->objects->Get_Last_Object_Length();
     }
 
-    //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
+    //Handle Additional Passes
+    //Skip powerups here
+    assert(this->enemySpawner->Spawn_Enemies());
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::UNDERWATER, Level_Attribute::UNDERWATER, this->levelCrawler->Get_Starting_Brick(), this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
                                       this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();

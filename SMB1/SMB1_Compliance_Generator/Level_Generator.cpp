@@ -15,7 +15,9 @@ Level_Generator::Level_Generator(QFile *file, SMB1_Compliance_Generator_Argument
     this->enemies = new Enemy_Buffer(this->args->numEnemyBytes);
     this->pipePointer = new Pipe_Pointer_Buffer(this->objects, this->enemies);
     this->requiredEnemySpawns = new Required_Enemy_Spawns(this->objects, this->enemies, this->pipePointer, this->args);
-    this->enemySpawner = new Enemy_Spawner(this->objects, this->enemies, this->requiredEnemySpawns, this->args);
+    this->levelCrawler = new Level_Crawler(this->objects);
+    this->powerupDistributor = new Powerup_Distributor(this->levelCrawler, this->objects, this->args);
+    this->enemySpawner = new Enemy_Spawner(this->objects, this->enemies, this->levelCrawler, this->requiredEnemySpawns, this->args);
     this->continuousEnemiesSpawner = new Continuous_Enemies_Spawner(this->args, this->objects, this->requiredEnemySpawns);
     this->end = new End_Spawner(this->objects, this->enemies, this->args, this->requiredEnemySpawns, this->args->useAutoScroll);
     this->midpointHandler = new Midpoint_Handler(this->objects, this->continuousEnemiesSpawner, this->args, this->args->levelType);
@@ -33,6 +35,8 @@ Level_Generator::~Level_Generator() {
     delete this->end;
     delete this->midpointHandler;
     delete this->firstPageHandler;
+    delete this->levelCrawler;
+    delete this->powerupDistributor;
 }
 
 int Level_Generator::Get_Random_X() {

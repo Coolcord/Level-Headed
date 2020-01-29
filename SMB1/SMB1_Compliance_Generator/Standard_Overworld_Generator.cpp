@@ -17,6 +17,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
     this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::STANDARD_OVERWORLD);
 
     //Spawn the Intro
+    this->levelCrawler->Set_Starting_Brick(Brick::SURFACE);
     int x = this->objects->Get_Last_Object_Length();
     this->Spawn_Intro(x);
 
@@ -32,11 +33,12 @@ bool Standard_Overworld_Generator::Generate_Level() {
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 
-    //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE));
+    //Handle Additional Passes
+    assert(this->powerupDistributor->Distribute_Powerups());
+    assert(this->enemySpawner->Spawn_Enemies());
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, Brick::SURFACE, this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::STANDARD_OVERWORLD, Level_Attribute::OVERWORLD, this->levelCrawler->Get_Starting_Brick(), this->firstPageHandler->Get_Header_Background(), this->args->headerScenery, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
                                       this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();

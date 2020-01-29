@@ -41,7 +41,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks(int y, int length) {
             int random = Random::Get_Instance().Get_Num(QUESTION_TOTAL-1);
             if (random <= QUESTION_NOTHING) continue;
             else if (random <= QUESTION_MUSHROOM) {
-                if (this->object->Question_Block_With_Mushroom_Only(i, y)) {
+                if (this->object->Question_Block_With_Mushroom(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
@@ -64,27 +64,27 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
                     ++numObjects;
                 }
             } else if (random <= BRICK_QUESTION_MUSHROOM) {
-                if (this->object->Question_Block_With_Mushroom_Only(i, y)) {
+                if (this->object->Question_Block_With_Mushroom(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
             } else if (random <= BRICK_MUSHROOM) {
-                if (this->object->Brick_With_Mushroom_Only(i, y)) {
+                if (this->object->Brick_With_Mushroom(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
             } else if (random <= BRICK_10_COINS) {
-                if (this->object->Brick_With_10_Coins_Only(i, y)) {
+                if (this->object->Brick_With_10_Coins(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
             } else if (random <= BRICK_STAR) {
-                if (this->object->Brick_With_Star_Only(i, y)) {
+                if (this->object->Brick_With_Star(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
             } else if (random <= BRICK_1UP) {
-                if (this->object->Brick_With_1up_Only(i, y)) {
+                if (this->object->Brick_With_1up(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }

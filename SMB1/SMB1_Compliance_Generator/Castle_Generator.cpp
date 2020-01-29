@@ -13,6 +13,7 @@ Castle_Generator::~Castle_Generator() {
 }
 
 bool Castle_Generator::Generate_Level() {
+    this->levelCrawler->Set_Starting_Brick(Brick::SURFACE_4_AND_CEILING_3);
     this->bowserFireReadyToSpawn = false;
     this->bowserFireSpawned = false;
     //Allocate space for Bowser's Fire, Bowser, Toad, and 2 possible page changes
@@ -20,7 +21,7 @@ bool Castle_Generator::Generate_Level() {
     int x = 0;
     assert(this->Spawn_Intro(x));
     this->midpointHandler->Handle_Midpoint(x);
-    this->brick = Brick::SURFACE_4_AND_CEILING_3;
+    this->brick = this->levelCrawler->Get_Starting_Brick();
 
     //Create the level
     while (!this->end->Is_End_Written()) {
@@ -54,11 +55,12 @@ bool Castle_Generator::Generate_Level() {
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 
-    //Spawn the Enemies
-    assert(this->enemySpawner->Spawn_Enemies(Brick::SURFACE_4_AND_CEILING_3));
+    //Handle Additional Passes
+    assert(this->powerupDistributor->Distribute_Powerups());
+    assert(this->enemySpawner->Spawn_Enemies());
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::CASTLE, Level_Attribute::CASTLE, Brick::SURFACE_4_AND_CEILING_3, Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
+    if (!this->header->Write_Header_To_Buffer(Level_Type::CASTLE, Level_Attribute::CASTLE, this->levelCrawler->Get_Starting_Brick(), Background::OVER_WATER, Scenery::NO_SCENERY, this->args->levelCompliment, 400,
                                       this->midpointHandler->Get_Midpoint(), this->args->difficulty, this->objects->Get_Level_Length(),
                                       this->objects->Get_Num_Items(), this->enemies->Get_Num_Items(), 0)) return false;
     return this->Write_Buffers_To_File();
@@ -351,7 +353,7 @@ bool Castle_Generator::Item_Tease(int x) {
                     x = length;
                     if (Random::Get_Instance().Get_Num(1) == 0) {
                         x = Random::Get_Instance().Get_Num(length-1);
-                        if (this->objects->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
+                        if (this->objects->Question_Block_With_Mushroom(x, y)) x = length - x;
                         else x = length;
                     }
                 }
@@ -381,7 +383,7 @@ bool Castle_Generator::Item_Tease(int x) {
                 x = length;
                 if (Random::Get_Instance().Get_Num(1) == 0) {
                     x = Random::Get_Instance().Get_Num(length-1);
-                    if (this->objects->Question_Block_With_Mushroom_Only(x, y)) x = length - x;
+                    if (this->objects->Question_Block_With_Mushroom(x, y)) x = length - x;
                     else x = length;
                 }
             }

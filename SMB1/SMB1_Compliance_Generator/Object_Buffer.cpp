@@ -3,6 +3,7 @@
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "../Common_SMB1_Files/Scenery_String.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
+#include "Block_Data.h"
 #include "Enemy_Spawner.h"
 #include "Buffer_Data.h"
 #include "Physics.h"
@@ -24,10 +25,14 @@ Object_Buffer::Object_Buffer(int nbl, SMB1_Compliance_Generator_Arguments *args)
     this->exceededVerticalObjectLimit = false;
     this->cancelSpawnerX = -1;
     this->objectsAtXCoordinates = new QVector<int>(0x400, 0); //holds up to 40 pages of coordinates
+    this->questionBlocks = new QMap<QString, Block_Data>();
+    this->brickBlocks = new QMap<QString, Block_Data>();
 }
 
 Object_Buffer::~Object_Buffer() {
     delete this->objectsAtXCoordinates;
+    delete this->questionBlocks;
+    delete this->brickBlocks;
     delete this->itemBuffer;
 }
 
@@ -176,6 +181,14 @@ void Object_Buffer::Set_First_Page_Safety(bool firstPageSafety) {
 
 void Object_Buffer::Set_End_Object_Count(int value) {
     this->endObjectCount = value;
+}
+
+QMap<QString, Block_Data> *Object_Buffer::Get_Question_Blocks() {
+    return this->questionBlocks;
+}
+
+QMap<QString, Block_Data> *Object_Buffer::Get_Brick_Blocks() {
+    return this->brickBlocks;
 }
 
 bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int length) {
@@ -418,28 +431,32 @@ bool Object_Buffer::Is_Coordinate_Valid(int coordinate) {
     return (coordinate >= 0x0 && coordinate <= 0x10);
 }
 
-bool Object_Buffer::Question_Block_With_Mushroom(int x, int y) {
-    if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_MUSHROOM, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        } else {
-            return false;
-        }
+void Object_Buffer::Insert_Into_Block_Map(int y, int length, bool verticalGroup, QMap<QString, Block_Data> *blocks) {
+    Block_Data data;
+    data.x = this->currentAbsoluteX;
+    data.y = y;
+    data.partOfGroup = (length > 1);
+    data.verticalGroup = verticalGroup;
+    data.hittable = false;
+    data.safeForMushroom = false;
+    data.safeForStar = false;
+    if (verticalGroup) {
+        for (int i = 0; i < length && y+i < 0xB; ++i) blocks->insert(QString(QString::number(this->currentAbsoluteX)+"x"+QString::number(y+i)), data);
     } else {
-        return this->Question_Block_With_Coin(x, y);
+        for (int i = 0; i < length; ++i) blocks->insert(QString(QString::number(this->currentAbsoluteX+i)+"x"+QString::number(y)), data);
     }
 }
 
-bool Object_Buffer::Question_Block_With_Mushroom_Only(int x, int y) {
+bool Object_Buffer::Question_Block_With_Mushroom(int x, int y) {
     if (y > 0xB) return false;
     return this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_MUSHROOM, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Question_Block_With_Coin(int x, int y) {
     if (y > 0xB) return false;
-    return this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_COIN, true, x, y, Physics::MIN_OBJECT_LENGTH);
+    if (!this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_COIN, true, x, y, Physics::MIN_OBJECT_LENGTH)) return false;
+    this->Insert_Into_Block_Map(y, Physics::MIN_OBJECT_LENGTH, false, this->questionBlocks);
+    return true;
 }
 
 bool Object_Buffer::Hidden_Block_With_Coin(int x, int y) {
@@ -449,95 +466,25 @@ bool Object_Buffer::Hidden_Block_With_Coin(int x, int y) {
 
 bool Object_Buffer::Hidden_Block_With_1up(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(Object_Item::HIDDEN_BLOCK_WITH_1UP, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return this->Hidden_Block_With_Coin(x, y);
-    }
-}
-
-bool Object_Buffer::Hidden_Block_With_1up_Only(int x, int y) {
-    if (y > 0xB) return false;
     return this->Write_Object(Object_Item::HIDDEN_BLOCK_WITH_1UP, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Brick_With_Mushroom(int x, int y) {
-    if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(Object_Item::BRICK_WITH_MUSHROOM, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
-    }
-}
-
-bool Object_Buffer::Brick_With_Mushroom_Only(int x, int y) {
     if (y > 0xB) return false;
     return this->Write_Object(Object_Item::BRICK_WITH_MUSHROOM, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Brick_With_Star(int x, int y) {
     if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(Object_Item::BRICK_WITH_STAR, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
-    }
-}
-
-bool Object_Buffer::Brick_With_Star_Only(int x, int y) {
-    if (y > 0xB) return false;
     return this->Write_Object(Object_Item::BRICK_WITH_STAR, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Brick_With_10_Coins(int x, int y) {
     if (y > 0xB) return false;
-    if (this->coinBlockZone == 0) {
-        if (this->Write_Object(Object_Item::BRICK_WITH_10_COINS, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->coinBlockZone = this->MAX_COIN_BLOCK_ZONE;
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
-    }
-}
-
-bool Object_Buffer::Brick_With_10_Coins_Only(int x, int y) {
-    if (y > 0xB) return false;
     return this->Write_Object(Object_Item::BRICK_WITH_10_COINS, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Brick_With_1up(int x, int y) {
-    if (y > 0xB) return false;
-    if (this->powerupZone == 0) {
-        if (this->Write_Object(Object_Item::BRICK_WITH_1UP, true, x, y, Physics::MIN_OBJECT_LENGTH)) {
-            this->powerupZone = this->MAX_POWERUP_ZONE;
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return this->Horizontal_Bricks(x, y, Physics::MIN_OBJECT_LENGTH);
-    }
-}
-
-bool Object_Buffer::Brick_With_1up_Only(int x, int y) {
     if (y > 0xB) return false;
     return this->Write_Object(Object_Item::BRICK_WITH_1UP, true, x, y, Physics::MIN_OBJECT_LENGTH);
 }
@@ -572,7 +519,9 @@ bool Object_Buffer::Island(int x, int y, int length) {
 bool Object_Buffer::Horizontal_Bricks(int x, int y, int length) {
     if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(Object_Item::HORIZONTAL_BRICKS, true, x, y, length);
+    if (!this->Write_Object(Object_Item::HORIZONTAL_BRICKS, true, x, y, length)) return false;
+    this->Insert_Into_Block_Map(y, length, false, this->brickBlocks);
+    return true;
 }
 
 bool Object_Buffer::Horizontal_Blocks(int x, int y, int length) {
@@ -590,7 +539,9 @@ bool Object_Buffer::Horizontal_Coins(int x, int y, int length) {
 bool Object_Buffer::Vertical_Bricks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
-    return this->Write_Object(Object_Item::VERTICAL_BRICKS, true, x, y, height, Physics::MIN_OBJECT_LENGTH);
+    if (!this->Write_Object(Object_Item::VERTICAL_BRICKS, true, x, y, height, Physics::MIN_OBJECT_LENGTH)) return false;
+    this->Insert_Into_Block_Map(y, height, true, this->brickBlocks);
+    return true;
 }
 
 bool Object_Buffer::Vertical_Blocks(int x, int y, int height) {
@@ -653,7 +604,9 @@ bool Object_Buffer::Bridge(int x, int yPlacement, int length) {
 bool Object_Buffer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement, int length) {
     if (length < 1 || length > 16) return false;
     if (yPlacement == 0x3 || yPlacement == 0x7) {
-        return this->Write_Object(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, true, x, yPlacement, length);
+        if (!this->Write_Object(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, true, x, yPlacement, length)) return false;
+        this->Insert_Into_Block_Map(yPlacement, length, false, this->questionBlocks);
+        return true;
     } else {
         return false;
     }
