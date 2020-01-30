@@ -219,9 +219,3 @@ Buffer_Data *Item_Buffer::Get_Current_For_Modification() {
     assert(!this->At_End());
     return &(*this->itemBufferIter);
 }
-
-bool Item_Buffer::Remove_Current() {
-    if (this->At_End()) return false;
-    this->itemBufferIter = this->itemBuffer->erase(this->itemBufferIter);
-    return true;
-}

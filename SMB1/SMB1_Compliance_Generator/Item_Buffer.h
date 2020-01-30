@@ -34,7 +34,6 @@ public:
     void Seek_To_End();
     Buffer_Data Get_Current();
     Buffer_Data *Get_Current_For_Modification();
-    bool Remove_Current();
 
 protected:
     Item_Buffer(const Item_Buffer&);
