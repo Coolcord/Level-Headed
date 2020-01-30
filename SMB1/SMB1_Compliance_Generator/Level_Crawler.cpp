@@ -39,7 +39,7 @@ bool Level_Crawler::Crawl_Level() {
     int holeCrawlSteps = 0;
 
     //Read the Objects to Determine Safe Spots to Place Enemies
-    this->objects->Seek_To_Beginning();
+    this->objects->Seek_To_First_Item();
     while (!this->objects->At_End()) {
         Buffer_Data data = this->objects->Get_Current();
         assert(this->Parse_Object(data, x, holeCrawlSteps));

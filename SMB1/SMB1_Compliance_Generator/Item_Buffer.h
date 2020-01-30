@@ -28,7 +28,7 @@ public:
     bool Seek_To_Object_Item(int absoluteX, int y, Object_Item::Object_Item objectItem);
     bool Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Item enemyItem);
     bool Seek_To_Absolute_X(int absoluteX); //seeks to the last item at absolute X
-    void Seek_To_Beginning();
+    void Seek_To_First_Item();
     void Seek_To_Next();
     void Seek_To_Previous();
     void Seek_To_End();

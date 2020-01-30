@@ -39,6 +39,8 @@ public:
     QMap<QString, Block_Data> *Get_Question_Blocks();
     QMap<QString, Block_Data> *Get_Brick_Blocks();
 
+    //These insert after the current line
+    //Note: There is no way to insert at the beginning after the first insertion!
     bool Question_Block_With_Mushroom(int x, int y);
     bool Question_Block_With_Coin(int x, int y);
     bool Hidden_Block_With_Coin(int x, int y);

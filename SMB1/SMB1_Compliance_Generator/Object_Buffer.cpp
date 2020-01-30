@@ -213,8 +213,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.x = x;
     objectBufferData.length = length;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -234,8 +233,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.y = y;
     objectBufferData.length = length;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -256,8 +254,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.y = y;
     objectBufferData.height = height;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -275,8 +272,7 @@ bool Object_Buffer::Write_Object(int x, Background::Background background) {
     objectBufferData.x = x;
     objectBufferData.background = background;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -292,8 +288,7 @@ bool Object_Buffer::Write_Object(int x, Brick::Brick brick, Scenery::Scenery sce
     objectBufferData.brick = brick;
     objectBufferData.scenery = scenery;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -310,8 +305,7 @@ bool Object_Buffer::Write_Object(int page) {
     objectBufferData.objectItem = Object_Item::PAGE_CHANGE;
     objectBufferData.page = page;
     objectBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
-    ++this->itemBufferIter;
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->Handle_Zones(relativeX);
     this->Check_Vertical_Object_Limit(1);

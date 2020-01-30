@@ -18,6 +18,8 @@ public:
     bool Is_Lakitu_Active();
     bool Was_Lakitu_Spawned();
 
+    //These insert after the current line
+    //Note: There is no way to insert at the beginning after the first insertion!
     bool Green_Koopa(int x, int y, bool moving = true, bool onlyHardMode = false);
     bool Red_Koopa(int x, int y, bool onlyHardMode = false);
     bool Buzzy_Beetle(int x, int y, bool onlyHardMode = false);

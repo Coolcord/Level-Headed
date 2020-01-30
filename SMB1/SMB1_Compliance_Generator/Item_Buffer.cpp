@@ -133,7 +133,7 @@ bool Item_Buffer::Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Ite
 
 bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     if (absoluteX < 0) return false; //out of range!
-    if (absoluteX == 0) { this->Seek_To_Beginning(); return true; }
+    if (absoluteX == 0) { this->Seek_To_First_Item(); return true; }
     if (absoluteX > this->levelLength+31) return false; //out of range!
     if (absoluteX > this->levelLength) { this->Seek_To_End(); return true; }
 
@@ -152,7 +152,7 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     //Seek through the level to find the coordinate
     bool found = false;
     if (absoluteX < levelLength/2) { //start from the beginning
-        this->Seek_To_Beginning();
+        this->Seek_To_First_Item();
         while (!this->At_End() && !found) {
             Buffer_Data data = *this->itemBufferIter;
             if (data.absoluteX > absoluteX) found = true;
@@ -175,10 +175,10 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     return true;
 }
 
-void Item_Buffer::Seek_To_Beginning() {
+void Item_Buffer::Seek_To_First_Item() {
     this->itemBufferIter = this->itemBuffer->begin();
     Buffer_Data data = *this->itemBufferIter;
-    this->currentAbsoluteX -= data.x;
+    this->currentAbsoluteX = data.absoluteX;
     this->currentX = this->currentAbsoluteX%0x10;
     this->currentPage = this->currentAbsoluteX/0x10;
 }
@@ -187,7 +187,7 @@ void Item_Buffer::Seek_To_Next() {
     if (!this->At_End()) {
         ++this->itemBufferIter;
         Buffer_Data data = *this->itemBufferIter;
-        this->currentAbsoluteX -= data.x;
+        this->currentAbsoluteX = data.absoluteX;
         this->currentX = this->currentAbsoluteX%0x10;
         this->currentPage = this->currentAbsoluteX/0x10;
     }
@@ -197,7 +197,7 @@ void Item_Buffer::Seek_To_Previous() {
     if (!this->At_Beginning()) {
         --this->itemBufferIter;
         Buffer_Data data = *this->itemBufferIter;
-        this->currentAbsoluteX -= data.x;
+        this->currentAbsoluteX = data.absoluteX;
         this->currentX = this->currentAbsoluteX%0x10;
         this->currentPage = this->currentAbsoluteX/0x10;
     }
