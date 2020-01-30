@@ -14,18 +14,28 @@ class Level_Crawler {
 public:
     Level_Crawler(Object_Buffer *objects);
     ~Level_Crawler();
+
+    //Initiate Crawl
     bool Crawl_Level();
     bool Recrawl_Level();
+
+    //Get and Set Attributes
     void Set_Level_Attribute(Level_Attribute::Level_Attribute levelAttribute);
     Level_Attribute::Level_Attribute Get_Level_Attribute();
     Brick::Brick Get_Starting_Brick();
     void Set_Starting_Brick(Brick::Brick startingBrick);
     int Get_Safe_Size();
+
+    //Coordinate Checks
     bool Is_Coordinate_Empty(int x, int y);
     bool Is_Coordinate_Used(int x, int y);
+    bool Is_Coordinate_Solid(int x, int y);
     bool Is_Coordinate_A_Platform(int x, int y);
-    bool Is_Coordinate_Breakable(int x, int y);
+    bool Is_Coordinate_Breakable_Or_Empty(int x, int y);
     Object_Item::Object_Item Get_Object_At_Coordinate(int x, int y);
+
+    //Find Coordinates
+    bool Find_Platform_Directly_Below(int x, int y, int &platformY);
 
 private:
     void Crawl_Forward(int x, int spaces);

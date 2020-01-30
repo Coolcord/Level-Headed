@@ -89,7 +89,7 @@ bool Level_Crawler::Is_Coordinate_Used(int x, int y) {
     return this->usedCoordinates->contains(this->Make_Key(x, y));
 }
 
-bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
+bool Level_Crawler::Is_Coordinate_Solid(int x, int y) {
     Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y);
     switch (objectItem) {
     case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:             return true;
@@ -149,11 +149,34 @@ bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
     return false;
 }
 
-bool Level_Crawler::Is_Coordinate_Breakable(int x, int y) {
-    Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y);
-    if (objectItem == Object_Item::HORIZONTAL_BRICKS || objectItem == Object_Item::VERTICAL_BRICKS) {
-        if (this->levelAttribute != Level_Attribute::UNDERWATER) return true;
+bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
+    if (!this->Is_Coordinate_Solid(x, y)) return false;
+    Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y-1);
+    switch (objectItem) {
+    default:
+        return false;
+    case Object_Item::HORIZONTAL_COINS:
+    case Object_Item::NOTHING:
+        return true; //only coins or nothing can be on top of a platform
     }
+    assert(false);
+    return false;
+}
+
+bool Level_Crawler::Is_Coordinate_Breakable_Or_Empty(int x, int y) {
+    Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y);
+    switch (objectItem) {
+    default:
+        return false;
+    case Object_Item::HORIZONTAL_COINS:
+    case Object_Item::NOTHING:
+        return true;
+    case Object_Item::HORIZONTAL_BRICKS:
+    case Object_Item::VERTICAL_BRICKS:
+        if (this->levelAttribute != Level_Attribute::UNDERWATER) return true;
+        else return false;
+    }
+    assert(false);
     return false;
 }
 
@@ -161,6 +184,13 @@ Object_Item::Object_Item Level_Crawler::Get_Object_At_Coordinate(int x, int y) {
     QHash<QString, Object_Item::Object_Item>::iterator iter = this->usedCoordinates->find(this->Make_Key(x, y));
     if (iter == this->usedCoordinates->end()) return Object_Item::NOTHING;
     else return *iter;
+}
+
+bool Level_Crawler::Find_Platform_Directly_Below(int x, int y, int &platformY) {
+    for (int i = y+1; i >= Physics::GROUND_Y; ++i) {
+        if (this->Is_Coordinate_A_Platform(x, i)) { platformY = i; return true; }
+    }
+    return false;
 }
 
 void Level_Crawler::Crawl_Forward(int x, int spaces) {
