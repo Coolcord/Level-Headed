@@ -63,9 +63,9 @@ bool Item_Buffer::Will_Page_Flag_Be_Tripped(int x) {
 }
 
 void Item_Buffer::Insert_Into_Buffer(const Buffer_Data &data) {
-    if (this->itemBuffer->isEmpty()) {
+    if (this->itemBuffer->isEmpty() || this->itemBufferIter == this->itemBuffer->end()) {
         this->itemBuffer->append(data);
-        this->itemBufferIter = this->itemBuffer->begin();
+        this->itemBufferIter = this->itemBuffer->end()-1;
     } else {
         this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, data);
     }
