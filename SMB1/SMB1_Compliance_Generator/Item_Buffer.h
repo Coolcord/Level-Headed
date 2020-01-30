@@ -20,6 +20,7 @@ public:
     int Get_Current_Page();
     void Set_Coordinate_Safety(bool value);
     bool Will_Page_Flag_Be_Tripped(int x);
+    void Insert_Into_Buffer(const Buffer_Data &data);
 
     //Buffer Navigation
     bool Is_Empty();

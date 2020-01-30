@@ -62,6 +62,15 @@ bool Item_Buffer::Will_Page_Flag_Be_Tripped(int x) {
     return (simulatedCurrentX > 0xF);
 }
 
+void Item_Buffer::Insert_Into_Buffer(const Buffer_Data &data) {
+    if (this->itemBuffer->isEmpty()) {
+        this->itemBuffer->append(data);
+        this->itemBufferIter = this->itemBuffer->begin();
+    } else {
+        this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, data);
+    }
+}
+
 bool Item_Buffer::Is_Byte_Valid(int byte) {
     return (byte >= 0x00 && byte <= 0xFF);
 }
