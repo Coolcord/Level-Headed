@@ -25,12 +25,16 @@ public:
     bool Is_Empty();
     bool At_Beginning();
     bool At_End();
-    bool Seek_To_Absolute_X(int absoluteX);
+    bool Seek_To_Object_Item(int absoluteX, int y, Object_Item::Object_Item objectItem);
+    bool Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Item enemyItem);
+    bool Seek_To_Absolute_X(int absoluteX); //seeks to the last item at absolute X
     void Seek_To_Beginning();
     void Seek_To_Next();
     void Seek_To_Previous();
     void Seek_To_End();
     Buffer_Data Get_Current();
+    Buffer_Data *Get_Current_For_Modification();
+    bool Remove_Current();
 
 protected:
     Item_Buffer(const Item_Buffer&);

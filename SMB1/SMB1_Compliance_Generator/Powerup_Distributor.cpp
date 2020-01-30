@@ -1,15 +1,39 @@
 #include "Powerup_Distributor.h"
+#include "../../Common_Files/Random.h"
 #include "Block_Data.h"
 #include "Level_Crawler.h"
 #include "Object_Buffer.h"
 #include "Physics.h"
+#include <QVector>
 #include <assert.h>
+
+const static int MIN_POWERUPS = 1;
+const static int MAX_POWERUPS = 3;
+const static int MIN_HIDDEN_POWERUPS = 0;
+const static int MAX_HIDDEN_POWERUPS = 2;
+const static int MIN_ONE_UPS = 0;
+const static int MAX_ONE_UPS = 1;
+const static int MIN_STARS = 0;
+const static int MAX_STARS = 2;
+const static int MIN_TEN_COIN_BLOCKS = 0;
+const static int MAX_TEN_COIN_BLOCKS = 2;
+
+//MAKE THESE SCALE WITH THE DIFFICULTY SETTING!
+const static int CHANCE_HIDDEN_POWERUP = 50;
+const static int CHANCE_ONE_UPS = 50;
+const static int CHANCE_STARS = 50;
+const static int CHANCE_TEN_COIN_BLOCKS = 50;
 
 Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args) {
     assert(levelCrawler); assert(objects); assert(args);
     this->objects = objects;
     this->levelCrawler = levelCrawler;
     this->args = args;
+    this->numPowerups = 0;
+    this->numHiddenPowerups = 0;
+    this->numOneUps = 0;
+    this->numStars = 0;
+    this->numTenCoinBlocks = 0;
     assert(this->Reserve_Powerup_Objects());
 }
 
@@ -18,9 +42,9 @@ bool Powerup_Distributor::Distribute_Powerups() {
 
     this->Find_Usable_Blocks(this->objects->Get_Question_Blocks());
     this->Find_Usable_Blocks(this->objects->Get_Brick_Blocks());
-    if (!this->Distribute_Question_Block_Powerups()) return false;
-    if (!this->Distribute_Hidden_Powerups()) return false;
-    return this->Distribute_Ten_Coin_Blocks();
+    this->Distribute_Question_Block_Items();
+    this->Distribute_Brick_Block_Items();
+    return true;
 }
 
 void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks) {
@@ -42,20 +66,89 @@ void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlo
     }
 }
 
-bool Powerup_Distributor::Distribute_Question_Block_Powerups() {
-
+void Powerup_Distributor::Distribute_Question_Block_Items() {
+    return this->Distribute_Items(Object_Item::QUESTION_BLOCK_WITH_MUSHROOM, this->numPowerups);
 }
 
-bool Powerup_Distributor::Distribute_Hidden_Powerups() {
-
+void Powerup_Distributor::Distribute_Brick_Block_Items() {
+    this->Distribute_Hidden_Powerups();
+    this->Distribute_One_Ups();
+    this->Distribute_Stars();
+    this->Distribute_Ten_Coin_Blocks();
 }
 
-bool Powerup_Distributor::Distribute_Ten_Coin_Blocks() {
+void Powerup_Distributor::Distribute_One_Ups() {
+    this->Distribute_Items(Object_Item::BRICK_WITH_1UP, this->numOneUps);
+}
 
+void Powerup_Distributor::Distribute_Hidden_Powerups() {
+    this->Distribute_Items(Object_Item::BRICK_WITH_MUSHROOM, this->numHiddenPowerups);
+}
+
+void Powerup_Distributor::Distribute_Stars() {
+    this->Distribute_Items(Object_Item::BRICK_WITH_STAR, this->numStars);
+}
+
+void Powerup_Distributor::Distribute_Ten_Coin_Blocks() {
+    this->Distribute_Items(Object_Item::BRICK_WITH_10_COINS, this->numTenCoinBlocks);
+}
+
+void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int numItems) {
+    //Determine which blocks should be considered for distribution
+    QMap<QString, Block_Data> *knownBlocks = nullptr;
+    if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) knownBlocks = this->objects->Get_Question_Blocks();
+    else knownBlocks = this->objects->Get_Brick_Blocks();
+    assert(knownBlocks);
+    QVector<Block_Data> possibleBlocks(knownBlocks->size()); //allocate for worst case scenario
+    int numPossibleBlocks = 0;
+    for (QMap<QString, Block_Data>::const_iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
+        switch (item) {
+        default:
+            assert(false); break;
+        case Object_Item::BRICK_WITH_10_COINS:
+            if (iter.value().hittable) {
+                possibleBlocks[numPossibleBlocks] = iter.value();
+                ++numPossibleBlocks;
+            }
+            break;
+        case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
+        case Object_Item::BRICK_WITH_MUSHROOM:
+        case Object_Item::BRICK_WITH_1UP:
+            if (iter.value().safeForMushroom) {
+                assert(iter.value().hittable);
+                possibleBlocks[numPossibleBlocks] = iter.value();
+                ++numPossibleBlocks;
+            }
+            break;
+        case Object_Item::BRICK_WITH_STAR:
+            if (iter.value().safeForStar) {
+                assert(iter.value().hittable);
+                assert(iter.value().safeForMushroom);
+                possibleBlocks[numPossibleBlocks] = iter.value();
+                ++numPossibleBlocks;
+            }
+            break;
+        }
+    }
+
+    //Break up the level into sections and place 1 item in a random place of each section
+    int min = -1, max = -1;
+    for (int i = 1; i <= numItems; ++i) {
+        min = max+1;
+        max = ((numPossibleBlocks-1)/numItems)*i;
+        assert(max < numPossibleBlocks);
+        Block_Data block = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
+        this->Insert_Item_At(block, item);
+    }
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
-    return true; //TODO: REMOVE THIS!!!
+
+
+    //TODO: Write this!!!
+
+
+    return true;
 }
 
 //TODO: Check if the block can be hit from a left or right platform
@@ -82,4 +175,108 @@ bool Powerup_Distributor::Is_Block_Safe_For_Star(int x, int y) {
     if (this->levelCrawler->Is_Coordinate_Used(x, y-3)) return false;
     if (this->levelCrawler->Is_Coordinate_Used(x+1, y-1) || this->levelCrawler->Is_Coordinate_Used(x+1, y-3)) return false;
     return true;
+}
+
+void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::Object_Item item) {
+    if (block.groupLength > 1) {
+        if (block.objectItem == Object_Item::VERTICAL_BRICKS) { //vertical bricks
+            assert(block.x == block.groupX);
+            if (block.y == block.groupY) { //handle insertion at the beginning
+                //Swap out the group with the new item
+                assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
+                Buffer_Data *data = this->objects->Get_Current_For_Modification();
+                assert(data);
+                Object_Item::Object_Item groupItem = data->objectItem;
+                int length = data->length-1;
+                data->length = 1;
+                data->objectItem = item;
+
+                //Insert the group after the item (no need to seek here)
+                int x = block.x-this->objects->Get_Absolute_X();
+                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, length, groupItem));
+            } else if (block.groupY+(block.groupLength-1) == block.y) { //handle insertion at the end
+                //Shorten the group length by 1
+                assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
+                Buffer_Data *data = this->objects->Get_Current_For_Modification();
+                assert(data);
+                --data->length;
+                assert(data->length >= 1);
+
+                //Insert the new item (no need to seek here)
+                int x = block.x-this->objects->Get_Absolute_X();
+                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+            } else { //handle insertion at the middle
+                assert(this->objects->Seek_To_Absolute_X(block.x));
+                int x = block.x-this->objects->Get_Absolute_X();
+                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+            }
+        } else { //horizontal bricks/blocks
+            assert(block.y == block.groupY);
+            if (block.x == block.groupX) { //handle insertion at the beginning
+                //Swap out the group with the new item
+                assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
+                Buffer_Data *data = this->objects->Get_Current_For_Modification();
+                assert(data);
+                Object_Item::Object_Item groupItem = data->objectItem;
+                int length = data->length-1;
+                data->length = 1;
+                data->objectItem = item;
+
+                //Insert the group after the item
+                assert(this->objects->Seek_To_Absolute_X(block.x+1));
+                int x = (block.x+1)-this->objects->Get_Absolute_X();
+                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, length, groupItem));
+            } else if (block.groupX+(block.groupLength-1) == block.x) { //handle insertion at the end
+                //Shorten the group length by 1
+                assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
+                Buffer_Data *data = this->objects->Get_Current_For_Modification();
+                assert(data);
+                --data->length;
+                assert(data->length >= 1);
+
+                //Insert the new item
+                assert(this->objects->Seek_To_Absolute_X(block.x));
+                int x = block.x-this->objects->Get_Absolute_X();
+                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+            } else { //handle insertion at the middle
+                assert(this->objects->Seek_To_Absolute_X(block.x));
+                int x = block.x-this->objects->Get_Absolute_X();
+                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+            }
+        }
+    } else { //swap out the item in place
+        assert(this->objects->Seek_To_Object_Item(block.x, block.y, block.objectItem));
+        Buffer_Data *data = this->objects->Get_Current_For_Modification();
+        assert(data);
+        data->objectItem = item;
+    }
+
+    //Remove the used block from the available blocks
+    QMap<QString, Block_Data> *blocks = nullptr;
+    if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) blocks = this->objects->Get_Question_Blocks();
+    else blocks = this->objects->Get_Brick_Blocks();
+    assert(blocks->remove(QString(QString::number(block.x)+"x"+QString::number(block.y))) == 1);
+    assert(this->objects->Free_Reserved_Objects(1));
+}
+
+bool Powerup_Distributor::Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item) {
+    assert(x >= 0);
+    switch (item) {
+    default:                                        assert(false); return false;
+    case Object_Item::BRICK_WITH_10_COINS:          return this->objects->Brick_With_10_Coins(x, y);
+    case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM: return this->objects->Question_Block_With_Mushroom(x, y);
+    case Object_Item::BRICK_WITH_MUSHROOM:          return this->objects->Brick_With_Mushroom(x, y);
+    case Object_Item::BRICK_WITH_1UP:               return this->objects->Brick_With_1up(x, y);
+    case Object_Item::BRICK_WITH_STAR:              return this->objects->Brick_With_Star(x, y);
+    }
+}
+
+bool Powerup_Distributor::Insert_Group_Item_Into_Object_Buffer(int x, int y, int length, Object_Item::Object_Item item) {
+    assert(x >= 0);
+    switch (item) {
+    default:                                                    assert(false); return false;
+    case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    return this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length);
+    case Object_Item::HORIZONTAL_BRICKS:                        return this->objects->Horizontal_Bricks(x, y, length);
+    case Object_Item::VERTICAL_BRICKS:                          return this->objects->Vertical_Bricks(x, y, length);
+    }
 }

@@ -107,6 +107,30 @@ bool Item_Buffer::At_End() {
     return this->itemBufferIter == this->itemBuffer->end();
 }
 
+bool Item_Buffer::Seek_To_Object_Item(int absoluteX, int y, Object_Item::Object_Item objectItem) {
+    if (!this->Seek_To_Absolute_X(absoluteX)) return false;
+    bool beginningChecked = false;
+    while (!beginningChecked) {
+        Buffer_Data data = *this->itemBufferIter;
+        if (data.y == y && data.objectItem == objectItem) return true;
+        if (this->At_Beginning()) beginningChecked = true;
+        else this->Seek_To_Previous();
+    }
+    return false;
+}
+
+bool Item_Buffer::Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Item enemyItem) {
+    if (!this->Seek_To_Absolute_X(absoluteX)) return false;
+    bool beginningChecked = false;
+    while (!beginningChecked) {
+        Buffer_Data data = *this->itemBufferIter;
+        if (data.y == y && data.enemyItem == enemyItem) return true;
+        if (this->At_Beginning()) beginningChecked = true;
+        else this->Seek_To_Previous();
+    }
+    return false;
+}
+
 bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     if (absoluteX < 0) return false; //out of range!
     if (absoluteX == 0) { this->Seek_To_Beginning(); return true; }
@@ -130,7 +154,7 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     if (absoluteX < levelLength/2) { //start from the beginning
         this->Seek_To_Beginning();
         while (!this->At_End() && !found) {
-            Buffer_Data data = this->Get_Current();
+            Buffer_Data data = *this->itemBufferIter;
             if (data.absoluteX > absoluteX) found = true;
             if (found) this->Seek_To_Previous(); //roll back one, as we have passed the absolute X
             else this->Seek_To_Next();
@@ -139,7 +163,7 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
         this->Seek_To_End();
         bool beginningChecked = false;
         while (!beginningChecked && !found) {
-            Buffer_Data data = this->Get_Current();
+            Buffer_Data data = *this->itemBufferIter;
             if (data.absoluteX <= absoluteX) found = true;
             if (!found) {
                 if (this->At_Beginning()) beginningChecked = true;
@@ -187,5 +211,17 @@ void Item_Buffer::Seek_To_End() {
 }
 
 Buffer_Data Item_Buffer::Get_Current() {
-    return this->At_End() ? Buffer_Data() : *this->itemBufferIter;
+    assert(!this->At_End());
+    return *this->itemBufferIter;
+}
+
+Buffer_Data *Item_Buffer::Get_Current_For_Modification() {
+    assert(!this->At_End());
+    return &(*this->itemBufferIter);
+}
+
+bool Item_Buffer::Remove_Current() {
+    if (this->At_End()) return false;
+    this->itemBufferIter = this->itemBuffer->erase(this->itemBufferIter);
+    return true;
 }

@@ -213,7 +213,8 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.x = x;
     objectBufferData.length = length;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -233,7 +234,8 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.y = y;
     objectBufferData.length = length;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -254,7 +256,8 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
     objectBufferData.y = y;
     objectBufferData.height = height;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->lastObjectIsPlatform = platform;
     this->Handle_Zones(x);
@@ -272,7 +275,8 @@ bool Object_Buffer::Write_Object(int x, Background::Background background) {
     objectBufferData.x = x;
     objectBufferData.background = background;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -288,7 +292,8 @@ bool Object_Buffer::Write_Object(int x, Brick::Brick brick, Scenery::Scenery sce
     objectBufferData.brick = brick;
     objectBufferData.scenery = scenery;
     objectBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
     this->Check_Vertical_Object_Limit(1);
@@ -305,7 +310,8 @@ bool Object_Buffer::Write_Object(int page) {
     objectBufferData.objectItem = Object_Item::PAGE_CHANGE;
     objectBufferData.page = page;
     objectBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, objectBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, objectBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->Handle_Zones(relativeX);
     this->Check_Vertical_Object_Limit(1);
@@ -444,19 +450,27 @@ bool Object_Buffer::Is_Coordinate_Valid(int coordinate) {
     return (coordinate >= 0x0 && coordinate <= 0x10);
 }
 
-void Object_Buffer::Insert_Into_Block_Map(int y, int length, bool verticalGroup, QMap<QString, Block_Data> *blocks) {
+void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, QMap<QString, Block_Data> *blocks) {
     Block_Data data;
+    data.objectItem = objectItem;
     data.x = this->currentAbsoluteX;
     data.y = y;
-    data.partOfGroup = (length > 1);
-    data.verticalGroup = verticalGroup;
+    data.groupX = this->currentAbsoluteX;
+    data.groupY = y;
+    data.groupLength = length;
     data.hittable = false;
     data.safeForMushroom = false;
     data.safeForStar = false;
-    if (verticalGroup) {
-        for (int i = 0; i < length && y+i < 0xB; ++i) blocks->insert(QString(QString::number(this->currentAbsoluteX)+"x"+QString::number(y+i)), data);
+    if (objectItem == Object_Item::VERTICAL_BRICKS) {
+        for (int i = 0; i < length && y+i < 0xB; ++i) {
+            data.y = y+i;
+            blocks->insert(QString(QString::number(data.x)+"x"+QString::number(data.y)), data);
+        }
     } else {
-        for (int i = 0; i < length; ++i) blocks->insert(QString(QString::number(this->currentAbsoluteX+i)+"x"+QString::number(y)), data);
+        for (int i = 0; i < length; ++i) {
+            data.x = this->currentAbsoluteX+i;
+            blocks->insert(QString(QString::number(data.x)+"x"+QString::number(data.y)), data);
+        }
     }
 }
 
@@ -468,7 +482,7 @@ bool Object_Buffer::Question_Block_With_Mushroom(int x, int y) {
 bool Object_Buffer::Question_Block_With_Coin(int x, int y) {
     if (y > 0xB) return false;
     if (!this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_COIN, true, x, y, Physics::MIN_OBJECT_LENGTH)) return false;
-    this->Insert_Into_Block_Map(y, Physics::MIN_OBJECT_LENGTH, false, this->questionBlocks);
+    this->Insert_Into_Block_Map(Object_Item::QUESTION_BLOCK_WITH_COIN, y, Physics::MIN_OBJECT_LENGTH, this->questionBlocks);
     return true;
 }
 
@@ -533,7 +547,7 @@ bool Object_Buffer::Horizontal_Bricks(int x, int y, int length) {
     if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     if (!this->Write_Object(Object_Item::HORIZONTAL_BRICKS, true, x, y, length)) return false;
-    this->Insert_Into_Block_Map(y, length, false, this->brickBlocks);
+    this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_BRICKS, y, length, this->brickBlocks);
     return true;
 }
 
@@ -553,7 +567,7 @@ bool Object_Buffer::Vertical_Bricks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
     if (!this->Write_Object(Object_Item::VERTICAL_BRICKS, true, x, y, height, Physics::MIN_OBJECT_LENGTH)) return false;
-    this->Insert_Into_Block_Map(y, height, true, this->brickBlocks);
+    this->Insert_Into_Block_Map(Object_Item::VERTICAL_BRICKS, y, height, this->brickBlocks);
     return true;
 }
 
@@ -618,7 +632,7 @@ bool Object_Buffer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     if (length < 1 || length > 16) return false;
     if (yPlacement == 0x3 || yPlacement == 0x7) {
         if (!this->Write_Object(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, true, x, yPlacement, length)) return false;
-        this->Insert_Into_Block_Map(yPlacement, length, false, this->questionBlocks);
+        this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, yPlacement, length, this->questionBlocks);
         return true;
     } else {
         return false;

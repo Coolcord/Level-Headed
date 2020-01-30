@@ -107,7 +107,7 @@ private:
     void Handle_Zones(int x);
     bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int coordinate);
-    void Insert_Into_Block_Map(int y, int length, bool verticalGroup, QMap<QString, Block_Data> *blocks);
+    void Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, QMap<QString, Block_Data> *blocks);
 
     SMB1_Compliance_Generator_Arguments *args;
     QVector<int> *objectsAtXCoordinates;

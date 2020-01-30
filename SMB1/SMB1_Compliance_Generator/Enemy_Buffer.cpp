@@ -119,7 +119,8 @@ bool Enemy_Buffer::Write_Enemy(int page) {
     enemyBufferData.enemyItem = Enemy_Item::PAGE_CHANGE;
     enemyBufferData.page = page;
     enemyBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, enemyBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, enemyBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->firstEnemy = false;
     return true;
@@ -139,7 +140,8 @@ bool Enemy_Buffer::Write_Enemy(int x, Level::Level level, int world, int page) {
     enemyBufferData.world = world;
     enemyBufferData.page = page;
     enemyBufferData.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, enemyBufferData);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, enemyBufferData);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     --this->numBytesLeft; //pipe pointers use 3 bytes instead of 2
     this->firstEnemy = false;
@@ -153,7 +155,8 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.enemyItem = enemyItem;
     args.x = x;
     args.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, args);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, args);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->firstEnemy = false;
     return true;
@@ -168,7 +171,8 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.x = x;
     args.y = y;
     args.absoluteX = this->currentAbsoluteX+x;
-    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, args);
+    this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter, args);
+    ++this->itemBufferIter;
     this->Update_Level_Stats(x);
     this->firstEnemy = false;
     this->currentY = y;
