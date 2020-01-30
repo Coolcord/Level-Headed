@@ -103,29 +103,33 @@ bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
     case Object_Item::BRICK_WITH_1UP:                           return true;
     case Object_Item::UNDERWATER_SIDEWAYS_PIPE:                 return true;
     case Object_Item::USED_BLOCK:                               return true;
-    case Object_Item::TRAMPOLINE:                               return false;
     case Object_Item::BULLET_BILL_TURRET:                       return true;
     case Object_Item::ISLAND:                                   return true;
     case Object_Item::HORIZONTAL_BRICKS:                        return true;
     case Object_Item::HORIZONTAL_BLOCKS:                        return true;
-    case Object_Item::HORIZONTAL_COINS:                         return false;
     case Object_Item::VERTICAL_BRICKS:                          return true;
     case Object_Item::VERTICAL_BLOCKS:                          return true;
     case Object_Item::CORAL:                                    return true;
     case Object_Item::PIPE:                                     return true;
     case Object_Item::ENTERABLE_PIPE:                           return true;
-    case Object_Item::HOLE:                                     return false;
-    case Object_Item::HOLE_WITH_WATER:                          return false;
     case Object_Item::BRIDGE:                                   return true;
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    return true;
-    case Object_Item::PAGE_CHANGE:                              return false;
     case Object_Item::REVERSE_L_PIPE:                           return true;
+    case Object_Item::BOWSER_BRIDGE:                            return true;
+    case Object_Item::STEPS:                                    return true;
+    case Object_Item::END_STEPS:                                return true;
+    case Object_Item::TALL_REVERSE_L_PIPE:                      return true;
+    case Object_Item::PIPE_WALL:                                return true;
+    case Object_Item::TRAMPOLINE:                               return false;
+    case Object_Item::HORIZONTAL_COINS:                         return false;
+    case Object_Item::HOLE:                                     return false;
+    case Object_Item::HOLE_WITH_WATER:                          return false;
+    case Object_Item::PAGE_CHANGE:                              return false;
     case Object_Item::FLAGPOLE:                                 return false;
     case Object_Item::CASTLE:                                   return false;
     case Object_Item::BIG_CASTLE:                               return false;
     case Object_Item::AXE:                                      return false;
     case Object_Item::AXE_ROPE:                                 return false;
-    case Object_Item::BOWSER_BRIDGE:                            return true;
     case Object_Item::SCROLL_STOP:                              return false;
     case Object_Item::SCROLL_STOP_WARP_ZONE:                    return false;
     case Object_Item::TOGGLE_AUTO_SCROLL:                       return false;
@@ -139,12 +143,18 @@ bool Level_Crawler::Is_Coordinate_A_Platform(int x, int y) {
     case Object_Item::LIFT_ROPE:                                return false;
     case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:               return false;
     case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:             return false;
-    case Object_Item::STEPS:                                    return true;
-    case Object_Item::END_STEPS:                                return true;
-    case Object_Item::TALL_REVERSE_L_PIPE:                      return true;
-    case Object_Item::PIPE_WALL:                                return true;
     case Object_Item::NOTHING:                                  return false;
     }
+    assert(false);
+    return false;
+}
+
+bool Level_Crawler::Is_Coordinate_Breakable(int x, int y) {
+    Object_Item::Object_Item objectItem = this->Get_Object_At_Coordinate(x, y);
+    if (objectItem == Object_Item::HORIZONTAL_BRICKS || objectItem == Object_Item::VERTICAL_BRICKS) {
+        if (this->levelAttribute != Level_Attribute::UNDERWATER) return true;
+    }
+    return false;
 }
 
 Object_Item::Object_Item Level_Crawler::Get_Object_At_Coordinate(int x, int y) {

@@ -24,6 +24,7 @@ public:
     bool Is_Coordinate_Empty(int x, int y);
     bool Is_Coordinate_Used(int x, int y);
     bool Is_Coordinate_A_Platform(int x, int y);
+    bool Is_Coordinate_Breakable(int x, int y);
     Object_Item::Object_Item Get_Object_At_Coordinate(int x, int y);
 
 private:
