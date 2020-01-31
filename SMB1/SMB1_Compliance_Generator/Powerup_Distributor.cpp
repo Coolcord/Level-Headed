@@ -38,8 +38,7 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
 }
 
 bool Powerup_Distributor::Distribute_Powerups() {
-    return true; //TODO: REMOVE THIS!!!
-
+    if (!this->levelCrawler->Crawl_Level()) return false;
     this->Find_Usable_Blocks(this->objects->Get_Question_Blocks());
     this->Find_Usable_Blocks(this->objects->Get_Brick_Blocks());
     this->Distribute_Question_Block_Items();
@@ -49,7 +48,8 @@ bool Powerup_Distributor::Distribute_Powerups() {
 
 void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks) {
     assert(knownBlocks);
-    for (QMap<QString, Block_Data>::iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
+    QMap<QString, Block_Data>::iterator iter = knownBlocks->begin();
+    while (iter != knownBlocks->end()) {
         Block_Data data = iter.value();
         if (this->Is_Block_Hittable(data.x, data.y)) {
             iter.value().hittable = true;
@@ -60,8 +60,11 @@ void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlo
                 iter.value().safeForMushroom = false;
                 iter.value().safeForStar = false;
             }
+            ++iter;
         } else {
-            assert(knownBlocks->remove(iter.key()) == 1);
+            QString key = iter.key();
+            ++iter;
+            assert(knownBlocks->remove(key) == 1);
         }
     }
 }
@@ -144,13 +147,20 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     }
 
     //Break up the level into sections and place 1 item in a random place of each section
-    int min = -1, max = -1;
-    for (int i = 1; i <= numItems; ++i) {
-        min = max+1;
-        max = ((numPossibleBlocks-1)/numItems)*i;
-        assert(max < numPossibleBlocks);
-        Block_Data block = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
-        this->Insert_Item_At(block, item);
+    if (numItems < numPossibleBlocks) {
+        int min = -1, max = -1;
+        for (int i = 1; i <= numItems; ++i) {
+            min = max+1;
+            max = ((numPossibleBlocks-1)/numItems)*i;
+            assert(max < numPossibleBlocks);
+            Block_Data block = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
+            this->Insert_Item_At(block, item);
+        }
+    } else {
+        for (int i = 0; i < numPossibleBlocks; ++i) {
+            Block_Data block = possibleBlocks.at(i);
+            this->Insert_Item_At(block, item);
+        }
     }
 }
 
@@ -206,6 +216,7 @@ bool Powerup_Distributor::Is_Block_Safe_For_Star(int x, int y) {
 }
 
 void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::Object_Item item) {
+    assert(this->objects->Free_Reserved_Objects(1));
     if (block.groupLength > 1) {
         if (block.objectItem == Object_Item::VERTICAL_BRICKS) { //vertical bricks
             assert(block.x == block.groupX);
@@ -290,7 +301,6 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
     if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) blocks = this->objects->Get_Question_Blocks();
     else blocks = this->objects->Get_Brick_Blocks();
     assert(blocks->remove(QString(QString::number(block.x)+"x"+QString::number(block.y))) == 1);
-    assert(this->objects->Free_Reserved_Objects(1));
 }
 
 bool Powerup_Distributor::Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item) {

@@ -187,7 +187,7 @@ Object_Item::Object_Item Level_Crawler::Get_Object_At_Coordinate(int x, int y) {
 }
 
 bool Level_Crawler::Find_Platform_Directly_Below(int x, int y, int &platformY) {
-    for (int i = y+1; i >= Physics::GROUND_Y; ++i) {
+    for (int i = y+1; i <= Physics::GROUND_Y; ++i) {
         if (this->Is_Coordinate_A_Platform(x, i)) { platformY = i; return true; }
     }
     return false;

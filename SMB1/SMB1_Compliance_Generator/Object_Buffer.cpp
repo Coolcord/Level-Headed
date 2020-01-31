@@ -153,7 +153,7 @@ bool Object_Buffer::Reserve_Objects(int amount) {
 }
 
 bool Object_Buffer::Free_Reserved_Objects(int amount) {
-    if (this->reservedObjectCount > amount) { this->reservedObjectCount = 0; return false; }
+    if (this->reservedObjectCount < amount) { this->reservedObjectCount = 0; return false; }
     this->reservedObjectCount -= amount;
     return true;
 }
