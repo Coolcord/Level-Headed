@@ -53,6 +53,7 @@ bool Castle_Generator::Generate_Level() {
         }
 
         this->Handle_Bowser_Fire();
+        assert(this->objects->Get_Num_Objects_Available() >= 0);
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 
@@ -192,11 +193,13 @@ bool Castle_Generator::Room_With_Single_Firebar_Pillar(int x) {
 
 bool Castle_Generator::Room_With_Platforms_And_Firebars(int x) {
     int numObjectsAvailable = this->objects->Get_Num_Objects_Available();
-    if (numObjectsAvailable < 6) return false;
+    if (numObjectsAvailable < 9) return false; //(numPlatforms*2)+3
 
     //Spawn anywhere between 3 and 6 platforms
-    int numPlatforms = Random::Get_Instance().Get_Num(3)+3;
-    if (numObjectsAvailable-2 < numPlatforms) numPlatforms = numObjectsAvailable-2;
+    int numPlatforms = Random::Get_Instance().Get_Num(3, 6);
+    if (numObjectsAvailable < 15) numPlatforms = 5;
+    if (numObjectsAvailable < 13) numPlatforms = 4;
+    if (numObjectsAvailable < 11) numPlatforms = 3;
     assert(numPlatforms >= 3);
 
     //Make sure that there is a place to stand

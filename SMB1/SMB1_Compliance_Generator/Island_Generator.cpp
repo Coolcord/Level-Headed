@@ -32,6 +32,7 @@ bool Island_Generator::Generate_Level() {
         if (this->objects->Get_Num_Objects_Available() >= 2 && Random::Get_Instance().Get_Num(4) == 0) assert(this->Spawn_Two_Islands(x));
         else assert(this->Spawn_Basic_Island(x));
 
+        assert(this->objects->Get_Num_Objects_Available() >= 0);
         assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->objects->Get_Last_Object_Length())));
     }
 

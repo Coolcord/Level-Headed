@@ -31,6 +31,7 @@ bool Standard_Overworld_Generator::Generate_Level() {
             if (Random::Get_Instance().Get_Num(2) == 0) assert(this->commonPatternSpawner->Spawn_Common_Pattern(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
+        assert(this->objects->Get_Num_Objects_Available() >= 0);
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
     }
 

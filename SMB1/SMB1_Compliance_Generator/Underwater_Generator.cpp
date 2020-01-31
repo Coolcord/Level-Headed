@@ -30,6 +30,7 @@ bool Underwater_Generator::Generate_Level() {
         default: assert(false); return false;
         }
 
+        assert(this->objects->Get_Num_Objects_Available() >= 0);
         assert(this->end->Handle_End(this->Get_Underwater_X(this->objects->Get_Last_Object_Length())));
         x = this->objects->Get_Last_Object_Length();
     }

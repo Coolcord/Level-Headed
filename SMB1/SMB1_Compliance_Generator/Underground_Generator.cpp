@@ -31,6 +31,7 @@ bool Underground_Generator::Generate_Level() {
             else if (random < 4) assert(this->Brick_Pattern_Distraction(x));
             else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
         } else assert(this->simpleObjectSpawner->Spawn_Simple_Object(x));
+        assert(this->objects->Get_Num_Objects_Available() >= 0);
         assert(this->end->Handle_End(this->Get_Safe_Random_X()));
         x = this->objects->Get_Last_Object_Length();
     }

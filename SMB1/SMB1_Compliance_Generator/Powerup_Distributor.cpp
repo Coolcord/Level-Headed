@@ -155,8 +155,6 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
-    return true; //TODO: REMOVE THIS!!!
-
     //Don't allocate anything on short levels
     if (this->objects->Get_Num_Objects_Available() < MAX_POWERUPS+MAX_HIDDEN_POWERUPS+MAX_ONE_UPS+MAX_STARS+MAX_TEN_COIN_BLOCKS) return true;
 

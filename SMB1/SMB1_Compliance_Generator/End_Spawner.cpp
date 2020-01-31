@@ -42,7 +42,7 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
     assert(this->enemies->Get_Num_Bytes_Left() >= this->requiredEnemySpawns->Get_Num_End_Bytes());
 
     //Handle each end pattern accordingly
-    if (forceWrite || numObjectsLeft == this->endObjectCount ||
+    if (forceWrite || this->object->Get_Num_Objects_Available() == 0 ||
             (this->args->maxLevelLength > 0 && this->object->Get_Level_Length() >= this->args->maxLevelLength)) {
         this->Handle_Auto_Scroll();
         bool success = false;
