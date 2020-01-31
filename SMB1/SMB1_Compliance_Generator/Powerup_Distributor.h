@@ -32,6 +32,7 @@ private:
     void Insert_Item_At(const Block_Data &block, Object_Item::Object_Item item);
     bool Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item);
     bool Insert_Group_Item_Into_Object_Buffer(int x, int y, int length, Object_Item::Object_Item item);
+    void Update_Group_Data(QMap<QString, Block_Data> *blocks, bool vertical, int oldX, int oldY, int oldLength, int newX, int newY, int newLength);
 
     Object_Buffer *objects;
     Level_Crawler *levelCrawler;

@@ -102,9 +102,9 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) knownBlocks = this->objects->Get_Question_Blocks();
     else knownBlocks = this->objects->Get_Brick_Blocks();
     assert(knownBlocks);
-    QVector<Block_Data> possibleBlocks(knownBlocks->size()); //allocate for worst case scenario
+    QVector<QMap<QString, Block_Data>::iterator> possibleBlocks(knownBlocks->size()); //allocate for worst case scenario
     int numPossibleBlocks = 0;
-    for (QMap<QString, Block_Data>::const_iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
+    for (QMap<QString, Block_Data>::iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
         //Check against the vertical object limit to make sure the distributor can't break the rule
         if (this->args->useVerticalObjectLimit && iter.value().groupLength > 1) {
             if (iter.value().objectItem == Object_Item::VERTICAL_BRICKS) { //all vertical insertions could break it
@@ -122,7 +122,7 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             assert(false); break;
         case Object_Item::BRICK_WITH_10_COINS:
             if (iter.value().hittable) {
-                possibleBlocks[numPossibleBlocks] = iter.value();
+                possibleBlocks[numPossibleBlocks] = iter;
                 ++numPossibleBlocks;
             }
             break;
@@ -131,7 +131,7 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
         case Object_Item::BRICK_WITH_1UP:
             if (iter.value().safeForMushroom) {
                 assert(iter.value().hittable);
-                possibleBlocks[numPossibleBlocks] = iter.value();
+                possibleBlocks[numPossibleBlocks] = iter;
                 ++numPossibleBlocks;
             }
             break;
@@ -139,7 +139,7 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             if (iter.value().safeForStar) {
                 assert(iter.value().hittable);
                 assert(iter.value().safeForMushroom);
-                possibleBlocks[numPossibleBlocks] = iter.value();
+                possibleBlocks[numPossibleBlocks] = iter;
                 ++numPossibleBlocks;
             }
             break;
@@ -153,13 +153,15 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             min = max+1;
             max = ((numPossibleBlocks-1)/numItems)*i;
             assert(max < numPossibleBlocks);
-            Block_Data block = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
-            this->Insert_Item_At(block, item);
+            QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
+            assert(iter != knownBlocks->end());
+            this->Insert_Item_At(iter.value(), item);
         }
     } else {
         for (int i = 0; i < numPossibleBlocks; ++i) {
-            Block_Data block = possibleBlocks.at(i);
-            this->Insert_Item_At(block, item);
+            QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(i);
+            assert(iter != knownBlocks->end());
+            this->Insert_Item_At(iter.value(), item);
         }
     }
 }
@@ -217,6 +219,11 @@ bool Powerup_Distributor::Is_Block_Safe_For_Star(int x, int y) {
 
 void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::Object_Item item) {
     assert(this->objects->Free_Reserved_Objects(1));
+    QMap<QString, Block_Data> *blocks = nullptr;
+    if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) blocks = this->objects->Get_Question_Blocks();
+    else blocks = this->objects->Get_Brick_Blocks();
+
+    //Handle insertion differently depending on if the block is in a group or not
     if (block.groupLength > 1) {
         if (block.objectItem == Object_Item::VERTICAL_BRICKS) { //vertical bricks
             assert(block.x == block.groupX);
@@ -226,20 +233,28 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 Buffer_Data *data = this->objects->Get_Current_For_Modification();
                 assert(data);
                 Object_Item::Object_Item groupItem = data->objectItem;
-                int length = data->length-1;
+                int oldLength = data->length;
+                int newLength = oldLength-1;
                 data->length = 1;
                 data->objectItem = item;
+                this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y+1, newLength);
+
+                //Update Vertical Object Limit Count to reflect that the group has been removed
+                assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
 
                 //Insert the group after the item (no need to seek here)
                 int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, length, groupItem));
+                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, newLength, groupItem));
             } else if (block.groupY+(block.groupLength-1) == block.y) { //handle insertion at the end
                 //Shorten the group length by 1
                 assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
                 Buffer_Data *data = this->objects->Get_Current_For_Modification();
                 assert(data);
+                int oldLength = data->length;
                 --data->length;
+                int newLength = data->length;
                 assert(data->length >= 1);
+                this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y, newLength);
 
                 //Insert the new item (no need to seek here)
                 int x = block.x-this->objects->Get_Absolute_X();
@@ -257,24 +272,29 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 Buffer_Data *data = this->objects->Get_Current_For_Modification();
                 assert(data);
                 Object_Item::Object_Item groupItem = data->objectItem;
-                int length = data->length-1;
+                int oldLength = data->length;
+                int newLength = data->length-1;
                 data->length = 1;
                 data->objectItem = item;
+                this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x+1, block.y, newLength);
 
                 //Update Vertical Object Limit Count to reflect that the group has been removed
-                assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.groupX+1, length));
+                assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.x+1, newLength));
 
                 //Insert the group after the item
                 assert(this->objects->Seek_To_Absolute_X(block.x+1));
                 int x = (block.x+1)-this->objects->Get_Absolute_X();
-                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, length, groupItem));
+                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, newLength, groupItem));
             } else if (block.groupX+(block.groupLength-1) == block.x) { //handle insertion at the end
                 //Shorten the group length by 1
                 assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
                 Buffer_Data *data = this->objects->Get_Current_For_Modification();
                 assert(data);
+                int oldLength = data->length;
                 --data->length;
+                int newLength = data->length;
                 assert(data->length >= 1);
+                this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x, block.y, newLength);
 
                 //Update Vertical Object Limit Count to reflect that the group's length has been reduced by 1
                 assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
@@ -289,7 +309,7 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
             }
         }
-    } else { //swap out the item in place
+    } else { //when the block is not in a group, swap out the item in its place
         assert(this->objects->Seek_To_Object_Item(block.x, block.y, block.objectItem));
         Buffer_Data *data = this->objects->Get_Current_For_Modification();
         assert(data);
@@ -297,10 +317,7 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
     }
 
     //Remove the used block from the available blocks
-    QMap<QString, Block_Data> *blocks = nullptr;
-    if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) blocks = this->objects->Get_Question_Blocks();
-    else blocks = this->objects->Get_Brick_Blocks();
-    assert(blocks->remove(QString(QString::number(block.x)+"x"+QString::number(block.y))) == 1);
+    assert(blocks->remove(this->objects->Get_Coordinate_Key(block.x, block.y)) == 1);
 }
 
 bool Powerup_Distributor::Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item) {
@@ -322,5 +339,30 @@ bool Powerup_Distributor::Insert_Group_Item_Into_Object_Buffer(int x, int y, int
     case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    return this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length);
     case Object_Item::HORIZONTAL_BRICKS:                        return this->objects->Horizontal_Bricks(x, y, length);
     case Object_Item::VERTICAL_BRICKS:                          return this->objects->Vertical_Bricks(x, y, length);
+    }
+}
+
+void Powerup_Distributor::Update_Group_Data(QMap<QString, Block_Data> *blocks, bool vertical, int oldX, int oldY, int oldLength, int newX, int newY, int newLength) {
+    assert(blocks);
+    if (vertical) {
+        for (int i = oldY; i < oldY+oldLength && oldY+i < 0xB; ++i) {
+            QMap<QString, Block_Data>::iterator data = blocks->find(this->objects->Get_Coordinate_Key(oldX, i));
+            if (data == blocks->end()) continue; //block must be used
+
+            //Only update what's considered to be part of the group
+            if (data->groupX == oldX && data->groupY == oldY && data->groupLength == oldLength) {
+                data->groupX = newX; data->groupY = newY; data->groupLength = newLength;
+            }
+        }
+    } else {
+        for (int i = oldX; i < oldX+oldLength; ++i) {
+            QMap<QString, Block_Data>::iterator data = blocks->find(this->objects->Get_Coordinate_Key(i, oldY));
+            if (data == blocks->end()) continue; //block must be used
+
+            //Only update what's considered to be part of the group
+            if (data->groupX == oldX && data->groupY == oldY && data->groupLength == oldLength) {
+                data->groupX = newX; data->groupY = newY; data->groupLength = newLength;
+            }
+        }
     }
 }

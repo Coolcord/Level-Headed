@@ -204,6 +204,7 @@ bool Object_Buffer::Decrement_Vertical_Object_Count_At_X(int x) {
 }
 
 bool Object_Buffer::Decrement_Vertical_Object_Count_Starting_At_X(int x, int length) {
+    assert(length >= 0);
     if (x < 0 || x+length >= this->objectsAtXCoordinates->size()) return false;
     for (int i = x; i < x+length; ++i) {
         int tmp = this->objectsAtXCoordinates->at(x+i);
@@ -216,6 +217,10 @@ bool Object_Buffer::Decrement_Vertical_Object_Count_Starting_At_X(int x, int len
 int Object_Buffer::Get_Num_Vertical_Objects_At_X(int x) {
     if (x < 0 || x >= this->objectsAtXCoordinates->size()) return 0;
     return this->objectsAtXCoordinates->at(x);
+}
+
+QString Object_Buffer::Get_Coordinate_Key(int x, int y) {
+    return QString(QString::number(x)+"x"+QString::number(y));
 }
 
 QMap<QString, Block_Data> *Object_Buffer::Get_Question_Blocks() {
@@ -335,7 +340,7 @@ bool Object_Buffer::Write_Object(int page) {
 }
 
 void Object_Buffer::Check_Vertical_Object_Limit(int length) {
-    for (int i = this->levelLength; i < this->levelLength+length; ++i) {
+    for (int i = this->currentAbsoluteX; i < this->currentAbsoluteX+length; ++i) {
         int tmp = this->objectsAtXCoordinates->at(i);
         ++tmp;
         if (tmp > 3) this->exceededVerticalObjectLimit = true;
@@ -480,12 +485,20 @@ void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, i
     if (objectItem == Object_Item::VERTICAL_BRICKS) {
         for (int i = 0; i < length && y+i < 0xB; ++i) {
             data.y = y+i;
-            blocks->insert(QString(QString::number(data.x)+"x"+QString::number(data.y)), data);
+
+            //Only overwrite previous groups
+            QString key = this->Get_Coordinate_Key(data.x, data.y);
+            QMap<QString, Block_Data>::iterator iter = blocks->find(key);
+            if (iter == blocks->end() || iter->groupLength > 1) blocks->insert(key, data);
         }
     } else {
         for (int i = 0; i < length; ++i) {
             data.x = this->currentAbsoluteX+i;
-            blocks->insert(QString(QString::number(data.x)+"x"+QString::number(data.y)), data);
+
+            //Only overwrite previous groups
+            QString key = this->Get_Coordinate_Key(data.x, data.y);
+            QMap<QString, Block_Data>::iterator iter = blocks->find(key);
+            if (iter == blocks->end() || iter->groupLength > 1) blocks->insert(key, data);
         }
     }
 }

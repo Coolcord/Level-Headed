@@ -39,6 +39,7 @@ public:
     bool Decrement_Vertical_Object_Count_At_X(int x);
     bool Decrement_Vertical_Object_Count_Starting_At_X(int x, int length);
     int Get_Num_Vertical_Objects_At_X(int x);
+    QString Get_Coordinate_Key(int x, int y);
     QMap<QString, Block_Data> *Get_Question_Blocks();
     QMap<QString, Block_Data> *Get_Brick_Blocks();
 
