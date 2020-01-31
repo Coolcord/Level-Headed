@@ -17,9 +17,9 @@ const static int MIN_STARS = 0;
 const static int MAX_STARS = 2;
 const static int MIN_TEN_COIN_BLOCKS = 0;
 const static int MAX_TEN_COIN_BLOCKS = 2;
-
-//MAKE THESE SCALE WITH THE DIFFICULTY SETTING!
-const static int CHANCE_HIDDEN_POWERUP = 50;
+const static int CHANCE_ITEM_DIFFICULTY_MODIFIER = 10;
+const static int CHANCE_POWERUPS = 50;
+const static int CHANCE_HIDDEN_POWERUPS = 50;
 const static int CHANCE_ONE_UPS = 50;
 const static int CHANCE_STARS = 50;
 const static int CHANCE_TEN_COIN_BLOCKS = 50;
@@ -102,6 +102,18 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     QVector<Block_Data> possibleBlocks(knownBlocks->size()); //allocate for worst case scenario
     int numPossibleBlocks = 0;
     for (QMap<QString, Block_Data>::const_iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
+        //Check against the vertical object limit to make sure the distributor can't break the rule
+        if (this->args->useVerticalObjectLimit && iter.value().groupLength > 1) {
+            if (iter.value().objectItem == Object_Item::VERTICAL_BRICKS) { //all vertical insertions could break it
+                if (this->objects->Get_Num_Vertical_Objects_At_X(iter.value().x) >= 3) continue;
+            } else { //horizontal insertions in the middle could break it
+                if (!(iter.value().x == iter.value().groupX || iter.value().groupX+(iter.value().groupLength-1) == iter.value().x)) {
+                    if (this->objects->Get_Num_Vertical_Objects_At_X(iter.value().x) >= 3) continue;
+                }
+            }
+        }
+
+        //Determine if the block is usable
         switch (item) {
         default:
             assert(false); break;
@@ -143,12 +155,30 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
+    return true; //TODO: REMOVE THIS!!!
 
+    //Don't allocate anything on short levels
+    if (this->objects->Get_Num_Objects_Available() < MAX_POWERUPS+MAX_HIDDEN_POWERUPS+MAX_ONE_UPS+MAX_STARS+MAX_TEN_COIN_BLOCKS) return true;
 
-    //TODO: Write this!!!
+    this->Roll_For_Items(this->numPowerups, MIN_POWERUPS, MAX_POWERUPS, CHANCE_POWERUPS);
+    this->Roll_For_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS);
+    this->Roll_For_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS);
+    this->Roll_For_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS);
+    this->Roll_For_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS);
+    if (!this->objects->Reserve_Objects(this->numPowerups)) return false;
+    if (!this->objects->Reserve_Objects(this->numHiddenPowerups)) return false;
+    if (!this->objects->Reserve_Objects(this->numOneUps)) return false;
+    if (!this->objects->Reserve_Objects(this->numStars)) return false;
+    return this->objects->Reserve_Objects(this->numTenCoinBlocks);
+}
 
-
-    return true;
+void Powerup_Distributor::Roll_For_Items(int &numItems, int min, int max, int chance) {
+    assert(min <= max);
+    numItems = 0;
+    int maxChance = 100+((this->args->difficulty-1)*CHANCE_ITEM_DIFFICULTY_MODIFIER);
+    for (int i = min; i < max; ++i) {
+        if (Random::Get_Instance().Get_Num(maxChance) <= chance) ++numItems;
+    }
 }
 
 //TODO: Check if the block can be hit from a left or right platform
@@ -222,6 +252,9 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 data->length = 1;
                 data->objectItem = item;
 
+                //Update Vertical Object Limit Count to reflect that the group has been removed
+                assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.groupX+1, length));
+
                 //Insert the group after the item
                 assert(this->objects->Seek_To_Absolute_X(block.x+1));
                 int x = (block.x+1)-this->objects->Get_Absolute_X();
@@ -233,6 +266,9 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 assert(data);
                 --data->length;
                 assert(data->length >= 1);
+
+                //Update Vertical Object Limit Count to reflect that the group's length has been reduced by 1
+                assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
 
                 //Insert the new item
                 assert(this->objects->Seek_To_Absolute_X(block.x));

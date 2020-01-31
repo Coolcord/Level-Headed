@@ -11,10 +11,6 @@ Enemy_Buffer::Enemy_Buffer(int nbl) : Item_Buffer(nbl) {
     this->wasLakituSpawned = false;
 }
 
-Enemy_Buffer::~Enemy_Buffer() {
-    delete this->itemBuffer;
-}
-
 bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
     QTextStream stream(file);
     for (QLinkedList<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {

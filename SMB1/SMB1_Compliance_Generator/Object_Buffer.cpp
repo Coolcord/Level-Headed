@@ -34,7 +34,6 @@ Object_Buffer::~Object_Buffer() {
     delete this->objectsAtXCoordinates;
     delete this->questionBlocks;
     delete this->brickBlocks;
-    delete this->itemBuffer;
 }
 
 bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
@@ -148,7 +147,7 @@ int Object_Buffer::Get_Num_Objects_Available() {
 }
 
 bool Object_Buffer::Reserve_Objects(int amount) {
-    if (this->Get_Num_Objects_Available() > amount) return false;
+    if (this->Get_Num_Objects_Available() < amount) return false;
     this->reservedObjectCount += amount;
     return true;
 }
@@ -194,6 +193,29 @@ void Object_Buffer::Set_First_Page_Safety(bool firstPageSafety) {
 
 void Object_Buffer::Set_End_Object_Count(int value) {
     this->endObjectCount = value;
+}
+
+bool Object_Buffer::Decrement_Vertical_Object_Count_At_X(int x) {
+    if (x < 0 || x >= this->objectsAtXCoordinates->size()) return false;
+    int tmp = this->objectsAtXCoordinates->at(x);
+    if (tmp <= 0) return false;
+    this->objectsAtXCoordinates->data()[x] = tmp-1;
+    return true;
+}
+
+bool Object_Buffer::Decrement_Vertical_Object_Count_Starting_At_X(int x, int length) {
+    if (x < 0 || x+length >= this->objectsAtXCoordinates->size()) return false;
+    for (int i = x; i < x+length; ++i) {
+        int tmp = this->objectsAtXCoordinates->at(x+i);
+        if (tmp <= 0) return false;
+        this->objectsAtXCoordinates->data()[x+i] = tmp-1;
+    }
+    return true;
+}
+
+int Object_Buffer::Get_Num_Vertical_Objects_At_X(int x) {
+    if (x < 0 || x >= this->objectsAtXCoordinates->size()) return 0;
+    return this->objectsAtXCoordinates->at(x);
 }
 
 QMap<QString, Block_Data> *Object_Buffer::Get_Question_Blocks() {
