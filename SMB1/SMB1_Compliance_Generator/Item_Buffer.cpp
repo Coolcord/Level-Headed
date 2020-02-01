@@ -94,7 +94,6 @@ bool Item_Buffer::Handle_Level_Length_On_Page_Change(int page) {
 
 void Item_Buffer::Update_Level_Stats(int x) {
     this->numBytesLeft -= 2;
-    this->levelLength += x;
     this->currentX += x;
     this->currentAbsoluteX += x;
     while (this->currentX > 0xF) {
@@ -102,6 +101,16 @@ void Item_Buffer::Update_Level_Stats(int x) {
         ++this->currentPage;
     }
     ++this->numItems;
+
+    //Fix X Values
+    if (this->At_End() || this->itemBufferIter+1 == this->itemBuffer->end()) { //when appending, increment the level length
+        this->levelLength += x;
+    } else { //when inserting, fix the x value of the next object
+        QLinkedList<Buffer_Data>::iterator iter = this->itemBufferIter+1;
+        Buffer_Data *data = &(*iter);
+        data->x -= x;
+        assert(data->x >= 0);
+    }
 }
 
 bool Item_Buffer::Is_Empty() {
