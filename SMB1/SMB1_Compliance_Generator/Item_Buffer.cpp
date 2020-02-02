@@ -151,46 +151,33 @@ bool Item_Buffer::Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Ite
 
 bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     if (absoluteX < 0) return false; //out of range!
-    if (absoluteX == 0) { this->Seek_To_First_Item(); return true; }
+    if (absoluteX == 0) {
+        this->Seek_To_First_Item();
+        Buffer_Data data = *this->itemBufferIter;
+        return data.x == 0;
+    }
     if (absoluteX > this->levelLength+31) return false; //out of range!
     if (absoluteX > this->levelLength) { this->Seek_To_End(); return true; }
 
-    //Compare against the current x to make sure that
-    if (absoluteX == this->currentAbsoluteX) return true; //nothing to do
-    if (currentAbsoluteX < absoluteX) {
-        if (this->At_End()) return true; //nothing to do
-
-        //Check if this is the correct absolute x
-        this->Seek_To_Next();
-        int tmpX = this->Get_Absolute_X();
-        this->Seek_To_Previous();
-        if (tmpX > absoluteX) return true; //nothing to do
-    }
-
-    //Seek through the level to find the coordinate
-    bool found = false;
-    if (absoluteX < levelLength/2) { //start from the beginning
-        this->Seek_To_First_Item();
-        while (!this->At_End() && !found) {
-            Buffer_Data data = *this->itemBufferIter;
-            if (data.absoluteX > absoluteX) found = true;
-            if (found) this->Seek_To_Previous(); //roll back one, as we have passed the absolute X
-            else this->Seek_To_Next();
-        }
-    } else { //start from the end
-        this->Seek_To_End();
-        bool beginningChecked = false;
-        while (!beginningChecked && !found) {
-            Buffer_Data data = *this->itemBufferIter;
-            if (data.absoluteX <= absoluteX) found = true;
-            if (!found) {
-                if (this->At_Beginning()) beginningChecked = true;
-                else this->Seek_To_Previous();
+    //Determine which direction to seek
+    if (this->currentAbsoluteX <= absoluteX) { //seek forwards
+        while (!this->At_End()) {
+            this->Seek_To_Next();
+            if (this->currentAbsoluteX > absoluteX) {
+                this->Seek_To_Previous(); //we've seeked to far, so go back by one
+                return true;
             }
         }
+        return true;
+    } else { //seek backwards
+        bool beginningChecked = false;
+        while (!beginningChecked) {
+            if (this->At_Beginning()) beginningChecked = true;
+            if (this->currentAbsoluteX <= absoluteX) return true;
+            this->Seek_To_Previous();
+        }
+        return false; //the item exists before the first item. It is impossible to seek here!
     }
-    assert(found);
-    return true;
 }
 
 void Item_Buffer::Seek_To_First_Item() {
