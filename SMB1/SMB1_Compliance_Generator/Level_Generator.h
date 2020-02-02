@@ -22,7 +22,7 @@ class Continuous_Enemies_Spawner;
 class Level_Generator {
 public:
     Level_Generator(QFile *file, SMB1_Compliance_Generator_Arguments *args);
-    ~Level_Generator();
+    virtual ~Level_Generator();
     virtual bool Generate_Level()=0;
 
 protected:
