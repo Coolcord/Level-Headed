@@ -94,8 +94,8 @@ bool Item_Buffer::Handle_Level_Length_On_Page_Change(int page) {
 
 void Item_Buffer::Update_Level_Stats(int x) {
     this->numBytesLeft -= 2;
-    this->currentX += x;
     this->currentAbsoluteX += x;
+    this->currentX += x;
     while (this->currentX > 0xF) {
         this->currentX -= 0x10;
         ++this->currentPage;

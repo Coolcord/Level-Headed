@@ -36,6 +36,7 @@ public:
     bool Get_First_Page_Safety();
     void Set_First_Page_Safety(bool firstPageSafety);
     void Set_End_Object_Count(int value);
+    int Get_Relative_X_From_Absolute_X(int absoluteX);
     bool Decrement_Vertical_Object_Count_At_X(int x);
     bool Decrement_Vertical_Object_Count_Starting_At_X(int x, int length);
     int Get_Num_Vertical_Objects_At_X(int x);

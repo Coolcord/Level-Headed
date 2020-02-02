@@ -256,13 +256,12 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 assert(data->length >= 1);
                 this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y, newLength);
 
-                //Insert the new item (no need to seek here)
-                int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+                //Insert the new item
+                assert(this->objects->Seek_To_Absolute_X(block.x));
+                assert(this->Insert_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x), block.y, item));
             } else { //handle insertion at the middle
                 assert(this->objects->Seek_To_Absolute_X(block.x));
-                int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+                assert(this->Insert_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x), block.y, item));
             }
         } else { //horizontal bricks/blocks
             assert(block.y == block.groupY);
@@ -301,12 +300,10 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
 
                 //Insert the new item
                 assert(this->objects->Seek_To_Absolute_X(block.x));
-                int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+                assert(this->Insert_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x), block.y, item));
             } else { //handle insertion at the middle
                 assert(this->objects->Seek_To_Absolute_X(block.x));
-                int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Item_Into_Object_Buffer(x, block.y, item));
+                assert(this->Insert_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x), block.y, item));
             }
         }
     } else { //when the block is not in a group, swap out the item in its place

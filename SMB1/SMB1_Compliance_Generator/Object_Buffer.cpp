@@ -195,6 +195,12 @@ void Object_Buffer::Set_End_Object_Count(int value) {
     this->endObjectCount = value;
 }
 
+int Object_Buffer::Get_Relative_X_From_Absolute_X(int absoluteX) {
+    int x = absoluteX-this->currentAbsoluteX;
+    assert(x >= 0);
+    return x;
+}
+
 bool Object_Buffer::Decrement_Vertical_Object_Count_At_X(int x) {
     if (x < 0 || x >= this->objectsAtXCoordinates->size()) return false;
     int tmp = this->objectsAtXCoordinates->at(x);
@@ -204,12 +210,13 @@ bool Object_Buffer::Decrement_Vertical_Object_Count_At_X(int x) {
 }
 
 bool Object_Buffer::Decrement_Vertical_Object_Count_Starting_At_X(int x, int length) {
-    assert(length >= 0);
+    assert(length > 0);
     if (x < 0 || x+length >= this->objectsAtXCoordinates->size()) return false;
     for (int i = x; i < x+length; ++i) {
-        int tmp = this->objectsAtXCoordinates->at(x+i);
-        if (tmp <= 0) return false;
-        this->objectsAtXCoordinates->data()[x+i] = tmp-1;
+        int tmp = this->objectsAtXCoordinates->at(i);
+        --tmp;
+        if (tmp < 0) return false;
+        this->objectsAtXCoordinates->data()[i] = tmp;
     }
     return true;
 }
