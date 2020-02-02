@@ -237,14 +237,19 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 int newLength = oldLength-1;
                 data->length = 1;
                 data->objectItem = item;
-                this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y+1, newLength);
 
-                //Update Vertical Object Limit Count to reflect that the group has been removed
-                assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
+                //Reinsert the group object
+                assert(newLength >= 0);
+                if (newLength > 0) {
+                    this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y+1, newLength);
 
-                //Insert the group after the item (no need to seek here)
-                int x = block.x-this->objects->Get_Absolute_X();
-                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, newLength, groupItem));
+                    //Update Vertical Object Limit Count to reflect that the group has been removed
+                    assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
+
+                    //Insert the group after the item (no need to seek here)
+                    int x = block.x-this->objects->Get_Absolute_X();
+                    assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, newLength, groupItem));
+                }
             } else if (block.groupY+(block.groupLength-1) == block.y) { //handle insertion at the end
                 //Shorten the group length by 1
                 assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));
@@ -275,15 +280,20 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 int newLength = data->length-1;
                 data->length = 1;
                 data->objectItem = item;
-                this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x+1, block.y, newLength);
 
-                //Update Vertical Object Limit Count to reflect that the group has been removed
-                assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.x+1, newLength));
+                //Reinsert the group object
+                assert(newLength >= 0);
+                if (newLength > 0) {
+                    this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x+1, block.y, newLength);
 
-                //Insert the group after the item
-                assert(this->objects->Seek_To_Absolute_X(block.x+1));
-                int x = (block.x+1)-this->objects->Get_Absolute_X();
-                assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, newLength, groupItem));
+                    //Update Vertical Object Limit Count to reflect that the group has been removed
+                    assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.x+1, newLength));
+
+                    //Insert the group after the item
+                    assert(this->objects->Seek_To_Absolute_X(block.x+1));
+                    int x = (block.x+1)-this->objects->Get_Absolute_X();
+                    assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, newLength, groupItem));
+                }
             } else if (block.groupX+(block.groupLength-1) == block.x) { //handle insertion at the end
                 //Shorten the group length by 1
                 assert(this->objects->Seek_To_Object_Item(block.groupX, block.groupY, block.objectItem));

@@ -5,6 +5,7 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include "Physics.h"
 #include <assert.h>
+#include <cmath>
 #include <QDebug>
 
 Item_Buffer::Item_Buffer(int numBytesLeft) {
@@ -158,6 +159,15 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     }
     if (absoluteX > this->levelLength+31) return false; //out of range!
     if (absoluteX > this->levelLength) { this->Seek_To_End(); return true; }
+
+    //Potentially start from the beginning or the end to save time
+    int distance = this->currentAbsoluteX-absoluteX;
+    int absDistance = std::abs(distance);
+    if (absDistance > this->levelLength/2) { //if more than half the level needs to be traversed
+        assert(distance != 0);
+        if (distance > 0) this->Seek_To_End(); //start from the end
+        else this->Seek_To_First_Item(); //start from the beginning
+    }
 
     //Determine which direction to seek
     if (this->currentAbsoluteX <= absoluteX) { //seek forwards
