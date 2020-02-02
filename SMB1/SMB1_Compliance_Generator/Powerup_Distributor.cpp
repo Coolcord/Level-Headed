@@ -241,14 +241,14 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 //Reinsert the group object
                 assert(newLength >= 0);
                 if (newLength > 0) {
-                    this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y+1, newLength);
+                    this->Update_Group_Data(blocks, true, block.groupX, block.groupY, oldLength, block.groupX, block.groupY+1, newLength);
 
                     //Update Vertical Object Limit Count to reflect that the group has been removed
                     assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
 
-                    //Insert the group after the item (no need to seek here)
-                    int x = block.x-this->objects->Get_Absolute_X();
-                    assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y+1, newLength, groupItem));
+                    //Insert the group after the item
+                    assert(this->objects->Seek_To_Absolute_X(block.x));
+                    assert(this->Insert_Group_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x), block.y+1, newLength, groupItem));
                 }
             } else if (block.groupY+(block.groupLength-1) == block.y) { //handle insertion at the end
                 //Shorten the group length by 1
@@ -259,7 +259,7 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 --data->length;
                 int newLength = data->length;
                 assert(data->length >= 1);
-                this->Update_Group_Data(blocks, true, block.x, block.y, oldLength, block.x, block.y, newLength);
+                this->Update_Group_Data(blocks, true, block.groupX, block.groupY, oldLength, block.groupX, block.groupY, newLength);
 
                 //Insert the new item
                 assert(this->objects->Seek_To_Absolute_X(block.x));
@@ -284,15 +284,14 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 //Reinsert the group object
                 assert(newLength >= 0);
                 if (newLength > 0) {
-                    this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x+1, block.y, newLength);
+                    this->Update_Group_Data(blocks, false, block.groupX, block.groupY, oldLength, block.groupX+1, block.groupY, newLength);
 
                     //Update Vertical Object Limit Count to reflect that the group has been removed
                     assert(this->objects->Decrement_Vertical_Object_Count_Starting_At_X(block.x+1, newLength));
 
                     //Insert the group after the item
                     assert(this->objects->Seek_To_Absolute_X(block.x+1));
-                    int x = (block.x+1)-this->objects->Get_Absolute_X();
-                    assert(this->Insert_Group_Item_Into_Object_Buffer(x, block.y, newLength, groupItem));
+                    assert(this->Insert_Group_Item_Into_Object_Buffer(this->objects->Get_Relative_X_From_Absolute_X(block.x+1), block.y, newLength, groupItem));
                 }
             } else if (block.groupX+(block.groupLength-1) == block.x) { //handle insertion at the end
                 //Shorten the group length by 1
@@ -303,7 +302,7 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
                 --data->length;
                 int newLength = data->length;
                 assert(data->length >= 1);
-                this->Update_Group_Data(blocks, false, block.x, block.y, oldLength, block.x, block.y, newLength);
+                this->Update_Group_Data(blocks, false, block.groupX, block.groupY, oldLength, block.groupX, block.groupY, newLength);
 
                 //Update Vertical Object Limit Count to reflect that the group's length has been reduced by 1
                 assert(this->objects->Decrement_Vertical_Object_Count_At_X(block.x));
@@ -328,25 +327,33 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
 }
 
 bool Powerup_Distributor::Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item) {
-    assert(x >= 0);
+    assert(x >= 0 && x <= 31);
+    if (x > 16) this->objects->Set_Coordinate_Safety(false);
+    bool success = false;
     switch (item) {
     default:                                        assert(false); return false;
-    case Object_Item::BRICK_WITH_10_COINS:          return this->objects->Brick_With_10_Coins(x, y);
-    case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM: return this->objects->Question_Block_With_Mushroom(x, y);
-    case Object_Item::BRICK_WITH_MUSHROOM:          return this->objects->Brick_With_Mushroom(x, y);
-    case Object_Item::BRICK_WITH_1UP:               return this->objects->Brick_With_1up(x, y);
-    case Object_Item::BRICK_WITH_STAR:              return this->objects->Brick_With_Star(x, y);
+    case Object_Item::BRICK_WITH_10_COINS:          success = this->objects->Brick_With_10_Coins(x, y); break;
+    case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM: success = this->objects->Question_Block_With_Mushroom(x, y); break;
+    case Object_Item::BRICK_WITH_MUSHROOM:          success = this->objects->Brick_With_Mushroom(x, y); break;
+    case Object_Item::BRICK_WITH_1UP:               success = this->objects->Brick_With_1up(x, y); break;
+    case Object_Item::BRICK_WITH_STAR:              success = this->objects->Brick_With_Star(x, y); break;
     }
+    this->objects->Set_Coordinate_Safety(true);
+    return success;
 }
 
 bool Powerup_Distributor::Insert_Group_Item_Into_Object_Buffer(int x, int y, int length, Object_Item::Object_Item item) {
-    assert(x >= 0);
+    assert(x >= 0 && x <= 31);
+    if (x > 16) this->objects->Set_Coordinate_Safety(false);
+    bool success = false;
     switch (item) {
     default:                                                    assert(false); return false;
-    case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    return this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length);
-    case Object_Item::HORIZONTAL_BRICKS:                        return this->objects->Horizontal_Bricks(x, y, length);
-    case Object_Item::VERTICAL_BRICKS:                          return this->objects->Vertical_Bricks(x, y, length);
+    case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:    success = this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length); break;
+    case Object_Item::HORIZONTAL_BRICKS:                        success = this->objects->Horizontal_Bricks(x, y, length); break;
+    case Object_Item::VERTICAL_BRICKS:                          success = this->objects->Vertical_Bricks(x, y, length); break;
     }
+    this->objects->Set_Coordinate_Safety(true);
+    return success;
 }
 
 void Powerup_Distributor::Update_Group_Data(QMap<QString, Block_Data> *blocks, bool vertical, int oldX, int oldY, int oldLength, int newX, int newY, int newLength) {

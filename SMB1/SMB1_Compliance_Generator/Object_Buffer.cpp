@@ -227,6 +227,8 @@ int Object_Buffer::Get_Num_Vertical_Objects_At_X(int x) {
 }
 
 QString Object_Buffer::Get_Coordinate_Key(int x, int y) {
+    assert(x >= 0);
+    assert(y >= 0 && y < 0xB);
     return QString(QString::number(x)+"x"+QString::number(y));
 }
 
@@ -493,19 +495,19 @@ void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, i
         for (int i = 0; i < length && y+i < 0xB; ++i) {
             data.y = y+i;
 
-            //Only overwrite previous groups
+            //Only insert if it doesn't exist
             QString key = this->Get_Coordinate_Key(data.x, data.y);
             QMap<QString, Block_Data>::iterator iter = blocks->find(key);
-            if (iter == blocks->end() || iter->groupLength > 1) blocks->insert(key, data);
+            if (iter == blocks->end()) blocks->insert(key, data);
         }
     } else {
         for (int i = 0; i < length; ++i) {
             data.x = this->currentAbsoluteX+i;
 
-            //Only overwrite previous groups
+            //Only insert if it doesn't exist or if it is a single block
             QString key = this->Get_Coordinate_Key(data.x, data.y);
             QMap<QString, Block_Data>::iterator iter = blocks->find(key);
-            if (iter == blocks->end() || iter->groupLength > 1) blocks->insert(key, data);
+            if (iter == blocks->end() || iter->groupLength == 1) blocks->insert(key, data);
         }
     }
 }

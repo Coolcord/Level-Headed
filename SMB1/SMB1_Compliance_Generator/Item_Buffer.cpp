@@ -4,9 +4,9 @@
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Scenery.h"
 #include "Physics.h"
+#include <QDebug>
 #include <assert.h>
 #include <cmath>
-#include <QDebug>
 
 Item_Buffer::Item_Buffer(int numBytesLeft) {
     assert(numBytesLeft >= 0);
@@ -151,6 +151,7 @@ bool Item_Buffer::Seek_To_Enemy_Item(int absoluteX, int y, Enemy_Item::Enemy_Ite
 }
 
 bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
+    assert(this->currentAbsoluteX <= this->levelLength);
     if (absoluteX < 0) return false; //out of range!
     if (absoluteX == 0) {
         this->Seek_To_First_Item();
@@ -161,12 +162,12 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
     if (absoluteX > this->levelLength) { this->Seek_To_End(); return true; }
 
     //Potentially start from the beginning or the end to save time
-    int distance = this->currentAbsoluteX-absoluteX;
+    int distance = absoluteX-this->currentAbsoluteX;
     int absDistance = std::abs(distance);
     if (absDistance > this->levelLength/2) { //if more than half the level needs to be traversed
         assert(distance != 0);
-        if (distance > 0) this->Seek_To_End(); //start from the end
-        else this->Seek_To_First_Item(); //start from the beginning
+        if (distance < 0) this->Seek_To_First_Item(); //start from the beginning
+        else this->Seek_To_End(); //start from the end
     }
 
     //Determine which direction to seek
@@ -174,7 +175,7 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
         while (!this->At_End()) {
             this->Seek_To_Next();
             if (this->currentAbsoluteX > absoluteX) {
-                this->Seek_To_Previous(); //we've seeked to far, so go back by one
+                this->Seek_To_Previous(); //we've seeked too far, so go back by one
                 return true;
             }
         }
@@ -183,7 +184,9 @@ bool Item_Buffer::Seek_To_Absolute_X(int absoluteX) {
         bool beginningChecked = false;
         while (!beginningChecked) {
             if (this->At_Beginning()) beginningChecked = true;
-            if (this->currentAbsoluteX <= absoluteX) return true;
+            if (this->currentAbsoluteX <= absoluteX) {
+                return true;
+            }
             this->Seek_To_Previous();
         }
         return false; //the item exists before the first item. It is impossible to seek here!
@@ -199,22 +202,34 @@ void Item_Buffer::Seek_To_First_Item() {
 }
 
 void Item_Buffer::Seek_To_Next() {
-    if (!this->At_End()) {
+    if (this->At_End()) {
+        this->Seek_To_End();
+    } else {
         ++this->itemBufferIter;
-        Buffer_Data data = *this->itemBufferIter;
-        this->currentAbsoluteX = data.absoluteX;
-        this->currentX = this->currentAbsoluteX%0x10;
-        this->currentPage = this->currentAbsoluteX/0x10;
+        if (this->At_End()) {
+            this->Seek_To_End();
+        } else {
+            Buffer_Data data = *this->itemBufferIter;
+            this->currentAbsoluteX = data.absoluteX;
+            this->currentX = this->currentAbsoluteX%0x10;
+            this->currentPage = this->currentAbsoluteX/0x10;
+        }
     }
 }
 
 void Item_Buffer::Seek_To_Previous() {
-    if (!this->At_Beginning()) {
+    if (this->At_Beginning()) {
+        this->Seek_To_First_Item();
+    } else {
         --this->itemBufferIter;
-        Buffer_Data data = *this->itemBufferIter;
-        this->currentAbsoluteX = data.absoluteX;
-        this->currentX = this->currentAbsoluteX%0x10;
-        this->currentPage = this->currentAbsoluteX/0x10;
+        if (this->At_Beginning()) {
+            this->Seek_To_First_Item();
+        } else {
+            Buffer_Data data = *this->itemBufferIter;
+            this->currentAbsoluteX = data.absoluteX;
+            this->currentX = this->currentAbsoluteX%0x10;
+            this->currentPage = this->currentAbsoluteX/0x10;
+        }
     }
 }
 
