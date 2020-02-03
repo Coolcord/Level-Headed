@@ -346,24 +346,14 @@ bool Castle_Generator::Item_Tease(int x) {
             if (y == 3 || y == 7) {
                 if (!uniform) length = Random::Get_Instance().Get_Num(2)+1; //between 1 and 3
                 if (length == 1) {
-                    if (Random::Get_Instance().Get_Num(1) == 0) {
-                        assert(this->objects->Question_Block_With_Coin(x, y));
-                    } else {
-                        assert(this->objects->Question_Block_With_Mushroom(x, y));
-                    }
+                    assert(this->objects->Question_Block_With_Coin(x, y));
                     x = 1;
                 } else {
                     assert(this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length));
                     x = length;
-                    if (Random::Get_Instance().Get_Num(1) == 0) {
-                        x = Random::Get_Instance().Get_Num(length-1);
-                        if (this->objects->Question_Block_With_Mushroom(x, y)) x = length - x;
-                        else x = length;
-                    }
                 }
             } else {
-                if (Random::Get_Instance().Get_Num(1) == 0) assert(this->objects->Question_Block_With_Mushroom(x, y));
-                else assert(this->objects->Question_Block_With_Coin(x, y));
+                assert(this->objects->Question_Block_With_Coin(x, y));
                 x = 1;
             }
             if (i != 1 && !this->Spawn_Firebar(x, y)) break;
@@ -376,24 +366,14 @@ bool Castle_Generator::Item_Tease(int x) {
         if (y == 3 || y == 7) {
             length += Random::Get_Instance().Get_Num(2);
             if (length == 1) {
-                if (Random::Get_Instance().Get_Num(1) == 0) {
-                    assert(this->objects->Question_Block_With_Coin(x, y));
-                } else {
-                    assert(this->objects->Question_Block_With_Mushroom(x, y));
-                }
+                assert(this->objects->Question_Block_With_Coin(x, y));
                 x = 1;
             } else {
                 assert(this->objects->Horizontal_Question_Blocks_With_Coins(x, y, length));
                 x = length;
-                if (Random::Get_Instance().Get_Num(1) == 0) {
-                    x = Random::Get_Instance().Get_Num(length-1);
-                    if (this->objects->Question_Block_With_Mushroom(x, y)) x = length - x;
-                    else x = length;
-                }
             }
         } else {
-            if (Random::Get_Instance().Get_Num(1) == 0) assert(this->objects->Question_Block_With_Mushroom(x, y));
-            else assert(this->objects->Question_Block_With_Coin(x, y));
+            assert(this->objects->Question_Block_With_Coin(x, y));
         }
         this->Spawn_Firebar(x, y);
     }

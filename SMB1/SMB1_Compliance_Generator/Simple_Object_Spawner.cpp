@@ -39,9 +39,9 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks(int y, int length) {
     for (int i = 0; i < length; ++i) {
         if (this->object->Get_Num_Objects_Available() > 0 && numObjects < length-1) {
             int random = Random::Get_Instance().Get_Num(QUESTION_TOTAL-1);
-            if (random <= QUESTION_NOTHING) continue;
+            if (random <= QUESTION_COIN) continue;
             else if (random <= QUESTION_MUSHROOM) {
-                if (this->object->Question_Block_With_Mushroom(i, y)) {
+                if (this->object->Question_Block_With_Coin(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
@@ -64,27 +64,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
                     ++numObjects;
                 }
             } else if (random <= BRICK_QUESTION_MUSHROOM) {
-                if (this->object->Question_Block_With_Mushroom(i, y)) {
-                    lastObjectX = i;
-                    ++numObjects;
-                }
-            } else if (random <= BRICK_MUSHROOM) {
-                if (this->object->Brick_With_Mushroom(i, y)) {
-                    lastObjectX = i;
-                    ++numObjects;
-                }
-            } else if (random <= BRICK_10_COINS) {
-                if (this->object->Brick_With_10_Coins(i, y)) {
-                    lastObjectX = i;
-                    ++numObjects;
-                }
-            } else if (random <= BRICK_STAR) {
-                if (this->object->Brick_With_Star(i, y)) {
-                    lastObjectX = i;
-                    ++numObjects;
-                }
-            } else if (random <= BRICK_1UP) {
-                if (this->object->Brick_With_1up(i, y)) {
+                if (this->object->Question_Block_With_Coin(i, y)) {
                     lastObjectX = i;
                     ++numObjects;
                 }
@@ -141,26 +121,24 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
         int height = Physics::GROUND_Y - y + 1;
         return this->object->Vertical_Blocks(x, y, height);
     } else if (random <= PROBABILITY_QUESTION_BLOCK_WITH_MUSHROOM) {
-        return this->object->Question_Block_With_Mushroom(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Question_Block_With_Coin(x, Physics::BASIC_BLOCK_Y);
     } else if (random <= PROBABILITY_BRICK_WITH_10_COINS) {
-        return this->object->Brick_With_10_Coins(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS) {
         if (this->object->Horizontal_Question_Blocks_With_Coins(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
-            int length = this->object->Get_Last_Object_Length();
-            if (length > 1) this->Fill_With_Question_Blocks(Physics::BASIC_BLOCK_Y, this->object->Get_Last_Object_Length());
             this->object->Increment_Last_Object_Length(1);
             return true;
         } else {
             return false;
         }
     } else if (random <= PROBABILITY_BRICK_WITH_MUSHROOM) {
-        return this->object->Brick_With_Mushroom(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_BRICK_WITH_STAR) {
-        return this->object->Brick_With_Star(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_BRICK_WITH_1UP) {
-        return this->object->Brick_With_1up(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_HIDDEN_BLOCK_WITH_1UP) {
-        return this->object->Hidden_Block_With_1up(x, Physics::BASIC_BLOCK_Y);
+        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else {
         assert(false);
     }

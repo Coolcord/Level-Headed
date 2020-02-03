@@ -23,11 +23,7 @@ int Item_Spawner::Spawn_Random_Item(int minX, int maxX, int groundLevelY, int mi
     y = groundLevelY - 4;
     if (!noBlocks && random == 0 && y >= minY) { //possibly spawn a powerup
         x = Random::Get_Instance().Get_Num(lastObjectLength-1);
-        if (Random::Get_Instance().Get_Num(1) == 0) { //spawn a mushroom
-            assert(this->object->Question_Block_With_Mushroom(x, y));
-        } else {
-            assert(this->object->Question_Block_With_Coin(x, y));
-        }
+        assert(this->object->Question_Block_With_Coin(x, y));
     } else if (random != 0) { //spawn coins
         int length = Random::Get_Instance().Get_Num(maxX-minX)+3; //try to spawn at least 3 coins
         if (minX+length > maxX) length = (maxX-minX)+1; //cut back if necessary

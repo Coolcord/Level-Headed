@@ -6,6 +6,7 @@
 #include "Physics.h"
 #include <QVector>
 #include <assert.h>
+#include <cmath>
 
 const static int MIN_POWERUPS = 1;
 const static int MAX_POWERUPS = 3;
@@ -18,7 +19,6 @@ const static int MAX_STARS = 2;
 const static int MIN_TEN_COIN_BLOCKS = 0;
 const static int MAX_TEN_COIN_BLOCKS = 2;
 const static int CHANCE_ITEM_DIFFICULTY_MODIFIER = 10;
-const static int CHANCE_POWERUPS = 50;
 const static int CHANCE_HIDDEN_POWERUPS = 50;
 const static int CHANCE_ONE_UPS = 50;
 const static int CHANCE_STARS = 50;
@@ -167,27 +167,37 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
-    //Don't allocate anything on short levels
-    if (this->objects->Get_Num_Objects_Available() < MAX_POWERUPS+MAX_HIDDEN_POWERUPS+MAX_ONE_UPS+MAX_STARS+MAX_TEN_COIN_BLOCKS) return true;
-
-    this->Roll_For_Items(this->numPowerups, MIN_POWERUPS, MAX_POWERUPS, CHANCE_POWERUPS);
-    this->Roll_For_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS);
-    this->Roll_For_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS);
-    this->Roll_For_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS);
-    this->Roll_For_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS);
+    this->Roll_For_Powerups(this->numPowerups, MIN_POWERUPS, MAX_POWERUPS);
     if (!this->objects->Reserve_Objects(this->numPowerups)) return false;
+    this->Roll_For_Hidden_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS);
     if (!this->objects->Reserve_Objects(this->numHiddenPowerups)) return false;
+    this->Roll_For_Hidden_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS);
     if (!this->objects->Reserve_Objects(this->numOneUps)) return false;
+    this->Roll_For_Hidden_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS);
     if (!this->objects->Reserve_Objects(this->numStars)) return false;
+    this->Roll_For_Hidden_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS);
     return this->objects->Reserve_Objects(this->numTenCoinBlocks);
 }
 
-void Powerup_Distributor::Roll_For_Items(int &numItems, int min, int max, int chance) {
+void Powerup_Distributor::Roll_For_Powerups(int &numItems, int min, int max) {
+    assert(min <= max);
+    if (min == max) { numItems = min; return; }
+    double percentage = static_cast<double>((99-((this->args->difficulty-1)*11)))/static_cast<double>(100.0); //0.0-0.99
+    if (args->difficulty <= 1) percentage = 1.0;
+    if (args->difficulty >= 10) percentage = 0.0;
+    numItems = static_cast<int>(std::round(static_cast<double>(max-min)*percentage))+min;
+}
+
+void Powerup_Distributor::Roll_For_Hidden_Items(int &numItems, int min, int max, int chance) {
     assert(min <= max);
     numItems = 0;
+    if (this->objects->Get_Num_Objects_Available() <= 0) return;
     int maxChance = 100+((this->args->difficulty-1)*CHANCE_ITEM_DIFFICULTY_MODIFIER);
     for (int i = min; i < max; ++i) {
         if (Random::Get_Instance().Get_Num(maxChance) <= chance) ++numItems;
+        int availableObjects = this->objects->Get_Num_Objects_Available();
+        assert(availableObjects > 0);
+        if (availableObjects == numItems) return;
     }
 }
 
