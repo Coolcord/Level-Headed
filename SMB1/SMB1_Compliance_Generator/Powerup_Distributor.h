@@ -26,7 +26,7 @@ private:
     void Distribute_Items(Object_Item::Object_Item item, int numItems);
     bool Reserve_Powerup_Objects();
     void Roll_For_Powerups(int &numItems, int min, int max);
-    void Roll_For_Hidden_Items(int &numItems, int min, int max, int chance);
+    void Roll_For_Hidden_Items(int &numItems, int min, int max, int chance, bool isTenCoinBlock);
     bool Is_Block_Hittable(int x, int y);
     bool Is_Block_Safe_For_Powerup(int x, int y);
     bool Is_Block_Safe_For_Star(int x, int y);

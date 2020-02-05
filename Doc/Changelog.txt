@@ -1,4 +1,5 @@
 Next Update (v0.3.6)
++ The level generator now has a separate pass for powerups. Most levels should now contain more powerups and items in general.
 + Fire Bros. can now be seen in Normal difficulty games
 + Fire Bros. throw rate has been nerfed
 + Bowser's fireball throw rate has been nerfed

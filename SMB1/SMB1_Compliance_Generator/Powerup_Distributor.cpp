@@ -19,10 +19,10 @@ const static int MAX_STARS = 2;
 const static int MIN_TEN_COIN_BLOCKS = 0;
 const static int MAX_TEN_COIN_BLOCKS = 2;
 const static int CHANCE_ITEM_DIFFICULTY_MODIFIER = 10;
-const static int CHANCE_HIDDEN_POWERUPS = 50;
-const static int CHANCE_ONE_UPS = 50;
-const static int CHANCE_STARS = 50;
-const static int CHANCE_TEN_COIN_BLOCKS = 50;
+const static int CHANCE_HIDDEN_POWERUPS = 25;
+const static int CHANCE_ONE_UPS = 37;
+const static int CHANCE_STARS = 32;
+const static int CHANCE_TEN_COIN_BLOCKS = 35;
 
 Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args) {
     assert(levelCrawler); assert(objects); assert(args);
@@ -75,9 +75,9 @@ void Powerup_Distributor::Distribute_Question_Block_Items() {
 
 void Powerup_Distributor::Distribute_Brick_Block_Items() {
     this->Distribute_Hidden_Powerups();
-    this->Distribute_One_Ups();
-    this->Distribute_Stars();
     this->Distribute_Ten_Coin_Blocks();
+    this->Distribute_Stars();
+    this->Distribute_One_Ups();
 }
 
 void Powerup_Distributor::Distribute_One_Ups() {
@@ -146,6 +146,12 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
         }
     }
 
+    //Ignore the last 25% of the possible blocks when distributing stars
+    if (item == Object_Item::BRICK_WITH_STAR) {
+        double numPossibleBlocksDouble = static_cast<double>(numPossibleBlocks);
+        numPossibleBlocks = static_cast<int>(std::round((numPossibleBlocksDouble/4.0)*3.0));
+    }
+
     //Break up the level into sections and place 1 item in a random place of each section
     if (numItems < numPossibleBlocks) {
         int min = -1, max = -1;
@@ -169,14 +175,14 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
     this->Roll_For_Powerups(this->numPowerups, MIN_POWERUPS, MAX_POWERUPS);
     if (!this->objects->Reserve_Objects(this->numPowerups)) return false;
-    this->Roll_For_Hidden_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS);
+    this->Roll_For_Hidden_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS, false);
     if (!this->objects->Reserve_Objects(this->numHiddenPowerups)) return false;
-    this->Roll_For_Hidden_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS);
-    if (!this->objects->Reserve_Objects(this->numOneUps)) return false;
-    this->Roll_For_Hidden_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS);
+    this->Roll_For_Hidden_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS, true);
+    if (!this->objects->Reserve_Objects(this->numTenCoinBlocks)) return false;
+    this->Roll_For_Hidden_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS, false);
     if (!this->objects->Reserve_Objects(this->numStars)) return false;
-    this->Roll_For_Hidden_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS);
-    return this->objects->Reserve_Objects(this->numTenCoinBlocks);
+    this->Roll_For_Hidden_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS, false);
+    return this->objects->Reserve_Objects(this->numOneUps);
 }
 
 void Powerup_Distributor::Roll_For_Powerups(int &numItems, int min, int max) {
@@ -188,11 +194,13 @@ void Powerup_Distributor::Roll_For_Powerups(int &numItems, int min, int max) {
     numItems = static_cast<int>(std::round(static_cast<double>(max-min)*percentage))+min;
 }
 
-void Powerup_Distributor::Roll_For_Hidden_Items(int &numItems, int min, int max, int chance) {
+void Powerup_Distributor::Roll_For_Hidden_Items(int &numItems, int min, int max, int chance, bool isTenCoinBlock) {
     assert(min <= max);
     numItems = 0;
     if (this->objects->Get_Num_Objects_Available() <= 0) return;
-    int maxChance = 100+((this->args->difficulty-1)*CHANCE_ITEM_DIFFICULTY_MODIFIER);
+    int maxChance = 0;
+    if (isTenCoinBlock) maxChance = 75;
+    else maxChance = 75+((this->args->difficulty-1)*CHANCE_ITEM_DIFFICULTY_MODIFIER);
     for (int i = min; i < max; ++i) {
         if (Random::Get_Instance().Get_Num(maxChance) <= chance) ++numItems;
         int availableObjects = this->objects->Get_Num_Objects_Available();
