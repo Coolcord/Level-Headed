@@ -95,6 +95,15 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts;
     pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
+    pluginSettings->difficultyMaxPowerups = difficultySettings.maxPowerups;
+    pluginSettings->difficultyMaxHiddenPowerups = difficultySettings.maxHiddenPowerups;
+    pluginSettings->difficultyMaxOneUps = difficultySettings.maxOneUps;
+    pluginSettings->difficultyMaxTenCoinBlocks = difficultySettings.maxTenCoinBlocks;
+    pluginSettings->difficultyMaxStars = difficultySettings.maxStars;
+    pluginSettings->difficultyHiddenPowerupChance = difficultySettings.hiddenPowerupChance;
+    pluginSettings->difficultyOneUpChance = difficultySettings.oneUpChance;
+    pluginSettings->difficultyTenCoinBlockChance = difficultySettings.tenCoinBlockChance;
+    pluginSettings->difficultyStarChance = difficultySettings.starChance;
     if (disableASM) this->Disable_All_ASM_Hacks(pluginSettings);
 }
 
@@ -251,6 +260,15 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
     difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
     difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = false;
+    difficultySettings.maxPowerups = 2;
+    difficultySettings.maxHiddenPowerups = 2;
+    difficultySettings.maxOneUps = 1;
+    difficultySettings.maxTenCoinBlocks = 2;
+    difficultySettings.maxStars = 1;
+    difficultySettings.hiddenPowerupChance = 33;
+    difficultySettings.oneUpChance = 37;
+    difficultySettings.tenCoinBlockChance = 35;
+    difficultySettings.starChance = 37;
     return difficultySettings;
 }
 

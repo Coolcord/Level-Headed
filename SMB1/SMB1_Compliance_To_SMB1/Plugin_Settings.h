@@ -120,6 +120,15 @@ struct Plugin_Settings {
     bool difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     bool difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts;
     bool difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
+    int difficultyMaxPowerups;
+    int difficultyMaxHiddenPowerups;
+    int difficultyMaxOneUps;
+    int difficultyMaxTenCoinBlocks;
+    int difficultyMaxStars;
+    int difficultyHiddenPowerupChance;
+    int difficultyOneUpChance;
+    int difficultyTenCoinBlockChance;
+    int difficultyStarChance;
 };
 
 #endif // PLUGIN_SETTINGS_H

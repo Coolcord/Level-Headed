@@ -936,7 +936,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>716</width>
-            <height>2357</height>
+            <height>2654</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1825,6 +1825,123 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutMaxOneUps">
+                <item>
+                 <widget class="QLabel" name="lblMaxOneUps">
+                  <property name="text">
+                   <string>Maximum 1-Ups:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbMaxOneUps">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutMaxTenCoinBlocks">
+                <item>
+                 <widget class="QLabel" name="lblMaxTenCoinBlocks">
+                  <property name="text">
+                   <string>Maximum 10 Coin Blocks:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbMaxTenCoinBlocks">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutMaxBrickBlockPowerups">
+                <item>
+                 <widget class="QLabel" name="lblMaxBrickBlockPowerups">
+                  <property name="text">
+                   <string>Maximum Brick Block Powerups:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbMaxBrickBlockPowerups">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutMaxQuestionBlockPowerups">
+                <item>
+                 <widget class="QLabel" name="lblMaxQuestionBlockPowerups">
+                  <property name="text">
+                   <string>Maximum Question Block Powerups:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbMaxQuestionBlockPowerups">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutMaxStarmen">
+                <item>
+                 <widget class="QLabel" name="lblMaxStarmen">
+                  <property name="text">
+                   <string>Maximum Starmen:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbMaxStarmen">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>5</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutAutoScrollChancePerLevel">
                 <item>
                  <widget class="QLabel" name="lblAutoScrollChancePerLevel">
@@ -1889,6 +2006,114 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QSpinBox" name="sbLakituSpawnChancePerLevel">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutOneUpSpawnChance">
+                <item>
+                 <widget class="QLabel" name="lblOneUpSpawnChance">
+                  <property name="text">
+                   <string>1-Up Spawn Chance:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbOneUpSpawnChance">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutTenCoinBlockSpawnChance">
+                <item>
+                 <widget class="QLabel" name="lblTenCoinBlockSpawnChance">
+                  <property name="text">
+                   <string>10 Coin Block Spawn Chance:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbTenCoinBlockSpawnChance">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutBrickBlockPowerupSpawnChance">
+                <item>
+                 <widget class="QLabel" name="lblBrickBlockPowerupSpawnChance">
+                  <property name="text">
+                   <string>Brick Block Powerup Spawn Chance:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbBrickBlockPowerupSpawnChance">
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutStarmanSpawnChance">
+                <item>
+                 <widget class="QLabel" name="lblStarmanSpawnChance">
+                  <property name="text">
+                   <string>Starman Spawn Chance:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbStarmanSpawnChance">
                   <property name="suffix">
                    <string>%</string>
                   </property>

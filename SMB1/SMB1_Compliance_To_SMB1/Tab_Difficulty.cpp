@@ -72,6 +72,15 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboSurfingLiftSpeed->setCurrentIndex(this->pluginSettings->difficultySurfingLiftSpeed);
     this->ui->comboPiranhaPlantType->setCurrentIndex(this->pluginSettings->difficultyPiranhaPlantType);
     this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(this->pluginSettings->difficultyMaxNumberOfPiranhaPlants);
+    this->ui->sbMaxQuestionBlockPowerups->setValue(this->pluginSettings->difficultyMaxPowerups);
+    this->ui->sbMaxBrickBlockPowerups->setValue(this->pluginSettings->difficultyMaxHiddenPowerups);
+    this->ui->sbMaxOneUps->setValue(this->pluginSettings->difficultyMaxOneUps);
+    this->ui->sbMaxTenCoinBlocks->setValue(this->pluginSettings->difficultyMaxTenCoinBlocks);
+    this->ui->sbMaxStarmen->setValue(this->pluginSettings->difficultyMaxStars);
+    this->ui->sbBrickBlockPowerupSpawnChance->setValue(this->pluginSettings->difficultyHiddenPowerupChance);
+    this->ui->sbOneUpSpawnChance->setValue(this->pluginSettings->difficultyOneUpChance);
+    this->ui->sbTenCoinBlockSpawnChance->setValue(this->pluginSettings->difficultyTenCoinBlockChance);
+    this->ui->sbStarmanSpawnChance->setValue(this->pluginSettings->difficultyStarChance);
 }
 
 void Tab_Difficulty::Save_Settings() {
@@ -145,6 +154,15 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->isChecked();
         this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->isChecked();
         this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts->isChecked();
+        this->pluginSettings->difficultyMaxPowerups = this->ui->sbMaxQuestionBlockPowerups->value();
+        this->pluginSettings->difficultyMaxHiddenPowerups = this->ui->sbMaxBrickBlockPowerups->value();
+        this->pluginSettings->difficultyMaxOneUps = this->ui->sbMaxOneUps->value();
+        this->pluginSettings->difficultyMaxTenCoinBlocks = this->ui->sbMaxTenCoinBlocks->value();
+        this->pluginSettings->difficultyMaxStars = this->ui->sbMaxStarmen->value();
+        this->pluginSettings->difficultyHiddenPowerupChance = this->ui->sbBrickBlockPowerupSpawnChance->value();
+        this->pluginSettings->difficultyOneUpChance = this->ui->sbOneUpSpawnChance->value();
+        this->pluginSettings->difficultyTenCoinBlockChance = this->ui->sbTenCoinBlockSpawnChance->value();
+        this->pluginSettings->difficultyStarChance = this->ui->sbStarmanSpawnChance->value();
     } else { //get difficulty settings from the present
         assert(Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(this->pluginSettings->difficultyComboIndex, this->pluginSettings, partialSupport));
     }

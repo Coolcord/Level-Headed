@@ -24,6 +24,7 @@ private:
     void Distribute_Stars();
     void Distribute_Ten_Coin_Blocks();
     void Distribute_Items(Object_Item::Object_Item item, int numItems);
+    void Distribute_Items(Object_Item::Object_Item item, int numItems, int &numDistributed);
     bool Reserve_Powerup_Objects();
     void Roll_For_Powerups(int &numItems, int min, int max);
     void Roll_For_Hidden_Items(int &numItems, int min, int max, int chance, bool isTenCoinBlock);
@@ -43,6 +44,20 @@ private:
     int numOneUps;
     int numStars;
     int numTenCoinBlocks;
+    int minPowerups;
+    int maxPowerups;
+    int minHiddenPowerups;
+    int maxHiddenPowerups;
+    int minOneUps;
+    int maxOneUps;
+    int minTenCoinBlocks;
+    int maxTenCoinBlocks;
+    int minStars;
+    int maxStars;
+    int hiddenPowerupChance;
+    int oneUpChance;
+    int tenCoinBlockChance;
+    int starChance;
 };
 
 #endif // POWERUP_DISTRIBUTOR_H

@@ -8,21 +8,6 @@
 #include <assert.h>
 #include <cmath>
 
-const static int MIN_POWERUPS = 1;
-const static int MAX_POWERUPS = 3;
-const static int MIN_HIDDEN_POWERUPS = 0;
-const static int MAX_HIDDEN_POWERUPS = 2;
-const static int MIN_ONE_UPS = 0;
-const static int MAX_ONE_UPS = 1;
-const static int MIN_STARS = 0;
-const static int MAX_STARS = 1;
-const static int MIN_TEN_COIN_BLOCKS = 0;
-const static int MAX_TEN_COIN_BLOCKS = 2;
-const static int CHANCE_HIDDEN_POWERUPS = 33;
-const static int CHANCE_ONE_UPS = 37;
-const static int CHANCE_STARS = 37;
-const static int CHANCE_TEN_COIN_BLOCKS = 35;
-
 Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args) {
     assert(levelCrawler); assert(objects); assert(args);
     this->objects = objects;
@@ -33,6 +18,21 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->numOneUps = 0;
     this->numStars = 0;
     this->numTenCoinBlocks = 0;
+    this->minPowerups = 1;
+    this->maxPowerups = args->difficultyMaxPowerups;
+    if (this->minPowerups > this->maxPowerups) this->minPowerups = this->maxPowerups;
+    this->minHiddenPowerups = 0;
+    this->maxHiddenPowerups = args->difficultyMaxHiddenPowerups;
+    this->minOneUps = 0;
+    this->maxOneUps = args->difficultyMaxOneUps;
+    this->minTenCoinBlocks = 0;
+    this->maxTenCoinBlocks = args->difficultyMaxTenCoinBlocks;
+    this->minStars = 0;
+    this->maxStars = args->difficultyMaxStars;
+    this->hiddenPowerupChance = args->difficultyHiddenPowerupChance;
+    this->oneUpChance = args->difficultyOneUpChance;
+    this->tenCoinBlockChance = args->difficultyTenCoinBlockChance;
+    this->starChance = args->difficultyStarChance;
     assert(this->Reserve_Powerup_Objects());
 }
 
@@ -69,7 +69,9 @@ void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlo
 }
 
 void Powerup_Distributor::Distribute_Question_Block_Items() {
-    return this->Distribute_Items(Object_Item::QUESTION_BLOCK_WITH_MUSHROOM, this->numPowerups);
+    int numDistributed = 0;
+    this->Distribute_Items(Object_Item::QUESTION_BLOCK_WITH_MUSHROOM, this->numPowerups, numDistributed);
+    this->numHiddenPowerups += this->numPowerups-numDistributed; //reallocate remaining question block powerups to brick blocks
 }
 
 void Powerup_Distributor::Distribute_Brick_Block_Items() {
@@ -96,6 +98,11 @@ void Powerup_Distributor::Distribute_Ten_Coin_Blocks() {
 }
 
 void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int numItems) {
+    int numDistributed = 0;
+    this->Distribute_Items(item, numItems, numDistributed);
+}
+
+void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int numItems, int &numDistributed) {
     //Determine which blocks should be considered for distribution
     QMap<QString, Block_Data> *knownBlocks = nullptr;
     if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) knownBlocks = this->objects->Get_Question_Blocks();
@@ -161,26 +168,28 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
             assert(iter != knownBlocks->end());
             this->Insert_Item_At(iter.value(), item);
+            ++numDistributed;
         }
     } else {
         for (int i = 0; i < numPossibleBlocks; ++i) {
             QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(i);
             assert(iter != knownBlocks->end());
             this->Insert_Item_At(iter.value(), item);
+            ++numDistributed;
         }
     }
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
-    this->Roll_For_Powerups(this->numPowerups, MIN_POWERUPS, MAX_POWERUPS);
+    this->Roll_For_Powerups(this->numPowerups, this->minPowerups, this->maxPowerups);
     if (!this->objects->Reserve_Objects(this->numPowerups)) return false;
-    this->Roll_For_Hidden_Items(this->numHiddenPowerups, MIN_HIDDEN_POWERUPS, MAX_HIDDEN_POWERUPS, CHANCE_HIDDEN_POWERUPS, false);
+    this->Roll_For_Hidden_Items(this->numHiddenPowerups, this->minHiddenPowerups, this->maxHiddenPowerups, this->hiddenPowerupChance, false);
     if (!this->objects->Reserve_Objects(this->numHiddenPowerups)) return false;
-    this->Roll_For_Hidden_Items(this->numTenCoinBlocks, MIN_TEN_COIN_BLOCKS, MAX_TEN_COIN_BLOCKS, CHANCE_TEN_COIN_BLOCKS, true);
+    this->Roll_For_Hidden_Items(this->numTenCoinBlocks, this->minTenCoinBlocks, this->maxTenCoinBlocks, this->tenCoinBlockChance, true);
     if (!this->objects->Reserve_Objects(this->numTenCoinBlocks)) return false;
-    this->Roll_For_Hidden_Items(this->numStars, MIN_STARS, MAX_STARS, CHANCE_STARS, false);
+    this->Roll_For_Hidden_Items(this->numStars, this->minStars, this->maxStars, this->starChance, false);
     if (!this->objects->Reserve_Objects(this->numStars)) return false;
-    this->Roll_For_Hidden_Items(this->numOneUps, MIN_ONE_UPS, MAX_ONE_UPS, CHANCE_ONE_UPS, false);
+    this->Roll_For_Hidden_Items(this->numOneUps, this->minOneUps, this->maxOneUps, this->oneUpChance, false);
     return this->objects->Reserve_Objects(this->numOneUps);
 }
 

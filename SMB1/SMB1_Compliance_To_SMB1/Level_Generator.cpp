@@ -344,6 +344,15 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     args.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
+    args.difficultyMaxPowerups = this->pluginSettings->difficultyMaxPowerups;
+    args.difficultyMaxHiddenPowerups = this->pluginSettings->difficultyMaxHiddenPowerups;
+    args.difficultyMaxOneUps = this->pluginSettings->difficultyMaxOneUps;
+    args.difficultyMaxTenCoinBlocks = this->pluginSettings->difficultyMaxTenCoinBlocks;
+    args.difficultyMaxStars = this->pluginSettings->difficultyMaxStars;
+    args.difficultyHiddenPowerupChance = this->pluginSettings->difficultyHiddenPowerupChance;
+    args.difficultyOneUpChance = this->pluginSettings->difficultyOneUpChance;
+    args.difficultyTenCoinBlockChance = this->pluginSettings->difficultyTenCoinBlockChance;
+    args.difficultyStarChance = this->pluginSettings->difficultyStarChance;
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;

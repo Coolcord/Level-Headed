@@ -56,6 +56,15 @@ struct SMB1_Compliance_Generator_Arguments {
     bool difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int difficultySpawnerPriority;
     int maxLevelLength;
+    int difficultyMaxPowerups;
+    int difficultyMaxHiddenPowerups;
+    int difficultyMaxOneUps;
+    int difficultyMaxTenCoinBlocks;
+    int difficultyMaxStars;
+    int difficultyHiddenPowerupChance;
+    int difficultyOneUpChance;
+    int difficultyTenCoinBlockChance;
+    int difficultyStarChance;
 };
 
 #endif // SMB1_COMPLIANCE_GENERATOR_ARGUMENTS_H

@@ -64,6 +64,15 @@ struct Difficulty_Level_Settings {
     bool allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     bool allowLakitusWhenRandomizingEnemiesInLevelScripts;
     bool allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts;
+    int maxPowerups;
+    int maxHiddenPowerups;
+    int maxOneUps;
+    int maxTenCoinBlocks;
+    int maxStars;
+    int hiddenPowerupChance;
+    int oneUpChance;
+    int tenCoinBlockChance;
+    int starChance;
 };
 
 #endif // DIFFICULTY_LEVEL_SETTINGS_H

@@ -262,6 +262,17 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Lakitus_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Bullet_Bill_And_Cheep_Cheep_Spawners_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts)) return false;
+
+
+    if (!configFile.Set_Value("Difficulty_Max_Powerups", this->pluginSettings.difficultyMaxPowerups)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_Hidden_Powerups", this->pluginSettings.difficultyMaxHiddenPowerups)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_One_Ups", this->pluginSettings.difficultyMaxOneUps)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_Ten_Coin_Blocks", this->pluginSettings.difficultyMaxTenCoinBlocks)) return false;
+    if (!configFile.Set_Value("Difficulty_Max_Stars", this->pluginSettings.difficultyMaxStars)) return false;
+    if (!configFile.Set_Value("Difficulty_Hidden_Powerup_Chance", this->pluginSettings.difficultyHiddenPowerupChance)) return false;
+    if (!configFile.Set_Value("Difficulty_One_Up_Chance", this->pluginSettings.difficultyOneUpChance)) return false;
+    if (!configFile.Set_Value("Difficulty_Ten_Coin_Block_Chance", this->pluginSettings.difficultyTenCoinBlockChance)) return false;
+    if (!configFile.Set_Value("Difficulty_Star_Chance", this->pluginSettings.difficultyStarChance)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
     if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
     if (!configFile.Set_Value("Mario_Name", this->pluginSettings.marioName)) return false;
@@ -365,6 +376,15 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Difficulty_Allow_Lakitus_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Difficulty_Allow_Bullet_Bill_And_Cheep_Cheep_Spawners_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts);
+    configFile.Get_Value("Difficulty_Max_Powerups", this->pluginSettings.difficultyMaxPowerups);
+    configFile.Get_Value("Difficulty_Max_Hidden_Powerups", this->pluginSettings.difficultyMaxHiddenPowerups);
+    configFile.Get_Value("Difficulty_Max_One_Ups", this->pluginSettings.difficultyMaxOneUps);
+    configFile.Get_Value("Difficulty_Max_Ten_Coin_Blocks", this->pluginSettings.difficultyMaxTenCoinBlocks);
+    configFile.Get_Value("Difficulty_Max_Stars", this->pluginSettings.difficultyMaxStars);
+    configFile.Get_Value("Difficulty_Hidden_Powerup_Chance", this->pluginSettings.difficultyHiddenPowerupChance);
+    configFile.Get_Value("Difficulty_One_Up_Chance", this->pluginSettings.difficultyOneUpChance);
+    configFile.Get_Value("Difficulty_Ten_Coin_Block_Chance", this->pluginSettings.difficultyTenCoinBlockChance);
+    configFile.Get_Value("Difficulty_Star_Chance", this->pluginSettings.difficultyStarChance);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
     configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);
     configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);
