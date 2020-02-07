@@ -15,13 +15,12 @@ const static int MAX_HIDDEN_POWERUPS = 2;
 const static int MIN_ONE_UPS = 0;
 const static int MAX_ONE_UPS = 1;
 const static int MIN_STARS = 0;
-const static int MAX_STARS = 2;
+const static int MAX_STARS = 1;
 const static int MIN_TEN_COIN_BLOCKS = 0;
 const static int MAX_TEN_COIN_BLOCKS = 2;
-const static int CHANCE_ITEM_DIFFICULTY_MODIFIER = 10;
-const static int CHANCE_HIDDEN_POWERUPS = 25;
+const static int CHANCE_HIDDEN_POWERUPS = 33;
 const static int CHANCE_ONE_UPS = 37;
-const static int CHANCE_STARS = 32;
+const static int CHANCE_STARS = 37;
 const static int CHANCE_TEN_COIN_BLOCKS = 35;
 
 Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args) {
@@ -195,14 +194,13 @@ void Powerup_Distributor::Roll_For_Powerups(int &numItems, int min, int max) {
 }
 
 void Powerup_Distributor::Roll_For_Hidden_Items(int &numItems, int min, int max, int chance, bool isTenCoinBlock) {
+    if (this->objects->Get_Num_Objects_Available() <= 0) return;
     assert(min <= max);
     numItems = 0;
-    if (this->objects->Get_Num_Objects_Available() <= 0) return;
-    int maxChance = 0;
-    if (isTenCoinBlock) maxChance = 75;
-    else maxChance = 75+((this->args->difficulty-1)*CHANCE_ITEM_DIFFICULTY_MODIFIER);
+    if (!isTenCoinBlock) chance -= static_cast<int>(std::round((static_cast<double>(chance)/2.0)*(static_cast<double>(this->args->difficulty-1)/10.0)));
+    assert(chance >= 0);
     for (int i = min; i < max; ++i) {
-        if (Random::Get_Instance().Get_Num(maxChance) <= chance) ++numItems;
+        if (Random::Get_Instance().Get_Num(100) <= chance) ++numItems;
         int availableObjects = this->objects->Get_Num_Objects_Available();
         assert(availableObjects > 0);
         if (availableObjects == numItems) return;
