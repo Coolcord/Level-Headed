@@ -145,17 +145,15 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             if (iter.value().safeForStar) {
                 assert(iter.value().hittable);
                 assert(iter.value().safeForMushroom);
-                possibleBlocks[numPossibleBlocks] = iter;
-                ++numPossibleBlocks;
+
+                //Only consider blocks in the first 3/4ths of the level
+                if (iter.value().x > static_cast<int>(std::round((static_cast<double>(this->objects->Get_Level_Length())/4.0)*3.0))) {
+                    possibleBlocks[numPossibleBlocks] = iter;
+                    ++numPossibleBlocks;
+                }
             }
             break;
         }
-    }
-
-    //Ignore the last 25% of the possible blocks when distributing stars
-    if (item == Object_Item::BRICK_WITH_STAR) {
-        double numPossibleBlocksDouble = static_cast<double>(numPossibleBlocks);
-        numPossibleBlocks = static_cast<int>(std::round((numPossibleBlocksDouble/4.0)*3.0));
     }
 
     //Break up the level into sections and place 1 item in a random place of each section
