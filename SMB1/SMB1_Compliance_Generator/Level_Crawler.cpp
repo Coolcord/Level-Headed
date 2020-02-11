@@ -1,5 +1,5 @@
 #include "Level_Crawler.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
 #include "../Common_SMB1_Files/Brick_String.h"
@@ -510,7 +510,7 @@ bool Level_Crawler::Parse_Object(const Buffer_Data &data, int &x, int &holeCrawl
 }
 
 bool Level_Crawler::Draw_Map() {
-    QFile file("F:/Documents/Source_Code/Level-Headed/build-Level-Headed-Desktop_Qt_5_9_3_MinGW_32bit-Debug/debug/dump.txt");
+    QFile file("./dump.txt");
     if (!file.open(QFile::ReadWrite | QFile::Truncate)) return false;
     QTextStream stream(&file);
 

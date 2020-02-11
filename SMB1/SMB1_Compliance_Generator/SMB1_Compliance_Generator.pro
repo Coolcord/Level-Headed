@@ -14,6 +14,7 @@ CONFIG += plugin c++11 pendantic Weverything
 
 SOURCES += SMB1_Compliance_Generator.cpp \
     ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.cpp \
+    ../../../C_Common_Code/Qt/Random/Random.cpp \
     Enemy_Buffer.cpp \
     Item_Buffer.cpp \
     Midpoint_Handler.cpp \
@@ -40,11 +41,11 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     Required_Enemy_Spawns.cpp \
     Castle_Generator.cpp \
     Pipe_Exit_Generator.cpp \
-    Continuous_Enemies_Spawner.cpp \
-    ../../Common_Files/Random.cpp
+    Continuous_Enemies_Spawner.cpp
 
 HEADERS += SMB1_Compliance_Generator.h \
     ../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h \
+    ../../../C_Common_Code/Qt/Random/Random.h \
     ../Common_SMB1_Files/Background.h \
     ../Common_SMB1_Files/Background_String.h \
     ../Common_SMB1_Files/Brick.h \

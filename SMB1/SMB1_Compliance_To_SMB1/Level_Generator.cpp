@@ -1,7 +1,7 @@
 #include "Level_Generator.h"
 #include "../../../C_Common_Code/Qt/Text_Insertion_Buffer/Text_Insertion_Buffer.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../Common_SMB1_Files/Level_String.h"
 #include "../Common_SMB1_Files/Header_String.h"
 #include "../SMB1_Compliance_Generator/Difficulty.h"

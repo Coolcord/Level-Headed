@@ -2,7 +2,7 @@
 #include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "../SMB1_Writer/ROM_Filename.h"
 #include "CLI_Parser.h"

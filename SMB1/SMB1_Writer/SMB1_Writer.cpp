@@ -20,7 +20,7 @@
 #include "Graphics.h"
 #include "SMB1_Writer_Strings.h"
 #include "../../Level-Headed/Common_Strings.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include <QDir>
 #include <QMessageBox>
 #include <assert.h>

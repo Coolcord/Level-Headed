@@ -5,7 +5,7 @@
 #include "Level_Crawler.h"
 #include "Physics.h"
 #include "Difficulty.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include <QTime>
 #include <QDebug>
@@ -278,7 +278,7 @@ int Enemy_Spawner::Calculate_Number_Of_Enemies() {
 
 int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEnemies) {
     int averageDistance = 4;
-    if (totalSpaces-x < 0) return 1; //level is too short to use all enemies
+    if (totalSpaces-x < 0) return this->args->difficultyMinimumEnemyDistance; //level is too short to use all enemies
     if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
     if (averageDistance > 11) averageDistance = 11;
     int minimumDistance = this->args->difficultyMinimumEnemyDistance;
@@ -415,6 +415,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
     }
     assert(tmpX > lastX);
     int spawnX = tmpX-lastX;
+    assert(spawnX >= this->args->difficultyMinimumEnemyDistance);
     int random = 0;
     //Spawn Hammer Bros. in later levels
     if (noEnemies) {

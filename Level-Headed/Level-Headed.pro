@@ -16,7 +16,7 @@ CONFIG += c++11 pendantic Weverything
 SOURCES += \
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.cpp \
     ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp \
-    ../Common_Files/Random.cpp \
+    ../../C_Common_Code/Qt/Random/Random.cpp \
     Main_Window.cpp \
     Main.cpp \
     Plugin_Handler.cpp \
@@ -28,8 +28,8 @@ HEADERS  += \
     Main_Window.h \
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h \
     ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h \
+    ../../C_Common_Code/Qt/Random/Random.h \
     ../Common_Files/Version.h \
-    ../Common_Files/Random.h \
     Plugin_Handler.h \
     Common_Strings.h \
     Interpreter_Interface.h \

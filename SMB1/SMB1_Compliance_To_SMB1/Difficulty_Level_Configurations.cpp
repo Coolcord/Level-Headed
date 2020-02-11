@@ -1,5 +1,5 @@
 #include "Difficulty_Level_Configurations.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../SMB1_Compliance_Generator/Difficulty.h"
 #include <assert.h>
 

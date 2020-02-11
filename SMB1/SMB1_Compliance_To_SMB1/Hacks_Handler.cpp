@@ -1,7 +1,7 @@
 #include "Hacks_Handler.h"
 #include "../SMB1_Writer/SMB1_Writer_Interface.h"
 #include "../SMB1_Writer/ROM_Filename.h"
-#include "../../Common_Files/Random.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 #include <assert.h>
 #include <QDebug>
 

@@ -40,7 +40,7 @@ SOURCES += SMB1_Writer.cpp \
     Sequential_Archive_Handler.cpp \
     Powerups.cpp \
     Sound.cpp \
-    ../../Common_Files/Random.cpp
+    ../../../C_Common_Code/Qt/Random/Random.cpp
 
 HEADERS += SMB1_Writer.h \
     ../Common_SMB1_Files/Background.h \
@@ -94,7 +94,7 @@ HEADERS += SMB1_Writer.h \
     Powerups.h \
     Unfixed_ROM_Type.h \
     Sound.h \
-    ../../Common_Files/Random.h \
+    ../../../C_Common_Code/Qt/Random/Random.h \
     ../../Common_Files/Version.h \
     ../Common_SMB1_Files/Fix_Strings.h
 OTHER_FILES +=
