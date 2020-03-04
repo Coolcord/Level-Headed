@@ -9,6 +9,7 @@ Next Update (v0.3.6)
 + Reworked Purist Difficulties: Three different varients each with their own Easy, Normal, and Hard options for a total of nine Purist difficulties
 + Remove Vertical Object Limit Patch is now only applied when needed
 + Added Graphics (Fuji Mario Bros. by JY Co.)
++ Added Graphics by Josiah Winslow
 
 Original Levels 7-2 Fix (v0.3.5)
 + Fixed the broken pipe pointer in 7-2 in the original levels so that it is now completable
