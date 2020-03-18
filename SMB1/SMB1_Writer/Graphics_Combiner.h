@@ -82,6 +82,7 @@ public:
 
 private:
     bool Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets, bool sprite);
+    bool Is_Red_Border_Black();
     bool Is_Tile_Blank(char tileID, bool sprite);
 
     QString marioPatchName;

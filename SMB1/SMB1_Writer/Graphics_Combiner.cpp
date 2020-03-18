@@ -104,7 +104,8 @@ bool Graphics_Combiner::Combine_Bowser() {
 
 bool Graphics_Combiner::Combine_Bowser_Fire() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Bowser_Fire_Offsets(), true)) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser Fire");
+    if (this->Is_Red_Border_Black()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser Fire Dark");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Bowser Fire Light");
 }
 
 bool Graphics_Combiner::Combine_Brick_Piece() {
@@ -144,7 +145,8 @@ bool Graphics_Combiner::Combine_Explosion() {
 
 bool Graphics_Combiner::Combine_Fireball() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Fireball_Offsets(), true)) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Fireball");
+    if (this->Is_Red_Border_Black()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Fireball Dark");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Fireball Light");
 }
 
 bool Graphics_Combiner::Combine_Fire_Flower() {
@@ -201,12 +203,8 @@ bool Graphics_Combiner::Combine_Mario() {
 
 bool Graphics_Combiner::Combine_Mushroom_Powerup() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mushroom_Powerup_Offsets(), true)) return true;
-
-    //Make sure the red palette does not have black for color 3
-    QByteArray bytes;
-    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
-    if (bytes.at(0) == Color::BLACK) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom");
+    if (this->Is_Red_Border_Black()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Dark");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Light");
 }
 
 bool Graphics_Combiner::Combine_One_Up_Font() {
@@ -217,11 +215,11 @@ bool Graphics_Combiner::Combine_One_Up_Font() {
 bool Graphics_Combiner::Combine_Peach() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Peach_Offsets(), true)) return true;
 
-    //Make sure the red palette does not have black for color 3
+    //Check the red palette does not have black for color 3
     QByteArray bytes;
-    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
-    if (bytes.at(0) == Color::BLACK) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach");
+    if (!this->Read_Bytes_From_Offset(0x0D3E, 1, bytes)) return false;
+    if (bytes.at(0) == Color::BLACK) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach Dark");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach Light");
 }
 
 bool Graphics_Combiner::Combine_Piranha_Plant() {
@@ -262,11 +260,11 @@ bool Graphics_Combiner::Combine_Starman() {
 bool Graphics_Combiner::Combine_Toad() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Toad_Offsets(), true)) return true;
 
-    //Make sure the red palette does not have black for color 3
+    //Check the red palette does not have black for color 3
     QByteArray bytes;
-    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, bytes)) return false;
-    if (bytes.at(0) == Color::BLACK) return true;
-    return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad");
+    if (!this->Read_Bytes_From_Offset(0x0D3E, 1, bytes)) return false;
+    if (bytes.at(0) == Color::BLACK) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad Dark");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad Light");
 }
 
 bool Graphics_Combiner::Combine_Axe() {
@@ -434,6 +432,12 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
         if (!iter.value()) return true;
     }
     return false;
+}
+
+bool Graphics_Combiner::Is_Red_Border_Black() {
+    QByteArray bytes;
+    if (this->Read_Bytes_From_Offset(0x0CF4, 1, bytes)) return false;
+    return bytes.at(0) == static_cast<char>(0x0F);
 }
 
 bool Graphics_Combiner::Is_Tile_Blank(char tileID, bool sprite) {
