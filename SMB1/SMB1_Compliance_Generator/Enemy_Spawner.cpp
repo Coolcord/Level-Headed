@@ -357,7 +357,11 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     return numEnemies+1; //return the size the enemies take up
 }
 
-bool Enemy_Spawner::Is_Coordinate_Safe(int x, int y) {
+bool Enemy_Spawner::Is_Coordinate_Safe(int x, int y, int lastX) {
+    //The coordinate's x cannot be less than the minimum distance
+    if (x-lastX < this->args->difficultyMinimumEnemyDistance) return false;
+
+    //Make sure the coordinate itself is empty
     if (this->levelCrawler->Is_Coordinate_Empty(x, y)) {
         //Ground is expected to be below the enemy
         if (this->levelCrawler->Is_Coordinate_Solid(x, y+1)) return true;
@@ -495,13 +499,13 @@ bool Enemy_Spawner::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bo
     if (reverse) {
         for (int i = lastX+15; i >= x; --i) {
             int safeY = 0;
-            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
+            if (this->Find_Safe_Coordinate_At_X(i, safeY, lastX)) {
                 if (size == 1) {
                     x = i;
                     y = safeY;
                     return true;
                 } else {
-                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
+                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY, lastX); ++j) {
                         //Only return true on the last iteration if it is valid
                         if (j == i+size-1) {
                             x = i;
@@ -515,13 +519,13 @@ bool Enemy_Spawner::Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bo
     } else {
         for (int i = x; i <= lastX+15; ++i) {
             int safeY = 0;
-            if (this->Find_Safe_Coordinate_At_X(i, safeY)) {
+            if (this->Find_Safe_Coordinate_At_X(i, safeY, lastX)) {
                 if (size == 1) {
                     x = i;
                     y = safeY;
                     return true;
                 } else {
-                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY); ++j) {
+                    for (int j = i+1; j < i+size && this->Is_Coordinate_Safe(j, safeY, lastX); ++j) {
                         //Only return true on the last iteration if it is valid
                         if (j == i+size-1) {
                             x = i;
@@ -547,7 +551,7 @@ bool Enemy_Spawner::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
     if (size > 1) incrementLastX = 13;
     if (reverse) {
         for (int i = lastX+incrementLastX; i <= x; --i) { //use 0xD for enemy groups
-            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
+            if (this->Is_Coordinate_Safe(i, y, lastX)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
                 x = i;
@@ -556,7 +560,7 @@ bool Enemy_Spawner::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
         }
     } else {
         for (int i = x; i <= lastX+incrementLastX; ++i) { //use 0xD for enemy groups
-            if (this->Is_Coordinate_Safe(i, y)) ++numValid;
+            if (this->Is_Coordinate_Safe(i, y, lastX)) ++numValid;
             else numValid = 0;
             if (numValid == size) {
                 x = i-size+1;
@@ -567,9 +571,9 @@ bool Enemy_Spawner::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
     return false;
 }
 
-bool Enemy_Spawner::Find_Safe_Coordinate_At_X(int x, int &y) {
+bool Enemy_Spawner::Find_Safe_Coordinate_At_X(int x, int &y, int lastX) {
     for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
-        if (this->Is_Coordinate_Safe(x, i)) {
+        if (this->Is_Coordinate_Safe(x, i, lastX)) {
             y = i;
             return true;
         }
@@ -583,7 +587,7 @@ bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
         for (int i = lastX+15; i >= x; --i) {
             for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
-                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
+                if (j > 1 && this->Is_Coordinate_Safe(i, j, lastX)) {
                     //The two coordinates above cannot be solid objects
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-1)) continue;
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-2)) continue;
@@ -598,7 +602,7 @@ bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
         for (int i = x; i <= lastX+15; ++i) {
             for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
-                if (j > 1 && this->Is_Coordinate_Safe(i, j)) {
+                if (j > 1 && this->Is_Coordinate_Safe(i, j, lastX)) {
                     //The two coordinates above cannot be solid objects
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-1)) continue;
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-2)) continue;
@@ -618,7 +622,7 @@ bool Enemy_Spawner::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
     if (reverse) {
         for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = lastX+15; j >= x; --j) {
-                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
+                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y, lastX)) {
                     //Y was set in the function
                     x = j;
                     return true;
@@ -628,7 +632,7 @@ bool Enemy_Spawner::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
     } else {
         for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
             for (int j = x; j <= lastX+15; ++j) {
-                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y)) {
+                if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y, lastX)) {
                     //Y was set in the function
                     x = j;
                     return true;
@@ -640,8 +644,8 @@ bool Enemy_Spawner::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
 }
 
 //TODO: Don't allow these to spawn above y 2
-bool Enemy_Spawner::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
-    if (!this->Is_Coordinate_Safe(x, y)) return false;
+bool Enemy_Spawner::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y, int lastX) {
+    if (!this->Is_Coordinate_Safe(x, y, lastX)) return false;
     //Scan up to 4 blocks above the ground
     int scanDistance = 4;
     if (y < 4) scanDistance = y+1;
@@ -653,7 +657,7 @@ bool Enemy_Spawner::Scan_For_Safe_Green_Flying_Paratroopa_Spawn(int x, int &y) {
             //At least 3 spaces should not have collision
             if (this->levelCrawler->Is_Coordinate_Empty(j, i)) ++numValid;
             //Prevent a bug with paratroopas getting stuck in walls after being stomped
-            if (this->Is_Coordinate_Safe(j, i-2)) invalid = true;
+            if (this->Is_Coordinate_Safe(j, i-2, lastX)) invalid = true;
         }
         if (numValid >= 3 && !invalid) {
             y = i;
