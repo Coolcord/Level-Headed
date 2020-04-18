@@ -109,13 +109,24 @@ bool Enemy_Buffer::Was_Lakitu_Spawned() {
 
 bool Enemy_Buffer::Write_Enemy(int page) {
     if (page < 0x00 || page > 0x3F) return false;
-    assert(this->Is_Safe_To_Write_Item());
-    if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-    Buffer_Data enemyBufferData;
-    enemyBufferData.enemyItem = Enemy_Item::PAGE_CHANGE;
-    enemyBufferData.page = page;
-    enemyBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
-    this->Insert_Into_Buffer(enemyBufferData);
+    if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
+    if (!this->itemBuffer->isEmpty() && this->itemBuffer->last().enemyItem == Enemy_Item::PAGE_CHANGE) { //modify the previous page change if there is one
+        this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
+        if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+        this->Seek_To_Previous();
+        Buffer_Data *enemyBufferData = this->Get_Current_For_Modification();
+        enemyBufferData->page = page;
+        enemyBufferData->absoluteX = this->currentAbsoluteX; //don't add x here
+        this->Seek_To_End();
+    } else { //write a new page change
+        assert(this->Is_Safe_To_Write_Item());
+        if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+        Buffer_Data enemyBufferData;
+        enemyBufferData.enemyItem = Enemy_Item::PAGE_CHANGE;
+        enemyBufferData.page = page;
+        enemyBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
+        this->Insert_Into_Buffer(enemyBufferData);
+    }
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->firstEnemy = false;
     return true;

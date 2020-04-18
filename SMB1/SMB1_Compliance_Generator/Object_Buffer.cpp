@@ -333,15 +333,27 @@ bool Object_Buffer::Write_Object(int x, Brick::Brick brick, Scenery::Scenery sce
 
 bool Object_Buffer::Write_Object(int page) {
     if (page < 0x00 || page > 0x3F) return false;
-    assert(this->Is_Safe_To_Write_Item());
+    if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
     int relativeX = (0x10*page)-this->levelLength;
     if (relativeX < 0) return false;
-    if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-    Buffer_Data objectBufferData;
-    objectBufferData.objectItem = Object_Item::PAGE_CHANGE;
-    objectBufferData.page = page;
-    objectBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
-    this->Insert_Into_Buffer(objectBufferData);
+    if (!this->itemBuffer->isEmpty() && this->itemBuffer->last().objectItem == Object_Item::PAGE_CHANGE) { //modify the previous page change if there is one
+        this->Decrement_Vertical_Object_Count_At_X(this->itemBuffer->last().absoluteX);
+        this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
+        if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+        this->Seek_To_Previous();
+        Buffer_Data *objectBufferData = this->Get_Current_For_Modification();
+        objectBufferData->page = page;
+        objectBufferData->absoluteX = this->currentAbsoluteX; //don't add x here
+        this->Seek_To_End();
+    } else { //write a new page change
+        assert(this->Is_Safe_To_Write_Item());
+        if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
+        Buffer_Data objectBufferData;
+        objectBufferData.objectItem = Object_Item::PAGE_CHANGE;
+        objectBufferData.page = page;
+        objectBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
+        this->Insert_Into_Buffer(objectBufferData);
+    }
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
     this->Handle_Zones(relativeX);
     this->Check_Vertical_Object_Limit(1);

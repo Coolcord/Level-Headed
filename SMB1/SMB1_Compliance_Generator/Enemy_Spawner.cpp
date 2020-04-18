@@ -97,9 +97,9 @@ bool Enemy_Spawner::Spawn_Enemies() {
 
         if (size != 0) {
             lastX = x;
-        } else { //an enemy failed to spawn. TODO: Page changes may be necessary here in some cases
+        } else { //an enemy failed to spawn. Add a page change 2 pages ahead and try from there
             if (!noEnemies) {
-                lastX = x;
+                assert(this->Spawn_Page_Change(x, y, lastX, this->enemies->Get_Current_Page()+2, this->requiredEnemySpawns->Get_Num_Bytes_Left()));
             }
         }
 
@@ -156,7 +156,7 @@ bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) 
 
 bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount) {
     //Skip the page change if necessary
-    if (this->enemies->Get_Current_Page() >= page-1) {
+    if (this->enemies->Get_Current_Page() >= page) {
         return true;
     }
 
