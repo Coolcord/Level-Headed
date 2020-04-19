@@ -114,6 +114,11 @@ void Item_Buffer::Update_Level_Stats(int x) {
     }
 }
 
+bool Item_Buffer::Is_Last_Item_A_Page_Change() {
+    if (this->itemBuffer->isEmpty()) return false;
+    return this->itemBuffer->last().objectItem == Object_Item::PAGE_CHANGE || this->itemBuffer->last().enemyItem == Enemy_Item::PAGE_CHANGE;
+}
+
 bool Item_Buffer::Is_Empty() {
     return this->itemBuffer->isEmpty();
 }

@@ -110,14 +110,12 @@ bool Enemy_Buffer::Was_Lakitu_Spawned() {
 bool Enemy_Buffer::Write_Enemy(int page) {
     if (page < 0x00 || page > 0x3F) return false;
     if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
-    if (!this->itemBuffer->isEmpty() && this->itemBuffer->last().enemyItem == Enemy_Item::PAGE_CHANGE) { //modify the previous page change if there is one
+    if (this->Is_Last_Item_A_Page_Change()) { //modify the previous page change if there is one
         this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-        this->Seek_To_Previous();
         Buffer_Data *enemyBufferData = this->Get_Current_For_Modification();
         enemyBufferData->page = page;
         enemyBufferData->absoluteX = this->currentAbsoluteX; //don't add x here
-        this->Seek_To_End();
     } else { //write a new page change
         assert(this->Is_Safe_To_Write_Item());
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
@@ -182,9 +180,16 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     return true;
 }
 
-bool Enemy_Buffer::Is_Coordinate_Valid(int coordinate) {
+bool Enemy_Buffer::Is_Coordinate_Valid(int &coordinate) {
+    if (coordinate < 0) return false;
     if (this->firstEnemy) return (coordinate >= 0x10 && coordinate <= 0x1F);
-    return (coordinate >= 0x0 && coordinate <= 0x10);
+    if (this->Is_Last_Item_A_Page_Change() && coordinate >= 0x10) {
+        assert(this->Page_Change((this->levelLength+coordinate)/16));
+        while (coordinate >= 0x10) coordinate -= 0x10;
+        return true;
+    } else {
+        return coordinate <= 0x10;
+    }
 }
 
 QString Enemy_Buffer::Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem) {

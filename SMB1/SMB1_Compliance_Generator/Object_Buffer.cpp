@@ -336,15 +336,13 @@ bool Object_Buffer::Write_Object(int page) {
     if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
     int relativeX = (0x10*page)-this->levelLength;
     if (relativeX < 0) return false;
-    if (!this->itemBuffer->isEmpty() && this->itemBuffer->last().objectItem == Object_Item::PAGE_CHANGE) { //modify the previous page change if there is one
+    if (this->Is_Last_Item_A_Page_Change()) { //modify the previous page change if there is one
         this->Decrement_Vertical_Object_Count_At_X(this->itemBuffer->last().absoluteX);
         this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
-        this->Seek_To_Previous();
         Buffer_Data *objectBufferData = this->Get_Current_For_Modification();
         objectBufferData->page = page;
         objectBufferData->absoluteX = this->currentAbsoluteX; //don't add x here
-        this->Seek_To_End();
     } else { //write a new page change
         assert(this->Is_Safe_To_Write_Item());
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
@@ -484,12 +482,19 @@ bool Object_Buffer::Is_Y_Valid(int y) {
     return (y >= 0x0 && y <= 0xF);
 }
 
-bool Object_Buffer::Is_Coordinate_Valid(int coordinate) {
+bool Object_Buffer::Is_Coordinate_Valid(int &coordinate) {
+    if (coordinate < 0) return false;
     if (this->firstPageSafety) {
         this->firstPageSafety = false;
         return (coordinate >= 0x00 && coordinate <= 0x1F);
     }
-    return (coordinate >= 0x0 && coordinate <= 0x10);
+    if (this->Is_Last_Item_A_Page_Change() && coordinate >= 0x10) {
+        assert(this->Page_Change(((this->levelLength+coordinate)/16)+1));
+        while (coordinate >= 0x10) coordinate -= 0x10;
+        return true;
+    } else {
+        return coordinate <= 0x10;
+    }
 }
 
 void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, QMap<QString, Block_Data> *blocks) {

@@ -22,6 +22,9 @@ public:
     bool Will_Page_Flag_Be_Tripped(int x);
     void Insert_Into_Buffer(const Buffer_Data &data);
 
+    //Buffer Peeking
+    bool Is_Last_Item_A_Page_Change();
+
     //Buffer Navigation
     bool Is_Empty();
     bool At_Beginning();
@@ -39,7 +42,7 @@ public:
 protected:
     Item_Buffer(const Item_Buffer&);
     Item_Buffer& operator=(const Item_Buffer&);
-    virtual bool Is_Coordinate_Valid(int coordinate)=0;
+    virtual bool Is_Coordinate_Valid(int &coordinate)=0;
     bool Is_Byte_Valid(int byte);
     bool Is_Safe_To_Write_Item(int numBytes = 2);
     bool Handle_Level_Length_On_Page_Change(int page);

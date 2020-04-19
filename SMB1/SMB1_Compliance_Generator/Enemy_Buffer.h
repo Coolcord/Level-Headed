@@ -59,7 +59,7 @@ private:
     bool Write_Enemy(int x, Level::Level level, int world, int page);
     bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x);
     bool Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x, int y);
-    bool Is_Coordinate_Valid(int coordinate);
+    bool Is_Coordinate_Valid(int &coordinate);
     QString Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem);
     QString Get_String_From_Level(Level::Level level);
 
