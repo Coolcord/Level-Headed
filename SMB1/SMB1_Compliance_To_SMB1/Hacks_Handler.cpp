@@ -392,6 +392,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
 }
 
 bool Hacks_Handler::Handle_Powerup() {
+    this->pluginSettings->fireFlowerBouncesLikeAStar = false;
     int powerup = this->pluginSettings->powerup;
     if (powerup == 0) powerup = Random::Get_Instance().Get_Num(1, 13);
     switch (powerup) {
@@ -400,9 +401,9 @@ bool Hacks_Handler::Handle_Powerup() {
     case 2:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Bone_Caster();
     case 3:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Coin_Flinger();
     case 4:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Cutter_Flower();
-    case 5:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
-    case 6:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Fire_Star();
-    case 7:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Hammer_Suit();
+    case 5:     this->pluginSettings->fireFlowerBouncesLikeAStar = true; return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Double_Jump_Star();
+    case 6:     this->pluginSettings->fireFlowerBouncesLikeAStar = true; return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Fire_Star();
+    case 7:     this->pluginSettings->fireFlowerBouncesLikeAStar = true; return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Hammer_Suit();
     case 8:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Luigis_Fire_Flower();
     case 9:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Pink_Fury();
     case 10:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Poison_Bubbles();

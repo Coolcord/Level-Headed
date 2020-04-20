@@ -283,6 +283,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
 bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     Readable_Config_File configFile;
     if (!configFile.Open(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME)) return false;
+    this->pluginSettings.fireFlowerBouncesLikeAStar = false;
     configFile.Get_Value("Last_Tab", this->pluginSettings.tab);
     configFile.Get_Value("Base_ROM", this->pluginSettings.baseROM);
     configFile.Get_Value("Output_ROM_Location", this->pluginSettings.outputROMLocation);
@@ -430,6 +431,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
+    this->pluginSettings.fireFlowerBouncesLikeAStar = false;
     this->pluginSettings.marioName = "MARIO";
     this->pluginSettings.luigiName = "LUIGI";
     this->pluginSettings.difficultyComboIndex = 4;

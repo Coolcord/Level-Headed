@@ -58,6 +58,7 @@ private:
     int oneUpChance;
     int tenCoinBlockChance;
     int starChance;
+    bool fireFlowerBouncesLikeStar;
 };
 
 #endif // POWERUP_DISTRIBUTOR_H

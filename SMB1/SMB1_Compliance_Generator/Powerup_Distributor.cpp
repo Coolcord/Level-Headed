@@ -33,6 +33,7 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->oneUpChance = args->difficultyOneUpChance;
     this->tenCoinBlockChance = args->difficultyTenCoinBlockChance;
     this->starChance = args->difficultyStarChance;
+    this->fireFlowerBouncesLikeStar = args->fireFlowerBouncesLikeStar;
     assert(this->Reserve_Powerup_Objects());
 }
 
@@ -134,6 +135,21 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             break;
         case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
         case Object_Item::BRICK_WITH_MUSHROOM:
+            if (this->fireFlowerBouncesLikeStar) {
+                if (iter.value().safeForStar) {
+                    assert(iter.value().hittable);
+                    assert(iter.value().safeForMushroom);
+                    possibleBlocks[numPossibleBlocks] = iter;
+                    ++numPossibleBlocks;
+                }
+            } else {
+                if (iter.value().safeForMushroom) {
+                    assert(iter.value().hittable);
+                    possibleBlocks[numPossibleBlocks] = iter;
+                    ++numPossibleBlocks;
+                }
+            }
+            break;
         case Object_Item::BRICK_WITH_1UP:
             if (iter.value().safeForMushroom) {
                 assert(iter.value().hittable);

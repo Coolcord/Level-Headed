@@ -22,6 +22,7 @@ struct SMB1_Compliance_Generator_Arguments {
     bool useMidpoints;
     bool doesLevelExceedVerticalObjectLimit;
     bool useVerticalObjectLimit;
+    bool fireFlowerBouncesLikeStar;
     int difficulty;
     int difficultyBulletTime;
     int difficultyHammerTime;

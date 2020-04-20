@@ -353,6 +353,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyOneUpChance = this->pluginSettings->difficultyOneUpChance;
     args.difficultyTenCoinBlockChance = this->pluginSettings->difficultyTenCoinBlockChance;
     args.difficultyStarChance = this->pluginSettings->difficultyStarChance;
+    args.fireFlowerBouncesLikeStar = this->pluginSettings->fireFlowerBouncesLikeAStar;
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
