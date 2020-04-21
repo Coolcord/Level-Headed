@@ -257,7 +257,7 @@ void Level_Crawler::Crawl_Forward(int x, int spaces) {
         case Brick::SURFACE_AND_CEILING_AND_MIDDLE_4:
             this->Mark_Used_Coordinate(this->brickItem, x, Physics::GROUND_Y+1);
             this->Mark_Used_Coordinate(this->brickItem, x, Physics::HIGHEST_Y);
-            for (int i = 3; i < 7; ++i) this->Mark_Used_Coordinate(this->brickItem, x, i);
+            for (int i = 4; i < 8; ++i) this->Mark_Used_Coordinate(this->brickItem, x, i);
             break;
         case Brick::ALL:
             for (int i = 0; i <= Physics::GROUND_Y+1; ++i) this->Mark_Used_Coordinate(this->brickItem, x, i);
