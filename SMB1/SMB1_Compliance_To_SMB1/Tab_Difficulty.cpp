@@ -24,6 +24,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboHammerBrosThrowRate->setCurrentIndex(this->pluginSettings->difficultyHammerBrosThrowRate);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
     this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel);
+    this->ui->cbPreventTheFirstLevelFromBeingUnderwater->setChecked(this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater);
     this->ui->cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
     this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
     this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts);
@@ -150,6 +151,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyHammerBrosThrowRate = this->ui->comboHammerBrosThrowRate->currentIndex();
         this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();
         this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel = this->ui->cbPiranhaPlantsOnFirstLevel->isChecked();
+        this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater = this->ui->cbPreventTheFirstLevelFromBeingUnderwater->isChecked();
         this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts->isChecked();
         this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->isChecked();
         this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->isChecked();

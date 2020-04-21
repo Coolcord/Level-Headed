@@ -357,7 +357,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
-    else args.levelType = this->Determine_Level_Type();
+    else args.levelType = this->Determine_Level_Type(levelNum);
     args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
     args.maxLevelLength = this->Get_Level_Length(this->pluginSettings->difficultyMaxLevelLengthBlocks, args.difficulty, args.useAutoScroll, args.levelType);
     switch (args.levelType) {
@@ -474,7 +474,27 @@ bool Level_Generator::Delete_Old_Level_Generations() {
     return true;
 }
 
-Level_Type::Level_Type Level_Generator::Determine_Level_Type() {
+Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum) {
+    this->veryCommonLevels->clear();
+    this->commonLevels->clear();
+    this->uncommonLevels->clear();
+    this->rareLevels->clear();
+
+    //Determine the number of level types for each chance type
+    this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
+    this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
+    this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
+    this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+
+    //Prevent Underwater levels from being the first level
+    if (levelNum == 0 && this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater) {
+        if (this->veryCommonLevels->isEmpty() && this->commonLevels->isEmpty() && this->uncommonLevels->isEmpty() && this->rareLevels->isEmpty()) {
+            this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+        }
+    } else {
+        this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+    }
+
     //Get the amount of each chance type
     int numVeryCommon = this->veryCommonLevels->size();
     int numCommon = this->commonLevels->size();
@@ -593,13 +613,6 @@ bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {
         return false;
     }
     assert(numLevels == levelOrder.size());
-
-    //Determine the number of level types for each chance type
-    this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
-    this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
-    this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
-    this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
-    this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
 
     //Generate the Levels
     bool isVerticalObjectLimitPatchNecessary = false;

@@ -34,7 +34,7 @@ private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
     int Get_Level_Length(int index, int difficulty, bool autoScroll, Level_Type::Level_Type levelType);
     bool Delete_Old_Level_Generations();
-    Level_Type::Level_Type Determine_Level_Type();
+    Level_Type::Level_Type Determine_Level_Type(int levelNum);
     bool Generate_Levels_And_Pack(QString &folderLocation);
     bool Handle_Map_File();
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
