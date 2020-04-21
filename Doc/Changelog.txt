@@ -1,4 +1,7 @@
-Next Update (v0.3.6)
+Next update (v0.3.7)
+Nothing here yet :(
+
+Powerup Distributor (v0.3.6)
 + The level generator now has a separate pass for powerups. Most levels should now contain more powerups and items in general.
 + Fire Bros. can now be seen in Normal difficulty games
 + Fire Bros. throw rate has been nerfed
@@ -7,7 +10,7 @@ Next Update (v0.3.6)
 + Random All is now the default for secondary mushrooms for Random
 + 1-Up coin limit for hidden blocks has been removed
 + Underwater levels are no longer used for the first level when possible
-+ Reworked Purist Difficulties: Three different varients each with their own Easy, Normal, and Hard options for a total of nine Purist difficulties
++ Reworked Purist Difficulties: Three different variants each with their own Easy, Normal, and Hard options for a total of nine Purist difficulties
 + Remove Vertical Object Limit Patch is now only applied when needed
 + Added Graphics (Fuji Mario Bros. by JY Co.)
 + Added Graphics by Josiah Winslow

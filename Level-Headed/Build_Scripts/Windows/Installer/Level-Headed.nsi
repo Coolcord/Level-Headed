@@ -2,11 +2,11 @@
 
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
-!define VERSION "0.3.5.0"
+!define VERSION "0.3.6.0"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "C:\Installer\LICENSE.txt"
-!define INSTALLER_NAME "C:\Program Files (x86)\NSIS\Script Generator\Output\Level-Headed\setup.exe"
+!define INSTALLER_NAME "C:\Installer\Level-Headed.Setup.exe"
 !define MAIN_APP_EXE "Level-Headed.exe"
 !define INSTALL_TYPE "SetShellVarContext current"
 !define REG_ROOT "HKCU"
@@ -24,6 +24,7 @@ VIAddVersionKey "FileVersion"  "${VERSION}"
 
 ######################################################################
 
+Unicode true
 SetCompressor ZLIB
 Name "${APP_NAME}"
 Caption "${APP_NAME}"
