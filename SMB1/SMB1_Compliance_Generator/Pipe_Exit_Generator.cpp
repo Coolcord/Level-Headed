@@ -1,6 +1,7 @@
 #include "Pipe_Exit_Generator.h"
 
 bool Pipe_Exit_Generator::Generate_Level() {
+    this->powerupDistributor->Deallocate_Powerups();
     this->levelCrawler->Set_Level_Attribute(Level_Attribute::OVERWORLD);
     this->levelCrawler->Set_Starting_Brick(Brick::SURFACE);
 

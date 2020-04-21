@@ -14,6 +14,7 @@ public:
     Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args);
     ~Powerup_Distributor() {}
     bool Distribute_Powerups();
+    void Deallocate_Powerups();
 
 private:
     void Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks);

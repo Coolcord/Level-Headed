@@ -8,6 +8,7 @@
 #include <assert.h>
 
 bool Underwater_Generator::Generate_Level() {
+    this->powerupDistributor->Deallocate_Powerups();
     this->levelCrawler->Set_Level_Attribute(Level_Attribute::UNDERWATER);
     this->levelCrawler->Set_Starting_Brick(Brick::SURFACE);
     int x = this->objects->Get_Last_Object_Length();

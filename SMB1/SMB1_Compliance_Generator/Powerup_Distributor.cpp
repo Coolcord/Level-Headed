@@ -13,21 +13,13 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->objects = objects;
     this->levelCrawler = levelCrawler;
     this->args = args;
-    this->numPowerups = 0;
-    this->numHiddenPowerups = 0;
-    this->numOneUps = 0;
-    this->numStars = 0;
-    this->numTenCoinBlocks = 0;
+    this->Deallocate_Powerups();
     this->minPowerups = 1;
     this->maxPowerups = args->difficultyMaxPowerups;
     if (this->minPowerups > this->maxPowerups) this->minPowerups = this->maxPowerups;
-    this->minHiddenPowerups = 0;
     this->maxHiddenPowerups = args->difficultyMaxHiddenPowerups;
-    this->minOneUps = 0;
     this->maxOneUps = args->difficultyMaxOneUps;
-    this->minTenCoinBlocks = 0;
     this->maxTenCoinBlocks = args->difficultyMaxTenCoinBlocks;
-    this->minStars = 0;
     this->maxStars = args->difficultyMaxStars;
     this->hiddenPowerupChance = args->difficultyHiddenPowerupChance;
     this->oneUpChance = args->difficultyOneUpChance;
@@ -44,6 +36,24 @@ bool Powerup_Distributor::Distribute_Powerups() {
     this->Distribute_Question_Block_Items();
     this->Distribute_Brick_Block_Items();
     return true;
+}
+
+void Powerup_Distributor::Deallocate_Powerups() {
+    this->numPowerups = 0;
+    this->numHiddenPowerups = 0;
+    this->numOneUps = 0;
+    this->numStars = 0;
+    this->numTenCoinBlocks = 0;
+    this->minPowerups = 0;
+    this->maxPowerups = 0;
+    this->minHiddenPowerups = 0;
+    this->maxHiddenPowerups = 0;
+    this->minOneUps = 0;
+    this->maxOneUps = 0;
+    this->minTenCoinBlocks = 0;
+    this->maxTenCoinBlocks = 0;
+    this->minStars = 0;
+    this->maxStars = 0;
 }
 
 void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks) {
