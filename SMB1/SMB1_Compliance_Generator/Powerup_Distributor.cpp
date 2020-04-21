@@ -173,7 +173,7 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
                 assert(iter.value().safeForMushroom);
 
                 //Only consider blocks in the first 3/4ths of the level
-                if (iter.value().x > static_cast<int>(std::round((static_cast<double>(this->objects->Get_Level_Length())/4.0)*3.0))) {
+                if (iter.value().x < static_cast<int>(std::round((static_cast<double>(this->objects->Get_Level_Length())/4.0)*3.0))) {
                     possibleBlocks[numPossibleBlocks] = iter;
                     ++numPossibleBlocks;
                 }
