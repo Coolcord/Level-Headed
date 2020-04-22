@@ -2,7 +2,7 @@
 
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
-!define VERSION "0.3.6.0"
+!define VERSION "0.3.6.1"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "C:\Installer\LICENSE.txt"
