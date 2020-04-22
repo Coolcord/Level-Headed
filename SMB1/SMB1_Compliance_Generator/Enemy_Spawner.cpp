@@ -161,20 +161,19 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
     }
 
     //Don't forget to spawn the required enemies
-    if (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0) {
-        while (page*16 > this->requiredEnemySpawns->Get_X()) {
-            //Spawn a page change if necessary
-            if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
-                int page = lastX/16;
-                assert(this->enemies->Page_Change(page));
-                x = (page*16);
-                lastX = x;
-            }
-            this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
+    while (this->requiredEnemySpawns->Get_Num_Required_Enemy_Spawns() > 0 && page*16 > this->requiredEnemySpawns->Get_X()) {
+        //Spawn a page change if necessary
+        if (!this->requiredEnemySpawns->Is_In_Range_Of_Required_Enemy(lastX)) {
+            int tmpPage = this->requiredEnemySpawns->Get_X()/16;
+            assert(this->enemies->Page_Change(tmpPage));
+            x = (tmpPage*16);
+            lastX = x;
         }
-        //Check to see if the page change can be skipped now
-        if (this->enemies->Get_Current_Page() >= page-1) return true;
+        this->requiredEnemySpawns->Spawn_Required_Enemy(lastX);
     }
+
+    //Check to see if the page change can be skipped now
+    if (this->enemies->Get_Current_Page() >= page) return true;
 
     //Spawn the page change if necessary
     if ((this->requiredEnemySpawns->Get_Num_Bytes_Left()/2) <= enemyAmount) {

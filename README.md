@@ -28,30 +28,6 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
  ## FAQ
 
-**Q: What's new in "Graphical Wrap-up" (v0.3.4)?**
-
- A: This update focuses on implementing the remaining graphical features that were planned. While more graphics packs and player sprites may be included in future updates, development will no longer focus on these elements. These new features include the color palette randomizer, the graphics combiner, the player palette randomizer, and the new player sprites. The other important feature of this update is the ability to use the *original levels* from SMB1 with Level-Headed. This basically allows Level-Headed to act more like a traditional randomizer for the players who prefer that feature. Enemies in level scripts can now also be randomized, allowing for a new experience with the original game, or a more unique take on the randomly generated levels.
-
-**Q: What's new in "Gameplay Wrap-up" (v0.3.3)?**
-
- A: v0.3.3 focuses on numerous minor gameplay features, such as new powerups and enemy behaviors. Most of these enemy behaviors are used to assist in making games easier or harder depending on the difficulty setting and are accomplished via ROM hacks. New spiny egg behaviors have also been added to make Lakitus more interesting. Midpoints can now also be used on every level (assuming it isn't a castle level).
-
- The largest feature of this update is Chacky's "Remove Vertical Object Limit" patch. This patch allows for more than 3 objects to be placed at one x coordinate, potentially allowing for more complicated level designs. v0.3.3 only uses this patch to fix a rare bug, but future versions of the level generator will take full advantage of its features.
-
-**Q: What's new in "The Midpoints Strike Back!" (v0.3.2)?**
- 
- A: Midpoints have, by far, been the most requested feature for Level-Headed. While the first public release of Level-Headed ("Water Vapor" v0.1.0) had midpoints, it was a very unreliable feature. In some circumstances, the player would be put in an unwinnable state or placed over a hole and die repeatedly until a game over. Attempts were made to fix the bugs in the system, but ultimately, it was determined that midpoints should be completely scrapped until a later date.
-
- Since then, more work as gone into the midpoint handler, and it's now ready to be reimplemented. However, there is a catch. In order for midpoints to work properly, worlds **must** have 4 levels each. Any more or less throw off what SMB1 expects, causing the wrong midpoint to be loaded. The fix for this requires assembly and has been implemented in v0.3.3.
- 
- **Q: What's new in "Less Excess" (v0.3.1)?**
- 
- A: The Less Excess update solves the problem of later levels being way too long in some games. Level length is limited based upon the specified difficulty. Later levels are still longer, but they won't be as long as they were in v0.3.0 (unless the Level Length setting is set to "As long as possible"). In addition, level type can affect level length. Underwater levels are 40% shorter and Island levels are 10% shorter. If the levels are auto scrollers, their size will be reduced by an additional 30%. From there, an additional 4% length is added for each skill level, maxing out at a 40% increase for the last level of the game.
- 
- These changes originally caused enemies to be placed closer together, changing how difficulty scaling works. This was countered with the new "Minumum enemy distance" setting to prevent enemy spam.
- 
- _These new settings will likely need further balance, so I would appreciate feedback that anyone has on the new difficulty curve._
- 
  **Q: What's going to be in the next update?**
  
  A: You can see what changes are going to be implemented by looking at the [changelog](https://raw.githubusercontent.com/Coolcord/Level-Headed/master/Doc/Changelog.txt).
