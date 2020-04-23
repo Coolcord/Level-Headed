@@ -25,10 +25,9 @@ Update_Checker::~Update_Checker() {
 void Update_Checker::Check_For_Updates() {
     //Run the update check
     if (this->version.contains("dev") && !FORCE_UPDATE_CHECK) return; //don't check for updates in development builds
-    QString lastIgnoredUpdate = QString(), foundViaUrl = QString(), updatePage = GITHUB_DOWNLOAD_PAGE;
+    QString lastIgnoredUpdate;
     if (this->readableConfigFile->Get_Value("Last_Ignored_Update", lastIgnoredUpdate) &&
             this->Is_Version_Newer_Than_Current(lastIgnoredUpdate, this->version)) this->version = lastIgnoredUpdate;
-    if (FORCE_UPDATE_CHECK) this->version = "0.0.0";
 
     QNetworkReply *reply = this->manager->get(QNetworkRequest(QUrl(GITHUB_UPDATE_URL)));
     connect(reply, &QNetworkReply::finished, this, &Update_Checker::Read_Latest_Version_Response);
@@ -77,7 +76,9 @@ void Update_Checker::Read_Latest_Version_Response() {
     if (!reply) return;
     QString locationRedirect = reply->header(QNetworkRequest::LocationHeader).toString();
     if (!locationRedirect.isEmpty()) {
-        QString version = locationRedirect.split("/releases/tag/v").last();
-        if (!version.isEmpty()) emit Update_Available(version, GITHUB_DOWNLOAD_PAGE);
+        QString newVersion = locationRedirect.split("/releases/tag/v").last();
+        if (!newVersion.isEmpty() && (FORCE_UPDATE_CHECK || this->Is_Version_Newer_Than_Current(newVersion, this->version))) {
+            emit Update_Available(newVersion, GITHUB_DOWNLOAD_PAGE);
+        }
     }
 }
