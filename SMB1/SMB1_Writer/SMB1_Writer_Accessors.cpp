@@ -604,6 +604,11 @@ bool SMB1_Writer::Hacks_Fix_Life_Counter_Bugs() {
     return this->hacks->Fix_Life_Counter_Bugs();
 }
 
+bool SMB1_Writer::Hacks_Hammer_Bros_Never_Jump() {
+    if (!this->hacks) return false;
+    return this->hacks->Hammer_Bros_Never_Jump();
+}
+
 bool SMB1_Writer::Hacks_Hard_Mode_Does_Not_Affect_Lift_Size() {
     if (!this->hacks) return false;
     return this->hacks->Hard_Mode_Does_Not_Affect_Lift_Size();

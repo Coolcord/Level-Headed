@@ -159,6 +159,10 @@ bool Hacks::Fix_Life_Counter_Bugs() {
     return this->Write_Bytes_To_Offset(0x4118, QByteArray::fromHex(QString("AE5A07E062B001E88E5A0760").toLatin1()));
 }
 
+bool Hacks::Hammer_Bros_Never_Jump() {
+    return this->Write_Bytes_To_Offset(0x49F3, QByteArray::fromHex(QString("EAEA").toLatin1()));
+}
+
 bool Hacks::Hard_Mode_Does_Not_Affect_Lift_Size() {
     //By w7n
     if (!this->Write_Bytes_To_Offset(0x47F6, QByteArray(2, static_cast<char>(0xEA)))) return false;
@@ -258,7 +262,7 @@ bool Hacks::Random_Group_Enemy_Koopa(bool allowHammerBros) {
 }
 
 bool Hacks::Random_Intro_Demo() {
-    if (this->wasVerticalObjectLimitRemoved) return this->Only_Jump_At_Intro_Demo(); //Intro Demo is not compatible with the vertical object limit patch
+    if (Random::Get_Instance().Get_Num(10) == 0) return this->Only_Jump_At_Intro_Demo(); //sometimes only jump at the intro
     QByteArray buttons(21, static_cast<char>(0x01)); //default is holding right
     bool run = Random::Get_Instance().Get_Num(1);
     bool stopAfterJump = false;
@@ -371,6 +375,7 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     }
 
     //by Chacky
+    if (!this->Write_Bytes_To_Offset(0x0749, QByteArray::fromHex(QString("EAEAEAEAEAEAEAEAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1031, QByteArray::fromHex(QString("A20ADE8504CA10FAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1519, QByteArray(1, static_cast<char>(0x0A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x152B, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
@@ -394,7 +399,6 @@ bool Hacks::Remove_Vertical_Object_Limit() {
     if (!this->Write_Bytes_To_Offset(0x1957, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC0, QByteArray::fromHex(QString("8504").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1BC7, QByteArray::fromHex(QString("85043860BC5704").toLatin1()))) return false;
-    if (!this->Only_Jump_At_Intro_Demo()) return false; //this patch breaks the intro demo, so just disable it
     this->wasVerticalObjectLimitRemoved = true;
     return true;
 }

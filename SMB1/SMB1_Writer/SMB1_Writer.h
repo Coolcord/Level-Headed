@@ -172,6 +172,7 @@ public:
     bool Hacks_European_Blooper_Swim_Height();
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Fix_Life_Counter_Bugs();
+    bool Hacks_Hammer_Bros_Never_Jump();
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
     bool Hacks_Permadeath();

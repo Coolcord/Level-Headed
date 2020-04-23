@@ -154,6 +154,7 @@ public:
     virtual bool Hacks_European_Blooper_Swim_Height()=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
+    virtual bool Hacks_Hammer_Bros_Never_Jump()=0;
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Permadeath()=0;
