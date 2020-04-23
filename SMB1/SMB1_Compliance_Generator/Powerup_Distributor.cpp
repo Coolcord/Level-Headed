@@ -31,8 +31,8 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
 
 bool Powerup_Distributor::Distribute_Powerups() {
     if (!this->levelCrawler->Crawl_Level()) return false;
-    this->Find_Usable_Blocks(this->objects->Get_Question_Blocks());
-    this->Find_Usable_Blocks(this->objects->Get_Brick_Blocks());
+    this->Find_Usable_Blocks(false);
+    this->Find_Usable_Blocks(true);
     this->Distribute_Question_Block_Items();
     this->Distribute_Brick_Block_Items();
     return true;
@@ -56,7 +56,9 @@ void Powerup_Distributor::Deallocate_Powerups() {
     this->maxStars = 0;
 }
 
-void Powerup_Distributor::Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks) {
+void Powerup_Distributor::Find_Usable_Blocks(bool questionBlocks) {
+    QMap<QString, Block_Data> *knownBlocks = this->objects->Get_Brick_Blocks();
+    if (questionBlocks) knownBlocks = this->objects->Get_Question_Blocks();
     assert(knownBlocks);
     QMap<QString, Block_Data>::iterator iter = knownBlocks->begin();
     while (iter != knownBlocks->end()) {
@@ -372,7 +374,10 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
     }
 
     //Remove the used block from the available blocks
-    assert(blocks->remove(this->objects->Get_Coordinate_Key(block.x, block.y)) == 1);
+    int numRemoved = 0;
+    numRemoved += this->objects->Get_Question_Blocks()->remove(this->objects->Get_Coordinate_Key(block.x, block.y));
+    numRemoved += this->objects->Get_Brick_Blocks()->remove(this->objects->Get_Coordinate_Key(block.x, block.y));
+    assert(numRemoved > 0);
 }
 
 bool Powerup_Distributor::Insert_Item_Into_Object_Buffer(int x, int y, Object_Item::Object_Item item) {

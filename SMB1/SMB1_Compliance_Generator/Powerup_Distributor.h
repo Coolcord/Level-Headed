@@ -17,7 +17,7 @@ public:
     void Deallocate_Powerups();
 
 private:
-    void Find_Usable_Blocks(QMap<QString, Block_Data> *knownBlocks);
+    void Find_Usable_Blocks(bool questionBlocks);
     void Distribute_Question_Block_Items();
     void Distribute_Brick_Block_Items();
     void Distribute_One_Ups();

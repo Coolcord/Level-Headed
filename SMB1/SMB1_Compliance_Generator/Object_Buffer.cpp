@@ -497,7 +497,9 @@ bool Object_Buffer::Is_Coordinate_Valid(int &coordinate) {
     }
 }
 
-void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, QMap<QString, Block_Data> *blocks) {
+void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, bool questionBlock) {
+    QMap<QString, Block_Data> *blocks = this->brickBlocks;
+    if (questionBlock) blocks = this->questionBlocks;
     Block_Data data;
     data.objectItem = objectItem;
     data.x = this->currentAbsoluteX;
@@ -516,6 +518,7 @@ void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, i
             QString key = this->Get_Coordinate_Key(data.x, data.y);
             QMap<QString, Block_Data>::iterator iter = blocks->find(key);
             if (iter == blocks->end()) blocks->insert(key, data);
+            if (questionBlock) this->brickBlocks->remove(key);
         }
     } else {
         for (int i = 0; i < length; ++i) {
@@ -525,6 +528,7 @@ void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, i
             QString key = this->Get_Coordinate_Key(data.x, data.y);
             QMap<QString, Block_Data>::iterator iter = blocks->find(key);
             if (iter == blocks->end() || iter->groupLength == 1) blocks->insert(key, data);
+            if (questionBlock) this->brickBlocks->remove(key);
         }
     }
 }
@@ -537,7 +541,7 @@ bool Object_Buffer::Question_Block_With_Mushroom(int x, int y) {
 bool Object_Buffer::Question_Block_With_Coin(int x, int y) {
     if (y > 0xB) return false;
     if (!this->Write_Object(Object_Item::QUESTION_BLOCK_WITH_COIN, true, x, y, Physics::MIN_OBJECT_LENGTH)) return false;
-    this->Insert_Into_Block_Map(Object_Item::QUESTION_BLOCK_WITH_COIN, y, Physics::MIN_OBJECT_LENGTH, this->questionBlocks);
+    this->Insert_Into_Block_Map(Object_Item::QUESTION_BLOCK_WITH_COIN, y, Physics::MIN_OBJECT_LENGTH, true);
     return true;
 }
 
@@ -602,7 +606,7 @@ bool Object_Buffer::Horizontal_Bricks(int x, int y, int length) {
     if (y > 0xB) return false;
     if (length < 1 || length > 16) return false;
     if (!this->Write_Object(Object_Item::HORIZONTAL_BRICKS, true, x, y, length)) return false;
-    this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_BRICKS, y, length, this->brickBlocks);
+    this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_BRICKS, y, length, false);
     return true;
 }
 
@@ -622,7 +626,7 @@ bool Object_Buffer::Vertical_Bricks(int x, int y, int height) {
     if (y > 0xB) return false;
     if (height < 1 || height > 16) return false;
     if (!this->Write_Object(Object_Item::VERTICAL_BRICKS, true, x, y, height, Physics::MIN_OBJECT_LENGTH)) return false;
-    this->Insert_Into_Block_Map(Object_Item::VERTICAL_BRICKS, y, height, this->brickBlocks);
+    this->Insert_Into_Block_Map(Object_Item::VERTICAL_BRICKS, y, height, false);
     return true;
 }
 
@@ -687,7 +691,7 @@ bool Object_Buffer::Horizontal_Question_Blocks_With_Coins(int x, int yPlacement,
     if (length < 1 || length > 16) return false;
     if (yPlacement == 0x3 || yPlacement == 0x7) {
         if (!this->Write_Object(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, true, x, yPlacement, length)) return false;
-        this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, yPlacement, length, this->questionBlocks);
+        this->Insert_Into_Block_Map(Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS, yPlacement, length, true);
         return true;
     } else {
         return false;
