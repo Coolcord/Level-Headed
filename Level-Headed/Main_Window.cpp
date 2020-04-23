@@ -3,7 +3,7 @@
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
 #include "Update_Dialog.h"
-#include "Update_Thread.h"
+#include "Update_Checker.h"
 #include "Common_Strings.h"
 #include "../Common_Files/Version.h"
 #include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
@@ -28,7 +28,7 @@ Main_Window::Main_Window(QWidget *parent, QApplication *application) :
     this->pluginHandler = new Plugin_Handler(this, this->readableConfigFile);
     this->interpreterLoader = nullptr;
     this->interpreterPlugin = nullptr;
-    this->updateThread = new Update_Thread(this, application, this->readableConfigFile, Version::VERSION_NUMBER, QApplication::applicationDirPath()+"/"+Common_Strings::STRING_PLUGINS+"/Git/bin/git");
+    this->updateThread = new Update_Checker(this, application, this->readableConfigFile, Version::VERSION_NUMBER);
     connect(this->updateThread, SIGNAL(Update_Available(const QString&, const QString&)), this, SLOT(on_Update_Available(const QString&, const QString&)));
 }
 
@@ -38,7 +38,7 @@ Main_Window::~Main_Window() {
 }
 
 void Main_Window::Check_For_Updates() {
-    this->updateThread->start();
+    this->updateThread->Check_For_Updates();
 }
 
 bool Main_Window::Create_Directories() {
@@ -131,7 +131,6 @@ void Main_Window::Shutdown() {
     this->interpreterPlugin = nullptr;
     delete this->pluginHandler;
     this->pluginHandler = nullptr;
-    if (this->updateThread) this->updateThread->terminate();
     delete this->updateThread;
     this->updateThread = nullptr;
     delete this->readableConfigFile;

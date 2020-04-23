@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,8 +21,8 @@ SOURCES += \
     Main.cpp \
     Plugin_Handler.cpp \
     CLI_Passthrough.cpp \
-    Update_Dialog.cpp \
-    Update_Thread.cpp
+    Update_Checker.cpp \
+    Update_Dialog.cpp
 
 HEADERS  += \
     Main_Window.h \
@@ -34,8 +34,8 @@ HEADERS  += \
     Common_Strings.h \
     Interpreter_Interface.h \
     CLI_Passthrough.h \
-    Update_Dialog.h \
-    Update_Thread.h
+    Update_Checker.h \
+    Update_Dialog.h
 
 FORMS    += Main_Window.ui \
     Update_Dialog.ui

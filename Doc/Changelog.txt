@@ -1,5 +1,5 @@
 Next update (v0.3.7)
-Nothing here yet :(
++ The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)
 + The level generator now has a separate pass for powerups. Most levels should now contain more powerups and items in general.

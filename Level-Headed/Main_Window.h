@@ -1,7 +1,7 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include "Update_Thread.h"
+#include "Update_Checker.h"
 #include <QApplication>
 #include <QDialog>
 #include <QString>
@@ -44,7 +44,7 @@ private:
     void Show_Unable_To_Load_Plugin_Error();
 
     Ui::Main_Window *ui;
-    Update_Thread *updateThread;
+    Update_Checker *updateThread;
     Readable_Config_File *readableConfigFile;
     Plugin_Handler *pluginHandler;
     QPluginLoader *interpreterLoader;
