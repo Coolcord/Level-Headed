@@ -89,6 +89,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyLongFireBarLength = difficultySettings.longFireBarLength;
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
+    pluginSettings->difficultyHammerBrosNeverJump = difficultySettings.hammerBrosNeverJump;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater = difficultySettings.preventTheFirstLevelFromBeingUnderwater;
@@ -153,6 +154,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyLongFireBarLength = 4; //Normal
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
+    pluginSettings->difficultyHammerBrosNeverJump = false;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->difficultyEuropeanBlooperSwimHeight = false;
     pluginSettings->lakituThrowArc = false;
@@ -181,6 +183,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.longFireBarLength = 4;
     difficultySettings.flyingCheepCheepJumpHeight = 2;
     difficultySettings.hammerBrosThrowRate = 4;
+    difficultySettings.hammerBrosNeverJump = false;
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.surfingLiftSpeed = 3;
     difficultySettings.piranhaPlantType = 1;
@@ -256,6 +259,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.longFireBarLength = 3; //Slightly Short
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
+    difficultySettings.hammerBrosNeverJump = false;
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = true;
@@ -722,6 +726,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.longFireBarLength = 0; // 0 is random here
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
+    difficultySettings.hammerBrosNeverJump = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = static_cast<bool>(Random::Get_Instance().Get_Num(1));

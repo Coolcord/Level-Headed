@@ -357,6 +357,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
         }
     }
     if (!this->writerPlugin->Hacks_Set_Hammer_Bros_Throw_Rate(easySpeed, hardSpeed)) return false;
+    if (this->pluginSettings->difficultyHammerBrosNeverJump && !this->writerPlugin->Hacks_Hammer_Bros_Never_Jump()) return false;
 
     //Handle the Firebar length
     switch (this->pluginSettings->difficultyFireBarLength) {

@@ -31,6 +31,7 @@ public:
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
+    bool Hammer_Bros_Never_Jump();
     bool Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Infinite_Lives();
     bool Invincibility();

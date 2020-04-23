@@ -22,6 +22,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->comboLongFireBarLength->setCurrentIndex(this->pluginSettings->difficultyLongFireBarLength);
     this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(this->pluginSettings->difficultyFlyingCheepCheepJumpHeight);
     this->ui->comboHammerBrosThrowRate->setCurrentIndex(this->pluginSettings->difficultyHammerBrosThrowRate);
+    this->ui->cbHammerBrosNeverJump->setChecked(this->pluginSettings->difficultyHammerBrosNeverJump);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(this->pluginSettings->difficultySpeedyObjectsAndEnemies);
     this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel);
     this->ui->cbPreventTheFirstLevelFromBeingUnderwater->setChecked(this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater);
@@ -149,6 +150,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyLongFireBarLength = this->ui->comboLongFireBarLength->currentIndex();
         this->pluginSettings->difficultyFlyingCheepCheepJumpHeight = this->ui->comboFlyingCheepCheepJumpHeight->currentIndex();
         this->pluginSettings->difficultyHammerBrosThrowRate = this->ui->comboHammerBrosThrowRate->currentIndex();
+        this->pluginSettings->difficultyHammerBrosNeverJump = this->ui->cbHammerBrosNeverJump->isChecked();
         this->pluginSettings->difficultySpeedyObjectsAndEnemies = this->ui->cbSpeedyObjectsAndEnemies->isChecked();
         this->pluginSettings->difficultyPiranhaPlantsOnFirstLevel = this->ui->cbPiranhaPlantsOnFirstLevel->isChecked();
         this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater = this->ui->cbPreventTheFirstLevelFromBeingUnderwater->isChecked();

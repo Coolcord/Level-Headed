@@ -1,4 +1,5 @@
 Next update (v0.3.7)
++ Added an option to disable Hammer Bros. jumping
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)

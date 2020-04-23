@@ -936,7 +936,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>-2096</y>
             <width>708</width>
-            <height>2766</height>
+            <height>2795</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2924,6 +2924,13 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="tristate">
                  <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbHammerBrosNeverJump">
+                <property name="text">
+                 <string>Hammer Bros. never jump</string>
                 </property>
                </widget>
               </item>
