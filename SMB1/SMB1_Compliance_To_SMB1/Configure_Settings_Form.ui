@@ -934,9 +934,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-2096</y>
+            <y>-2072</y>
             <width>708</width>
-            <height>2795</height>
+            <height>2824</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2938,6 +2938,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbEuropeanBlooperSwimHeight">
                 <property name="text">
                  <string>European Blooper swim height</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbFastLeapingParatroopas">
+                <property name="text">
+                 <string>Fast Leaping Paratroopas</string>
                 </property>
                </widget>
               </item>

@@ -28,6 +28,7 @@ public:
     bool Enable_Piranha_Plants_On_First_Level();
     bool Enable_Walking_Hammer_Bros(int difficulty);
     bool European_Blooper_Swim_Height();
+    bool Fast_Leaping_Paratroopas();
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
@@ -90,6 +91,7 @@ public:
 private:
     bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
     bool Enable_Walking_Hammer_Bros_In_World(int world);
+    bool Increase_Leaping_Paratroopa_Speed(int amount);
     bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();
     bool Random_Enemy_Group(qint64 offset, bool allowHammerBros);

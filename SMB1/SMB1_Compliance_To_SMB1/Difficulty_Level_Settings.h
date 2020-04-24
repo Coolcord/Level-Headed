@@ -40,6 +40,7 @@ struct Difficulty_Level_Settings {
     int lakituSpawnChancePerLevel;
     int lakituRespawnSpeed;
     bool europeanBlooperSwimHeight;
+    bool fastLeapingParatroopas;
     bool lakituThrowArc;
     int spinyEggBehavior;
     bool disableAllOtherEnemiesWhenALakituSpawns;

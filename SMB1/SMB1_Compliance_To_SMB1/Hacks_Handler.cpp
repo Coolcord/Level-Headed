@@ -320,6 +320,9 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     //Handle the European Blooper Swim Height
     if (this->pluginSettings->difficultyEuropeanBlooperSwimHeight && !this->writerPlugin->Hacks_European_Blooper_Swim_Height()) return false;
 
+    //Handle the Fast Leaping Paratroopas
+    if (this->pluginSettings->difficultyFastLeapingParatroopas && !this->writerPlugin->Hacks_Fast_Leaping_Paratroopas()) return false;
+
     //Handle the Hammer Bros throw rate
     speed = this->pluginSettings->difficultyHammerBrosThrowRate;
     int easySpeed = 0, hardSpeed = 0;

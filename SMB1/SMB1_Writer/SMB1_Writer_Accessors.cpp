@@ -594,6 +594,11 @@ bool SMB1_Writer::Hacks_European_Blooper_Swim_Height() {
     return this->hacks->European_Blooper_Swim_Height();
 }
 
+bool SMB1_Writer::Hacks_Fast_Leaping_Paratroopas() {
+    if (!this->hacks) return false;
+    return this->hacks->Fast_Leaping_Paratroopas();
+}
+
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

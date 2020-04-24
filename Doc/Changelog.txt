@@ -1,6 +1,8 @@
 Next update (v0.3.7)
 + Added an option to disable Hammer Bros. jumping
 + Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
++ Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.
++ Added a "Fast Leaping Paratroopas" option that increases the leaping paratroopa's speed slightly without affecting the jump height. This option stacks with the speedy object and enemies patch.
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)

@@ -139,6 +139,10 @@ bool Hacks::European_Blooper_Swim_Height() {
     return this->Write_Bytes_To_Offset(0x4C3C, QByteArray(1, static_cast<char>(0x0C)));
 }
 
+bool Hacks::Fast_Leaping_Paratroopas() {
+    return this->Increase_Leaping_Paratroopa_Speed(0x07);
+}
+
 bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, static_cast<char>(0x8F)));
 }
@@ -690,7 +694,6 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x44A8, QByteArray::fromHex(QString("1E15161E2C30201C2E322824").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0xF9)))) return false;
     if (!this->Write_Bytes_To_Offset(0x4574, QByteArray(1, static_cast<char>(0x10)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x47E6, QByteArray(1, static_cast<char>(0xE4)))) return false; //Paratroopa speed
     if (!this->Write_Bytes_To_Offset(0x4861, QByteArray(1, static_cast<char>(0xFE)))) return false;
     if (!this->Write_Bytes_To_Offset(0x486D, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x49D3, QByteArray(1, static_cast<char>(0x05)))) return false;
@@ -709,6 +712,7 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x618F, QByteArray(1, static_cast<char>(0xFE)))) return false; //Paratroopa and Starman jump height
+    if (!this->Increase_Leaping_Paratroopa_Speed(0x14)) return false;
     return this->Increase_Spiny_Egg_Speed(0x09);
 }
 
@@ -885,6 +889,18 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
         if (!this->Write_Bytes_To_Offset(0x4341, QByteArray::fromHex(QString("4C9DC0").toLatin1()))) return false;
     }
     return true;
+}
+
+bool Hacks::Increase_Leaping_Paratroopa_Speed(int amount) {
+    if (amount < 0 || amount > 127) return false;
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x47E6, 1, bytes)) return false;
+    int speed = static_cast<int>(static_cast<unsigned char>(bytes.data()[0]));
+    assert(speed >= 0 && speed <= 0xFF);
+    speed -= amount;
+    if (speed < 0x81) speed = 0x81;
+    bytes.data()[0] = static_cast<char>(speed);
+    return this->Write_Bytes_To_Offset(0x47E6, bytes);
 }
 
 bool Hacks::Increase_Spiny_Egg_Speed(int amount) {

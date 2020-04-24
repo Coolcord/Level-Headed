@@ -12,6 +12,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbEuropeanBlooperSwimHeight->setChecked(this->pluginSettings->difficultyEuropeanBlooperSwimHeight);
+    this->ui->cbFastLeapingParatroopas->setChecked(this->pluginSettings->difficultyFastLeapingParatroopas);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
     this->ui->comboBowserFlameFrequency->setCurrentIndex(this->pluginSettings->difficultyBowserFlameFrequency);
@@ -140,6 +141,7 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyMaxNumberOfPiranhaPlants = this->ui->comboMaxNumberOfPiranhaPlants->currentIndex();
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->isChecked();
         this->pluginSettings->difficultyEuropeanBlooperSwimHeight = this->ui->cbEuropeanBlooperSwimHeight->isChecked();
+        this->pluginSettings->difficultyFastLeapingParatroopas = this->ui->cbFastLeapingParatroopas->isChecked();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
         this->pluginSettings->difficultyBowserFlameFrequency = this->ui->comboBowserFlameFrequency->currentIndex();

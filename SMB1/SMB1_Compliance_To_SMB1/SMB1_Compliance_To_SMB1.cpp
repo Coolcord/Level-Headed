@@ -246,6 +246,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame)) return false;
     if (!configFile.Set_Value("Super_Mario_On_Damage", this->pluginSettings.superMarioOnDamage)) return false;
     if (!configFile.Set_Value("Difficulty_European_Blooper_Swim_Height", this->pluginSettings.difficultyEuropeanBlooperSwimHeight)) return false;
+    if (!configFile.Set_Value("Difficulty_Fast_Leaping_Paratroopas", this->pluginSettings.difficultyFastLeapingParatroopas)) return false;
     if (!configFile.Set_Value("Lakitu_Throw_Arc", this->pluginSettings.lakituThrowArc)) return false;
     if (!configFile.Set_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Bowser_Flame_Frequency", this->pluginSettings.difficultyBowserFlameFrequency)) return false;
@@ -361,6 +362,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame);
     configFile.Get_Value("Super_Mario_On_Damage", this->pluginSettings.superMarioOnDamage);
     configFile.Get_Value("Difficulty_European_Blooper_Swim_Height", this->pluginSettings.difficultyEuropeanBlooperSwimHeight);
+    configFile.Get_Value("Difficulty_Fast_Leaping_Paratroopas", this->pluginSettings.difficultyFastLeapingParatroopas);
     configFile.Get_Value("Lakitu_Throw_Arc", this->pluginSettings.lakituThrowArc);
     configFile.Get_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed);
     configFile.Get_Value("Difficulty_Bowser_Flame_Frequency", this->pluginSettings.difficultyBowserFlameFrequency);
@@ -429,7 +431,6 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;
     this->pluginSettings.superMarioOnDamage = true;
-    this->pluginSettings.difficultyEuropeanBlooperSwimHeight = false;
     this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.powerup = 0;
     this->pluginSettings.secondaryMushroom = 0;
