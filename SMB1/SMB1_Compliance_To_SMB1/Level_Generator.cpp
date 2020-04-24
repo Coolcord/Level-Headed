@@ -20,8 +20,8 @@
 
 const static int VERY_COMMON_POINTS = 16;
 const static int COMMON_POINTS = 8;
-const static int UNCOMMON_POINTS = 4;
-const static int RARE_POINTS = 2;
+const static int UNCOMMON_POINTS = 5;
+const static int RARE_POINTS = 1;
 
 Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                                  SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin) {
@@ -48,6 +48,7 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
     this->commonLevels = new QVector<Level_Type::Level_Type>();
     this->uncommonLevels = new QVector<Level_Type::Level_Type>();
     this->rareLevels = new QVector<Level_Type::Level_Type>();
+    this->allocatedLevels = new QVector<Level_Type::Level_Type>();
     this->chances = new QMap<QString, Chance>();
     this->chances->insert(STRING_VERY_COMMON, VERY_COMMON);
     this->chances->insert(STRING_COMMON, COMMON);
@@ -65,6 +66,7 @@ Level_Generator::~Level_Generator() {
     delete this->commonLevels;
     delete this->uncommonLevels;
     delete this->rareLevels;
+    delete this->allocatedLevels;
 }
 
 bool Level_Generator::Generate_Levels() {
@@ -357,7 +359,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
-    else args.levelType = this->Determine_Level_Type(levelNum);
+    else args.levelType = this->Determine_Level_Type(levelNum, numLevels, this->pluginSettings->numWorlds, this->pluginSettings->numLevelsPerWorld);
     args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
     args.maxLevelLength = this->Get_Level_Length(this->pluginSettings->difficultyMaxLevelLengthBlocks, args.difficulty, args.useAutoScroll, args.levelType);
     switch (args.levelType) {
@@ -474,59 +476,147 @@ bool Level_Generator::Delete_Old_Level_Generations() {
     return true;
 }
 
-Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum) {
-    this->veryCommonLevels->clear();
-    this->commonLevels->clear();
-    this->uncommonLevels->clear();
-    this->rareLevels->clear();
+Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int numLevels, int numWorlds, int numLevelsPerWorld) {
+    const bool LEGACY_ALGORITHM = false;
 
-    //Determine the number of level types for each chance type
-    this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
-    this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
-    this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
-    this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+    if (LEGACY_ALGORITHM) {
+        this->veryCommonLevels->clear();
+        this->commonLevels->clear();
+        this->uncommonLevels->clear();
+        this->rareLevels->clear();
 
-    //Prevent Underwater levels from being the first level
-    if (levelNum == 0 && this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater) {
-        if (this->veryCommonLevels->isEmpty() && this->commonLevels->isEmpty() && this->uncommonLevels->isEmpty() && this->rareLevels->isEmpty()) {
+        //Determine the number of level types for each chance type
+        this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
+        this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
+        this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
+        this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+
+        //Prevent Underwater levels from being the first level
+        if (levelNum == 0 && this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater) {
+            if (this->veryCommonLevels->isEmpty() && this->commonLevels->isEmpty() && this->uncommonLevels->isEmpty() && this->rareLevels->isEmpty()) {
+                this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+            }
+        } else {
             this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
         }
+
+        //Get the amount of each chance type
+        int numVeryCommon = this->veryCommonLevels->size();
+        int numCommon = this->commonLevels->size();
+        int numUncommon = this->uncommonLevels->size();
+        int numRare = this->rareLevels->size();
+
+        //Determine chance
+        int veryCommonChance = VERY_COMMON_POINTS*numVeryCommon; int commonChance = (COMMON_POINTS*numCommon)+veryCommonChance;
+        int uncommonChance = (UNCOMMON_POINTS*numUncommon)+commonChance; int rareChance = (RARE_POINTS*numRare)+uncommonChance;
+        int random = Random::Get_Instance().Get_Num(rareChance-1);
+        int index = 0;
+
+        //Determine the level type by probability
+        Level_Type::Level_Type levelType = Level_Type::STANDARD_OVERWORLD;
+        if (random < veryCommonChance) { //very common
+            index = (random)/VERY_COMMON_POINTS;
+            assert(index < this->veryCommonLevels->size());
+            levelType = this->veryCommonLevels->at(index);
+        } else if (random < commonChance) { //common
+            index = (random-veryCommonChance)/COMMON_POINTS;
+            assert(index < this->commonLevels->size());
+            levelType = this->commonLevels->at(index);
+        } else if (random < uncommonChance) { //uncommon
+            index = (random-commonChance)/UNCOMMON_POINTS;
+            assert(index < this->uncommonLevels->size());
+            levelType = this->uncommonLevels->at(index);
+        } else if (random < rareChance) { //rare
+            index = (random-uncommonChance)/RARE_POINTS;
+            assert(index < this->rareLevels->size());
+            levelType = this->rareLevels->at(index);
+        } else assert(false);
+        return levelType;
     } else {
-        this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+        if (levelNum == 0) {
+            //Clear previous allocations
+            this->veryCommonLevels->clear();
+            this->commonLevels->clear();
+            this->uncommonLevels->clear();
+            this->rareLevels->clear();
+            this->allocatedLevels->clear();
+            this->allocatedLevels->resize(numLevels);
+            for (int i = 0; i < this->allocatedLevels->size(); ++i) this->allocatedLevels->data()[i] = Level_Type::STANDARD_OVERWORLD;
+
+            //Determine the number of level types
+            QMap<Level_Type::Level_Type, double> levelWeights;
+            QVector<QPair<Level_Type::Level_Type, int>> unallocatedLevels;
+            this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
+            this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
+            this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+            this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
+            this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+            for (int i = 0; i < this->veryCommonLevels->size(); ++i) levelWeights.insert(this->veryCommonLevels->at(i), static_cast<double>(VERY_COMMON_POINTS));
+            for (int i = 0; i < this->commonLevels->size(); ++i) levelWeights.insert(this->commonLevels->at(i), static_cast<double>(COMMON_POINTS));
+            for (int i = 0; i < this->uncommonLevels->size(); ++i) levelWeights.insert(this->uncommonLevels->at(i), static_cast<double>(UNCOMMON_POINTS));
+            for (int i = 0; i < this->rareLevels->size(); ++i) unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(this->rareLevels->at(i), 1));
+            double totalWeight = 0.0;
+            for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) totalWeight += iter.value();
+            int numLevelTypes = this->veryCommonLevels->size()+this->commonLevels->size()+this->uncommonLevels->size()+this->rareLevels->size();
+            int numLevelsExcludingCastles = numLevels-numWorlds;
+
+            //Determine how many levels to generate for each type
+            QVector<int> unallocatedLevelSlots;
+            for (int i = 0; i < numLevels; ++i) {
+                if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
+                else unallocatedLevelSlots.push_back(i);
+            }
+            assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
+            int totalUnallocatedLevels = 0;
+            for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) {
+                int num = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(iter.value()/totalWeight)));
+                totalUnallocatedLevels += num;
+                unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(iter.key(), num));
+            }
+
+            //Distribute the remaining levels to the very common types
+            while (totalUnallocatedLevels < numLevelsExcludingCastles) {
+                ++totalUnallocatedLevels;
+                Level_Type::Level_Type levelType = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
+                for (int i = 0; i < unallocatedLevels.size(); ++i) {
+                    if (unallocatedLevels.at(i).first == levelType) ++unallocatedLevels.data()[i].second;
+                }
+            }
+
+            //Allocate the levels
+            while (!unallocatedLevelSlots.isEmpty()) {
+                //Get the level slot
+                int index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
+                int levelSlot = unallocatedLevelSlots.at(index);
+                unallocatedLevelSlots.remove(index);
+
+                //Get a random level type
+                index = Random::Get_Instance().Get_Num(unallocatedLevels.size()-1);
+                Level_Type::Level_Type levelType = unallocatedLevels.at(index).first;
+                --unallocatedLevels.data()[index].second;
+                assert(unallocatedLevels.data()[index].second >= 0);
+                if (unallocatedLevels.data()[index].second == 0) unallocatedLevels.remove(index);
+
+                //Allocate the level
+                this->allocatedLevels->data()[levelSlot] = levelType;
+            }
+
+            //If the first level is an underwater level, swap it with the first non-underwater level
+            if (this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater && this->allocatedLevels->at(0) == Level_Type::UNDERWATER && numLevelTypes != 1) {
+                for (int i = 1; i < this->allocatedLevels->size(); ++i) {
+                    if ((i+1)%numLevelsPerWorld != 0 && this->allocatedLevels->at(i) != Level_Type::UNDERWATER) {
+                        this->allocatedLevels->data()[0] = this->allocatedLevels->at(i);
+                        this->allocatedLevels->data()[i] = Level_Type::UNDERWATER;
+                        break;
+                    }
+                }
+            }
+
+            return this->allocatedLevels->at(levelNum);
+        } else {
+            return this->allocatedLevels->at(levelNum);
+        }
     }
-
-    //Get the amount of each chance type
-    int numVeryCommon = this->veryCommonLevels->size();
-    int numCommon = this->commonLevels->size();
-    int numUncommon = this->uncommonLevels->size();
-    int numRare = this->rareLevels->size();
-
-    //Determine chance
-    int veryCommonChance = VERY_COMMON_POINTS*numVeryCommon; int commonChance = (COMMON_POINTS*numCommon)+veryCommonChance;
-    int uncommonChance = (UNCOMMON_POINTS*numUncommon)+commonChance; int rareChance = (RARE_POINTS*numRare)+uncommonChance;
-    int random = Random::Get_Instance().Get_Num(rareChance-1);
-    int index = 0;
-
-    //Determine the level type by probability
-    Level_Type::Level_Type levelType = Level_Type::STANDARD_OVERWORLD;
-    if (random < veryCommonChance) { //very common
-        index = (random)/VERY_COMMON_POINTS;
-        assert(index < this->veryCommonLevels->size());
-        levelType = this->veryCommonLevels->at(index);
-    } else if (random < commonChance) { //common
-        index = (random-veryCommonChance)/COMMON_POINTS;
-        assert(index < this->commonLevels->size());
-        levelType = this->commonLevels->at(index);
-    } else if (random < uncommonChance) { //uncommon
-        index = (random-commonChance)/UNCOMMON_POINTS;
-        assert(index < this->uncommonLevels->size());
-        levelType = this->uncommonLevels->at(index);
-    } else if (random < rareChance) { //rare
-        index = (random-uncommonChance)/RARE_POINTS;
-        assert(index < this->rareLevels->size());
-        levelType = this->rareLevels->at(index);
-    } else assert(false);
-    return levelType;
 }
 
 bool Level_Generator::Generate_Levels_And_Pack(QString &folderLocation) {

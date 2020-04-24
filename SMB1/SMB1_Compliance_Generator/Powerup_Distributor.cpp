@@ -375,8 +375,9 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
 
     //Remove the used block from the available blocks
     int numRemoved = 0;
-    numRemoved += this->objects->Get_Question_Blocks()->remove(this->objects->Get_Coordinate_Key(block.x, block.y));
-    numRemoved += this->objects->Get_Brick_Blocks()->remove(this->objects->Get_Coordinate_Key(block.x, block.y));
+    int tmpX = block.x, tmpY = block.y;
+    numRemoved += this->objects->Get_Question_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
+    numRemoved += this->objects->Get_Brick_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
     assert(numRemoved > 0);
 }
 
