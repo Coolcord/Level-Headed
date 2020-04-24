@@ -346,10 +346,10 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
         case 2:     easySpeed = 88; hardSpeed = 68; break;
         case 3:     easySpeed = 68; hardSpeed = 48; break;
         case 4:     easySpeed = 48; hardSpeed = 28; break;
-        case 5:     easySpeed = 28; hardSpeed = 18; break;
-        case 6:     easySpeed = 18; hardSpeed = 13; break;
-        case 7:     easySpeed = 13; hardSpeed = 10; break;
-        case 8:     easySpeed = 10; hardSpeed = 8; break;
+        case 5:     easySpeed = 28; hardSpeed = 20; break;
+        case 6:     easySpeed = 20; hardSpeed = 15; break;
+        case 7:     easySpeed = 15; hardSpeed = 10; break;
+        case 8:     easySpeed = 10; hardSpeed = 7; break;
         case 0:
             easySpeed = Random::Get_Instance().Get_Num(1, 108);
             hardSpeed = Random::Get_Instance().Get_Num(easySpeed, 108);

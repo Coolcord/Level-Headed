@@ -1,5 +1,6 @@
 Next update (v0.3.7)
 + Added an option to disable Hammer Bros. jumping
++ Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)
