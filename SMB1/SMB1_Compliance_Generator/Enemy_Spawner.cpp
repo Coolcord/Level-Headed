@@ -590,6 +590,11 @@ bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
                     //The two coordinates above cannot be solid objects
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-1)) continue;
                     if (this->levelCrawler->Is_Coordinate_Used(i, j-2)) continue;
+
+                    //Avoid low hovering neighboring blocks that speedy paratroopas can get stuck in
+                    if (this->levelCrawler->Is_Coordinate_Used(i-1, j-1) && !this->levelCrawler->Is_Coordinate_Used(i-1, j)) continue;
+                    if (this->levelCrawler->Is_Coordinate_Used(i-1, j-2) && !this->levelCrawler->Is_Coordinate_Used(i-1, j-1)) continue;
+
                     //Safe coordinate found
                     x = i;
                     y = j;

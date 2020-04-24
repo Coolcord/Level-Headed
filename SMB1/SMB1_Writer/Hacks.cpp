@@ -690,7 +690,7 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x44A8, QByteArray::fromHex(QString("1E15161E2C30201C2E322824").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x44E4, QByteArray(1, static_cast<char>(0xF9)))) return false;
     if (!this->Write_Bytes_To_Offset(0x4574, QByteArray(1, static_cast<char>(0x10)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x47E6, QByteArray(1, static_cast<char>(0xE8)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x47E6, QByteArray(1, static_cast<char>(0xE4)))) return false; //Paratroopa speed
     if (!this->Write_Bytes_To_Offset(0x4861, QByteArray(1, static_cast<char>(0xFE)))) return false;
     if (!this->Write_Bytes_To_Offset(0x486D, QByteArray(1, static_cast<char>(0x01)))) return false;
     if (!this->Write_Bytes_To_Offset(0x49D3, QByteArray(1, static_cast<char>(0x05)))) return false;
@@ -708,6 +708,7 @@ bool Hacks::Speedy_Objects_And_Enemies() {
     if (!this->Write_Bytes_To_Offset(0x5618, QByteArray(1, static_cast<char>(0x18)))) return false;
     if (!this->Write_Bytes_To_Offset(0x585F, QByteArray::fromHex(QString("40C018E8").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x5FCF, QByteArray::fromHex(QString("20E0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x618F, QByteArray(1, static_cast<char>(0xFE)))) return false; //Paratroopa and Starman jump height
     return this->Increase_Spiny_Egg_Speed(0x09);
 }
 
