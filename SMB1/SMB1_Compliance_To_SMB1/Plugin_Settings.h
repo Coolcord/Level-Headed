@@ -54,7 +54,6 @@ struct Plugin_Settings {
     bool addLuigiGame;
     bool superMarioOnDamage;
     bool difficultyEuropeanBlooperSwimHeight;
-    bool difficultyFastLeapingParatroopas;
     bool lakituThrowArc;
     int powerup;
     int secondaryMushroom;
@@ -111,6 +110,7 @@ struct Plugin_Settings {
     int difficultyBowserFlameFrequency;
     int difficultyBulletBillFiringRate;
     int difficultyBulletBillSpeed;
+    int difficultyLeapingParatroopaSpeed;
     int difficultyEnemyRevivalSpeed;
     int difficultyFireBarLength;
     int difficultyLongFireBarLength;

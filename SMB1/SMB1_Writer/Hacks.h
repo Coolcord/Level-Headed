@@ -76,6 +76,7 @@ public:
     bool Set_Surfing_Lift_Speed(int speed);
     bool Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate);
     void Set_Hammer_Suit_Active(bool isHammerSuitActive);
+    bool Slow_Leaping_Paratroopas();
     bool Speedy_Objects_And_Enemies();
     bool Spiny_Eggs_Do_Not_Break();
     bool Spiny_Eggs_Bouncy();

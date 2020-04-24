@@ -320,15 +320,22 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
     //Handle the European Blooper Swim Height
     if (this->pluginSettings->difficultyEuropeanBlooperSwimHeight && !this->writerPlugin->Hacks_European_Blooper_Swim_Height()) return false;
 
-    //Handle the Fast Leaping Paratroopas
-    if (this->pluginSettings->difficultyFastLeapingParatroopas && !this->writerPlugin->Hacks_Fast_Leaping_Paratroopas()) return false;
+    //Handle the Leaping Paratroopa Speed
+    speed = this->pluginSettings->difficultyLeapingParatroopaSpeed;
+    if (speed == 0) speed = Random::Get_Instance().Get_Num(1, 3);
+    switch (speed) {
+    default:    assert(false); return false;
+    case 1:     if (!this->writerPlugin->Hacks_Slow_Leaping_Paratroopas()) return false;
+    case 2:     break;
+    case 3:     if (!this->writerPlugin->Hacks_Fast_Leaping_Paratroopas()) return false;
+    }
 
     //Handle the Hammer Bros throw rate
     speed = this->pluginSettings->difficultyHammerBrosThrowRate;
     int easySpeed = 0, hardSpeed = 0;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 4) { //Fire Bros. Throw Rates
         switch (speed) {
-        default: assert(false); return false;
+        default:    assert(false); return false;
         case 1:     easySpeed = 248; hardSpeed = 218; break;
         case 2:     easySpeed = 208; hardSpeed = 178; break;
         case 3:     easySpeed = 168; hardSpeed = 138; break;

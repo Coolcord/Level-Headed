@@ -934,9 +934,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-2072</y>
+            <y>0</y>
             <width>708</width>
-            <height>2824</height>
+            <height>2828</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2321,6 +2321,41 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutLeapingParatroopaSpeed">
+                <item>
+                 <widget class="QLabel" name="lblLeapingParatroopaSpeed">
+                  <property name="text">
+                   <string>Leaping Paratroopa Speed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboLeapingParatroopaSpeed">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Slow</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fast</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutEnemyRevivalSpeed">
                 <item>
                  <widget class="QLabel" name="lblEnemyRevivalSpeed">
@@ -2938,13 +2973,6 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbEuropeanBlooperSwimHeight">
                 <property name="text">
                  <string>European Blooper swim height</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="cbFastLeapingParatroopas">
-                <property name="text">
-                 <string>Fast Leaping Paratroopas</string>
                 </property>
                </widget>
               </item>

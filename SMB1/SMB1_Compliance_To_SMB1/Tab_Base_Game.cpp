@@ -97,6 +97,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboBulletBillFiringRate->setCurrentIndex(3);
         this->ui->comboBulletBillSpeed->setCurrentIndex(2);
         this->ui->comboEnemyRevivalSpeed->setCurrentIndex(2);
+        this->ui->comboLeapingParatroopaSpeed->setCurrentIndex(2);
         this->ui->comboFireBarLength->setCurrentIndex(3);
         this->ui->comboLongFireBarLength->setCurrentIndex(4);
         this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(2);
@@ -110,7 +111,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
         this->ui->cbHammerBrosNeverJump->setChecked(false);
         this->ui->cbEuropeanBlooperSwimHeight->setChecked(false);
-        this->ui->cbFastLeapingParatroopas->setChecked(false);
         this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
@@ -146,6 +146,9 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->comboEnemyRevivalSpeed->setEnabled(!enabled);
     this->ui->layoutEnemyRevivalSpeed->setEnabled(!enabled);
+    this->ui->lblLeapingParatroopaSpeed->setEnabled(!enabled);
+    this->ui->comboLeapingParatroopaSpeed->setEnabled(!enabled);
+    this->ui->layoutLeapingParatroopaSpeed->setEnabled(!enabled);
     this->ui->lblFireBarLength->setEnabled(!enabled);
     this->ui->comboFireBarLength->setEnabled(!enabled);
     this->ui->layoutFireBarLength->setEnabled(!enabled);
@@ -179,7 +182,6 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
     this->ui->cbHammerBrosNeverJump->setEnabled(!enabled);
     this->ui->cbEuropeanBlooperSwimHeight->setEnabled(!enabled);
-    this->ui->cbFastLeapingParatroopas->setEnabled(!enabled);
     this->ui->cbPiranhaPlantsOnFirstLevel->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);

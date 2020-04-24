@@ -211,6 +211,7 @@ public:
     bool Hacks_Set_Starting_Lives(int lives);
     bool Hacks_Set_Surfing_Lift_Speed(int speed);
     bool Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate);
+    bool Hacks_Slow_Leaping_Paratroopas();
     bool Hacks_Speedy_Objects_And_Enemies();
     bool Hacks_Spiny_Eggs_Bouncy();
     bool Hacks_Spiny_Eggs_Chase_Mario();

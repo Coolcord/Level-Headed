@@ -246,12 +246,12 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame)) return false;
     if (!configFile.Set_Value("Super_Mario_On_Damage", this->pluginSettings.superMarioOnDamage)) return false;
     if (!configFile.Set_Value("Difficulty_European_Blooper_Swim_Height", this->pluginSettings.difficultyEuropeanBlooperSwimHeight)) return false;
-    if (!configFile.Set_Value("Difficulty_Fast_Leaping_Paratroopas", this->pluginSettings.difficultyFastLeapingParatroopas)) return false;
     if (!configFile.Set_Value("Lakitu_Throw_Arc", this->pluginSettings.lakituThrowArc)) return false;
     if (!configFile.Set_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Bowser_Flame_Frequency", this->pluginSettings.difficultyBowserFlameFrequency)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed)) return false;
+    if (!configFile.Set_Value("Difficulty_Leaping_Paratroopa_Speed", this->pluginSettings.difficultyLeapingParatroopaSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Enemy_Revival_Speed", this->pluginSettings.difficultyEnemyRevivalSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Fire_Bar_Length", this->pluginSettings.difficultyFireBarLength)) return false;
     if (!configFile.Set_Value("Difficulty_Long_Fire_Bar_Length", this->pluginSettings.difficultyLongFireBarLength)) return false;
@@ -362,12 +362,12 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame);
     configFile.Get_Value("Super_Mario_On_Damage", this->pluginSettings.superMarioOnDamage);
     configFile.Get_Value("Difficulty_European_Blooper_Swim_Height", this->pluginSettings.difficultyEuropeanBlooperSwimHeight);
-    configFile.Get_Value("Difficulty_Fast_Leaping_Paratroopas", this->pluginSettings.difficultyFastLeapingParatroopas);
     configFile.Get_Value("Lakitu_Throw_Arc", this->pluginSettings.lakituThrowArc);
     configFile.Get_Value("Difficulty_Basic_Enemy_Speed", this->pluginSettings.difficultyBasicEnemySpeed);
     configFile.Get_Value("Difficulty_Bowser_Flame_Frequency", this->pluginSettings.difficultyBowserFlameFrequency);
     configFile.Get_Value("Difficulty_Bullet_Bill_Firing_Rate", this->pluginSettings.difficultyBulletBillFiringRate);
     configFile.Get_Value("Difficulty_Bullet_Bill_Speed", this->pluginSettings.difficultyBulletBillSpeed);
+    configFile.Get_Value("Difficulty_Leaping_Paratroopa_Speed", this->pluginSettings.difficultyLeapingParatroopaSpeed);
     configFile.Get_Value("Difficulty_Enemy_Revival_Speed", this->pluginSettings.difficultyEnemyRevivalSpeed);
     configFile.Get_Value("Difficulty_Fire_Bar_Length", this->pluginSettings.difficultyFireBarLength);
     configFile.Get_Value("Difficulty_Long_Fire_Bar_Length", this->pluginSettings.difficultyLongFireBarLength);

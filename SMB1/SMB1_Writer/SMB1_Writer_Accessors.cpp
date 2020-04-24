@@ -799,6 +799,11 @@ bool SMB1_Writer::Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate) {
     return this->hacks->Set_Hammer_Bros_Throw_Rate(easyRate, hardRate);
 }
 
+bool SMB1_Writer::Hacks_Slow_Leaping_Paratroopas() {
+    if (!this->hacks) return false;
+    return this->hacks->Slow_Leaping_Paratroopas();
+}
+
 bool SMB1_Writer::Hacks_Speedy_Objects_And_Enemies() {
     if (!this->hacks) return false;
     return this->hacks->Speedy_Objects_And_Enemies();

@@ -677,6 +677,10 @@ void Hacks::Set_Hammer_Suit_Active(bool isHammerSuitActive) {
     this->isHammerSuitActive = isHammerSuitActive;
 }
 
+bool Hacks::Slow_Leaping_Paratroopas() {
+    return this->Increase_Leaping_Paratroopa_Speed(-4);
+}
+
 bool Hacks::Speedy_Objects_And_Enemies() {
     //by L
     if (!this->Write_Bytes_To_Offset(0x36D4, QByteArray(1, static_cast<char>(0x60)))) return false;
@@ -892,13 +896,14 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
 }
 
 bool Hacks::Increase_Leaping_Paratroopa_Speed(int amount) {
-    if (amount < 0 || amount > 127) return false;
+    if (amount < -127 || amount > 127) return false;
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x47E6, 1, bytes)) return false;
     int speed = static_cast<int>(static_cast<unsigned char>(bytes.data()[0]));
     assert(speed >= 0 && speed <= 0xFF);
     speed -= amount;
     if (speed < 0x81) speed = 0x81;
+    if (speed > 0xFF) speed = 0xFF;
     bytes.data()[0] = static_cast<char>(speed);
     return this->Write_Bytes_To_Offset(0x47E6, bytes);
 }

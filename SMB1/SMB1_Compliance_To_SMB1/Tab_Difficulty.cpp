@@ -12,12 +12,12 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbEuropeanBlooperSwimHeight->setChecked(this->pluginSettings->difficultyEuropeanBlooperSwimHeight);
-    this->ui->cbFastLeapingParatroopas->setChecked(this->pluginSettings->difficultyFastLeapingParatroopas);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
     this->ui->comboBasicEnemySpeed->setCurrentIndex(this->pluginSettings->difficultyBasicEnemySpeed);
     this->ui->comboBowserFlameFrequency->setCurrentIndex(this->pluginSettings->difficultyBowserFlameFrequency);
     this->ui->comboBulletBillFiringRate->setCurrentIndex(this->pluginSettings->difficultyBulletBillFiringRate);
     this->ui->comboBulletBillSpeed->setCurrentIndex(this->pluginSettings->difficultyBulletBillSpeed);
+    this->ui->comboLeapingParatroopaSpeed->setCurrentIndex(this->pluginSettings->difficultyLeapingParatroopaSpeed);
     this->ui->comboEnemyRevivalSpeed->setCurrentIndex(this->pluginSettings->difficultyEnemyRevivalSpeed);
     this->ui->comboFireBarLength->setCurrentIndex(this->pluginSettings->difficultyFireBarLength);
     this->ui->comboLongFireBarLength->setCurrentIndex(this->pluginSettings->difficultyLongFireBarLength);
@@ -141,12 +141,12 @@ void Tab_Difficulty::Save_Settings() {
         this->pluginSettings->difficultyMaxNumberOfPiranhaPlants = this->ui->comboMaxNumberOfPiranhaPlants->currentIndex();
         this->pluginSettings->superMarioOnDamage = this->ui->cbRevertToSuperMario->isChecked();
         this->pluginSettings->difficultyEuropeanBlooperSwimHeight = this->ui->cbEuropeanBlooperSwimHeight->isChecked();
-        this->pluginSettings->difficultyFastLeapingParatroopas = this->ui->cbFastLeapingParatroopas->isChecked();
         this->pluginSettings->lakituThrowArc = this->ui->cbLakituThrowArc->isChecked();
         this->pluginSettings->difficultyBasicEnemySpeed = this->ui->comboBasicEnemySpeed->currentIndex();
         this->pluginSettings->difficultyBowserFlameFrequency = this->ui->comboBowserFlameFrequency->currentIndex();
         this->pluginSettings->difficultyBulletBillFiringRate = this->ui->comboBulletBillFiringRate->currentIndex();
         this->pluginSettings->difficultyBulletBillSpeed = this->ui->comboBulletBillSpeed->currentIndex();
+        this->pluginSettings->difficultyLeapingParatroopaSpeed = this->ui->comboLeapingParatroopaSpeed->currentIndex();
         this->pluginSettings->difficultyEnemyRevivalSpeed = this->ui->comboEnemyRevivalSpeed->currentIndex();
         this->pluginSettings->difficultyFireBarLength = this->ui->comboFireBarLength->currentIndex();
         this->pluginSettings->difficultyLongFireBarLength = this->ui->comboLongFireBarLength->currentIndex();

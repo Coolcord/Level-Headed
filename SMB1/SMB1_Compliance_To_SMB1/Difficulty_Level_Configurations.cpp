@@ -71,7 +71,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyLakituSpawnChancePerLevel = difficultySettings.lakituSpawnChancePerLevel;
     pluginSettings->difficultyLakituRespawnSpeed = difficultySettings.lakituRespawnSpeed;
     pluginSettings->difficultyEuropeanBlooperSwimHeight = difficultySettings.europeanBlooperSwimHeight;
-    pluginSettings->difficultyFastLeapingParatroopas = difficultySettings.fastLeapingParatroopas;
+    pluginSettings->difficultyLeapingParatroopaSpeed = difficultySettings.leapingParatroopaSpeed;
     pluginSettings->lakituThrowArc = difficultySettings.lakituThrowArc;
     pluginSettings->difficultySpinyEggBehavior = difficultySettings.spinyEggBehavior;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
@@ -150,6 +150,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyBowserFlameFrequency = 2;
     pluginSettings->difficultyBulletBillFiringRate = 3;
     pluginSettings->difficultyBulletBillSpeed = 2;
+    pluginSettings->difficultyLeapingParatroopaSpeed = 2; //Normal
     pluginSettings->difficultyEnemyRevivalSpeed = 2; //Normal
     pluginSettings->difficultyFireBarLength = 3; //Normal
     pluginSettings->difficultyLongFireBarLength = 4; //Normal
@@ -158,7 +159,6 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyHammerBrosNeverJump = false;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->difficultyEuropeanBlooperSwimHeight = false;
-    pluginSettings->difficultyFastLeapingParatroopas = false;
     pluginSettings->lakituThrowArc = false;
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
@@ -195,7 +195,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.europeanBlooperSwimHeight = false;
-    difficultySettings.fastLeapingParatroopas = false;
+    difficultySettings.leapingParatroopaSpeed = 2;
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
@@ -244,7 +244,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.europeanBlooperSwimHeight = false;
-    difficultySettings.fastLeapingParatroopas = false;
+    difficultySettings.leapingParatroopaSpeed = 2; //Normal
     difficultySettings.lakituThrowArc = true;
     difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
@@ -310,6 +310,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.bowserFlameFrequency = 1; //infrequent
     difficultySettings.bulletBillFiringRate = 2; //infrequent
     difficultySettings.bulletBillSpeed = 1;
+    difficultySettings.leapingParatroopaSpeed = 1; //Slow
     difficultySettings.fireBarLength = 1; //Very Short
     difficultySettings.longFireBarLength = 1; //Very Short
     difficultySettings.unlimitedTime = true;
@@ -386,7 +387,8 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     difficultySettings.surfingLiftSpeed = 4; //Fast
     difficultySettings.piranhaPlantType = 2; //red
     difficultySettings.basicEnemySpeed = 4; //Fast
-    difficultySettings.bulletBillSpeed = 3; //fast
+    difficultySettings.bulletBillSpeed = 3; //Fast
+    difficultySettings.leapingParatroopaSpeed = 3; //Fast
     difficultySettings.enemyRevivalSpeed = 2; //Normal
     difficultySettings.fireBarLength = 3; //Normal
     difficultySettings.longFireBarLength = 4; //Normal
@@ -425,6 +427,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     difficultySettings.basicEnemySpeed = 6; //Speedy
     difficultySettings.bulletBillFiringRate = 4; //frequent
     difficultySettings.bulletBillSpeed = 4; //speedy
+    difficultySettings.leapingParatroopaSpeed = 2; //Normal (the speedy patch affects paratroopas)
     difficultySettings.hammerBrosThrowRate = 5; //Frequent
     difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = true;
     return difficultySettings;
@@ -465,10 +468,10 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.bowserFlameFrequency = 3; //frequent
     difficultySettings.bulletBillFiringRate = 7; //ludicrous
     difficultySettings.bulletBillSpeed = 5; //ludicrous
+    difficultySettings.leapingParatroopaSpeed = 2; //fast
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
     difficultySettings.europeanBlooperSwimHeight = true;
-    difficultySettings.fastLeapingParatroopas = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = false;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
@@ -712,7 +715,6 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.autoScrollChancePerLevel = Random::Get_Instance().Get_Num(100);
     difficultySettings.lakituSpawnChancePerLevel = Random::Get_Instance().Get_Num(100);
     difficultySettings.europeanBlooperSwimHeight = static_cast<bool>(Random::Get_Instance().Get_Num(1));
-    difficultySettings.fastLeapingParatroopas = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.lakituThrowArc = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.spinyEggBehavior = 0; //0 is random here
     difficultySettings.lakituRespawnSpeed = 0; //0 is random here
@@ -727,6 +729,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.bowserFlameFrequency = 0; //0 is random here
     difficultySettings.bulletBillFiringRate = 0; //0 is random here
     difficultySettings.bulletBillSpeed = 0; //0 is random here
+    difficultySettings.leapingParatroopaSpeed = 0; //0 is random here
     difficultySettings.enemyRevivalSpeed = 0; //0 is random here
     difficultySettings.fireBarLength = 0; //0 is random here
     difficultySettings.longFireBarLength = 0; // 0 is random here

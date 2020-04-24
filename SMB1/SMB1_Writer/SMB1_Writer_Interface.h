@@ -193,6 +193,7 @@ public:
     virtual bool Hacks_Set_Starting_Lives(int lives)=0;
     virtual bool Hacks_Set_Surfing_Lift_Speed(int speed)=0;
     virtual bool Hacks_Set_Hammer_Bros_Throw_Rate(int easyRate, int hardRate)=0;
+    virtual bool Hacks_Slow_Leaping_Paratroopas()=0;
     virtual bool Hacks_Speedy_Objects_And_Enemies()=0;
     virtual bool Hacks_Spiny_Eggs_Bouncy()=0;
     virtual bool Hacks_Spiny_Eggs_Chase_Mario()=0;
