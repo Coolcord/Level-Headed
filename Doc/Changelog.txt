@@ -1,6 +1,6 @@
 Next update (v0.3.7)
 + Larger games (about 12+ levels) now limit how many levels of one type can be created based upon commonality. This means that it will now be impossible to get an entire world full of an uncommon level type.
-+ The level type distributor now tries to prevent getting 3 or more of the same type of level in a row with the exception of Very Common levels
++ If a level is not set to be Very Common, the level distributor will try to prevent it from being used 3 or more times in a row
 + Added an option to disable Hammer Bros. jumping
 + Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
 + Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.

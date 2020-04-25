@@ -617,7 +617,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
             }
         }
 
-        //Prevent getting 3 of the same levels in a row
+        //Prevent getting 3 of the same type of level in a row
         if (numLevelTypes > 2) {
             Level_Type::Level_Type slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
             int lastI = 0;
