@@ -616,6 +616,57 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
                 }
             }
         }
+
+        //Prevent getting 3 of the same levels in a row
+        if (numLevelTypes > 2) {
+            Level_Type::Level_Type slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+            int lastI = 0;
+            for (int i = 0, numFixes = 0; i < this->allocatedLevels->size() && numFixes < numLevels; ++i) {
+                if ((i+1)%numLevelsPerWorld != 0) {
+                    slot3 = slot2;
+                    slot2 = slot1;
+                    slot1 = this->allocatedLevels->at(i);
+                    if (slot3 != Level_Type::CASTLE && slot1 == slot2 && slot2 == slot3 && !this->veryCommonLevels->contains(slot1)) {
+                        qInfo().noquote().nospace() << "Three levels in a row found! Attempting to fix slot " << lastI << "...";
+                        assert(i > 0);
+                        assert(i > lastI);
+                        Level_Type::Level_Type tmpSlot1 = Level_Type::CASTLE, tmpSlot2 = Level_Type::CASTLE, tmpSlot3 = Level_Type::CASTLE;
+                        int lastJ = 0;
+                        for (int j = 0; j < this->allocatedLevels->size(); ++j) {
+                            if ((j+1)%numLevelsPerWorld != 0) {
+                                tmpSlot3 = tmpSlot2;
+                                tmpSlot2 = tmpSlot1;
+                                tmpSlot1 = this->allocatedLevels->at(j);
+                                if (tmpSlot3 != Level_Type::CASTLE && slot1 != tmpSlot1 && slot1 != tmpSlot2 && slot1 != tmpSlot3) {
+                                    //Swap the two middle levels
+                                    assert(j > 0);
+                                    assert(j > lastJ);
+                                    Level_Type::Level_Type tmpLevel = this->allocatedLevels->data()[lastI];
+                                    this->allocatedLevels->data()[lastI] = this->allocatedLevels->data()[lastJ];
+                                    this->allocatedLevels->data()[lastJ] = tmpLevel;
+                                    slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+                                    ++numFixes;
+                                    i = 0; //restart
+                                    qInfo() << "Fixed by swapping levels!";
+                                    break;
+                                }
+                                lastJ = j;
+                            }
+                        }
+
+                        //If the swap method fails, simply replace the level with a Very Common level
+                        if (i != 0) {
+                            this->allocatedLevels->data()[lastI] = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
+                            slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+                            ++numFixes;
+                            i = 0; //restart
+                            qInfo() << "Fixed by replacing with a very common level!";
+                        }
+                    }
+                    lastI = i;
+                }
+            }
+        }
     }
 
     return this->allocatedLevels->at(levelNum);
