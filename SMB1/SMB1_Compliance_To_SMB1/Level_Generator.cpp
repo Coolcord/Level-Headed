@@ -21,7 +21,7 @@
 const static int VERY_COMMON_POINTS = 14;
 const static int COMMON_POINTS = 8;
 const static int UNCOMMON_POINTS = 5;
-const static int RARE_POINTS = 1;
+const static int RARE_POINTS = 2;
 
 Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *parent, Plugin_Settings *pluginSettings,
                                  SMB1_Compliance_Generator_Interface *generatorPlugin, SMB1_Writer_Interface *writerPlugin) {
@@ -505,59 +505,65 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) totalWeight += iter.value();
         int numLevelTypes = this->veryCommonLevels->size()+this->commonLevels->size()+this->uncommonLevels->size()+this->rareLevels->size();
         int expectedNumberOfCommonLevels = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(static_cast<double>(COMMON_POINTS)/totalWeight)));
+        QVector<int> unallocatedLevelSlots;
+        for (int i = 0; i < numLevels; ++i) {
+            if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
+            else unallocatedLevelSlots.push_back(i);
+        }
+        assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
 
         //Distribute levels based upon the algorithm type
         if (expectedNumberOfCommonLevels <= 1) { //use the old distribution algorithm
             qInfo() << "Rolling for individual levels...";
 
-            //Get the amount of each chance type
-            int numVeryCommon = this->veryCommonLevels->size();
-            int numCommon = this->commonLevels->size();
-            int numUncommon = this->uncommonLevels->size();
-            int numRare = this->rareLevels->size();
-
             //Determine chance
-            int veryCommonChance = VERY_COMMON_POINTS*numVeryCommon; int commonChance = (COMMON_POINTS*numCommon)+veryCommonChance;
-            int uncommonChance = (UNCOMMON_POINTS*numUncommon)+commonChance; int rareChance = (RARE_POINTS*numRare)+uncommonChance;
+            int veryCommonChance = VERY_COMMON_POINTS*this->veryCommonLevels->size();
+            int commonChance = (COMMON_POINTS*this->commonLevels->size())+veryCommonChance;
+            int uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance;
+            int rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance;
 
-            //Determine the level type by probability
-            for (int i = 0; i < numLevels; ++i) {
-                Level_Type::Level_Type levelType = Level_Type::STANDARD_OVERWORLD;
-                if ((i+1)%numLevelsPerWorld == 0) {
-                    levelType = Level_Type::CASTLE; //allocate Castle levels now
-                } else {
-                    int random = Random::Get_Instance().Get_Num(rareChance-1);
-                    int index = 0;
-                    if (random < veryCommonChance) { //very common
-                        index = (random)/VERY_COMMON_POINTS;
-                        assert(index < this->veryCommonLevels->size());
-                        levelType = this->veryCommonLevels->at(index);
-                    } else if (random < commonChance) { //common
-                        index = (random-veryCommonChance)/COMMON_POINTS;
-                        assert(index < this->commonLevels->size());
-                        levelType = this->commonLevels->at(index);
-                    } else if (random < uncommonChance) { //uncommon
-                        index = (random-commonChance)/UNCOMMON_POINTS;
-                        assert(index < this->uncommonLevels->size());
-                        levelType = this->uncommonLevels->at(index);
-                    } else if (random < rareChance) { //rare
-                        index = (random-uncommonChance)/RARE_POINTS;
-                        assert(index < this->rareLevels->size());
-                        levelType = this->rareLevels->at(index);
-                    } else assert(false);
-                    this->allocatedLevels->data()[i] = levelType;
-                }
+            //Allocate the level types by probability
+            QSet<Level_Type::Level_Type> usedUncommonLevels;
+            while (!unallocatedLevelSlots.isEmpty()) {
+                Level_Type::Level_Type levelType = Level_Type::CASTLE;
+                int random = Random::Get_Instance().Get_Num(rareChance-1);
+                int index = 0;
+                if (random < veryCommonChance) { //very common
+                    index = (random)/VERY_COMMON_POINTS;
+                    assert(index < this->veryCommonLevels->size());
+                    levelType = this->veryCommonLevels->at(index);
+                } else if (random < commonChance) { //common
+                    index = (random-veryCommonChance)/COMMON_POINTS;
+                    assert(index < this->commonLevels->size());
+                    levelType = this->commonLevels->at(index);
+                } else if (random < uncommonChance) { //uncommon
+                    index = (random-commonChance)/UNCOMMON_POINTS;
+                    assert(index < this->uncommonLevels->size());
+                    levelType = this->uncommonLevels->at(index);
+                    if (usedUncommonLevels.contains(levelType)) { //uncommon levels can only spawn twice
+                        this->uncommonLevels->remove(index);
+                        uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance; //recalculate uncommon chance
+                        rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
+                    } else {
+                        usedUncommonLevels.insert(levelType);
+                    }
+                } else if (random < rareChance) { //rare
+                    index = (random-uncommonChance)/RARE_POINTS;
+                    assert(index < this->rareLevels->size());
+                    levelType = this->rareLevels->at(index);
+                    this->rareLevels->remove(index); //rare levels can only spawn once
+                    rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
+                } else assert(false);
+                assert(levelType != Level_Type::CASTLE);
+                index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
+                int levelSlot = unallocatedLevelSlots.at(index);
+                unallocatedLevelSlots.remove(index);
+                this->allocatedLevels->data()[levelSlot] = levelType;
             }
         } else { //use the new distribution algorithm
             qInfo() << "Distributing levels across the entire game...";
 
             //Determine how many levels to generate for each type
-            QVector<int> unallocatedLevelSlots;
-            for (int i = 0; i < numLevels; ++i) {
-                if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
-                else unallocatedLevelSlots.push_back(i);
-            }
-            assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
             int totalUnallocatedLevels = 0;
             for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) {
                 int num = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(iter.value()/totalWeight)));
