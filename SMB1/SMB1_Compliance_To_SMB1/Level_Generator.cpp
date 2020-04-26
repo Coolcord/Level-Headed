@@ -489,243 +489,228 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         int numLevelsExcludingCastles = numLevels-numWorlds;
         for (int i = 0; i < this->allocatedLevels->size(); ++i) this->allocatedLevels->data()[i] = Level_Type::STANDARD_OVERWORLD;
 
-        //Parse the weights for each level type
-        this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
-        this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
-        this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
-        this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
-        this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
-        QMap<Level_Type::Level_Type, double> levelWeights;
-        QVector<QPair<Level_Type::Level_Type, int>> unallocatedLevels;
-        for (int i = 0; i < this->veryCommonLevels->size(); ++i) levelWeights.insert(this->veryCommonLevels->at(i), static_cast<double>(VERY_COMMON_POINTS));
-        for (int i = 0; i < this->commonLevels->size(); ++i) levelWeights.insert(this->commonLevels->at(i), static_cast<double>(COMMON_POINTS));
-        for (int i = 0; i < this->uncommonLevels->size(); ++i) levelWeights.insert(this->uncommonLevels->at(i), static_cast<double>(UNCOMMON_POINTS));
-        for (int i = 0; i < this->rareLevels->size(); ++i) unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(this->rareLevels->at(i), 1));
-        double totalWeight = 0.0;
-        for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) totalWeight += iter.value();
-        int numLevelTypes = this->veryCommonLevels->size()+this->commonLevels->size()+this->uncommonLevels->size()+this->rareLevels->size();
-        QVector<int> unallocatedLevelSlots;
-        for (int i = 0; i < numLevels; ++i) {
-            if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
-            else unallocatedLevelSlots.push_back(i);
-        }
-        assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
-
-        //Distribute levels based upon the algorithm type
-        if (static_cast<double>(numLevelsExcludingCastles) < static_cast<double>(numLevelTypes)*1.5) { //use the old distribution algorithm
-            qInfo() << "Rolling for individual levels...";
-
-            //Determine chance
-            int veryCommonChance = VERY_COMMON_POINTS*this->veryCommonLevels->size();
-            int commonChance = (COMMON_POINTS*this->commonLevels->size())+veryCommonChance;
-            int uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance;
-            int rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance;
-
-            //Allocate the level types by probability
-            QSet<Level_Type::Level_Type> usedUncommonLevels;
-            while (!unallocatedLevelSlots.isEmpty()) {
-                Level_Type::Level_Type levelType = Level_Type::CASTLE;
-                int random = Random::Get_Instance().Get_Num(rareChance-1);
-                int index = 0;
-                if (random < veryCommonChance) { //very common
-                    index = (random)/VERY_COMMON_POINTS;
-                    assert(index < this->veryCommonLevels->size());
-                    levelType = this->veryCommonLevels->at(index);
-                } else if (random < commonChance) { //common
-                    index = (random-veryCommonChance)/COMMON_POINTS;
-                    assert(index < this->commonLevels->size());
-                    levelType = this->commonLevels->at(index);
-                } else if (random < uncommonChance) { //uncommon
-                    index = (random-commonChance)/UNCOMMON_POINTS;
-                    assert(index < this->uncommonLevels->size());
-                    levelType = this->uncommonLevels->at(index);
-                    if (usedUncommonLevels.contains(levelType)) { //uncommon levels can only spawn twice
-                        this->uncommonLevels->remove(index);
-                        uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance; //recalculate uncommon chance
-                        rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
-                    } else {
-                        usedUncommonLevels.insert(levelType);
-                    }
-                } else if (random < rareChance) { //rare
-                    index = (random-uncommonChance)/RARE_POINTS;
-                    assert(index < this->rareLevels->size());
-                    levelType = this->rareLevels->at(index);
-                    this->rareLevels->remove(index); //rare levels can only spawn once
-                    rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
-                } else assert(false);
-                assert(levelType != Level_Type::CASTLE);
-                index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
-                int levelSlot = unallocatedLevelSlots.at(index);
-                unallocatedLevelSlots.remove(index);
-                this->allocatedLevels->data()[levelSlot] = levelType;
+        if (this->pluginSettings->uniformLevelDistribution) {
+            //Parse the weights for each level type
+            this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
+            this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);
+            this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
+            this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
+            this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+            QMap<Level_Type::Level_Type, double> levelWeights;
+            QVector<QPair<Level_Type::Level_Type, int>> unallocatedLevels;
+            for (int i = 0; i < this->veryCommonLevels->size(); ++i) levelWeights.insert(this->veryCommonLevels->at(i), static_cast<double>(VERY_COMMON_POINTS));
+            for (int i = 0; i < this->commonLevels->size(); ++i) levelWeights.insert(this->commonLevels->at(i), static_cast<double>(COMMON_POINTS));
+            for (int i = 0; i < this->uncommonLevels->size(); ++i) levelWeights.insert(this->uncommonLevels->at(i), static_cast<double>(UNCOMMON_POINTS));
+            for (int i = 0; i < this->rareLevels->size(); ++i) unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(this->rareLevels->at(i), 1));
+            double totalWeight = 0.0;
+            for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) totalWeight += iter.value();
+            int numLevelTypes = this->veryCommonLevels->size()+this->commonLevels->size()+this->uncommonLevels->size()+this->rareLevels->size();
+            QVector<int> unallocatedLevelSlots;
+            for (int i = 0; i < numLevels; ++i) {
+                if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
+                else unallocatedLevelSlots.push_back(i);
             }
-        } else { //use the new distribution algorithm
-            qInfo() << "Distributing levels across the entire game...";
+            assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
 
-            //Determine how many levels to generate for each type
-            int totalUnallocatedLevels = 0;
-            for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) {
-                int num = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(iter.value()/totalWeight)));
-                if (num == 0) num = 1;
-                totalUnallocatedLevels += num;
-                unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(iter.key(), num));
-            }
+            //Distribute levels based upon the algorithm type
+            if (static_cast<double>(numLevelsExcludingCastles) < static_cast<double>(numLevelTypes)*1.5) { //use the old distribution algorithm
+                qInfo() << "Rolling for individual levels...";
 
-            //Distribute the remaining levels to the very common types
-            while (totalUnallocatedLevels < numLevelsExcludingCastles) {
-                ++totalUnallocatedLevels;
-                Level_Type::Level_Type levelType = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
-                for (int i = 0; i < unallocatedLevels.size(); ++i) {
-                    if (unallocatedLevels.at(i).first == levelType) ++unallocatedLevels.data()[i].second;
-                }
-            }
+                //Determine chance
+                int veryCommonChance = VERY_COMMON_POINTS*this->veryCommonLevels->size();
+                int commonChance = (COMMON_POINTS*this->commonLevels->size())+veryCommonChance;
+                int uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance;
+                int rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance;
 
-            //Output the requested number of levels per type
-            qInfo().noquote() << "Number of levels excluding Castles:" << numLevelsExcludingCastles;
-            for (QVector<QPair<Level_Type::Level_Type, int>>::iterator iter = unallocatedLevels.begin(); iter != unallocatedLevels.end(); ++iter) {
-                switch (iter->first) {
-                case Level_Type::CASTLE:                assert(false); return Level_Type::CASTLE;
-                case Level_Type::PIPE_EXIT:             assert(false); return Level_Type::PIPE_EXIT;
-                case Level_Type::STANDARD_OVERWORLD:    qInfo().noquote() << "Requested Standard Overworld Levels:" << iter->second; break;
-                case Level_Type::UNDERGROUND:           qInfo().noquote() << "Requested Underground Levels:" << iter->second; break;
-                case Level_Type::UNDERWATER:            qInfo().noquote() << "Requested Underwater Levels:" << iter->second; break;
-                case Level_Type::BRIDGE:                qInfo().noquote() << "Requested Bridge Levels:" << iter->second; break;
-                case Level_Type::ISLAND:                qInfo().noquote() << "Requested Island Levels:" << iter->second; break;
-                }
-            }
-
-            //Allocate the levels
-            QSet<Level_Type::Level_Type> remainingLevelTypes;
-            for (int i = 0; i < unallocatedLevels.size(); ++i) {
-                if (unallocatedLevels.at(i).second > 0) remainingLevelTypes.insert(unallocatedLevels.at(i).first);
-            }
-            for (int i = 0; !unallocatedLevelSlots.isEmpty();) { //iterate through each level type in order
-                //Distribute the remaining levels randomly if there are not enough slots remaining
-                bool randomForRemaining = remainingLevelTypes.size() > unallocatedLevelSlots.size();
-                if (randomForRemaining) qInfo() << "Randomly selecting remaining levels...";
-                Level_Type::Level_Type levelType = Level_Type::CASTLE;
-                if (randomForRemaining) {
-                    //Get a random level type from the set
-                    int remainingLevelTypesIndex = Random::Get_Instance().Get_Num(remainingLevelTypes.size()-1);
-                    for (QSet<Level_Type::Level_Type>::iterator iter = remainingLevelTypes.begin(); iter != remainingLevelTypes.end(); ++iter) {
-                        if (remainingLevelTypesIndex == 0) {
-                            levelType = *iter;
-                            break;
+                //Allocate the level types by probability
+                QSet<Level_Type::Level_Type> usedUncommonLevels;
+                while (!unallocatedLevelSlots.isEmpty()) {
+                    Level_Type::Level_Type levelType = Level_Type::CASTLE;
+                    int random = Random::Get_Instance().Get_Num(rareChance-1);
+                    int index = 0;
+                    if (random < veryCommonChance) { //very common
+                        index = (random)/VERY_COMMON_POINTS;
+                        assert(index < this->veryCommonLevels->size());
+                        levelType = this->veryCommonLevels->at(index);
+                    } else if (random < commonChance) { //common
+                        index = (random-veryCommonChance)/COMMON_POINTS;
+                        assert(index < this->commonLevels->size());
+                        levelType = this->commonLevels->at(index);
+                    } else if (random < uncommonChance) { //uncommon
+                        index = (random-commonChance)/UNCOMMON_POINTS;
+                        assert(index < this->uncommonLevels->size());
+                        levelType = this->uncommonLevels->at(index);
+                        if (usedUncommonLevels.contains(levelType)) { //uncommon levels can only spawn twice
+                            this->uncommonLevels->remove(index);
+                            uncommonChance = (UNCOMMON_POINTS*this->uncommonLevels->size())+commonChance; //recalculate uncommon chance
+                            rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
                         } else {
-                            --remainingLevelTypesIndex;
+                            usedUncommonLevels.insert(levelType);
                         }
-                    }
+                    } else if (random < rareChance) { //rare
+                        index = (random-uncommonChance)/RARE_POINTS;
+                        assert(index < this->rareLevels->size());
+                        levelType = this->rareLevels->at(index);
+                        this->rareLevels->remove(index); //rare levels can only spawn once
+                        rareChance = (RARE_POINTS*this->rareLevels->size())+uncommonChance; //recalculate rare chance
+                    } else assert(false);
                     assert(levelType != Level_Type::CASTLE);
-
-                    //The index value (i) needs to be found for the specified level type
-                    bool found = false;
-                    for (int j = 0; j < unallocatedLevels.size() && !found; ++j) {
-                        if (unallocatedLevels.at(j).first == levelType) {
-                            i = j;
-                            found = true;
-                        }
-                    }
-                    assert(found);
-                } else { //distribute in order for uniformity
-                    levelType = unallocatedLevels.at(i).first;
-                }
-                int numLevelsLeft = unallocatedLevels.at(i).second;
-
-                assert(numLevelsLeft >= 0);
-                if (numLevelsLeft > 0) { //allocate the level if there are any left to allocate
-                    --unallocatedLevels.data()[i].second;
-                    if (randomForRemaining) unallocatedLevels.data()[i].second = 0; //only use one of each remaining type
-                    if (unallocatedLevels.data()[i].second == 0) remainingLevelTypes.remove(unallocatedLevels.data()[i].first);
-                    int index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
+                    index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
                     int levelSlot = unallocatedLevelSlots.at(index);
                     unallocatedLevelSlots.remove(index);
                     this->allocatedLevels->data()[levelSlot] = levelType;
                 }
-                ++i;
-                if (i == unallocatedLevels.size()) i = 0;
-            }
-        }
+            } else { //use the new distribution algorithm
+                qInfo() << "Distributing levels across the entire game...";
 
-        //If the first level is an underwater level, swap it with the first non-underwater level
-        if (this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater && this->allocatedLevels->at(0) == Level_Type::UNDERWATER && numLevelTypes > 1) {
-            bool swapSucceeded = false;
-            for (int i = 1; i < this->allocatedLevels->size(); ++i) {
-                if ((i+1)%numLevelsPerWorld != 0 && this->allocatedLevels->at(i) != Level_Type::UNDERWATER) {
-                    this->allocatedLevels->data()[0] = this->allocatedLevels->at(i);
-                    this->allocatedLevels->data()[i] = Level_Type::UNDERWATER;
-                    swapSucceeded = true;
-                    break;
+                //Determine how many levels to generate for each type
+                int totalUnallocatedLevels = 0;
+                for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) {
+                    int num = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(iter.value()/totalWeight)));
+                    if (num == 0) num = 1;
+                    totalUnallocatedLevels += num;
+                    unallocatedLevels.append(QPair<Level_Type::Level_Type, int>(iter.key(), num));
                 }
-            }
 
-            //If the swap method fails, resort to replacing the first level with another level type
-            if (!swapSucceeded) {
-                bool success = false;
-                for (int i = 0; i < this->veryCommonLevels->size(); ++i) {
-                    if (this->veryCommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->veryCommonLevels->at(i); success = true; }
+                //Distribute the remaining levels to the very common types
+                while (totalUnallocatedLevels < numLevelsExcludingCastles) {
+                    ++totalUnallocatedLevels;
+                    Level_Type::Level_Type levelType = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
+                    for (int i = 0; i < unallocatedLevels.size(); ++i) {
+                        if (unallocatedLevels.at(i).first == levelType) ++unallocatedLevels.data()[i].second;
+                    }
                 }
-                for (int i = 0; i < this->commonLevels->size() && !success; ++i) {
-                    if (this->commonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->commonLevels->at(i); success = true; }
-                }
-                for (int i = 0; i < this->uncommonLevels->size() && !success; ++i) {
-                    if (this->uncommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->uncommonLevels->at(i); success = true; }
-                }
-                for (int i = 0; i < this->rareLevels->size() && !success; ++i) {
-                    if (this->rareLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->rareLevels->at(i); success = true; }
-                }
-                assert(success);
-            }
-        }
 
-        //Prevent getting 3 of the same type of level in a row
-        if (numLevelTypes > 2) {
-            Level_Type::Level_Type slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
-            int lastI = 0;
-            for (int i = 0, numFixes = 0; i < this->allocatedLevels->size() && numFixes < numLevels; ++i) {
-                if ((i+1)%numLevelsPerWorld != 0) {
-                    slot3 = slot2;
-                    slot2 = slot1;
-                    slot1 = this->allocatedLevels->at(i);
-                    if (slot3 != Level_Type::CASTLE && slot1 == slot2 && slot2 == slot3 && !this->veryCommonLevels->contains(slot1)) {
-                        qInfo().noquote().nospace() << "Three levels in a row found! Attempting to fix slot " << lastI << "...";
-                        assert(i > 0);
-                        assert(i > lastI);
-                        Level_Type::Level_Type tmpSlot1 = Level_Type::CASTLE, tmpSlot2 = Level_Type::CASTLE, tmpSlot3 = Level_Type::CASTLE;
-                        int lastJ = 0;
-                        for (int j = 0; j < this->allocatedLevels->size(); ++j) {
-                            if ((j+1)%numLevelsPerWorld != 0) {
-                                tmpSlot3 = tmpSlot2;
-                                tmpSlot2 = tmpSlot1;
-                                tmpSlot1 = this->allocatedLevels->at(j);
-                                if (tmpSlot3 != Level_Type::CASTLE && slot1 != tmpSlot1 && slot1 != tmpSlot2 && slot1 != tmpSlot3) {
-                                    //Swap the two middle levels
-                                    assert(j > 0);
-                                    assert(j > lastJ);
-                                    Level_Type::Level_Type tmpLevel = this->allocatedLevels->data()[lastI];
-                                    this->allocatedLevels->data()[lastI] = this->allocatedLevels->data()[lastJ];
-                                    this->allocatedLevels->data()[lastJ] = tmpLevel;
-                                    slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
-                                    ++numFixes;
-                                    i = 0; //restart
-                                    qInfo() << "Fixed by swapping levels!";
-                                    break;
-                                }
-                                lastJ = j;
+                //Output the requested number of levels per type
+                qInfo().noquote() << "Number of levels excluding Castles:" << numLevelsExcludingCastles;
+                for (QVector<QPair<Level_Type::Level_Type, int>>::iterator iter = unallocatedLevels.begin(); iter != unallocatedLevels.end(); ++iter) {
+                    switch (iter->first) {
+                    case Level_Type::CASTLE:                assert(false); return Level_Type::CASTLE;
+                    case Level_Type::PIPE_EXIT:             assert(false); return Level_Type::PIPE_EXIT;
+                    case Level_Type::STANDARD_OVERWORLD:    qInfo().noquote() << "Requested Standard Overworld Levels:" << iter->second; break;
+                    case Level_Type::UNDERGROUND:           qInfo().noquote() << "Requested Underground Levels:" << iter->second; break;
+                    case Level_Type::UNDERWATER:            qInfo().noquote() << "Requested Underwater Levels:" << iter->second; break;
+                    case Level_Type::BRIDGE:                qInfo().noquote() << "Requested Bridge Levels:" << iter->second; break;
+                    case Level_Type::ISLAND:                qInfo().noquote() << "Requested Island Levels:" << iter->second; break;
+                    }
+                }
+
+                //Allocate the levels
+                QSet<Level_Type::Level_Type> remainingLevelTypes;
+                for (int i = 0; i < unallocatedLevels.size(); ++i) {
+                    if (unallocatedLevels.at(i).second > 0) remainingLevelTypes.insert(unallocatedLevels.at(i).first);
+                }
+                for (int i = 0; !unallocatedLevelSlots.isEmpty();) { //iterate through each level type in order
+                    //Distribute the remaining levels randomly if there are not enough slots remaining
+                    bool randomForRemaining = remainingLevelTypes.size() > unallocatedLevelSlots.size();
+                    if (randomForRemaining) qInfo() << "Randomly selecting remaining levels...";
+                    Level_Type::Level_Type levelType = Level_Type::CASTLE;
+                    if (randomForRemaining) {
+                        //Get a random level type from the set
+                        int remainingLevelTypesIndex = Random::Get_Instance().Get_Num(remainingLevelTypes.size()-1);
+                        for (QSet<Level_Type::Level_Type>::iterator iter = remainingLevelTypes.begin(); iter != remainingLevelTypes.end(); ++iter) {
+                            if (remainingLevelTypesIndex == 0) {
+                                levelType = *iter;
+                                break;
+                            } else {
+                                --remainingLevelTypesIndex;
                             }
                         }
+                        assert(levelType != Level_Type::CASTLE);
 
-                        //If the swap method fails, simply replace the level with a Very Common level
-                        if (i != 0) {
-                            this->allocatedLevels->data()[lastI] = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
-                            slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
-                            ++numFixes;
-                            i = 0; //restart
-                            qInfo() << "Fixed by replacing with a very common level!";
+                        //The index value (i) needs to be found for the specified level type
+                        bool found = false;
+                        for (int j = 0; j < unallocatedLevels.size() && !found; ++j) {
+                            if (unallocatedLevels.at(j).first == levelType) {
+                                i = j;
+                                found = true;
+                            }
                         }
+                        assert(found);
+                    } else { //distribute in order for uniformity
+                        levelType = unallocatedLevels.at(i).first;
                     }
-                    lastI = i;
+                    int numLevelsLeft = unallocatedLevels.at(i).second;
+
+                    assert(numLevelsLeft >= 0);
+                    if (numLevelsLeft > 0) { //allocate the level if there are any left to allocate
+                        --unallocatedLevels.data()[i].second;
+                        if (randomForRemaining) unallocatedLevels.data()[i].second = 0; //only use one of each remaining type
+                        if (unallocatedLevels.data()[i].second == 0) remainingLevelTypes.remove(unallocatedLevels.data()[i].first);
+                        int index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
+                        int levelSlot = unallocatedLevelSlots.at(index);
+                        unallocatedLevelSlots.remove(index);
+                        this->allocatedLevels->data()[levelSlot] = levelType;
+                    }
+                    ++i;
+                    if (i == unallocatedLevels.size()) i = 0;
                 }
             }
+
+            //Prevent getting 3 of the same type of level in a row
+            this->Prevent_First_Level_From_Being_Underwater(numLevelsPerWorld, numLevelTypes);
+            if (numLevelTypes > 2) {
+                Level_Type::Level_Type slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+                int lastI = 0;
+                for (int i = 0, numFixes = 0; i < this->allocatedLevels->size() && numFixes < numLevels; ++i) {
+                    if ((i+1)%numLevelsPerWorld != 0) {
+                        slot3 = slot2;
+                        slot2 = slot1;
+                        slot1 = this->allocatedLevels->at(i);
+                        if (slot3 != Level_Type::CASTLE && slot1 == slot2 && slot2 == slot3 && !this->veryCommonLevels->contains(slot1)) {
+                            qInfo().noquote().nospace() << "Three levels in a row found! Attempting to fix slot " << lastI << "...";
+                            assert(i > 0);
+                            assert(i > lastI);
+                            Level_Type::Level_Type tmpSlot1 = Level_Type::CASTLE, tmpSlot2 = Level_Type::CASTLE, tmpSlot3 = Level_Type::CASTLE;
+                            int lastJ = 0;
+                            for (int j = 0; j < this->allocatedLevels->size(); ++j) {
+                                if ((j+1)%numLevelsPerWorld != 0) {
+                                    tmpSlot3 = tmpSlot2;
+                                    tmpSlot2 = tmpSlot1;
+                                    tmpSlot1 = this->allocatedLevels->at(j);
+                                    if (tmpSlot3 != Level_Type::CASTLE && slot1 != tmpSlot1 && slot1 != tmpSlot2 && slot1 != tmpSlot3) {
+                                        //Swap the two middle levels
+                                        assert(j > 0);
+                                        assert(j > lastJ);
+                                        Level_Type::Level_Type tmpLevel = this->allocatedLevels->data()[lastI];
+                                        this->allocatedLevels->data()[lastI] = this->allocatedLevels->data()[lastJ];
+                                        this->allocatedLevels->data()[lastJ] = tmpLevel;
+                                        slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+                                        ++numFixes;
+                                        i = 0; //restart
+                                        qInfo() << "Fixed by swapping levels!";
+                                        break;
+                                    }
+                                    lastJ = j;
+                                }
+                            }
+
+                            //If the swap method fails, simply replace the level with a Very Common level
+                            if (i != 0) {
+                                this->allocatedLevels->data()[lastI] = this->veryCommonLevels->at(Random::Get_Instance().Get_Num(this->veryCommonLevels->size()-1));
+                                slot1 = Level_Type::CASTLE, slot2 = Level_Type::CASTLE, slot3 = Level_Type::CASTLE;
+                                ++numFixes;
+                                i = 0; //restart
+                                qInfo() << "Fixed by replacing with a very common level!";
+                            }
+                        }
+                        lastI = i;
+                    }
+                }
+            }
+        } else { //distribute levels without any attempt at uniformity
+            QVector<Level_Type::Level_Type> possibleLevels;
+            if (this->pluginSettings->includeStandardOverworldLevelsInRandomDistribution) { possibleLevels.append(Level_Type::STANDARD_OVERWORLD); this->veryCommonLevels->append(Level_Type::STANDARD_OVERWORLD); }
+            if (this->pluginSettings->includeUndergroundLevelsInRandomDistribution) { possibleLevels.append(Level_Type::UNDERGROUND); this->veryCommonLevels->append(Level_Type::UNDERGROUND); }
+            if (this->pluginSettings->includeUnderwaterLevelsInRandomDistribution) { possibleLevels.append(Level_Type::UNDERWATER); this->veryCommonLevels->append(Level_Type::UNDERWATER); }
+            if (this->pluginSettings->includeBridgeLevelsInRandomDistribution) { possibleLevels.append(Level_Type::BRIDGE); this->veryCommonLevels->append(Level_Type::BRIDGE); }
+            if (this->pluginSettings->includeIslandLevelsInRandomDistribution) { possibleLevels.append(Level_Type::ISLAND); this->veryCommonLevels->append(Level_Type::ISLAND); }
+            if (possibleLevels.isEmpty()) { possibleLevels.append(Level_Type::STANDARD_OVERWORLD); this->veryCommonLevels->append(Level_Type::STANDARD_OVERWORLD); } //fall back to standard overworld levels if nothing is specified
+            for (int i = 0; i < this->allocatedLevels->size(); ++i) {
+                if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
+                else this->allocatedLevels->data()[i] = possibleLevels.at(Random::Get_Instance().Get_Num(possibleLevels.size()-1));
+            }
+            this->Prevent_First_Level_From_Being_Underwater(numLevelsPerWorld, this->veryCommonLevels->size());
         }
     }
 
@@ -1365,4 +1350,37 @@ bool Level_Generator::Parse_Boolean(const QString &string, bool &value) {
         return true;
     }
     return false;
+}
+
+void Level_Generator::Prevent_First_Level_From_Being_Underwater(int numLevelsPerWorld, int numLevelTypes) {
+    //If the first level is an underwater level, swap it with the first non-underwater level
+    if (this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater && this->allocatedLevels->at(0) == Level_Type::UNDERWATER && numLevelTypes > 1) {
+        bool swapSucceeded = false;
+        for (int i = 1; i < this->allocatedLevels->size(); ++i) {
+            if ((i+1)%numLevelsPerWorld != 0 && this->allocatedLevels->at(i) != Level_Type::UNDERWATER) {
+                this->allocatedLevels->data()[0] = this->allocatedLevels->at(i);
+                this->allocatedLevels->data()[i] = Level_Type::UNDERWATER;
+                swapSucceeded = true;
+                break;
+            }
+        }
+
+        //If the swap method fails, resort to replacing the first level with another level type
+        if (!swapSucceeded) {
+            bool success = false;
+            for (int i = 0; i < this->veryCommonLevels->size(); ++i) {
+                if (this->veryCommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->veryCommonLevels->at(i); success = true; }
+            }
+            for (int i = 0; i < this->commonLevels->size() && !success; ++i) {
+                if (this->commonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->commonLevels->at(i); success = true; }
+            }
+            for (int i = 0; i < this->uncommonLevels->size() && !success; ++i) {
+                if (this->uncommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->uncommonLevels->at(i); success = true; }
+            }
+            for (int i = 0; i < this->rareLevels->size() && !success; ++i) {
+                if (this->rareLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->rareLevels->at(i); success = true; }
+            }
+            assert(success);
+        }
+    }
 }

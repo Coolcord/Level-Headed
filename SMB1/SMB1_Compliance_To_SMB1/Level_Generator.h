@@ -51,6 +51,7 @@ private:
     bool Write_To_Map(Text_Insertion_Buffer &mapBuffer, Level::Level level, const QString &fileName = "");
     bool Load_Sequential_Archive_Plugin();
     bool Parse_Boolean(const QString &string, bool &value);
+    void Prevent_First_Level_From_Being_Underwater(int numLevelsPerWorld, int numLevelTypes);
 
     QWidget *parent;
     QString applicationLocation;

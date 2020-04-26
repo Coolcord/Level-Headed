@@ -24,6 +24,14 @@ void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->cbRandomEnemies->setChecked(this->pluginSettings->randomEnemies);
+    if (this->pluginSettings->uniformLevelDistribution) this->ui->radioUniformLevelDistribution->setChecked(true);
+    else this->ui->radioRandomLevelDistribution->setChecked(true);
+    this->Enable_Uniform_Level_Distribution_Options(this->pluginSettings->uniformLevelDistribution);
+    this->ui->cbIncludeStandardOverworldLevels->setChecked(this->pluginSettings->includeStandardOverworldLevelsInRandomDistribution);
+    this->ui->cbIncludeUndergroundLevels->setChecked(this->pluginSettings->includeUndergroundLevelsInRandomDistribution);
+    this->ui->cbIncludeUnderwaterLevels->setChecked(this->pluginSettings->includeUnderwaterLevelsInRandomDistribution);
+    this->ui->cbIncludeBridgeLevels->setChecked(this->pluginSettings->includeBridgeLevelsInRandomDistribution);
+    this->ui->cbIncludeIslandLevels->setChecked(this->pluginSettings->includeIslandLevelsInRandomDistribution);
     this->ui->leRandomSeed->setText(this->pluginSettings->randomSeed);
     this->ui->cbRandomNumWorlds->setChecked(this->pluginSettings->randomNumWorlds);
     this->ui->sbNumWorlds->setValue(this->pluginSettings->numWorlds);
@@ -44,6 +52,7 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
         this->pluginSettings->randomEnemies = this->ui->cbRandomEnemies->isChecked();
     } else {
+        this->pluginSettings->uniformLevelDistribution = this->ui->radioUniformLevelDistribution->isChecked();
         this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
         this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
         this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
@@ -52,6 +61,11 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->underwaterChance = this->ui->comboUnderwater->currentText();
         this->pluginSettings->bridgeChance = this->ui->comboBridge->currentText();
         this->pluginSettings->islandChance = this->ui->comboIsland->currentText();
+        this->pluginSettings->includeStandardOverworldLevelsInRandomDistribution = this->ui->cbIncludeStandardOverworldLevels->isChecked();
+        this->pluginSettings->includeUndergroundLevelsInRandomDistribution = this->ui->cbIncludeUndergroundLevels->isChecked();
+        this->pluginSettings->includeUnderwaterLevelsInRandomDistribution = this->ui->cbIncludeUnderwaterLevels->isChecked();
+        this->pluginSettings->includeBridgeLevelsInRandomDistribution = this->ui->cbIncludeBridgeLevels->isChecked();
+        this->pluginSettings->includeIslandLevelsInRandomDistribution = this->ui->cbIncludeIslandLevels->isChecked();
     }
 }
 
@@ -183,6 +197,16 @@ void Tab_Level_Generator::Enable_New_Level_Options(bool enable) {
 void Tab_Level_Generator::Enable_Random_Number_Of_Worlds(bool enable) {
     if (enable) this->ui->layoutNumWorldsWidget->hide();
     else this->ui->layoutNumWorldsWidget->show();
+}
+
+void Tab_Level_Generator::Enable_Uniform_Level_Distribution_Options(bool enable) {
+    if (enable) {
+        this->ui->uniformLevelDistributionWidget->show();
+        this->ui->randomLevelDistributionWidget->hide();
+    } else {
+        this->ui->uniformLevelDistributionWidget->hide();
+        this->ui->randomLevelDistributionWidget->show();
+    }
 }
 
 void Tab_Level_Generator::Update_Worlds() {

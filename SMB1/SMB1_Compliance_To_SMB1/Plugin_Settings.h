@@ -29,6 +29,12 @@ struct Plugin_Settings {
     int numLevelsPerWorld;
     bool generateNewLevels;
     bool randomEnemies;
+    bool uniformLevelDistribution;
+    bool includeStandardOverworldLevelsInRandomDistribution;
+    bool includeUndergroundLevelsInRandomDistribution;
+    bool includeUnderwaterLevelsInRandomDistribution;
+    bool includeBridgeLevelsInRandomDistribution;
+    bool includeIslandLevelsInRandomDistribution;
     bool smbUtilityCompatibility;
     QString levelScripts;
     QString standardOverworldChance;

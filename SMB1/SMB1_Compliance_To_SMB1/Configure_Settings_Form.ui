@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -3097,7 +3097,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>702</height>
+            <height>961</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3275,77 +3275,151 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="layoutStandardOverworldLevels">
-                <item>
-                 <widget class="QLabel" name="lblStandardOverworld">
-                  <property name="text">
-                   <string>Standard Overworld Levels:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboStandardOverworld"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="layoutUndergroundLevels">
-                <item>
-                 <widget class="QLabel" name="lblUnderground">
-                  <property name="text">
-                   <string>Underground Levels:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboUnderground"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="layoutUnderwaterLevels">
-                <item>
-                 <widget class="QLabel" name="lblUnderwater">
-                  <property name="text">
-                   <string>Underwater Levels:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboUnderwater"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="layoutBridgeLevels">
-                <item>
-                 <layout class="QVBoxLayout" name="layoutNewLevels"/>
-                </item>
-                <item>
-                 <widget class="QLabel" name="lblBridge">
-                  <property name="text">
-                   <string>Bridge Levels:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboBridge"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="layoutIslandLevels">
-                <item>
-                 <widget class="QLabel" name="lblIsland">
-                  <property name="text">
-                   <string>Island Levels:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboIsland"/>
-                </item>
-               </layout>
+               <widget class="QGroupBox" name="groupLevelDistribution">
+                <property name="title">
+                 <string>Level Distribution</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <item>
+                    <widget class="QRadioButton" name="radioUniformLevelDistribution">
+                     <property name="text">
+                      <string>Uniform (Recommended)</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QRadioButton" name="radioRandomLevelDistribution">
+                     <property name="text">
+                      <string>Random</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="uniformLevelDistributionWidget" native="true">
+                   <layout class="QVBoxLayout" name="uniformLayoutWidget">
+                    <item>
+                     <layout class="QVBoxLayout" name="layoutStandardOverworldLevels">
+                      <item>
+                       <widget class="QLabel" name="lblStandardOverworld">
+                        <property name="text">
+                         <string>Standard Overworld Levels:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="comboStandardOverworld"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="layoutUndergroundLevels">
+                      <item>
+                       <widget class="QLabel" name="lblUnderground">
+                        <property name="text">
+                         <string>Underground Levels:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="comboUnderground"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="layoutUnderwaterLevels">
+                      <item>
+                       <widget class="QLabel" name="lblUnderwater">
+                        <property name="text">
+                         <string>Underwater Levels:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="comboUnderwater"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="layoutBridgeLevels">
+                      <item>
+                       <widget class="QLabel" name="lblBridge">
+                        <property name="text">
+                         <string>Bridge Levels:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="comboBridge"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="layoutIslandLevels">
+                      <item>
+                       <widget class="QLabel" name="lblIsland">
+                        <property name="text">
+                         <string>Island Levels:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="comboIsland"/>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="randomLevelDistributionWidget" native="true">
+                   <layout class="QVBoxLayout" name="randomLevelDistributionLayout">
+                    <item>
+                     <widget class="QCheckBox" name="cbIncludeStandardOverworldLevels">
+                      <property name="text">
+                       <string>Standard Overworld Levels</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="cbIncludeUndergroundLevels">
+                      <property name="text">
+                       <string>Underground Levels</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="cbIncludeUnderwaterLevels">
+                      <property name="text">
+                       <string>Underwater Levels</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="cbIncludeBridgeLevels">
+                      <property name="text">
+                       <string>Bridge Levels</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="cbIncludeIslandLevels">
+                      <property name="text">
+                       <string>Island Levels</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </item>
              </layout>
             </widget>
