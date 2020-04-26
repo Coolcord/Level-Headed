@@ -596,12 +596,47 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
             }
 
             //Allocate the levels
+            QSet<Level_Type::Level_Type> remainingLevelTypes;
+            for (int i = 0; i < unallocatedLevels.size(); ++i) {
+                if (unallocatedLevels.at(i).second > 0) remainingLevelTypes.insert(unallocatedLevels.at(i).first);
+            }
             for (int i = 0; !unallocatedLevelSlots.isEmpty();) { //iterate through each level type in order
-                Level_Type::Level_Type levelType = unallocatedLevels.at(i).first;
+                //Distribute the remaining levels randomly if there are not enough slots remaining
+                bool randomForRemaining = remainingLevelTypes.size() > unallocatedLevelSlots.size();
+                if (randomForRemaining) qInfo() << "Randomly selecting remaining levels...";
+                Level_Type::Level_Type levelType = Level_Type::CASTLE;
+                if (randomForRemaining) {
+                    //Get a random level type from the set
+                    int remainingLevelTypesIndex = Random::Get_Instance().Get_Num(remainingLevelTypes.size()-1);
+                    for (QSet<Level_Type::Level_Type>::iterator iter = remainingLevelTypes.begin(); iter != remainingLevelTypes.end(); ++iter) {
+                        if (remainingLevelTypesIndex == 0) {
+                            levelType = *iter;
+                            break;
+                        } else {
+                            --remainingLevelTypesIndex;
+                        }
+                    }
+                    assert(levelType != Level_Type::CASTLE);
+
+                    //The index value (i) needs to be found for the specified level type
+                    bool found = false;
+                    for (int j = 0; j < unallocatedLevels.size() && !found; ++j) {
+                        if (unallocatedLevels.at(j).first == levelType) {
+                            i = j;
+                            found = true;
+                        }
+                    }
+                    assert(found);
+                } else { //distribute in order for uniformity
+                    levelType = unallocatedLevels.at(i).first;
+                }
                 int numLevelsLeft = unallocatedLevels.at(i).second;
+
                 assert(numLevelsLeft >= 0);
                 if (numLevelsLeft > 0) { //allocate the level if there are any left to allocate
                     --unallocatedLevels.data()[i].second;
+                    if (randomForRemaining) unallocatedLevels.data()[i].second = 0; //only use one of each remaining type
+                    if (unallocatedLevels.data()[i].second == 0) remainingLevelTypes.remove(unallocatedLevels.data()[i].first);
                     int index = Random::Get_Instance().Get_Num(unallocatedLevelSlots.size()-1);
                     int levelSlot = unallocatedLevelSlots.at(index);
                     unallocatedLevelSlots.remove(index);
