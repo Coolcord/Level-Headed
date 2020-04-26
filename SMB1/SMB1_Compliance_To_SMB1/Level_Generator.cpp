@@ -649,12 +649,32 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
 
         //If the first level is an underwater level, swap it with the first non-underwater level
         if (this->pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater && this->allocatedLevels->at(0) == Level_Type::UNDERWATER && numLevelTypes > 1) {
+            bool swapSucceeded = false;
             for (int i = 1; i < this->allocatedLevels->size(); ++i) {
                 if ((i+1)%numLevelsPerWorld != 0 && this->allocatedLevels->at(i) != Level_Type::UNDERWATER) {
                     this->allocatedLevels->data()[0] = this->allocatedLevels->at(i);
                     this->allocatedLevels->data()[i] = Level_Type::UNDERWATER;
+                    swapSucceeded = true;
                     break;
                 }
+            }
+
+            //If the swap method fails, resort to replacing the first level with another level type
+            if (!swapSucceeded) {
+                bool success = false;
+                for (int i = 0; i < this->veryCommonLevels->size(); ++i) {
+                    if (this->veryCommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->veryCommonLevels->at(i); success = true; }
+                }
+                for (int i = 0; i < this->commonLevels->size() && !success; ++i) {
+                    if (this->commonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->commonLevels->at(i); success = true; }
+                }
+                for (int i = 0; i < this->uncommonLevels->size() && !success; ++i) {
+                    if (this->uncommonLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->uncommonLevels->at(i); success = true; }
+                }
+                for (int i = 0; i < this->rareLevels->size() && !success; ++i) {
+                    if (this->rareLevels->at(i) != Level_Type::UNDERWATER) { this->allocatedLevels->data()[0] = this->rareLevels->at(i); success = true; }
+                }
+                assert(success);
             }
         }
 
