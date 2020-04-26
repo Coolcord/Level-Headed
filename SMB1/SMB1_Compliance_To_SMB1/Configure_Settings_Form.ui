@@ -3283,9 +3283,9 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_2">
                    <item>
-                    <widget class="QRadioButton" name="radioUniformLevelDistribution">
+                    <widget class="QRadioButton" name="radioStandardLevelDistribution">
                      <property name="text">
-                      <string>Uniform (Recommended)</string>
+                      <string>Standard (Recommended)</string>
                      </property>
                      <property name="checked">
                       <bool>true</bool>
@@ -3295,7 +3295,7 @@ p, li { white-space: pre-wrap; }
                    <item>
                     <widget class="QRadioButton" name="radioRandomLevelDistribution">
                      <property name="text">
-                      <string>Random</string>
+                      <string>Uniform (Random)</string>
                      </property>
                     </widget>
                    </item>

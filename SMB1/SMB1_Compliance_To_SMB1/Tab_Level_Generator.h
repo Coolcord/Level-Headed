@@ -20,7 +20,7 @@ public:
     bool At_Least_One_Very_Common_Selected();
     void Enable_New_Level_Options(bool enable);
     void Enable_Random_Number_Of_Worlds(bool enable);
-    void Enable_Uniform_Level_Distribution_Options(bool enable);
+    void Enable_Standard_Level_Distribution_Options(bool enable);
     void Update_Worlds();
 
 private:

@@ -178,7 +178,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld)) return false;
     if (!configFile.Set_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels)) return false;
     if (!configFile.Set_Value("Random_Enemies", this->pluginSettings.randomEnemies)) return false;
-    if (!configFile.Set_Value("Uniform_Level_Distribution", this->pluginSettings.uniformLevelDistribution)) return false;
+    if (!configFile.Set_Value("Standard_Level_Distribution", this->pluginSettings.standardLevelDistribution)) return false;
     if (!configFile.Set_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution)) return false;
     if (!configFile.Set_Value("Include_Underground_Levels_In_Random_Distribution", this->pluginSettings.includeUndergroundLevelsInRandomDistribution)) return false;
     if (!configFile.Set_Value("Include_Underwater_Levels_In_Random_Distribution", this->pluginSettings.includeUnderwaterLevelsInRandomDistribution)) return false;
@@ -300,7 +300,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld);
     configFile.Get_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels);
     configFile.Get_Value("Random_Enemies", this->pluginSettings.randomEnemies);
-    configFile.Get_Value("Uniform_Level_Distribution", this->pluginSettings.uniformLevelDistribution);
+    configFile.Get_Value("Standard_Level_Distribution", this->pluginSettings.standardLevelDistribution);
     configFile.Get_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution);
     configFile.Get_Value("Include_Underground_Levels_In_Random_Distribution", this->pluginSettings.includeUndergroundLevelsInRandomDistribution);
     configFile.Get_Value("Include_Underwater_Levels_In_Random_Distribution", this->pluginSettings.includeUnderwaterLevelsInRandomDistribution);
@@ -418,7 +418,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.overwriteOuputROM = true;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.randomEnemies = false;
-    this->pluginSettings.uniformLevelDistribution = true;
+    this->pluginSettings.standardLevelDistribution = true;
     this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution = true;
     this->pluginSettings.includeUndergroundLevelsInRandomDistribution = true;
     this->pluginSettings.includeUnderwaterLevelsInRandomDistribution = true;

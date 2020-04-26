@@ -489,7 +489,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         int numLevelsExcludingCastles = numLevels-numWorlds;
         for (int i = 0; i < this->allocatedLevels->size(); ++i) this->allocatedLevels->data()[i] = Level_Type::STANDARD_OVERWORLD;
 
-        if (this->pluginSettings->uniformLevelDistribution) {
+        if (this->pluginSettings->standardLevelDistribution) {
             //Parse the weights for each level type
             this->Read_Level_Chance(this->pluginSettings->standardOverworldChance, Level_Type::STANDARD_OVERWORLD);
             this->Read_Level_Chance(this->pluginSettings->undergroundChance, Level_Type::UNDERGROUND);

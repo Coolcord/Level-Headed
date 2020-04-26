@@ -161,6 +161,6 @@ void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     else this->ui->sbLives->hide();
 }
 
-void Configure_Settings_Form::on_radioUniformLevelDistribution_toggled(bool checked) {
-    this->tabLevelGenerator->Enable_Uniform_Level_Distribution_Options(checked);
+void Configure_Settings_Form::on_radioStandardLevelDistribution_toggled(bool checked) {
+    this->tabLevelGenerator->Enable_Standard_Level_Distribution_Options(checked);
 }

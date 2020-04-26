@@ -24,9 +24,9 @@ void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->cbRandomEnemies->setChecked(this->pluginSettings->randomEnemies);
-    if (this->pluginSettings->uniformLevelDistribution) this->ui->radioUniformLevelDistribution->setChecked(true);
+    if (this->pluginSettings->standardLevelDistribution) this->ui->radioStandardLevelDistribution->setChecked(true);
     else this->ui->radioRandomLevelDistribution->setChecked(true);
-    this->Enable_Uniform_Level_Distribution_Options(this->pluginSettings->uniformLevelDistribution);
+    this->Enable_Standard_Level_Distribution_Options(this->pluginSettings->standardLevelDistribution);
     this->ui->cbIncludeStandardOverworldLevels->setChecked(this->pluginSettings->includeStandardOverworldLevelsInRandomDistribution);
     this->ui->cbIncludeUndergroundLevels->setChecked(this->pluginSettings->includeUndergroundLevelsInRandomDistribution);
     this->ui->cbIncludeUnderwaterLevels->setChecked(this->pluginSettings->includeUnderwaterLevelsInRandomDistribution);
@@ -52,7 +52,7 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
         this->pluginSettings->randomEnemies = this->ui->cbRandomEnemies->isChecked();
     } else {
-        this->pluginSettings->uniformLevelDistribution = this->ui->radioUniformLevelDistribution->isChecked();
+        this->pluginSettings->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();
         this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
         this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
         this->pluginSettings->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
@@ -199,7 +199,7 @@ void Tab_Level_Generator::Enable_Random_Number_Of_Worlds(bool enable) {
     else this->ui->layoutNumWorldsWidget->show();
 }
 
-void Tab_Level_Generator::Enable_Uniform_Level_Distribution_Options(bool enable) {
+void Tab_Level_Generator::Enable_Standard_Level_Distribution_Options(bool enable) {
     if (enable) {
         this->ui->uniformLevelDistributionWidget->show();
         this->ui->randomLevelDistributionWidget->hide();
