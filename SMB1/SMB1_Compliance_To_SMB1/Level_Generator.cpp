@@ -504,7 +504,6 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         double totalWeight = 0.0;
         for (QMap<Level_Type::Level_Type, double>::iterator iter = levelWeights.begin(); iter != levelWeights.end(); ++iter) totalWeight += iter.value();
         int numLevelTypes = this->veryCommonLevels->size()+this->commonLevels->size()+this->uncommonLevels->size()+this->rareLevels->size();
-        int expectedNumberOfCommonLevels = static_cast<int>(std::round(static_cast<double>(numLevelsExcludingCastles)*(static_cast<double>(COMMON_POINTS)/totalWeight)));
         QVector<int> unallocatedLevelSlots;
         for (int i = 0; i < numLevels; ++i) {
             if ((i+1)%numLevelsPerWorld == 0) this->allocatedLevels->data()[i] = Level_Type::CASTLE; //allocate Castle levels now
@@ -513,7 +512,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         assert(unallocatedLevelSlots.size()+numWorlds == numLevels);
 
         //Distribute levels based upon the algorithm type
-        if (expectedNumberOfCommonLevels <= 1) { //use the old distribution algorithm
+        if (static_cast<double>(numLevelsExcludingCastles) < static_cast<double>(numLevelTypes)*1.5) { //use the old distribution algorithm
             qInfo() << "Rolling for individual levels...";
 
             //Determine chance
