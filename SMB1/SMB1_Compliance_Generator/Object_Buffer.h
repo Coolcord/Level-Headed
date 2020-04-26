@@ -114,6 +114,7 @@ private:
     void Handle_Zones(int x);
     bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int &coordinate);
+    void Update_Last_Page_Change_For_Next_X(int &x);
     void Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, bool questionBlock);
 
     SMB1_Compliance_Generator_Arguments *args;

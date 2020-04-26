@@ -603,7 +603,6 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
                 for (int i = 0; !unallocatedLevelSlots.isEmpty();) { //iterate through each level type in order
                     //Distribute the remaining levels randomly if there are not enough slots remaining
                     bool randomForRemaining = remainingLevelTypes.size() > unallocatedLevelSlots.size();
-                    if (randomForRemaining) qInfo() << "Randomly selecting remaining levels...";
                     Level_Type::Level_Type levelType = Level_Type::CASTLE;
                     if (randomForRemaining) {
                         //Get a random level type from the set

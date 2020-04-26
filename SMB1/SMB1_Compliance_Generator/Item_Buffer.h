@@ -43,6 +43,7 @@ protected:
     Item_Buffer(const Item_Buffer&);
     Item_Buffer& operator=(const Item_Buffer&);
     virtual bool Is_Coordinate_Valid(int &coordinate)=0;
+    virtual void Update_Last_Page_Change_For_Next_X(int &x)=0;
     bool Is_Byte_Valid(int byte);
     bool Is_Safe_To_Write_Item(int numBytes = 2);
     bool Handle_Level_Length_On_Page_Change(int page);

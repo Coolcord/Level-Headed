@@ -241,6 +241,7 @@ QMap<QString, Block_Data> *Object_Buffer::Get_Brick_Blocks() {
 }
 
 bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int length) {
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data objectBufferData;
@@ -260,6 +261,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
 
 bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int y, int length) {
     if (!this->Is_Y_Valid(y)) return false;
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data objectBufferData;
@@ -281,6 +283,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
 
 bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platform, int x, int y, int height, int length) {
     if (!this->Is_Y_Valid(y)) return false;
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data objectBufferData;
@@ -301,6 +304,7 @@ bool Object_Buffer::Write_Object(Object_Item::Object_Item objectItem, bool platf
 }
 
 bool Object_Buffer::Write_Object(int x, Background::Background background) {
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data objectBufferData;
@@ -316,6 +320,7 @@ bool Object_Buffer::Write_Object(int x, Background::Background background) {
 }
 
 bool Object_Buffer::Write_Object(int x, Brick::Brick brick, Scenery::Scenery scenery) {
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data objectBufferData;
@@ -495,6 +500,12 @@ bool Object_Buffer::Is_Coordinate_Valid(int &coordinate) {
     } else {
         return coordinate <= 0x10;
     }
+}
+
+void Object_Buffer::Update_Last_Page_Change_For_Next_X(int &x) {
+    if (!this->Is_Last_Item_A_Page_Change()) return; //nothing to do
+    assert(this->Page_Change((this->levelLength+x)/16));
+    while (x > 0x0F) x -= 0x10;
 }
 
 void Object_Buffer::Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, bool questionBlock) {

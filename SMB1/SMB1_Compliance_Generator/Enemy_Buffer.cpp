@@ -135,6 +135,7 @@ bool Enemy_Buffer::Write_Enemy(int x, Level::Level level, int world, int page) {
     if (page < 0x00 || page > 0x3F) return false;
     if (this->numBytesLeft < 3) return false;
     if (this->firstEnemy && x < 16) x += 16;
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     Buffer_Data enemyBufferData;
@@ -153,6 +154,7 @@ bool Enemy_Buffer::Write_Enemy(int x, Level::Level level, int world, int page) {
 
 bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x) {
     if (this->firstEnemy && x < 16) x += 16;
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     args.enemyItem = enemyItem;
@@ -167,6 +169,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
 bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &args, int x, int y) {
     if (y > 0xD) return false;
     if (this->firstEnemy && x < 16) x += 16;
+    this->Update_Last_Page_Change_For_Next_X(x);
     assert(!this->coordinateSafety || this->Is_Coordinate_Valid(x));
     assert(this->Is_Safe_To_Write_Item());
     args.enemyItem = enemyItem;
@@ -190,6 +193,12 @@ bool Enemy_Buffer::Is_Coordinate_Valid(int &coordinate) {
     } else {
         return coordinate <= 0x10;
     }
+}
+
+void Enemy_Buffer::Update_Last_Page_Change_For_Next_X(int &x) {
+    if (!this->Is_Last_Item_A_Page_Change()) return; //nothing to do
+    assert(this->Page_Change((this->levelLength+x)/16));
+    while (x > 0x0F) x -= 0x10;
 }
 
 QString Enemy_Buffer::Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem) {
