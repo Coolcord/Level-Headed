@@ -63,10 +63,12 @@ private:
     void Update_Last_Page_Change_For_Next_X(int &x);
     QString Get_String_From_Enemy_Item(Enemy_Item::Enemy_Item enemyItem);
     QString Get_String_From_Level(Level::Level level);
+    void Handle_Zones(int x);
 
     bool firstEnemy;
     bool lakituIsActive;
     bool wasLakituSpawned;
+    int largeFirebarZone;
 
     friend class Pipe_Pointer_Buffer;
 };

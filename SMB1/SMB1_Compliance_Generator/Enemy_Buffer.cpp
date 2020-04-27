@@ -5,10 +5,13 @@
 #include <QTextStream>
 #include <assert.h>
 
+const static int MAX_LARGE_FIRE_BAR_ZONE = 24;
+
 Enemy_Buffer::Enemy_Buffer(int nbl) : Item_Buffer(nbl) {
     this->firstEnemy = true;
     this->lakituIsActive = false;
     this->wasLakituSpawned = false;
+    this->largeFirebarZone = 0;
 }
 
 bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
@@ -110,6 +113,7 @@ bool Enemy_Buffer::Was_Lakitu_Spawned() {
 bool Enemy_Buffer::Write_Enemy(int page) {
     if (page < 0x00 || page > 0x3F) return false;
     if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
+    int relativeX = (0x10*page)-this->levelLength;
     if (this->Is_Last_Item_A_Page_Change()) { //modify the previous page change if there is one
         this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
@@ -126,6 +130,7 @@ bool Enemy_Buffer::Write_Enemy(int page) {
         this->Insert_Into_Buffer(enemyBufferData);
     }
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
+    this->Handle_Zones(relativeX);
     this->firstEnemy = false;
     return true;
 }
@@ -148,6 +153,7 @@ bool Enemy_Buffer::Write_Enemy(int x, Level::Level level, int world, int page) {
     this->Insert_Into_Buffer(enemyBufferData);
     this->Update_Level_Stats(x);
     --this->numBytesLeft; //pipe pointers use 3 bytes instead of 2
+    this->Handle_Zones(x);
     this->firstEnemy = false;
     return true;
 }
@@ -162,6 +168,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.absoluteX = this->currentAbsoluteX+x;
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
+    this->Handle_Zones(x);
     this->firstEnemy = false;
     return true;
 }
@@ -178,6 +185,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.absoluteX = this->currentAbsoluteX+x;
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
+    this->Handle_Zones(x);
     this->firstEnemy = false;
     this->currentY = y;
     return true;
@@ -278,6 +286,11 @@ QString Enemy_Buffer::Get_String_From_Level(Level::Level level) {
     case Level::UNDERWATER_CASTLE:  return Level::STRING_UNDERWATER_CASTLE;
     }
     assert(false); return QString();
+}
+
+void Enemy_Buffer::Handle_Zones(int x) {
+    if (this->largeFirebarZone > 0) this->largeFirebarZone -= x;
+    if (this->largeFirebarZone < 0) this->largeFirebarZone = 0;
 }
 
 bool Enemy_Buffer::Green_Koopa(int x, int y, bool moving, bool onlyHardMode) {
@@ -384,7 +397,13 @@ bool Enemy_Buffer::Fire_Bar(int x, int y, bool clockwise, bool fast, bool onlyHa
 
 bool Enemy_Buffer::Large_Fire_Bar(int x, int y, bool onlyHardMode) {
     Buffer_Data args; args.onlyHardMode = onlyHardMode;
-    return this->Write_Enemy(Enemy_Item::LARGE_FIRE_BAR, args, x, y);
+    if (this->largeFirebarZone == 0) {
+        if (!this->Write_Enemy(Enemy_Item::LARGE_FIRE_BAR, args, x, y)) return false;
+        this->largeFirebarZone = MAX_LARGE_FIRE_BAR_ZONE;
+        return true;
+    } else {
+        return this->Fire_Bar(x, y, true, false, onlyHardMode);
+    }
 }
 
 bool Enemy_Buffer::Lift(int x, int y, bool vertical, bool onlyHardMode) {

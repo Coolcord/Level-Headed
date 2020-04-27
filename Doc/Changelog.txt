@@ -9,6 +9,7 @@ Next update (v0.3.7)
 + Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.
 + Added an option to set the Leaping Paratroopa speed. This stacks with the speedy objects and enemies patch.
 + Collecting a Fire Flower as Small Mario upgrades Mario to Fire Mario when the "Revert to Super Mario after taking damage" setting is active (patch by Josiah Winslow)
++ Large Fire Bars now spawn a minimum of 24 blocks apart
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)
