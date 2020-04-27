@@ -258,6 +258,9 @@ Gameplay:
 Autoscroll Screen (by ATA)
 N/A
 
+Collecting a Fire Flower as Small Mario upgrades Mario to Fire Mario (by Josiah Winslow)
+https://www.reddit.com/r/nes/comments/6gig5e/super_mario_bros_fixed_powerups/
+
 Fast Foes (by Leon Arnott)
 https://www.romhacking.net/hacks/1720/
 

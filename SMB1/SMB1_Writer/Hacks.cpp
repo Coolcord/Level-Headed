@@ -151,6 +151,11 @@ bool Hacks::Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs() {
     return this->Write_Bytes_To_Offset(0x5131, QByteArray(1, static_cast<char>(0x03)));
 }
 
+bool Hacks::Fire_Flower_As_Small_Mario_Upgrades_To_Fire_Mario() {
+    //by Josiah Winslow
+    return this->Write_Bytes_To_Offset(0x5830, QByteArray::fromHex(QString("A539F01C4E5407D000E639A539").toLatin1()));
+}
+
 bool Hacks::Fix_Lakitu_Throw_Arc() {
     return this->Write_Bytes_To_Offset(0x4444, QByteArray::fromHex(QString("A0029558C9003001882046C3").toLatin1()));
 }

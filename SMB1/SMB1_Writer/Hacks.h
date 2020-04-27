@@ -31,6 +31,7 @@ public:
     bool Fast_Leaping_Paratroopas();
     bool Fireballs_Kill_Everything_Onscreen();
     bool Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
+    bool Fire_Flower_As_Small_Mario_Upgrades_To_Fire_Mario();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
     bool Hammer_Bros_Never_Jump();

@@ -841,7 +841,8 @@ bool SMB1_Writer::Hacks_Spiny_Eggs_No_Eggs() {
 
 bool SMB1_Writer::Hacks_Taking_Damage_As_Fire_Reverts_To_Super() {
     if (!this->hacks) return false;
-    return this->hacks->Taking_Damage_As_Fire_Reverts_To_Super();
+    if (!this->hacks->Taking_Damage_As_Fire_Reverts_To_Super()) return false;
+    return this->hacks->Fire_Flower_As_Small_Mario_Upgrades_To_Fire_Mario();
 }
 
 bool SMB1_Writer::Hacks_Unlimited_Time() {
