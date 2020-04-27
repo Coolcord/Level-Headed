@@ -91,6 +91,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = difficultySettings.flyingCheepCheepJumpHeight;
     pluginSettings->difficultyHammerBrosThrowRate = difficultySettings.hammerBrosThrowRate;
     pluginSettings->difficultyHammerBrosNeverJump = difficultySettings.hammerBrosNeverJump;
+    pluginSettings->difficultyFireBowserThrowsALudicrousAmountOfFireballs = difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs;
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater = difficultySettings.preventTheFirstLevelFromBeingUnderwater;
@@ -157,6 +158,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultyFlyingCheepCheepJumpHeight = 2;
     pluginSettings->difficultyHammerBrosThrowRate = 4; //Normal
     pluginSettings->difficultyHammerBrosNeverJump = false;
+    pluginSettings->difficultyFireBowserThrowsALudicrousAmountOfFireballs = false;
     pluginSettings->difficultyLakituRespawnSpeed = 3;
     pluginSettings->difficultyEuropeanBlooperSwimHeight = false;
     pluginSettings->lakituThrowArc = false;
@@ -186,6 +188,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.flyingCheepCheepJumpHeight = 2;
     difficultySettings.hammerBrosThrowRate = 4;
     difficultySettings.hammerBrosNeverJump = false;
+    difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs = false;
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.surfingLiftSpeed = 3;
     difficultySettings.piranhaPlantType = 1;
@@ -264,6 +267,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.flyingCheepCheepJumpHeight = 1; //Low
     difficultySettings.hammerBrosThrowRate = 3; //Infrequent
     difficultySettings.hammerBrosNeverJump = false;
+    difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs = false;
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = true;
@@ -474,6 +478,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.europeanBlooperSwimHeight = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = false;
+    difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs = true;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = true;
@@ -736,6 +741,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.flyingCheepCheepJumpHeight = 0; //0 is random here
     difficultySettings.hammerBrosThrowRate = 0; //0 is random here
     difficultySettings.hammerBrosNeverJump = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs = false; //always off on random as it is intentionally unfair
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = static_cast<bool>(Random::Get_Instance().Get_Num(1));

@@ -60,6 +60,7 @@ struct Difficulty_Level_Settings {
     int flyingCheepCheepJumpHeight;
     int hammerBrosThrowRate;
     bool hammerBrosNeverJump;
+    bool fireBowserThrowsALudicrousAmountOfFireballs;
     bool speedyObjectsAndEnemies;
     bool piranhaPlantsOnFirstLevel;
     bool preventTheFirstLevelFromBeingUnderwater;

@@ -599,6 +599,11 @@ bool SMB1_Writer::Hacks_Fast_Leaping_Paratroopas() {
     return this->hacks->Fast_Leaping_Paratroopas();
 }
 
+bool SMB1_Writer::Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs() {
+    if (!this->hacks) return false;
+    return this->hacks->Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
+}
+
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

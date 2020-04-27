@@ -123,6 +123,7 @@ struct Plugin_Settings {
     int difficultyFlyingCheepCheepJumpHeight;
     int difficultyHammerBrosThrowRate;
     bool difficultyHammerBrosNeverJump;
+    bool difficultyFireBowserThrowsALudicrousAmountOfFireballs;
     bool difficultySpeedyObjectsAndEnemies;
     bool difficultyPiranhaPlantsOnFirstLevel;
     bool difficultyPreventTheFirstLevelFromBeingUnderwater;

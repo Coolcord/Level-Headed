@@ -30,6 +30,7 @@ public:
     bool European_Blooper_Swim_Height();
     bool Fast_Leaping_Paratroopas();
     bool Fireballs_Kill_Everything_Onscreen();
+    bool Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
     bool Fix_Lakitu_Throw_Arc();
     bool Fix_Life_Counter_Bugs();
     bool Hammer_Bros_Never_Jump();

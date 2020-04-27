@@ -264,6 +264,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Bros_Never_Jump", this->pluginSettings.difficultyHammerBrosNeverJump)) return false;
+    if (!configFile.Set_Value("Difficulty_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs", this->pluginSettings.difficultyFireBowserThrowsALudicrousAmountOfFireballs)) return false;
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel)) return false;
     if (!configFile.Set_Value("Difficulty_Prevent_The_First_Level_From_Being_Underwater", this->pluginSettings.difficultyPreventTheFirstLevelFromBeingUnderwater)) return false;
@@ -386,6 +387,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Flying_Cheep_Cheep_Jump_Height", this->pluginSettings.difficultyFlyingCheepCheepJumpHeight);
     configFile.Get_Value("Difficulty_Hammer_Bros_Throw_Rate", this->pluginSettings.difficultyHammerBrosThrowRate);
     configFile.Get_Value("Difficulty_Hammer_Bros_Never_Jump", this->pluginSettings.difficultyHammerBrosNeverJump);
+    configFile.Get_Value("Difficulty_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs", this->pluginSettings.difficultyFireBowserThrowsALudicrousAmountOfFireballs);
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel);
     configFile.Get_Value("Difficulty_Prevent_The_First_Level_From_Being_Underwater", this->pluginSettings.difficultyPreventTheFirstLevelFromBeingUnderwater);

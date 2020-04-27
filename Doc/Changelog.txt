@@ -1,9 +1,10 @@
 Next update (v0.3.7)
 + Larger games (about 10+ levels) are now more uniformly distributed across the entire game. This means that it will now be impossible to get an entire world full of an uncommon level type.
 + Smaller games now limit how many levels of one type can be created based upon commonality. There is a limit of 1 level per game for rare and 2 levels per game for uncommon.
-+ Added support for uniform (completely random) level distribution
++ Added support for completely random level distribution
 + If a level is not set to be Very Common, the level distributor will try to prevent it from being used 3 or more times in a row
 + Added an option to disable Hammer Bros. jumping
++ Fire Bowser now throws a ludicrous amount of fireballs on Brutal difficulty, just like in v0.3.5 and prior
 + Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
 + Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.
 + Added an option to set the Leaping Paratroopa speed. This stacks with the speedy objects and enemies patch.

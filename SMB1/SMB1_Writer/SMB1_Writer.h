@@ -171,6 +171,7 @@ public:
     bool Hacks_Enable_Walking_Hammer_Bros(int difficulty);
     bool Hacks_European_Blooper_Swim_Height();
     bool Hacks_Fast_Leaping_Paratroopas();
+    bool Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Fix_Life_Counter_Bugs();
     bool Hacks_Hammer_Bros_Never_Jump();

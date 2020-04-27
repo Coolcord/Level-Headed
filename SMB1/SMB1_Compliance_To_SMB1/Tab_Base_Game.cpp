@@ -111,6 +111,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
         this->ui->cbHammerBrosNeverJump->setChecked(false);
         this->ui->cbEuropeanBlooperSwimHeight->setChecked(false);
+        this->ui->cbFireBowserThrowsALudicrousAmountOfFireballs->setChecked(false);
         this->ui->cbPiranhaPlantsOnFirstLevel->setChecked(false);
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
@@ -182,6 +183,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbSpeedyObjectsAndEnemies->setEnabled(!enabled);
     this->ui->cbHammerBrosNeverJump->setEnabled(!enabled);
     this->ui->cbEuropeanBlooperSwimHeight->setEnabled(!enabled);
+    this->ui->cbFireBowserThrowsALudicrousAmountOfFireballs->setEnabled(!enabled);
     this->ui->cbPiranhaPlantsOnFirstLevel->setEnabled(!enabled);
     this->ui->cbLakituThrowArc->setEnabled(!enabled);
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);

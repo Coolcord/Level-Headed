@@ -466,17 +466,34 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     } else if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 1) {
         this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 4); //(only Auto Scroll or Fire Bros)
     }
+
+    bool success = false;
     switch (this->pluginSettings->difficultyReplaceCastleLoopsCurrent) {
-    default:    assert(false); return false;
-    case 2:     return true; //no complimentary hack
-    case 3:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
-    case 4:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros();
-    case 5:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
-    case 6:     return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+    default:
+        assert(false); return false;
+    case 2: //no complimentary hack
+        success = true;
+        break;
+    case 3:
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
+        break;
+    case 4:
+        if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Fire_Bros()) return false;
+        if (this->pluginSettings->difficultyFireBowserThrowsALudicrousAmountOfFireballs && !this->writerPlugin->Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs()) return false;
+        success = true;
+        break;
+    case 5:
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
+        break;
+    case 6:
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+        break;
     case 7:
         if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP()) return false;
-        return this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+        break;
     }
+    return success;
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {

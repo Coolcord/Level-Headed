@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -936,7 +936,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2828</height>
+            <height>2857</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2977,6 +2977,13 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbFireBowserThrowsALudicrousAmountOfFireballs">
+                <property name="text">
+                 <string>Fire Bowser throws a ludicrous amount of fireballs</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QCheckBox" name="cbDisableAllOtherEnemiesWhenALakituSpawns">
                 <property name="text">
                  <string>Disable all other enemies when a Lakitu spawns</string>
@@ -3295,7 +3302,7 @@ p, li { white-space: pre-wrap; }
                    <item>
                     <widget class="QRadioButton" name="radioRandomLevelDistribution">
                      <property name="text">
-                      <string>Uniform (Random)</string>
+                      <string>Random</string>
                      </property>
                     </widget>
                    </item>

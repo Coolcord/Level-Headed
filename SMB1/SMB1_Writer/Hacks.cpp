@@ -147,6 +147,10 @@ bool Hacks::Fireballs_Kill_Everything_Onscreen() {
     return this->Write_Bytes_To_Offset(0x572D, QByteArray(1, static_cast<char>(0x8F)));
 }
 
+bool Hacks::Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs() {
+    return this->Write_Bytes_To_Offset(0x5131, QByteArray(1, static_cast<char>(0x03)));
+}
+
 bool Hacks::Fix_Lakitu_Throw_Arc() {
     return this->Write_Bytes_To_Offset(0x4444, QByteArray::fromHex(QString("A0029558C9003001882046C3").toLatin1()));
 }
