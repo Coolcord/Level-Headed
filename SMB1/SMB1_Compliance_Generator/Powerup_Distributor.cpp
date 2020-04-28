@@ -80,7 +80,7 @@ void Powerup_Distributor::Find_Usable_Blocks(bool questionBlocks) {
             iter.value().hittable = true;
             if (this->Is_Block_Safe_For_Powerup(data.x, data.y)) {
                 iter.value().safeForMushroom = true;
-                iter.value().safeForStar = this->Is_Block_Safe_For_Powerup(data.x, data.y);
+                iter.value().safeForStar = this->Is_Block_Safe_For_Star(data.x, data.y);
             } else {
                 iter.value().safeForMushroom = false;
                 iter.value().safeForStar = false;
@@ -142,11 +142,11 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
         int index = Random::Get_Instance().Get_Num(possibleBlocks.size()-1);
         QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(index);
         assert(iter != knownBlocks->end());
+        int currentX = possibleBlocks.at(index).value().x;
         this->Insert_Item_At(iter.value(), item);
         ++numDistributed;
 
         //Remove any nearby blocks that are within the powerup's zone
-        int currentX = possibleBlocks.at(index).value().x;
         possibleBlocks.remove(index);
         if (numDistributed < numItems) {
             //possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item); //rescan for possible blocks again
@@ -293,6 +293,8 @@ bool Powerup_Distributor::Is_Block_Safe_For_Star(int x, int y) {
     if (this->levelCrawler->Is_Coordinate_Used(x, y-2)) return false;
     if (this->levelCrawler->Is_Coordinate_Used(x, y-3)) return false;
     if (this->levelCrawler->Is_Coordinate_Used(x+1, y-1) || this->levelCrawler->Is_Coordinate_Used(x+1, y-3)) return false;
+    if (this->levelCrawler->Is_Coordinate_Used(x+1, y-3)) return false;
+    if (this->levelCrawler->Is_Coordinate_Used(x+2, y-3)) return false;
     return true;
 }
 
