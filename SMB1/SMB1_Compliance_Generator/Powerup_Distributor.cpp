@@ -13,6 +13,8 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->objects = objects;
     this->levelCrawler = levelCrawler;
     this->args = args;
+    this->powerupXValues = new QVector<int>();
+    this->tenCoinBlockXValues = new QVector<int>();
     this->Deallocate_Powerups();
     this->minPowerups = 1;
     this->maxPowerups = args->difficultyMaxPowerups;
@@ -26,7 +28,16 @@ Powerup_Distributor::Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buf
     this->tenCoinBlockChance = args->difficultyTenCoinBlockChance;
     this->starChance = args->difficultyStarChance;
     this->fireFlowerBouncesLikeStar = args->fireFlowerBouncesLikeStar;
+    this->maxPowerupZoneSize = 8;
+    this->maxTenCoinBlockZoneSize = 16;
     assert(this->Reserve_Powerup_Objects());
+}
+
+Powerup_Distributor::~Powerup_Distributor() {
+    delete this->powerupXValues;
+    delete this->tenCoinBlockXValues;
+    this->powerupXValues = nullptr;
+    this->tenCoinBlockXValues = nullptr;
 }
 
 bool Powerup_Distributor::Distribute_Powerups() {
@@ -54,6 +65,8 @@ void Powerup_Distributor::Deallocate_Powerups() {
     this->maxTenCoinBlocks = 0;
     this->minStars = 0;
     this->maxStars = 0;
+    this->powerupXValues->clear();
+    this->tenCoinBlockXValues->clear();
 }
 
 void Powerup_Distributor::Find_Usable_Blocks(bool questionBlocks) {
@@ -121,8 +134,20 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     if (item == Object_Item::QUESTION_BLOCK_WITH_MUSHROOM) knownBlocks = this->objects->Get_Question_Blocks();
     else knownBlocks = this->objects->Get_Brick_Blocks();
     assert(knownBlocks);
-    QVector<QMap<QString, Block_Data>::iterator> possibleBlocks(knownBlocks->size()); //allocate for worst case scenario
-    int numPossibleBlocks = 0;
+    QVector<QMap<QString, Block_Data>::iterator> possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item);
+
+    //Distribute the powerups in a random order
+    while (numDistributed < numItems && possibleBlocks.size() > 0) {
+        QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(Random::Get_Instance().Get_Num(possibleBlocks.size()-1));
+        assert(iter != knownBlocks->end());
+        this->Insert_Item_At(iter.value(), item);
+        ++numDistributed;
+        if (numDistributed < numItems) possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item); //rescan for possible blocks again
+    }
+}
+
+QVector<QMap<QString, Block_Data>::iterator> Powerup_Distributor::Get_Possible_Blocks(QMap<QString, Block_Data> *knownBlocks, Object_Item::Object_Item item) {
+    QVector<QMap<QString, Block_Data>::iterator> possibleBlocks;
     for (QMap<QString, Block_Data>::iterator iter = knownBlocks->begin(); iter != knownBlocks->end(); ++iter) {
         //Check against the vertical object limit to make sure the distributor can't break the rule
         if (this->args->useVerticalObjectLimit && iter.value().groupLength > 1) {
@@ -140,70 +165,46 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
         default:
             assert(false); break;
         case Object_Item::BRICK_WITH_10_COINS:
-            if (iter.value().hittable) {
-                possibleBlocks[numPossibleBlocks] = iter;
-                ++numPossibleBlocks;
+            if (iter.value().hittable && !this->Is_In_Range_Of_Powerup(iter.value().x, true)) {
+                possibleBlocks.append(iter);
             }
             break;
         case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
         case Object_Item::BRICK_WITH_MUSHROOM:
             if (this->fireFlowerBouncesLikeStar) {
-                if (iter.value().safeForStar) {
+                if (iter.value().safeForStar && !this->Is_In_Range_Of_Powerup(iter.value().x, false)) {
                     assert(iter.value().hittable);
                     assert(iter.value().safeForMushroom);
-                    possibleBlocks[numPossibleBlocks] = iter;
-                    ++numPossibleBlocks;
+                    possibleBlocks.append(iter);
                 }
             } else {
-                if (iter.value().safeForMushroom) {
+                if (iter.value().safeForMushroom && !this->Is_In_Range_Of_Powerup(iter.value().x, false)) {
                     assert(iter.value().hittable);
-                    possibleBlocks[numPossibleBlocks] = iter;
-                    ++numPossibleBlocks;
+                    possibleBlocks.append(iter);
                 }
             }
             break;
         case Object_Item::BRICK_WITH_1UP:
-            if (iter.value().safeForMushroom) {
+            if (iter.value().safeForMushroom && !this->Is_In_Range_Of_Powerup(iter.value().x, false)) {
                 assert(iter.value().hittable);
-                possibleBlocks[numPossibleBlocks] = iter;
-                ++numPossibleBlocks;
+                possibleBlocks.append(iter);
             }
             break;
         case Object_Item::BRICK_WITH_STAR:
-            if (iter.value().safeForStar) {
+            if (iter.value().safeForStar && !this->Is_In_Range_Of_Powerup(iter.value().x, false)) {
                 assert(iter.value().hittable);
                 assert(iter.value().safeForMushroom);
 
                 //Only consider blocks in the first 3/4ths of the level
                 if (iter.value().x < static_cast<int>(std::round((static_cast<double>(this->objects->Get_Level_Length())/4.0)*3.0))) {
-                    possibleBlocks[numPossibleBlocks] = iter;
-                    ++numPossibleBlocks;
+                    possibleBlocks.append(iter);
                 }
             }
             break;
         }
     }
 
-    //Break up the level into sections and place 1 item in a random place of each section
-    if (numItems < numPossibleBlocks) {
-        int min = -1, max = -1;
-        for (int i = 1; i <= numItems; ++i) {
-            min = max+1;
-            max = ((numPossibleBlocks-1)/numItems)*i;
-            assert(max < numPossibleBlocks);
-            QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(Random::Get_Instance().Get_Num(min, max));
-            assert(iter != knownBlocks->end());
-            this->Insert_Item_At(iter.value(), item);
-            ++numDistributed;
-        }
-    } else {
-        for (int i = 0; i < numPossibleBlocks; ++i) {
-            QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(i);
-            assert(iter != knownBlocks->end());
-            this->Insert_Item_At(iter.value(), item);
-            ++numDistributed;
-        }
-    }
+    return possibleBlocks;
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
@@ -266,6 +267,23 @@ bool Powerup_Distributor::Is_Block_Safe_For_Star(int x, int y) {
     if (this->levelCrawler->Is_Coordinate_Used(x, y-3)) return false;
     if (this->levelCrawler->Is_Coordinate_Used(x+1, y-1) || this->levelCrawler->Is_Coordinate_Used(x+1, y-3)) return false;
     return true;
+}
+
+bool Powerup_Distributor::Is_In_Range_Of_Powerup(int x, bool isTenCoinBlock) {
+    QVector<int> *powerups = this->powerupXValues;
+    int zone = this->maxPowerupZoneSize;
+    if (isTenCoinBlock) {
+        powerups = this->tenCoinBlockXValues;
+        zone = this->maxTenCoinBlockZoneSize;
+    }
+    for (int i = 0; i < powerups->size(); ++i) {
+        int distance = 0;
+        int powerupX = powerups->at(i);
+        if (x > powerupX) distance = x-powerupX;
+        else distance = powerupX-x;
+        if (distance <= zone) return true;
+    }
+    return false;
 }
 
 void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::Object_Item item) {
@@ -378,6 +396,7 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
     int tmpX = block.x, tmpY = block.y;
     numRemoved += this->objects->Get_Question_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
     numRemoved += this->objects->Get_Brick_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
+    this->Mark_X_As_Used_By_Powerup(block.x, item == Object_Item::BRICK_WITH_10_COINS);
     assert(numRemoved > 0);
 }
 
@@ -409,6 +428,11 @@ bool Powerup_Distributor::Insert_Group_Item_Into_Object_Buffer(int x, int y, int
     }
     this->objects->Set_Coordinate_Safety(true);
     return success;
+}
+
+void Powerup_Distributor::Mark_X_As_Used_By_Powerup(int x, bool isTenCoinBlock) {
+    if (isTenCoinBlock) this->tenCoinBlockXValues->append(x);
+    else this->powerupXValues->append(x);
 }
 
 void Powerup_Distributor::Update_Group_Data(QMap<QString, Block_Data> *blocks, bool vertical, int oldX, int oldY, int oldLength, int newX, int newY, int newLength) {
