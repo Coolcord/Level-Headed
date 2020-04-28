@@ -137,12 +137,39 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     QVector<QMap<QString, Block_Data>::iterator> possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item);
 
     //Distribute the powerups in a random order
+    //TODO:
     while (numDistributed < numItems && possibleBlocks.size() > 0) {
-        QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(Random::Get_Instance().Get_Num(possibleBlocks.size()-1));
+        int index = Random::Get_Instance().Get_Num(possibleBlocks.size()-1);
+        QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(index);
         assert(iter != knownBlocks->end());
         this->Insert_Item_At(iter.value(), item);
         ++numDistributed;
-        if (numDistributed < numItems) possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item); //rescan for possible blocks again
+
+        //Remove any nearby blocks that are within the powerup's zone
+        int currentX = possibleBlocks.at(index).value().x;
+        possibleBlocks.remove(index);
+        if (numDistributed < numItems) {
+            //possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item); //rescan for possible blocks again
+            int range = this->maxPowerupZoneSize;
+            if (item == Object_Item::BRICK_WITH_10_COINS) range = this->maxTenCoinBlockZoneSize;
+            int maxX = currentX+range;
+            int minX = currentX-range;
+            if (minX < 0) minX = 0;
+            assert(minX <= maxX);
+
+            //Check forwards
+            while (index < possibleBlocks.size()) {
+                if (possibleBlocks.at(index).value().x <= maxX) possibleBlocks.remove(index);
+                else break;
+            }
+            if (index >= possibleBlocks.size()) index = possibleBlocks.size()-1;
+
+            //Check backwards
+            for (int i = index; i >= 0; --i) {
+                if (possibleBlocks.at(i).value().x >= minX) possibleBlocks.remove(i);
+                else break;
+            }
+        }
     }
 }
 

@@ -3,13 +3,15 @@ Next update (v0.3.7)
 + Smaller games now limit how many levels of one type can be created based upon commonality. There is a limit of 1 level per game for rare and 2 levels per game for uncommon.
 + Added support for completely random level distribution
 + If a level is not set to be Very Common, the level distributor will try to prevent it from being used 3 or more times in a row
++ Powerups are now spawned at least 9 blocks apart from each other
++ 10 coin blocks are now spawned at least 17 blocks apart from each other
++ Large Fire Bars now spawn a minimum of 24 blocks apart
 + Added an option to disable Hammer Bros. jumping
 + Fire Bowser now throws a ludicrous amount of fireballs on Brutal difficulty, just like in v0.3.5 and prior
 + Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
 + Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.
 + Added an option to set the Leaping Paratroopa speed. This stacks with the speedy objects and enemies patch.
 + Collecting a Fire Flower as Small Mario upgrades Mario to Fire Mario when the "Revert to Super Mario after taking damage" setting is active (patch by Josiah Winslow)
-+ Large Fire Bars now spawn a minimum of 24 blocks apart
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)
