@@ -324,7 +324,7 @@ bool Castle_Generator::Item_Tease(int x) {
     if (this->objects->Get_Num_Objects_Available() < 7) return false;
 
     Brick::Brick brick;
-    switch (Random::Get_Instance().Get_Num(4)) {
+    switch (Random::Get_Instance().Get_Num(5)) {
     case 0: brick = Brick::SURFACE_4_AND_CEILING; break;
     case 1: brick = Brick::SURFACE_5_AND_CEILING; break;
     case 2: brick = Brick::SURFACE; break;
