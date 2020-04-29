@@ -424,9 +424,9 @@ void Powerup_Distributor::Insert_Item_At(const Block_Data &block, Object_Item::O
     //Remove the used block from the available blocks
     int numRemoved = 0;
     int tmpX = block.x, tmpY = block.y;
+    this->Mark_X_As_Used_By_Powerup(tmpX, item == Object_Item::BRICK_WITH_10_COINS);
     numRemoved += this->objects->Get_Question_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
     numRemoved += this->objects->Get_Brick_Blocks()->remove(this->objects->Get_Coordinate_Key(tmpX, tmpY));
-    this->Mark_X_As_Used_By_Powerup(block.x, item == Object_Item::BRICK_WITH_10_COINS);
     assert(numRemoved > 0);
 }
 

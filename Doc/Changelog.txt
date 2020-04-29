@@ -11,7 +11,6 @@ Next update (v0.3.7)
 + Nerfed Hammer Bros. throw rate on higher difficulties to reduce lag
 + Speedy leaping paratroopas and starmen now jump lower, but move faster. This will help prevent speedy paratroopas from getting stuck in blocks.
 + Added an option to set the Leaping Paratroopa speed. This stacks with the speedy objects and enemies patch.
-+ Collecting a Fire Flower as Small Mario upgrades Mario to Fire Mario when the "Revert to Super Mario after taking damage" setting is active (patch by Josiah Winslow)
 + The update checker now uses OpenSSL instead of Git
 
 Powerup Distributor (v0.3.6)
