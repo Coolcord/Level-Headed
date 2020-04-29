@@ -166,7 +166,7 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 
             //Check backwards
             for (int i = index; i >= 0; --i) {
-                int x = possibleBlocks.at(index).value().x;
+                int x = possibleBlocks.at(i).value().x;
                 if (x >= minX && x <= maxX) possibleBlocks.remove(i);
                 else break;
             }
