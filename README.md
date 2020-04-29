@@ -40,10 +40,6 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
  
  A: There's a tutorial on how to do that on the wiki [here](https://github.com/Coolcord/Level-Headed/wiki/How-to-Add-Your-Own-Graphics-and-Music-Into-Level%E2%80%90Headed).
  
- **Q: I set a level type to uncommon, but I got it multiple times in a row! Is this a bug?**
- 
- A: Technically, no. For now, when the level generator goes to generate a new level, it does not care what kind of level came before or what will come after. All it cares about is the percentage chance that it calculates based upon the weights the user provides. Think of this like rolling a dice. There's nothing stopping you from rolling four 1's in a row, though it's unlikely to happen. You can read more about commonalities [here](https://github.com/Coolcord/Level-Headed/wiki/How-Level%E2%80%90Headed-Works#commonalities). I may rework this system in the future, as many people seem to expect it to work differently. For now, just try dropping what you don't like to "Rare" as that'll make a difference.
- 
  **Q: There's no variety!**
  
  A: Bear in mind that Level-Headed is only v0.3, so it's only a fraction of what I have planned. Think of current releases as a preview of what's to come. With each update, this will become less and less of a problem.
