@@ -137,7 +137,6 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
     QVector<QMap<QString, Block_Data>::iterator> possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item);
 
     //Distribute the powerups in a random order
-    //TODO:
     while (numDistributed < numItems && possibleBlocks.size() > 0) {
         int index = Random::Get_Instance().Get_Num(possibleBlocks.size()-1);
         QMap<QString, Block_Data>::iterator iter = possibleBlocks.at(index);
@@ -159,14 +158,16 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
 
             //Check forwards
             while (index < possibleBlocks.size()) {
-                if (possibleBlocks.at(index).value().x <= maxX) possibleBlocks.remove(index);
+                int x = possibleBlocks.at(index).value().x;
+                if (x >= minX && x <= maxX) possibleBlocks.remove(index);
                 else break;
             }
             if (index >= possibleBlocks.size()) index = possibleBlocks.size()-1;
 
             //Check backwards
             for (int i = index; i >= 0; --i) {
-                if (possibleBlocks.at(i).value().x >= minX) possibleBlocks.remove(i);
+                int x = possibleBlocks.at(index).value().x;
+                if (x >= minX && x <= maxX) possibleBlocks.remove(i);
                 else break;
             }
         }
