@@ -15,6 +15,7 @@ private:
     bool Small_Jump_Is_Big_Jump();
     bool One_Up_1();
     bool One_Up_2();
+    bool One_Up_3();
     bool One_Up_Random();
     bool Blast_Random();
     bool Bump_Random();

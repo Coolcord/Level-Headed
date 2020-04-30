@@ -174,3 +174,10 @@ bool Music::Tone_Color_20() {
     this->lastToneColor = 20;
     return true;
 }
+
+bool Music::Tone_Color_21() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(21)) return true;
+    if (!this->Write_Bytes_To_Offset(0x7FAA, QByteArray(1, static_cast<char>(0x92)))) return false;
+    this->lastToneColor = 21;
+    return true;
+}
