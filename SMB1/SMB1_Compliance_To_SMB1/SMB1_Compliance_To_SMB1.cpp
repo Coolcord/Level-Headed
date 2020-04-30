@@ -239,6 +239,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks)) return false;
     if (!configFile.Set_Value("Tone_Color", this->pluginSettings.toneColor)) return false;
     if (!configFile.Set_Value("Random_Sound_Effects", this->pluginSettings.randomSounds)) return false;
+    if (!configFile.Set_Value("Random_Text", this->pluginSettings.randomText)) return false;
     if (!configFile.Set_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations)) return false;
     if (!configFile.Set_Value("Graphics", this->pluginSettings.graphics)) return false;
     if (!configFile.Set_Value("Combine_Graphics_With_Other_Packs", this->pluginSettings.combineGraphicsWithOtherPacks)) return false;
@@ -362,6 +363,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Combine_Music_With_Other_Packs", this->pluginSettings.combineMusicWithOtherPacks);
     configFile.Get_Value("Tone_Color", this->pluginSettings.toneColor);
     configFile.Get_Value("Random_Sound_Effects", this->pluginSettings.randomSounds);
+    configFile.Get_Value("Random_Text", this->pluginSettings.randomText);
     configFile.Get_Value("Randomize_Some_Animations", this->pluginSettings.randomizeSomeAnimations);
     configFile.Get_Value("Graphics", this->pluginSettings.graphics);
     configFile.Get_Value("Combine_Graphics_With_Other_Packs", this->pluginSettings.combineGraphicsWithOtherPacks);
@@ -439,6 +441,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.combineMusicWithOtherPacks = true;
     this->pluginSettings.toneColor = 0;
     this->pluginSettings.randomSounds = true;
+    this->pluginSettings.randomText = true;
     this->pluginSettings.randomizeSomeAnimations = true;
     this->pluginSettings.graphics = 0;
     this->pluginSettings.combineGraphicsWithOtherPacks = true;

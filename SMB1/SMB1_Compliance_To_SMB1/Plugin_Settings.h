@@ -47,6 +47,7 @@ struct Plugin_Settings {
     bool combineMusicWithOtherPacks;
     int toneColor;
     bool randomSounds;
+    bool randomText;
     bool randomizeSomeAnimations;
     int graphics;
     bool combineGraphicsWithOtherPacks;

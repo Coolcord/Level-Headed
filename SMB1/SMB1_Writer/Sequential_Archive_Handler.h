@@ -46,6 +46,8 @@ public:
     int Get_Number_Of_Graphics_Packs();
     int Get_Number_Of_Mario_Sprites();
     int Get_Number_Of_Music_Packs();
+    bool Random_But_Our_Princess_Is_In_Another_Castle_Text();
+    bool Random_Thank_You_Text();
     bool Is_Tone_Invalid(int tone);
     bool Are_Color_Palettes_Allowed();
     bool Are_Only_Coin_Palettes_Allowed();
@@ -64,8 +66,12 @@ private:
     bool Apply_Secondary_Music_Patches(const QString &patchList);
     QStringList Get_Compatible_Music_Packs(const QByteArray &patchBytes);
     bool Get_Invalid_Tones(const QByteArray &patchBytes, bool isSecondaryPatch);
+    QString Get_Replacement_Text(const QString &fileNameWithoutExtension);
     bool Get_Palettes_Allowed(const QByteArray &patchBytes);
     void Get_HEXP_Files_From_File_List(QStringList &normalFiles, QStringList &bonusFiles);
+    QString Get_Replacement_Text_For_Castle();
+    QString Get_Replacement_Text_For_Princess();
+    QString Get_Replacement_Text_For_Thank_You();
     bool Load_Plugins_If_Necessary();
     bool Load_Hexagon_Plugin();
     bool Load_Sequential_Archive_Plugin();
@@ -96,6 +102,7 @@ private:
     QString romsArchiveLocation;
     QString graphicsPacksArchiveLocation;
     QString musicPacksArchiveLocation;
+    QString textArchiveLocation;
     QString lastAppliedGraphicsPack;
     QString lastAppliedMarioSprite;
 };

@@ -37,6 +37,7 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->romsArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
     this->graphicsPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
     this->musicPacksArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
+    this->textArchiveLocation = applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Text.sa";
 }
 
 Sequential_Archive_Handler::~Sequential_Archive_Handler() {
@@ -278,6 +279,23 @@ int Sequential_Archive_Handler::Get_Number_Of_Music_Packs() {
     return this->musicPackStrings.size();
 }
 
+bool Sequential_Archive_Handler::Random_But_Our_Princess_Is_In_Another_Castle_Text() {
+    switch (Random::Get_Instance().Get_Num(2)) {
+    default:    assert(false); return false;
+    case 0:     return this->text->Replace_Princess_With_Text(this->Get_Replacement_Text_For_Princess());
+    case 1:     return this->text->Replace_Castle_With_Text(this->Get_Replacement_Text_For_Castle());
+    case 2:
+        if (!this->text->Replace_Princess_With_Text(this->Get_Replacement_Text_For_Princess())) return false;
+        return this->text->Replace_Castle_With_Text(this->Get_Replacement_Text_For_Castle());
+    }
+    return false;
+}
+
+bool Sequential_Archive_Handler::Random_Thank_You_Text() {
+    if (!this->text->Replace_Thank_You_Player_One_With_Text(this->Get_Replacement_Text_For_Thank_You())) return false;
+    return this->text->Replace_Thank_You_Player_Two_With_Text(this->Get_Replacement_Text_For_Thank_You());
+}
+
 bool Sequential_Archive_Handler::Is_Tone_Invalid(int tone) {
     return this->invalidTones->contains(tone);
 }
@@ -491,6 +509,30 @@ bool Sequential_Archive_Handler::Get_Invalid_Tones(const QByteArray &patchBytes,
     return true;
 }
 
+QString Sequential_Archive_Handler::Get_Replacement_Text(const QString &fileNameWithoutExtension) {
+    //Read the text archive
+    if (!this->Load_Plugins_If_Necessary()) return fileNameWithoutExtension;
+    if (!this->sequentialArchivePlugin->Open(this->textArchiveLocation)) return fileNameWithoutExtension;
+    QByteArray bytes = this->sequentialArchivePlugin->Read_File("/"+fileNameWithoutExtension+".txt");
+    this->sequentialArchivePlugin->Close();
+    if (bytes.isEmpty()) return fileNameWithoutExtension;
+
+    //Pick a random word to return
+    QTextStream stream(bytes);
+    bool isValid = false;
+    int numWords = stream.readLine().trimmed().toInt(&isValid);
+    if (!isValid) return fileNameWithoutExtension;
+    int selectedWord = Random::Get_Instance().Get_Num(numWords);
+    QString line = fileNameWithoutExtension;
+    while (selectedWord != 0 && !stream.atEnd()) { //scan to the word in question
+        line = stream.readLine();
+        --selectedWord;
+    }
+    line = line.trimmed().toUpper();
+    if (line.size() > fileNameWithoutExtension.size()) return fileNameWithoutExtension;
+    return line;
+}
+
 bool Sequential_Archive_Handler::Get_Palettes_Allowed(const QByteArray &patchBytes) {
     if (patchBytes.isEmpty()) return true; //nothing to do
 
@@ -519,6 +561,18 @@ void Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(QStringList &norm
             normalFiles.append(file);
         }
     }
+}
+
+QString Sequential_Archive_Handler::Get_Replacement_Text_For_Castle() {
+    return this->Get_Replacement_Text("Castle");
+}
+
+QString Sequential_Archive_Handler::Get_Replacement_Text_For_Princess() {
+    return this->Get_Replacement_Text("Princess");
+}
+
+QString Sequential_Archive_Handler::Get_Replacement_Text_For_Thank_You() {
+    return this->Get_Replacement_Text("Thank you");
 }
 
 bool Sequential_Archive_Handler::Load_Plugins_If_Necessary() {

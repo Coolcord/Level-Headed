@@ -32,7 +32,7 @@ bool Hacks_Handler::Write_Hacks() {
         } else {
             if (!this->writerPlugin->Graphics_Write_Title_Screen_For_2_Player_Game()) return false;
         }
-        if (!this->Handle_Names()) return false;
+        if (!this->Handle_Text()) return false;
         if (this->pluginSettings->superMarioOnDamage && !this->writerPlugin->Hacks_Taking_Damage_As_Fire_Reverts_To_Super()) return false;
         if (!this->Handle_Powerup()) return false; //must be applied BEFORE Lakitus
         if (!this->Handle_Secondary_Mushroom()) return false;
@@ -453,12 +453,6 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     else return this->writerPlugin->Graphics_Change_1UP_Palette(3); //black
 }
 
-bool Hacks_Handler::Handle_Names() {
-    if (!this->writerPlugin->Hacks_Set_Mario_Name(this->pluginSettings->marioName)) return false;
-    if (!this->writerPlugin->Hacks_Set_Luigi_Name(this->pluginSettings->luigiName)) return false;
-    return true;
-}
-
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
@@ -494,6 +488,15 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
         break;
     }
     return success;
+}
+
+bool Hacks_Handler::Handle_Text() {
+    if (this->pluginSettings->randomText) {
+        if (!this->writerPlugin->Hacks_Random_Thank_You_Text()) return false;
+        if (!this->writerPlugin->Hacks_Random_But_Our_Princess_Is_In_Another_Castle_Text()) return false;
+    }
+    if (!this->writerPlugin->Hacks_Set_Mario_Name(this->pluginSettings->marioName)) return false;
+    return this->writerPlugin->Hacks_Set_Luigi_Name(this->pluginSettings->luigiName);
 }
 
 bool Hacks_Handler::Get_Bool_From_CheckState(Qt::CheckState checkState) {

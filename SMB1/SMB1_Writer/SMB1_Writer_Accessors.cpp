@@ -634,6 +634,11 @@ bool SMB1_Writer::Hacks_Permadeath() {
     return this->hacks->Permadeath();
 }
 
+bool SMB1_Writer::Hacks_Random_But_Our_Princess_Is_In_Another_Castle_Text() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Random_But_Our_Princess_Is_In_Another_Castle_Text();
+}
+
 bool SMB1_Writer::Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros) {
     if (!this->hacks) return false;
     return this->hacks->Random_Group_Enemy_Goomba(allowHammerBros);
@@ -647,6 +652,11 @@ bool SMB1_Writer::Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros) {
 bool SMB1_Writer::Hacks_Random_Intro_Demo() {
     if (!this->hacks) return false;
     return this->hacks->Random_Intro_Demo();
+}
+
+bool SMB1_Writer::Hacks_Random_Thank_You_Text() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Random_Thank_You_Text();
 }
 
 bool SMB1_Writer::Hacks_Random_True_Bowser_Characters() {

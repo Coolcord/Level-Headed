@@ -1,8 +1,59 @@
 #include "Text.h"
+#include "../../../C_Common_Code/Qt/Random/Random.h"
 
 Text::Text(QFile *f, Level_Offset *lo) : Byte_Writer(f, lo) {
     this->specialP1Name = QString();
     this->specialP2Name = QString();
+    this->p1Name = "MARIO";
+    this->p2Name = "LUIGI";
+    this->p1ThankYouText = "THANK YOU";
+    this->p2ThankYouText = "THANK YOU";
+}
+
+bool Text::Replace_Castle_With_Text(const QString &text) {
+    const QString ORIGINAL_PREFIX = "ANOTHER ";
+    const QString ORIGINAL_WORD = "CASTLE";
+    const QString ORIGINAL_SUFFIX = "!";
+    const QString ORIGINAL_TEXT = ORIGINAL_PREFIX+ORIGINAL_WORD+ORIGINAL_SUFFIX;
+    if (text.size() > ORIGINAL_WORD.size()) return false;
+    QString newText = ORIGINAL_PREFIX+text+ORIGINAL_SUFFIX;
+    QString padding;
+    int paddingSize = ORIGINAL_TEXT.size()-newText.size();
+    for (int i = 0; i < paddingSize; ++i) padding += " ";
+    newText += padding;
+    return this->Write_Bytes_To_Offset(0x0DA8, this->Convert_String_To_SMB_Bytes(newText));
+}
+
+bool Text::Replace_Princess_With_Text(const QString &text) {
+    const QString ORIGINAL_PREFIX = "BUT OUR ";
+    const QString ORIGINAL_WORD = "PRINCESS";
+    const QString ORIGINAL_SUFFIX = " IS IN";
+    const QString ORIGINAL_TEXT = ORIGINAL_PREFIX+ORIGINAL_WORD+ORIGINAL_SUFFIX;
+    if (text.size() > ORIGINAL_WORD.size()) return false;
+    QString newText = ORIGINAL_PREFIX+text+ORIGINAL_SUFFIX;
+    QString padding;
+    int paddingSize = ORIGINAL_TEXT.size()-newText.size();
+    for (int i = 0; i < paddingSize; ++i) padding += " ";
+    newText += padding;
+    return this->Write_Bytes_To_Offset(0x0D8F, this->Convert_String_To_SMB_Bytes(newText));
+}
+
+bool Text::Replace_Thank_You_Player_One_With_Text(const QString &text) {
+    const QString STRING_THANK_YOU = "THANK YOU";
+    const QString STRING_THANK_YOU_MARIO = "THANK YOU MARIO!";
+    if (text.size() > STRING_THANK_YOU.size()) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text(STRING_THANK_YOU_MARIO, text+" "+this->p1Name+"!")))) return false;
+    this->p1ThankYouText = text;
+    return true;
+}
+
+bool Text::Replace_Thank_You_Player_Two_With_Text(const QString &text) {
+    const QString STRING_THANK_YOU = "THANK YOU";
+    const QString STRING_THANK_YOU_LUIGI = "THANK YOU LUIGI!";
+    if (text.size() > STRING_THANK_YOU.size()) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text(STRING_THANK_YOU_LUIGI, text+" "+this->p2Name+"!")))) return false;
+    this->p2ThankYouText = text;
+    return true;
 }
 
 bool Text::Set_Mario_Name(const QString &name) {
@@ -22,11 +73,12 @@ bool Text::Set_Mario_Name(const QString &name) {
     if (!this->Write_Bytes_To_Offset(0x07AB, leftJustified)) return false; //Time Up
     if (!this->Write_Bytes_To_Offset(0x07BE, leftJustified)) return false; //Game Over
     if (trimmedName.size() > 0) { //Thank you Mario!
-        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", "THANK YOU "+trimmedName+"!")))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", this->p1ThankYouText+" "+trimmedName+"!")))) return false;
     } else {
-        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", "THANK YOU!")))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0D67, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU MARIO!", this->p1ThankYouText+"!")))) return false;
     }
     if (trimmedName.size() > 0) this->Find_And_Replace_Next_Instance(MARIO_NAME+" GAME", trimmedName+" GAME", 0x9ED1, 0xA010); //Title Screen
+    this->p1Name = upperName;
     return true;
 }
 
@@ -45,11 +97,12 @@ bool Text::Set_Luigi_Name(const QString &name) {
 
     if (!this->Write_Bytes_To_Offset(0x07FD, leftJustified)) return false; //HUD, Time Up, Game Over
     if (trimmedName.size() > 0) { //Thank you Luigi!
-        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", "THANK YOU "+trimmedName+"!")))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", this->p2ThankYouText+" "+trimmedName+"!")))) return false;
     } else {
-        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", "THANK YOU!")))) return false;
+        if (!this->Write_Bytes_To_Offset(0x0D7B, this->Convert_String_To_SMB_Bytes(this->Get_Centered_Text("THANK YOU LUIGI!", this->p2ThankYouText+"!")))) return false;
     }
     if (trimmedName.size() > 0) this->Find_And_Replace_Next_Instance(LUIGI_NAME+" GAME", trimmedName+" GAME", 0x9ED1, 0xA010); //Title Screen
+    this->p2Name = upperName;
     return true;
 }
 

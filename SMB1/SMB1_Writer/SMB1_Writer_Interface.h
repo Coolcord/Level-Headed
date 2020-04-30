@@ -160,9 +160,11 @@ public:
     virtual bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size()=0;
     virtual bool Hacks_Infinite_Lives()=0;
     virtual bool Hacks_Permadeath()=0;
+    virtual bool Hacks_Random_But_Our_Princess_Is_In_Another_Castle_Text()=0;
     virtual bool Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros)=0;
     virtual bool Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros)=0;
     virtual bool Hacks_Random_Intro_Demo()=0;
+    virtual bool Hacks_Random_Thank_You_Text()=0;
     virtual bool Hacks_Random_True_Bowser_Characters()=0;
     virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Red_Piranha_Plants()=0;

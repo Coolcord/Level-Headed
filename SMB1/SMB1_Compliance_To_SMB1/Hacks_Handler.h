@@ -25,8 +25,8 @@ private:
     bool Handle_Enemy_Speed();
     bool Handle_Powerup();
     bool Handle_Secondary_Mushroom();
-    bool Handle_Names();
     bool Handle_Replace_Castle_Loop();
+    bool Handle_Text();
     bool Get_Bool_From_CheckState(Qt::CheckState checkState);
 
     SMB1_Writer_Interface *writerPlugin;

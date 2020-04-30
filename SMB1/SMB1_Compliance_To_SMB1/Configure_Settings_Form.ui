@@ -708,6 +708,13 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
+                 <widget class="QCheckBox" name="cbRandomText">
+                  <property name="text">
+                   <string>Random Text</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="cbRandomizeSomeAnimations">
                   <property name="text">
                    <string>Randomize Some Animations</string>

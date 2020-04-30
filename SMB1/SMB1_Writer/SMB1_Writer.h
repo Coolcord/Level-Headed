@@ -178,9 +178,11 @@ public:
     bool Hacks_Hard_Mode_Does_Not_Affect_Lift_Size();
     bool Hacks_Infinite_Lives();
     bool Hacks_Permadeath();
+    bool Hacks_Random_But_Our_Princess_Is_In_Another_Castle_Text();
     bool Hacks_Random_Goomba_Group_Enemy(bool allowHammerBros);
     bool Hacks_Random_Koopa_Group_Enemy(bool allowHammerBros);
     bool Hacks_Random_Intro_Demo();
+    bool Hacks_Random_Thank_You_Text();
     bool Hacks_Random_True_Bowser_Characters();
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();

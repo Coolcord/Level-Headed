@@ -27,6 +27,7 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->cbCombineWithOtherMusicPacks->setChecked(this->pluginSettings->combineMusicWithOtherPacks);
     this->ui->comboTone->setCurrentIndex(this->pluginSettings->toneColor);
     this->ui->cbRandomSoundEffects->setChecked(this->pluginSettings->randomSounds);
+    this->ui->cbRandomText->setChecked(this->pluginSettings->randomText);
     this->ui->cbRandomizeSomeAnimations->setChecked(this->pluginSettings->randomizeSomeAnimations);
     if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
@@ -51,6 +52,7 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
     this->pluginSettings->toneColor = this->ui->comboTone->currentIndex();
     this->pluginSettings->randomSounds = this->ui->cbRandomSoundEffects->isChecked();
+    this->pluginSettings->randomText = this->ui->cbRandomText->isChecked();
     this->pluginSettings->randomizeSomeAnimations = this->ui->cbRandomizeSomeAnimations->isChecked();
     this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
     this->pluginSettings->combineGraphicsWithOtherPacks = this->ui->cbCombineWithOtherGraphicsPacks->isChecked();
@@ -218,6 +220,7 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->comboTone->setCurrentIndex(1);
     this->ui->cbCombineWithOtherMusicPacks->setChecked(false);
     this->ui->cbRandomSoundEffects->setChecked(false);
+    this->ui->cbRandomText->setChecked(false);
     this->ui->cbRandomizeSomeAnimations->setChecked(false);
     this->ui->comboPowerup->setCurrentIndex(1);
     this->ui->comboSecondaryMushroom->setCurrentIndex(2);
@@ -236,6 +239,7 @@ void Tab_Base_Game::Use_Random_Settings() {
     this->ui->comboTone->setCurrentIndex(0);
     this->ui->cbCombineWithOtherMusicPacks->setChecked(true);
     this->ui->cbRandomSoundEffects->setChecked(true);
+    this->ui->cbRandomText->setChecked(true);
     this->ui->cbRandomizeSomeAnimations->setChecked(true);
     this->ui->comboPowerup->setCurrentIndex(0);
     this->ui->comboSecondaryMushroom->setCurrentIndex(0);

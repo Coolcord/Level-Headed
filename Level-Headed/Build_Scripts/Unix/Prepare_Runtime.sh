@@ -22,7 +22,7 @@ echo "Packing Graphics and Music..."
 "$SOURCE_LOCATION"/Sequential_Archive/build-Sequential_Archive_Manager-Desktop-"$MODE"/Sequential_Archive_Manager --pack "$SOURCE_LOCATION"/Level-Headed_Data/Graphics "$SOURCE_LOCATION"/Level-Headed/build-Level-Headed-Desktop-"$MODE"/Data/SMB1/Graphics.sa
 "$SOURCE_LOCATION"/Sequential_Archive/build-Sequential_Archive_Manager-Desktop-"$MODE"/Sequential_Archive_Manager --pack "$SOURCE_LOCATION"/Level-Headed_Data/Music "$SOURCE_LOCATION"/Level-Headed/build-Level-Headed-Desktop-"$MODE"/Data/SMB1/Music.sa
 "$SOURCE_LOCATION"/Sequential_Archive/build-Sequential_Archive_Manager-Desktop-"$MODE"/Sequential_Archive_Manager --pack "$SOURCE_LOCATION"/Level-Headed_Data/ROMs "$SOURCE_LOCATION"/Level-Headed/build-Level-Headed-Desktop-"$MODE"/Data/SMB1/ROMs.sa
+"$SOURCE_LOCATION"/Sequential_Archive/build-Sequential_Archive_Manager-Desktop-"$MODE"/Sequential_Archive_Manager --pack "$SOURCE_LOCATION"/Level-Headed_Data/Text "$SOURCE_LOCATION"/Level-Headed/build-Level-Headed-Desktop-"$MODE"/Data/SMB1/Text.sa
 
 echo "Runtime Environment Prepared!"
 exit 0
-

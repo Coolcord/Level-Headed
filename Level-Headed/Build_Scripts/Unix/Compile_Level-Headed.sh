@@ -119,6 +119,9 @@ echo Packing assets...
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
+if [ $1 == "latest" ]; then
+    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Text Data/SMB1/Text.sa
+fi
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
 source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
