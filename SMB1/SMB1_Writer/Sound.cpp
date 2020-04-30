@@ -129,7 +129,9 @@ bool Sound::Coin_Random() {
 bool Sound::Fireball_Random() {
     int highByte = Random::Get_Instance().Get_Num(0x8, 0xB);
     int lowByte = Random::Get_Instance().Get_Num(0x9, 0xB);
-    return this->Write_Bytes_To_Offset(0x740C, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)));
+    if (!this->Write_Bytes_To_Offset(0x740C, QByteArray(1, static_cast<char>((highByte*0x10)+lowByte)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x7F1C, QByteArray(1, static_cast<char>(Random::Get_Instance().Get_Num(0x01, 0x03))))) return false;
+    return this->Write_Bytes_To_Offset(0x7F1D, this->Get_Random_Bytes(1));
 }
 
 bool Sound::Flagpole_Random() { return this->Write_Bytes_To_Offset(0x73DA, QByteArray(1, static_cast<char>((Random::Get_Instance().Get_Num(0x0, 0xF)*0x10)+0x9))); }
