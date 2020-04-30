@@ -85,7 +85,6 @@ public:
     bool Spiny_Eggs_Chase_Mario();
     bool Spiny_Eggs_Explode_Into_Flames(); //must be applied AFTER the powerups!
     bool Spiny_Eggs_No_Eggs();
-    bool Start_Underwater_Castle_Brick_On_World(int world);
     bool Start_With_Fire_Flower_On_Room_Change();
     bool Taking_Damage_As_Fire_Reverts_To_Super();
     bool Unlimited_Time();

@@ -652,7 +652,17 @@ bool Hacks::Set_Number_Of_Levels_Per_World(int value) {
             if (!this->Write_Bytes_To_Offset(0x120A, QByteArray(1, static_cast<char>(0x5F)))) return false;
         }
     }
-    return true;
+
+    //Set the Underwater Castle Levels to spawn on the last level of a world
+    if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
+        if (!this->Write_Bytes_To_Offset(0x1483, QByteArray::fromHex(QString("4CABF5EA").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x75BB, QByteArray::fromHex(QString("AD5C07C9").toLatin1()))) return false;
+        if (!this->Write_Bytes_To_Offset(0x75BF, QByteArray(1, static_cast<char>(value-1)))) return false;
+        return this->Write_Bytes_To_Offset(0x75C0, QByteArray::fromHex(QString("4C6992").toLatin1()));
+    } else {
+        if (!this->Write_Bytes_To_Offset(0x1483, QByteArray(1, static_cast<char>(0x5C)))) return false;
+        return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, static_cast<char>(value-1)));
+    }
 }
 
 bool Hacks::Set_Lakitu_Respawn_Speed(int value) {
@@ -840,11 +850,6 @@ bool Hacks::Spiny_Eggs_No_Eggs() {
     return this->Write_Bytes_To_Offset(0x6B00, QByteArray::fromHex(QString("EAEA").toLatin1()));
 }
 
-bool Hacks::Start_Underwater_Castle_Brick_On_World(int world) {
-    if (world < 1 || world > 0xFF) return false;
-    return this->Write_Bytes_To_Offset(0x1486, QByteArray(1, static_cast<char>(world-1)));
-}
-
 bool Hacks::Start_With_Fire_Flower_On_Room_Change() {
     if (!this->Write_Bytes_To_Offset(0x5B4, QByteArray(1, static_cast<char>(0x02)))) return false;
     if (!this->Write_Bytes_To_Offset(0x5C1, QByteArray(1, static_cast<char>(0xAD)))) return false;
@@ -872,7 +877,6 @@ bool Hacks::Write_Watermark() {
     if (!this->Write_Bytes_To_Offset(0x0DD2, this->text->Convert_String_To_SMB_Bytes(" Visit Coolcord on Github  "))) return false;
     if (!this->Write_Bytes_To_Offset(0x0DF1, this->text->Convert_String_To_SMB_Bytes("For Updates! "))) return false;
     if (!this->Write_Bytes_To_Offset(0x0E02, this->text->Convert_String_To_SMB_Bytes("                 "))) return false;
-    if (!this->Start_Underwater_Castle_Brick_On_World(9)) return false; //disables underwater castle bricks
     if (this->levelOffset->Get_ROM_Type() == ROM_Type::COOP_CGTI_1) {
         if (!this->Disable_Intro_Demo()) return false; //if Luigi dies in the intro demo, a game will start
     }
