@@ -252,6 +252,8 @@ public:
     bool Music_Tone_Color_16();
     bool Music_Tone_Color_17();
     bool Music_Tone_Color_18();
+    bool Music_Tone_Color_19();
+    bool Music_Tone_Color_20();
 
     //Sound
     bool Sound_Randomize_Sounds();

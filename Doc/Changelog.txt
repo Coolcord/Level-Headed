@@ -1,6 +1,7 @@
 Next Update (v0.3.8)
 + The "Thank you" text is now randomized
 + The words "princess" and "castle" are now swapped out with random nouns in the message "But our princess is in another castle!"
++ Added 2 new tone colors (by Faisoft)
 
 Improved Level Distribution (v0.3.7)
 + Larger games (about 10+ levels) are now more uniformly distributed across the entire game. This means that it will now be impossible to get an entire world full of an uncommon level type.

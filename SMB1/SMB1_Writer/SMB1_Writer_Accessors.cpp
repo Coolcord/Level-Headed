@@ -995,6 +995,16 @@ bool SMB1_Writer::Music_Tone_Color_18() {
     return this->music->Tone_Color_18();
 }
 
+bool SMB1_Writer::Music_Tone_Color_19() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_19();
+}
+
+bool SMB1_Writer::Music_Tone_Color_20() {
+    if (!this->music) return false;
+    return this->music->Tone_Color_20();
+}
+
 bool SMB1_Writer::Sound_Randomize_Sounds() {
     if (!this->sound) return false;
     return this->sound->Randomize_Sounds();

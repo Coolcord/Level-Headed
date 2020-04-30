@@ -160,3 +160,17 @@ bool Music::Tone_Color_18() {
     this->lastToneColor = 18;
     return true;
 }
+
+bool Music::Tone_Color_19() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(19)) return true;
+    if (!this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("8888888888888888").toLatin1()))) return false;
+    this->lastToneColor = 19;
+    return true;
+}
+
+bool Music::Tone_Color_20() {
+    if (this->sequentialArchiveHandler->Is_Tone_Invalid(20)) return true;
+    if (!this->Write_Bytes_To_Offset(0x7FAA, QByteArray::fromHex(QString("888888888888888888").toLatin1()))) return false;
+    this->lastToneColor = 20;
+    return true;
+}

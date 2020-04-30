@@ -234,6 +234,8 @@ public:
     virtual bool Music_Tone_Color_16()=0;
     virtual bool Music_Tone_Color_17()=0;
     virtual bool Music_Tone_Color_18()=0;
+    virtual bool Music_Tone_Color_19()=0;
+    virtual bool Music_Tone_Color_20()=0;
 
     //Sound
     virtual bool Sound_Randomize_Sounds()=0;
