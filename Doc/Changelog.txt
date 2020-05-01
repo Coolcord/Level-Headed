@@ -4,6 +4,7 @@ Next Update (v0.3.8)
 + Added a setting that prevents Hammer Time from spawning two Hammer Bros in a row. This setting is on for all difficulties except Brutal and Random
 + Red Koopas will no longer be placed unless the platform they are on is 3 or more blocks in size
 + Added 3 new tone colors
++ Added Music (OHB by Kipp)
 + Added Music (Snoop Dogg by Sky Yoshi)
 
 Improved Level Distribution (v0.3.7)
