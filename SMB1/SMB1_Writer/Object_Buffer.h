@@ -1,10 +1,10 @@
-#ifndef OBJECT_WRITER_H
-#define OBJECT_WRITER_H
+#ifndef OBJECT_BUFFER_H
+#define OBJECT_BUFFER_H
 
 #include "../Common_SMB1_Files/Background.h"
 #include "../Common_SMB1_Files/Brick.h"
 #include "../Common_SMB1_Files/Scenery.h"
-#include "Item_Writer.h"
+#include "Item_Buffer.h"
 
 class Object_Buffer : public Item_Buffer {
 public:
@@ -68,4 +68,4 @@ private:
     bool Write_Object(int x, int y, int firstObjectHexDigit, int secondObjectHexDigit);
 };
 
-#endif // OBJECT_WRITER_H
+#endif // OBJECT_BUFFER_H

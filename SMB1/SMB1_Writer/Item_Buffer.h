@@ -1,5 +1,5 @@
-#ifndef ITEM_WRITER_H
-#define ITEM_WRITER_H
+#ifndef ITEM_BUFFER_H
+#define ITEM_BUFFER_H
 
 #include "Binary_Manipulator.h"
 
@@ -33,4 +33,4 @@ protected:
     bool pageFlag;
 };
 
-#endif // ITEM_WRITER_H
+#endif // ITEM_BUFFER_H

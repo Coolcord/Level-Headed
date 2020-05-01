@@ -15,13 +15,13 @@ CONFIG += plugin c++11 pendantic Weverything
 SOURCES += SMB1_Writer.cpp \
     Bowser_Bridge_Destroyer.cpp \
     Colors.cpp \
+    Enemy_Buffer.cpp \
     Graphics_Combiner.cpp \
     Graphics_Offsets.cpp \
-    Item_Writer.cpp \
     Binary_Manipulator.cpp \
-    Object_Writer.cpp \
     Header_Writer.cpp \
-    Enemy_Writer.cpp \
+    Item_Buffer.cpp \
+    Object_Buffer.cpp \
     Palettes.cpp \
     SMB1_Writer_Accessors.cpp \
     ROM_Handler.cpp \
@@ -66,17 +66,17 @@ HEADERS += SMB1_Writer.h \
     Bowser_Bridge_Destroyer.h \
     Color.h \
     Colors.h \
+    Enemy_Buffer.h \
     Graphics_Combiner.h \
     Graphics_Offsets.h \
+    Item_Buffer.h \
+    Object_Buffer.h \
     Palettes.h \
     ROM_Type.h \
-    Item_Writer.h \
     Binary_Manipulator.h \
-    Object_Writer.h \
     Level_Offset.h \
     ROM_Checksum.h \
     Header_Writer.h \
-    Enemy_Writer.h \
     SMB1_Writer_Interface.h \
     ROM_Handler.h \
     ROM_Filename.h \

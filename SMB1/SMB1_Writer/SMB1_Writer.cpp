@@ -1,8 +1,8 @@
 #include "SMB1_Writer.h"
 #include "Level_Offset.h"
 #include "Midpoint_Writer.h"
-#include "Object_Writer.h"
-#include "Enemy_Writer.h"
+#include "Object_Buffer.h"
+#include "Enemy_Buffer.h"
 #include "Header_Writer.h"
 #include "Enemy_Bytes_Tracker.h"
 #include "Binary_Manipulator.h"
@@ -355,6 +355,7 @@ bool SMB1_Writer::Read_Enemies() {
     assert(this->roomIDHandler);
     assert(!this->enemyBuffer);
     assert(this->enemiesBuffer->isEmpty());
+    assert(this->hacks);
     if (this->enemyOffset == BAD_OFFSET) return true; //nothing to read
     if (!this->enemiesBuffer || this->enemyBuffer) return false;
     if (!this->file->seek(this->enemyOffset)) return false;
@@ -364,7 +365,7 @@ bool SMB1_Writer::Read_Enemies() {
     this->enemiesBuffer->append(this->file->read(bufferSize));
     if (this->enemiesBuffer->size() != bufferSize) return false;
 
-    this->enemyBuffer = new Enemy_Buffer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
+    this->enemyBuffer = new Enemy_Buffer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler, this->hacks->Was_Luigi_Game_Added());
     return true;
 }
 

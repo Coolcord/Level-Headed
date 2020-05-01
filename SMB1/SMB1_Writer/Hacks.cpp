@@ -33,6 +33,7 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
     this->wasCastleLoopReplacedWithFireFlower = false;
+    this->wasLuigiGameAdded = false;
     this->wasVerticalObjectLimitRemoved = false;
 }
 
@@ -46,6 +47,10 @@ void Hacks::Set_Powerups(Powerups *powerups) {
 
 bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
     return this->wasCastleLoopReplacedWithAutoScrollObject;
+}
+
+bool Hacks::Was_Luigi_Game_Added() {
+    return this->wasLuigiGameAdded;
 }
 
 bool Hacks::Was_Vertical_Object_Limit_Removed() {
@@ -65,6 +70,7 @@ bool Hacks::Add_Luigi_Game() {
     if (!this->Write_Bytes_To_Offset(0x5348, QByteArray::fromHex(QString("205F8FA9044C36BC").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x59BF, QByteArray(1, static_cast<char>(0xFA)))) return false;
     if (!this->Write_Bytes_To_Offset(0x5A02, QByteArray(1, static_cast<char>(0xFA)))) return false;
+    this->wasLuigiGameAdded = true;
     return true;
 }
 

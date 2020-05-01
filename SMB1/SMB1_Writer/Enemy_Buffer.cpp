@@ -1,4 +1,4 @@
-#include "Enemy_Writer.h"
+#include "Enemy_Buffer.h"
 #include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "../Common_SMB1_Files/Level_Attribute.h"
 #include "../Common_SMB1_Files/Level_String.h"
@@ -6,7 +6,8 @@
 #include <QDebug>
 #include <assert.h>
 
-Enemy_Buffer::Enemy_Buffer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh) : Item_Buffer(b, hw, ridh) {
+Enemy_Buffer::Enemy_Buffer(QByteArray *b, Header_Writer *hw, Room_ID_Handler *ridh, bool wasLuigiGameAdded) : Item_Buffer(b, hw, ridh) {
+    this->wasLuigiGameAdded = wasLuigiGameAdded;
     this->groupPageFlag = false;
     this->levelSlots = new QMap<QString, Level::Level>();
     this->Populate_Level_Slots();
@@ -331,6 +332,7 @@ bool Enemy_Buffer::Warp_Zone(int x) {
 }
 
 bool Enemy_Buffer::Toad(int x, bool onlyHardMode) {
+    if (wasLuigiGameAdded) x += 1; //work around Luigi walking in front of Toad
     return this->Write_Enemy(x, 0x0, 0x35, onlyHardMode);
 }
 
