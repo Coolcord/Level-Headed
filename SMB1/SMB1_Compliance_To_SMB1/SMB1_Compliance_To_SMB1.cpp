@@ -269,6 +269,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel)) return false;
     if (!configFile.Set_Value("Difficulty_Prevent_The_First_Level_From_Being_Underwater", this->pluginSettings.difficultyPreventTheFirstLevelFromBeingUnderwater)) return false;
+    if (!configFile.Set_Value("Difficulty_Prevent_Hammer_Time_From_Spawning_Two_Hammer_Bros_In_A_Row", this->pluginSettings.difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
     if (!configFile.Set_Value("Difficulty_Allow_Lakitus_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts)) return false;
@@ -393,6 +394,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Speedy_Objects_And_Enemies", this->pluginSettings.difficultySpeedyObjectsAndEnemies);
     configFile.Get_Value("Difficulty_Piranha_Plants_On_First_Level", this->pluginSettings.difficultyPiranhaPlantsOnFirstLevel);
     configFile.Get_Value("Difficulty_Prevent_The_First_Level_From_Being_Underwater", this->pluginSettings.difficultyPreventTheFirstLevelFromBeingUnderwater);
+    configFile.Get_Value("Difficulty_Prevent_Hammer_Time_From_Spawning_Two_Hammer_Bros_In_A_Row", this->pluginSettings.difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow);
     configFile.Get_Value("Difficulty_Allow_Hammer_Bros_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Difficulty_Allow_Hammer_Bros_Groups_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
     configFile.Get_Value("Difficulty_Allow_Lakitus_When_Randomizing_Enemies_In_Level_Scripts", this->pluginSettings.difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts);

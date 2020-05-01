@@ -345,6 +345,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
     args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
     args.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
+    args.difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow = this->pluginSettings->difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow;
     args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
     args.difficultyMaxPowerups = this->pluginSettings->difficultyMaxPowerups;
     args.difficultyMaxHiddenPowerups = this->pluginSettings->difficultyMaxHiddenPowerups;

@@ -128,6 +128,7 @@ struct Plugin_Settings {
     bool difficultySpeedyObjectsAndEnemies;
     bool difficultyPiranhaPlantsOnFirstLevel;
     bool difficultyPreventTheFirstLevelFromBeingUnderwater;
+    bool difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow;
     bool difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     bool difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     bool difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts;

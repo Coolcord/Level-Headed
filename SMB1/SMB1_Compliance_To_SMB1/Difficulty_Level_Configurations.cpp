@@ -95,6 +95,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultySpeedyObjectsAndEnemies = difficultySettings.speedyObjectsAndEnemies;
     pluginSettings->difficultyPiranhaPlantsOnFirstLevel = difficultySettings.piranhaPlantsOnFirstLevel;
     pluginSettings->difficultyPreventTheFirstLevelFromBeingUnderwater = difficultySettings.preventTheFirstLevelFromBeingUnderwater;
+    pluginSettings->difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow = difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow;
     pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts = difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts;
@@ -203,6 +204,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = true;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = true;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = true;
     difficultySettings.superMarioOnDamage = false;
     difficultySettings.unlimitedTime = false;
     difficultySettings.noEnemies = false;
@@ -271,6 +273,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.piranhaPlantsOnFirstLevel = false;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = true;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = true;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = false;
     difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = false;
@@ -478,6 +481,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.europeanBlooperSwimHeight = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = false;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
     difficultySettings.fireBowserThrowsALudicrousAmountOfFireballs = true;
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = true;
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = true;
@@ -660,6 +664,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hammer_Time() {
     difficultySettings.hammerTimeIntensity = 20;
     difficultySettings.underwaterHammerBros = 1;
     difficultySettings.replaceCastleLoops = 2;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
     return difficultySettings;
 }
 
@@ -669,18 +674,21 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Extreme_Hammer_Time()
     difficultySettings.hammerTimeIntensity = 100;
     difficultySettings.underwaterHammerBros = 1;
     difficultySettings.replaceCastleLoops = 2;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Turn_Up_The_Heat() {
     Difficulty_Level_Settings difficultySettings = this->Hammer_Time();
     difficultySettings.replaceCastleLoops = 4;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
     return difficultySettings;
 }
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Too_Hot_To_Handle() {
     Difficulty_Level_Settings difficultySettings = this->Extreme_Hammer_Time();
     difficultySettings.replaceCastleLoops = 4;
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
     return difficultySettings;
 }
 
@@ -745,6 +753,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.speedyObjectsAndEnemies = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.piranhaPlantsOnFirstLevel = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+    difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));

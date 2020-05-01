@@ -64,6 +64,7 @@ struct Difficulty_Level_Settings {
     bool speedyObjectsAndEnemies;
     bool piranhaPlantsOnFirstLevel;
     bool preventTheFirstLevelFromBeingUnderwater;
+    bool preventHammerTimeFromSpawningTwoHammerBrosInARow;
     bool allowHammerBrosWhenRandomizingEnemiesInLevelScripts;
     bool allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts;
     bool allowLakitusWhenRandomizingEnemiesInLevelScripts;

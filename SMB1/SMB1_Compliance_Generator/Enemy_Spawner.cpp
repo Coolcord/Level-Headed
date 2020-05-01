@@ -65,6 +65,7 @@ bool Enemy_Spawner::Spawn_Enemies() {
         bool forceHammerBro = false;
         if (this->args->levelType == Level_Type::UNDERWATER) forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyUnderwaterHammerBros && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
         else forceHammerBro = !this->objects->Was_Auto_Scroll_Used() && this->args->difficulty >= this->args->difficultyHammerTime && Random::Get_Instance().Get_Num(99) <= this->args->difficultyHammerTimeIntensity-1;
+        if (this->args->difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow && this->enemies->Was_Last_Enemy_A_Hammer_Bro()) forceHammerBro = false;
         bool noEnemies = this->args->difficultyNoEnemies;
         if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenALakituSpawns) noEnemies = this->enemies->Is_Lakitu_Active();
         if (!noEnemies && this->args->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn) noEnemies = this->objects->Were_Flying_Cheep_Cheeps_Spawned();

@@ -956,9 +956,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-2216</y>
             <width>708</width>
-            <height>2857</height>
+            <height>2886</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -3030,6 +3030,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbPreventTheFirstLevelFromBeingUnderwater">
                 <property name="text">
                  <string>Prevent the first level from being underwater</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbPreventHammerTimeFromSpawningTwoHammerBrosInARow">
+                <property name="text">
+                 <string>Prevent Hammer Time from spawning two Hammer Bros. in a row</string>
                 </property>
                </widget>
               </item>

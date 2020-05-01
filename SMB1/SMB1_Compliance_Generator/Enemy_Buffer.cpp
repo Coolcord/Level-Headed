@@ -11,6 +11,7 @@ Enemy_Buffer::Enemy_Buffer(int nbl) : Item_Buffer(nbl) {
     this->firstEnemy = true;
     this->lakituIsActive = false;
     this->wasLakituSpawned = false;
+    this->lastEnemyWasHammerBro = false;
     this->largeFirebarZone = 0;
 }
 
@@ -110,6 +111,10 @@ bool Enemy_Buffer::Was_Lakitu_Spawned() {
     return this->wasLakituSpawned;
 }
 
+bool Enemy_Buffer::Was_Last_Enemy_A_Hammer_Bro() {
+    return this->lastEnemyWasHammerBro;
+}
+
 bool Enemy_Buffer::Write_Enemy(int page) {
     if (page < 0x00 || page > 0x3F) return false;
     if (this->currentPage == page) return true; //nothing to do. We are already on the requested page
@@ -169,6 +174,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
+    this->lastEnemyWasHammerBro = enemyItem == Enemy_Item::HAMMER_BRO;
     this->firstEnemy = false;
     return true;
 }
@@ -186,6 +192,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
+    this->lastEnemyWasHammerBro = enemyItem == Enemy_Item::HAMMER_BRO;
     this->firstEnemy = false;
     this->currentY = y;
     return true;

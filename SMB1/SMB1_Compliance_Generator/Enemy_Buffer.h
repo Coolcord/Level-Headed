@@ -17,6 +17,7 @@ public:
     void Set_First_Enemy(bool value);
     bool Is_Lakitu_Active();
     bool Was_Lakitu_Spawned();
+    bool Was_Last_Enemy_A_Hammer_Bro();
 
     //These insert after the current line
     //Note: There is no way to insert at the beginning after the first insertion!
@@ -68,6 +69,7 @@ private:
     bool firstEnemy;
     bool lakituIsActive;
     bool wasLakituSpawned;
+    bool lastEnemyWasHammerBro;
     int largeFirebarZone;
 
     friend class Pipe_Pointer_Buffer;
