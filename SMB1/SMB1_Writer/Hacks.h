@@ -114,7 +114,6 @@ private:
     bool wasCastleLoopReplacedWithFireBros;
     bool wasCastleLoopReplacedWithFlagpole1UP;
     bool wasCastleLoopReplacedWithFireFlower;
-    bool wasLuigiGameAdded;
     bool wasVerticalObjectLimitRemoved;
 };
 

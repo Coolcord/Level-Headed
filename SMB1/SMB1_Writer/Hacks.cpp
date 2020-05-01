@@ -33,7 +33,6 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
     this->wasCastleLoopReplacedWithFireFlower = false;
-    this->wasLuigiGameAdded = false;
     this->wasVerticalObjectLimitRemoved = false;
 }
 
@@ -49,16 +48,13 @@ bool Hacks::Was_Castle_Loop_Replaced_With_Autoscroll_Object() {
     return this->wasCastleLoopReplacedWithAutoScrollObject;
 }
 
-bool Hacks::Was_Luigi_Game_Added() {
-    return this->wasLuigiGameAdded;
-}
-
 bool Hacks::Was_Vertical_Object_Limit_Removed() {
     return this->wasVerticalObjectLimitRemoved;
 }
 
 bool Hacks::Add_Luigi_Game() {
     //Based on the patch by Yy
+    if (!this->Write_Bytes_To_Offset(0x03DA, QByteArray(1, static_cast<char>(0x52)))) return false; //reduce auto walk distance after touching the axe so Luigi doesn't walk too far
     if (!this->Write_Bytes_To_Offset(0x042C, QByteArray(1, static_cast<char>(0x7A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x0607, QByteArray(1, static_cast<char>(0x7A)))) return false;
     if (!this->Write_Bytes_To_Offset(0x07A8, QByteArray::fromHex(QString("23CD05160A1B1218220C071D12160E241E19FF23").toLatin1()))) return false;
@@ -71,7 +67,6 @@ bool Hacks::Add_Luigi_Game() {
     if (!this->Write_Bytes_To_Offset(0x5348, QByteArray::fromHex(QString("205F8FA9044C36BC").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x59BF, QByteArray(1, static_cast<char>(0xFA)))) return false;
     if (!this->Write_Bytes_To_Offset(0x5A02, QByteArray(1, static_cast<char>(0xFA)))) return false;
-    this->wasLuigiGameAdded = true;
     return true;
 }
 

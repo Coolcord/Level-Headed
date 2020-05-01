@@ -365,7 +365,7 @@ bool SMB1_Writer::Read_Enemies() {
     this->enemiesBuffer->append(this->file->read(bufferSize));
     if (this->enemiesBuffer->size() != bufferSize) return false;
 
-    this->enemyBuffer = new Enemy_Buffer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler, this->hacks->Was_Luigi_Game_Added());
+    this->enemyBuffer = new Enemy_Buffer(this->enemiesBuffer, this->headerWriter, this->roomIDHandler);
     return true;
 }
 

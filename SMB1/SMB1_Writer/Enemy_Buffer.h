@@ -7,7 +7,7 @@
 
 class Enemy_Buffer : public Item_Buffer {
 public:
-    Enemy_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler, bool wasLuigiGameAdded);
+    Enemy_Buffer(QByteArray *buffer, Header_Writer *headerWriter, Room_ID_Handler *roomIDHandler);
     ~Enemy_Buffer();
     void Populate_Level_Slots();
     bool Fill_Buffer();
@@ -62,7 +62,6 @@ private:
 
     QMap<QString, Level::Level> *levelSlots;
     bool groupPageFlag;
-    bool wasLuigiGameAdded;
 };
 
 #endif // ENEMY_BUFFER_H
