@@ -30,6 +30,7 @@ private:
     int Calculate_Number_Of_Enemies();
     int Calculate_Average_Distance(int x, int totalSpaces, int numEnemies);
     bool Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount);
+    void Spawn_Red_Koopa_If_Possible(int x, int y, int lastX);
     int Get_Random_X(int min);
     int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies);

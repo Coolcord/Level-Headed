@@ -188,6 +188,22 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
     return false;
 }
 
+void Enemy_Spawner::Spawn_Red_Koopa_If_Possible(int x, int y, int lastX) {
+    //Make sure that the enemy is being spawned on a 3 block platform
+    int absoluteX = lastX+x;
+    if (this->levelCrawler->Is_Coordinate_A_Platform(absoluteX-1, y+1)) { //check if a platform exists to the left
+        if (this->levelCrawler->Is_Coordinate_A_Platform(absoluteX+1, y+1)) { assert(this->enemies->Red_Koopa(x, y)); return; }
+        if (this->levelCrawler->Is_Coordinate_A_Platform(absoluteX-2, y+1)) { assert(this->enemies->Red_Koopa(x, y)); return; }
+        assert(this->enemies->Green_Koopa(x, y)); return;
+    } else { //no platform to the left
+        if (this->levelCrawler->Is_Coordinate_A_Platform(absoluteX+1, y+1) && this->levelCrawler->Is_Coordinate_A_Platform(absoluteX+2, y+1)) {
+            assert(this->enemies->Red_Koopa(x, y)); return;
+        } else {
+            assert(this->enemies->Green_Koopa(x, y)); return;
+        }
+    }
+}
+
 int Enemy_Spawner::Spawn_Standard_Overworld_Enemy(int &x, int &y, int lastX, int size, bool noEnemies) {
     switch (Random::Get_Instance().Get_Num(3)) {
     case 0:
@@ -433,7 +449,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
                 if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
                 else assert(this->enemies->Goomba(spawnX, tmpY));
             } else if (random < 6) assert(this->enemies->Green_Koopa(spawnX, tmpY));
-            else if (random < 9) assert(this->enemies->Red_Koopa(spawnX, tmpY));
+            else if (random < 9) this->Spawn_Red_Koopa_If_Possible(spawnX, tmpY, lastX);
             else assert(false);
             break;
         case Level_Type::BRIDGE:
@@ -441,7 +457,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 0:
             case 1:
             case 2:
-                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+                this->Spawn_Red_Koopa_If_Possible(spawnX, tmpY, lastX); break;
             case 3:
                 if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
                 else assert(this->enemies->Goomba(spawnX, tmpY));
@@ -458,7 +474,7 @@ int Enemy_Spawner::Common_Enemy(int &x, int &y, int lastX, int lastSize, bool fo
             case 1:
             case 2:
             case 3:
-                assert(this->enemies->Red_Koopa(spawnX, tmpY)); break;
+                this->Spawn_Red_Koopa_If_Possible(spawnX, tmpY, lastX); break;
             case 4:
                 if (this->args->difficulty >= this->args->difficultyBuzzyBeetlesReplaceLoneGoombas) assert(this->enemies->Buzzy_Beetle(spawnX, tmpY));
                 else assert(this->enemies->Goomba(spawnX, tmpY));
