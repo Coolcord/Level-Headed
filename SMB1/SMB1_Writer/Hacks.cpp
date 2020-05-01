@@ -59,9 +59,10 @@ bool Hacks::Was_Vertical_Object_Limit_Removed() {
 
 bool Hacks::Add_Luigi_Game() {
     //Based on the patch by Yy
-    if (!this->Write_Bytes_To_Offset(0x607, QByteArray(1, static_cast<char>(0x7A)))) return false;
-    if (!this->Write_Bytes_To_Offset(0x7A8, QByteArray::fromHex(QString("23CD05160A1B1218220C071D12160E241E19FF23").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x873, QByteArray::fromHex(QString("0BA004B9ED879904038810F76018181822220D0442423E5D5D0A09B46850EA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x042C, QByteArray(1, static_cast<char>(0x7A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0607, QByteArray(1, static_cast<char>(0x7A)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x07A8, QByteArray::fromHex(QString("23CD05160A1B1218220C071D12160E241E19FF23").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0873, QByteArray::fromHex(QString("0BA004B9ED879904038810F76018181822220D0442423E5D5D0A09B46850EA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1222, QByteArray::fromHex(QString("38EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x125C, QByteArray::fromHex(QString("38EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x1292, QByteArray::fromHex(QString("AD7A07D004B924B460B9708860AD7A07D004B92BB460B9778860AD7A07D004B947B460B97E8860EA").toLatin1()))) return false;
