@@ -3,6 +3,7 @@ Next Update (v0.3.8)
 + The words "princess" and "castle" are now swapped out with random nouns in the message "But our princess is in another castle!"
 + Red Koopas will no longer be placed unless the platform they are on is 3 or more blocks in size
 + Added 3 new tone colors
++ Added Music (Snoop Dogg by Sky Yoshi)
 
 Improved Level Distribution (v0.3.7)
 + Larger games (about 10+ levels) are now more uniformly distributed across the entire game. This means that it will now be impossible to get an entire world full of an uncommon level type.
