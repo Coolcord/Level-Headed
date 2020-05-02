@@ -37,7 +37,6 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->comboMarioSprite->setCurrentIndex(this->pluginSettings->marioSprite);
     this->ui->comboMarioSpritePalette->setCurrentIndex(this->pluginSettings->marioSpritePalette);
     this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
-    this->ui->comboSecondaryMushroom->setCurrentIndex(this->pluginSettings->secondaryMushroom);
     this->ui->leMarioName->setText(this->pluginSettings->marioName);
     this->ui->leLuigiName->setText(this->pluginSettings->luigiName);
 }
@@ -60,7 +59,6 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->marioSprite = this->ui->comboMarioSprite->currentIndex();
     this->pluginSettings->marioSpritePalette = this->ui->comboMarioSpritePalette->currentIndex();
     this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
-    this->pluginSettings->secondaryMushroom = this->ui->comboSecondaryMushroom->currentIndex();
     this->pluginSettings->marioName = this->ui->leMarioName->text();
     this->pluginSettings->luigiName = this->ui->leLuigiName->text();
 }
@@ -108,6 +106,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboSurfingLiftSpeed->setCurrentIndex(3);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
         this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(5);
+        this->ui->comboSecondaryMushroom->setCurrentIndex(3);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(8);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(2);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);
@@ -176,6 +175,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->lblMaxNumberOfPiranhaPlants->setEnabled(!enabled);
     this->ui->comboMaxNumberOfPiranhaPlants->setEnabled(!enabled);
     this->ui->layoutMaxNumberOfPiranhaPlants->setEnabled(!enabled);
+    this->ui->lblSecondaryMushroom->setEnabled(!enabled);
+    this->ui->comboSecondaryMushroom->setEnabled(!enabled);
     this->ui->lblSpinyEggBehavior->setEnabled(!enabled);
     this->ui->comboSpinyEggBehavior->setEnabled(!enabled);
     this->ui->layoutSpinyEggBehavior->setEnabled(!enabled);

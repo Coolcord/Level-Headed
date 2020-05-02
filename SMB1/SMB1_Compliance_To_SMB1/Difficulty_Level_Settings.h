@@ -45,6 +45,7 @@ struct Difficulty_Level_Settings {
     bool disableAllOtherEnemiesWhenALakituSpawns;
     bool disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     int spawnerPriority;
+    int secondaryMushroom;
     bool superMarioOnDamage;
     int surfingLiftSpeed;
     int piranhaPlantType;

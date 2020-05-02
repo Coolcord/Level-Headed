@@ -228,6 +228,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Disable_All_Other_Enemies_When_A_Lakitu_Spawns", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns)) return false;
     if (!configFile.Set_Value("Difficulty_Disable_All_Other_Enemies_When_Flying_Cheep_Cheeps_Spawn", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn)) return false;
     if (!configFile.Set_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority)) return false;
+    if (!configFile.Set_Value("Difficulty_Secondary_Mushroom", this->pluginSettings.difficultySecondaryMushroom)) return false;
     if (!configFile.Set_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed)) return false;
     if (!configFile.Set_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType)) return false;
     if (!configFile.Set_Value("Difficulty_Max_Number_Of_Piranha_Plants", this->pluginSettings.difficultyMaxNumberOfPiranhaPlants)) return false;
@@ -285,7 +286,6 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Difficulty_Ten_Coin_Block_Chance", this->pluginSettings.difficultyTenCoinBlockChance)) return false;
     if (!configFile.Set_Value("Difficulty_Star_Chance", this->pluginSettings.difficultyStarChance)) return false;
     if (!configFile.Set_Value("Powerup", this->pluginSettings.powerup)) return false;
-    if (!configFile.Set_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom)) return false;
     if (!configFile.Set_Value("Mario_Name", this->pluginSettings.marioName)) return false;
     if (!configFile.Set_Value("Luigi_Name", this->pluginSettings.luigiName)) return false;
     return configFile.Save_And_Close();
@@ -354,6 +354,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Disable_All_Other_Enemies_When_A_Lakitu_Spawns", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenALakituSpawns);
     configFile.Get_Value("Difficulty_Disable_All_Other_Enemies_When_Flying_Cheep_Cheeps_Spawn", this->pluginSettings.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn);
     configFile.Get_Value("Difficulty_Spawner_Priority", this->pluginSettings.difficultySpawnerPriority);
+    configFile.Get_Value("Difficulty_Secondary_Mushroom", this->pluginSettings.difficultySecondaryMushroom);
     configFile.Get_Value("Difficulty_Surfing_Lift_Speed", this->pluginSettings.difficultySurfingLiftSpeed);
     configFile.Get_Value("Difficulty_Piranha_Plant_Type", this->pluginSettings.difficultyPiranhaPlantType);
     configFile.Get_Value("Difficulty_Max_Number_Of_Piranha_Plants", this->pluginSettings.difficultyMaxNumberOfPiranhaPlants);
@@ -411,7 +412,6 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Difficulty_Ten_Coin_Block_Chance", this->pluginSettings.difficultyTenCoinBlockChance);
     configFile.Get_Value("Difficulty_Star_Chance", this->pluginSettings.difficultyStarChance);
     configFile.Get_Value("Powerup", this->pluginSettings.powerup);
-    configFile.Get_Value("Secondary_Mushroom", this->pluginSettings.secondaryMushroom);
     configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);
     configFile.Get_Value("Luigi_Name", this->pluginSettings.luigiName);
     configFile.Discard_And_Close();
@@ -461,7 +461,6 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.superMarioOnDamage = true;
     this->pluginSettings.lakituThrowArc = true;
     this->pluginSettings.powerup = 0;
-    this->pluginSettings.secondaryMushroom = 0;
     this->pluginSettings.fireFlowerBouncesLikeAStar = false;
     this->pluginSettings.marioName = "MARIO";
     this->pluginSettings.luigiName = "LUIGI";

@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -834,51 +834,6 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="layoutSecondaryMushroom">
-                <item>
-                 <widget class="QLabel" name="lblSecondaryMushroom">
-                  <property name="text">
-                   <string>Secondary Mushroom:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboSecondaryMushroom">
-                  <item>
-                   <property name="text">
-                    <string>Random All</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Random (1-Up or Poison)</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Original (1-Up Mushroom)</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Poison Mushroom</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Swimming Mushroom</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Mystery Mushroom</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="layoutNames">
                 <item>
                  <layout class="QHBoxLayout" name="layoutMarioName">
@@ -968,7 +923,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2886</height>
+            <height>2919</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2808,6 +2763,56 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="layoutSecondaryMushroom">
+                <item>
+                 <widget class="QLabel" name="lblSecondaryMushroom">
+                  <property name="text">
+                   <string>Secondary Mushroom:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboSecondaryMushroom">
+                  <item>
+                   <property name="text">
+                    <string>Random</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Random Easy (1-Up or Swimming)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Random Purist (1-Up or Poison)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>1-Up Mushroom (Original)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Poison Mushroom</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Swimming Mushroom</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mystery Mushroom</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="layoutSpinyEggBehavior">
                 <item>
                  <widget class="QLabel" name="lblSpinyEggBehavior">
@@ -3141,7 +3146,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-230</y>
+            <y>0</y>
             <width>708</width>
             <height>990</height>
            </rect>

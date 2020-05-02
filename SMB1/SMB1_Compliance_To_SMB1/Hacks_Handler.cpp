@@ -431,24 +431,31 @@ bool Hacks_Handler::Handle_Powerup() {
 
 bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Handle random values first
-    int secondaryMushroom = this->pluginSettings->secondaryMushroom;
-    if (secondaryMushroom == 0) secondaryMushroom = Random::Get_Instance().Get_Num(2, 4); //Random All
-    else if (secondaryMushroom == 1) secondaryMushroom = Random::Get_Instance().Get_Num(2, 3); //1-Up or Poison
+    int secondaryMushroom = this->pluginSettings->difficultySecondaryMushroom;
+    if (secondaryMushroom == 0) { //Random
+        secondaryMushroom = Random::Get_Instance().Get_Num(3, 6);
+    } else if (secondaryMushroom == 1) { //Random Easy
+        secondaryMushroom = 3; //1-Up
+        if (Random::Get_Instance().Get_Num(1) == 0) secondaryMushroom = 5; //swimming
+    } else  if (secondaryMushroom == 2) { //Random Purist
+        secondaryMushroom = 3; //1-Up
+        if (Random::Get_Instance().Get_Num(1) == 0) secondaryMushroom = 4; //poison
+    }
 
     //Handle the Mystery Mushroom
     bool randomPalette = false;
-    if (secondaryMushroom == 5) {
+    if (secondaryMushroom == 6) {
         randomPalette = true;
-        secondaryMushroom = Random::Get_Instance().Get_Num(2, 4); //1-Up, Poison, or Swimming
+        secondaryMushroom = Random::Get_Instance().Get_Num(3, 5); //1-Up, Poison, or Swimming
     }
 
     //Apply the necessary patch
     bool success = false;
     switch (secondaryMushroom) {
     default:    assert(false); return false;
-    case 2:     success = true; break; //1-Up
-    case 3:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
-    case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
+    case 3:     success = true; break; //1-Up
+    case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
+    case 5:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
     }
     if (!success) return false;
     if (!randomPalette) return true;

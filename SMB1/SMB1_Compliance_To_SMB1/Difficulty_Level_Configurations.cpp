@@ -77,6 +77,7 @@ void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settin
     pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns = difficultySettings.disableAllOtherEnemiesWhenALakituSpawns;
     pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
     pluginSettings->difficultySpawnerPriority = difficultySettings.spawnerPriority;
+    pluginSettings->difficultySecondaryMushroom = difficultySettings.secondaryMushroom;
     pluginSettings->superMarioOnDamage = difficultySettings.superMarioOnDamage;
     pluginSettings->difficultySurfingLiftSpeed = difficultySettings.surfingLiftSpeed;
     pluginSettings->difficultyPiranhaPlantType = difficultySettings.piranhaPlantType;
@@ -196,6 +197,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.maxNumberOfPiranhaPlants = 5;
     difficultySettings.spinyEggBehavior = 8;
     difficultySettings.replaceCastleLoops = 2; //nothing
+    difficultySettings.secondaryMushroom = 2; //Random Purist
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.europeanBlooperSwimHeight = false;
@@ -255,6 +257,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = true;
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = false;
     difficultySettings.spawnerPriority = 1;
+    difficultySettings.secondaryMushroom = 0; //Random
     difficultySettings.superMarioOnDamage = true;
     difficultySettings.surfingLiftSpeed = 3; //Normal
     difficultySettings.piranhaPlantType = 1;
@@ -345,6 +348,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
+    difficultySettings.secondaryMushroom = 1; //Random Easy
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
     difficultySettings.maxLevelLength = 3; //Short
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
@@ -478,6 +482,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.leapingParatroopaSpeed = 2; //fast
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
+    difficultySettings.secondaryMushroom = 4; //poison
     difficultySettings.europeanBlooperSwimHeight = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = false;
@@ -734,6 +739,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.disableAllOtherEnemiesWhenALakituSpawns = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.disableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.spawnerPriority = 0; //0 is random here
+    difficultySettings.secondaryMushroom = 0; //0 is random here
     difficultySettings.superMarioOnDamage = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.surfingLiftSpeed = 0; //0 is random here
     difficultySettings.piranhaPlantType = 0; //0 is random here

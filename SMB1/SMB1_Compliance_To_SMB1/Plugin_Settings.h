@@ -64,7 +64,7 @@ struct Plugin_Settings {
     bool difficultyEuropeanBlooperSwimHeight;
     bool lakituThrowArc;
     int powerup;
-    int secondaryMushroom;
+    int difficultySecondaryMushroom;
     bool fireFlowerBouncesLikeAStar;
     QString marioName;
     QString luigiName;
