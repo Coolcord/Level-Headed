@@ -224,7 +224,6 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->cbRandomText->setChecked(false);
     this->ui->cbRandomizeSomeAnimations->setChecked(false);
     this->ui->comboPowerup->setCurrentIndex(1);
-    this->ui->comboSecondaryMushroom->setCurrentIndex(2);
     this->ui->leMarioName->setText("MARIO");
     this->ui->leLuigiName->setText("LUIGI");
 }
