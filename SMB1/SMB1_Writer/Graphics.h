@@ -24,6 +24,7 @@ public:
     bool Apply_Poison_Bubbles_Fix();
     bool Apply_Power_Wand_Fix();
     bool Apply_Slime_Flower_Fix();
+    bool Apply_Snowballs_Fix();
     bool Apply_Spinball_Flower_Fix();
     bool Apply_Title_Screen_1P_Fix(qint64 &versionOffset);
     bool Apply_Title_Screen_2P_Fix(qint64 &versionOffset);

@@ -234,6 +234,28 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     return true;
 }
 
+bool Powerups::Replace_Fire_Flower_With_Snowballs() {
+    //Snowballs originally by Darkdata-Systemlogoff
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("312711").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CD1, QByteArray(1, static_cast<char>(0x30)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0CF5, QByteArray(1, static_cast<char>(0x30)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D19, QByteArray(1, static_cast<char>(0x30)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0D3D, QByteArray(1, static_cast<char>(0x30)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x36D8, QByteArray(1, static_cast<char>(0x08)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61E2, QByteArray(1, static_cast<char>(0x15)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61EB, QByteArray(1, static_cast<char>(0xFF)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0x00)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6720, QByteArray::fromHex(QString("C901F0178500A5094A29030DCA03990202990602EA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("00000000000000003C7EFFFFFFFF7E3C00000000000000003C7EFFFFFFFF7E3C").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8670, QByteArray::fromHex(QString("000000000000000000000000020B070F000000000000000000000000020B070F000000000000000000000000020B070F").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("000000000000000003070F0F0F0F0703").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("00000000000000003C7EFFFFFFFF7E3C").toLatin1()))) return false;
+    if (!this->graphics->Apply_Snowballs_Fix()) return false;
+    if (!this->Set_Primary_Powerup_Is_Fire_Based(false)) return false;
+    return true;
+}
+
 bool Powerups::Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("2D3D0F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3671, QByteArray(3, static_cast<char>(0xEA)))) return false;

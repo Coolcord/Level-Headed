@@ -291,6 +291,9 @@ N/A
 Power Wand (based on the power up in Super Catholic Bros. by Dr. Floppy)
 https://www.romhacking.net/hacks/351/
 
+Snowballs (from Toad's Christmas Adventure by Darkdata-Systemlogoff)
+https://www.romhacking.net/hacks/487/
+
 Swimming Mushroom (aka NEO_swim_mush by MHS)
 N/A
 

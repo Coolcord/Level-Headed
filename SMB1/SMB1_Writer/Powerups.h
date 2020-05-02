@@ -26,6 +26,7 @@ public:
     bool Replace_Fire_Flower_With_Poison_Bubbles();
     bool Replace_Fire_Flower_With_Power_Wand();
     bool Replace_Fire_Flower_With_Slime_Flower();
+    bool Replace_Fire_Flower_With_Snowballs();
     bool Replace_Fire_Flower_With_Spinball_Flower();
 
 private:

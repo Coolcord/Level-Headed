@@ -1080,6 +1080,11 @@ bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Slime_Flower() {
     return this->powerups->Replace_Fire_Flower_With_Slime_Flower();
 }
 
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Snowballs() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Snowballs();
+}
+
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Spinball_Flower() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Spinball_Flower();

@@ -816,6 +816,11 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Snowballs</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>Spinball Flower</string>
                    </property>
                   </item>
@@ -956,7 +961,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-2216</y>
+            <y>0</y>
             <width>708</width>
             <height>2886</height>
            </rect>
