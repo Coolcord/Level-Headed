@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -3141,9 +3141,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-230</y>
             <width>708</width>
-            <height>961</height>
+            <height>990</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3318,6 +3318,13 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbNoAutoScrollingLevels">
+                <property name="text">
+                 <string>No Auto Scrolling Levels</string>
+                </property>
                </widget>
               </item>
               <item>

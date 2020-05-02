@@ -29,6 +29,7 @@ struct Plugin_Settings {
     int numLevelsPerWorld;
     bool generateNewLevels;
     bool randomEnemies;
+    bool noAutoScrollingLevels;
     bool standardLevelDistribution;
     bool includeStandardOverworldLevelsInRandomDistribution;
     bool includeUndergroundLevelsInRandomDistribution;

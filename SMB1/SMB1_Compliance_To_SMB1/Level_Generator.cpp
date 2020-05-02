@@ -310,6 +310,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
             }
         }
     }
+    if (this->pluginSettings->noAutoScrollingLevels) args.useAutoScroll = false;
     args.useMidpoints = true;
     args.useVerticalObjectLimit = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
     if (this->pluginSettings->smbUtilityCompatibility) args.useVerticalObjectLimit = false;

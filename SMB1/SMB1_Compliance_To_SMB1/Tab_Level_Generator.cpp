@@ -24,6 +24,7 @@ void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->cbRandomEnemies->setChecked(this->pluginSettings->randomEnemies);
+    this->ui->cbNoAutoScrollingLevels->setChecked(this->pluginSettings->noAutoScrollingLevels);
     if (this->pluginSettings->standardLevelDistribution) this->ui->radioStandardLevelDistribution->setChecked(true);
     else this->ui->radioRandomLevelDistribution->setChecked(true);
     this->Enable_Standard_Level_Distribution_Options(this->pluginSettings->standardLevelDistribution);
@@ -52,6 +53,7 @@ void Tab_Level_Generator::Save_Settings() {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
         this->pluginSettings->randomEnemies = this->ui->cbRandomEnemies->isChecked();
     } else {
+        this->pluginSettings->noAutoScrollingLevels = this->ui->cbNoAutoScrollingLevels->isChecked();
         this->pluginSettings->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();
         this->pluginSettings->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
         this->pluginSettings->numWorlds = this->ui->sbNumWorlds->value();
