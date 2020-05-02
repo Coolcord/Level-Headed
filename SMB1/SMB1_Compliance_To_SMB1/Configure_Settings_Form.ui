@@ -811,6 +811,11 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Pyro Spark Wand</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>Slime Flower</string>
                    </property>
                   </item>

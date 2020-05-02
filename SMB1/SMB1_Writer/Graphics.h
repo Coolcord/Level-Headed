@@ -23,6 +23,7 @@ public:
     bool Apply_Pink_Fury_Fix();
     bool Apply_Poison_Bubbles_Fix();
     bool Apply_Power_Wand_Fix();
+    bool Apply_Pyro_Spark_Wand_Fix();
     bool Apply_Slime_Flower_Fix();
     bool Apply_Snowballs_Fix();
     bool Apply_Spinball_Flower_Fix();

@@ -272,6 +272,7 @@ public:
     bool Powerups_Replace_Fire_Flower_With_Pink_Fury();
     bool Powerups_Replace_Fire_Flower_With_Poison_Bubbles();
     bool Powerups_Replace_Fire_Flower_With_Power_Wand();
+    bool Powerups_Replace_Fire_Flower_With_Pyro_Spark_Wand();
     bool Powerups_Replace_Fire_Flower_With_Slime_Flower();
     bool Powerups_Replace_Fire_Flower_With_Snowballs();
     bool Powerups_Replace_Fire_Flower_With_Spinball_Flower();

@@ -254,6 +254,7 @@ public:
     virtual bool Powerups_Replace_Fire_Flower_With_Pink_Fury()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Poison_Bubbles()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Power_Wand()=0;
+    virtual bool Powerups_Replace_Fire_Flower_With_Pyro_Spark_Wand()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Slime_Flower()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Snowballs()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Spinball_Flower()=0;

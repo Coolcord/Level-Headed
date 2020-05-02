@@ -23,6 +23,7 @@ const static QString STRING_LUIGIS_FIRE_FLOWER = "Luigi's Fire Flower";
 const static QString STRING_PINK_FURY = "Pink Fury";
 const static QString STRING_POISON_BUBBLES = "Poison Bubbles";
 const static QString STRING_POWER_WAND = "Power Wand";
+const static QString STRING_PYRO_SPARK_WAND = "Pyro Spark Wand";
 const static QString STRING_SLIME_FLOWER = "Slime Flower";
 const static QString STRING_SNOWBALLS = "Snowballs";
 const static QString STRING_SPINBALL_FLOWER = "Spinball Flower";
@@ -51,6 +52,7 @@ bool Graphics::Apply_Luigis_Fire_Flower_Fix() { return this->sequentialArchiveHa
 bool Graphics::Apply_Pink_Fury_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_PINK_FURY); }
 bool Graphics::Apply_Poison_Bubbles_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_POISON_BUBBLES); }
 bool Graphics::Apply_Power_Wand_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_POWER_WAND); }
+bool Graphics::Apply_Pyro_Spark_Wand_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_PYRO_SPARK_WAND); }
 bool Graphics::Apply_Slime_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_SLIME_FLOWER); }
 bool Graphics::Apply_Snowballs_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_SNOWBALLS); }
 bool Graphics::Apply_Spinball_Flower_Fix() { return this->sequentialArchiveHandler->Apply_Mario_Sprite_And_Graphics_Fixes(STRING_SPINBALL_FLOWER); }

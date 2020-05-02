@@ -218,6 +218,24 @@ bool Powerups::Replace_Fire_Flower_With_Power_Wand() {
     return true;
 }
 
+bool Powerups::Replace_Fire_Flower_With_Pyro_Spark_Wand() {
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("273716").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3660, QByteArray::fromHex(QString("0885FE").toLatin1()))) return false; //Blast sound
+    if (!this->Write_Bytes_To_Offset(0x3671, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("37C9").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x5735, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61F1, QByteArray(1, static_cast<char>(0x00)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x61EA, QByteArray::fromHex(QString("EAEAB53AEAEAA900").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x66DF, QByteArray(1, static_cast<char>(0x03)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x6D0D, QByteArray(1, static_cast<char>(0x02)))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8650, QByteArray::fromHex(QString("0092386CC66C3892000010387C38100000004410381044000000000010000000").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8D70, QByteArray::fromHex(QString("03070F0E0E0F070302030D07070D0302").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x8DA0, QByteArray::fromHex(QString("33617F3F010101010000000000000000").toLatin1()))) return false;
+    if (!this->graphics->Apply_Pyro_Spark_Wand_Fix()) return false;
+    if (!this->Set_Primary_Powerup_Is_Fire_Based(true)) return false;
+    return true;
+}
+
 bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("19270F").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3697, QByteArray::fromHex(QString("18E8").toLatin1()))) return false;

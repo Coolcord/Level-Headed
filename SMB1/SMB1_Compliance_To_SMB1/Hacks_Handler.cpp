@@ -408,7 +408,7 @@ bool Hacks_Handler::Handle_Enemy_Speed() {
 bool Hacks_Handler::Handle_Powerup() {
     this->pluginSettings->fireFlowerBouncesLikeAStar = false;
     int powerup = this->pluginSettings->powerup;
-    if (powerup == 0) powerup = Random::Get_Instance().Get_Num(1, 14);
+    if (powerup == 0) powerup = Random::Get_Instance().Get_Num(1, 15);
     switch (powerup) {
     default:    assert(false); return false;
     case 1:     return true; //Fire Flower
@@ -422,9 +422,10 @@ bool Hacks_Handler::Handle_Powerup() {
     case 9:     return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Pink_Fury();
     case 10:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Poison_Bubbles();
     case 11:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Power_Wand();
-    case 12:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Slime_Flower();
-    case 13:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Snowballs();
-    case 14:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Spinball_Flower();
+    case 12:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Pyro_Spark_Wand();
+    case 13:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Slime_Flower();
+    case 14:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Snowballs();
+    case 15:    return this->writerPlugin->Powerups_Replace_Fire_Flower_With_Spinball_Flower();
     }
 }
 

@@ -1075,6 +1075,11 @@ bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Power_Wand() {
     return this->powerups->Replace_Fire_Flower_With_Power_Wand();
 }
 
+bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Pyro_Spark_Wand() {
+    if (!this->powerups) return false;
+    return this->powerups->Replace_Fire_Flower_With_Pyro_Spark_Wand();
+}
+
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Slime_Flower() {
     if (!this->powerups) return false;
     return this->powerups->Replace_Fire_Flower_With_Slime_Flower();
