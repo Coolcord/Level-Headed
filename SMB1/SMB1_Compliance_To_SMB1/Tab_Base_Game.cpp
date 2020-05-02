@@ -242,7 +242,6 @@ void Tab_Base_Game::Use_Random_Settings() {
     this->ui->cbRandomText->setChecked(true);
     this->ui->cbRandomizeSomeAnimations->setChecked(true);
     this->ui->comboPowerup->setCurrentIndex(0);
-    this->ui->comboSecondaryMushroom->setCurrentIndex(0);
 }
 
 void Tab_Base_Game::Populate_Installed_ROMs() {
