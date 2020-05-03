@@ -254,7 +254,7 @@ bool Powerups::Replace_Fire_Flower_With_Slime_Flower() {
 
 bool Powerups::Replace_Fire_Flower_With_Snowballs() {
     //Snowballs originally by Darkdata-Systemlogoff
-    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("312711").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x05F0, QByteArray::fromHex(QString("113101").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CD1, QByteArray(1, static_cast<char>(0x30)))) return false;
     if (!this->Write_Bytes_To_Offset(0x0CF5, QByteArray(1, static_cast<char>(0x30)))) return false;
     if (!this->Write_Bytes_To_Offset(0x0D19, QByteArray(1, static_cast<char>(0x30)))) return false;
