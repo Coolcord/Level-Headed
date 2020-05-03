@@ -36,7 +36,6 @@ void Tab_Base_Game::Load_Settings() {
     this->ui->comboPalette->setCurrentIndex(this->pluginSettings->palette);
     this->ui->comboMarioSprite->setCurrentIndex(this->pluginSettings->marioSprite);
     this->ui->comboMarioSpritePalette->setCurrentIndex(this->pluginSettings->marioSpritePalette);
-    this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
     this->ui->leMarioName->setText(this->pluginSettings->marioName);
     this->ui->leLuigiName->setText(this->pluginSettings->luigiName);
 }
@@ -58,7 +57,6 @@ void Tab_Base_Game::Save_Settings() {
     this->pluginSettings->palette = this->ui->comboPalette->currentIndex();
     this->pluginSettings->marioSprite = this->ui->comboMarioSprite->currentIndex();
     this->pluginSettings->marioSpritePalette = this->ui->comboMarioSpritePalette->currentIndex();
-    this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
     this->pluginSettings->marioName = this->ui->leMarioName->text();
     this->pluginSettings->luigiName = this->ui->leLuigiName->text();
 }
@@ -88,6 +86,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         if (incompatibleASMDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
         this->ui->sbLives->setMaximum(35);
         this->ui->cbGodMode->setChecked(false);
+        this->ui->comboPowerup->setCurrentIndex(1); //Fire Flower (Original)
 
         this->ui->sbAutoScroll->setValue(11);
         this->ui->sbWalkingHammerBros->setValue(11);
@@ -117,11 +116,19 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbLakituThrowArc->setChecked(false);
         this->ui->cbRevertToSuperMario->setChecked(false);
         this->ui->cbUnlimitedTime->setChecked(false);
+
+        this->ui->cbNoAutoScrollingLevels->setChecked(true);
     } else {
         this->ui->sbLives->setMaximum(99);
+        this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
+        this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
+
+        this->ui->cbNoAutoScrollingLevels->setChecked(this->pluginSettings->noAutoScrollingLevels);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
+    this->ui->lblPowerup->setEnabled(!enabled);
+    this->ui->comboPowerup->setEnabled(!enabled);
 
     //Enable Custom Difficulty Settings
     this->ui->lblAutoScroll->setEnabled(!enabled);
@@ -192,6 +199,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     this->ui->cbRevertToSuperMario->setEnabled(!enabled);
     this->ui->cbUnlimitedTime->setEnabled(!enabled);
 
+    this->ui->cbNoAutoScrollingLevels->setEnabled(!enabled);
+
     //Disable incompatible difficulties
     for (int i = 0; i < this->ui->comboDifficulty->count(); ++i) {
         int value = 33;
@@ -223,7 +232,6 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->cbRandomSoundEffects->setChecked(false);
     this->ui->cbRandomText->setChecked(false);
     this->ui->cbRandomizeSomeAnimations->setChecked(false);
-    this->ui->comboPowerup->setCurrentIndex(1);
     this->ui->leMarioName->setText("MARIO");
     this->ui->leLuigiName->setText("LUIGI");
 }
@@ -241,7 +249,6 @@ void Tab_Base_Game::Use_Random_Settings() {
     this->ui->cbRandomSoundEffects->setChecked(true);
     this->ui->cbRandomText->setChecked(true);
     this->ui->cbRandomizeSomeAnimations->setChecked(true);
-    this->ui->comboPowerup->setCurrentIndex(0);
 }
 
 void Tab_Base_Game::Populate_Installed_ROMs() {

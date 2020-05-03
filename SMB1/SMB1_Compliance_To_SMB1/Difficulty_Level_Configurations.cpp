@@ -167,6 +167,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultyMaxNumberOfPiranhaPlants = 5; //Normal
+    pluginSettings->difficultySecondaryMushroom = 3; //1-Up
     pluginSettings->difficultySpinyEggBehavior = 8; //Normal
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none

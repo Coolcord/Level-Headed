@@ -1,8 +1,9 @@
 #include "SMB1_Compliance_To_SMB1.h"
 #include "SMB1_Compliance_To_SMB1_Strings.h"
 #include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
-#include "../../Level-Headed/Common_Strings.h"
 #include "../../../C_Common_Code/Qt/Random/Random.h"
+#include "../../Common_Files/Version.h"
+#include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Compliance_Generator/SMB1_Compliance_Generator_Arguments.h"
 #include "../SMB1_Writer/ROM_Filename.h"
 #include "CLI_Parser.h"
@@ -169,6 +170,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!QDir().mkpath(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG)) return false;
     Readable_Config_File configFile;
     if (!configFile.Open_Without_Loading(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME)) return false;
+    if (!configFile.Set_Value("Version", Version::VERSION)) return false;
     if (!configFile.Set_Value("Last_Tab", this->pluginSettings.tab)) return false;
     if (!configFile.Set_Value("Base_ROM", this->pluginSettings.baseROM)) return false;
     if (!configFile.Set_Value("Output_ROM_Location", this->pluginSettings.outputROMLocation)) return false;

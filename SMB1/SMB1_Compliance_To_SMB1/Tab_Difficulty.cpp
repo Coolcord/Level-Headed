@@ -9,7 +9,8 @@ void Tab_Difficulty::Load_Settings() {
     else if (this->pluginSettings->permadeath) this->ui->radioPermadeath->setChecked(true);
     else this->ui->radioStartingLives->setChecked(true);
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
-    this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
+    if (this->ui->cbGodMode->isEnabled()) this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
+    if (this->ui->comboPowerup->isEnabled()) this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
     this->ui->cbRevertToSuperMario->setChecked(this->pluginSettings->superMarioOnDamage);
     this->ui->cbEuropeanBlooperSwimHeight->setChecked(this->pluginSettings->difficultyEuropeanBlooperSwimHeight);
     this->ui->cbLakituThrowArc->setChecked(this->pluginSettings->lakituThrowArc);
@@ -94,7 +95,8 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->infiniteLives = this->ui->radioInfiniteLives->isChecked();
     this->pluginSettings->permadeath = this->ui->radioPermadeath->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
-    this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
+    if (this->ui->cbGodMode->isEnabled()) this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
+    if (this->ui->comboPowerup->isEnabled()) this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();
 
     //Save the Difficulty Settings
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();

@@ -1,6 +1,7 @@
 #include "Plugin_Handler.h"
 #include "Common_Strings.h"
 #include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../Common_Files/Version.h"
 #include <QString>
 #include <QStringList>
 #include <QMap>
@@ -158,10 +159,11 @@ bool Plugin_Handler::Save_Currently_Loaded_Plugins(const QString &writerPlugin, 
     QString settingsFile = QApplication::applicationDirPath() + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_LEVEL_HEADED_SETTINGS_FILENAME;
     bool ret1 = this->readableConfigFile->Open(settingsFile);
     if (!ret1) ret1 = this->readableConfigFile->Open_Without_Loading(settingsFile);
-    bool ret2 = this->readableConfigFile->Set_Value("Writer_Plugin", writerPlugin);
-    bool ret3 = this->readableConfigFile->Set_Value("Generator_Plugin", generatorPlugin);
-    bool ret4 = this->readableConfigFile->Save_And_Close();
-    return ret1&&ret2&&ret3&&ret4;
+    bool ret2 = this->readableConfigFile->Set_Value("Version", Version::VERSION);
+    bool ret3 = this->readableConfigFile->Set_Value("Writer_Plugin", writerPlugin);
+    bool ret4 = this->readableConfigFile->Set_Value("Generator_Plugin", generatorPlugin);
+    bool ret5 = this->readableConfigFile->Save_And_Close();
+    return ret1&&ret2&&ret3&&ret4&&ret5;
 }
 
 bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QString &generatorPlugin) {

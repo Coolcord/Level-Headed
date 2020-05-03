@@ -430,7 +430,7 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <item>
                    <property name="text">
-                    <string>Random All</string>
+                    <string>Random</string>
                    </property>
                   </item>
                   <item>
@@ -739,101 +739,6 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="layoutPowerup">
-                <item>
-                 <widget class="QLabel" name="lblPowerup">
-                  <property name="text">
-                   <string>Powerup:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="comboPowerup">
-                  <item>
-                   <property name="text">
-                    <string>Random</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Original (Fire Flower)</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Bone Caster</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Coin Flinger</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Cutter Flower</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Double Jump Star</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Fire Star</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Hammer Suit</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Luigi's Fire Flower</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Pink Fury</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Poison Bubbles</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Power Wand</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Pyro Spark Wand</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Slime Flower</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Snowballs</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Spinball Flower</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="layoutNames">
                 <item>
                  <layout class="QHBoxLayout" name="layoutMarioName">
@@ -923,7 +828,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2919</height>
+            <height>2975</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1012,6 +917,101 @@ p, li { white-space: pre-wrap; }
               </item>
              </layout>
             </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutPowerup">
+             <item>
+              <widget class="QLabel" name="lblPowerup">
+               <property name="text">
+                <string>Powerup:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboPowerup">
+               <item>
+                <property name="text">
+                 <string>Random</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Original (Fire Flower)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Bone Caster</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Coin Flinger</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cutter Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Double Jump Star</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Fire Star</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Hammer Suit</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Luigi's Fire Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Pink Fury</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Poison Bubbles</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Power Wand</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Pyro Spark Wand</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Slime Flower</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Snowballs</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Spinball Flower</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <layout class="QVBoxLayout" name="layoutDifficulty">

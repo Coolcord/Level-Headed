@@ -3,6 +3,7 @@ Next Update (v0.3.8)
 + The words "princess" and "castle" are now swapped out with random nouns in the message "But our princess is in another castle!"
 + Added a setting that prevents Hammer Time from spawning two Hammer Bros in a row. This setting is on for all difficulties except Brutal and Random
 + Red Koopas will no longer be placed unless the platform they are on is 3 or more blocks in size
++ The Powerup option has been moved to the difficulty tab
 + The Secondary Mushroom option has been incorporated into the difficulty settings. It can still be manually set by creating a custom difficulty
 + Added an option to force auto scrollers to be disabled in the level generator tab
 + Added the Snowballs powerup (based on Darkdata-Systemlogoff's powerup in Toad's Christmas Adventure)
