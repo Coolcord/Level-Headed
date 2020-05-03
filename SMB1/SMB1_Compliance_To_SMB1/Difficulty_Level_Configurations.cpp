@@ -688,6 +688,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Turn_Up_The_Heat() {
     Difficulty_Level_Settings difficultySettings = this->Hammer_Time();
     difficultySettings.replaceCastleLoops = 4;
     difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
+    difficultySettings.spinyEggBehavior = 6; //Explode into Flames
     return difficultySettings;
 }
 
@@ -695,6 +696,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Too_Hot_To_Handle() {
     Difficulty_Level_Settings difficultySettings = this->Extreme_Hammer_Time();
     difficultySettings.replaceCastleLoops = 4;
     difficultySettings.preventHammerTimeFromSpawningTwoHammerBrosInARow = false;
+    difficultySettings.spinyEggBehavior = 6; //Explode into Flames
     return difficultySettings;
 }
 
