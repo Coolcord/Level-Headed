@@ -162,7 +162,9 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
                 if (x >= minX && x <= maxX) possibleBlocks.remove(index);
                 else break;
             }
-            if (index >= possibleBlocks.size()) index = possibleBlocks.size()-1;
+            --index;
+            if (index < 0) index = 0;
+            if (index > possibleBlocks.size()-1) index = possibleBlocks.size()-1;
 
             //Check backwards
             for (int i = index; i >= 0; --i) {
