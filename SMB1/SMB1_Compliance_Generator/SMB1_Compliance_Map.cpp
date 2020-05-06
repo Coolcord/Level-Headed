@@ -1,6 +1,12 @@
 #include "SMB1_Compliance_Map.h"
-#include "../Common_SMB1_Files/Object_Item_String.h"
+#include "../Common_SMB1_Files/Brick_String.h"
+#include "../Common_SMB1_Files/Background_String.h"
 #include "../Common_SMB1_Files/Enemy_Item_String.h"
+#include "../Common_SMB1_Files/Scenery_String.h"
+#include "../Common_SMB1_Files/Level_Attribute_String.h"
+#include "../Common_SMB1_Files/Level_Compliment_String.h"
+#include "../Common_SMB1_Files/Level_String.h"
+#include "../Common_SMB1_Files/Object_Item_String.h"
 
 SMB1_Compliance_Map::SMB1_Compliance_Map() {
     //Build the map for the Objects
@@ -10,6 +16,30 @@ SMB1_Compliance_Map::SMB1_Compliance_Map() {
     //Build the map for the Enemies
     this->enemiesMap = new QMap<QString, Enemy_Item::Enemy_Item>();
     this->Populate_Enemy_Map();
+
+    //Populate Level Attributes
+    this->attributesMap = new QMap<QString, Level_Attribute::Level_Attribute>();
+    this->Populate_Attributes();
+
+    //Populate Bricks
+    this->bricksMap = new QMap<QString, Brick::Brick>();
+    this->Populate_Bricks();
+
+    //Populate Backgrounds
+    this->backgroundsMap = new QMap<QString, Background::Background>();
+    this->Populate_Backgrounds();
+
+    //Populate Sceneries
+    this->sceneriesMap = new QMap<QString, Scenery::Scenery>();
+    this->Populate_Sceneries();
+
+    //Populate Level Compliments
+    this->complimentsMap = new QMap<QString, Level_Compliment::Level_Compliment>();
+    this->Populate_Compliments();
+
+    //Populate Levels
+    this->levelsMap = new QMap<QString, Level::Level>();
+    this->Populate_Levels();
 }
 
 SMB1_Compliance_Map::~SMB1_Compliance_Map() {
@@ -107,4 +137,109 @@ void SMB1_Compliance_Map::Populate_Enemy_Map() {
     this->enemiesMap->insert(Enemy_Item::STRING_GOOMBA_GROUP, Enemy_Item::GOOMBA_GROUP);
     this->enemiesMap->insert(Enemy_Item::STRING_KOOPA_GROUP, Enemy_Item::KOOPA_GROUP);
     this->enemiesMap->insert(Enemy_Item::STRING_PAGE_CHANGE, Enemy_Item::PAGE_CHANGE);
+}
+
+void SMB1_Compliance_Map::Populate_Attributes() {
+    assert(this->attributesMap);
+    this->attributesMap->clear();
+    this->attributesMap->insert(Level_Attribute::STRING_OVERWORLD, Level_Attribute::OVERWORLD);
+    this->attributesMap->insert(Level_Attribute::STRING_UNDERGROUND, Level_Attribute::UNDERGROUND);
+    this->attributesMap->insert(Level_Attribute::STRING_UNDERWATER, Level_Attribute::UNDERWATER);
+    this->attributesMap->insert(Level_Attribute::STRING_CASTLE, Level_Attribute::CASTLE);
+}
+
+void SMB1_Compliance_Map::Populate_Bricks() {
+    assert(this->bricksMap);
+    this->bricksMap->clear();
+    this->bricksMap->insert(Brick::STRING_NO_BRICKS, Brick::NO_BRICKS);
+    this->bricksMap->insert(Brick::STRING_SURFACE, Brick::SURFACE);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING, Brick::SURFACE_AND_CEILING);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING_3, Brick::SURFACE_AND_CEILING_3);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING_4, Brick::SURFACE_AND_CEILING_4);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING_8, Brick::SURFACE_AND_CEILING_8);
+    this->bricksMap->insert(Brick::STRING_SURFACE_4_AND_CEILING, Brick::SURFACE_4_AND_CEILING);
+    this->bricksMap->insert(Brick::STRING_SURFACE_4_AND_CEILING_3, Brick::SURFACE_4_AND_CEILING_3);
+    this->bricksMap->insert(Brick::STRING_SURFACE_4_AND_CEILING_4, Brick::SURFACE_4_AND_CEILING_4);
+    this->bricksMap->insert(Brick::STRING_SURFACE_5_AND_CEILING, Brick::SURFACE_5_AND_CEILING);
+    this->bricksMap->insert(Brick::STRING_CEILING, Brick::CEILING);
+    this->bricksMap->insert(Brick::STRING_SURFACE_5_AND_CEILING_4, Brick::SURFACE_5_AND_CEILING_4);
+    this->bricksMap->insert(Brick::STRING_SURFACE_8_AND_CEILING, Brick::SURFACE_8_AND_CEILING);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_5, Brick::SURFACE_AND_CEILING_AND_MIDDLE_5);
+    this->bricksMap->insert(Brick::STRING_SURFACE_AND_CEILING_AND_MIDDLE_4, Brick::SURFACE_AND_CEILING_AND_MIDDLE_4);
+    this->bricksMap->insert(Brick::STRING_ALL, Brick::ALL);
+}
+
+void SMB1_Compliance_Map::Populate_Backgrounds() {
+    assert(this->backgroundsMap);
+    this->backgroundsMap->clear();
+    this->backgroundsMap->insert(Background::STRING_BLANK_BACKGROUND, Background::BLANK_BACKGROUND);
+    this->backgroundsMap->insert(Background::STRING_IN_WATER, Background::IN_WATER);
+    this->backgroundsMap->insert(Background::STRING_CASTLE_WALL, Background::CASTLE_WALL);
+    this->backgroundsMap->insert(Background::STRING_OVER_WATER, Background::OVER_WATER);
+    this->backgroundsMap->insert(Background::STRING_NIGHT, Background::NIGHT);
+    this->backgroundsMap->insert(Background::STRING_SNOW, Background::SNOW);
+    this->backgroundsMap->insert(Background::STRING_NIGHT_AND_SNOW, Background::NIGHT_AND_SNOW);
+    this->backgroundsMap->insert(Background::STRING_NIGHT_AND_FREEZE, Background::NIGHT_AND_FREEZE);
+}
+
+void SMB1_Compliance_Map::Populate_Sceneries() {
+    assert(this->sceneriesMap);
+    this->sceneriesMap->clear();
+    this->sceneriesMap->insert(Scenery::STRING_NO_SCENERY, Scenery::NO_SCENERY);
+    this->sceneriesMap->insert(Scenery::STRING_ONLY_CLOUDS, Scenery::ONLY_CLOUDS);
+    this->sceneriesMap->insert(Scenery::STRING_MOUNTAINS, Scenery::MOUNTAINS);
+    this->sceneriesMap->insert(Scenery::STRING_FENCES, Scenery::FENCES);
+}
+
+void SMB1_Compliance_Map::Populate_Compliments() {
+    assert(this->complimentsMap);
+    this->complimentsMap->clear();
+    this->complimentsMap->insert(Level_Compliment::STRING_TREES, Level_Compliment::TREES);
+    this->complimentsMap->insert(Level_Compliment::STRING_BULLET_BILL_TURRETS, Level_Compliment::BULLET_BILL_TURRETS);
+    this->complimentsMap->insert(Level_Compliment::STRING_CLOUDS, Level_Compliment::CLOUDS);
+    this->complimentsMap->insert(Level_Compliment::STRING_MUSHROOMS, Level_Compliment::MUSHROOMS);
+}
+
+void SMB1_Compliance_Map::Populate_Levels() {
+    assert(this->levelsMap);
+    this->levelsMap->clear();
+    this->levelsMap->insert(Level::STRING_WORLD_1_LEVEL_1, Level::WORLD_1_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_1_LEVEL_2, Level::WORLD_1_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_1_LEVEL_3, Level::WORLD_1_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_1_LEVEL_4, Level::WORLD_1_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_2_LEVEL_1, Level::WORLD_2_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_2_LEVEL_2, Level::WORLD_2_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_2_LEVEL_3, Level::WORLD_2_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_2_LEVEL_4, Level::WORLD_2_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_3_LEVEL_1, Level::WORLD_3_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_3_LEVEL_2, Level::WORLD_3_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_3_LEVEL_3, Level::WORLD_3_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_3_LEVEL_4, Level::WORLD_3_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_4_LEVEL_1, Level::WORLD_4_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_4_LEVEL_2, Level::WORLD_4_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_4_LEVEL_3, Level::WORLD_4_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_4_LEVEL_4, Level::WORLD_4_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_5_LEVEL_1, Level::WORLD_5_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_5_LEVEL_2, Level::WORLD_5_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_5_LEVEL_3, Level::WORLD_5_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_5_LEVEL_4, Level::WORLD_5_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_6_LEVEL_1, Level::WORLD_6_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_6_LEVEL_2, Level::WORLD_6_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_6_LEVEL_3, Level::WORLD_6_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_6_LEVEL_4, Level::WORLD_6_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_7_LEVEL_1, Level::WORLD_7_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_7_LEVEL_2, Level::WORLD_7_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_7_LEVEL_3, Level::WORLD_7_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_7_LEVEL_4, Level::WORLD_7_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_WORLD_8_LEVEL_1, Level::WORLD_8_LEVEL_1);
+    this->levelsMap->insert(Level::STRING_WORLD_8_LEVEL_2, Level::WORLD_8_LEVEL_2);
+    this->levelsMap->insert(Level::STRING_WORLD_8_LEVEL_3, Level::WORLD_8_LEVEL_3);
+    this->levelsMap->insert(Level::STRING_WORLD_8_LEVEL_4, Level::WORLD_8_LEVEL_4);
+    this->levelsMap->insert(Level::STRING_PIPE_INTRO, Level::PIPE_INTRO);
+    this->levelsMap->insert(Level::STRING_UNDERGROUND_BONUS, Level::UNDERGROUND_BONUS);
+    this->levelsMap->insert(Level::STRING_CLOUD_BONUS_1, Level::CLOUD_BONUS_1);
+    this->levelsMap->insert(Level::STRING_CLOUD_BONUS_2, Level::CLOUD_BONUS_2);
+    this->levelsMap->insert(Level::STRING_UNDERWATER_BONUS, Level::UNDERWATER_BONUS);
+    this->levelsMap->insert(Level::STRING_WARP_ZONE, Level::WARP_ZONE);
+    this->levelsMap->insert(Level::STRING_UNDERWATER_CASTLE, Level::UNDERWATER_CASTLE);
 }

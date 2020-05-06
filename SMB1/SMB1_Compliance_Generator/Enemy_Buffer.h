@@ -47,11 +47,13 @@ public:
     bool Surfing_Lift(int x, int y, bool onlyHardMode = false);
     bool Lift_Spawner(int x, int y, bool up = true, bool small = false, bool onlyHardMode = false);
     bool Bowser(int x, bool onlyHardMode = false);
-    bool Warp_Zone(int x, bool onlyHardMode = false);
+    bool Warp_Zone(int x);
     bool Toad(int x, bool onlyHardMode = false);
     bool Goomba_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Koopa_Group(int x, int y, int num, bool onlyHardMode = false);
     bool Page_Change(int page);
+    bool Pipe_Pointer(int x, Level::Level level, int world, int page);
+
 
 private:
     Enemy_Buffer(const Enemy_Buffer&);

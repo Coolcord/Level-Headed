@@ -444,8 +444,8 @@ bool Enemy_Buffer::Bowser(int x, bool onlyHardMode) {
     return this->Write_Enemy(Enemy_Item::BOWSER, args, x);
 }
 
-bool Enemy_Buffer::Warp_Zone(int x, bool onlyHardMode) {
-    Buffer_Data args; args.onlyHardMode = onlyHardMode;
+bool Enemy_Buffer::Warp_Zone(int x) {
+    Buffer_Data args;
     return this->Write_Enemy(Enemy_Item::WARP_ZONE, args, x);
 }
 
@@ -482,4 +482,8 @@ bool Enemy_Buffer::Koopa_Group(int x, int y, int num, bool onlyHardMode) {
 
 bool Enemy_Buffer::Page_Change(int page) {
     return this->Write_Enemy(page);
+}
+
+bool Enemy_Buffer::Pipe_Pointer(int x, Level::Level level, int world, int page) {
+    return this->Write_Enemy(x, level, world, page);
 }

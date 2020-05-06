@@ -17,6 +17,7 @@ public:
     void Shutdown();
     void Seed_Random_Number_Generator_Instance(const QString &seed);
     bool Generate_Level(SMB1_Compliance_Generator_Arguments &args);
+    bool Parse_Level_Script(SMB1_Compliance_Parser_Arguments &args);
 
 private:
     SMB1_Compliance_Generator(const SMB1_Compliance_Generator&);

@@ -11,8 +11,7 @@
 #include <QTextStream>
 #include <QMap>
 
-class Header_Handler : public Item_Handler
-{
+class Header_Handler : public Item_Handler {
 public:
     Header_Handler(SMB1_Writer_Interface *writerPlugin, QTextStream *file);
     ~Header_Handler();

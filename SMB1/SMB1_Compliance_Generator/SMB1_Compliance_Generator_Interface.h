@@ -2,6 +2,7 @@
 #define SMB1_COMPLIANCE_GENERATOR_INTERFACE_H
 
 #include "SMB1_Compliance_Generator_Arguments.h"
+#include "SMB1_Compliance_Parser_Arguments.h"
 #include <QObject>
 #include <QtPlugin>
 #include <QString>
@@ -13,6 +14,7 @@ public:
     virtual void Shutdown()=0;
     virtual void Seed_Random_Number_Generator_Instance(const QString &seed)=0;
     virtual bool Generate_Level(SMB1_Compliance_Generator_Arguments &args)=0;
+    virtual bool Parse_Level_Script(SMB1_Compliance_Parser_Arguments &args)=0;
 };
 
 Q_DECLARE_INTERFACE(SMB1_Compliance_Generator_Interface, "SMB1_Compliance_Generator_Interface")

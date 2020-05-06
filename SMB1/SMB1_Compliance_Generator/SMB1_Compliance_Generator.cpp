@@ -54,6 +54,10 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     return success;
 }
 
+bool SMB1_Compliance_Generator::Parse_Level_Script(SMB1_Compliance_Parser_Arguments &args) {
+
+}
+
 bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Standard_Overworld_Generator levelGenerator(file, args);
     return levelGenerator.Generate_Level();

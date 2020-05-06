@@ -17,6 +17,7 @@ SOURCES += SMB1_Compliance_Generator.cpp \
     ../../../C_Common_Code/Qt/Random/Random.cpp \
     Enemy_Buffer.cpp \
     Item_Buffer.cpp \
+    Level_Script_Parser.cpp \
     Midpoint_Handler.cpp \
     Header_Writer.cpp \
     Level_Generator.cpp \
@@ -70,6 +71,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Buffer_Data.h \
     Enemy_Buffer.h \
     Item_Buffer.h \
+    Level_Script_Parser.h \
     Midpoint_Handler.h \
     Header_Writer.h \
     Level_Generator.h \
@@ -77,6 +79,7 @@ HEADERS += SMB1_Compliance_Generator.h \
     Pipe_Pointer_Buffer.h \
     Powerup_Distributor.h \
     SMB1_Compliance_Object_Parser.h \
+    SMB1_Compliance_Parser_Arguments.h \
     Standard_Overworld_Generator.h \
     Simple_Object_Spawner.h \
     Physics.h \
