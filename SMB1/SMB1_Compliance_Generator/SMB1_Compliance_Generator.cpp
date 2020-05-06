@@ -5,6 +5,8 @@
 #include "Castle_Generator.h"
 #include "Bridge_Generator.h"
 #include "Island_Generator.h"
+#include "Level_Script_Parser.h"
+#include "Level_Script_Modifier.h"
 #include "Pipe_Exit_Generator.h"
 #include "../../../C_Common_Code/Qt/Random/Random.h"
 #include <assert.h>
@@ -55,7 +57,19 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
 }
 
 bool SMB1_Compliance_Generator::Parse_Level_Script(SMB1_Compliance_Parser_Arguments &args) {
+    return Level_Script_Parser(&args).Parse_Level_Script();
+}
 
+bool SMB1_Compliance_Generator::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer, Level_Attribute::Level_Attribute levelAttribute, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
+    return Level_Script_Modifier().Perform_Enemy_Chaotic_Swap(enemyBuffer, levelAttribute, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
+}
+
+bool SMB1_Compliance_Generator::Redistribute_Enemies(Enemy_Buffer *enemyBuffer) {
+    return Level_Script_Modifier().Redistribute_Enemies(enemyBuffer);
+}
+
+bool SMB1_Compliance_Generator::Redistribute_Powerups(Object_Buffer *objectBuffer) {
+    return Level_Script_Modifier().Redistribute_Powerups(objectBuffer);
 }
 
 bool SMB1_Compliance_Generator::Generate_Standard_Overworld_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {

@@ -17,7 +17,11 @@ public:
     void Shutdown();
     void Seed_Random_Number_Generator_Instance(const QString &seed);
     bool Generate_Level(SMB1_Compliance_Generator_Arguments &args);
+
     bool Parse_Level_Script(SMB1_Compliance_Parser_Arguments &args);
+    bool Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer, Level_Attribute::Level_Attribute levelAttribute, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners);
+    bool Redistribute_Enemies(Enemy_Buffer *enemyBuffer);
+    bool Redistribute_Powerups(Object_Buffer *objectBuffer);
 
 private:
     SMB1_Compliance_Generator(const SMB1_Compliance_Generator&);
