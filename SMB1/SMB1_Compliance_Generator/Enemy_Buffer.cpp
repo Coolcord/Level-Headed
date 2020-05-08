@@ -8,6 +8,11 @@
 const static int MAX_LARGE_FIRE_BAR_ZONE = 24;
 
 Enemy_Buffer::Enemy_Buffer(int nbl) : Item_Buffer(nbl) {
+    this->Clear_Buffer();
+}
+
+void Enemy_Buffer::Clear_Buffer() {
+    this->Initialize_Buffer();
     this->firstEnemy = true;
     this->lakituIsActive = false;
     this->wasLakituSpawned = false;

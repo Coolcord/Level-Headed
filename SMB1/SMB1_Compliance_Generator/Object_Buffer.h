@@ -18,6 +18,7 @@ class Object_Buffer : public Item_Buffer {
 public:
     Object_Buffer(int numBytesLeft, SMB1_Compliance_Generator_Arguments *args);
     ~Object_Buffer();
+    void Clear_Buffer();
     bool Write_Buffer_To_File(QFile *file);
     bool Did_Level_Exceed_Vertical_Object_Limit();
     int Get_Last_Object_Length();

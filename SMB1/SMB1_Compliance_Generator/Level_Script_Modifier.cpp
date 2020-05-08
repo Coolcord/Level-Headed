@@ -1,7 +1,9 @@
 #include "Level_Script_Modifier.h"
 #include "../../../C_Common_Code/Qt/Random/Random.h"
-#include "Enemy_Buffer.h"
-#include "Object_Buffer.h"
+#include "Enemy_Spawner.h"
+#include "Level_Crawler.h"
+#include "Pipe_Pointer_Buffer.h"
+#include "Required_Enemy_Spawns.h"
 #include <assert.h>
 
 bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer, Level_Attribute::Level_Attribute levelAttribute, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {
@@ -102,9 +104,46 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
     return true;
 }
 
-bool Level_Script_Modifier::Redistribute_Enemies(Enemy_Buffer *enemyBuffer) {
-    assert(enemyBuffer);
-    return false; //TODO: WRITE THIS!!!
+bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
+    //Get the required enemy spawns
+    Pipe_Pointer_Buffer pipePointerBuffer(parserArgs.objectBuffer, parserArgs.enemyBuffer);
+    Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &pipePointerBuffer, &args);
+    int numBytes = parserArgs.enemyBuffer->Get_Num_Items()*2; //we don't know how many bytes there actually are available, so just approximate based upon the number of used items
+    parserArgs.enemyBuffer->Set_Num_Bytes_Left_And_Total_Bytes(10000); //trick the enemy buffer into thinking it has more space so that the required enemy spawns don't fail
+    parserArgs.enemyBuffer->Seek_To_First_Item();
+    while (!parserArgs.enemyBuffer->At_End()) {
+        Buffer_Data data = parserArgs.enemyBuffer->Get_Current();
+        switch (data.enemyItem) {
+        default:
+            break;
+        case Enemy_Item::PODOBOO:
+        case Enemy_Item::CHEEP_CHEEP_SPAWNER:
+        case Enemy_Item::BULLET_BILL_SPAWNER:
+        case Enemy_Item::HAMMER_BRO:
+        case Enemy_Item::LAKITU:
+        case Enemy_Item::LIFT:
+        case Enemy_Item::FALLING_LIFT:
+        case Enemy_Item::BALANCE_LIFT:
+        case Enemy_Item::SURFING_LIFT:
+        case Enemy_Item::LIFT_SPAWNER:
+        case Enemy_Item::BOWSER:
+        case Enemy_Item::BOWSER_FIRE_SPAWNER:
+        case Enemy_Item::WARP_ZONE:
+        case Enemy_Item::PIPE_POINTER:
+        case Enemy_Item::TOAD:
+            assert(requiredEnemySpawns.Add_Required_Enemy_Spawn(data));
+            break;
+        }
+    }
+
+    //Empty out the enemy buffer
+    parserArgs.enemyBuffer->Clear_Buffer();
+    parserArgs.enemyBuffer->Set_Num_Bytes_Left_And_Total_Bytes(numBytes);
+
+    //Redistribute the enemies
+    Level_Crawler levelCrawler(parserArgs.objectBuffer);
+    Enemy_Spawner enemySpawner(parserArgs.objectBuffer, parserArgs.enemyBuffer, &levelCrawler, &requiredEnemySpawns, &args);
+    return enemySpawner.Spawn_Enemies();
 }
 
 bool Level_Script_Modifier::Redistribute_Powerups(Object_Buffer *objectBuffer) {

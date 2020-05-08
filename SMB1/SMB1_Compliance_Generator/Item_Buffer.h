@@ -10,11 +10,13 @@ class Item_Buffer {
 public:
     Item_Buffer(int numBytesLeft);
     virtual ~Item_Buffer() { delete this->itemBuffer; }
+    virtual void Clear_Buffer()=0;
     int Get_Num_Bytes_Left();
     int Get_Num_Items();
     int Get_Level_Length();
     int Get_Current_Y();
     void Set_Current_Y(int value);
+    void Set_Num_Bytes_Left_And_Total_Bytes(int value);
     int Get_Absolute_X();
     int Get_Page_Relative_Absolute_X(int x);
     int Get_Current_Page();
@@ -42,6 +44,7 @@ public:
 protected:
     Item_Buffer(const Item_Buffer&);
     Item_Buffer& operator=(const Item_Buffer&);
+    void Initialize_Buffer();
     virtual bool Is_Coordinate_Valid(int &coordinate)=0;
     virtual void Update_Last_Page_Change_For_Next_X(int &x)=0;
     bool Is_Byte_Valid(int byte);
@@ -52,6 +55,7 @@ protected:
     QLinkedList<Buffer_Data> *itemBuffer;
     QLinkedList<Buffer_Data>::iterator itemBufferIter;
     int numBytesLeft;
+    int totalBytes;
     int numItems;
     int levelLength;
     int currentX;

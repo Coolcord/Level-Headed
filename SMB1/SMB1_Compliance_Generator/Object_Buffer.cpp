@@ -13,27 +13,37 @@
 Object_Buffer::Object_Buffer(int nbl, SMB1_Compliance_Generator_Arguments *args) : Item_Buffer(nbl) {
     assert(args);
     this->args = args;
-    this->lastObjectLength = 0;
-    this->coinBlockZone = 0;
-    this->powerupZone = 0;
-    this->endObjectCount = Physics::MIN_END_OBJECTS;
-    this->reservedObjectCount = 0;
-    this->totalBytes = nbl;
-    this->firstPageSafety = false;
-    this->autoScrollActive = false;
-    this->wereFlyingCheepCheepsSpawned = false;
-    this->wasAutoScrollUsed = false;
-    this->exceededVerticalObjectLimit = false;
-    this->cancelSpawnerX = -1;
-    this->objectsAtXCoordinates = new QVector<int>(0x400, 0); //holds up to 40 pages of coordinates
-    this->questionBlocks = new QMap<QString, Block_Data>();
-    this->brickBlocks = new QMap<QString, Block_Data>();
+    this->objectsAtXCoordinates = nullptr;
+    this->questionBlocks = nullptr;
+    this->brickBlocks = nullptr;
+    this->Clear_Buffer();
 }
 
 Object_Buffer::~Object_Buffer() {
     delete this->objectsAtXCoordinates;
     delete this->questionBlocks;
     delete this->brickBlocks;
+}
+
+void Object_Buffer::Clear_Buffer() {
+    this->Initialize_Buffer();
+    this->lastObjectLength = 0;
+    this->coinBlockZone = 0;
+    this->powerupZone = 0;
+    this->endObjectCount = Physics::MIN_END_OBJECTS;
+    this->reservedObjectCount = 0;
+    this->firstPageSafety = false;
+    this->autoScrollActive = false;
+    this->wereFlyingCheepCheepsSpawned = false;
+    this->wasAutoScrollUsed = false;
+    this->exceededVerticalObjectLimit = false;
+    this->cancelSpawnerX = -1;
+    delete this->objectsAtXCoordinates;
+    delete this->questionBlocks;
+    delete this->brickBlocks;
+    this->objectsAtXCoordinates = new QVector<int>(0x400, 0); //holds up to 40 pages of coordinates
+    this->questionBlocks = new QMap<QString, Block_Data>();
+    this->brickBlocks = new QMap<QString, Block_Data>();
 }
 
 bool Object_Buffer::Write_Buffer_To_File(QFile *file) {

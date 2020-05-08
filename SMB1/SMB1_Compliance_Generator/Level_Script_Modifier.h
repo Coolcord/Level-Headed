@@ -2,17 +2,14 @@
 #define LEVEL_SCRIPT_MODIFIER_H
 
 #include "../Common_SMB1_Files/Level_Attribute.h"
-
-class Buffer_Data;
-class Enemy_Buffer;
-class Object_Buffer;
+#include "SMB1_Compliance_Parser_Arguments.h"
 
 class Level_Script_Modifier {
 public:
     Level_Script_Modifier() {}
     ~Level_Script_Modifier() {}
     bool Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer, Level_Attribute::Level_Attribute levelAttribute, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners);
-    bool Redistribute_Enemies(Enemy_Buffer *enemyBuffer);
+    bool Redistribute_Enemies(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs);
     bool Redistribute_Powerups(Object_Buffer *objectBuffer);
 
 private:

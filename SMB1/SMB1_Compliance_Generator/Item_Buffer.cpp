@@ -10,16 +10,11 @@
 
 Item_Buffer::Item_Buffer(int numBytesLeft) {
     assert(numBytesLeft >= 0);
-    this->numItems = 0;
-    this->levelLength = 0;
+    this->totalBytes = numBytesLeft;
     this->numBytesLeft = numBytesLeft;
-    this->currentPage = 0;
-    this->currentX = 0;
-    this->currentAbsoluteX = 0;
-    this->currentY = Physics::GROUND_Y+1;
-    this->coordinateSafety = true;
     this->itemBuffer = new QLinkedList<Buffer_Data>();
     this->itemBufferIter = this->itemBuffer->begin();
+    this->Initialize_Buffer();
 }
 
 int Item_Buffer::Get_Num_Bytes_Left() {
@@ -40,6 +35,11 @@ int Item_Buffer::Get_Current_Y() {
 
 void Item_Buffer::Set_Current_Y(int value) {
     this->currentY = value;
+}
+
+void Item_Buffer::Set_Num_Bytes_Left_And_Total_Bytes(int value) {
+    this->numBytesLeft = value;
+    this->totalBytes = value;
 }
 
 int Item_Buffer::Get_Absolute_X() {
@@ -70,6 +70,18 @@ void Item_Buffer::Insert_Into_Buffer(const Buffer_Data &data) {
     } else {
         this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, data);
     }
+}
+
+void Item_Buffer::Initialize_Buffer() {
+    this->numItems = 0;
+    this->levelLength = 0;
+    this->currentPage = 0;
+    this->currentX = 0;
+    this->currentAbsoluteX = 0;
+    this->currentY = Physics::GROUND_Y+1;
+    this->coordinateSafety = true;
+    this->itemBuffer->clear();
+    this->itemBufferIter = this->itemBuffer->end();
 }
 
 bool Item_Buffer::Is_Byte_Valid(int byte) {

@@ -64,8 +64,8 @@ bool SMB1_Compliance_Generator::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBu
     return Level_Script_Modifier().Perform_Enemy_Chaotic_Swap(enemyBuffer, levelAttribute, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
 }
 
-bool SMB1_Compliance_Generator::Redistribute_Enemies(Enemy_Buffer *enemyBuffer) {
-    return Level_Script_Modifier().Redistribute_Enemies(enemyBuffer);
+bool SMB1_Compliance_Generator::Redistribute_Enemies(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
+    return Level_Script_Modifier().Redistribute_Enemies(args, parserArgs);
 }
 
 bool SMB1_Compliance_Generator::Redistribute_Powerups(Object_Buffer *objectBuffer) {

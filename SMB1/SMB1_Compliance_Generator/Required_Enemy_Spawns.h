@@ -6,6 +6,7 @@
 #include "Extra_Enemy_Args.h"
 #include <QQueue>
 
+class Buffer_Data;
 class Object_Buffer;
 class Enemy_Buffer;
 class Pipe_Pointer_Buffer;
@@ -14,6 +15,7 @@ class Required_Enemy_Spawns {
 public:
     Required_Enemy_Spawns(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
+    bool Add_Required_Enemy_Spawn(const Buffer_Data &data);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x, int y);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, Extra_Enemy_Args args, int x);

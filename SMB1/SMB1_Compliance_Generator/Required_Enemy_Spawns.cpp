@@ -23,6 +23,15 @@ Required_Enemy_Spawns::~Required_Enemy_Spawns() {
     delete this->requiredEnemies;
 }
 
+bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(const Buffer_Data &data) {
+    Extra_Enemy_Args extraEnemyArgs = this->Get_Initialized_Extra_Enemy_Args();
+    extraEnemyArgs.onlyHardMode = data.onlyHardMode; extraEnemyArgs.moving = data.moving; extraEnemyArgs.leaping = data.leaping;
+    extraEnemyArgs.clockwise = data.clockwise; extraEnemyArgs.fast = data.fast; extraEnemyArgs.small = data.small;
+    extraEnemyArgs.vertical = data.vertical; extraEnemyArgs.up = data.up; extraEnemyArgs.level = data.level;
+    extraEnemyArgs.world = data.world; extraEnemyArgs.page = data.page; extraEnemyArgs.num = data.num;
+    return this->Add_Required_Enemy_Spawn(data.enemyItem, extraEnemyArgs, data.x, data.y);
+}
+
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x) {
     return this->Add_Required_Enemy_Spawn(enemy, this->Get_Initialized_Extra_Enemy_Args(), x, 0);
 }

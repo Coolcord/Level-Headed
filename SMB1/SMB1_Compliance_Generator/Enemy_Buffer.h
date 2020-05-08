@@ -12,6 +12,7 @@ class Enemy_Buffer : public Item_Buffer {
 public:
     Enemy_Buffer(int numBytesLeft);
     ~Enemy_Buffer() {}
+    void Clear_Buffer();
     bool Write_Buffer_To_File(QFile *file);
     bool Get_First_Enemy();
     void Set_First_Enemy(bool value);
