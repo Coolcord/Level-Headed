@@ -23,8 +23,8 @@ public:
     virtual bool Load_ROM(const QString &fileName)=0;
     virtual bool New_Level(Level::Level level, int worldNum, int levelNum)=0;
     virtual bool Write_Level()=0;
-    virtual int Get_Num_Object_Bytes()=0;
-    virtual int Get_Num_Enemy_Bytes()=0;
+    virtual int Get_Num_Object_Bytes_In_Level(Level::Level level)=0;
+    virtual int Get_Num_Enemy_Bytes_In_Level(Level::Level level)=0;
     virtual QString Get_Output_ROM_Location()=0;
     virtual bool Set_Output_ROM_Location(const QString &location)=0;
 

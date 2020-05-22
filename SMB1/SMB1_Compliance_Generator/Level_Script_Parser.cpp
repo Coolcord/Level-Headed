@@ -12,6 +12,7 @@
 Level_Script_Parser::Level_Script_Parser(SMB1_Compliance_Parser_Arguments *args) : SMB1_Compliance_Map() {
     assert(args);
     this->args = args;
+    this->stream = nullptr;
 }
 
 Level_Script_Parser::~Level_Script_Parser() {
@@ -22,8 +23,11 @@ Level_Script_Parser::~Level_Script_Parser() {
 
 bool Level_Script_Parser::Parse_Level_Script() {
     if (!this->stream) this->stream = new QTextStream(this->args->levelScriptBytes);
-    if (!this->Parse_Header()) return false;
-    return this->Parse_Items();
+    bool success = this->Parse_Header();
+    if (success) success = this->Parse_Items();
+    delete this->stream;
+    this->stream = nullptr;
+    return success;
 }
 
 bool Level_Script_Parser::Parse_Header() {
@@ -31,8 +35,7 @@ bool Level_Script_Parser::Parse_Header() {
     QStringList elements;
 
     //Check the header
-    QString line;
-    line = this->stream->readLine().trimmed();
+    QString line = this->stream->readLine().trimmed();
     if (line != Header::STRING_NAME) return false;
 
     //Notes Section -- Look for 2 seperators
@@ -62,13 +65,13 @@ bool Level_Script_Parser::Parse_Header() {
     //Handle Autowalk if the user set it
     if (elements.at(1) == Level_Attribute::STRING_OVERWORLD_WALKING) {
         this->args->autowalk = true;
-        this->args->levelAttribute = Level_Attribute::OVERWORLD;
+        this->args->staringPosition = Level_Attribute::OVERWORLD;
     } else {
         //Remember that starting positions and attributes are very similar!
         attributeIter = this->attributesMap->find(elements.at(1));
         if (attributeIter == this->attributesMap->end()) return false; //not found
         this->args->autowalk = false;
-        this->args->levelAttribute = attributeIter.value();
+        this->args->staringPosition = attributeIter.value();
     }
 
     //Brick
@@ -138,6 +141,7 @@ bool Level_Script_Parser::Parse_Items() {
     QString line = QString();
 
     //Read the Objects
+    this->args->objectBuffer->Set_Coordinate_Safety(false);
     bool success = false;
     do {
         ++this->args->lineNum;
@@ -158,6 +162,7 @@ bool Level_Script_Parser::Parse_Items() {
     if (!success) return false; //TODO: Add an error here
 
     //Read the Enemies
+    this->args->enemyBuffer->Set_Coordinate_Safety(false);
     success = false;
     do {
         ++this->args->lineNum;
@@ -381,11 +386,11 @@ bool Level_Script_Parser::Parse_Enemy(const QString &line) {
     if (elements.size() >= 4) var3 = elements.at(3);
     if (elements.size() >= 5) var4 = elements.at(4);
     if (elements.size() >= 6) var5 = elements.at(5);
-    int num1 = 0, num2 = 0, num3 = 0;
+    int num1 = 0, num2 = 0, num3 = 0, num4 = 0;
     QMap<QString, Level::Level>::iterator levelIter = this->levelsMap->end();
     bool bit1 = false, bit2 = false, bit3 = false;
-    bool isNum1Valid = false, isNum2Valid = false, isNum3Valid = false;
-    num1 = var1.toInt(&isNum1Valid); num2 = var2.toInt(&isNum2Valid); num3 = var3.toInt(&isNum3Valid);
+    bool isNum1Valid = false, isNum2Valid = false, isNum3Valid = false, isNum4Valid = false;
+    num1 = var1.toInt(&isNum1Valid); num2 = var2.toInt(&isNum2Valid); num3 = var3.toInt(&isNum3Valid); num4 = var4.toInt(&isNum4Valid);
 
     QMap<QString, Enemy_Item::Enemy_Item>::iterator iter = this->enemiesMap->find(enemy);
     if (iter == this->enemiesMap->end()) return false; //not found
@@ -440,7 +445,7 @@ bool Level_Script_Parser::Parse_Enemy(const QString &line) {
     case Enemy_Item::RED_PARATROOPA:
         if (elements.size() != 4 || !isNum1Valid || !isNum2Valid) return false;
         if (!this->Parse_Difficulty(var3, bit1)) return false;
-        return this->args->enemyBuffer->Red_Koopa(num1, num2, bit1);
+        return this->args->enemyBuffer->Red_Paratroopa(num1, num2, bit1);
     case Enemy_Item::GREEN_CHEEP_CHEEP:
         if (elements.size() != 4 || !isNum1Valid || !isNum2Valid) return false;
         if (!this->Parse_Difficulty(var3, bit1)) return false;
@@ -450,7 +455,7 @@ bool Level_Script_Parser::Parse_Enemy(const QString &line) {
         if (!this->Parse_Difficulty(var3, bit1)) return false;
         return this->args->enemyBuffer->Red_Cheep_Cheep(num1, num2, bit1);
     case Enemy_Item::PODOBOO:
-        if (elements.size() != 3 || !isNum1Valid || !isNum2Valid) return false;
+        if (elements.size() != 3 || !isNum1Valid) return false;
         if (!this->Parse_Difficulty(var2, bit1)) return false;
         return this->args->enemyBuffer->Podoboo(num1, bit1);
     case Enemy_Item::PIRANHA_PLANT:
@@ -533,10 +538,10 @@ bool Level_Script_Parser::Parse_Enemy(const QString &line) {
         if (elements.size() != 2 || !isNum1Valid) return false;
         return this->args->enemyBuffer->Warp_Zone(num1);
     case Enemy_Item::PIPE_POINTER:
-        if (elements.size() != 5 || !isNum1Valid || !isNum2Valid || !isNum3Valid) return false;
-        levelIter = this->levelsMap->find(var3);
+        if (elements.size() != 5 || !isNum1Valid || !isNum3Valid || !isNum4Valid) return false;
+        levelIter = this->levelsMap->find(var2);
         if (levelIter == this->levelsMap->end()) return false; //not found
-        return this->args->enemyBuffer->Pipe_Pointer(num1, levelIter.value(), num2, num3);
+        return this->args->enemyBuffer->Pipe_Pointer(num1, levelIter.value(), num3, num4);
     case Enemy_Item::TOAD:
         if (elements.size() != 3 || !isNum1Valid) return false;
         if (!this->Parse_Difficulty(var2, bit1)) return false;

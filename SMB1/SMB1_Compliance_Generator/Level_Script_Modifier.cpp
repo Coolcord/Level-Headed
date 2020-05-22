@@ -3,6 +3,7 @@
 #include "Enemy_Spawner.h"
 #include "Level_Crawler.h"
 #include "Pipe_Pointer_Buffer.h"
+#include "Powerup_Distributor.h"
 #include "Required_Enemy_Spawns.h"
 #include <assert.h>
 
@@ -146,9 +147,105 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
     return enemySpawner.Spawn_Enemies();
 }
 
-bool Level_Script_Modifier::Redistribute_Powerups(Object_Buffer *objectBuffer) {
-    assert(objectBuffer);
-    return false; //TODO: WRITE THIS!!!
+bool Level_Script_Modifier::Redistribute_Powerups(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
+    //Rebuild the level without powerups
+    assert(parserArgs.objectBuffer);
+    Object_Buffer *objectBuffer = new Object_Buffer(parserArgs.objectBuffer->Get_Num_Items()*2, &args);
+    parserArgs.objectBuffer->Seek_To_First_Item();
+    while (!parserArgs.objectBuffer->At_End()) {
+        Buffer_Data data = parserArgs.objectBuffer->Get_Current();
+        int x = data.x;
+        switch (data.objectItem) {
+        case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
+        case Object_Item::QUESTION_BLOCK_WITH_COIN:
+        case Object_Item::HIDDEN_BLOCK_WITH_COIN:
+        case Object_Item::HIDDEN_BLOCK_WITH_1UP:
+        case Object_Item::BRICK_WITH_MUSHROOM:
+        case Object_Item::BRICK_WITH_VINE:
+        case Object_Item::BRICK_WITH_STAR:
+        case Object_Item::BRICK_WITH_10_COINS:
+        case Object_Item::BRICK_WITH_1UP:
+        case Object_Item::UNDERWATER_SIDEWAYS_PIPE:
+        case Object_Item::USED_BLOCK:
+        case Object_Item::TRAMPOLINE:
+        case Object_Item::BULLET_BILL_TURRET:
+        case Object_Item::ISLAND:
+        case Object_Item::HORIZONTAL_BRICKS:
+        case Object_Item::HORIZONTAL_BLOCKS:
+        case Object_Item::HORIZONTAL_COINS:
+        case Object_Item::VERTICAL_BRICKS:
+        case Object_Item::VERTICAL_BLOCKS:
+        case Object_Item::CORAL:
+        case Object_Item::PIPE:
+        case Object_Item::ENTERABLE_PIPE:
+        case Object_Item::HOLE:
+        case Object_Item::HOLE_WITH_WATER:
+        case Object_Item::BRIDGE:
+        case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS:
+        case Object_Item::PAGE_CHANGE:
+        case Object_Item::REVERSE_L_PIPE:
+        case Object_Item::FLAGPOLE:
+        case Object_Item::CASTLE:
+        case Object_Item::BIG_CASTLE:
+        case Object_Item::AXE:
+        case Object_Item::AXE_ROPE:
+        case Object_Item::BOWSER_BRIDGE:
+        case Object_Item::SCROLL_STOP:
+        case Object_Item::SCROLL_STOP_WARP_ZONE:
+        case Object_Item::TOGGLE_AUTO_SCROLL:
+            //TODO: WRITE THIS!!!
+        case Object_Item::FLYING_CHEEP_CHEEP_SPAWNER:
+            objectBuffer->Flying_Cheep_Cheep_Spawner(x);
+            break;
+        case Object_Item::SWIMMING_CHEEP_CHEEP_SPAWNER:
+            objectBuffer->Swimming_Cheep_Cheep_Spawner(x);
+            break;
+        case Object_Item::BULLET_BILL_SPAWNER:
+            objectBuffer->Bullet_Bill_Spawner(x);
+            break;
+        case Object_Item::CANCEL_SPAWNER:
+            objectBuffer->Cancel_Spawner(x);
+            break;
+        case Object_Item::LOOP_COMMAND:
+            objectBuffer->Loop_Command(x);
+            break;
+        case Object_Item::CHANGE_BRICK_AND_SCENERY:
+            objectBuffer->Change_Brick_And_Scenery(x, data.brick, data.scenery);
+            break;
+        case Object_Item::CHANGE_BACKGROUND:
+            objectBuffer->Change_Background(x, data.background);
+            break;
+        case Object_Item::LIFT_ROPE:
+            objectBuffer->Lift_Rope(x);
+            break;
+        case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
+            objectBuffer->Balance_Lift_Vertical_Rope(x, data.length);
+            break;
+        case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
+            objectBuffer->Balance_Lift_Horizontal_Rope(x, data.length);
+            break;
+        case Object_Item::STEPS:
+            objectBuffer->Steps(x, data.length);
+            break;
+        case Object_Item::END_STEPS:
+            objectBuffer->End_Steps(x);
+            break;
+        case Object_Item::TALL_REVERSE_L_PIPE:
+            objectBuffer->Tall_Reverse_L_Pipe_Without_Pointer(x, data.y);
+            break;
+        case Object_Item::PIPE_WALL:
+            objectBuffer->Pipe_Wall(x);
+            break;
+        case Object_Item::NOTHING:
+            objectBuffer->Nothing();
+            break;
+        }
+    }
+
+    //Redistribute the powerups in the level
+    Level_Crawler levelCrawler(parserArgs.objectBuffer);
+    Powerup_Distributor powerupDistributor(&levelCrawler, parserArgs.objectBuffer, &args);
+    return powerupDistributor.Distribute_Powerups();
 }
 
 bool Level_Script_Modifier::Random_Enemy(Buffer_Data *data, bool underwater, bool allowHammerBros, bool allowLakitus, bool allowContinousEnemySpawners) {

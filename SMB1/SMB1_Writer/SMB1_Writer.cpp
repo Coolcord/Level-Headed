@@ -280,14 +280,26 @@ bool SMB1_Writer::Write_Level() {
     return true;
 }
 
-int SMB1_Writer::Get_Num_Object_Bytes() {
-    return this->numObjectBytes;
+int SMB1_Writer::Get_Num_Object_Bytes_In_Level(Level::Level level) {
+    if (!this->file || !this->roomIDHandler) return false; //the ROM needs to be loaded first
+    qint64 levelOffset = this->levelOffset->Get_Level_Object_Offset(level);
+    if (levelOffset == BAD_OFFSET) return 0;
+    if (!this->file->seek(this->objectOffset)) return false;
+    QByteArray buffer(2, ' ');
+    int numBytes = 0;
+    qint64 ret = this->file->read(buffer.data(), 2);
+    while (ret == 2 && buffer.data() != nullptr
+           && static_cast<unsigned char>(buffer.data()[0]) != 0xFD) {
+        numBytes += 2;
+        ret = this->file->read(buffer.data(), 2);
+    }
+    return numBytes;
 }
 
-int SMB1_Writer::Get_Num_Enemy_Bytes() {
+int SMB1_Writer::Get_Num_Enemy_Bytes_In_Level(Level::Level level) {
     assert(this->enemyBytesTracker);
     assert(this->roomIDHandler);
-    return this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(this->roomIDHandler->Get_Current_Level());
+    return this->enemyBytesTracker->Get_Enemy_Byte_Count_In_Level(level);
 }
 
 QString SMB1_Writer::Get_Output_ROM_Location() {

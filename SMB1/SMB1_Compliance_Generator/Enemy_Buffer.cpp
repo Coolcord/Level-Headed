@@ -216,7 +216,7 @@ bool Enemy_Buffer::Is_Coordinate_Valid(int &coordinate) {
 }
 
 void Enemy_Buffer::Update_Last_Page_Change_For_Next_X(int &x) {
-    if (!this->Is_Last_Item_A_Page_Change()) return; //nothing to do
+    if (!this->coordinateSafety || !this->Is_Last_Item_A_Page_Change()) return; //nothing to do
     assert(this->Page_Change((this->levelLength+x)/16));
     while (x > 0x0F) x -= 0x10;
 }

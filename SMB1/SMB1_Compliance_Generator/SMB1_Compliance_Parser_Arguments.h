@@ -24,7 +24,6 @@ struct SMB1_Compliance_Parser_Arguments {
     Enemy_Buffer *enemyBuffer;
     Object_Buffer *objectBuffer;
     int lineNum;
-    int errorCode;
 };
 
 #endif // SMB1_COMPLIANCE_PARSER_ARGUMENTS_H

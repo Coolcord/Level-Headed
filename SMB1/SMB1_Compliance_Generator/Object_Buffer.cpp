@@ -816,7 +816,7 @@ bool Object_Buffer::Lift_Rope(int x) {
 
 bool Object_Buffer::Balance_Lift_Vertical_Rope(int x, int length) {
     if (length < 1 || length > 16) return false;
-    return this->Write_Object(Object_Item::BALANCE_LIFT_VERTICAL_ROPE, false, x, Physics::MIN_OBJECT_LENGTH);
+    return this->Write_Object(Object_Item::BALANCE_LIFT_VERTICAL_ROPE, false, x, 1, length, Physics::MIN_OBJECT_LENGTH);
 }
 
 bool Object_Buffer::Balance_Lift_Horizontal_Rope(int x, int length) {

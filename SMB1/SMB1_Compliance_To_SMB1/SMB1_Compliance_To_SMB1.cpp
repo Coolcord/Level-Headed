@@ -78,10 +78,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
 
     //Generate the levels
-    Level_Generator levelGenerator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin);
-    bool success = false;
-    if (this->pluginSettings.generateNewLevels) success = levelGenerator.Generate_Levels();
-    else success = levelGenerator.Parse_Level_Map();
+    bool success = Level_Generator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin).Run_Level_Generator();
 
     //Save the next output ROM location for later
     if (success) {

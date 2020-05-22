@@ -41,8 +41,8 @@ public:
     bool Load_ROM(const QString &fileName);
     bool New_Level(Level::Level level, int worldNum, int levelNum);
     bool Write_Level();
-    int Get_Num_Object_Bytes();
-    int Get_Num_Enemy_Bytes();
+    int Get_Num_Object_Bytes_In_Level(Level::Level level);
+    int Get_Num_Enemy_Bytes_In_Level(Level::Level level);
     QString Get_Output_ROM_Location();
     bool Set_Output_ROM_Location(const QString &location);
 
