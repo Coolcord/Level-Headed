@@ -182,6 +182,7 @@ bool Level_Script_Parser::Parse_Items() {
 }
 
 bool Level_Script_Parser::Parse_Object(const QString &line) {
+    this->args->objectBuffer->Set_Current_Line_Number(this->args->lineNum);
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
     QString object = elements.at(0);
@@ -375,6 +376,7 @@ bool Level_Script_Parser::Parse_Object(const QString &line) {
 }
 
 bool Level_Script_Parser::Parse_Enemy(const QString &line) {
+    this->args->enemyBuffer->Set_Current_Line_Number(this->args->lineNum);
     QStringList elements = line.split(' ');
     if (elements.size() < 2) return false; //line is invalid
     QString enemy = elements.at(0);

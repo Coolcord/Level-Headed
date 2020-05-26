@@ -73,6 +73,7 @@ Level_Generator::~Level_Generator() {
 }
 
 bool Level_Generator::Run_Level_Generator() {
+    this->Populate_Num_Objects_And_Enemies_In_Levels();
     QString fileName = this->pluginSettings->levelScripts + Common_Strings::STRING_LEVELS_EXTENSION;
     if (this->pluginSettings->generateNewLevels) {
         if (!this->Generate_New_Levels(fileName)) return false;
@@ -227,12 +228,6 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.numObjectBytes = 1000;
     args.numEnemyBytes = 1000;
     return args;
-}
-
-bool Level_Generator::Append_Level(QVector<Level::Level> &levelOrder, Level::Level level) {
-    if (!this->writerPlugin->Room_Table_Set_Next_Level(level)) return false;
-    levelOrder.append(level);
-    return true;
 }
 
 int Level_Generator::Get_Level_Length(int length, int difficulty, bool autoScroll, Level_Type::Level_Type levelType) {
@@ -559,7 +554,7 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     //Make the folder to store the random generation in
     QString generationName = "Random " + QDate::currentDate().toString("yy-MM-dd-") + QTime::currentTime().toString("HH-mm-ss-zzz");
     QString folderLocation = this->levelLocation + "/" + generationName;
-    generationFileName = folderLocation + Common_Strings::STRING_LEVELS_EXTENSION;
+    generationFileName = generationName + Common_Strings::STRING_LEVELS_EXTENSION;
     QDir dir(this->levelLocation);
     if (!dir.exists(generationName)) {
         if (!dir.mkdir(generationName)) {
@@ -630,12 +625,6 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
 
-        if (!this->writerPlugin->New_Level(levelOrder.at(i), (i/this->pluginSettings->numLevelsPerWorld)+1, (i%this->pluginSettings->numLevelsPerWorld)+1)) {
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
-            return false;
-        }
-
         //Get the number of objects and enemies that are available for the level
         QMap<Level::Level, int>::iterator iter = this->numObjectsInLevel->find(levelOrder.at(i));
         assert(iter != this->numObjectsInLevel->end());
@@ -683,7 +672,7 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
                               "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
         return false;
     }
-    if (this->sequentialArchivePlugin->Pack(folderLocation, generationFileName) != 0) {
+    if (this->sequentialArchivePlugin->Pack(folderLocation, this->levelLocation+"/"+generationFileName) != 0) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               "Unable to pack levels into a sequential archive!", Common_Strings::STRING_OK);
         return false;
@@ -746,51 +735,51 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
     assert(numLevels > 0 && numLevels <= 20);
     switch (numLevels) { //Add easy levels to the beginning
     case 20:
-        if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_1)) return false;
+        levelOrder.append(Level::WORLD_7_LEVEL_1);
         [[clang::fallthrough]]; //fall through
     case 19:
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_1)) return false;
+        levelOrder.append(Level::WORLD_1_LEVEL_1);
         [[clang::fallthrough]]; //fall through
     case 18:
-        if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_3)) return false;
+        levelOrder.append(Level::WORLD_3_LEVEL_3);
         [[clang::fallthrough]]; //fall through
     case 17:
-        if (!this->Append_Level(levelOrder, Level::WORLD_1_LEVEL_4)) return false;
+        levelOrder.append(Level::WORLD_1_LEVEL_4);
         [[clang::fallthrough]]; //fall through
     default:
         break;
     }
-    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_3)) return false;
+    levelOrder.append(Level::WORLD_6_LEVEL_3);
     if (numLevels == 1) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_1)) return false;
+    levelOrder.append(Level::WORLD_2_LEVEL_1);
     if (numLevels == 2) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_3)) return false;
+    levelOrder.append(Level::WORLD_4_LEVEL_3);
     if (numLevels == 3) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_3)) return false;
+    levelOrder.append(Level::WORLD_8_LEVEL_3);
     if (numLevels == 4) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_4)) return false;
+    levelOrder.append(Level::WORLD_3_LEVEL_4);
     if (numLevels == 5) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_1)) return false;
+    levelOrder.append(Level::WORLD_6_LEVEL_1);
     if (numLevels == 6) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_4)) return false;
+    levelOrder.append(Level::WORLD_8_LEVEL_4);
     if (numLevels == 7) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_5_LEVEL_2)) return false;
+    levelOrder.append(Level::WORLD_5_LEVEL_2);
     if (numLevels == 8) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_3_LEVEL_1)) return false;
+    levelOrder.append(Level::WORLD_3_LEVEL_1);
     if (numLevels == 9) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_4)) return false;
+    levelOrder.append(Level::WORLD_2_LEVEL_4);
     if (numLevels == 10) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_8_LEVEL_2)) return false;
+    levelOrder.append(Level::WORLD_8_LEVEL_2);
     if (numLevels == 11) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_2)) return false;
+    levelOrder.append(Level::WORLD_2_LEVEL_2);
     if (numLevels == 12) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_4_LEVEL_4)) return false;
+    levelOrder.append(Level::WORLD_4_LEVEL_4);
     if (numLevels == 13) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_2_LEVEL_3)) return false;
+    levelOrder.append(Level::WORLD_2_LEVEL_3);
     if (numLevels == 14) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_7_LEVEL_4)) return false;
+    levelOrder.append(Level::WORLD_7_LEVEL_4);
     if (numLevels == 15) return true;
-    if (!this->Append_Level(levelOrder, Level::WORLD_6_LEVEL_2)) return false;
+    levelOrder.append(Level::WORLD_6_LEVEL_2);
     assert(numLevels >= 16);
     return true;
 }
@@ -845,6 +834,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
     //Read the Level Lines
     int currentLevelNum = 0;
     int currentWorldNum = 1;
+    int levelNum = -1;
     QSet<Level::Level> bonusLevels;
     bool success = false, bonusSection = false, lastWasBonusLevel = false;
     do {
@@ -863,7 +853,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             QStringList elements = line.split(' ');
             const QMap<QString, Level::Level>::const_iterator iter = levels.find(elements.at(0));
             if (elements.size() > 2 || iter == levels.end()) {
-                errorCode = 2; //syntax error
+                errorCode = -1;
+                QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                      "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
                 return false;
             }
 
@@ -872,7 +864,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             bool bonusLevel = bonusSection;
             if (bonusSection) {
                 if (elements.size() != 2) {
-                    errorCode = 2; //syntax error
+                    errorCode = -1;
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
                     return false;
                 }
             } else {
@@ -880,6 +874,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (lastWasBonusLevel) {
                     lastWasBonusLevel = false;
                 } else {
+                    ++levelNum;
                     ++currentLevelNum;
                     if (currentLevelNum > numLevelsPerWorld) {
                         ++currentWorldNum;
@@ -887,7 +882,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     }
                 }
                 if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
-                    errorCode = 3;
+                    errorCode = -1;
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "Failed to allocate space in the ROM for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", Common_Strings::STRING_OK);
                     return false;
                 }
 
@@ -895,8 +892,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (elements.size() == 1) {
                     if (bonusLevels.find(currentLevel) == bonusLevels.end()) {
                         if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
-                            errorCode = 3;
-                            return false;
+                            errorCode = -1;
+                            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                                  "Failed to write thie midpoint for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", Common_Strings::STRING_OK);
                         }
                     } else {
                         bonusLevel = true;
@@ -909,7 +907,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             if (elements.size() == 2) {
                 QString scriptName = elements.at(1);
                 if (scriptName.size() < 3) {
-                    errorCode = 2; //syntax error
+                    errorCode = -1;
+                    QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
                     return false;
                 }
                 scriptName.chop(1); scriptName = scriptName.remove(0, 1);
@@ -930,7 +930,8 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 }
 
                 //Parse the level script
-                SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(scriptName, currentLevelNum, numWorlds*numLevelsPerWorld);
+                SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(scriptName, levelNum, numWorlds*numLevelsPerWorld);
+                args.difficultyBulletTime = 11; //never use bullet time when parsing!
                 SMB1_Compliance_Parser_Arguments parserArgs = this->generatorPlugin->Get_Empty_SMB1_Compliance_Parser_Arguments();
                 QTextStream levelStream(this->sequentialArchivePlugin->Read_File("/" + scriptName), QIODevice::ReadOnly);
                 parserArgs.levelScriptBytes = levelStream.readAll().toLatin1();
@@ -956,16 +957,16 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                                           "The writer plugin failed to write the header for " + scriptName + "!", Common_Strings::STRING_OK);
                     return false;
                 }
-                if (!this->Write_Objects_To_Level(parserArgs.objectBuffer)) {
+                if (!this->Write_Objects_To_Level(parserArgs)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the objects for " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the object on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", Common_Strings::STRING_OK);
                     return false;
                 }
-                if (!this->Write_Enemies_To_Level(parserArgs.enemyBuffer)) {
+                if (!this->Write_Enemies_To_Level(parserArgs)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the enemies for " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the enemy on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", Common_Strings::STRING_OK);
                     return false;
                 }
                 if (!this->writerPlugin->Write_Level()) {
@@ -1396,11 +1397,13 @@ bool Level_Generator::Write_Header_To_Level(const SMB1_Compliance_Parser_Argumen
     return true;
 }
 
-bool Level_Generator::Write_Objects_To_Level(Object_Buffer *objectBuffer) {
+bool Level_Generator::Write_Objects_To_Level(SMB1_Compliance_Parser_Arguments &args) {
+    Object_Buffer *objectBuffer = args.objectBuffer;
     assert(objectBuffer);
     objectBuffer->Seek_To_First_Item();
     while (!objectBuffer->At_End()) {
         Buffer_Data data = objectBuffer->Get_Current();
+        args.lineNum = data.lineNum;
         bool success = false;
         switch (data.objectItem) {
         case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:             success = this->writerPlugin->Object_Question_Block_With_Mushroom(data.x, data.y); break;
@@ -1462,11 +1465,13 @@ bool Level_Generator::Write_Objects_To_Level(Object_Buffer *objectBuffer) {
     return true;
 }
 
-bool Level_Generator::Write_Enemies_To_Level(Enemy_Buffer *enemyBuffer) {
+bool Level_Generator::Write_Enemies_To_Level(SMB1_Compliance_Parser_Arguments &args) {
+    Enemy_Buffer *enemyBuffer = args.enemyBuffer;
     assert(enemyBuffer);
     enemyBuffer->Seek_To_First_Item();
     while (!enemyBuffer->At_End()) {
         Buffer_Data data = enemyBuffer->Get_Current();
+        args.lineNum = data.lineNum;
         bool success = false;
         switch (data.enemyItem) {
         case Enemy_Item::GREEN_KOOPA:           success = this->writerPlugin->Enemy_Green_Koopa(data.x, data.y, data.moving, data.onlyHardMode); break;

@@ -284,7 +284,7 @@ int SMB1_Writer::Get_Num_Object_Bytes_In_Level(Level::Level level) {
     if (!this->file || !this->roomIDHandler) return false; //the ROM needs to be loaded first
     qint64 levelOffset = this->levelOffset->Get_Level_Object_Offset(level);
     if (levelOffset == BAD_OFFSET) return 0;
-    if (!this->file->seek(this->objectOffset)) return false;
+    if (!this->file->seek(levelOffset)) return false;
     QByteArray buffer(2, ' ');
     int numBytes = 0;
     qint64 ret = this->file->read(buffer.data(), 2);

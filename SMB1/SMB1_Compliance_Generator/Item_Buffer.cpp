@@ -42,6 +42,10 @@ void Item_Buffer::Set_Num_Bytes_Left_And_Total_Bytes(int value) {
     this->totalBytes = value;
 }
 
+void Item_Buffer::Set_Current_Line_Number(int lineNum) {
+    this->currentLineNum = lineNum;
+}
+
 int Item_Buffer::Get_Absolute_X() {
     return this->currentAbsoluteX;
 }
@@ -79,6 +83,7 @@ void Item_Buffer::Initialize_Buffer() {
     this->currentX = 0;
     this->currentAbsoluteX = 0;
     this->currentY = Physics::GROUND_Y+1;
+    this->currentLineNum = 0;
     this->coordinateSafety = true;
     this->itemBuffer->clear();
     this->itemBufferIter = this->itemBuffer->end();

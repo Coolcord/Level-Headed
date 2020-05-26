@@ -11,7 +11,7 @@
 class Buffer_Data {
 public:
     Buffer_Data() {
-        this->x = 0; this->y = 0; this->absoluteX = 0; this->page = 0;
+        this->x = 0; this->y = 0; this->absoluteX = 0; this->page = 0; this->lineNum = 0;
 
         //Object Specific
         this->objectItem = Object_Item::NOTHING;
@@ -30,6 +30,7 @@ public:
     int y;
     int absoluteX;
     int page;
+    int lineNum; //only used in the parser
 
     //Objects
     Object_Item::Object_Item objectItem;

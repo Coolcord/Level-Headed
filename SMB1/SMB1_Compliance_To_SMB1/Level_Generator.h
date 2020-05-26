@@ -20,7 +20,6 @@ public:
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
-    bool Append_Level(QVector<Level::Level> &levelOrder, Level::Level level);
     int Get_Level_Length(int index, int difficulty, bool autoScroll, Level_Type::Level_Type levelType);
     QString Convert_Level_Enum_To_String(Level::Level level);
     bool Delete_Old_Level_Generations();
@@ -46,8 +45,8 @@ private:
     bool Write_Move_Objects_Map(Text_Insertion_Buffer &mapBuffer);
     bool Write_Move_Enemies_Map(Text_Insertion_Buffer &mapBuffer);
     bool Write_Header_To_Level(const SMB1_Compliance_Parser_Arguments &args, bool bonusLevel);
-    bool Write_Objects_To_Level(Object_Buffer *objectBuffer);
-    bool Write_Enemies_To_Level(Enemy_Buffer *enemyBuffer);
+    bool Write_Objects_To_Level(SMB1_Compliance_Parser_Arguments &args);
+    bool Write_Enemies_To_Level(SMB1_Compliance_Parser_Arguments &args);
     bool Write_To_Map(Text_Insertion_Buffer &mapBuffer, const QString &string);
     bool Write_To_Map(Text_Insertion_Buffer &mapBuffer, Level::Level level, const QString &fileName = "");
 

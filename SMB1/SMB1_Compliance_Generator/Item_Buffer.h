@@ -17,6 +17,7 @@ public:
     int Get_Current_Y();
     void Set_Current_Y(int value);
     void Set_Num_Bytes_Left_And_Total_Bytes(int value);
+    void Set_Current_Line_Number(int lineNum);
     int Get_Absolute_X();
     int Get_Page_Relative_Absolute_X(int x);
     int Get_Current_Page();
@@ -62,6 +63,7 @@ protected:
     int currentAbsoluteX;
     int currentY;
     int currentPage;
+    int currentLineNum;
     bool coordinateSafety;
 };
 

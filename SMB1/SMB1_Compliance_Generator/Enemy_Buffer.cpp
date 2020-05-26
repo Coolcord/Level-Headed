@@ -130,6 +130,7 @@ bool Enemy_Buffer::Write_Enemy(int page) {
         Buffer_Data *enemyBufferData = this->Get_Current_For_Modification();
         enemyBufferData->page = page;
         enemyBufferData->absoluteX = this->currentAbsoluteX; //don't add x here
+        enemyBufferData->lineNum = this->currentLineNum;
     } else { //write a new page change
         assert(this->Is_Safe_To_Write_Item());
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
@@ -137,6 +138,7 @@ bool Enemy_Buffer::Write_Enemy(int page) {
         enemyBufferData.enemyItem = Enemy_Item::PAGE_CHANGE;
         enemyBufferData.page = page;
         enemyBufferData.absoluteX = this->currentAbsoluteX; //don't add x here
+        enemyBufferData.lineNum = this->currentLineNum;
         this->Insert_Into_Buffer(enemyBufferData);
     }
     this->Update_Level_Stats(0); //this must be 0 for page change, since most of it was updated in Handle_Level_Length_On_Page_Change()
@@ -160,6 +162,7 @@ bool Enemy_Buffer::Write_Enemy(int x, Level::Level level, int world, int page) {
     enemyBufferData.world = world;
     enemyBufferData.page = page;
     enemyBufferData.absoluteX = this->currentAbsoluteX+x;
+    enemyBufferData.lineNum = this->currentLineNum;
     this->Insert_Into_Buffer(enemyBufferData);
     this->Update_Level_Stats(x);
     --this->numBytesLeft; //pipe pointers use 3 bytes instead of 2
@@ -176,6 +179,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.enemyItem = enemyItem;
     args.x = x;
     args.absoluteX = this->currentAbsoluteX+x;
+    args.lineNum = this->currentLineNum;
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
@@ -194,6 +198,7 @@ bool Enemy_Buffer::Write_Enemy(Enemy_Item::Enemy_Item enemyItem, Buffer_Data &ar
     args.x = x;
     args.y = y;
     args.absoluteX = this->currentAbsoluteX+x;
+    args.lineNum = this->currentLineNum;
     this->Insert_Into_Buffer(args);
     this->Update_Level_Stats(x);
     this->Handle_Zones(x);
