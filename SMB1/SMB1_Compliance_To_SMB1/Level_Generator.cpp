@@ -973,8 +973,9 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
 
                     //Redistribute the Enemies
                     if (this->pluginSettings->redistributeEnemies) {
-                        //Don't use Hammer Time if Chaotic Swap will be used
-                        if (this->pluginSettings->performChaoticSwapOnEnemies) args.difficultyHammerTime = 11;
+                        //Update args before redistributing
+                        if (this->pluginSettings->performChaoticSwapOnEnemies) args.difficultyHammerTime = 11; //don't use Hammer Time if Chaotic Swap will be used
+                        args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = false; //ignore this setting when redistributing enemies
 
                         if (!this->generatorPlugin->Redistribute_Enemies(args, parserArgs)) {
                             errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
