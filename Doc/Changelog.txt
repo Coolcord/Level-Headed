@@ -1,4 +1,5 @@
 Next Update (v0.3.8)
++ Enemies in level scripts can now be redistributed
 + The "Thank you" text is now randomized
 + The words "princess" and "castle" are now swapped out with random nouns in the message "But our princess is in another castle!"
 + Added a setting that prevents Hammer Time from spawning two Hammer Bros in a row. This setting is on for all difficulties except Brutal and Random

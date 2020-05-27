@@ -24,8 +24,7 @@ void Tab_Level_Generator::Load_Settings() {
     if (this->pluginSettings->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
     else this->ui->radioUseLevelScripts->setChecked(true);
     this->ui->cbRedistributePowerups->setChecked(this->pluginSettings->redistributePowerups);
-    this->ui->cbRedistributeEnemies->setChecked(this->pluginSettings->redistributeEnemies);
-    this->ui->cbPerformChaoticSwapOnEnemies->setChecked(this->pluginSettings->performChaoticSwapOnEnemies);
+    this->ui->comboLevelScriptEnemies->setCurrentIndex(this->pluginSettings->levelScriptEnemies);
     if (this->ui->cbNoAutoScrollingLevels->isEnabled()) this->ui->cbNoAutoScrollingLevels->setChecked(this->pluginSettings->noAutoScrollingLevels);
     if (this->pluginSettings->standardLevelDistribution) this->ui->radioStandardLevelDistribution->setChecked(true);
     else this->ui->radioRandomLevelDistribution->setChecked(true);
@@ -54,8 +53,7 @@ void Tab_Level_Generator::Save_Settings() {
     if (!this->pluginSettings->generateNewLevels) {
         this->pluginSettings->levelScripts = this->ui->comboLevelScripts->currentText();
         this->pluginSettings->redistributePowerups = this->ui->cbRedistributePowerups->isChecked();
-        this->pluginSettings->redistributeEnemies = this->ui->cbRedistributeEnemies->isChecked();
-        this->pluginSettings->performChaoticSwapOnEnemies = this->ui->cbPerformChaoticSwapOnEnemies->isChecked();
+        this->pluginSettings->levelScriptEnemies = this->ui->comboLevelScriptEnemies->currentIndex();
     } else {
         if (this->ui->cbNoAutoScrollingLevels->isEnabled()) this->pluginSettings->noAutoScrollingLevels = this->ui->cbNoAutoScrollingLevels->isChecked();
         this->pluginSettings->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();

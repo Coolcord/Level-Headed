@@ -75,6 +75,35 @@ bool Hacks_Handler::Handle_Animations() {
 }
 
 bool Hacks_Handler::Handle_Enemy_Groups() {
+    //Handle Enemy Distribution Settings
+    this->pluginSettings->redistributeEnemies = false;
+    this->pluginSettings->performChaoticSwapOnEnemies = false;
+    if (!this->pluginSettings->generateNewLevels) {
+        int value = this->pluginSettings->levelScriptEnemies;
+        if (value == 0) value = Random::Get_Instance().Get_Num(2, 4); //no original
+        switch (value) {
+        default:
+            assert(false);
+            break;
+        case 1: //Original
+            this->pluginSettings->performChaoticSwapOnEnemies = false;
+            this->pluginSettings->redistributeEnemies = false;
+            break;
+        case 2: //Redistributed
+            this->pluginSettings->redistributeEnemies = true;
+            this->pluginSettings->performChaoticSwapOnEnemies = false;
+            break;
+        case 3: //Chaotic Swap
+            this->pluginSettings->redistributeEnemies = false;
+            this->pluginSettings->performChaoticSwapOnEnemies = true;
+            break;
+        case 4: //Redistributed + Chaotic Swap
+            this->pluginSettings->redistributeEnemies = true;
+            this->pluginSettings->performChaoticSwapOnEnemies = true;
+            break;
+        }
+    }
+
     if (!this->pluginSettings->generateNewLevels && this->pluginSettings->performChaoticSwapOnEnemies) {
         if (!this->writerPlugin->Hacks_Random_Goomba_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
         if (!this->writerPlugin->Hacks_Random_Koopa_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;

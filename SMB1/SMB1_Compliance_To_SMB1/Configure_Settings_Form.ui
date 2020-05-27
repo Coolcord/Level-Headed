@@ -3148,7 +3148,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>1048</height>
+            <height>1046</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3244,18 +3244,44 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item>
-                  <widget class="QCheckBox" name="cbRedistributeEnemies">
-                   <property name="text">
-                    <string>Redistribute Enemies</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbPerformChaoticSwapOnEnemies">
-                   <property name="text">
-                    <string>Perform Chaotic Swap on Enemies</string>
-                   </property>
-                  </widget>
+                  <layout class="QVBoxLayout" name="layoutLevelScriptEnemies">
+                   <item>
+                    <widget class="QLabel" name="lblLevelScriptEnemies">
+                     <property name="text">
+                      <string>Enemies:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboLevelScriptEnemies">
+                     <item>
+                      <property name="text">
+                       <string>Random</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Original</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Redistributed</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Chaotic Swap</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Redistributed + Chaotic Swap</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>

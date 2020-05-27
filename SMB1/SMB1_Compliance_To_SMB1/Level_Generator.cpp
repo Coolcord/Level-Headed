@@ -73,6 +73,9 @@ Level_Generator::~Level_Generator() {
 }
 
 bool Level_Generator::Run_Level_Generator() {
+    //Seed the random number generator
+    Random::Get_Instance().Seed(this->pluginSettings->randomSeed, 5);
+
     this->Populate_Num_Objects_And_Enemies_In_Levels();
     QString fileName = this->pluginSettings->levelScripts + Common_Strings::STRING_LEVELS_EXTENSION;
     if (this->pluginSettings->generateNewLevels) {
@@ -573,9 +576,6 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     //Create a new map file buffer
     Text_Insertion_Buffer mapBuffer;
     if (!this->Write_To_Map(mapBuffer, Header::STRING_MAP_NAME)) return false;
-
-    //Seed the random number generator... the location here is important
-    Random::Get_Instance().Seed(this->pluginSettings->randomSeed, 5);
 
     //Randomly determine the number of max levels and levels per world if specified
     if (this->pluginSettings->randomNumWorlds) {

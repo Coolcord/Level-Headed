@@ -177,8 +177,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld)) return false;
     if (!configFile.Set_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels)) return false;
     if (!configFile.Set_Value("Redistribute_Powerups", this->pluginSettings.redistributePowerups)) return false;
-    if (!configFile.Set_Value("Redistribute_Enemies", this->pluginSettings.redistributeEnemies)) return false;
-    if (!configFile.Set_Value("Perform_Chaotic_Swap_On_Enemies", this->pluginSettings.performChaoticSwapOnEnemies)) return false;
+    if (!configFile.Set_Value("Level_Script_Enemies", this->pluginSettings.levelScriptEnemies)) return false;
     if (!configFile.Set_Value("No_Auto_Scrolling_Levels", this->pluginSettings.noAutoScrollingLevels)) return false;
     if (!configFile.Set_Value("Standard_Level_Distribution", this->pluginSettings.standardLevelDistribution)) return false;
     if (!configFile.Set_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution)) return false;
@@ -305,8 +304,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Numer_Of_Levels_Per_World", this->pluginSettings.numLevelsPerWorld);
     configFile.Get_Value("Generate_New_Levels", this->pluginSettings.generateNewLevels);
     configFile.Get_Value("Redistribute_Powerups", this->pluginSettings.redistributePowerups);
-    configFile.Get_Value("Redistribute_Enemies", this->pluginSettings.redistributeEnemies);
-    configFile.Get_Value("Perform_Chaotic_Swap_On_Enemies", this->pluginSettings.performChaoticSwapOnEnemies);
+    configFile.Get_Value("Level_Script_Enemies", this->pluginSettings.levelScriptEnemies);
     configFile.Get_Value("No_Auto_Scrolling_Levels", this->pluginSettings.noAutoScrollingLevels);
     configFile.Get_Value("Standard_Level_Distribution", this->pluginSettings.standardLevelDistribution);
     configFile.Get_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution);
@@ -429,8 +427,9 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.overwriteOuputROM = true;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.redistributePowerups = true;
-    this->pluginSettings.redistributeEnemies = true;
-    this->pluginSettings.performChaoticSwapOnEnemies = true;
+    this->pluginSettings.redistributeEnemies = false;
+    this->pluginSettings.performChaoticSwapOnEnemies = false;
+    this->pluginSettings.levelScriptEnemies = 0;
     this->pluginSettings.noAutoScrollingLevels = false;
     this->pluginSettings.standardLevelDistribution = true;
     this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution = true;

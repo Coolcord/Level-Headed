@@ -31,6 +31,7 @@ struct Plugin_Settings {
     bool redistributePowerups;
     bool redistributeEnemies;
     bool performChaoticSwapOnEnemies;
+    int levelScriptEnemies;
     bool noAutoScrollingLevels;
     bool standardLevelDistribution;
     bool includeStandardOverworldLevelsInRandomDistribution;
