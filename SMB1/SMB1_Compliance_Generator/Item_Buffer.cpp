@@ -10,6 +10,7 @@
 
 Item_Buffer::Item_Buffer(int numBytesLeft) {
     assert(numBytesLeft >= 0);
+    this->numBytesUsed = 0;
     this->totalBytes = numBytesLeft;
     this->numBytesLeft = numBytesLeft;
     this->itemBuffer = new QLinkedList<Buffer_Data>();
@@ -23,6 +24,10 @@ int Item_Buffer::Get_Num_Bytes_Left() {
 
 int Item_Buffer::Get_Num_Items() {
     return this->numItems;
+}
+
+int Item_Buffer::Get_Num_Bytes_Used() {
+    return this->numBytesUsed;
 }
 
 int Item_Buffer::Get_Level_Length() {
@@ -112,6 +117,8 @@ bool Item_Buffer::Handle_Level_Length_On_Page_Change(int page) {
 
 void Item_Buffer::Update_Level_Stats(int x) {
     this->numBytesLeft -= 2;
+    this->numBytesUsed += 2;
+    if (this->itemBufferIter->enemyItem == Enemy_Item::PIPE_POINTER) ++this->numBytesUsed;
     this->currentAbsoluteX += x;
     this->currentX += x;
     while (this->currentX > 0xF) {

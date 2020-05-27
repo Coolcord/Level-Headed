@@ -29,64 +29,29 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(const Buffer_Data &data) {
     extraEnemyArgs.clockwise = data.clockwise; extraEnemyArgs.fast = data.fast; extraEnemyArgs.small = data.small;
     extraEnemyArgs.vertical = data.vertical; extraEnemyArgs.up = data.up; extraEnemyArgs.level = data.level;
     extraEnemyArgs.world = data.world; extraEnemyArgs.page = data.page; extraEnemyArgs.num = data.num;
-    return this->Add_Required_Enemy_Spawn(data.enemyItem, extraEnemyArgs, data.x, data.y);
+    return this->Add_Required_Enemy_Spawn_At_Aboslute_X(data.enemyItem, extraEnemyArgs, data.absoluteX, data.y);
 }
 
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x) {
-    return this->Add_Required_Enemy_Spawn(enemy, this->Get_Initialized_Extra_Enemy_Args(), x, 0);
+    return this->Add_Required_Enemy_Spawn_At_Aboslute_X(enemy, this->Get_Initialized_Extra_Enemy_Args(), this->objects->Get_Level_Length()+x, 0);
 }
 
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y) {
-    return this->Add_Required_Enemy_Spawn(enemy, this->Get_Initialized_Extra_Enemy_Args(), x, y);
+    return this->Add_Required_Enemy_Spawn_At_Aboslute_X(enemy, this->Get_Initialized_Extra_Enemy_Args(), this->objects->Get_Level_Length()+x, y);
 }
 
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x) {
-    return this->Add_Required_Enemy_Spawn(enemy, args, x, 0);
+    return this->Add_Required_Enemy_Spawn_At_Aboslute_X(enemy, args, this->objects->Get_Level_Length()+x, 0);
 }
 
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y) {
-    //Skip the Enemy if No Enemies is Enabled
-    bool skipEnemy = this->args->difficultyNoEnemies;
-    switch (enemy) {
-    case Enemy_Item::FIRE_BAR:
-    case Enemy_Item::LARGE_FIRE_BAR:    if (this->args->difficulty < this->args->difficultyCastleFireBars) skipEnemy = true;
-                                        break;
-    case Enemy_Item::BALANCE_LIFT:
-    case Enemy_Item::FALLING_LIFT:
-    case Enemy_Item::LIFT:
-    case Enemy_Item::LIFT_SPAWNER:
-    case Enemy_Item::SURFING_LIFT:
-    case Enemy_Item::PIPE_POINTER:
-    case Enemy_Item::TOAD:
-    case Enemy_Item::WARP_ZONE:         skipEnemy = false; break;
-    default:                            break;
-    }
-    if (skipEnemy) return true;
-
-    int previousNumRequiredBytes = this->numRequiredBytes;
-    bool disableCoordinateSafety = false;
-    assert(Determine_Bytes_Required_For_Required_Enemy_Spawn(enemy, disableCoordinateSafety, x));
-    if (this->numRequiredBytes+this->numEndBytes > this->enemies->Get_Num_Bytes_Left()) {
-        this->numRequiredBytes = previousNumRequiredBytes;
-        return false;
-    }
-
-    Required_Enemy_Spawn enemySpawn;
-    enemySpawn.enemy = enemy;
-    enemySpawn.args = args;
-    enemySpawn.x = this->objects->Get_Level_Length() + x;
-    enemySpawn.y = y;
-    enemySpawn.numRequiredBytes = this->numRequiredBytes - previousNumRequiredBytes;
-    enemySpawn.disableCoordinateSafety = disableCoordinateSafety;
-    assert(enemySpawn.numRequiredBytes >= 2 && enemySpawn.numRequiredBytes <= 5);
-    this->requiredEnemies->append(enemySpawn);
-    return true;
+    return this->Add_Required_Enemy_Spawn_At_Aboslute_X(enemy, args, this->objects->Get_Level_Length()+x, y);
 }
 
 bool Required_Enemy_Spawns::Is_Safe_To_Add_Required_Enemy_Spawn(int x) {
     int tmpNumRequiredBytes = this->numRequiredBytes;
     bool disableSafety = false;
-    if (this->Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::GOOMBA, disableSafety, x)) {
+    if (this->Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::GOOMBA, disableSafety, this->objects->Get_Level_Length()+x)) {
         this->numRequiredBytes = tmpNumRequiredBytes;
         return true;
     } else {
@@ -259,11 +224,49 @@ bool Required_Enemy_Spawns::Mark_Enemy_As_Spawned() {
     return true;
 }
 
-bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int x) {
+bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn_At_Aboslute_X(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int absoluteX, int y) {
+    //Skip the Enemy if No Enemies is Enabled
+    bool skipEnemy = this->args->difficultyNoEnemies;
+    switch (enemy) {
+    case Enemy_Item::FIRE_BAR:
+    case Enemy_Item::LARGE_FIRE_BAR:    if (this->args->difficulty < this->args->difficultyCastleFireBars) skipEnemy = true;
+                                        break;
+    case Enemy_Item::BALANCE_LIFT:
+    case Enemy_Item::FALLING_LIFT:
+    case Enemy_Item::LIFT:
+    case Enemy_Item::LIFT_SPAWNER:
+    case Enemy_Item::SURFING_LIFT:
+    case Enemy_Item::PIPE_POINTER:
+    case Enemy_Item::TOAD:
+    case Enemy_Item::WARP_ZONE:         skipEnemy = false; break;
+    default:                            break;
+    }
+    if (skipEnemy) return true;
+
+    int previousNumRequiredBytes = this->numRequiredBytes;
+    bool disableCoordinateSafety = false;
+    assert(Determine_Bytes_Required_For_Required_Enemy_Spawn(enemy, disableCoordinateSafety, absoluteX));
+    if (this->numRequiredBytes+this->numEndBytes > this->enemies->Get_Num_Bytes_Left()) {
+        this->numRequiredBytes = previousNumRequiredBytes;
+        return false;
+    }
+
+    Required_Enemy_Spawn enemySpawn;
+    enemySpawn.enemy = enemy;
+    enemySpawn.args = args;
+    enemySpawn.x = absoluteX;
+    enemySpawn.y = y;
+    enemySpawn.numRequiredBytes = this->numRequiredBytes - previousNumRequiredBytes;
+    enemySpawn.disableCoordinateSafety = disableCoordinateSafety;
+    assert(enemySpawn.numRequiredBytes >= 2 && enemySpawn.numRequiredBytes <= 5);
+    this->requiredEnemies->append(enemySpawn);
+    return true;
+}
+
+bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int absoluteX) {
     int previousRequiredX = 0;
     if (!this->requiredEnemies->isEmpty()) previousRequiredX = this->requiredEnemies->last().x;
-    int currentX = this->objects->Get_Level_Length() + x;
-    int distance = currentX - previousRequiredX;
+    int distance = absoluteX - previousRequiredX;
     assert(distance >= 0);
     disableSafety = false;
     int tmpNumRequiredBytes = this->numRequiredBytes;
@@ -287,6 +290,3 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     this->numRequiredBytes = tmpNumRequiredBytes;
     return true;
 }
-
-
-

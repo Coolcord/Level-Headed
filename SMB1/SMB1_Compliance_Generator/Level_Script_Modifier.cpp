@@ -108,8 +108,9 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
 
 bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
     //Get the required enemy spawns
+    int numBytes = parserArgs.enemyBuffer->Get_Num_Bytes_Used();
+    if (numBytes < 2) return true; //nothing to do
     Pipe_Pointer_Buffer pipePointerBuffer(parserArgs.objectBuffer, parserArgs.enemyBuffer);
-    int numBytes = parserArgs.enemyBuffer->Get_Num_Items()*2; //we don't know how many bytes there actually are available, so just approximate based upon the number of used items
     parserArgs.enemyBuffer->Set_Num_Bytes_Left_And_Total_Bytes(10000); //trick the enemy buffer into thinking it has more space so that the required enemy spawns don't fail
     Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &pipePointerBuffer, &args);
     parserArgs.enemyBuffer->Seek_To_First_Item();
@@ -118,6 +119,8 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
         switch (data.enemyItem) {
         default:
             break;
+        case Enemy_Item::FIRE_BAR:
+        case Enemy_Item::LARGE_FIRE_BAR:
         case Enemy_Item::PODOBOO:
         case Enemy_Item::CHEEP_CHEEP_SPAWNER:
         case Enemy_Item::BULLET_BILL_SPAWNER:

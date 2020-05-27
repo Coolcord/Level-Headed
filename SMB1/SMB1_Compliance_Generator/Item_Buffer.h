@@ -13,6 +13,7 @@ public:
     virtual void Clear_Buffer()=0;
     int Get_Num_Bytes_Left();
     int Get_Num_Items();
+    int Get_Num_Bytes_Used();
     int Get_Level_Length();
     int Get_Current_Y();
     void Set_Current_Y(int value);
@@ -56,6 +57,7 @@ protected:
     QLinkedList<Buffer_Data> *itemBuffer;
     QLinkedList<Buffer_Data>::iterator itemBufferIter;
     int numBytesLeft;
+    int numBytesUsed;
     int totalBytes;
     int numItems;
     int levelLength;

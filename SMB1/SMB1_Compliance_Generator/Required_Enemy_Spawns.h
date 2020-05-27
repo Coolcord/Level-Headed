@@ -16,10 +16,10 @@ public:
     Required_Enemy_Spawns(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
     bool Add_Required_Enemy_Spawn(const Buffer_Data &data);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, int x, int y);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, Extra_Enemy_Args args, int x);
-    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, Extra_Enemy_Args args, int x, int y);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x, int y);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x);
+    bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int x, int y);
     bool Is_Safe_To_Add_Required_Enemy_Spawn(int x);
     int Get_Num_Bytes_Left();
     int Get_Num_End_Bytes();
@@ -44,7 +44,8 @@ private:
         Extra_Enemy_Args args;
     };
 
-    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemies, bool &disableSafety, int x);
+    bool Add_Required_Enemy_Spawn_At_Aboslute_X(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int absoluteX, int y);
+    bool Determine_Bytes_Required_For_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, bool &disableSafety, int absoluteX);
 
     SMB1_Compliance_Generator_Arguments *args;
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
