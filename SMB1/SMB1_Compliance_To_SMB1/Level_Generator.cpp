@@ -950,6 +950,17 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     return false;
                 }
 
+                //Update the SMB1_Compliance_Generator_Args
+                switch (parserArgs.levelAttribute) {
+                case Level_Attribute::OVERWORLD:    args.levelType = Level_Type::STANDARD_OVERWORLD; break;
+                case Level_Attribute::UNDERGROUND:  args.levelType = Level_Type::UNDERGROUND; break;
+                case Level_Attribute::UNDERWATER:   args.levelType = Level_Type::UNDERWATER; break;
+                case Level_Attribute::CASTLE:       args.levelType = Level_Type::CASTLE; break;
+                }
+                args.levelCompliment = parserArgs.levelCompliment;
+                args.headerScenery = parserArgs.headerScenery;
+                args.headerBackground = parserArgs.headerBackground;
+
                 //Redistribute Powerups and Enemies if specified
                 if (!this->pluginSettings->generateNewLevels) {
                     //Redistribute the Powerups
