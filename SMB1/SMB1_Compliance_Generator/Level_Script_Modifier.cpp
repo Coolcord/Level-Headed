@@ -27,7 +27,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
         case Enemy_Item::BLOOPER:
             this->Reset_Enemy_Settings(data);
             data->y = Random::Get_Instance().Get_Num(1, 10);
-            switch (underwaterValue) {
+            switch (Random::Get_Instance().Get_Num(underwaterValue)) {
             default:    assert(false); return false;
             case 0:     data->enemyItem = Enemy_Item::BLOOPER; break;
             case 1:     data->enemyItem = Enemy_Item::BULLET_BILL; break;
@@ -36,7 +36,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
             case 4:     data->enemyItem = Enemy_Item::PODOBOO; break;
             case 5:     data->enemyItem = Enemy_Item::HAMMER_BRO; break;
             }
-            assert(false); return false;
+            break;
         case Enemy_Item::BULLET_BILL:
         case Enemy_Item::GREEN_PARATROOPA:
         case Enemy_Item::RED_PARATROOPA:
@@ -53,7 +53,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
             case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; break;
             case 4:     data->enemyItem = Enemy_Item::PODOBOO; break;
             }
-            assert(false); return false;
+            break;
         case Enemy_Item::CHEEP_CHEEP_SPAWNER:
         case Enemy_Item::BULLET_BILL_SPAWNER:
             this->Reset_Enemy_Settings(data);
@@ -79,7 +79,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
             case 3:     data->enemyItem = Enemy_Item::FIRE_BAR; data->clockwise = true; data->fast = true; break;
             case 4:     data->enemyItem = Enemy_Item::LARGE_FIRE_BAR; data->clockwise = true; data->fast = false; break;
             }
-            assert(false); return false;
+            break;
         case Enemy_Item::GOOMBA_GROUP:
         case Enemy_Item::KOOPA_GROUP:
             if (Random::Get_Instance().Get_Num(1)) data->enemyItem = Enemy_Item::GOOMBA_GROUP;
@@ -101,6 +101,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
         case Enemy_Item::NOTHING:
             break; //do nothing to these enemies
         }
+        enemyBuffer->Seek_To_Next();
     }
     return true;
 }
@@ -108,9 +109,9 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
 bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
     //Get the required enemy spawns
     Pipe_Pointer_Buffer pipePointerBuffer(parserArgs.objectBuffer, parserArgs.enemyBuffer);
-    Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &pipePointerBuffer, &args);
     int numBytes = parserArgs.enemyBuffer->Get_Num_Items()*2; //we don't know how many bytes there actually are available, so just approximate based upon the number of used items
     parserArgs.enemyBuffer->Set_Num_Bytes_Left_And_Total_Bytes(10000); //trick the enemy buffer into thinking it has more space so that the required enemy spawns don't fail
+    Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &pipePointerBuffer, &args);
     parserArgs.enemyBuffer->Seek_To_First_Item();
     while (!parserArgs.enemyBuffer->At_End()) {
         Buffer_Data data = parserArgs.enemyBuffer->Get_Current();
@@ -135,6 +136,7 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
             assert(requiredEnemySpawns.Add_Required_Enemy_Spawn(data));
             break;
         }
+        parserArgs.enemyBuffer->Seek_To_Next();
     }
 
     //Empty out the enemy buffer
@@ -148,6 +150,8 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
 }
 
 bool Level_Script_Modifier::Redistribute_Powerups(SMB1_Compliance_Generator_Arguments &args, SMB1_Compliance_Parser_Arguments &parserArgs) {
+    return true; //TODO: REMOVE THIS!!!
+
     //Rebuild the level without powerups
     assert(parserArgs.objectBuffer);
     Object_Buffer *objectBuffer = new Object_Buffer(parserArgs.objectBuffer->Get_Num_Items()*2, &args);

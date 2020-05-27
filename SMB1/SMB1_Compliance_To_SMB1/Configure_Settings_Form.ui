@@ -826,7 +826,7 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-2207</y>
+            <y>0</y>
             <width>708</width>
             <height>2975</height>
            </rect>
@@ -3085,28 +3085,28 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Hammer Bros. when randomizing enemies in level scripts</string>
+                 <string>Allow Hammer Bros. when chaotically swapping enemies in level scripts</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Hammer Bros. groups when randomizing enemies in level scripts</string>
+                 <string>Allow Hammer Bros. groups when chaotically swapping enemies in level scripts</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowLakitusWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Lakitus when randomizing enemies in level scripts</string>
+                 <string>Allow Lakitus when chaotically swapping enemies in level scripts</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Bullet Bill and Cheep-Cheep spawners when randomizing enemies in level scripts</string>
+                 <string>Allow Bullet Bill and Cheep-Cheep spawners when chaotically swapping enemies in level scripts</string>
                 </property>
                </widget>
               </item>
@@ -3148,7 +3148,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>990</height>
+            <height>1048</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3237,9 +3237,23 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
-                  <widget class="QCheckBox" name="cbRandomEnemies">
+                  <widget class="QCheckBox" name="cbRedistributePowerups">
                    <property name="text">
-                    <string>Random Enemies</string>
+                    <string>Redistribute Powerups</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbRedistributeEnemies">
+                   <property name="text">
+                    <string>Redistribute Enemies</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbPerformChaoticSwapOnEnemies">
+                   <property name="text">
+                    <string>Perform Chaotic Swap on Enemies</string>
                    </property>
                   </widget>
                  </item>

@@ -75,7 +75,7 @@ bool Hacks_Handler::Handle_Animations() {
 }
 
 bool Hacks_Handler::Handle_Enemy_Groups() {
-    if (!this->pluginSettings->generateNewLevels && this->pluginSettings->randomEnemies) {
+    if (!this->pluginSettings->generateNewLevels && this->pluginSettings->performChaoticSwapOnEnemies) {
         if (!this->writerPlugin->Hacks_Random_Goomba_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
         if (!this->writerPlugin->Hacks_Random_Koopa_Group_Enemy(this->pluginSettings->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts)) return false;
     }

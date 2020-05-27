@@ -950,6 +950,40 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     return false;
                 }
 
+                //Redistribute Powerups and Enemies if specified
+                if (!this->pluginSettings->generateNewLevels) {
+                    //Redistribute the Powerups
+                    if (this->pluginSettings->redistributePowerups && !this->generatorPlugin->Redistribute_Powerups(args, parserArgs)) {
+                        errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
+                        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                              "Powerup redistribution failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                        return false;
+                    }
+
+                    //Redistribute the Enemies
+                    if (this->pluginSettings->redistributeEnemies) {
+                        //Don't use Hammer Time if Chaotic Swap will be used
+                        if (this->pluginSettings->performChaoticSwapOnEnemies) args.difficultyHammerTime = 11;
+
+                        if (!this->generatorPlugin->Redistribute_Enemies(args, parserArgs)) {
+                            errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
+                            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                                  "Enemy redistribution failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                            return false;
+                        }
+                    }
+
+                    //Perform Chaotic Swap on Enemies
+                    if (this->pluginSettings->performChaoticSwapOnEnemies) {
+                        if (!this->generatorPlugin->Perform_Enemy_Chaotic_Swap(parserArgs.enemyBuffer, parserArgs.levelAttribute, this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts)) {
+                            errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
+                            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                                  "Enemy chaotic swap failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                            return false;
+                        }
+                    }
+                }
+
                 //Write the buffers to the ROM
                 if (!this->Write_Header_To_Level(parserArgs, bonusLevel)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
