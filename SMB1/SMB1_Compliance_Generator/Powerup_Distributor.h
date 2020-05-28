@@ -12,10 +12,15 @@ class Level_Crawler;
 
 class Powerup_Distributor {
 public:
-    Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args);
+    Powerup_Distributor(Level_Crawler *levelCrawler, Object_Buffer *objects, SMB1_Compliance_Generator_Arguments *args, bool handleReservingPowerupObjects);
     ~Powerup_Distributor();
     bool Distribute_Powerups();
     void Deallocate_Powerups();
+    void Set_Num_Powerups(int num);
+    void Set_Num_Hidden_Powerups(int num);
+    void Set_Num_One_Ups(int num);
+    void Set_Num_Ten_Coin_Blocks(int num);
+    void Set_Num_Stars(int num);
 
 private:
     void Find_Usable_Blocks(bool questionBlocks);
@@ -44,6 +49,7 @@ private:
     Object_Buffer *objects;
     Level_Crawler *levelCrawler;
     SMB1_Compliance_Generator_Arguments *args;
+    bool handleReservingPowerupObjects;
     int numPowerups;
     int numHiddenPowerups;
     int numOneUps;

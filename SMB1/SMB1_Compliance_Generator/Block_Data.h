@@ -13,6 +13,7 @@ struct Block_Data {
     bool hittable;
     bool safeForMushroom;
     bool safeForStar;
+    bool requiresNewObjectToSpawn;
 };
 
 #endif // BLOCK_DATA_H

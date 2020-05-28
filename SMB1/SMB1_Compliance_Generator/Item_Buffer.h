@@ -17,7 +17,7 @@ public:
     int Get_Level_Length();
     int Get_Current_Y();
     void Set_Current_Y(int value);
-    void Set_Num_Bytes_Left_And_Total_Bytes(int value);
+    void Set_Num_Bytes_Left(int value);
     void Set_Current_Line_Number(int lineNum);
     int Get_Absolute_X();
     int Get_Page_Relative_Absolute_X(int x);

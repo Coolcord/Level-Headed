@@ -42,9 +42,9 @@ void Item_Buffer::Set_Current_Y(int value) {
     this->currentY = value;
 }
 
-void Item_Buffer::Set_Num_Bytes_Left_And_Total_Bytes(int value) {
+void Item_Buffer::Set_Num_Bytes_Left(int value) {
     this->numBytesLeft = value;
-    this->totalBytes = value;
+    this->totalBytes = this->numBytesUsed+value;
 }
 
 void Item_Buffer::Set_Current_Line_Number(int lineNum) {
