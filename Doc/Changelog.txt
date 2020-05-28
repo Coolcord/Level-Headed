@@ -10,6 +10,7 @@ Next Update (v0.3.8)
 + Added the Snowballs powerup (based on Darkdata-Systemlogoff's powerup in Toad's Christmas Adventure)
 + Added the Pyro Spark Wand powerup
 + Added 3 new tone colors
++ Added Graphics (Reverse Bowser Fire)
 + Added Music (OHB by Kipp)
 + Added Music (Snoop Dogg by Sky Yoshi)
 
