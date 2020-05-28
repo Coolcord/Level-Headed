@@ -25,7 +25,6 @@ public:
 private:
     void Find_Usable_Blocks(bool questionBlocks);
     void Distribute_Question_Block_Items();
-    void Distribute_Brick_Block_Items();
     void Distribute_One_Ups();
     void Distribute_Hidden_Powerups();
     void Distribute_Stars();

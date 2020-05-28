@@ -46,8 +46,11 @@ bool Powerup_Distributor::Distribute_Powerups() {
     if (!this->levelCrawler->Crawl_Level()) return false;
     this->Find_Usable_Blocks(false);
     this->Find_Usable_Blocks(true);
+    this->Distribute_Ten_Coin_Blocks(); //these need to be distributed first, as they could potentially block other powerups
     this->Distribute_Question_Block_Items();
-    this->Distribute_Brick_Block_Items();
+    this->Distribute_Hidden_Powerups();
+    this->Distribute_Stars();
+    this->Distribute_One_Ups();
     return true;
 }
 
@@ -133,13 +136,6 @@ void Powerup_Distributor::Distribute_Question_Block_Items() {
     this->numHiddenPowerups += this->numPowerups-numDistributed; //reallocate remaining question block powerups to brick blocks
 }
 
-void Powerup_Distributor::Distribute_Brick_Block_Items() {
-    this->Distribute_Hidden_Powerups();
-    this->Distribute_Ten_Coin_Blocks();
-    this->Distribute_Stars();
-    this->Distribute_One_Ups();
-}
-
 void Powerup_Distributor::Distribute_One_Ups() {
     this->Distribute_Items(Object_Item::BRICK_WITH_1UP, this->numOneUps);
 }
@@ -181,7 +177,6 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
         //Remove any nearby blocks that are within the powerup's zone
         possibleBlocks.remove(index);
         if (numDistributed < numItems) {
-            //possibleBlocks = this->Get_Possible_Blocks(knownBlocks, item); //rescan for possible blocks again
             int range = this->maxPowerupZoneSize;
             if (item == Object_Item::BRICK_WITH_10_COINS) range = this->maxTenCoinBlockZoneSize;
             int maxX = currentX+range;
@@ -189,22 +184,14 @@ void Powerup_Distributor::Distribute_Items(Object_Item::Object_Item item, int nu
             if (minX < 0) minX = 0;
             assert(minX <= maxX);
 
-            //Check forwards
-            while (index < possibleBlocks.size()) {
-                int x = possibleBlocks.at(index).value().x;
-                if (x >= minX && x <= maxX) possibleBlocks.remove(index);
-                else break;
-            }
-            --index;
-            if (index < 0) index = 0;
-            if (index > possibleBlocks.size()-1) index = possibleBlocks.size()-1;
-
-            //Check backwards
-            for (int i = index; i >= 0; --i) {
+            //Rebuild the possible blocks vector
+            QVector<QMap<QString, Block_Data>::iterator> updatedPossibleBlocks;
+            for (int i = 0; i < possibleBlocks.size(); ++i) {
                 int x = possibleBlocks.at(i).value().x;
-                if (x >= minX && x <= maxX) possibleBlocks.remove(i);
-                else break;
+                if (x >= minX && x <= maxX) continue;
+                updatedPossibleBlocks.append(possibleBlocks.at(i));
             }
+            possibleBlocks = updatedPossibleBlocks;
         }
     }
 }
@@ -312,11 +299,17 @@ bool Powerup_Distributor::Is_Block_Hittable(int x, int y) {
     //Make sure the coordinate below is empty
     if (!this->levelCrawler->Is_Coordinate_Breakable_Or_Empty(x, y+1)) return false;
 
-    //Check if the block can be reached from below
+    //Check if the block can be reached from directly below
     int platformY = 0;
-    if (!this->levelCrawler->Find_Platform_Directly_Below(x, y, platformY)) return false;
-    if (platformY-y > Physics::BASIC_JUMP_HEIGHT) return false;
-    return true;
+    if (this->levelCrawler->Find_Platform_Directly_Below(x, y, platformY) && platformY-y <= Physics::BASIC_JUMP_HEIGHT+2) return true;
+
+    //Check if the block can be reached from one block to the right
+    if (this->levelCrawler->Find_Platform_Directly_Below(x+1, y, platformY) && platformY-y <= Physics::BASIC_JUMP_HEIGHT+2) return true;
+
+    //Check if the block can be reached from one block to the left
+    if (this->levelCrawler->Find_Platform_Directly_Below(x-1, y, platformY) && platformY-y <= Physics::BASIC_JUMP_HEIGHT+2) return true;
+
+    return false;
 }
 
 //TODO: Add path finding to make sure the powerup is reachable

@@ -173,8 +173,7 @@ bool Level_Crawler::Is_Coordinate_Breakable_Or_Empty(int x, int y) {
         return true;
     case Object_Item::HORIZONTAL_BRICKS:
     case Object_Item::VERTICAL_BRICKS:
-        if (this->levelAttribute != Level_Attribute::UNDERWATER) return true;
-        else return false;
+        return this->levelAttribute != Level_Attribute::UNDERWATER;
     }
     assert(false);
     return false;
