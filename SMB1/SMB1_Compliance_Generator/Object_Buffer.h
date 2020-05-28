@@ -98,6 +98,8 @@ public:
     bool Pipe_Wall(int x);
     bool Nothing();
 
+    void Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int absoluteX, int y, int length, bool questionBlock);
+
 private:
     Object_Buffer(const Object_Buffer&);
     Object_Buffer& operator=(const Object_Buffer&);
@@ -116,7 +118,6 @@ private:
     bool Is_Y_Valid(int y);
     bool Is_Coordinate_Valid(int &coordinate);
     void Update_Last_Page_Change_For_Next_X(int &x);
-    void Insert_Into_Block_Map(Object_Item::Object_Item objectItem, int y, int length, bool questionBlock);
 
     SMB1_Compliance_Generator_Arguments *args;
     QVector<int> *objectsAtXCoordinates;

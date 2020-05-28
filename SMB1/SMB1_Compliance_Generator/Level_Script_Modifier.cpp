@@ -165,26 +165,31 @@ bool Level_Script_Modifier::Redistribute_Powerups(SMB1_Compliance_Generator_Argu
             break;
         case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
             data->objectItem = Object_Item::QUESTION_BLOCK_WITH_COIN;
+            parserArgs.objectBuffer->Insert_Into_Block_Map(data->objectItem, data->absoluteX, data->y, 1, true);
             ++numPowerups;
             break;
         case Object_Item::BRICK_WITH_MUSHROOM:
             data->objectItem = Object_Item::HORIZONTAL_BRICKS;
             data->length = 1;
+            parserArgs.objectBuffer->Insert_Into_Block_Map(data->objectItem, data->absoluteX, data->y, 1, false);
             ++numHiddenPowerups;
             break;
         case Object_Item::BRICK_WITH_STAR:
             data->objectItem = Object_Item::HORIZONTAL_BRICKS;
             data->length = 1;
+            parserArgs.objectBuffer->Insert_Into_Block_Map(data->objectItem, data->absoluteX, data->y, 1, false);
             ++numStars;
             break;
         case Object_Item::BRICK_WITH_10_COINS:
             data->objectItem = Object_Item::HORIZONTAL_BRICKS;
             data->length = 1;
+            parserArgs.objectBuffer->Insert_Into_Block_Map(data->objectItem, data->absoluteX, data->y, 1, false);
             ++numTenCoinBlocks;
             break;
         case Object_Item::BRICK_WITH_1UP:
             data->objectItem = Object_Item::HORIZONTAL_BRICKS;
             data->length = 1;
+            parserArgs.objectBuffer->Insert_Into_Block_Map(data->objectItem, data->absoluteX, data->y, 1, false);
             ++numOneUps;
             break;
         }
