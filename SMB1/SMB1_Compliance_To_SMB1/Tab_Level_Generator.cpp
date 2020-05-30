@@ -76,7 +76,7 @@ void Tab_Level_Generator::Save_Settings() {
 void Tab_Level_Generator::Clear_All_Random_Level_Scripts() {
     QMessageBox::StandardButton answer;
     answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                   "This will delete all of your previously generated random level scripts! Are you sure that you want to do this?",
+                                   "This will delete all of your previously generated random level packs! Are you sure that you want to do this?",
                                    QMessageBox::Yes | QMessageBox::No);
 
     //Delete all random level scripts
@@ -98,11 +98,11 @@ void Tab_Level_Generator::Clear_All_Random_Level_Scripts() {
         //Show a message for the status of the operation
         if (success) {
             QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                     "All previously generated random level scripts have been removed!",
+                                     "All previously generated random level packs have been removed!",
                                      Common_Strings::STRING_OK);
         } else {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
-                                  " could not delete all of the randomly generated level scripts!",
+                                  " could not delete all of the randomly generated level packs!",
                                   Common_Strings::STRING_OK);
         }
         this->Populate_Level_Scripts_ComboBox();

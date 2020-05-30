@@ -203,8 +203,9 @@ bool Graphics_Combiner::Combine_Mario() {
 
 bool Graphics_Combiner::Combine_Mushroom_Powerup() {
     if (this->Does_Graphics_Pack_Use_New_Tiles(this->graphicsOffsets->Get_Mushroom_Powerup_Offsets(), true)) return true;
-    if (this->Is_Red_Border_Black()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Dark");
-    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Light");
+    if (this->Is_Red_Base_The_Same_As_Green()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Same Base");
+    if (this->Is_Red_Border_The_Same_As_Green()) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Same Border");
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Powerup Mushroom Unique");
 }
 
 bool Graphics_Combiner::Combine_One_Up_Font() {
@@ -434,10 +435,31 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
     return false;
 }
 
+bool Graphics_Combiner::Is_Red_Base_The_Same_As_Green() {
+    QByteArray greenBytes, redBytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF2, 1, greenBytes)) return false;
+    if (!this->Read_Bytes_From_Offset(0x0CF6, 1, redBytes)) return false;
+    return greenBytes.at(0) == redBytes.at(0);
+}
+
+bool Graphics_Combiner::Is_Red_Border_The_Same_As_Green() {
+    QByteArray greenBytes, redBytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF0, 1, greenBytes)) return false;
+    if (!this->Read_Bytes_From_Offset(0x0CF4, 1, redBytes)) return false;
+    return greenBytes.at(0) == redBytes.at(0);
+}
+
 bool Graphics_Combiner::Is_Red_Border_Black() {
     QByteArray bytes;
-    if (this->Read_Bytes_From_Offset(0x0CF4, 1, bytes)) return false;
+    if (!this->Read_Bytes_From_Offset(0x0CF4, 1, bytes)) return false;
     return bytes.at(0) == static_cast<char>(0x0F);
+}
+
+bool Graphics_Combiner::Is_Red_Border_Darkest_Shade() {
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x0CF4, 1, bytes)) return false;
+    char c = bytes.at(0)&0xF0;
+    return c == static_cast<char>(0x00);
 }
 
 bool Graphics_Combiner::Is_Tile_Blank(char tileID, bool sprite) {

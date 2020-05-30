@@ -32,13 +32,28 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
             case 0:     data->enemyItem = Enemy_Item::BLOOPER; break;
             case 1:     data->enemyItem = Enemy_Item::BULLET_BILL; break;
             case 2:     data->enemyItem = Enemy_Item::GREEN_PARATROOPA; data->moving = true; data->leaping = false; break;
-            case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; break;
+            case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; data->y = Random::Get_Instance().Get_Num(5); break;
             case 4:     data->enemyItem = Enemy_Item::PODOBOO; break;
             case 5:     data->enemyItem = Enemy_Item::HAMMER_BRO; break;
             }
             break;
-        case Enemy_Item::BULLET_BILL:
         case Enemy_Item::GREEN_PARATROOPA:
+            if (data->leaping) {
+                this->Random_Enemy(data, levelAttribute == Level_Attribute::UNDERWATER, allowHammerBros, allowLakitus, allowContinousEnemySpawners);
+            } else {
+                this->Reset_Enemy_Settings(data);
+                data->y = Random::Get_Instance().Get_Num(1, 10);
+                switch (Random::Get_Instance().Get_Num(4)) {
+                default:    assert(false); return false;
+                case 0:     data->enemyItem = Enemy_Item::BLOOPER; break;
+                case 1:     data->enemyItem = Enemy_Item::BULLET_BILL; break;
+                case 2:     data->enemyItem = Enemy_Item::GREEN_PARATROOPA; data->moving = true; data->leaping = false; break;
+                case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; data->y = Random::Get_Instance().Get_Num(5); break;
+                case 4:     data->enemyItem = Enemy_Item::PODOBOO; break;
+                }
+            }
+            break;
+        case Enemy_Item::BULLET_BILL:
         case Enemy_Item::RED_PARATROOPA:
         case Enemy_Item::GREEN_CHEEP_CHEEP:
         case Enemy_Item::RED_CHEEP_CHEEP:
@@ -50,7 +65,7 @@ bool Level_Script_Modifier::Perform_Enemy_Chaotic_Swap(Enemy_Buffer *enemyBuffer
             case 0:     data->enemyItem = Enemy_Item::BLOOPER; break;
             case 1:     data->enemyItem = Enemy_Item::BULLET_BILL; break;
             case 2:     data->enemyItem = Enemy_Item::GREEN_PARATROOPA; data->moving = true; data->leaping = false; break;
-            case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; break;
+            case 3:     data->enemyItem = Enemy_Item::RED_PARATROOPA; data->y = Random::Get_Instance().Get_Num(5); break;
             case 4:     data->enemyItem = Enemy_Item::PODOBOO; break;
             }
             break;
@@ -249,8 +264,8 @@ bool Level_Script_Modifier::Random_Enemy(Buffer_Data *data, bool underwater, boo
     case 5:     data->enemyItem = Enemy_Item::BULLET_BILL; data->y = Random::Get_Instance().Get_Num(1, 10); break;
     case 6:     data->enemyItem = Enemy_Item::GREEN_PARATROOPA; data->leaping = true; data->moving = true; break;
     case 7:     data->enemyItem = Enemy_Item::GREEN_PARATROOPA; data->leaping = false; data->moving = true; data->y = Random::Get_Instance().Get_Num(1, 10); break;
-    case 8:     data->enemyItem = Enemy_Item::RED_PARATROOPA; break;
-    case 9:     data->enemyItem = Enemy_Item::PODOBOO; break;
+    case 8:     data->enemyItem = Enemy_Item::RED_PARATROOPA; data->y = Random::Get_Instance().Get_Num(5); break;
+    case 9:     data->enemyItem = Enemy_Item::PODOBOO; data->y = 11; break;
     case 10:    data->enemyItem = Enemy_Item::HAMMER_BRO; break;
     }
     return true;

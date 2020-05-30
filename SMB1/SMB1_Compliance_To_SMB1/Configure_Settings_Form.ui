@@ -3204,7 +3204,7 @@ p, li { white-space: pre-wrap; }
              <item>
               <widget class="QRadioButton" name="radioUseLevelScripts">
                <property name="text">
-                <string>Use Level Scripts</string>
+                <string>Second Quest Mode</string>
                </property>
               </widget>
              </item>
@@ -3216,7 +3216,7 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QLabel" name="lblLevelScripts">
                 <property name="text">
-                 <string>Level Scripts:</string>
+                 <string>Level Pack:</string>
                 </property>
                </widget>
               </item>
@@ -3226,14 +3226,14 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QPushButton" name="btnClearAllRandomLevelScripts">
                 <property name="text">
-                 <string>Clear All Random Level Scripts</string>
+                 <string>Clear All Previously Generated Random Level Packs</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QGroupBox" name="groupLevelScriptSettings">
                 <property name="title">
-                 <string>Level Script Settings</string>
+                 <string>Second Quest Mode Settings</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
