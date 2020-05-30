@@ -765,34 +765,43 @@ bool Hacks::Spiny_Eggs_Do_Not_Break() {
         static_cast<unsigned char>(spinyFrame2.at(1)) != static_cast<unsigned char>(0xFC)) {
         return false; //the top two tiles are assumed to be the blank tiles. Fail if they are not.
     }
+    if (spinyFrame1.at(4) == spinyFrame1.at(5) || spinyFrame2.at(4) == spinyFrame2.at(5)
+            || spinyFrame1.at(4) == spinyFrame2.at(5) || spinyFrame1.at(5) == spinyFrame2.at(5)) {
+        return false; //the last two spiny frames must be different
+    }
 
     //Read the Left Side from the Spiny Egg Graphics Data
-    QByteArray eggFrame1TopLeft, eggFrame1BottomLeft, eggFrame2TopLeft, eggFrame2BottomLeft;
-    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(4), eggFrame1TopLeft)) return false;
-    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(5), eggFrame1BottomLeft)) return false;
-    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(4), eggFrame2TopLeft)) return false;
-    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(5), eggFrame2BottomLeft)) return false;
+    QByteArray eggFrame1TopRight, eggFrame1BottomRight, eggFrame2TopRight, eggFrame2BottomRight;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(3), eggFrame1TopRight)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame1.at(5), eggFrame1BottomRight)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(3), eggFrame2TopRight)) return false;
+    if (!this->graphics->Read_Graphics_Bytes_From_Sprite_Tile_ID(eggFrame2.at(5), eggFrame2BottomRight)) return false;
 
-    //Get the Right Side
-    QByteArray eggFrame1TopRight = eggFrame1BottomLeft, eggFrame1BottomRight = eggFrame1TopLeft, eggFrame2TopRight = eggFrame2BottomLeft, eggFrame2BottomRight = eggFrame2TopLeft;
-    if (!this->graphics->Perform_Vertical_Flip(eggFrame1TopRight)) return false;
+    //Flip the Graphics so that they display properly
     if (!this->graphics->Perform_Horizontal_Flip(eggFrame1TopRight)) return false;
-    if (!this->graphics->Perform_Vertical_Flip(eggFrame1BottomRight)) return false;
     if (!this->graphics->Perform_Horizontal_Flip(eggFrame1BottomRight)) return false;
-    if (!this->graphics->Perform_Vertical_Flip(eggFrame2TopRight)) return false;
     if (!this->graphics->Perform_Horizontal_Flip(eggFrame2TopRight)) return false;
-    if (!this->graphics->Perform_Vertical_Flip(eggFrame2BottomRight)) return false;
     if (!this->graphics->Perform_Horizontal_Flip(eggFrame2BottomRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame1TopRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame1BottomRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame2TopRight)) return false;
+    if (!this->graphics->Perform_Vertical_Flip(eggFrame2BottomRight)) return false;
 
     //Write the Egg Graphics Data over the Spiny Graphics Data
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(2), eggFrame1TopLeft)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(3), eggFrame1TopRight)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(4), eggFrame1BottomLeft)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(5), eggFrame1BottomRight)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(2), eggFrame2TopLeft)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(3), eggFrame2TopRight)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(4), eggFrame2BottomLeft)) return false;
-    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(5), eggFrame2BottomRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(5), eggFrame1TopRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame1.at(4), eggFrame1BottomRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(5), eggFrame2TopRight)) return false;
+    if (!this->graphics->Write_Graphics_Bytes_To_Sprite_Tile_ID(spinyFrame2.at(4), eggFrame2BottomRight)) return false;
+
+    //Write the Tile Order Layout
+    spinyFrame1[2] = eggFrame1.at(3);
+    spinyFrame1[3] = spinyFrame1.at(4);
+    spinyFrame1[4] = eggFrame1.at(5);
+    spinyFrame2[2] = eggFrame2.at(3);
+    spinyFrame2[3] = spinyFrame2.at(4);
+    spinyFrame2[4] = eggFrame2.at(5);
+    if (!this->Write_Bytes_To_Offset(0x6772, spinyFrame1)) return false;
+    if (!this->Write_Bytes_To_Offset(0x6778, spinyFrame2)) return false;
     return true;
 }
 
