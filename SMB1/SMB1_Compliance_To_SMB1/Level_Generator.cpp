@@ -178,12 +178,12 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
         else args.levelCompliment = Level_Compliment::TREES;
         args.headerScenery = Scenery::ONLY_CLOUDS;
         if (Random::Get_Instance().Get_Num(1)==0) {
-            int random = Random::Get_Instance().Get_Num(169);
-            if (random < 50) args.headerBackground = Background::OVER_WATER;
-            else if (random < 90) args.headerBackground = Background::NIGHT;
-            else if (random < 130) args.headerBackground = Background::SNOW;
-            else if (random < 155) args.headerBackground = Background::NIGHT_AND_SNOW;
-            else if (random < 170) args.headerBackground = Background::NIGHT_AND_FREEZE;
+            int random = Random::Get_Instance().Get_Num(189);
+            if (random < 70) args.headerBackground = Background::OVER_WATER;
+            else if (random < 110) args.headerBackground = Background::NIGHT;
+            else if (random < 150) args.headerBackground = Background::SNOW;
+            else if (random < 175) args.headerBackground = Background::NIGHT_AND_SNOW;
+            else if (random < 190) args.headerBackground = Background::NIGHT_AND_FREEZE;
             else assert(false);
         } else args.headerBackground = Background::BLANK_BACKGROUND;
         break;
