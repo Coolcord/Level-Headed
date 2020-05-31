@@ -109,6 +109,7 @@ private:
     Text *text;
     int difficultyWalkingHammerBros;
     int spinyEggSpeedCap;
+    int numWorlds;
     bool skipLivesScreen;
     bool isHammerSuitActive;
     bool permadeath;

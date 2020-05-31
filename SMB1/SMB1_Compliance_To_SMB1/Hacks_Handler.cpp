@@ -45,7 +45,6 @@ bool Hacks_Handler::Write_Hacks() {
     } else {
         if (!this->writerPlugin->Graphics_Write_Title_Screen_For_Partial_Game()) return false;
     }
-    if (!this->pluginSettings->generateNewLevels && this->pluginSettings->randomizeWarpZones && !this->writerPlugin->Hacks_Randomize_Warp_Zone()) return false;
     if (!this->Handle_Enemy_Groups()) return false;
     if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;

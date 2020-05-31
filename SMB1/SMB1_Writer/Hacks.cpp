@@ -29,6 +29,7 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->skipLivesScreen = false;
     this->isHammerSuitActive = false;
     this->permadeath = false;
+    this->numWorlds = 8;
     this->wasCastleLoopReplacedWithAutoScrollObject = false;
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
@@ -379,7 +380,6 @@ bool Hacks::Randomize_Warp_Zone() {
     if (!this->Write_Bytes_To_Offset(0x080C, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6))))) return false;
 
     //Disable the printing of world numbers above the pipes
-    //return this->Write_Bytes_To_Offset(0x0892, QByteArray::fromHex(QString("A92C4C3F86").toLatin1()));
     return this->Write_Bytes_To_Offset(0x0899, QByteArray::fromHex(QString("A924EA").toLatin1()));
 }
 
@@ -645,6 +645,7 @@ bool Hacks::Set_Number_Of_Worlds(int value) {
 
     //Correct Bowser's "True" Form
     if (!this->Write_Bytes_To_Offset(0x5746+value, QByteArray(8-value, static_cast<char>(0x2D)))) return false;
+    this->numWorlds = value+1;
 
     //Apply the Walking Hammer Bros patch
     assert(this->difficultyWalkingHammerBros >= 1 && this->difficultyWalkingHammerBros <= 11);
@@ -936,11 +937,11 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
 int Hacks::Get_Random_Warp_Zone_World(int originalValue) {
     int world = originalValue;
     if (Random::Get_Instance().Get_Num(4) == 0) {
-        world = Random::Get_Instance().Get_Num(1, 8);
+        world = Random::Get_Instance().Get_Num(1, this->numWorlds);
     } else {
         if (Random::Get_Instance().Get_Num(1)) world += Random::Get_Instance().Get_Num(2);
         else world -= Random::Get_Instance().Get_Num(1, 2);
-        if (world > 8) world = 8;
+        if (world > this->numWorlds) world = this->numWorlds;
         if (world < 1) world = 1;
     }
     return world;

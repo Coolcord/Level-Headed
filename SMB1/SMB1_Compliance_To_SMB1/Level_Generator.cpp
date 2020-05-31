@@ -1110,6 +1110,9 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numWorlds, int &n
     //Parse Seperator at the end
     if (!this->Parse_To_Next_Seperator(file, lineNum)) return false;
 
+    //Randomize the Warp Zones if Specified
+    if (!this->pluginSettings->generateNewLevels && this->pluginSettings->randomizeWarpZones && !this->writerPlugin->Hacks_Randomize_Warp_Zone()) return false;
+
     return true;
 }
 
