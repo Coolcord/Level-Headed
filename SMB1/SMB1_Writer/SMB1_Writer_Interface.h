@@ -166,6 +166,7 @@ public:
     virtual bool Hacks_Random_Intro_Demo()=0;
     virtual bool Hacks_Random_Thank_You_Text()=0;
     virtual bool Hacks_Random_True_Bowser_Characters()=0;
+    virtual bool Hacks_Randomize_Warp_Zone()=0;
     virtual bool Hacks_Real_Time()=0;
     virtual bool Hacks_Red_Piranha_Plants()=0;
     virtual bool Hacks_Remove_Vertical_Object_Limit()=0;

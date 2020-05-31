@@ -184,6 +184,7 @@ public:
     bool Hacks_Random_Intro_Demo();
     bool Hacks_Random_Thank_You_Text();
     bool Hacks_Random_True_Bowser_Characters();
+    bool Hacks_Randomize_Warp_Zone();
     bool Hacks_Real_Time();
     bool Hacks_Red_Piranha_Plants();
     bool Hacks_Remove_Vertical_Object_Limit();

@@ -88,12 +88,20 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x7F9E) return offset + 0x1;
         return offset;
     case ROM_Type::FDS:
+        if (offset < 0x02B7) return offset + 0x2153;
+        if (offset < 0x0481) return offset + 0x2153;
         if (offset < 0x0144) return offset + 0x214C;
         if (offset < 0x1110) return offset + 0x2153;
+        if (offset < 0x1212) return offset + 0x2157;
+        if (offset < 0x148C) return offset + 0x2157;
         if (offset < 0x1CB0) return offset + 0x2157;
         if (offset < 0x4008) return offset + 0x2155;
+        if (offset < 0x5132) return offset + 0x2166;
+        if (offset < 0x5167) return offset + 0x2166;
+        if (offset < 0x574F) return offset + 0x2163;
         if (offset < 0x5A24) return offset + 0x2166;
         if (offset < 0x645C) return offset + 0x2163;
+        if (offset < 0x6A2E) return offset + 0x2162;
         if (offset < 0x7284) return offset + 0x2162;
         if (offset < 0x8010) return offset + 0x215E;
         if (offset < 0xA010) return offset - 0x7EC4;
@@ -108,6 +116,8 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x0506) return offset + 0x7E5D;
         if (offset < 0x06F9) return offset + 0x7E5B;
         if (offset < 0x0752) return offset + 0x7827;
+        if (offset < 0x080D) return offset + 0x7E48;
+        if (offset < 0x089C) return offset + 0x7E75;
         if (offset < 0x0D22) return offset + 0x7E75;
         if (offset < 0x0E08) return offset + 0x7E6F;
         if (offset < 0x103A) return offset + 0x7E02;

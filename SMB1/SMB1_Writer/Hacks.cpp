@@ -369,6 +369,20 @@ bool Hacks::Random_True_Bowser_Characters() {
     return this->Write_Bytes_To_Offset(0x5746, bytes);
 }
 
+bool Hacks::Randomize_Warp_Zone() {
+    if (!this->Write_Bytes_To_Offset(0x0802, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(4))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0803, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(3))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0804, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(2))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0807, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(5))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080A, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(8))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080B, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(7))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080C, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6))))) return false;
+
+    //Disable the printing of world numbers above the pipes
+    //return this->Write_Bytes_To_Offset(0x0892, QByteArray::fromHex(QString("A92C4C3F86").toLatin1()));
+    return this->Write_Bytes_To_Offset(0x0899, QByteArray::fromHex(QString("A924EA").toLatin1()));
+}
+
 bool Hacks::Real_Time() {
     if (!this->Write_Bytes_To_Offset(0x113E, QByteArray::fromHex(QString("030201").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3784, QByteArray::fromHex(QString("ADF807D00DADF907C904D006ADFA074C0BC1A940").toLatin1()))) return false;
@@ -917,6 +931,19 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
         if (!this->Write_Bytes_To_Offset(0x4341, QByteArray::fromHex(QString("4C9DC0").toLatin1()))) return false;
     }
     return true;
+}
+
+int Hacks::Get_Random_Warp_Zone_World(int originalValue) {
+    int world = originalValue;
+    if (Random::Get_Instance().Get_Num(4) == 0) {
+        world = Random::Get_Instance().Get_Num(1, 8);
+    } else {
+        if (Random::Get_Instance().Get_Num(1)) world += Random::Get_Instance().Get_Num(2);
+        else world -= Random::Get_Instance().Get_Num(1, 2);
+        if (world > 8) world = 8;
+        if (world < 1) world = 1;
+    }
+    return world;
 }
 
 bool Hacks::Increase_Leaping_Paratroopa_Speed(int amount) {

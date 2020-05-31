@@ -3148,7 +3148,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>1046</height>
+            <height>1075</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3204,7 +3204,7 @@ p, li { white-space: pre-wrap; }
              <item>
               <widget class="QRadioButton" name="radioUseLevelScripts">
                <property name="text">
-                <string>Second Quest Mode</string>
+                <string>Create Second Quest</string>
                </property>
               </widget>
              </item>
@@ -3233,13 +3233,20 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QGroupBox" name="groupLevelScriptSettings">
                 <property name="title">
-                 <string>Second Quest Mode Settings</string>
+                 <string>Second Quest Settings</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
                   <widget class="QCheckBox" name="cbRedistributePowerups">
                    <property name="text">
                     <string>Redistribute Powerups</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbRandomizeWarpZones">
+                   <property name="text">
+                    <string>Randomize Warp Zones</string>
                    </property>
                   </widget>
                  </item>

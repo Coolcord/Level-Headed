@@ -29,6 +29,7 @@ struct Plugin_Settings {
     int numLevelsPerWorld;
     bool generateNewLevels;
     bool redistributePowerups;
+    bool randomizeWarpZones;
     bool redistributeEnemies;
     bool performChaoticSwapOnEnemies;
     int levelScriptEnemies;

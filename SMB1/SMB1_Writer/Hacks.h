@@ -47,6 +47,7 @@ public:
     bool Random_Group_Enemy_Koopa(bool allowHammerBros);
     bool Random_Intro_Demo();
     bool Random_True_Bowser_Characters();
+    bool Randomize_Warp_Zone();
     bool Real_Time();
     bool Red_Piranha_Plants();
     bool Remove_Vertical_Object_Limit();
@@ -94,6 +95,7 @@ public:
 private:
     bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
     bool Enable_Walking_Hammer_Bros_In_World(int world);
+    int Get_Random_Warp_Zone_World(int originalValue);
     bool Increase_Leaping_Paratroopa_Speed(int amount);
     bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();

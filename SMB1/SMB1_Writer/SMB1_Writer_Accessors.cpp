@@ -664,6 +664,12 @@ bool SMB1_Writer::Hacks_Random_True_Bowser_Characters() {
     return this->hacks->Random_True_Bowser_Characters();
 }
 
+bool Hacks_Randomize_Warp_Zone();
+bool SMB1_Writer::Hacks_Randomize_Warp_Zone() {
+    if (!this->hacks) return false;
+    return this->hacks->Randomize_Warp_Zone();
+}
+
 bool SMB1_Writer::Hacks_Real_Time() {
     if (!this->hacks) return false;
     return this->hacks->Real_Time();
