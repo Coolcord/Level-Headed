@@ -95,7 +95,7 @@ public:
 private:
     bool Convert_Difficulty_To_World(int difficulty, int numWorlds, int &world);
     bool Enable_Walking_Hammer_Bros_In_World(int world);
-    int Get_Random_Warp_Zone_World(int originalValue);
+    int Get_Random_Warp_Zone_World(int minOriginalValue, int maxOriginalValue);
     bool Increase_Leaping_Paratroopa_Speed(int amount);
     bool Increase_Spiny_Egg_Speed(int amount);
     bool Skip_Lives_Screen();

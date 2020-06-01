@@ -371,13 +371,13 @@ bool Hacks::Random_True_Bowser_Characters() {
 }
 
 bool Hacks::Randomize_Warp_Zone() {
-    if (!this->Write_Bytes_To_Offset(0x0802, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(4))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0803, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(3))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0804, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(2))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x0807, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(5))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x080A, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(8))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x080B, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(7))))) return false;
-    if (!this->Write_Bytes_To_Offset(0x080C, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0802, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(2, 4))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0803, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(2, 4))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0804, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(2, 4))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x0807, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(5, 5))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080A, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6, 8))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080B, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6, 8))))) return false;
+    if (!this->Write_Bytes_To_Offset(0x080C, QByteArray(1, static_cast<char>(this->Get_Random_Warp_Zone_World(6, 8))))) return false;
 
     //Disable the printing of world numbers above the pipes
     return this->Write_Bytes_To_Offset(0x0899, QByteArray::fromHex(QString("A924EA").toLatin1()));
@@ -934,15 +934,19 @@ bool Hacks::Enable_Walking_Hammer_Bros_In_World(int world) {
     return true;
 }
 
-int Hacks::Get_Random_Warp_Zone_World(int originalValue) {
-    int world = originalValue;
+int Hacks::Get_Random_Warp_Zone_World(int minOriginalValue, int maxOriginalValue) {
+    assert(minOriginalValue <= maxOriginalValue);
+    assert(minOriginalValue > 0 && minOriginalValue < 9);
+    assert(maxOriginalValue > 0 && maxOriginalValue < 9);
+    int world = 1;
     if (Random::Get_Instance().Get_Num(4) == 0) {
         world = Random::Get_Instance().Get_Num(1, this->numWorlds);
     } else {
-        if (Random::Get_Instance().Get_Num(1)) world += Random::Get_Instance().Get_Num(2);
-        else world -= Random::Get_Instance().Get_Num(1, 2);
-        if (world > this->numWorlds) world = this->numWorlds;
-        if (world < 1) world = 1;
+        int minValue = minOriginalValue-1;
+        int maxValue = maxOriginalValue+1;
+        if (maxValue > this->numWorlds) maxValue = this->numWorlds;
+        if (minValue < 1) minValue = 1;
+        world = Random::Get_Instance().Get_Num(minValue, maxValue);
     }
     return world;
 }
