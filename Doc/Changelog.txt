@@ -15,6 +15,7 @@ Next Update (v0.3.8)
 + Added Graphics (Reverse Bowser Fire)
 + Added Music (OHB by Kipp)
 + Added Music (Snoop Dogg by Sky Yoshi)
+- Removed Trampolines from the original levels since they can often soft lock the game when playing with random enemies
 
 Improved Level Distribution (v0.3.7)
 + Larger games (about 10+ levels) are now more uniformly distributed across the entire game. This means that it will now be impossible to get an entire world full of an uncommon level type.
