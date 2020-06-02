@@ -21,7 +21,11 @@ bool Object_Buffer::Write_Object(int x, int y, int firstObjectHexDigit, int seco
 
 bool Object_Buffer::Fill_Buffer() {
     while (this->Is_Safe_To_Write_Item()) {
-        assert(this->Nothing(0));
+        assert(this->Write_Byte_To_Buffer(0xFD));
+        assert(this->Write_Byte_To_Buffer(0xFD));
+    }
+    if (this->How_Many_Bytes_Left() == 1) {
+        assert(this->Write_Byte_To_Buffer(0xFD)); //fill the buffer with the terminator byte
     }
     return true;
 }
