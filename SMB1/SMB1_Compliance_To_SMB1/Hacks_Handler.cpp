@@ -48,6 +48,7 @@ bool Hacks_Handler::Write_Hacks() {
     if (!this->Handle_Enemy_Groups()) return false;
     if (!this->Handle_Level_Length()) return false;
     if (!this->Handle_Lives()) return false;
+    if (!this->pluginSettings->generateNewLevels && !this->writerPlugin->Hacks_Disable_Fireworks()) return false; //disable Fireworks on second quest to prevent softlocks if too many enemies are on screen
     return this->writerPlugin->Hacks_Write_Watermark(); //write the watermark last
 }
 

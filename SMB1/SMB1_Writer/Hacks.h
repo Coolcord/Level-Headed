@@ -23,6 +23,7 @@ public:
     bool Always_Force_Continue_Code();
     bool Black_Piranha_Plants();
     bool Destroy_Bowser_Bridge_Randomly();
+    bool Disable_Fireworks();
     bool Disable_Intro_Demo();
     bool Disable_One_Up_Coin_Limits();
     bool Enable_Hitting_Underwater_Blocks();

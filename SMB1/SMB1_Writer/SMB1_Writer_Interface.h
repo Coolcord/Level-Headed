@@ -145,6 +145,7 @@ public:
     virtual bool Hacks_Always_Force_Continue_Code()=0;
     virtual bool Hacks_Black_Piranha_Plants()=0;
     virtual bool Hacks_Destroy_Bowser_Bridge_Randomly()=0;
+    virtual bool Hacks_Disable_Fireworks()=0;
     virtual bool Hacks_Disable_Intro_Demo()=0;
     virtual bool Hacks_Disable_One_Up_Coin_Limits()=0;
     virtual bool Hacks_Enable_God_Mode()=0;

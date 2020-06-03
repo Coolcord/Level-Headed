@@ -1,7 +1,8 @@
 Next Update (v0.3.8)
-+ Powerups in level scripts can now be redistributed
-+ Enemies in level scripts can now be redistributed
-+ Warp zones can now be randomized
++ "Use Level Scripts" has been changed to "Second Quest"
++ Powerups can now be redistributed in Second Quest
++ Enemies can now be redistributed in Second Quest
++ Warp zones can now be randomized in Second Quest
 + The "Thank you" text is now randomized
 + The words "princess" and "castle" are now swapped out with random nouns in the message "But our princess is in another castle!"
 + Added a setting that prevents Hammer Time from spawning two Hammer Bros in a row. This setting is on for all difficulties except Brutal and Random
@@ -16,6 +17,7 @@ Next Update (v0.3.8)
 + Added Music (OHB by Kipp)
 + Added Music (Snoop Dogg by Sky Yoshi)
 - Removed Trampolines from the original levels since they can often soft lock the game when playing with random enemies
+- Removed Fireworks in Second Quest to prevent a rare softlock that can occur if too many enemies are on screen
 
 Improved Level Distribution (v0.3.7)
 + Larger games (about 10+ levels) are now more uniformly distributed across the entire game. This means that it will now be impossible to get an entire world full of an uncommon level type.

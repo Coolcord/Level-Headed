@@ -114,6 +114,10 @@ bool Hacks::Destroy_Bowser_Bridge_Randomly() {
     }
 }
 
+bool Hacks::Disable_Fireworks() {
+    return this->Write_Bytes_To_Offset(0x5369, QByteArray::fromHex(QString("A900EA").toLatin1()));
+}
+
 bool Hacks::Disable_Intro_Demo() {
     if (!this->Write_Bytes_To_Offset(0x277, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x289, QByteArray::fromHex(QString("EAEA").toLatin1()))) return false;

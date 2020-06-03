@@ -80,6 +80,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x391A) return offset;
         if (offset < 0x406E) return offset + 0x5;
         if (offset < 0x4F48) return offset + 0x6;
+        if (offset < 0x536C) return offset - 0x38;
         if (offset < 0x56E6) return offset - 0x38;
         if (offset < 0x594F) return offset;
         if (offset < 0x5D5B) return offset + 0x2;
@@ -98,6 +99,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x4008) return offset + 0x2155;
         if (offset < 0x5132) return offset + 0x2166;
         if (offset < 0x5167) return offset + 0x2166;
+        if (offset < 0x536C) return offset + 0x2166;
         if (offset < 0x574F) return offset + 0x2163;
         if (offset < 0x5A24) return offset + 0x2166;
         if (offset < 0x645C) return offset + 0x2163;
@@ -154,6 +156,7 @@ qint64 Level_Offset::Fix_Offset(qint64 offset) {
         if (offset < 0x4E4F) return offset + 0x80CD;
         if (offset < 0x5135) return offset + 0x8090;
         if (offset < 0x5159) return offset + 0x80C0;
+        if (offset < 0x536C) return offset + 0x8081;
         if (offset < 0x5562) return offset + 0x808F;
         if (offset < 0x574E) return offset + 0x811F;
         if (offset < 0x5813) return offset + 0x8124;

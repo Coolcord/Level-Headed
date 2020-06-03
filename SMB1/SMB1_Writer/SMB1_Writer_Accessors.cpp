@@ -555,6 +555,11 @@ bool SMB1_Writer::Hacks_Destroy_Bowser_Bridge_Randomly() {
     return this->hacks->Destroy_Bowser_Bridge_Randomly();
 }
 
+bool SMB1_Writer::Hacks_Disable_Fireworks() {
+    if (!this->hacks) return false;
+    return this->hacks->Disable_Fireworks();
+}
+
 bool SMB1_Writer::Hacks_Disable_Intro_Demo() {
     if (!this->hacks) return false;
     return this->hacks->Disable_Intro_Demo();

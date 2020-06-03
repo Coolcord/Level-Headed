@@ -163,6 +163,7 @@ public:
     bool Hacks_Always_Force_Continue_Code();
     bool Hacks_Black_Piranha_Plants();
     bool Hacks_Destroy_Bowser_Bridge_Randomly();
+    bool Hacks_Disable_Fireworks();
     bool Hacks_Disable_Intro_Demo();
     bool Hacks_Disable_One_Up_Coin_Limits();
     bool Hacks_Enable_God_Mode();
