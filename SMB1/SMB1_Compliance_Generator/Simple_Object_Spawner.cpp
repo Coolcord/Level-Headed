@@ -76,7 +76,7 @@ void Simple_Object_Spawner::Fill_With_Question_Blocks_And_Bricks(int y, int leng
 
 bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     if (this->object->Get_Num_Objects_Available() == 0) return false;
-    int random = Random::Get_Instance().Get_Num(PROBABILITY_TOTAL_SIMPLE-1);
+    int random = Random::Get_Instance().Get_Num(PROBABILITY_TOTAL_SIMPLE);
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {
         if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
             int length = this->object->Get_Last_Object_Length();
@@ -136,8 +136,6 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     } else if (random <= PROBABILITY_BRICK_WITH_STAR) {
         return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_BRICK_WITH_1UP) {
-        return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
-    } else if (random <= PROBABILITY_HIDDEN_BLOCK_WITH_1UP) {
         return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else {
         assert(false);

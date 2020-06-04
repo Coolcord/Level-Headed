@@ -127,15 +127,19 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     int amountUntilNextPage = 0x10 - previousAbsoluteX;
     assert(amountUntilNextPage <= 0x10);
 
-    if (x > 0x10 && x <= 0xF+amountUntilNextPage) {
-        disableCoordinateSafety = true; //the coordinate safety should get disabled
-    } else if (x > 0x10) { //spawn the page change
-        assert(numRequiredBytes > 3);
-        int page = nextX/16;
-        assert(this->enemies->Page_Change(page));
-        previousX = page*16;
-        x = nextX - previousX;
-        assert(x < 0x10);
+    if (this->enemies->Is_Last_Item_A_Page_Change()) {
+        disableCoordinateSafety = false;
+    } else {
+        if (x > 0x10 && x <= 0xF+amountUntilNextPage) {
+            disableCoordinateSafety = true; //the coordinate safety should get disabled
+        } else if (x > 0x10) { //spawn the page change
+            assert(numRequiredBytes > 3);
+            int page = nextX/16;
+            assert(this->enemies->Page_Change(page));
+            previousX = page*16;
+            x = nextX - previousX;
+            assert(x < 0x10);
+        }
     }
 
     this->enemies->Set_Coordinate_Safety(!disableCoordinateSafety);
