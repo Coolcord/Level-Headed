@@ -945,6 +945,8 @@ int Hacks::Get_Random_Warp_Zone_World(int minOriginalValue, int maxOriginalValue
     assert(minOriginalValue <= maxOriginalValue);
     assert(minOriginalValue > 0 && minOriginalValue < 9);
     assert(maxOriginalValue > 0 && maxOriginalValue < 9);
+    if (minOriginalValue > this->numWorlds) minOriginalValue = this->numWorlds;
+    if (maxOriginalValue > this->numWorlds) maxOriginalValue = this->numWorlds;
     int world = 1;
     if (Random::Get_Instance().Get_Num(4) == 0) {
         world = Random::Get_Instance().Get_Num(1, this->numWorlds);
