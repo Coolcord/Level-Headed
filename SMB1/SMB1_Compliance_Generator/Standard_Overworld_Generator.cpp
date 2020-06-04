@@ -55,5 +55,6 @@ void Standard_Overworld_Generator::Spawn_Intro(int &x) {
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
         if (args->startCastle == Castle::BIG) this->objects->Set_Last_Object_Length(11-autoScrollX);
         else this->objects->Set_Last_Object_Length(17-autoScrollX);
+        this->objects->Set_First_Page_Safety(false);
     }
 }
