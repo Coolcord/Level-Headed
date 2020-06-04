@@ -11,6 +11,9 @@
 #include <QDebug>
 #include <assert.h>
 
+const static int MAX_SUGGESTED_ENEMY_DISTANCE = 15;
+const static int MAX_SCAN_DISTANCE = 11;
+
 Enemy_Spawner::Enemy_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies, Level_Crawler *levelCrawler,
                              Required_Enemy_Spawns *requiredEnemySpawns, SMB1_Compliance_Generator_Arguments *args) {
     assert(objects); assert(enemies); assert(requiredEnemySpawns); assert(levelCrawler);
@@ -50,11 +53,11 @@ bool Enemy_Spawner::Spawn_Enemies() {
     if (averageDistance >= 16) usePages = true;
 
     int size = 1;
-    x += (averageDistance/2);
+    x += Random::Get_Instance().Get_Num(3);
     while (this->requiredEnemySpawns->Get_Num_Bytes_Left() > 1 && x < this->levelCrawler->Get_Safe_Size()) {
         if (this->Handle_Required_Enemies(lastX)) {
             x = lastX;
-            x += averageDistance;
+            x = this->Suggest_Next_Spawn_X_To_Check(x, lastX, averageDistance);
             continue;
         }
 
@@ -122,7 +125,7 @@ bool Enemy_Spawner::Spawn_Enemies() {
         }
 
         //Increment X
-        x += averageDistance;
+        x = this->Suggest_Next_Spawn_X_To_Check(x, lastX, averageDistance);
     }
 
     //Spawn the rest of the required spawns if there are any
@@ -296,7 +299,7 @@ int Enemy_Spawner::Calculate_Average_Distance(int x, int totalSpaces, int numEne
     int averageDistance = 4;
     if (totalSpaces-x < 0) return this->args->difficultyMinimumEnemyDistance; //level is too short to use all enemies
     if (numEnemies > 0) averageDistance = (totalSpaces-x)/numEnemies;
-    if (averageDistance > 11) averageDistance = 11;
+    if (averageDistance > MAX_SUGGESTED_ENEMY_DISTANCE) averageDistance = MAX_SUGGESTED_ENEMY_DISTANCE;
     int minimumDistance = this->args->difficultyMinimumEnemyDistance;
     if (this->args->levelType == Level_Type::UNDERWATER) minimumDistance = this->args->difficultyMinimumUnderwaterEnemyDistance;
     if (averageDistance < minimumDistance) averageDistance = minimumDistance;
@@ -371,6 +374,32 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
     x = tmpX;
     y = tmpY;
     return numEnemies+1; //return the size the enemies take up
+}
+
+int Enemy_Spawner::Suggest_Next_Spawn_X_To_Check(int x, int lastX, int averageDistance) {
+    //Get the suggested enemy distance
+    int tmp = 0;
+    if (averageDistance == MAX_SUGGESTED_ENEMY_DISTANCE) {
+        //tmp = averageDistance-Random::Get_Instance().Get_Num(2);
+        tmp = averageDistance;
+    } else {
+        int range = averageDistance/3;
+        if (Random::Get_Instance().Get_Num(1)) tmp = Random::Get_Instance().Get_Num(range, averageDistance);
+        else tmp = Random::Get_Instance().Get_Num(averageDistance, averageDistance+range);
+        if (tmp+x > lastX+MAX_SUGGESTED_ENEMY_DISTANCE) tmp = MAX_SUGGESTED_ENEMY_DISTANCE;
+    }
+
+    //Handle the minimum enemy distance
+    if (this->args->levelType == Level_Type::UNDERWATER) {
+        if (tmp < this->args->difficultyMinimumUnderwaterEnemyDistance) tmp = this->args->difficultyMinimumUnderwaterEnemyDistance;
+    } else {
+        if (tmp < this->args->difficultyMinimumEnemyDistance) tmp = this->args->difficultyMinimumEnemyDistance;
+    }
+
+    //Get the new x
+    x += tmp;
+    assert(x > lastX);
+    return x;
 }
 
 bool Enemy_Spawner::Is_Coordinate_Safe(int x, int y, int lastX) {
@@ -588,7 +617,7 @@ bool Enemy_Spawner::Find_Safe_Coordinate_At_Y(int size, int &x, int y, int lastX
 }
 
 bool Enemy_Spawner::Find_Safe_Coordinate_At_X(int x, int &y, int lastX) {
-    for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+    for (int i = Random::Get_Instance().Get_Num(MAX_SCAN_DISTANCE), numChecked = 0; numChecked < MAX_SCAN_DISTANCE+2; i = (i+1)%(MAX_SCAN_DISTANCE+1), ++numChecked) {
         if (this->Is_Coordinate_Safe(x, i, lastX)) {
             y = i;
             return true;
@@ -601,7 +630,7 @@ bool Enemy_Spawner::Find_Safe_Coordinate_At_X(int x, int &y, int lastX) {
 bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
         for (int i = lastX+15; i >= x; --i) {
-            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(MAX_SCAN_DISTANCE), numChecked = 0; numChecked < MAX_SCAN_DISTANCE+2; j = (j+1)%(MAX_SCAN_DISTANCE+1), ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (j > 1 && this->Is_Coordinate_Safe(i, j, lastX)) {
                     //The two coordinates above cannot be solid objects
@@ -621,7 +650,7 @@ bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
         }
     } else {
         for (int i = x; i <= lastX+15; ++i) {
-            for (int j = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; j = (j+1)%12, ++numChecked) {
+            for (int j = Random::Get_Instance().Get_Num(MAX_SCAN_DISTANCE), numChecked = 0; numChecked < MAX_SCAN_DISTANCE+2; j = (j+1)%(MAX_SCAN_DISTANCE+1), ++numChecked) {
                 //Check to see if a regular enemy can spawn here first
                 if (j > 1 && this->Is_Coordinate_Safe(i, j, lastX)) {
                     //The two coordinates above cannot be solid objects
@@ -641,7 +670,7 @@ bool Enemy_Spawner::Find_Safe_Green_Leaping_Paratroopa_Coordinate(int &x, int &y
 //TODO: Don't allow these to spawn above y 2
 bool Enemy_Spawner::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y, int lastX, bool reverse) {
     if (reverse) {
-        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+        for (int i = Random::Get_Instance().Get_Num(MAX_SCAN_DISTANCE), numChecked = 0; numChecked < MAX_SCAN_DISTANCE+2; i = (i+1)%(MAX_SCAN_DISTANCE+1), ++numChecked) {
             for (int j = lastX+15; j >= x; --j) {
                 if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y, lastX)) {
                     //Y was set in the function
@@ -651,7 +680,7 @@ bool Enemy_Spawner::Find_Safe_Green_Flying_Paratroopa_Coordinate(int &x, int &y,
             }
         }
     } else {
-        for (int i = Random::Get_Instance().Get_Num(11), numChecked = 0; numChecked < 13; i = (i+1)%12, ++numChecked) {
+        for (int i = Random::Get_Instance().Get_Num(MAX_SCAN_DISTANCE), numChecked = 0; numChecked < MAX_SCAN_DISTANCE+2; i = (i+1)%(MAX_SCAN_DISTANCE+1), ++numChecked) {
             for (int j = x; j <= lastX+15; ++j) {
                 if (this->Scan_For_Safe_Green_Flying_Paratroopa_Spawn(x, y, lastX)) {
                     //Y was set in the function

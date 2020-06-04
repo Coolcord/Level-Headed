@@ -111,6 +111,12 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
 
     //Handle the x values
     int previousX = this->enemies->Get_Level_Length();
+
+
+    if (previousX > nextX) {
+        assert(false);
+    }
+
     assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);

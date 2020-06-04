@@ -35,6 +35,7 @@ private:
     int Common_Enemy(int &x, int &y, int lastX, int lastSize, bool forceHammerBro, bool noEnemies);
     int Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noEnemies);
 
+    int Suggest_Next_Spawn_X_To_Check(int x, int lastX, int averageDistance);
     bool Is_Coordinate_Safe(int x, int y, int lastX);
     bool Find_Safe_Coordinate(int &x, int &y, int lastX);
     bool Find_Safe_Coordinate(int size, int &x, int &y, int lastX, bool reverse = false);
