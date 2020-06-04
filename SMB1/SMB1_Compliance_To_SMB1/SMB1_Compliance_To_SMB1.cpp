@@ -63,7 +63,8 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (this->pluginSettings.baseROM.isEmpty()) loaded = this->writerPlugin->Load_ROM_First_Time(this->pluginSettings.baseROM);
     else loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
     if (!loaded) {
-        qDebug() << "Failed to load the ROM!";
+        this->Show_Message("Failed to load the ROM!", true);
+        this->Shutdown();
         return false;
     }
 
