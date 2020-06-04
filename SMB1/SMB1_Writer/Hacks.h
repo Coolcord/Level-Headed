@@ -114,6 +114,7 @@ private:
     bool skipLivesScreen;
     bool isHammerSuitActive;
     bool permadeath;
+    bool wasOnlyJumpAtIntroDemoApplied;
     bool wasCastleLoopReplacedWithAutoScrollObject;
     bool wasCastleLoopReplacedWithFireBros;
     bool wasCastleLoopReplacedWithFlagpole1UP;

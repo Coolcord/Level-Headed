@@ -50,9 +50,10 @@ void Standard_Overworld_Generator::Spawn_Intro(int &x) {
     this->firstPageHandler->Handle_First_Page(x);
     int autoScrollX = 4;
     this->Handle_Auto_Scroll_Start(autoScrollX);
+    if (!this->objects->Was_Auto_Scroll_Used()) autoScrollX = 0;
     Enemy_Item::Enemy_Item spawner = this->continuousEnemiesSpawner->Create_Continuous_Enemies_Spawner(x);
     if (spawner == Enemy_Item::NOTHING || spawner == Enemy_Item::LAKITU) {
-        if (args->startCastle == Castle::BIG) this->objects->Set_Last_Object_Length(10-autoScrollX);
+        if (args->startCastle == Castle::BIG) this->objects->Set_Last_Object_Length(11-autoScrollX);
         else this->objects->Set_Last_Object_Length(17-autoScrollX);
     }
 }

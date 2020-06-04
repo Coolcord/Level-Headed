@@ -30,6 +30,7 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->isHammerSuitActive = false;
     this->permadeath = false;
     this->numWorlds = 8;
+    this->wasOnlyJumpAtIntroDemoApplied = false;
     this->wasCastleLoopReplacedWithAutoScrollObject = false;
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
@@ -133,7 +134,8 @@ bool Hacks::Enable_Hitting_Underwater_Blocks() {
 }
 
 bool Hacks::Enable_Piranha_Plants_On_First_Level() {
-    return this->Write_Bytes_To_Offset(0x1905, QByteArray(5, static_cast<char>(0xEA)));
+    if (!this->Write_Bytes_To_Offset(0x1905, QByteArray(5, static_cast<char>(0xEA)))) return false;
+    return this->Only_Jump_At_Intro_Demo();
 }
 
 bool Hacks::Enable_Walking_Hammer_Bros(int difficulty) {
@@ -282,6 +284,7 @@ bool Hacks::Random_Group_Enemy_Koopa(bool allowHammerBros) {
 }
 
 bool Hacks::Random_Intro_Demo() {
+    if (this->wasOnlyJumpAtIntroDemoApplied) return true; //nothing to do
     if (Random::Get_Instance().Get_Num(10) == 0) return this->Only_Jump_At_Intro_Demo(); //sometimes only jump at the intro
     QByteArray buttons(21, static_cast<char>(0x01)); //default is holding right
     bool run = Random::Get_Instance().Get_Num(1);
