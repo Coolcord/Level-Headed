@@ -828,7 +828,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>708</width>
-            <height>2975</height>
+            <height>3009</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1219,6 +1219,27 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QSpinBox" name="sbAutoScroll">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>11</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layoutAutoScrollWithFlyingCheepCheeps">
+                <item>
+                 <widget class="QLabel" name="lblAutoScrollWithFlyingCheepCheeps">
+                  <property name="text">
+                   <string>Auto Scroll + Flying Cheep-Cheeps:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="sbAutoScrollWithFlyingCheepCheeps">
                   <property name="minimum">
                    <number>1</number>
                   </property>

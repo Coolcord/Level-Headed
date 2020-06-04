@@ -24,6 +24,7 @@ struct SMB1_Compliance_Generator_Arguments {
     bool useVerticalObjectLimit;
     bool fireFlowerBouncesLikeStar;
     int difficulty;
+    int difficultyAutoScrollWithFlyingCheepCheeps;
     int difficultyBulletTime;
     int difficultyHammerTime;
     int difficultyBuzzyBeetlesReplaceLoneGoombas;

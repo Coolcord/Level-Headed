@@ -33,6 +33,7 @@ void Difficulty_Level_Configurations::Random(Plugin_Settings *pluginSettings, bo
 void Difficulty_Level_Configurations::Apply_Difficulty_Settings_To_Plugin_Settings(const Difficulty_Level_Settings &difficultySettings, Plugin_Settings *pluginSettings, bool disableASM) {
     assert(pluginSettings);
     pluginSettings->difficultyAutoScroll = difficultySettings.autoScroll;
+    pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps = difficultySettings.autoScrollWithFlyingCheepCheeps;
     pluginSettings->difficultyBulletTime = difficultySettings.bulletTime;
     pluginSettings->difficultyHammerTime = difficultySettings.hammerTime;
     pluginSettings->difficultyWalkingHammerBros = difficultySettings.walkingHammerBros;
@@ -179,6 +180,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
 
 void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficultySettings) {
     difficultySettings.autoScroll = 11;
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
     difficultySettings.walkingHammerBros = 11;
     difficultySettings.basicEnemySpeed = 3;
@@ -216,6 +218,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
 Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     Difficulty_Level_Settings difficultySettings;
     difficultySettings.autoScroll = 4;
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 11;
     difficultySettings.bulletTime = 7;
     difficultySettings.hammerTime = 9;
     difficultySettings.walkingHammerBros = 11;
@@ -298,6 +301,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     //Turn Everything Off for Very Easy
     Difficulty_Level_Settings difficultySettings = this->Easy();
     difficultySettings.autoScroll = 11;
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 11;
     difficultySettings.autoScrollChancePerLevel = 0;
     difficultySettings.bulletTime = 11;
     difficultySettings.minimumEnemyDistance = 10;
@@ -333,6 +337,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
 Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.autoScroll = 7;
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 10;
     difficultySettings.bulletTime = 9;
     difficultySettings.hammerTime = 11; //disable hammer time
     difficultySettings.minimumEnemyDistance = 8;
@@ -362,6 +367,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
 Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     difficultySettings.autoScroll = 3;
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 9;
     difficultySettings.bulletTime = 5;
     difficultySettings.hammerTime = 7;
     difficultySettings.buzzyBeetlesReplaceLoneGoombas = 4;
@@ -413,6 +419,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Hard() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
     Difficulty_Level_Settings difficultySettings = this->Hard();
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 6;
     difficultySettings.bulletTime = 2;
     difficultySettings.hammerTime = 3;
     difficultySettings.hammerTimeIntensity = 20;
@@ -447,6 +454,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Hard() {
 
 Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     Difficulty_Level_Settings difficultySettings = this->Very_Hard();
+    difficultySettings.autoScrollWithFlyingCheepCheeps = 1;
     difficultySettings.hammerTimeIntensity = 40;
     difficultySettings.walkingHammerBros = 6;
     difficultySettings.autoScroll = 2;

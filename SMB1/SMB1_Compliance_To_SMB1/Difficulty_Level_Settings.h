@@ -4,6 +4,7 @@
 struct Difficulty_Level_Settings {
     bool save;
     int autoScroll;
+    int autoScrollWithFlyingCheepCheeps;
     int bulletTime;
     int hammerTime;
     int walkingHammerBros;

@@ -190,6 +190,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Level_Scripts", this->pluginSettings.levelScripts)) return false;
     if (!configFile.Set_Value("Difficulty", this->pluginSettings.difficultyComboIndex)) return false;
     if (!configFile.Set_Value("Difficulty_Auto_Scroll", this->pluginSettings.difficultyAutoScroll)) return false;
+    if (!configFile.Set_Value("Difficulty_Auto_Scroll_With_Flying_Cheep_Cheeps", this->pluginSettings.difficultyAutoScrollWithFlyingCheepCheeps)) return false;
     if (!configFile.Set_Value("Difficulty_Bullet_Time", this->pluginSettings.difficultyBulletTime)) return false;
     if (!configFile.Set_Value("Difficulty_Hammer_Time", this->pluginSettings.difficultyHammerTime)) return false;
     if (!configFile.Set_Value("Difficulty_Walking_Hammer_Bros", this->pluginSettings.difficultyWalkingHammerBros)) return false;
@@ -318,6 +319,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Level_Scripts", this->pluginSettings.levelScripts);
     configFile.Get_Value("Difficulty", this->pluginSettings.difficultyComboIndex);
     configFile.Get_Value("Difficulty_Auto_Scroll", this->pluginSettings.difficultyAutoScroll);
+    configFile.Get_Value("Difficulty_Auto_Scroll_With_Flying_Cheep_Cheeps", this->pluginSettings.difficultyAutoScrollWithFlyingCheepCheeps);
     configFile.Get_Value("Difficulty_Bullet_Time", this->pluginSettings.difficultyBulletTime);
     configFile.Get_Value("Difficulty_Hammer_Time", this->pluginSettings.difficultyHammerTime);
     configFile.Get_Value("Difficulty_Walking_Hammer_Bros", this->pluginSettings.difficultyWalkingHammerBros);

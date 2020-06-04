@@ -10,6 +10,7 @@ Next Update (v0.3.8)
 + The Powerup option has been moved to the difficulty tab
 + The Secondary Mushroom option has been incorporated into the difficulty settings. It can still be manually set by creating a custom difficulty
 + Auto Scrollers now only spawn 20% of the time instead of 25% on Easy, Normal, and Hard difficulties
++ Added a new difficulty option to control when Auto Scroll + Flying Cheep-Cheeps can spawn on the same level. If the difficulty requirement is not met, the level generator will fall back to Bullet Bills instead Flying Cheep-Cheeps.
 + Added an option to force auto scrollers to be disabled in the level generator tab
 + Added the Snowballs powerup (based on Darkdata-Systemlogoff's powerup in Toad's Christmas Adventure)
 + Added the Pyro Spark Wand powerup

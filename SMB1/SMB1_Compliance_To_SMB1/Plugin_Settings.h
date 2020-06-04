@@ -74,6 +74,7 @@ struct Plugin_Settings {
     QString luigiName;
     int difficultyComboIndex;
     int difficultyAutoScroll;
+    int difficultyAutoScrollWithFlyingCheepCheeps;
     int difficultyBulletTime;
     int difficultyHammerTime;
     int difficultyWalkingHammerBros;

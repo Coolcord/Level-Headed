@@ -36,6 +36,7 @@ void Tab_Difficulty::Load_Settings() {
     this->ui->cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts->setChecked(this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts);
     this->ui->comboDifficulty->setCurrentIndex(this->pluginSettings->difficultyComboIndex);
     this->ui->sbAutoScroll->setValue(this->pluginSettings->difficultyAutoScroll);
+    this->ui->sbAutoScrollWithFlyingCheepCheeps->setValue(this->pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps);
     this->ui->sbBulletTime->setValue(this->pluginSettings->difficultyBulletTime);
     this->ui->sbHammerTime->setValue(this->pluginSettings->difficultyHammerTime);
     this->ui->sbWalkingHammerBros->setValue(this->pluginSettings->difficultyWalkingHammerBros);
@@ -102,6 +103,7 @@ void Tab_Difficulty::Save_Settings() {
     this->pluginSettings->difficultyComboIndex = this->ui->comboDifficulty->currentIndex();
     if (this->pluginSettings->difficultyComboIndex == 0) { //save custom difficulty settings
         this->pluginSettings->difficultyAutoScroll = this->ui->sbAutoScroll->value();
+        this->pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps = this->ui->sbAutoScrollWithFlyingCheepCheeps->value();
         this->pluginSettings->difficultyBulletTime = this->ui->sbBulletTime->value();
         this->pluginSettings->difficultyHammerTime = this->ui->sbHammerTime->value();
         this->pluginSettings->difficultyWalkingHammerBros = this->ui->sbWalkingHammerBros->value();

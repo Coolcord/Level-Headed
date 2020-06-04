@@ -120,9 +120,19 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Determine_Continuous_Enemies_
 
 Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Try_To_Create_Continuous_Flying_Cheep_Cheeps(int x, int expectedDifficulty) {
     if (this->args->difficulty >= expectedDifficulty) {
-        if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
-        else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
-        return Enemy_Item::CHEEP_CHEEP_SPAWNER;
+        if (this->object->Was_Auto_Scroll_Used()) {
+            if (this->args->difficulty >= this->args->difficultyAutoScrollWithFlyingCheepCheeps) {
+                if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
+                else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
+                return Enemy_Item::CHEEP_CHEEP_SPAWNER;
+            } else { //use Bullet Bills instead
+                return this->Try_To_Create_Continuous_Offscreen_Bullet_Bills(x, expectedDifficulty);
+            }
+        } else {
+            if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) assert(this->object->Flying_Cheep_Cheep_Spawner(x+1));
+            else assert(this->object->Flying_Cheep_Cheep_Spawner(x));
+            return Enemy_Item::CHEEP_CHEEP_SPAWNER;
+        }
     }
     return Enemy_Item::NOTHING; //nothing was created
 }
