@@ -432,7 +432,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.randomizeWarpZones = true;
     this->pluginSettings.redistributeEnemies = false;
     this->pluginSettings.performChaoticSwapOnEnemies = false;
-    this->pluginSettings.levelScriptEnemies = 0;
+    this->pluginSettings.levelScriptEnemies = 3;
     this->pluginSettings.noAutoScrollingLevels = false;
     this->pluginSettings.standardLevelDistribution = true;
     this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution = true;

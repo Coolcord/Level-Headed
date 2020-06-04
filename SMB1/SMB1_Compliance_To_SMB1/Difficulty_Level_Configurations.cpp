@@ -248,7 +248,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Normal() {
     difficultySettings.hammerTimeIntensity = 10;
     difficultySettings.replaceCastleLoops = 1; //Random Normal
     difficultySettings.maxLevelLength = 4; //Normal
-    difficultySettings.autoScrollChancePerLevel = 25;
+    difficultySettings.autoScrollChancePerLevel = 20;
     difficultySettings.lakituSpawnChancePerLevel = 35;
     difficultySettings.lakituRespawnSpeed = 4;
     difficultySettings.europeanBlooperSwimHeight = false;

@@ -24,6 +24,7 @@ private:
     QString Convert_Level_Enum_To_String(Level::Level level);
     bool Delete_Old_Level_Generations();
     Level_Type::Level_Type Determine_Level_Type(int levelNum, int numLevels, int numWorlds, int numLevelsPerWorld);
+    bool Determine_If_Auto_Scroller(int levelNum, int difficulty);
     bool Generate_New_Levels(QString &generationFileName);
     bool Handle_Map_File();
     bool Load_Sequential_Archive_Plugin();

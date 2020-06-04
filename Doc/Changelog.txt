@@ -9,6 +9,7 @@ Next Update (v0.3.8)
 + Red Koopas will no longer be placed unless the platform they are on is 3 or more blocks in size
 + The Powerup option has been moved to the difficulty tab
 + The Secondary Mushroom option has been incorporated into the difficulty settings. It can still be manually set by creating a custom difficulty
++ Auto Scrollers now only spawn 20% of the time instead of 25% on Easy, Normal, and Hard difficulties
 + Added an option to force auto scrollers to be disabled in the level generator tab
 + Added the Snowballs powerup (based on Darkdata-Systemlogoff's powerup in Toad's Christmas Adventure)
 + Added the Pyro Spark Wand powerup
