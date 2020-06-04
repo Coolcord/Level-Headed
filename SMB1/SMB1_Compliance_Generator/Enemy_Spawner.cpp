@@ -379,9 +379,8 @@ int Enemy_Spawner::Multi_Enemy(int &x, int &y, int lastX, int lastSize, bool noE
 int Enemy_Spawner::Suggest_Next_Spawn_X_To_Check(int x, int lastX, int averageDistance) {
     //Get the suggested enemy distance
     int tmp = 0;
-    if (averageDistance == MAX_SUGGESTED_ENEMY_DISTANCE) {
-        //tmp = averageDistance-Random::Get_Instance().Get_Num(2);
-        tmp = averageDistance;
+    if (averageDistance >= MAX_SUGGESTED_ENEMY_DISTANCE) {
+        tmp = MAX_SUGGESTED_ENEMY_DISTANCE-Random::Get_Instance().Get_Num(2);
     } else {
         int range = averageDistance/3;
         if (Random::Get_Instance().Get_Num(1)) tmp = Random::Get_Instance().Get_Num(range, averageDistance);

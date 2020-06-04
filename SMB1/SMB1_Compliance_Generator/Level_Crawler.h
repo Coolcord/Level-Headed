@@ -9,10 +9,11 @@
 
 class Buffer_Data;
 class Object_Buffer;
+class Required_Enemy_Spawns;
 
 class Level_Crawler {
 public:
-    Level_Crawler(Object_Buffer *objects);
+    Level_Crawler(Object_Buffer *objects, Required_Enemy_Spawns *requiredEnemySpawns);
     ~Level_Crawler();
 
     //Initiate Crawl
@@ -52,6 +53,7 @@ private:
     int Get_Y_From_Key(const QString &key);
 
     Object_Buffer *objects;
+    Required_Enemy_Spawns *requiredEnemySpawns;
     Level_Attribute::Level_Attribute levelAttribute;
     Brick::Brick brick;
     Brick::Brick nextBrick;

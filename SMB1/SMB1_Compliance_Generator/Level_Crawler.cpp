@@ -5,14 +5,16 @@
 #include "../Common_SMB1_Files/Brick_String.h"
 #include "Object_Buffer.h"
 #include "Physics.h"
+#include "Required_Enemy_Spawns.h"
 #include <QTime>
 #include <QDebug>
 #include <assert.h>
 #include <QVector>
 
-Level_Crawler::Level_Crawler(Object_Buffer *objects) {
+Level_Crawler::Level_Crawler(Object_Buffer *objects, Required_Enemy_Spawns *requiredEnemySpawns) {
     assert(objects);
     this->objects = objects;
+    this->requiredEnemySpawns = requiredEnemySpawns; //can be nullptr
     this->endDetected = false;
     this->safeSize = 0;
     this->levelCrawled = false;
@@ -45,6 +47,14 @@ bool Level_Crawler::Crawl_Level() {
         assert(this->Parse_Object(data, x, holeCrawlSteps));
         if (!this->endDetected) this->safeSize = x-1;
         this->objects->Seek_To_Next();
+    }
+
+    //Prevent Enemies from Spawning in Warp Zones
+    if (this->requiredEnemySpawns) {
+        int tmp = 0;
+        if (this->requiredEnemySpawns->Was_Warp_Zone_Used(tmp)) {
+            if (tmp < this->safeSize) this->safeSize = tmp;
+        }
     }
 
     this->levelCrawled = true;

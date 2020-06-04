@@ -162,7 +162,7 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
     parserArgs.enemyBuffer->Set_Num_Bytes_Left(numBytes);
 
     //Redistribute the enemies
-    Level_Crawler levelCrawler(parserArgs.objectBuffer);
+    Level_Crawler levelCrawler(parserArgs.objectBuffer, &requiredEnemySpawns);
     Enemy_Spawner enemySpawner(parserArgs.objectBuffer, parserArgs.enemyBuffer, &levelCrawler, &requiredEnemySpawns, &args);
     return enemySpawner.Spawn_Enemies();
 }
@@ -213,7 +213,7 @@ bool Level_Script_Modifier::Redistribute_Powerups(SMB1_Compliance_Generator_Argu
     parserArgs.objectBuffer->Set_Num_Bytes_Left(0);
 
     //Redistribute the powerups in the level
-    Level_Crawler levelCrawler(parserArgs.objectBuffer);
+    Level_Crawler levelCrawler(parserArgs.objectBuffer, nullptr);
     Powerup_Distributor powerupDistributor(&levelCrawler, parserArgs.objectBuffer, &args, false);
     powerupDistributor.Set_Num_Powerups(numPowerups);
     powerupDistributor.Set_Num_Hidden_Powerups(numHiddenPowerups);

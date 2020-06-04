@@ -33,6 +33,7 @@ public:
     int Get_X();
     int Get_Y();
     bool Mark_Enemy_As_Spawned();
+    bool Was_Warp_Zone_Used(int &x);
 
 private:
     struct Required_Enemy_Spawn {
@@ -54,6 +55,7 @@ private:
     Pipe_Pointer_Buffer *pipePointer;
     int numRequiredBytes;
     int numEndBytes;
+    int warpZoneX;
 };
 
 #endif // REQUIRED_ENEMY_SPAWNS_H

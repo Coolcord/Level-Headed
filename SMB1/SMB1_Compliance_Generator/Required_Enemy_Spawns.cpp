@@ -16,6 +16,7 @@ Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Buffer *object, Enemy_Buffer
     this->args = args;
     this->numRequiredBytes = 0;
     this->numEndBytes = 0;
+    this->warpZoneX = -1;
     this->requiredEnemies = new QQueue<Required_Enemy_Spawn>();
 }
 
@@ -111,12 +112,6 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
 
     //Handle the x values
     int previousX = this->enemies->Get_Level_Length();
-
-
-    if (previousX > nextX) {
-        assert(false);
-    }
-
     assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);
@@ -230,13 +225,23 @@ bool Required_Enemy_Spawns::Mark_Enemy_As_Spawned() {
     return true;
 }
 
+bool Required_Enemy_Spawns::Was_Warp_Zone_Used(int &x) {
+    if (this->warpZoneX != -1) {
+        x = this->warpZoneX;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn_At_Aboslute_X(Enemy_Item::Enemy_Item enemy, Extra_Enemy_Args args, int absoluteX, int y) {
     //Skip the Enemy if No Enemies is Enabled
     bool skipEnemy = this->args->difficultyNoEnemies;
     switch (enemy) {
     case Enemy_Item::FIRE_BAR:
-    case Enemy_Item::LARGE_FIRE_BAR:    if (this->args->difficulty < this->args->difficultyCastleFireBars) skipEnemy = true;
-                                        break;
+    case Enemy_Item::LARGE_FIRE_BAR:
+        if (this->args->difficulty < this->args->difficultyCastleFireBars) skipEnemy = true;
+        break;
     case Enemy_Item::BALANCE_LIFT:
     case Enemy_Item::FALLING_LIFT:
     case Enemy_Item::LIFT:
@@ -244,8 +249,14 @@ bool Required_Enemy_Spawns::Add_Required_Enemy_Spawn_At_Aboslute_X(Enemy_Item::E
     case Enemy_Item::SURFING_LIFT:
     case Enemy_Item::PIPE_POINTER:
     case Enemy_Item::TOAD:
-    case Enemy_Item::WARP_ZONE:         skipEnemy = false; break;
-    default:                            break;
+        skipEnemy = false;
+        break;
+    case Enemy_Item::WARP_ZONE:
+        this->warpZoneX = absoluteX;
+        skipEnemy = false;
+        break;
+    default:
+        break;
     }
     if (skipEnemy) return true;
 
