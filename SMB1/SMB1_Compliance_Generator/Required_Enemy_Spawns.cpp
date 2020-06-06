@@ -100,6 +100,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     int y = this->requiredEnemies->first().y;
 
     //Ignore enemies that spawn after a cancel spawner upon request
+    int numRequiredBytes = this->requiredEnemies->first().numRequiredBytes;
     Extra_Enemy_Args args = this->requiredEnemies->first().args;
     if (!args.allowSpawnAfterCancelSpawner) {
         int cancelSpawnerX = this->objects->Get_Cancel_Spawner_X();
@@ -115,11 +116,8 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     assert(previousX <= nextX);
     int x = nextX - previousX;
     assert(x >= 0);
-
-    int numRequiredBytes = this->requiredEnemies->first().numRequiredBytes;
-    assert(this->requiredEnemies->front().numRequiredBytes <= this->enemies->Get_Num_Bytes_Left());
+    assert(numRequiredBytes <= this->enemies->Get_Num_Bytes_Left());
     bool disableCoordinateSafety = this->requiredEnemies->front().disableCoordinateSafety;
-    assert(x >= 0);
     Enemy_Item::Enemy_Item enemy = this->requiredEnemies->first().enemy;
 
     //Check to see if a page change is required
@@ -299,10 +297,12 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     int amountUntilNextPage = 0x10 - previousAbsoluteX;
     assert(amountUntilNextPage <= 0x10);
 
-    if (distance > 0x10 && distance <= 0xF+amountUntilNextPage) {
-        disableSafety = true; //it's technically possible to spawn the enemy without a page change, so do so to conserve bytes
-    } else if (distance > 0x10) {
-        tmpNumRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
+    if (distance > 0x10) {
+        if (distance <= 0xF+amountUntilNextPage) {
+            disableSafety = true; //it's technically possible to spawn the enemy without a page change, so do so to conserve bytes
+        } else {
+            tmpNumRequiredBytes += 2; //a page change or another enemy will be necessary to reach this point
+        }
     }
 
     int numBytes = tmpNumRequiredBytes - this->numRequiredBytes;
