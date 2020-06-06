@@ -18,7 +18,7 @@ bool Castle_Generator::Generate_Level() {
     this->bowserFireReadyToSpawn = false;
     this->bowserFireSpawned = false;
     //Allocate space for Bowser's Fire, Bowser, Toad, and 2 possible page changes
-    this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()+8);
+    this->requiredEnemySpawns->Set_Num_End_Bytes(this->requiredEnemySpawns->Get_Num_End_Bytes()+10);
     int x = 0;
     assert(this->Spawn_Intro(x));
     this->midpointHandler->Handle_Midpoint(x);
