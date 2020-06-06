@@ -30,7 +30,7 @@ int Simple_Object_Spawner::Get_Random_Hole_Length() {
 }
 
 int Simple_Object_Spawner::Get_Random_Steps_Size() {
-    return Random::Get_Instance().Get_Num(Physics::MAX_STEPS_SIZE-Physics::MIN_STEPS_SIZE-2)+Physics::MIN_STEPS_SIZE;
+    return Random::Get_Instance().Get_Num(Physics::MIN_STEPS_SIZE, Physics::MAX_STEPS_SIZE-2);
 }
 
 void Simple_Object_Spawner::Fill_With_Question_Blocks(int y, int length) {
