@@ -47,8 +47,7 @@ bool SMB1_Compliance_To_SMB1::Run() {
     Random::Get_Instance().Seed(this->pluginSettings.randomSeed, 4);
     if (this->applicationLocation.isEmpty() || !this->Load_Plugins()) {
         this->Shutdown();
-        //TODO: Update this error
-        this->Show_Message("Something went wrong. Check debug info...", true);
+        this->Show_Message("Unable to load plugins!", true);
         return false;
     }
     this->writerPlugin->Seed_Random_Number_Generator_Instance(this->pluginSettings.randomSeed);
@@ -63,8 +62,8 @@ bool SMB1_Compliance_To_SMB1::Run() {
     if (this->pluginSettings.baseROM.isEmpty()) loaded = this->writerPlugin->Load_ROM_First_Time(this->pluginSettings.baseROM);
     else loaded = this->writerPlugin->Load_ROM(this->pluginSettings.baseROM);
     if (!loaded) {
-        this->Show_Message("Failed to load the ROM!", true);
         this->Shutdown();
+        this->Show_Message("Failed to load the ROM!", true);
         return false;
     }
 
@@ -111,7 +110,8 @@ bool SMB1_Compliance_To_SMB1::Run_CLI() {
 
 int SMB1_Compliance_To_SMB1::Configure_Settings() {
     if (!this->Load_Plugins()) {
-        //TODO: Show an error here
+        this->Shutdown();
+        this->Show_Message("Unable to load plugins!", true);
         return 1;
     }
     Configure_Settings_Form form(this->parent, this->applicationLocation, this->writerPlugin, &this->pluginSettings);
