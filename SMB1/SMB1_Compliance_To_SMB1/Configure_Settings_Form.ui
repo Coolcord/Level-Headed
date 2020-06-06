@@ -3106,28 +3106,28 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbAllowHammerBrosWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Hammer Bros. when chaotically swapping enemies in level scripts</string>
+                 <string>Allow Hammer Bros. when chaotically swapping enemies in level packs</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Hammer Bros. groups when chaotically swapping enemies in level scripts</string>
+                 <string>Allow Hammer Bros. groups when chaotically swapping enemies in level packs</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowLakitusWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Lakitus when chaotically swapping enemies in level scripts</string>
+                 <string>Allow Lakitus when chaotically swapping enemies in level packs</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts">
                 <property name="text">
-                 <string>Allow Bullet Bill and Cheep-Cheep spawners when chaotically swapping enemies in level scripts</string>
+                 <string>Allow Bullet Bill and Cheep-Cheep spawners when chaotically swapping enemies in level packs</string>
                 </property>
                </widget>
               </item>
