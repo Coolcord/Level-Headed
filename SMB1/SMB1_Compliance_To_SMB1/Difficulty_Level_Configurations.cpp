@@ -711,6 +711,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Too_Hot_To_Handle() {
 Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     Difficulty_Level_Settings difficultySettings = this->Normal();
     int randRange = Difficulty::DIFFICULTY_MAX-Difficulty::DIFFICULTY_MIN;
+    difficultySettings.autoScroll = Random::Get_Instance().Get_Num(1, 11);
     difficultySettings.autoScrollWithFlyingCheepCheeps = Random::Get_Instance().Get_Num(1, 11);
     difficultySettings.bulletTime = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.hammerTime = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
