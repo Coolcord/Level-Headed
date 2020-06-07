@@ -730,11 +730,9 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.undergroundFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.undergroundLakitus = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.undergroundOffscreenBulletBills = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-    difficultySettings.underwaterBloopers = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterHammerBros = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.underwaterLakitus = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
-    difficultySettings.underwaterSwimmingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldFlyingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldLakitus = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
     difficultySettings.standardOverworldOffscreenBulletBills = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
@@ -777,5 +775,14 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Random() {
     difficultySettings.allowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowLakitusWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
     difficultySettings.allowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts = static_cast<bool>(Random::Get_Instance().Get_Num(1));
+
+    //Make sure underwater levels have either Bloopers or Cheep-Cheeps
+    if (Random::Get_Instance().Get_Num(1)) {
+        difficultySettings.underwaterBloopers = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+        difficultySettings.underwaterSwimmingCheepCheeps = 1;
+    } else {
+        difficultySettings.underwaterBloopers = 1;
+        difficultySettings.underwaterSwimmingCheepCheeps = Random::Get_Instance().Get_Num(randRange)+Difficulty::DIFFICULTY_MIN+1;
+    }
     return difficultySettings;
 }
