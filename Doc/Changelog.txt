@@ -1,4 +1,7 @@
-Next Update (v0.3.8)
+Next Update (v0.4.0)
+Nothing here yet :(
+
+Second Quest (v0.3.8)
 + "Use Level Scripts" has been changed to "Second Quest"
 + Powerups can now be redistributed in Second Quest
 + Enemies can now be redistributed in Second Quest
