@@ -180,7 +180,7 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
     if (this->enemies->Get_Current_Page() >= page) return true;
 
     //Spawn the page change if necessary
-    if ((this->requiredEnemySpawns->Get_Num_Bytes_Left()/2) <= enemyAmount) {
+    if (this->Calculate_Number_Of_Enemies() <= enemyAmount) {
         assert(this->enemies->Page_Change(page));
         x = (page*16);
         lastX = x;
