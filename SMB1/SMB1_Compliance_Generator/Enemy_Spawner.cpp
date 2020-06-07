@@ -103,12 +103,15 @@ bool Enemy_Spawner::Spawn_Enemies() {
             lastX = x;
         } else { //an enemy failed to spawn. Add a page change 2 pages ahead and try from there
             if (!noEnemies) {
-                assert(this->Spawn_Page_Change(x, y, lastX, this->enemies->Get_Current_Page()+2, this->requiredEnemySpawns->Get_Num_Bytes_Left()));
+                //Request a page change without regard for how many enemies have spawned
+                if (!this->Spawn_Page_Change(x, y, lastX, this->enemies->Get_Current_Page()+2, numEnemies*2)) {
+                    assert(this->emergencySpawnMode); //this should only fail if there are not enough bytes left to spawn the page change
+                }
             }
         }
 
         //Spawn a page change if necessary
-        if (usePages && this->requiredEnemySpawns->Get_Num_Bytes_Left() >= 4) {
+        if (usePages) {
             switch (section) {
             case 0:
                 if (this->Spawn_Page_Change(x, y, lastX, firstPageChange, firstEnemyGroup)) ++section;
@@ -125,7 +128,7 @@ bool Enemy_Spawner::Spawn_Enemies() {
         }
 
         //Increment X
-        x = this->Suggest_Next_Spawn_X_To_Check(x, lastX, averageDistance);
+        if (!this->emergencySpawnMode) x = this->Suggest_Next_Spawn_X_To_Check(x, lastX, averageDistance);
     }
 
     //Spawn the rest of the required spawns if there are any
@@ -159,6 +162,8 @@ bool Enemy_Spawner::Handle_Required_Enemies_In_Emergency_Spawn_Mode(int &lastX) 
 }
 
 bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int enemyAmount) {
+    if (this->emergencySpawnMode) return false;
+
     //Skip the page change if necessary
     if (this->enemies->Get_Current_Page() >= page) {
         return true;
@@ -180,12 +185,17 @@ bool Enemy_Spawner::Spawn_Page_Change(int &x, int &y, int &lastX, int page, int 
     if (this->enemies->Get_Current_Page() >= page) return true;
 
     //Spawn the page change if necessary
-    if (this->Calculate_Number_Of_Enemies() <= enemyAmount) {
-        assert(this->enemies->Page_Change(page));
-        x = (page*16);
-        lastX = x;
-        y = Physics::GROUND_Y;
-        return true;
+    if (this->requiredEnemySpawns->Get_Num_Bytes_Left() >= 2) {
+        if (this->Calculate_Number_Of_Enemies() <= enemyAmount) {
+            assert(this->enemies->Page_Change(page));
+            x = (page*16);
+            lastX = x;
+            y = Physics::GROUND_Y;
+            return true;
+        }
+    } else {
+        this->emergencySpawnMode = true;
+        return false;
     }
 
     //Cannot move on to the next section yet
