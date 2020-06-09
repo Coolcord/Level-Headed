@@ -13,6 +13,7 @@ public:
     virtual bool Run()=0;
     virtual bool Run_CLI()=0;
     virtual int Configure_Settings()=0;
+    virtual QString Get_Seed()=0;
 };
 
 Q_DECLARE_INTERFACE(Interpreter_Interface, "Interpreter_Interface")

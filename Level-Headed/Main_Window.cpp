@@ -1,12 +1,13 @@
 #include "Main_Window.h"
 #include "ui_Main_Window.h"
+#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
+#include "../../C_Common_Code/Qt/Random/Random.h"
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
 #include "Update_Dialog.h"
 #include "Update_Checker.h"
 #include "Common_Strings.h"
 #include "../Common_Files/Version.h"
-#include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include <QWindow>
 #include <QFile>
 #include <QPluginLoader>
@@ -166,6 +167,7 @@ void Main_Window::on_btnGenerateGame_clicked(){
     this->ui->btnGenerateGame->setText(Common_Strings::STRING_GENERATING);
     this->ui->btnGenerateGame->repaint();
     if (!this->interpreterPlugin) this->Show_Unable_To_Load_Plugin_Error();
+    Random::Get_Instance().Seed(this->interpreterPlugin->Get_Seed(), 1);
     //assert(this->interpreterPlugin->Run());
     if (this->interpreterPlugin->Run()) qDebug() << "Interpreter ran successfully";
     else qDebug() << "Something went wrong. Check debug info...";

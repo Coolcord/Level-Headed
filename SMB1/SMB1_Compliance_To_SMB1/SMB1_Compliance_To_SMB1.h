@@ -20,6 +20,7 @@ public:
     bool Run();
     bool Run_CLI();
     int Configure_Settings();
+    QString Get_Seed();
 
 private:
     void Shutdown();

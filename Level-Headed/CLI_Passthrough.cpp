@@ -1,4 +1,5 @@
 #include "CLI_Passthrough.h"
+#include "../../C_Common_Code/Qt/Random/Random.h"
 #include "Common_Strings.h"
 #include "Interpreter_Interface.h"
 #include <QDebug>
@@ -53,6 +54,7 @@ bool CLI_Passthrough::Run_Commands() {
 
     //Run in CLI Mode
     interpreterPlugin->Startup(nullptr, this->applicationLocation, *this->args);
+    Random::Get_Instance().Seed(interpreterPlugin->Get_Seed(), 1);
     bool success = interpreterPlugin->Run_CLI();
 
     //Unload the Interpreter Plugin

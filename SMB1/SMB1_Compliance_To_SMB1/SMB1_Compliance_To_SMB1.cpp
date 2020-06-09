@@ -118,6 +118,10 @@ int SMB1_Compliance_To_SMB1::Configure_Settings() {
     return form.exec();
 }
 
+QString SMB1_Compliance_To_SMB1::Get_Seed() {
+    return this->pluginSettings.randomSeed;
+}
+
 void SMB1_Compliance_To_SMB1::Shutdown() {
     this->Save_Plugin_Settings();
     if (this->generatorPlugin) this->generatorPlugin->Shutdown();
