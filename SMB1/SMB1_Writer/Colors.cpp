@@ -797,12 +797,26 @@ Color::Color Colors::Get_Random_Coral_Color() {
     else return this->Get_Random_Dark_Shade_Color(0x03, 0x0D);
 }
 
-Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color excludedColor) {
+Color::Color Colors::Get_Random_Mario_Primary_Color_Excluding_Colors(Color::Color originalColor, Color::Color excludedColor) {
     QVector<Color::Color> excludedColors(1, excludedColor);
-    return this->Get_Random_Mario_Secondary_Color_Excluding_Colors(excludedColors);
+    return this->Get_Random_Mario_Primary_Color_Excluding_Colors(originalColor, excludedColors);
 }
 
-Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
+Color::Color Colors::Get_Random_Mario_Primary_Color_Excluding_Colors(Color::Color originalColor, const QVector<Color::Color> &excludedColors) {
+    if (this->Is_Color_Black_Or_White(originalColor)) return originalColor;
+    if (this->Is_Color_Darkest_Shade(originalColor)) return this->Get_Random_Darkest_Shade_Color(0x01, 0x0C);
+    return this->Get_Random_Color_Excluding_Colors(excludedColors);
+}
+
+Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color originalColor, Color::Color excludedColor) {
+    QVector<Color::Color> excludedColors(1, excludedColor);
+    return this->Get_Random_Mario_Secondary_Color_Excluding_Colors(originalColor, excludedColors);
+}
+
+Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color originalColor, const QVector<Color::Color> &excludedColors) {
+    if (this->Is_Color_Black_Or_White(originalColor)) return originalColor;
+    if (this->Is_Color_Darkest_Shade(originalColor)) return this->Get_Random_Darkest_Shade_Color(0x01, 0x0C);
+
     //Populate the available colors
     QSet<Color::Color> availableColors;
     for (int i = 0; i < 27; ++i) {
@@ -1218,4 +1232,14 @@ bool Colors::Is_Yellow_Color(Color::Color color) {
     case Color::YELLOW:         return true;
     case Color::YELLOW_LIGHT:   return true;
     }
+}
+
+bool Colors::Is_Color_Black_Or_White(Color::Color color) {
+    return color == Color::BLACK || color == Color::WHITE;
+}
+
+bool Colors::Is_Color_Darkest_Shade(Color::Color color) {
+    int hex = this->Get_Hex_From_Color(color);
+    int darkestShade = hex&0x0F;
+    return hex == darkestShade;
 }

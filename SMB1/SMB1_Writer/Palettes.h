@@ -38,8 +38,6 @@ private:
     bool Get_Random_Red_Green_Colors(qint64 offset);
     bool Get_Random_Brown_Colors(qint64 offset);
 
-    bool Is_Color_Black_Or_White(Color::Color color);
-
     Colors *colors;
     Sequential_Archive_Handler *sequentialArchiveHandler;
     int paletteMode;

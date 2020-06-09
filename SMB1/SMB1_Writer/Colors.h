@@ -92,8 +92,10 @@ public:
     Color::Color Get_Random_Yellow_Light_Color();
 
     Color::Color Get_Random_Coral_Color();
-    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color excludedColor);
-    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Mario_Primary_Color_Excluding_Colors(Color::Color originalColor, Color::Color excludedColor);
+    Color::Color Get_Random_Mario_Primary_Color_Excluding_Colors(Color::Color originalColor, const QVector<Color::Color> &excludedColors);
+    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color originalColor, Color::Color excludedColor);
+    Color::Color Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Color originalColor, const QVector<Color::Color> &excludedColors);
     Color::Color Get_Random_Pipe_Dark_Color();
     Color::Color Get_Random_Pipe_Light_Color();
     Color::Color Get_Random_Pipe_Dark_Color_From_Light_Color(Color::Color lightColor);
@@ -129,6 +131,9 @@ private:
     bool Is_Purple_Color(Color::Color color);
     bool Is_Red_Color(Color::Color color);
     bool Is_Yellow_Color(Color::Color color);
+
+    bool Is_Color_Black_Or_White(Color::Color color);
+    bool Is_Color_Darkest_Shade(Color::Color color);
 };
 
 #endif // COLORS_H
