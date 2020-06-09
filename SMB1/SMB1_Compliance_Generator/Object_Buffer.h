@@ -130,7 +130,6 @@ private:
     int powerupZone;
     int endObjectCount;
     int reservedObjectCount;
-    int totalBytes;
     bool firstPageSafety;
     bool autoScrollActive;
     bool wereFlyingCheepCheepsSpawned;
