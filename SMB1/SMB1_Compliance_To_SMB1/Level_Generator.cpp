@@ -47,12 +47,16 @@ Level_Generator::Level_Generator(const QString &applicationLocation, QWidget *pa
     this->commonLevels = new QVector<Level_Type::Level_Type>();
     this->uncommonLevels = new QVector<Level_Type::Level_Type>();
     this->rareLevels = new QVector<Level_Type::Level_Type>();
+    this->veryRareLevels = new QVector<Level_Type::Level_Type>();
+    this->mythicLevels = new QVector<Level_Type::Level_Type>();
     this->allocatedLevels = new QVector<Level_Type::Level_Type>();
     this->chances = new QMap<QString, Chance>();
     this->chances->insert(STRING_VERY_COMMON, VERY_COMMON);
     this->chances->insert(STRING_COMMON, COMMON);
     this->chances->insert(STRING_UNCOMMON, UNCOMMON);
     this->chances->insert(STRING_RARE, RARE);
+    this->chances->insert(STRING_VERY_RARE, VERY_RARE);
+    this->chances->insert(STRING_MYTHIC, MYTHIC);
     this->chances->insert(STRING_NONE, NONE);
     this->numObjectsInLevel = new QMap<Level::Level, int>();
     this->numEnemiesInLevel = new QMap<Level::Level, int>();
@@ -67,6 +71,8 @@ Level_Generator::~Level_Generator() {
     delete this->commonLevels;
     delete this->uncommonLevels;
     delete this->rareLevels;
+    delete this->veryRareLevels;
+    delete this->mythicLevels;
     delete this->allocatedLevels;
     delete this->numObjectsInLevel;
     delete this->numEnemiesInLevel;
@@ -322,6 +328,8 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
         this->commonLevels->clear();
         this->uncommonLevels->clear();
         this->rareLevels->clear();
+        this->veryRareLevels->clear();
+        this->mythicLevels->clear();
         this->allocatedLevels->clear();
         this->allocatedLevels->resize(numLevels);
         int numLevelsExcludingCastles = numLevels-numWorlds;
@@ -334,6 +342,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
             this->Read_Level_Chance(this->pluginSettings->underwaterChance, Level_Type::UNDERWATER);
             this->Read_Level_Chance(this->pluginSettings->bridgeChance, Level_Type::BRIDGE);
             this->Read_Level_Chance(this->pluginSettings->islandChance, Level_Type::ISLAND);
+            this->Sort_Very_Rare_And_Mythic_Levels();
             QMap<Level_Type::Level_Type, double> levelWeights;
             QVector<QPair<Level_Type::Level_Type, int>> unallocatedLevels;
             for (int i = 0; i < this->veryCommonLevels->size(); ++i) levelWeights.insert(this->veryCommonLevels->at(i), static_cast<double>(VERY_COMMON_POINTS));
@@ -728,6 +737,8 @@ void Level_Generator::Read_Level_Chance(const QString &chance, Level_Type::Level
     case COMMON:        commonLevels->append(levelType); break;
     case UNCOMMON:      uncommonLevels->append(levelType); break;
     case RARE:          rareLevels->append(levelType); break;
+    case VERY_RARE:     veryRareLevels->append(levelType); break;
+    case MYTHIC:        mythicLevels->append(levelType); break;
     case NONE:          break;
     }
 }
@@ -1351,6 +1362,27 @@ void Level_Generator::Prevent_First_Level_From_Being_Underwater(int numLevelsPer
             assert(success);
         }
     }
+}
+
+void Level_Generator::Sort_Very_Rare_And_Mythic_Levels() {
+    //Sort Very Rare Levels
+    for (int i = 0; i < this->veryRareLevels->size(); ++i) {
+        if (Random::Get_Instance().Get_Num(1)) this->rareLevels->append(this->veryRareLevels->at(i)); //either promote the level to rare or demote it to none
+    }
+    this->veryRareLevels->clear();
+
+    //Sort the Mythic Levels
+    const int MAX_MYTHIC_LEVELS = 2;
+    int numMythicLevels = 0;
+    while (!this->mythicLevels->isEmpty() && numMythicLevels < MAX_MYTHIC_LEVELS) {
+        int index = Random::Get_Instance().Get_Num(this->mythicLevels->size()-1);
+        if (Random::Get_Instance().Get_Num(3) == 0) {
+            this->rareLevels->append(this->mythicLevels->at(index)); //either promote the level to rare or demote it to none
+            ++numMythicLevels;
+        }
+        this->mythicLevels->remove(index);
+    }
+    this->mythicLevels->clear();
 }
 
 bool Level_Generator::Write_Move_Items_To_Map(Text_Insertion_Buffer &mapBuffer, int numBytes, Level::Level sourceLevel, Level::Level destinationLevel, bool objects) {

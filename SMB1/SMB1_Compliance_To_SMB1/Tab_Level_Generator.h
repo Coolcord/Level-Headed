@@ -22,6 +22,7 @@ public:
     void Enable_Random_Number_Of_Worlds(bool enable);
     void Enable_Standard_Level_Distribution_Options(bool enable);
     void Update_Worlds();
+    void Use_Default_Settings();
 
 private:
     QString levelLocation;

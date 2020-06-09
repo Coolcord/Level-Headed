@@ -42,6 +42,7 @@ private:
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
     void Populate_Num_Objects_And_Enemies_In_Levels();
     void Prevent_First_Level_From_Being_Underwater(int numLevelsPerWorld, int numLevelTypes);
+    void Sort_Very_Rare_And_Mythic_Levels();
     bool Write_Move_Items_To_Map(Text_Insertion_Buffer &mapBuffer, int numBytes, Level::Level sourceLevel, Level::Level destinationLevel, bool objects);
     bool Write_Move_Objects_Map(Text_Insertion_Buffer &mapBuffer);
     bool Write_Move_Enemies_Map(Text_Insertion_Buffer &mapBuffer);
@@ -64,6 +65,8 @@ private:
     QVector<Level_Type::Level_Type> *commonLevels;
     QVector<Level_Type::Level_Type> *uncommonLevels;
     QVector<Level_Type::Level_Type> *rareLevels;
+    QVector<Level_Type::Level_Type> *veryRareLevels;
+    QVector<Level_Type::Level_Type> *mythicLevels;
     QVector<Level_Type::Level_Type> *allocatedLevels;
     Sequential_Archive_Interface *sequentialArchivePlugin;
     QPluginLoader *sequentialArchiveLoader;

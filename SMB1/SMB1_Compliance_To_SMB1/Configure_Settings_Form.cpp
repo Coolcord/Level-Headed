@@ -155,6 +155,14 @@ void Configure_Settings_Form::on_btnNewRandomSeed_clicked() {
     this->ui->leRandomSeed->setText(QString::number(QTime::currentTime().msecsSinceStartOfDay()));
 }
 
+void Configure_Settings_Form::on_radioStandardLevelDistribution_toggled(bool checked) {
+    this->tabLevelGenerator->Enable_Standard_Level_Distribution_Options(checked);
+}
+
+void Configure_Settings_Form::on_btnUseDefaultSettingsLevelDistribution_clicked() {
+    this->tabLevelGenerator->Use_Default_Settings();
+}
+
 void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) {
     if (index==0) this->ui->layoutCustomDifficultyWidget->show();
     else this->ui->layoutCustomDifficultyWidget->hide();
@@ -163,8 +171,4 @@ void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) 
 void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
     if (checked) this->ui->sbLives->show();
     else this->ui->sbLives->hide();
-}
-
-void Configure_Settings_Form::on_radioStandardLevelDistribution_toggled(bool checked) {
-    this->tabLevelGenerator->Enable_Standard_Level_Distribution_Options(checked);
 }

@@ -1,9 +1,10 @@
 #include "Tab_Level_Generator.h"
+#include "ui_Configure_Settings_Form.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include "Configure_Settings_Form.h"
+#include "Plugin_Settings.h"
 #include "Tab_Base_Game.h"
-#include "ui_Configure_Settings_Form.h"
 #include <QDir>
 #include <QMessageBox>
 #include <QString>
@@ -136,6 +137,8 @@ void Tab_Level_Generator::Populate_Chance_ComboBox(QComboBox *comboBox) {
     comboBox->addItem(STRING_COMMON);
     comboBox->addItem(STRING_UNCOMMON);
     comboBox->addItem(STRING_RARE);
+    comboBox->addItem(STRING_VERY_RARE);
+    comboBox->addItem(STRING_MYTHIC);
     comboBox->addItem(STRING_NONE);
 }
 
@@ -222,4 +225,13 @@ void Tab_Level_Generator::Update_Worlds() {
         --numLevelsPerWorld;
     }
     this->ui->sbNumLevelsPerWorld->setValue(numLevelsPerWorld);
+}
+
+void Tab_Level_Generator::Use_Default_Settings() {
+    this->ui->radioStandardLevelDistribution->setChecked(true);
+    this->ui->comboStandardOverworld->setCurrentText(STRING_VERY_COMMON);
+    this->ui->comboUnderground->setCurrentText(STRING_COMMON);
+    this->ui->comboUnderwater->setCurrentText(STRING_UNCOMMON);
+    this->ui->comboBridge->setCurrentText(STRING_COMMON);
+    this->ui->comboIsland->setCurrentText(STRING_COMMON);
 }

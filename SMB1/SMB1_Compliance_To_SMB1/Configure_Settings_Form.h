@@ -40,6 +40,7 @@ private slots:
     void on_sbNumLevelsPerWorld_valueChanged();
     void on_sbNumWorlds_valueChanged();
     void on_btnNewRandomSeed_clicked();
+    void on_btnUseDefaultSettingsLevelDistribution_clicked();
 
     //Difficulty Tab
     void on_comboDifficulty_currentIndexChanged(int index);

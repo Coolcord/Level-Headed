@@ -9,6 +9,8 @@ const static QString STRING_VERY_COMMON = "Very Common";
 const static QString STRING_COMMON = "Common";
 const static QString STRING_UNCOMMON = "Uncommon";
 const static QString STRING_RARE = "Rare";
+const static QString STRING_VERY_RARE = "Very Rare (might not be included in the game)";
+const static QString STRING_MYTHIC = "Mythic (might not be included in the game)";
 const static QString STRING_NONE = "None";
 
 enum Chance {
@@ -16,6 +18,8 @@ enum Chance {
     COMMON,
     UNCOMMON,
     RARE,
+    VERY_RARE,
+    MYTHIC,
     NONE
 };
 

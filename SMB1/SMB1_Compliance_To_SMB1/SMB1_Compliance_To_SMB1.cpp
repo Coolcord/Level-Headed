@@ -75,7 +75,11 @@ bool SMB1_Compliance_To_SMB1::Run() {
     }
 
     //Apply Hacks
-    assert(Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks());
+    if (!Hacks_Handler(this->writerPlugin, &this->pluginSettings).Write_Hacks()) {
+        this->Shutdown();
+        this->Show_Message("Failed to hack the ROM!", true);
+        return false;
+    }
 
     //Generate the levels
     bool success = Level_Generator(this->applicationLocation, this->parent, &this->pluginSettings, this->generatorPlugin, this->writerPlugin).Run_Level_Generator();

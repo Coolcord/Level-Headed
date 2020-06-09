@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -3184,9 +3184,9 @@ p, li { white-space: pre-wrap; }
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-284</y>
             <width>708</width>
-            <height>1075</height>
+            <height>1107</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3423,6 +3423,13 @@ p, li { white-space: pre-wrap; }
                  <string>Level Distribution</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QPushButton" name="btnUseDefaultSettingsLevelDistribution">
+                   <property name="text">
+                    <string>Use Default Settings</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_2">
                    <item>
