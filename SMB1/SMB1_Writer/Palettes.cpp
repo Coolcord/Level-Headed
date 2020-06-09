@@ -39,13 +39,14 @@ bool Palettes::Randomize_Mario_Sprite_Palette() {
     Color::Color marioPrimary = Color::BLACK, marioSecondary = Color::BLACK;
     Color::Color luigiPrimary = Color::BLACK, luigiSecondary = Color::BLACK;
     QByteArray bytes;
-    if (!this->Read_Bytes_From_Offset(0x05E8, 6, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), originalMarioPrimary)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), originalMarioSkinColor)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(2), originalMarioSecondary)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(3), originalLuigiPrimary)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(4), originalLuigiSkinColor)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(5), originalLuigiSecondary)) return false;
+    if (!this->Read_Bytes_From_Offset(0x05E8, 3, bytes)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), originalMarioPrimary)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), originalMarioSkinColor)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), originalMarioSecondary)) return false;
+    if (!this->Read_Bytes_From_Offset(0x05EC, 3, bytes)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), originalLuigiPrimary)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), originalLuigiSkinColor)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), originalLuigiSecondary)) return false;
 
     //Get New Colors
     QVector<Color::Color> usedColors;
@@ -459,49 +460,49 @@ bool Palettes::Apply_Color_Glow(qint64 greenColorOffset, qint64 brownColorOffset
 bool Palettes::Get_Overworld_Green_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CF0, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Overworld_Red_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CF4, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Overworld_Brown_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CF8, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Overworld_Pipe_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CDC, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Overworld_Brick_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CE0, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Overworld_Score_Group_Colors(Color::Color &color1, Color::Color &color2, Color::Color &color3) {
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0CE4, 3, bytes)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(0), color1)) return false;
-    if (!this->colors->Get_Color_From_Hex(bytes.at(1), color2)) return false;
-    return this->colors->Get_Color_From_Hex(bytes.at(2), color3);
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(0)), color1)) return false;
+    if (!this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(1)), color2)) return false;
+    return this->colors->Get_Color_From_Hex(static_cast<int>(bytes.at(2)), color3);
 }
 
 bool Palettes::Get_Random_Pipe_Colors(qint64 offset) {

@@ -197,8 +197,8 @@ bool Hacks_Handler::Handle_Graphics() {
     }
 
     palette = this->pluginSettings->marioSpritePalette;
-    if (palette == 0) palette = Random::Get_Instance().Get_Num(3, 10); //Random (No Randomly Generated)
-    else if (palette == 1) palette = Random::Get_Instance().Get_Num(2, 10); //Random All
+    if (palette == 0) palette = Random::Get_Instance().Get_Num(2, 10); //Random All
+    else if (palette == 1) palette = Random::Get_Instance().Get_Num(3, 10); //Random (No Randomly Generated)
     if (palette > 3) {
         success = this->writerPlugin->Graphics_Apply_Mario_Palette_Present(palette-4);
     } else {

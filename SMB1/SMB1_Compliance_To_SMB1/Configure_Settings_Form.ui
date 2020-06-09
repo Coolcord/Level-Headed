@@ -485,12 +485,12 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <item>
                    <property name="text">
-                    <string>Random (No Randomly Generated)</string>
+                    <string>Random All</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Random All</string>
+                    <string>Random (No Randomly Generated)</string>
                    </property>
                   </item>
                   <item>

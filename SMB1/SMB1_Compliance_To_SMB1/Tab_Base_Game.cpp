@@ -244,7 +244,7 @@ void Tab_Base_Game::Use_Basic_Settings() {
     this->ui->comboGraphics->setCurrentIndex(2);
     this->ui->comboPalette->setCurrentIndex(0);
     this->ui->comboMarioSprite->setCurrentIndex(2);
-    this->ui->comboMarioSpritePalette->setCurrentIndex(1);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(0);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(false);
     this->ui->comboMusic->setCurrentIndex(2);
     this->ui->comboTone->setCurrentIndex(0);
