@@ -557,8 +557,6 @@ void Sequential_Archive_Handler::Get_HEXP_Files_From_File_List(QStringList &norm
              if (Version::VERSION_NUMBER.contains("dev")) bonusFiles.append(file);
         } else if (file.startsWith("+")) {
             bonusFiles.append(file);
-        } else if (file == "Original with Fixed Bowser Fire (by Nintendo).hexp") {
-            continue; //ignore this file
         } else if (file.toLower().endsWith(".hexp")) {
             normalFiles.append(file);
         }
