@@ -156,6 +156,10 @@ int Object_Buffer::Get_Num_Objects_Available() {
     return (this->Get_Num_Objects_Left()-this->endObjectCount)-this->reservedObjectCount;
 }
 
+int Object_Buffer::Get_Total_Unreserved_Bytes() {
+    return (this->totalBytes-this->endObjectCount)-this->reservedObjectCount;
+}
+
 bool Object_Buffer::Reserve_Objects(int amount) {
     if (this->Get_Num_Objects_Available() < amount) return false;
     this->reservedObjectCount += amount;
@@ -185,7 +189,7 @@ int Object_Buffer::Get_Cancel_Spawner_X() {
 }
 
 bool Object_Buffer::Is_Midpoint_Ready() {
-    bool halfOfObjectsUsed = this->Get_Num_Objects_Available() < (this->totalBytes/4);
+    bool halfOfObjectsUsed = this->Get_Num_Objects_Available() < this->Get_Total_Unreserved_Bytes()/4;
     if (this->currentPage > 0xA) halfOfObjectsUsed = true;
     if (this->args->maxLevelLength == 0) {
         return halfOfObjectsUsed;

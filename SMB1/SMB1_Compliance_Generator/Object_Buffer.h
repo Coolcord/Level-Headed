@@ -27,6 +27,7 @@ public:
     bool Was_Last_Object_A_Platform();
     int Get_Num_Objects_Left();
     int Get_Num_Objects_Available();
+    int Get_Total_Unreserved_Bytes();
     bool Reserve_Objects(int amount);
     bool Free_Reserved_Objects(int amount);
     bool Were_Flying_Cheep_Cheeps_Spawned();
