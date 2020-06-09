@@ -1,5 +1,5 @@
 Next Update (v0.4.0)
-+ Added a "Basic Settings" button that uses original settings with new palettes, tone colors, text, and animations
+Nothing here yet :(
 
 Second Quest (v0.3.8)
 + "Use Level Scripts" has been changed to "Second Quest"
