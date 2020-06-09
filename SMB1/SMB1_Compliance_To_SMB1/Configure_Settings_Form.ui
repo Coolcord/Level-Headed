@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -258,6 +258,13 @@ p, li { white-space: pre-wrap; }
                  <widget class="QPushButton" name="btnUseRandomSettings">
                   <property name="text">
                    <string>Use Random Settings</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnUseBasicSettings">
+                  <property name="text">
+                   <string>Use Basic Settings</string>
                   </property>
                  </widget>
                 </item>

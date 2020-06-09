@@ -30,6 +30,7 @@ private slots:
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
     void on_btnUseRandomSettings_clicked();
+    void on_btnUseBasicSettings_clicked();
     void on_btnUseOriginalSettings_clicked();
 
     //Level Generator Tab

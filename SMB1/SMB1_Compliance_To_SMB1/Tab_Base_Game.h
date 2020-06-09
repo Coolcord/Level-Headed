@@ -14,6 +14,7 @@ public:
     bool Is_Partial_Support_Mode_Enabled();
     void Enable_Partial_Support_Mode(bool enabled);
     void Use_Original_Settings();
+    void Use_Basic_Settings();
     void Use_Random_Settings();
 
 private:

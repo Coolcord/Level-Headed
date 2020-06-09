@@ -236,6 +236,21 @@ void Tab_Base_Game::Use_Original_Settings() {
     this->ui->leLuigiName->setText("LUIGI");
 }
 
+void Tab_Base_Game::Use_Basic_Settings() {
+    this->ui->radio2PlayerGame->setChecked(true);
+    this->ui->comboGraphics->setCurrentIndex(1);
+    this->ui->comboPalette->setCurrentIndex(0);
+    this->ui->comboMarioSprite->setCurrentIndex(2);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(0);
+    this->ui->cbCombineWithOtherGraphicsPacks->setChecked(false);
+    this->ui->comboMusic->setCurrentIndex(2);
+    this->ui->comboTone->setCurrentIndex(0);
+    this->ui->cbCombineWithOtherMusicPacks->setChecked(false);
+    this->ui->cbRandomSoundEffects->setChecked(false);
+    this->ui->cbRandomText->setChecked(true);
+    this->ui->cbRandomizeSomeAnimations->setChecked(true);
+}
+
 void Tab_Base_Game::Use_Random_Settings() {
     this->ui->radioAddLuigiGame->setChecked(true);
     this->ui->comboGraphics->setCurrentIndex(0);

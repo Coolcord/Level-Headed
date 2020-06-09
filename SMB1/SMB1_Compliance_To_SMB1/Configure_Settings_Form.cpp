@@ -123,6 +123,10 @@ void Configure_Settings_Form::on_btnUseRandomSettings_clicked() {
     this->tabBaseGame->Use_Random_Settings();
 }
 
+void Configure_Settings_Form::on_btnUseBasicSettings_clicked() {
+    this->tabBaseGame->Use_Basic_Settings();
+}
+
 void Configure_Settings_Form::on_btnUseOriginalSettings_clicked() {
     this->tabBaseGame->Use_Original_Settings();
 }
