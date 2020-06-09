@@ -83,7 +83,6 @@ ExecWait "TASKKILL /F /IM Level-Headed.exe"
 RmDir /r "$INSTDIR\Levels\SMB1"
 RmDir /r "$INSTDIR\Plugins\Git"
 
-
 File "C:\Installer\Level-Headed.exe"
 File "C:\Installer\Files\libcrypto-1_1.dll"
 File "C:\Installer\Files\libgcc_s_dw2-1.dll"
