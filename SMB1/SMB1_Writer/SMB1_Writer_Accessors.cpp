@@ -609,6 +609,11 @@ bool SMB1_Writer::Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs() {
     return this->hacks->Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
 }
 
+bool SMB1_Writer::Hacks_Fix_Bowser_Fire_Graphics() {
+    if (!this->hacks) return false;
+    return this->hacks->Fix_Bowser_Fire_Graphics();
+}
+
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();

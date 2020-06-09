@@ -148,6 +148,7 @@ bool Difficulty_Level_Configurations::Update_Plugin_Settings_For_Difficulty_Pres
 
 void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *pluginSettings) {
     pluginSettings->difficultyAutoScroll = 11;
+    pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps = 11;
     pluginSettings->difficultyWalkingHammerBros = 11;
     pluginSettings->difficultyAutoScrollChancePerLevel = 0;
     pluginSettings->difficultyBasicEnemySpeed = 3; //Normal

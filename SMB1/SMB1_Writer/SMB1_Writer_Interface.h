@@ -155,6 +155,7 @@ public:
     virtual bool Hacks_European_Blooper_Swim_Height()=0;
     virtual bool Hacks_Fast_Leaping_Paratroopas()=0;
     virtual bool Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs()=0;
+    virtual bool Hacks_Fix_Bowser_Fire_Graphics()=0;
     virtual bool Hacks_Fix_Lakitu_Throw_Arc()=0;
     virtual bool Hacks_Fix_Life_Counter_Bugs()=0;
     virtual bool Hacks_Hammer_Bros_Never_Jump()=0;

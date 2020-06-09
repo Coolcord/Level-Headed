@@ -89,6 +89,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboPowerup->setCurrentIndex(1); //Fire Flower (Original)
 
         this->ui->sbAutoScroll->setValue(11);
+        this->ui->sbAutoScrollWithFlyingCheepCheeps->setValue(11);
         this->ui->sbWalkingHammerBros->setValue(11);
         this->ui->sbAutoScrollChancePerLevel->setValue(0);
         this->ui->comboBasicEnemySpeed->setCurrentIndex(3);
@@ -133,6 +134,8 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
     //Enable Custom Difficulty Settings
     this->ui->lblAutoScroll->setEnabled(!enabled);
     this->ui->sbAutoScroll->setEnabled(!enabled);
+    this->ui->lblAutoScrollWithFlyingCheepCheeps->setEnabled(!enabled);
+    this->ui->sbAutoScrollWithFlyingCheepCheeps->setEnabled(!enabled);
     this->ui->layoutAutoScroll->setEnabled(!enabled);
     this->ui->lblWalkingHammerBros->setEnabled(!enabled);
     this->ui->sbWalkingHammerBros->setEnabled(!enabled);
@@ -238,7 +241,7 @@ void Tab_Base_Game::Use_Original_Settings() {
 
 void Tab_Base_Game::Use_Basic_Settings() {
     this->ui->radio2PlayerGame->setChecked(true);
-    this->ui->comboGraphics->setCurrentIndex(1);
+    this->ui->comboGraphics->setCurrentIndex(2);
     this->ui->comboPalette->setCurrentIndex(0);
     this->ui->comboMarioSprite->setCurrentIndex(2);
     this->ui->comboMarioSpritePalette->setCurrentIndex(0);

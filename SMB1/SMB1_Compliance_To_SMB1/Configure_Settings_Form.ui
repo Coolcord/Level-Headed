@@ -414,6 +414,11 @@ p, li { white-space: pre-wrap; }
                     <string>Original (by Nintendo)</string>
                    </property>
                   </item>
+                  <item>
+                   <property name="text">
+                    <string>Original with Fixed Bowser Fire (by Nintendo)</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>
