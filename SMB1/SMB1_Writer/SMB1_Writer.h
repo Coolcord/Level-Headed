@@ -173,7 +173,6 @@ public:
     bool Hacks_European_Blooper_Swim_Height();
     bool Hacks_Fast_Leaping_Paratroopas();
     bool Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
-    bool Hacks_Fix_Bowser_Fire_Graphics();
     bool Hacks_Fix_Lakitu_Throw_Arc();
     bool Hacks_Fix_Life_Counter_Bugs();
     bool Hacks_Hammer_Bros_Never_Jump();
@@ -290,9 +289,11 @@ public:
     bool Graphics_Apply_Graphics_Pack(int index);
     bool Graphics_Apply_Mario_Palette_Present(int present);
     bool Graphics_Apply_Mario_Sprite(int index);
+    bool Graphics_Apply_Random_SMB1_Mario_Sprite();
     bool Graphics_Was_Mario_Sprite_A_Bonus_Sprite();
     bool Graphics_Combine_Graphics(); //only call this with the original graphics
     bool Graphics_Combine_Mario();
+    bool Graphics_Fix_Bowser_Fire_Graphics();
     int Graphics_Get_Number_Of_Bonus_Graphics_Packs();
     int Graphics_Get_Number_Of_Bonus_Mario_Sprites();
     int Graphics_Get_Number_Of_Graphics_Packs();

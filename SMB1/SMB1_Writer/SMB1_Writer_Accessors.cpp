@@ -609,11 +609,6 @@ bool SMB1_Writer::Hacks_Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs() {
     return this->hacks->Fire_Bowser_Throws_A_Ludicrous_Amount_Of_Fireballs();
 }
 
-bool SMB1_Writer::Hacks_Fix_Bowser_Fire_Graphics() {
-    if (!this->hacks) return false;
-    return this->hacks->Fix_Bowser_Fire_Graphics();
-}
-
 bool SMB1_Writer::Hacks_Fix_Lakitu_Throw_Arc() {
     if (!this->hacks) return false;
     return this->hacks->Fix_Lakitu_Throw_Arc();
@@ -1158,6 +1153,11 @@ bool SMB1_Writer::Graphics_Apply_Mario_Sprite(int index) {
     return this->sequentialArchiveHandler->Apply_Mario_Sprite_At_Index(index);
 }
 
+bool SMB1_Writer::Graphics_Apply_Random_SMB1_Mario_Sprite() {
+    if (!this->sequentialArchiveHandler) return false;
+    return this->sequentialArchiveHandler->Apply_Random_SMB1_Mario_Sprite();
+}
+
 bool SMB1_Writer::Graphics_Was_Mario_Sprite_A_Bonus_Sprite() {
     if (!this->sequentialArchiveHandler) return false;
     return this->sequentialArchiveHandler->Was_Mario_Sprite_A_Bonus_Sprite();
@@ -1172,6 +1172,11 @@ bool SMB1_Writer::Graphics_Combine_Graphics() {
 bool SMB1_Writer::Graphics_Combine_Mario() {
     if (!this->graphics) return false;
     return this->graphics->Combine_Mario();
+}
+
+bool SMB1_Writer::Graphics_Fix_Bowser_Fire_Graphics() {
+    if (!this->graphics) return false;
+    return this->graphics->Fix_Bowser_Fire_Graphics();
 }
 
 int SMB1_Writer::Graphics_Get_Number_Of_Bonus_Graphics_Packs() {

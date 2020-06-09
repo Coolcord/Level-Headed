@@ -29,6 +29,7 @@ Sequential_Archive_Handler::Sequential_Archive_Handler(const QString &applicatio
     this->bonusMarioSprites = QStringList();
     this->bonusMusicPacks = QStringList();
     this->invalidTones = new QSet<int>();
+    this->smb1MarioSpritesIndexes = new QVector<int>();
     this->allowPalettes = true;
     this->allowOnlyCoinPalettes = false;
     this->wasMarioSpriteABonusSprite = false;
@@ -49,6 +50,8 @@ Sequential_Archive_Handler::~Sequential_Archive_Handler() {
     this->sequentialArchivePlugin = nullptr;
     delete this->invalidTones;
     this->invalidTones = nullptr;
+    delete this->smb1MarioSpritesIndexes;
+    this->smb1MarioSpritesIndexes = nullptr;
 }
 
 bool Sequential_Archive_Handler::Was_Mario_Sprite_A_Bonus_Sprite() {
@@ -167,6 +170,12 @@ bool Sequential_Archive_Handler::Apply_Random_Graphics_Sprite(const QString &spr
     return this->Apply_Hexagon_Patch(patchBytes);
 }
 
+bool Sequential_Archive_Handler::Apply_Random_SMB1_Mario_Sprite() {
+    this->Get_Mario_Sprites(); //make sure the indexes have been populated
+    if (this->smb1MarioSpritesIndexes->isEmpty()) return false;
+    return this->Apply_Mario_Sprite_At_Index(this->smb1MarioSpritesIndexes->at(Random::Get_Instance().Get_Num(this->smb1MarioSpritesIndexes->size()-1)));
+}
+
 bool Sequential_Archive_Handler::Apply_Hexagon_Patch(const QByteArray &patchBytes) {
     int lineNum = 0;
     return this->hexagonPlugin->Apply_Hexagon_Patch(patchBytes, this->file, false, lineNum) == Hexagon_Error_Codes::OK;
@@ -215,6 +224,16 @@ QStringList Sequential_Archive_Handler::Get_Mario_Sprites() {
             this->marioSpriteStrings.prepend(originalName);
             break;
         }
+    }
+
+    //Find all SMB1 sprites
+    QString modernName = "SMB1 Modern.hexp";
+    this->smb1MarioSpritesIndexes->clear();
+    for (int i = 0; i < this->marioSpriteStrings.size(); ++i) {
+        if (this->marioSpriteStrings.at(i) == originalName || this->marioSpriteStrings.at(i) == modernName) {
+            this->smb1MarioSpritesIndexes->append(i);
+        }
+        if (this->smb1MarioSpritesIndexes->size() == 2) break; //don't look for more than the 2 specified files
     }
     this->sequentialArchivePlugin->Close();
     return this->marioSpriteStrings;

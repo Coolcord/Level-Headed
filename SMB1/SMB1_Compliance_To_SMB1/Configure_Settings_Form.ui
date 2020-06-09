@@ -452,6 +452,11 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <property name="text">
+                    <string>Random (Only SMB1)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
                     <string>Graphics Pack Default</string>
                    </property>
                   </item>

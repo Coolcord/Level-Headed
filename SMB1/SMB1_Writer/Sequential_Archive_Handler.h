@@ -28,6 +28,7 @@ public:
     bool Apply_Mario_Sprite_At_Index(int index);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName);
     bool Apply_Random_Graphics_Sprite(const QString &spriteName, QString &patchName);
+    bool Apply_Random_SMB1_Mario_Sprite();
     bool Apply_Hexagon_Patch(const QByteArray &patchBytes);
     bool Apply_Music_Pack_At_Index(int index);
     QStringList Get_Bonus_Graphics_Packs();
@@ -105,6 +106,7 @@ private:
     QString textArchiveLocation;
     QString lastAppliedGraphicsPack;
     QString lastAppliedMarioSprite;
+    QVector<int> *smb1MarioSpritesIndexes;
 };
 
 #endif // SEQUENTIAL_ARCHIVE_HANDLER_H

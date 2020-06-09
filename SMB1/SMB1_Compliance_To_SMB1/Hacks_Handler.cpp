@@ -162,7 +162,7 @@ bool Hacks_Handler::Handle_Graphics() {
     if (!this->writerPlugin->Graphics_Set_Combine_Graphics_Packs(this->pluginSettings->combineGraphicsWithOtherPacks)) return false;
     int graphics = this->pluginSettings->graphics;
     if (graphics == 0) graphics = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Graphics_Packs())+2;
-    if (graphics == 2 && !this->writerPlugin->Hacks_Fix_Bowser_Fire_Graphics()) return false;
+    if (graphics == 2 && !this->writerPlugin->Graphics_Fix_Bowser_Fire_Graphics()) return false;
     bool success = false;
     switch (graphics) {
     case 1:     success = this->writerPlugin->Graphics_Combine_Graphics(); break; //original graphics
@@ -177,15 +177,24 @@ bool Hacks_Handler::Handle_Graphics() {
     if (!this->writerPlugin->Graphics_Randomize_Palettes(palette)) return false;
 
     //Write the Mario Sprite
+    bool applicationNeeded = true;
     int marioSprite = this->pluginSettings->marioSprite;
-    if (marioSprite == 0) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites()+this->writerPlugin->Graphics_Get_Number_Of_Bonus_Mario_Sprites())+2;
-    else if (marioSprite == 1) marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites())+2;
-    success = false;
-    switch (marioSprite) {
-    case 2:     success = true; break; //use Mario Sprite included in graphics pack
-    default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-3); break;
+    if (marioSprite == 0) {
+        marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites()+this->writerPlugin->Graphics_Get_Number_Of_Bonus_Mario_Sprites())+3;
+    } else if (marioSprite == 1) {
+        marioSprite = Random::Get_Instance().Get_Num(this->writerPlugin->Graphics_Get_Number_Of_Mario_Sprites())+3;
+    } else if (marioSprite == 2) {
+        if (!this->writerPlugin->Graphics_Apply_Random_SMB1_Mario_Sprite()) return false;
+        applicationNeeded = false;
     }
-    if (!success) return false;
+    if (applicationNeeded) {
+        success = false;
+        switch (marioSprite) {
+        case 3:     success = true; break; //use Mario Sprite included in graphics pack
+        default:    success = this->writerPlugin->Graphics_Apply_Mario_Sprite(marioSprite-4); break;
+        }
+        if (!success) return false;
+    }
 
     palette = this->pluginSettings->marioSpritePalette;
     if (palette == 0) palette = Random::Get_Instance().Get_Num(3, 10); //Random (No Randomly Generated)

@@ -805,7 +805,7 @@ Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(Color::Co
 Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVector<Color::Color> &excludedColors) {
     //Populate the available colors
     QSet<Color::Color> availableColors;
-    for (int i = 0; i < 28; ++i) {
+    for (int i = 0; i < 27; ++i) {
         switch (i) {
         default:    assert(false); return Color::BLACK;
         case 0:     availableColors.insert(Color::GRAY); break;
@@ -834,8 +834,7 @@ Color::Color Colors::Get_Random_Mario_Secondary_Color_Excluding_Colors(const QVe
         case 23:    availableColors.insert(Color::GREEN); break;
         case 24:    availableColors.insert(Color::TURQUOISE); break;
         case 25:    availableColors.insert(Color::AQUAMARINE); break;
-        case 26:    availableColors.insert(Color::ORANGE); break;
-        case 27:    availableColors.insert(Color::GRAY_DARK); break;
+        case 26:    availableColors.insert(Color::GRAY_DARK); break;
         }
     }
     for (int i = 0; i < excludedColors.size(); ++i) availableColors.remove(excludedColors.at(i)); //remove excluded colors

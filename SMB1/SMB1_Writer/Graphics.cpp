@@ -84,6 +84,11 @@ bool Graphics::Combine_Mario() {
     return this->graphicsCombiner->Combine_Mario();
 }
 
+bool Graphics::Fix_Bowser_Fire_Graphics() {
+    return this->Write_Bytes_To_Offset(0x8520, QByteArray::fromHex(QString("041FFFC3BF7F0F0200003C3F7F070000FCFFFFFFFFFFDF6E0000F3E0FE00000000E0F8FFE0F8F060"
+            "0000000000000000").toLatin1()));
+}
+
 bool Graphics::Make_Sprite_Tiles_Transparent(const QByteArray &tiles) {
     QSet<char> transparentTiles;
     bool invert = false;

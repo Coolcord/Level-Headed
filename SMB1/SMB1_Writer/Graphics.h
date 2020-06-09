@@ -32,6 +32,7 @@ public:
     bool Change_1UP_Palette(int palette);
     bool Combine_Graphics();
     bool Combine_Mario();
+    bool Fix_Bowser_Fire_Graphics();
     bool Make_Sprite_Tiles_Transparent(const QByteArray &tiles);
     bool Read_Graphics_Bytes_From_Sprite_Tile_ID(char tileID, QByteArray &graphicsBytes);
     bool Read_Graphics_Bytes_From_Background_Tile_ID(char tileID, QByteArray &graphicsBytes);

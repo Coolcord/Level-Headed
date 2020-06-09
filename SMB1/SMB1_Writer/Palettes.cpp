@@ -33,22 +33,41 @@ bool Palettes::Randomize_Palettes(int paletteMode) {
 }
 
 bool Palettes::Randomize_Mario_Sprite_Palette() {
+    //Read Original Colors
+    Color::Color originalMarioPrimary = Color::BLACK, originalMarioSecondary = Color::BLACK, originalMarioSkinColor = Color::BLACK;
+    Color::Color originalLuigiPrimary = Color::BLACK, originalLuigiSecondary = Color::BLACK, originalLuigiSkinColor = Color::BLACK;
+    Color::Color marioPrimary = Color::BLACK, marioSecondary = Color::BLACK;
+    Color::Color luigiPrimary = Color::BLACK, luigiSecondary = Color::BLACK;
+    QByteArray bytes;
+    if (!this->Read_Bytes_From_Offset(0x05E8, 6, bytes)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(0), originalMarioPrimary)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(1), originalMarioSkinColor)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(2), originalMarioSecondary)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(3), originalLuigiPrimary)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(4), originalLuigiSkinColor)) return false;
+    if (!this->colors->Get_Color_From_Hex(bytes.at(5), originalLuigiSecondary)) return false;
+
+    //Get New Colors
     QVector<Color::Color> usedColors;
-    Color::Color skinColor = this->colors->Get_Random_Skin_Color();
+    Color::Color skinColor = originalMarioSkinColor;
+    if (!this->Is_Color_Black_Or_White(originalMarioSkinColor)) skinColor = this->colors->Get_Random_Skin_Color();
     usedColors.append(skinColor);
-    Color::Color marioPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
+    marioPrimary = originalMarioPrimary;
+    if (!this->Is_Color_Black_Or_White(originalMarioPrimary)) marioPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
     usedColors.append(marioPrimary);
-    Color::Color luigiPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
+    luigiPrimary = originalLuigiPrimary;
+    if (!this->Is_Color_Black_Or_White(originalLuigiPrimary)) luigiPrimary = this->colors->Get_Random_Color_Excluding_Colors(usedColors);
     usedColors.append(luigiPrimary);
-    Color::Color marioSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
+    marioSecondary = originalMarioSecondary;
+    if (!this->Is_Color_Black_Or_White(originalMarioSecondary)) marioSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
     usedColors.append(marioSecondary);
-    Color::Color luigiSecondary = Color::BLACK;
 
     //Possibly use the same secondary color for both Mario and Luigi
     if (Random::Get_Instance().Get_Num(1)) {
         luigiSecondary = marioSecondary;
     } else {
-        luigiSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
+        luigiSecondary = originalLuigiSecondary;
+        if (!this->Is_Color_Black_Or_White(originalMarioSecondary)) luigiSecondary = this->colors->Get_Random_Mario_Secondary_Color_Excluding_Colors(usedColors);
         usedColors.append(luigiSecondary);
     }
     if (!this->Write_Bytes_To_Offset(0x05E8, this->colors->Get_QByteArray_From_Color(marioPrimary))) return false;
@@ -543,4 +562,8 @@ bool Palettes::Get_Random_Brown_Colors(qint64 offset) {
         }
     }
     return true;
+}
+
+bool Palettes::Is_Color_Black_Or_White(Color::Color color) {
+    return color == Color::BLACK || color == Color::WHITE;
 }
