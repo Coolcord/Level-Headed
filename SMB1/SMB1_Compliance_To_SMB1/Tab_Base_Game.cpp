@@ -106,7 +106,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->comboSurfingLiftSpeed->setCurrentIndex(3);
         this->ui->comboPiranhaPlantType->setCurrentIndex(1);
         this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(5);
-        this->ui->comboSecondaryMushroom->setCurrentIndex(3);
+        this->ui->comboSecondaryMushroom->setCurrentIndex(1);
         this->ui->comboSpinyEggBehavior->setCurrentIndex(8);
         this->ui->comboReplaceCastleLoops->setCurrentIndex(2);
         this->ui->cbSpeedyObjectsAndEnemies->setChecked(false);

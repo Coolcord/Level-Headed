@@ -1,5 +1,6 @@
 Next Update (v0.4.0)
 + Added very rare and mythic commonalities. Both of these are never guaranteed to be included in a new game.
++ Swimming Mushroom is now a complimentary hack
 
 Second Quest (v0.3.8)
 + "Use Level Scripts" has been changed to "Second Quest"

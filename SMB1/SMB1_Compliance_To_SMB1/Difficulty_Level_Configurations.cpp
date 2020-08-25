@@ -169,7 +169,7 @@ void Difficulty_Level_Configurations::Disable_All_ASM_Hacks(Plugin_Settings *plu
     pluginSettings->difficultySurfingLiftSpeed = 3; //Normal
     pluginSettings->difficultyPiranhaPlantType = 1;
     pluginSettings->difficultyMaxNumberOfPiranhaPlants = 5; //Normal
-    pluginSettings->difficultySecondaryMushroom = 3; //1-Up
+    pluginSettings->difficultySecondaryMushroom = 1; //1-Up
     pluginSettings->difficultySpinyEggBehavior = 8; //Normal
     pluginSettings->difficultyReplaceCastleLoops = 2;
     pluginSettings->difficultyReplaceCastleLoopsCurrent = 2; //none
@@ -201,7 +201,7 @@ void Difficulty_Level_Configurations::Purist(Difficulty_Level_Settings &difficul
     difficultySettings.maxNumberOfPiranhaPlants = 5;
     difficultySettings.spinyEggBehavior = 8;
     difficultySettings.replaceCastleLoops = 2; //nothing
-    difficultySettings.secondaryMushroom = 2; //Random Purist
+    difficultySettings.secondaryMushroom = 1; //1-Up
     difficultySettings.speedyObjectsAndEnemies = false;
     difficultySettings.lakituThrowArc = false;
     difficultySettings.europeanBlooperSwimHeight = false;
@@ -330,7 +330,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Very_Easy() {
     difficultySettings.fireBarLength = 1; //Very Short
     difficultySettings.longFireBarLength = 1; //Very Short
     difficultySettings.unlimitedTime = true;
-    difficultySettings.replaceCastleLoops = 7; //Top of Flagpole gives 1-UP + Start with Fire Flower
+    difficultySettings.replaceCastleLoops = 8; //Top of Flagpole gives 1-UP + Start with Fire Flower
     difficultySettings.maxLevelLength = 2; //Very Short
     return difficultySettings;
 }
@@ -355,7 +355,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Easy() {
     difficultySettings.spinyEggBehavior = 2; //Random Easy
     difficultySettings.lakituRespawnSpeed = 3;
     difficultySettings.spawnerPriority = 2;
-    difficultySettings.secondaryMushroom = 1; //Random Easy
+    difficultySettings.secondaryMushroom = 1; //1-Up
     difficultySettings.replaceCastleLoops = 5; //Top of Flagpole gives 1-UP
     difficultySettings.maxLevelLength = 3; //Short
     difficultySettings.allowHammerBrosWhenRandomizingEnemiesInLevelScripts = false;
@@ -492,7 +492,7 @@ Difficulty_Level_Settings Difficulty_Level_Configurations::Brutal() {
     difficultySettings.leapingParatroopaSpeed = 2; //fast
     difficultySettings.enemyRevivalSpeed = 4; //Goombas respawn + Quick
     difficultySettings.spawnerPriority = 0; //random
-    difficultySettings.secondaryMushroom = 4; //poison
+    difficultySettings.secondaryMushroom = 2; //poison
     difficultySettings.europeanBlooperSwimHeight = true;
     difficultySettings.piranhaPlantsOnFirstLevel = true;
     difficultySettings.preventTheFirstLevelFromBeingUnderwater = false;

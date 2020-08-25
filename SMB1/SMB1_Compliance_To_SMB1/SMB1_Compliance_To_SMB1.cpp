@@ -429,6 +429,10 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Mario_Name", this->pluginSettings.marioName);
     configFile.Get_Value("Luigi_Name", this->pluginSettings.luigiName);
     configFile.Discard_And_Close();
+
+    //Verify Settings
+    //TODO: Verify all other settings
+    if (this->pluginSettings.difficultySecondaryMushroom > 2) this->pluginSettings.difficultySecondaryMushroom = 0;
     return true;
 }
 

@@ -474,42 +474,23 @@ bool Hacks_Handler::Handle_Secondary_Mushroom() {
     //Handle random values first
     int secondaryMushroom = this->pluginSettings->difficultySecondaryMushroom;
     if (secondaryMushroom == 0) { //Random
-        secondaryMushroom = Random::Get_Instance().Get_Num(3, 6);
-    } else if (secondaryMushroom == 1) { //Random Easy
-        secondaryMushroom = 3; //1-Up
-        if (Random::Get_Instance().Get_Num(1) == 0) secondaryMushroom = 5; //swimming
-    } else  if (secondaryMushroom == 2) { //Random Purist
-        secondaryMushroom = 3; //1-Up
-        if (Random::Get_Instance().Get_Num(1) == 0) secondaryMushroom = 4; //poison
-    }
-
-    //Handle the Mystery Mushroom
-    bool randomPalette = false;
-    if (secondaryMushroom == 6) {
-        randomPalette = true;
-        secondaryMushroom = Random::Get_Instance().Get_Num(3, 5); //1-Up, Poison, or Swimming
+        secondaryMushroom = Random::Get_Instance().Get_Num(1, 2);
     }
 
     //Apply the necessary patch
     bool success = false;
     switch (secondaryMushroom) {
     default:    assert(false); return false;
-    case 3:     success = true; break; //1-Up
-    case 4:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
-    case 5:     success = this->writerPlugin->Powerups_Replace_1UP_With_Swimming_Mushroom(); break;
+    case 1:     success = true; break; //1-Up
+    case 2:     success = this->writerPlugin->Powerups_Replace_1UP_With_Poison_Mushroom(); break;
     }
-    if (!success) return false;
-    if (!randomPalette) return true;
-
-    //Change the palette if it is a Mystery Mushroom
-    if (Random::Get_Instance().Get_Num(1)) return this->writerPlugin->Graphics_Change_1UP_Palette(1); //green
-    else return this->writerPlugin->Graphics_Change_1UP_Palette(3); //black
+    return success;
 }
 
 bool Hacks_Handler::Handle_Replace_Castle_Loop() {
     this->pluginSettings->difficultyReplaceCastleLoopsCurrent = this->pluginSettings->difficultyReplaceCastleLoops;
     if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 0) {
-        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 5); //(no fireflower buffs)
+        this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 6); //(no fireflower buffs)
     } else if (this->pluginSettings->difficultyReplaceCastleLoopsCurrent == 1) {
         this->pluginSettings->difficultyReplaceCastleLoopsCurrent = Random::Get_Instance().Get_Num(3, 4); //(only Auto Scroll or Fire Bros)
     }
@@ -533,9 +514,12 @@ bool Hacks_Handler::Handle_Replace_Castle_Loop() {
         success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
         break;
     case 6:
-        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Swimming_Mushroom();
         break;
     case 7:
+        success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+        break;
+    case 8:
         if (!this->writerPlugin->Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP()) return false;
         success = this->writerPlugin->Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
         break;

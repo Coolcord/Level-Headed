@@ -174,6 +174,7 @@ public:
     virtual bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Fire_Bros()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower()=0;
+    virtual bool Hacks_Replace_Castle_Loop_With_Swimming_Mushroom()=0;
     virtual bool Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP()=0;
     virtual bool Hacks_Replace_Mario_With_Luigi()=0;
     virtual bool Hacks_Set_Basic_Enemy_Speed(int speed)=0;
@@ -245,7 +246,6 @@ public:
 
     //Powerups
     virtual bool Powerups_Replace_1UP_With_Poison_Mushroom()=0;
-    virtual bool Powerups_Replace_1UP_With_Swimming_Mushroom()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Bone_Caster()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Coin_Flinger()=0;
     virtual bool Powerups_Replace_Fire_Flower_With_Cutter_Flower()=0;

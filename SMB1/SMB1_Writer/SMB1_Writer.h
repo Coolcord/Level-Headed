@@ -192,6 +192,7 @@ public:
     bool Hacks_Replace_Castle_Loop_With_Autoscroll_Object();
     bool Hacks_Replace_Castle_Loop_With_Fire_Bros();
     bool Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower();
+    bool Hacks_Replace_Castle_Loop_With_Swimming_Mushroom();
     bool Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Hacks_Replace_Mario_With_Luigi();
     bool Hacks_Set_Basic_Enemy_Speed(int speed);
@@ -263,7 +264,6 @@ public:
 
     //Powerups
     bool Powerups_Replace_1UP_With_Poison_Mushroom();
-    bool Powerups_Replace_1UP_With_Swimming_Mushroom();
     bool Powerups_Replace_Fire_Flower_With_Bone_Caster();
     bool Powerups_Replace_Fire_Flower_With_Coin_Flinger();
     bool Powerups_Replace_Fire_Flower_With_Cutter_Flower();

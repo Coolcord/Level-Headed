@@ -58,6 +58,7 @@ public:
     bool Replace_Castle_Loop_With_Autoscroll_Object();
     bool Replace_Castle_Loop_With_Fire_Bros();
     bool Replace_Castle_Loop_With_Start_With_Fire_Flower();
+    bool Replace_Castle_Loop_With_Swimming_Mushroom();
     bool Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
     bool Replace_Mario_With_Luigi();
     bool Set_Basic_Enemy_Speed(int speed);
@@ -119,6 +120,7 @@ private:
     bool wasCastleLoopReplacedWithFireBros;
     bool wasCastleLoopReplacedWithFlagpole1UP;
     bool wasCastleLoopReplacedWithFireFlower;
+    bool wasCastleLoopReplacedWithSwimmingMushroom;
     bool wasVerticalObjectLimitRemoved;
 };
 

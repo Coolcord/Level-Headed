@@ -35,6 +35,7 @@ Hacks::Hacks(QFile *f, Level_Offset *lo, Midpoint_Writer *midpointWriter, Sequen
     this->wasCastleLoopReplacedWithFireBros = false;
     this->wasCastleLoopReplacedWithFlagpole1UP = false;
     this->wasCastleLoopReplacedWithFireFlower = false;
+    this->wasCastleLoopReplacedWithSwimmingMushroom = false;
     this->wasVerticalObjectLimitRemoved = false;
 }
 
@@ -441,7 +442,7 @@ bool Hacks::Remove_Vertical_Object_Limit() {
 
 bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
     //By ATA
-    if (this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower) return false;
+    if (this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower || this->wasCastleLoopReplacedWithSwimmingMushroom) return false;
     if (!this->Write_Bytes_To_Offset(0x16C9, QByteArray::fromHex(QString("E6C0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2F46, QByteArray::fromHex(QString("6BC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x2FAD, QByteArray::fromHex(QString("20B7C0F0").toLatin1()))) return false;
@@ -456,7 +457,7 @@ bool Hacks::Replace_Castle_Loop_With_Autoscroll_Object() {
 }
 
 bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
-    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower) return false;
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFlagpole1UP || this->wasCastleLoopReplacedWithFireFlower || this->wasCastleLoopReplacedWithSwimmingMushroom) return false;
     if (!this->Write_Bytes_To_Offset(0x3AA2, QByteArray::fromHex(QString("1CE4").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x3AEB, QByteArray(1, static_cast<char>(0x38)))) return false;
     if (!this->Write_Bytes_To_Offset(0x3B01, QByteArray::fromHex(QString("6BC0A90495AC2095C0").toLatin1()))) return false;
@@ -477,7 +478,7 @@ bool Hacks::Replace_Castle_Loop_With_Fire_Bros() {
 }
 
 bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
-    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithSwimmingMushroom) return false;
     if (!this->Write_Bytes_To_Offset(0x06D2, QByteArray::fromHex(QString("4C7FC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x408F, QByteArray::fromHex(QString("A9028D5607A9008D540720A4EF4CC586").toLatin1()))) return false;
     if (this->skipLivesScreen && !this->Write_Bytes_To_Offset(0x4099, QByteArray::fromHex(QString("4CE086").toLatin1()))) return false;
@@ -485,8 +486,20 @@ bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
     return true;
 }
 
+bool Hacks::Replace_Castle_Loop_With_Swimming_Mushroom() {
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithFlagpole1UP) return false;
+    if (!this->Write_Bytes_To_Offset(0x40F0, QByteArray::fromHex(QString("AD0407F006CE04074CED90EE04074C1BD8").toLatin1()))) return false;
+    //Restore mushroom behavior in case the Poison Mushroom was applied
+    if (!this->Write_Bytes_To_Offset(0x5813, QByteArray::fromHex(QString("A9062011DAA92085FEA539C902900EC903F024A9238D9F07A94085FB60AD5607F01BC901D023A608A9028"
+                                                                         "D560720F185A608A90C4C47D8A90B9D100160").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x584A, QByteArray::fromHex(QString("4CE0C0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(0x03)))) return false;
+    this->wasCastleLoopReplacedWithSwimmingMushroom = true;
+    return true;
+}
+
 bool Hacks::Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
-    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros) return false;
+    if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithSwimmingMushroom) return false;
     if (!this->Write_Bytes_To_Offset(0x407B, QByteArray::fromHex(QString("AC0F01D00EAD5A07C962B003EE5A07A94085FE60").toLatin1()))) return false;
     if (this->permadeath && !this->Write_Bytes_To_Offset(0x4087, QByteArray::fromHex(QString("EAEAEA").toLatin1()))) return false; //prevent incrementing if permadeath is active
     if (!this->Write_Bytes_To_Offset(0x38A9, QByteArray::fromHex(QString("206BC0").toLatin1()))) return false;

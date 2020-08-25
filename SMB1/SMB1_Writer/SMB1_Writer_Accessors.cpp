@@ -705,6 +705,11 @@ bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Start_With_Fire_Flower() {
     return this->hacks->Replace_Castle_Loop_With_Start_With_Fire_Flower();
 }
 
+bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Swimming_Mushroom() {
+    if (!this->hacks) return false;
+    return this->hacks->Replace_Castle_Loop_With_Swimming_Mushroom();
+}
+
 bool SMB1_Writer::Hacks_Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP() {
     if (!this->hacks) return false;
     return this->hacks->Replace_Castle_Loop_With_Top_Of_Flagpole_Gives_1UP();
@@ -1029,11 +1034,6 @@ bool SMB1_Writer::Sound_Randomize_Sounds() {
 bool SMB1_Writer::Powerups_Replace_1UP_With_Poison_Mushroom() {
     if (!this->powerups) return false;
     return this->powerups->Replace_1UP_With_Poison_Mushroom();
-}
-
-bool SMB1_Writer::Powerups_Replace_1UP_With_Swimming_Mushroom() {
-    if (!this->powerups) return false;
-    return this->powerups->Replace_1UP_With_Swimming_Mushroom();
 }
 
 bool SMB1_Writer::Powerups_Replace_Fire_Flower_With_Bone_Caster() {
