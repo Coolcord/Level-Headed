@@ -37,6 +37,7 @@ bool Underground_Generator::Generate_Level() {
     }
 
     //Handle Additional Passes
+    this->Remove_Unsafe_Cannons_From_Level();
     assert(this->powerupDistributor->Distribute_Powerups());
     assert(this->enemySpawner->Spawn_Enemies());
 

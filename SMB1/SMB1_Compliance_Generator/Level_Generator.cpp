@@ -90,3 +90,29 @@ bool Level_Generator::Write_Buffers_To_File() {
     stream.flush();
     return true;
 }
+
+void Level_Generator::Remove_Unsafe_Cannons_From_Level() {
+    assert(this->objects);
+    if (this->args->levelCompliment != Level_Compliment::BULLET_BILL_TURRETS) return; //no cannons can exist on the level
+    int midpointPageX = this->midpointHandler->Get_Midpoint()*16;
+    int minInvalidMidpointX = midpointPageX, maxInvalidMidpointX = midpointPageX+16;
+
+    this->objects->Seek_To_First_Item();
+    while (!this->objects->At_End()) {
+        Buffer_Data *data = this->objects->Get_Current_For_Modification();
+        switch (data->objectItem) {
+        default:
+            break;
+        case Object_Item::BULLET_BILL_TURRET:
+            if (data->y == 0x9 || data->y == 0xA) { //check if the cannon's height is in range of Mario standing on the ground
+                if (data->absoluteX <= 16) { //remove the cannon if it is on the first page of the level
+                    data->objectItem = Object_Item::VERTICAL_BLOCKS;
+                } else { //remove the cannon if it is on the midpoint page
+                    if (data->absoluteX >= minInvalidMidpointX && data->absoluteX <= maxInvalidMidpointX) data->objectItem = Object_Item::VERTICAL_BLOCKS;
+                }
+            }
+            break;
+        }
+        this->objects->Seek_To_Next();
+    }
+}

@@ -31,6 +31,7 @@ protected:
     int Get_Safe_Random_X();
     void Handle_Auto_Scroll_Start(int &x);
     bool Write_Buffers_To_File();
+    void Remove_Unsafe_Cannons_From_Level();
 
     Level_Generator(const Level_Generator&);
     Level_Generator& operator=(const Level_Generator&);
