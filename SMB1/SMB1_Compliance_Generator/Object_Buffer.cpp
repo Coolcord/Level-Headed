@@ -69,14 +69,14 @@ bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
         case Object_Item::PIPE_WALL:
         case Object_Item::LIFT_ROPE:
         case Object_Item::END_STEPS: //x
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << Qt::endl;
             break;
         case Object_Item::BALANCE_LIFT_VERTICAL_ROPE:
         case Object_Item::BALANCE_LIFT_HORIZONTAL_ROPE:
         case Object_Item::HOLE:
         case Object_Item::HOLE_WITH_WATER:
         case Object_Item::STEPS: //x length
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.length) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.length) << Qt::endl;
             break;
         case Object_Item::QUESTION_BLOCK_WITH_MUSHROOM:
         case Object_Item::QUESTION_BLOCK_WITH_COIN:
@@ -91,7 +91,7 @@ bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
         case Object_Item::USED_BLOCK:
         case Object_Item::TRAMPOLINE:
         case Object_Item::TALL_REVERSE_L_PIPE: //x y
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << Qt::endl;
             break;
         case Object_Item::BULLET_BILL_TURRET:
         case Object_Item::VERTICAL_BRICKS:
@@ -99,7 +99,7 @@ bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
         case Object_Item::CORAL:
         case Object_Item::PIPE:
         case Object_Item::ENTERABLE_PIPE: //x y height
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.height) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.height) << Qt::endl;
             break;
         case Object_Item::BRIDGE:
         case Object_Item::ISLAND:
@@ -107,19 +107,19 @@ bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
         case Object_Item::HORIZONTAL_BLOCKS:
         case Object_Item::HORIZONTAL_COINS:
         case Object_Item::HORIZONTAL_QUESTION_BLOCKS_WITH_COINS: //x y length
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.length) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.length) << Qt::endl;
             break;
         case Object_Item::PAGE_CHANGE: //page
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.page) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.page) << Qt::endl;
             break;
         case Object_Item::CHANGE_BRICK_AND_SCENERY: //x brick scenery
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << this->Get_String_From_Brick(data.brick) << " " << this->Get_String_From_Scenery(data.scenery) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << this->Get_String_From_Brick(data.brick) << " " << this->Get_String_From_Scenery(data.scenery) << Qt::endl;
             break;
         case Object_Item::CHANGE_BACKGROUND: //x background
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << this->Get_String_From_Background(data.background) << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " " << QString::number(data.x) << " " << this->Get_String_From_Background(data.background) << Qt::endl;
             break;
         case Object_Item::NOTHING: //no arguments
-            stream << this->Get_String_From_Object_Item(data.objectItem) << " 0" << endl;
+            stream << this->Get_String_From_Object_Item(data.objectItem) << " 0" << Qt::endl;
             break;
         }
         if (stream.status() != QTextStream::Ok) return false;

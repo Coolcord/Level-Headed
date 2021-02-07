@@ -82,11 +82,11 @@ bool Level_Generator::Write_Buffers_To_File() {
     QTextStream stream(this->file);
     if (!this->file->seek(0)) return false;
     if (!this->header->Write_Buffer_To_File(this->file)) return false;
-    stream << Level_Type::STRING_BREAK << endl;
+    stream << Level_Type::STRING_BREAK << Qt::endl;
     if (!this->objects->Write_Buffer_To_File(this->file)) return false;
-    stream << Level_Type::STRING_BREAK << endl;
+    stream << Level_Type::STRING_BREAK << Qt::endl;
     if (!this->enemies->Write_Buffer_To_File(this->file)) return false;
-    stream << Level_Type::STRING_BREAK << endl;
+    stream << Level_Type::STRING_BREAK << Qt::endl;
     stream.flush();
     return true;
 }

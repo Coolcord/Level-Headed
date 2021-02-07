@@ -27,7 +27,7 @@ bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
         QString hardMode = data.onlyHardMode ? Enemy_Item::STRING_HARD : Enemy_Item::STRING_NORMAL;
         switch (data.enemyItem) {
         case Enemy_Item::WARP_ZONE: //x
-            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << endl;
+            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << Qt::endl;
             break;
         case Enemy_Item::PODOBOO:
         case Enemy_Item::BOWSER_FIRE_SPAWNER:
@@ -35,7 +35,7 @@ bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
         case Enemy_Item::BULLET_BILL_SPAWNER:
         case Enemy_Item::BOWSER:
         case Enemy_Item::TOAD: //x hardMode
-            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << hardMode << endl;
+            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::RED_KOOPA:
         case Enemy_Item::BUZZY_BEETLE:
@@ -53,43 +53,43 @@ bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
         case Enemy_Item::FALLING_LIFT:
         case Enemy_Item::BALANCE_LIFT:
         case Enemy_Item::SURFING_LIFT: //x y hardMode
-            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << hardMode << endl;
+            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::GREEN_KOOPA: //x y moving hardMode
             stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                   << " " << (data.moving ? Enemy_Item::STRING_MOVING : Enemy_Item::STRING_STOPPED) << " " << hardMode << endl;
+                   << " " << (data.moving ? Enemy_Item::STRING_MOVING : Enemy_Item::STRING_STOPPED) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::GREEN_PARATROOPA: //x y leapingMovement hardMode
             if (!data.moving) {
                 stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                       << " " << Enemy_Item::STRING_STOPPED << " " << hardMode << endl;
+                       << " " << Enemy_Item::STRING_STOPPED << " " << hardMode << Qt::endl;
             } else {
                 stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                       << " " << (data.leaping ? Enemy_Item::STRING_LEAPING : Enemy_Item::STRING_FLYING) << " " << hardMode << endl;
+                       << " " << (data.leaping ? Enemy_Item::STRING_LEAPING : Enemy_Item::STRING_FLYING) << " " << hardMode << Qt::endl;
             }
             break;
         case Enemy_Item::FIRE_BAR: //x y clockwise fast hardMode
             stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                   << " " << (data.clockwise ? Enemy_Item::STRING_CLOCKWISE : Enemy_Item::STRING_COUNTER_CLOCKWISE) << " " << (data.fast ? Enemy_Item::STRING_FAST : Enemy_Item::STRING_SLOW) << " " << hardMode << endl;
+                   << " " << (data.clockwise ? Enemy_Item::STRING_CLOCKWISE : Enemy_Item::STRING_COUNTER_CLOCKWISE) << " " << (data.fast ? Enemy_Item::STRING_FAST : Enemy_Item::STRING_SLOW) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::LIFT: //x y vertical hardMode
             stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                   << " " << (data.vertical ? Enemy_Item::STRING_VERTICAL : Enemy_Item::STRING_HORIZONTAL) << " " << hardMode << endl;
+                   << " " << (data.vertical ? Enemy_Item::STRING_VERTICAL : Enemy_Item::STRING_HORIZONTAL) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::LIFT_SPAWNER: //x y up small hardMode
             stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y)
-                   << " " << (data.up ? Enemy_Item::STRING_UP : Enemy_Item::STRING_DOWN) << " " << (data.small ? Enemy_Item::STRING_SMALL : Enemy_Item::STRING_LARGE) << " " << hardMode << endl;
+                   << " " << (data.up ? Enemy_Item::STRING_UP : Enemy_Item::STRING_DOWN) << " " << (data.small ? Enemy_Item::STRING_SMALL : Enemy_Item::STRING_LARGE) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::GOOMBA_GROUP:
         case Enemy_Item::KOOPA_GROUP: //x y num hardMode
-            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.num) << " " << hardMode << endl;
+            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << QString::number(data.y) << " " << QString::number(data.num) << " " << hardMode << Qt::endl;
             break;
         case Enemy_Item::PIPE_POINTER: //x level world page
             stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.x) << " " << this->Get_String_From_Level(data.level)
-                   << " " << QString::number(data.world) << " " << QString::number(data.page) << endl;
+                   << " " << QString::number(data.world) << " " << QString::number(data.page) << Qt::endl;
             break;
         case Enemy_Item::PAGE_CHANGE: //page
-            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.page) << endl;
+            stream << this->Get_String_From_Enemy_Item(data.enemyItem) << " " << QString::number(data.page) << Qt::endl;
             break;
         case Enemy_Item::NOTHING:
             assert(false); return false;

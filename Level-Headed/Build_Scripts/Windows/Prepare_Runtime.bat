@@ -1,7 +1,7 @@
 @ECHO OFF
 COLOR 0A
 
-SET QT=Qt_5_12_6_MinGW_32_bit
+SET QT=Qt_5_15_2_MinGW_32_bit
 SET MODE=%1
 IF %1.==. SET MODE=Debug
 SET SOURCE_LOCATION=F:\Documents\Source_Code

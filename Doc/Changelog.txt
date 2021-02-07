@@ -1,4 +1,4 @@
-Next Update (v0.4.0)
+Next Update (v0.3.9)
 + Added very rare and mythic commonalities. Both of these are never guaranteed to be included in a new game.
 + Added a new pass to the level generator that removes all ground level Bullet Bill Cannons that are on the first page or midpoint page
 + Swimming Mushroom is now a complimentary hack
