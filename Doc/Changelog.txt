@@ -2,6 +2,11 @@ Next Update (v0.3.9)
 + Added very rare and mythic commonalities. Both of these are never guaranteed to be included in a new game.
 + Added a new pass to the level generator that removes all ground level Bullet Bill Cannons that are on the first page or midpoint page
 + Swimming Mushroom is now a complimentary hack
++ Fixed corrupted text when Luigi saves Princess Peach in some situations
++ Fixed corrupted Princess rescued music in "Snoop Dogg by Sky Yoshi"
++ Fixed the Peach sprite in Super Duper Mario Bros. (by Tabmok99)
++ Fixed the broken castle music in Final Strikyu (by DASTARD)
++ Fixed the castle red color palette in Super Mario S (by Shogun)
 
 Second Quest (v0.3.8)
 + "Use Level Scripts" has been changed to "Second Quest"
