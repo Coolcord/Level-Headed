@@ -13,7 +13,7 @@ Item_Buffer::Item_Buffer(int numBytesLeft) {
     this->numBytesUsed = 0;
     this->totalBytes = numBytesLeft;
     this->numBytesLeft = numBytesLeft;
-    this->itemBuffer = new QLinkedList<Buffer_Data>();
+    this->itemBuffer = new std::list<Buffer_Data>();
     this->itemBufferIter = this->itemBuffer->begin();
     this->Initialize_Buffer();
 }
@@ -73,11 +73,12 @@ bool Item_Buffer::Will_Page_Flag_Be_Tripped(int x) {
 }
 
 void Item_Buffer::Insert_Into_Buffer(const Buffer_Data &data) {
-    if (this->itemBuffer->isEmpty() || this->itemBufferIter == this->itemBuffer->end()) {
-        this->itemBuffer->append(data);
-        this->itemBufferIter = this->itemBuffer->end()-1;
+    if (this->itemBuffer->empty() || this->itemBufferIter == this->itemBuffer->end()) {
+        this->itemBuffer->push_back(data);
+        this->itemBufferIter = --this->itemBuffer->end();
     } else {
-        this->itemBufferIter = this->itemBuffer->insert(this->itemBufferIter+1, data);
+        std::list<Buffer_Data>::iterator tmpIter = this->itemBufferIter;
+        this->itemBufferIter = this->itemBuffer->insert(++tmpIter, data);
     }
 }
 
@@ -128,10 +129,12 @@ void Item_Buffer::Update_Level_Stats(int x) {
     ++this->numItems;
 
     //Fix X Values
-    if (this->At_End() || this->itemBufferIter+1 == this->itemBuffer->end()) { //when appending, increment the level length
+    std::list<Buffer_Data>::iterator tmpIter = this->itemBufferIter;
+    ++tmpIter;
+    if (this->At_End() || tmpIter == this->itemBuffer->end()) { //when appending, increment the level length
         this->levelLength += x;
     } else { //when inserting, fix the x value of the next object
-        QLinkedList<Buffer_Data>::iterator iter = this->itemBufferIter+1;
+        std::list<Buffer_Data>::iterator iter = tmpIter;
         Buffer_Data *data = &(*iter);
         data->x -= x;
         assert(data->x >= 0);
@@ -139,12 +142,12 @@ void Item_Buffer::Update_Level_Stats(int x) {
 }
 
 bool Item_Buffer::Is_Last_Item_A_Page_Change() {
-    if (this->itemBuffer->isEmpty()) return false;
-    return this->itemBuffer->last().objectItem == Object_Item::PAGE_CHANGE || this->itemBuffer->last().enemyItem == Enemy_Item::PAGE_CHANGE;
+    if (this->itemBuffer->empty()) return false;
+    return this->itemBuffer->back().objectItem == Object_Item::PAGE_CHANGE || this->itemBuffer->back().enemyItem == Enemy_Item::PAGE_CHANGE;
 }
 
 bool Item_Buffer::Is_Empty() {
-    return this->itemBuffer->isEmpty();
+    return this->itemBuffer->empty();
 }
 
 bool Item_Buffer::At_Beginning() {

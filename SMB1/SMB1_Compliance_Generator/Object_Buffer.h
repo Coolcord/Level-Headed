@@ -8,9 +8,10 @@
 #include "../Common_SMB1_Files/Scenery.h"
 #include "SMB1_Compliance_Generator_Arguments.h"
 #include <QFile>
-#include <QLinkedList>
 #include <QMap>
 #include <QVector>
+#include <iterator>
+#include <list>
 
 struct Block_Data;
 

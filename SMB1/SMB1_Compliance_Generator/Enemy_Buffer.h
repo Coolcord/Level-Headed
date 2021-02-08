@@ -5,8 +5,9 @@
 #include "../Common_SMB1_Files/Enemy_Item.h"
 #include "../Common_SMB1_Files/Level.h"
 #include <QFile>
-#include <QLinkedList>
 #include <QString>
+#include <iterator>
+#include <list>
 
 class Enemy_Buffer : public Item_Buffer {
 public:

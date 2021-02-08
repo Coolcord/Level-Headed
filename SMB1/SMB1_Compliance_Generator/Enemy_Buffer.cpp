@@ -22,7 +22,7 @@ void Enemy_Buffer::Clear_Buffer() {
 
 bool Enemy_Buffer::Write_Buffer_To_File(QFile *file) {
     QTextStream stream(file);
-    for (QLinkedList<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {
+    for (std::list<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {
         Buffer_Data data = *iter;
         QString hardMode = data.onlyHardMode ? Enemy_Item::STRING_HARD : Enemy_Item::STRING_NORMAL;
         switch (data.enemyItem) {

@@ -48,7 +48,7 @@ void Object_Buffer::Clear_Buffer() {
 
 bool Object_Buffer::Write_Buffer_To_File(QFile *file) {
     QTextStream stream(file);
-    for (QLinkedList<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {
+    for (std::list<Buffer_Data>::iterator iter = this->itemBuffer->begin(); iter != this->itemBuffer->end(); ++iter) {
         Buffer_Data data = *iter;
         switch (data.objectItem) {
         case Object_Item::REVERSE_L_PIPE:
@@ -362,7 +362,7 @@ bool Object_Buffer::Write_Object(int page) {
     int relativeX = (0x10*page)-this->levelLength;
     if (relativeX < 0) return false;
     if (this->Is_Last_Item_A_Page_Change()) { //modify the previous page change if there is one
-        this->Decrement_Vertical_Object_Count_At_X(this->itemBuffer->last().absoluteX);
+        this->Decrement_Vertical_Object_Count_At_X(this->itemBuffer->back().absoluteX);
         this->numBytesLeft += 2; //temporarily restore 2 bytes. This will be decremented again in Update_Level_Stats()
         if (!this->Handle_Level_Length_On_Page_Change(page)) return false;
         Buffer_Data *objectBufferData = this->Get_Current_For_Modification();

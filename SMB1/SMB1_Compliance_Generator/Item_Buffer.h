@@ -3,8 +3,9 @@
 
 #include "Buffer_Data.h"
 #include <QFile>
-#include <QLinkedList>
 #include <QString>
+#include <iterator>
+#include <list>
 
 class Item_Buffer {
 public:
@@ -54,8 +55,8 @@ protected:
     bool Handle_Level_Length_On_Page_Change(int page);
     void Update_Level_Stats(int x);
 
-    QLinkedList<Buffer_Data> *itemBuffer;
-    QLinkedList<Buffer_Data>::iterator itemBufferIter;
+    std::list<Buffer_Data> *itemBuffer;
+    std::list<Buffer_Data>::iterator itemBufferIter;
     int numBytesLeft;
     int numBytesUsed;
     int totalBytes;
