@@ -7,6 +7,7 @@ Next Update (v0.3.9)
 + Fixed the Peach sprite in Super Duper Mario Bros. (by Tabmok99)
 + Fixed the broken castle music in Final Strikyu (by DASTARD)
 + Fixed the castle red color palette in Super Mario S (by Shogun)
++ Fixed a bug that was causing Bowser to not behave properly in the Co-op ROM
 
 Second Quest (v0.3.8)
 + "Use Level Scripts" has been changed to "Second Quest"
