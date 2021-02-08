@@ -256,8 +256,7 @@ bool Hacks_Handler::Handle_Level_Length() {
     switch (this->pluginSettings->difficultyMaxLevelLength) {
     default: return false;
     case 0: //Random
-        this->pluginSettings->difficultyMaxLevelLengthBlocks = Random::Get_Instance().Get_Num(64, 320);
-        if (this->pluginSettings->difficultyMaxLevelLengthBlocks == 321) this->pluginSettings->difficultyMaxLevelLengthBlocks = 0;
+        this->pluginSettings->difficultyMaxLevelLengthBlocks = Random::Get_Instance().Get_Num(64, 272);
         return true;
     case 1: //As Short as Possible
         this->pluginSettings->difficultyMaxLevelLengthBlocks = 1; return true;
