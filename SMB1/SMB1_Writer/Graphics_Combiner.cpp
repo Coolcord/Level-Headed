@@ -219,8 +219,8 @@ bool Graphics_Combiner::Combine_Peach() {
     //Check the red palette does not have black for color 3
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0D3C, 1, bytes)) return false;
-    if (bytes.at(0) == Color::BLACK) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach Dark");
-    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach Light");
+    if (bytes.at(0) == Color::BLACK) return true;
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Peach");
 }
 
 bool Graphics_Combiner::Combine_Piranha_Plant() {
@@ -264,8 +264,8 @@ bool Graphics_Combiner::Combine_Toad() {
     //Check the red palette does not have black for color 3
     QByteArray bytes;
     if (!this->Read_Bytes_From_Offset(0x0D3E, 1, bytes)) return false;
-    if (bytes.at(0) == Color::BLACK) return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad Dark");
-    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad Light");
+    if (bytes.at(0) == Color::BLACK) return true;
+    else return this->sequentialArchiveHandler->Apply_Random_Graphics_Sprite("Toad");
 }
 
 bool Graphics_Combiner::Combine_Axe() {
