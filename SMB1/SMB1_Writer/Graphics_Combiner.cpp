@@ -390,7 +390,6 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
 
     //Read the old tiles
     QMap<char, bool> tiles;
-    QByteArray oldTiles;
     QStack<qint64> oldOffsets = offsets;
     if (sprite) tiles.insert(static_cast<char>(0xFC), true);
     else tiles.insert(static_cast<char>(0x24), true);
@@ -402,7 +401,7 @@ bool Graphics_Combiner::Does_Graphics_Pack_Use_New_Tiles(QStack<qint64> offsets,
         QByteArray *oldTiles = this->graphicsOffsets->Get_Values_At_Offset_And_Never_Fail(offset);
         if (tileOrderSize == 0) tileOrderSize = oldTiles->size();
         else assert(oldTiles->size() == tileOrderSize);
-        for (char c : *oldTiles) tiles.insert(c, false);
+        for (int i = 0; i < oldTiles->size(); ++i) tiles.insert(oldTiles->at(i), false);
     }
 
     //Compare against the new tiles
