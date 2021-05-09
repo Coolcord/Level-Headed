@@ -6,12 +6,16 @@ Stability Update (v0.3.9)
 + Added a new pass to the level generator that removes all ground level Bullet Bill Cannons that are on the first page or midpoint page
 + Swimming Mushroom is now a complimentary hack
 + Reduced the max possible level length in Random difficulty
++ Peach and Toad sprites that rely on a black border will no longer be combined
++ Fixed a bug that was causing Bowser to not behave properly in the Co-op ROM
 + Fixed corrupted text when Luigi saves Princess Peach in some situations
 + Fixed corrupted Princess rescued music in "Snoop Dogg by Sky Yoshi"
-+ Fixed the Peach sprite in Super Duper Mario Bros. (by Tabmok99)
 + Fixed the broken castle music in Final Strikyu (by DASTARD)
 + Fixed the castle red color palette in Super Mario S (by Shogun)
-+ Fixed a bug that was causing Bowser to not behave properly in the Co-op ROM
++ Fixed the background colors in Toad's Adventure (by Omniverse)
++ Fixed the Peach sprite in Super Duper Mario Bros. (by Tabmok99)
++ Fixed the Peach sprite in Paradyce with SMB2 Enemies (by Insectduel)
++ Fixed the Peach sprite in Super Mario S (by Sogun)
 + Added Graphics (SMB1 Resprited by Hellfire)
 
 Second Quest (v0.3.8)
