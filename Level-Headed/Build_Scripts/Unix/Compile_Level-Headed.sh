@@ -20,11 +20,11 @@ git clone https://github.com/Coolcord/C_Common_Code.git
 # Revert to stable code
 if [ -z $1 ] || [ $1 != "latest" ]; then
     echo Using stable code...
-    cd Level-Headed/; git checkout tags/v0.3.8-2 &> /dev/null
-    cd ../Level-Headed_Data/; git checkout tags/v0.3.8-2 &> /dev/null
-    cd ../Hexagon/; git checkout b6fe2de33ebefc600f3b77bd823e2eb52d05dd06 &> /dev/null
-    cd ../Sequential_Archive/; git checkout 4c64c933127554aa6dec4f26f03c786f1756764e &> /dev/null
-    cd ../C_Common_Code/; git checkout f533cc1aeb8bba855749e287d43e735602210ac1 &> /dev/null
+    cd Level-Headed/; git checkout tags/v0.3.9 &> /dev/null
+    cd ../Level-Headed_Data/; git checkout tags/v0.3.9 &> /dev/null
+    cd ../Hexagon/; git checkout ca440f2beb0344795b240775e28d638af465fdb2 &> /dev/null
+    cd ../Sequential_Archive/; git checkout c3be23f551875a01e0de1a4b7054f0ea9dc57c1e &> /dev/null
+    cd ../C_Common_Code/; git checkout 628bd141276f78e76b127692a255246edf31c8d8 &> /dev/null
     cd ..
 else
     echo Using latest code...
