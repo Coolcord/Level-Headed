@@ -1,5 +1,5 @@
 Next Update (v0.4.0)
-+ Added the option to always continue from the current world after a game over
++ Added the option to always start a new game from the last played world
 
 Stability Update (v0.3.9)
 + Added very rare and mythic commonalities. Both of these are never guaranteed to be included in a new game.
