@@ -169,6 +169,11 @@ void Configure_Settings_Form::on_comboDifficulty_currentIndexChanged(int index) 
 }
 
 void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
-    if (checked) this->ui->sbLives->show();
-    else this->ui->sbLives->hide();
+    if (checked) {
+        this->ui->sbLives->show();
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->show();
+    } else {
+        this->ui->sbLives->hide();
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->hide();
+    }
 }

@@ -66,6 +66,7 @@ struct Plugin_Settings {
     bool infiniteLives;
     bool permadeath;
     int numLives;
+    bool alwaysRestartFromCurrentWorldAfterGameOver;
     bool godMode;
     bool addLuigiGame;
     bool superMarioOnDamage;

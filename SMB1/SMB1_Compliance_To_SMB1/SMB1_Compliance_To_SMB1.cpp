@@ -261,6 +261,7 @@ bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!configFile.Set_Value("Mario_Sprite_Palette", this->pluginSettings.marioSpritePalette)) return false;
     if (!configFile.Set_Value("Infinite_Lives", this->pluginSettings.infiniteLives)) return false;
     if (!configFile.Set_Value("Permadeath", this->pluginSettings.permadeath)) return false;
+    if (!configFile.Set_Value("Always_Restart_From_Current_World_After_Game_Over", this->pluginSettings.alwaysRestartFromCurrentWorldAfterGameOver)) return false;
     if (!configFile.Set_Value("Number_Of_Lives", this->pluginSettings.numLives)) return false;
     if (!configFile.Set_Value("God_Mode", this->pluginSettings.godMode)) return false;
     if (!configFile.Set_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame)) return false;
@@ -390,6 +391,7 @@ bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     configFile.Get_Value("Mario_Sprite_Palette", this->pluginSettings.marioSpritePalette);
     configFile.Get_Value("Infinite_Lives", this->pluginSettings.infiniteLives);
     configFile.Get_Value("Permadeath", this->pluginSettings.permadeath);
+    configFile.Get_Value("Always_Restart_From_Current_World_After_Game_Over", this->pluginSettings.alwaysRestartFromCurrentWorldAfterGameOver);
     configFile.Get_Value("Number_Of_Lives", this->pluginSettings.numLives);
     configFile.Get_Value("God_Mode", this->pluginSettings.godMode);
     configFile.Get_Value("Add_Luigi_Game", this->pluginSettings.addLuigiGame);
@@ -477,6 +479,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.marioSpritePalette = 0;
     this->pluginSettings.infiniteLives = false;
     this->pluginSettings.permadeath = false;
+    this->pluginSettings.alwaysRestartFromCurrentWorldAfterGameOver = false;
     this->pluginSettings.numLives = 7;
     this->pluginSettings.godMode = false;
     this->pluginSettings.addLuigiGame = true;

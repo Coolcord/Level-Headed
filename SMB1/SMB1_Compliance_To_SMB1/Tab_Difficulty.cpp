@@ -5,9 +5,16 @@
 #include "../SMB1_Writer/ROM_Filename.h"
 
 void Tab_Difficulty::Load_Settings() {
-    if (this->pluginSettings->infiniteLives) this->ui->radioInfiniteLives->setChecked(true);
-    else if (this->pluginSettings->permadeath) this->ui->radioPermadeath->setChecked(true);
-    else this->ui->radioStartingLives->setChecked(true);
+    if (this->pluginSettings->infiniteLives) {
+        this->ui->radioInfiniteLives->setChecked(true);
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(false);
+    } else if (this->pluginSettings->permadeath) {
+        this->ui->radioPermadeath->setChecked(true);
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(false);
+    } else {
+        this->ui->radioStartingLives->setChecked(true);
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(this->pluginSettings->alwaysRestartFromCurrentWorldAfterGameOver);
+    }
     this->ui->sbLives->setValue(this->pluginSettings->numLives);
     if (this->ui->cbGodMode->isEnabled()) this->ui->cbGodMode->setChecked(this->pluginSettings->godMode);
     if (this->ui->comboPowerup->isEnabled()) this->ui->comboPowerup->setCurrentIndex(this->pluginSettings->powerup);
@@ -95,6 +102,7 @@ void Tab_Difficulty::Save_Settings() {
     bool partialSupport = this->ui->comboBaseROM->currentText().startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT);
     this->pluginSettings->infiniteLives = this->ui->radioInfiniteLives->isChecked();
     this->pluginSettings->permadeath = this->ui->radioPermadeath->isChecked();
+    this->pluginSettings->alwaysRestartFromCurrentWorldAfterGameOver = this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->isChecked();
     this->pluginSettings->numLives = this->ui->sbLives->value();
     if (this->ui->cbGodMode->isEnabled()) this->pluginSettings->godMode = this->ui->cbGodMode->isChecked();
     if (this->ui->comboPowerup->isEnabled()) this->pluginSettings->powerup = this->ui->comboPowerup->currentIndex();

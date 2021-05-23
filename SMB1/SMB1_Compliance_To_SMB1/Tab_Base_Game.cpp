@@ -85,6 +85,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
 
         if (incompatibleASMDifficulties.contains(this->ui->comboDifficulty->currentIndex())) this->ui->comboDifficulty->setCurrentIndex(4); //set to Normal Difficulty
         this->ui->sbLives->setMaximum(35);
+        this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(false);
         this->ui->cbGodMode->setChecked(false);
         this->ui->comboPowerup->setCurrentIndex(1); //Fire Flower (Original)
 
@@ -127,6 +128,7 @@ void Tab_Base_Game::Enable_Partial_Support_Mode(bool enabled) {
         this->ui->cbNoAutoScrollingLevels->setChecked(this->pluginSettings->noAutoScrollingLevels);
     }
     this->ui->groupBaseGameSettings->setEnabled(!enabled);
+    this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setEnabled(!enabled);
     this->ui->cbGodMode->setEnabled(!enabled);
     this->ui->lblPowerup->setEnabled(!enabled);
     this->ui->comboPowerup->setEnabled(!enabled);

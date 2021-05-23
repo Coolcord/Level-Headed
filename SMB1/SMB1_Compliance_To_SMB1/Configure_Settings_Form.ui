@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>775</width>
+    <width>777</width>
     <height>781</height>
    </rect>
   </property>
@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>725</width>
+            <width>727</width>
             <height>670</height>
            </rect>
           </property>
@@ -844,8 +844,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>708</width>
-            <height>3009</height>
+            <width>710</width>
+            <height>3011</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -877,25 +877,36 @@ p, li { white-space: pre-wrap; }
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="QRadioButton" name="radioStartingLives">
-                  <property name="text">
-                   <string>Set Starting Lives</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <item>
+                   <widget class="QRadioButton" name="radioStartingLives">
+                    <property name="text">
+                     <string>Set Starting Lives</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="sbLives">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>99</number>
+                    </property>
+                    <property name="value">
+                     <number>5</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="sbLives">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>99</number>
-                  </property>
-                  <property name="value">
-                   <number>5</number>
+                 <widget class="QCheckBox" name="cbAlwaysRestartFromCurrentWorldAfterGameOver">
+                  <property name="text">
+                   <string>Always Start New Game from Last Played World</string>
                   </property>
                  </widget>
                 </item>
@@ -3170,8 +3181,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>708</width>
-            <height>1107</height>
+            <width>710</width>
+            <height>1105</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
