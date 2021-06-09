@@ -488,11 +488,11 @@ bool Hacks::Replace_Castle_Loop_With_Start_With_Fire_Flower() {
 
 bool Hacks::Replace_Castle_Loop_With_Swimming_Mushroom() {
     if (this->wasCastleLoopReplacedWithAutoScrollObject || this->wasCastleLoopReplacedWithFireBros || this->wasCastleLoopReplacedWithFlagpole1UP) return false;
-    if (!this->Write_Bytes_To_Offset(0x40F0, QByteArray::fromHex(QString("AD0407F006CE04074CED90EE04074C1BD8").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x40EB, QByteArray::fromHex(QString("AD0407F006CE04074CED90EE04074C1BD8").toLatin1()))) return false;
     //Restore mushroom behavior in case the Poison Mushroom was applied
     if (!this->Write_Bytes_To_Offset(0x5813, QByteArray::fromHex(QString("A9062011DAA92085FEA539C902900EC903F024A9238D9F07A94085FB60AD5607F01BC901D023A608A9028"
                                                                          "D560720F185A608A90C4C47D8A90B9D100160").toLatin1()))) return false;
-    if (!this->Write_Bytes_To_Offset(0x584A, QByteArray::fromHex(QString("4CE0C0").toLatin1()))) return false;
+    if (!this->Write_Bytes_To_Offset(0x584A, QByteArray::fromHex(QString("4CDBC0").toLatin1()))) return false;
     if (!this->Write_Bytes_To_Offset(0x66E1, QByteArray(1, static_cast<char>(0x03)))) return false;
     this->wasCastleLoopReplacedWithSwimmingMushroom = true;
     return true;
