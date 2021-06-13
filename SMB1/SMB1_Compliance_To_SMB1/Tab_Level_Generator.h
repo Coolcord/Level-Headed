@@ -10,7 +10,9 @@ class Tab_Level_Generator : public Tab_Interface {
 public:
     Tab_Level_Generator(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings, Tab_Base_Game *tabBaseGame);
     void Load_Settings();
+    void Load_Settings(Plugin_Settings *ps);
     void Save_Settings();
+    void Save_Settings(Plugin_Settings *ps);
 
     void Clear_All_Random_Level_Scripts();
     void Clear_Chance_ComboBoxes();

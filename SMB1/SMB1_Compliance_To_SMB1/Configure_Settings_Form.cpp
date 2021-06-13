@@ -4,6 +4,7 @@
 #include "../../Level-Headed/Common_Strings.h"
 #include "../SMB1_Writer/ROM_Filename.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
+#include "Config_File_Handler.h"
 #include "Tab_Base_Game.h"
 #include "Tab_Difficulty.h"
 #include "Tab_Level_Generator.h"
@@ -86,6 +87,39 @@ void Configure_Settings_Form::Save_Settings() {
     this->close();
 }
 
+void Configure_Settings_Form::on_btnImportConfig_clicked() {
+    //Open a Load File Dialog
+    QString configFileLocation = QFileDialog::getOpenFileName(this->parent, "Open a Config File", this->applicationLocation, "Level-Headed Config Files (*.lvlcfg)");
+    if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
+
+    Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
+    bool messageShown = false;
+    if (Config_File_Handler(this->parent).Load_Plugin_Settings(&tmpSettings, configFileLocation, false, messageShown)) {
+        this->tabBaseGame->Load_Settings(&tmpSettings);
+        this->tabLevelGenerator->Load_Settings(&tmpSettings);
+        this->tabDifficulty->Load_Settings(&tmpSettings);
+        if (!messageShown) QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings imported successfully!");
+    } else {
+        if (!messageShown) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to import config file!");
+    }
+}
+
+void Configure_Settings_Form::on_btnExportConfig_clicked() {
+    //Open a Save File Dialog
+    QString configFileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, "Level-Headed Config Files (*.lvlcfg)");
+    if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
+
+    Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
+    this->tabBaseGame->Save_Settings(&tmpSettings);
+    this->tabLevelGenerator->Save_Settings(&tmpSettings);
+    this->tabDifficulty->Save_Settings(&tmpSettings);
+    if (Config_File_Handler(this->parent).Save_Plugin_Settings(&tmpSettings, configFileLocation, false)) {
+        QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings exported successfully!");
+    } else {
+        QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to export config file!");
+    }
+}
+
 void Configure_Settings_Form::on_comboBaseROM_currentIndexChanged(const QString &arg1) {
     if (!this->loading) {
         bool wasPartialSupportEnabled = this->tabBaseGame->Is_Partial_Support_Mode_Enabled();
@@ -113,7 +147,7 @@ void Configure_Settings_Form::on_btnOutputROMLocation_clicked() {
 
     //Ask the user where they want to save the output ROM
     QString openLocation = QFileInfo(this->ui->leOutputROMLocation->text()).absolutePath();
-    if (!QFileInfo(openLocation).exists()) openLocation = this->applicationLocation;
+    if (!QFileInfo::exists(openLocation)) openLocation = this->applicationLocation;
     QString outputROMLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", openLocation, extensionFilter);
     if (outputROMLocation.isEmpty()) return;
     else this->ui->leOutputROMLocation->setText(outputROMLocation);

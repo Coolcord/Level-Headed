@@ -16,49 +16,57 @@ Tab_Base_Game::Tab_Base_Game(QWidget *p, const QString &apl, SMB1_Writer_Interfa
 }
 
 void Tab_Base_Game::Load_Settings() {
-    if (!this->pluginSettings->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(this->pluginSettings->baseROM);
-    this->ui->leOutputROMLocation->setText(this->pluginSettings->outputROMLocation);
-    if (this->pluginSettings->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
+    this->Load_Settings(this->pluginSettings);
+}
+
+void Tab_Base_Game::Load_Settings(Plugin_Settings *ps) {
+    if (!ps->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(ps->baseROM);
+    this->ui->leOutputROMLocation->setText(ps->outputROMLocation);
+    if (ps->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
     else this->ui->radioAppendNumberToFilename->setChecked(true);
-    if (this->pluginSettings->addLuigiGame) this->ui->radioAddLuigiGame->setChecked(true);
+    if (ps->addLuigiGame) this->ui->radioAddLuigiGame->setChecked(true);
     else this->ui->radio2PlayerGame->setChecked(true);
-    if (this->pluginSettings->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(this->pluginSettings->music);
+    if (ps->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(ps->music);
     else this->ui->comboMusic->setCurrentIndex(2); //use original music
-    this->ui->cbCombineWithOtherMusicPacks->setChecked(this->pluginSettings->combineMusicWithOtherPacks);
-    this->ui->comboTone->setCurrentIndex(this->pluginSettings->toneColor);
-    this->ui->cbRandomSoundEffects->setChecked(this->pluginSettings->randomSounds);
-    this->ui->cbRandomText->setChecked(this->pluginSettings->randomText);
-    this->ui->cbRandomizeSomeAnimations->setChecked(this->pluginSettings->randomizeSomeAnimations);
-    if (this->pluginSettings->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
+    this->ui->cbCombineWithOtherMusicPacks->setChecked(ps->combineMusicWithOtherPacks);
+    this->ui->comboTone->setCurrentIndex(ps->toneColor);
+    this->ui->cbRandomSoundEffects->setChecked(ps->randomSounds);
+    this->ui->cbRandomText->setChecked(ps->randomText);
+    this->ui->cbRandomizeSomeAnimations->setChecked(ps->randomizeSomeAnimations);
+    if (ps->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(ps->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
-    this->ui->comboGraphics->setCurrentIndex(this->pluginSettings->graphics);
-    this->ui->cbCombineWithOtherGraphicsPacks->setChecked(this->pluginSettings->combineGraphicsWithOtherPacks);
-    this->ui->comboPalette->setCurrentIndex(this->pluginSettings->palette);
-    this->ui->comboMarioSprite->setCurrentIndex(this->pluginSettings->marioSprite);
-    this->ui->comboMarioSpritePalette->setCurrentIndex(this->pluginSettings->marioSpritePalette);
-    this->ui->leMarioName->setText(this->pluginSettings->marioName);
-    this->ui->leLuigiName->setText(this->pluginSettings->luigiName);
+    this->ui->comboGraphics->setCurrentIndex(ps->graphics);
+    this->ui->cbCombineWithOtherGraphicsPacks->setChecked(ps->combineGraphicsWithOtherPacks);
+    this->ui->comboPalette->setCurrentIndex(ps->palette);
+    this->ui->comboMarioSprite->setCurrentIndex(ps->marioSprite);
+    this->ui->comboMarioSpritePalette->setCurrentIndex(ps->marioSpritePalette);
+    this->ui->leMarioName->setText(ps->marioName);
+    this->ui->leLuigiName->setText(ps->luigiName);
 }
 
 void Tab_Base_Game::Save_Settings() {
+    this->Save_Settings(this->pluginSettings);
+}
+
+void Tab_Base_Game::Save_Settings(Plugin_Settings *ps) {
     QString baseROM = this->ui->comboBaseROM->currentText();
-    if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) this->pluginSettings->baseROM = baseROM;
-    if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) this->pluginSettings->outputROMLocation = this->ui->leOutputROMLocation->text();
-    this->pluginSettings->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
-    this->pluginSettings->addLuigiGame = this->ui->radioAddLuigiGame->isChecked();
-    this->pluginSettings->music = this->ui->comboMusic->currentIndex();
-    this->pluginSettings->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
-    this->pluginSettings->toneColor = this->ui->comboTone->currentIndex();
-    this->pluginSettings->randomSounds = this->ui->cbRandomSoundEffects->isChecked();
-    this->pluginSettings->randomText = this->ui->cbRandomText->isChecked();
-    this->pluginSettings->randomizeSomeAnimations = this->ui->cbRandomizeSomeAnimations->isChecked();
-    this->pluginSettings->graphics = this->ui->comboGraphics->currentIndex();
-    this->pluginSettings->combineGraphicsWithOtherPacks = this->ui->cbCombineWithOtherGraphicsPacks->isChecked();
-    this->pluginSettings->palette = this->ui->comboPalette->currentIndex();
-    this->pluginSettings->marioSprite = this->ui->comboMarioSprite->currentIndex();
-    this->pluginSettings->marioSpritePalette = this->ui->comboMarioSpritePalette->currentIndex();
-    this->pluginSettings->marioName = this->ui->leMarioName->text();
-    this->pluginSettings->luigiName = this->ui->leLuigiName->text();
+    if (!baseROM.isEmpty() && baseROM != STRING_NO_ROMS_INSTALLED) ps->baseROM = baseROM;
+    if (QFileInfo(this->ui->leOutputROMLocation->text()).absoluteDir().exists()) ps->outputROMLocation = this->ui->leOutputROMLocation->text();
+    ps->overwriteOuputROM = this->ui->radioOverwriteOutputROM->isChecked();
+    ps->addLuigiGame = this->ui->radioAddLuigiGame->isChecked();
+    ps->music = this->ui->comboMusic->currentIndex();
+    ps->combineMusicWithOtherPacks = this->ui->cbCombineWithOtherMusicPacks->isChecked();
+    ps->toneColor = this->ui->comboTone->currentIndex();
+    ps->randomSounds = this->ui->cbRandomSoundEffects->isChecked();
+    ps->randomText = this->ui->cbRandomText->isChecked();
+    ps->randomizeSomeAnimations = this->ui->cbRandomizeSomeAnimations->isChecked();
+    ps->graphics = this->ui->comboGraphics->currentIndex();
+    ps->combineGraphicsWithOtherPacks = this->ui->cbCombineWithOtherGraphicsPacks->isChecked();
+    ps->palette = this->ui->comboPalette->currentIndex();
+    ps->marioSprite = this->ui->comboMarioSprite->currentIndex();
+    ps->marioSpritePalette = this->ui->comboMarioSpritePalette->currentIndex();
+    ps->marioName = this->ui->leMarioName->text();
+    ps->luigiName = this->ui->leLuigiName->text();
 }
 
 void Tab_Base_Game::Install_New_ROM() {

@@ -8,7 +8,9 @@ class Tab_Base_Game : public Tab_Interface {
 public:
     Tab_Base_Game(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Ui::Configure_Settings_Form *ui, Plugin_Settings *pluginSettings);
     void Load_Settings();
+    void Load_Settings(Plugin_Settings *ps);
     void Save_Settings();
+    void Save_Settings(Plugin_Settings *ps);
 
     void Install_New_ROM();
     bool Is_Partial_Support_Mode_Enabled();

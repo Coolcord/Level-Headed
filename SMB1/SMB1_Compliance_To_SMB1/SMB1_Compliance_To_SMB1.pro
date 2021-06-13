@@ -17,6 +17,7 @@ SOURCES += SMB1_Compliance_To_SMB1.cpp \
     ../SMB1_Compliance_Generator/Enemy_Buffer.cpp \
     ../SMB1_Compliance_Generator/Item_Buffer.cpp \
     ../SMB1_Compliance_Generator/Object_Buffer.cpp \
+    Config_File_Handler.cpp \
     Level_Generator.cpp \
     ../SMB1_Compliance_Generator/SMB1_Compliance_Map.cpp \
     Hacks_Handler.cpp \
@@ -55,6 +56,7 @@ HEADERS += SMB1_Compliance_To_SMB1.h \
     ../SMB1_Compliance_Generator/Enemy_Buffer.h \
     ../SMB1_Compliance_Generator/Item_Buffer.h \
     ../SMB1_Compliance_Generator/Object_Buffer.h \
+    Config_File_Handler.h \
     Level_Generator.h \
     Plugin_Settings.h \
     Hacks_Handler.h \
