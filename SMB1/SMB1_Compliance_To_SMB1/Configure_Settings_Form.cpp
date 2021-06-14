@@ -94,7 +94,7 @@ void Configure_Settings_Form::on_btnImportConfig_clicked() {
 
     Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
     bool messageShown = false;
-    if (Config_File_Handler(this->parent).Load_Plugin_Settings(&tmpSettings, configFileLocation, false, messageShown)) {
+    if (Config_File_Handler(this->parent, this->applicationLocation).Load_Plugin_Settings(&tmpSettings, configFileLocation, false, messageShown)) {
         this->tabBaseGame->Load_Settings(&tmpSettings);
         this->tabLevelGenerator->Load_Settings(&tmpSettings);
         this->tabDifficulty->Load_Settings(&tmpSettings);
@@ -113,7 +113,7 @@ void Configure_Settings_Form::on_btnExportConfig_clicked() {
     this->tabBaseGame->Save_Settings(&tmpSettings);
     this->tabLevelGenerator->Save_Settings(&tmpSettings);
     this->tabDifficulty->Save_Settings(&tmpSettings);
-    if (Config_File_Handler(this->parent).Save_Plugin_Settings(&tmpSettings, configFileLocation, false)) {
+    if (Config_File_Handler(this->parent, this->applicationLocation).Save_Plugin_Settings(&tmpSettings, configFileLocation, false)) {
         QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings exported successfully!");
     } else {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to export config file!");

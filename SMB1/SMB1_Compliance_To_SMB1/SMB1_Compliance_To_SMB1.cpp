@@ -175,12 +175,12 @@ bool SMB1_Compliance_To_SMB1::Load_Plugins() {
 bool SMB1_Compliance_To_SMB1::Save_Plugin_Settings() {
     if (!QDir().mkpath(this->applicationLocation + "/" + Common_Strings::STRING_CONFIG)) return false;
     QString configFileLocation = this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME;
-    return Config_File_Handler(this->parent).Save_Plugin_Settings(&this->pluginSettings, configFileLocation, true);
+    return Config_File_Handler(this->parent, this->applicationLocation).Save_Plugin_Settings(&this->pluginSettings, configFileLocation, true);
 }
 
 bool SMB1_Compliance_To_SMB1::Load_Plugin_Settings() {
     QString configFileLocation = this->applicationLocation + "/" + Common_Strings::STRING_CONFIG + "/" + Common_Strings::STRING_PLUGIN_SETTINGS_FILENAME;
-    return Config_File_Handler(this->parent).Load_Plugin_Settings(&this->pluginSettings, configFileLocation, true);
+    return Config_File_Handler(this->parent, this->applicationLocation).Load_Plugin_Settings(&this->pluginSettings, configFileLocation, true);
 }
 
 void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
@@ -240,7 +240,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
 
 void SMB1_Compliance_To_SMB1::Update_ROM_Output_Location() {
     if (!this->pluginSettings.overwriteOuputROM) {
-        while (QFileInfo(this->pluginSettings.outputROMLocation).exists()) {
+        while (QFileInfo::exists(this->pluginSettings.outputROMLocation)) {
             this->pluginSettings.outputROMLocation = this->Append_Number_To_FileName(this->pluginSettings.outputROMLocation);
         }
     }

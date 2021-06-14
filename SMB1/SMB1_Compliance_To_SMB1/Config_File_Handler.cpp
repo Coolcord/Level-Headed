@@ -2,10 +2,13 @@
 #include "../../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include "../../Level-Headed/Common_Strings.h"
 #include "../../Common_Files/Version.h"
+#include "../SMB1_Writer/SMB1_Writer_Strings.h"
+#include <QCryptographicHash>
 #include <QMessageBox>
 
-Config_File_Handler::Config_File_Handler(QWidget *parent) {
+Config_File_Handler::Config_File_Handler(QWidget *parent, const QString &applicationLocation) {
     this->parent = parent;
+    this->applicationLocation = applicationLocation;
 }
 
 bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QString &configFileLocation, bool internalConfig) {
@@ -15,9 +18,25 @@ bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QStrin
         if (!configFile.Set_Value("Last_Tab", ps->tab)) return false;
         if (!configFile.Set_Value("Output_ROM_Location", ps->outputROMLocation)) return false;
         if (!configFile.Set_Value("Overwrite_Output_ROM", ps->overwriteOuputROM)) return false;
+    } else {
+        if (!configFile.Set_Value("Intended_Generator_Plugin", QString("SMB1_Compliance_Generator"))) return false;
+        if (!configFile.Set_Value("Intended_Writer_Plugin", QString("SMB1_Writer"))) return false;
+
+        //Save the intended checksums to the external config file
+        QString romsArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
+        QString graphicsPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
+        QString musicPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
+        QString textArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Text.sa";
+        QString romsArchiveChecksum = this->Get_Checksum(romsArchiveLocation);
+        QString graphicsPacksArchiveChecksum = this->Get_Checksum(graphicsPacksArchiveLocation);
+        QString musicPacksArchiveChecksum = this->Get_Checksum(musicPacksArchiveLocation);
+        QString textArchiveChecksum = this->Get_Checksum(textArchiveLocation);
+        if (romsArchiveChecksum.isEmpty() || graphicsPacksArchiveChecksum.isEmpty() || musicPacksArchiveChecksum.isEmpty() || textArchiveChecksum.isEmpty()) return false;
+        if (!configFile.Set_Value("Intended_ROMs_Archive_Checksum", romsArchiveChecksum)) return false;
+        if (!configFile.Set_Value("Intended_Graphics_Pack_Archive_Checksum", graphicsPacksArchiveChecksum)) return false;
+        if (!configFile.Set_Value("Intended_Music_Pack_Archive_Checksum", musicPacksArchiveChecksum)) return false;
+        if (!configFile.Set_Value("Intended_Text_Archive_Checksum", textArchiveChecksum)) return false;
     }
-    if (!configFile.Set_Value("Intended_Generator_Plugin", QString("SMB1_Compliance_Generator"))) return false;
-    if (!configFile.Set_Value("Intended_Writer_Plugin", QString("SMB1_Writer"))) return false;
     if (!configFile.Set_Value("Version", Version::VERSION)) return false;
     if (!configFile.Set_Value("Base_ROM", ps->baseROM)) return false;
     if (!configFile.Set_Value("Random_Number_Of_Worlds", ps->randomNumWorlds)) return false;
@@ -174,10 +193,42 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
             return false;
         }
 
+        //Get the actual checksums of the internal archives
+        QString romsArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/ROMs.sa";
+        QString graphicsPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
+        QString musicPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
+        QString textArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Text.sa";
+        QString romsArchiveChecksum = this->Get_Checksum(romsArchiveLocation);
+        QString graphicsPacksArchiveChecksum = this->Get_Checksum(graphicsPacksArchiveLocation);
+        QString musicPacksArchiveChecksum = this->Get_Checksum(musicPacksArchiveLocation);
+        QString textArchiveChecksum = this->Get_Checksum(textArchiveLocation);
+        if (romsArchiveChecksum.isEmpty() || graphicsPacksArchiveChecksum.isEmpty() || musicPacksArchiveChecksum.isEmpty() || textArchiveChecksum.isEmpty()) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to access internal archives!");
+            return false;
+        }
+
+        //Read the intended checksums of the internal archives
+        QString intendedROMsArchiveChecksum = "", intendedGraphicsPacksArchiveChecksum = "", intendedMusicPacksArchiveChecksum = "", intendedTextArchiveChecksum = "";
+        configFile.Get_Value("Intended_ROMs_Archive_Checksum", intendedROMsArchiveChecksum);
+        configFile.Get_Value("Intended_Graphics_Pack_Archive_Checksum", intendedGraphicsPacksArchiveChecksum);
+        configFile.Get_Value("Intended_Music_Pack_Archive_Checksum", intendedMusicPacksArchiveChecksum);
+        configFile.Get_Value("Intended_Text_Archive_Checksum", intendedTextArchiveChecksum);
+
         //Show a warning if the config file was exported with a different version of Level-Headed
         if (version != Version::VERSION) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                            "This config file is intended for a different version of " + Common_Strings::STRING_LEVEL_HEADED + ". The settings may not work as intended! Do you wish to import it anyway?",
+                                           QMessageBox::Yes | QMessageBox::No);
+            if (answer == QMessageBox::No) {
+                messageShown = true;
+                return false;
+            }
+        } else if ((!intendedROMsArchiveChecksum.isEmpty() && romsArchiveChecksum != intendedROMsArchiveChecksum)
+                   || (!intendedGraphicsPacksArchiveChecksum.isEmpty() && graphicsPacksArchiveChecksum != intendedGraphicsPacksArchiveChecksum)
+                   || (!intendedMusicPacksArchiveChecksum.isEmpty() && musicPacksArchiveChecksum != intendedMusicPacksArchiveChecksum)
+                   || (!intendedTextArchiveChecksum.isEmpty() && textArchiveChecksum != intendedTextArchiveChecksum)) {
+            QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                                           "This config file was exported using different internal data archives! The settings may not work as intended! Do you wish to import it anyway?",
                                            QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
@@ -311,4 +362,12 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     //TODO: Verify all other settings
     if (ps->difficultySecondaryMushroom > 2) ps->difficultySecondaryMushroom = 0;
     return true;
+}
+
+QString Config_File_Handler::Get_Checksum(const QString &fileLocation) {
+    QFile file(fileLocation);
+    if (!file.exists()) return QString();
+    if (!file.open(QFile::ReadOnly)) return QString();
+    QByteArray buffer = file.readAll();
+    return QString(QCryptographicHash::hash(buffer, QCryptographicHash::Sha512).toHex().toUpper());
 }
