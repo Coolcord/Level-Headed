@@ -89,7 +89,8 @@ void Configure_Settings_Form::Save_Settings() {
 
 void Configure_Settings_Form::on_btnImportConfig_clicked() {
     //Open a Load File Dialog
-    QString configFileLocation = QFileDialog::getOpenFileName(this->parent, "Open a Config File", this->applicationLocation, "Level-Headed Config Files (*.lcfg)");
+    if (this->pluginSettings->lastExternalConfigLocation.isEmpty()) this->pluginSettings->lastExternalConfigLocation = this->applicationLocation;
+    QString configFileLocation = QFileDialog::getOpenFileName(this->parent, "Open a Config File", this->pluginSettings->lastExternalConfigLocation, "Level-Headed Config Files (*.lcfg)");
     if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
 
     Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
@@ -99,6 +100,7 @@ void Configure_Settings_Form::on_btnImportConfig_clicked() {
         this->tabLevelGenerator->Load_Settings(&tmpSettings);
         this->tabDifficulty->Load_Settings(&tmpSettings);
         *this->pluginSettings = tmpSettings;
+        this->pluginSettings->lastExternalConfigLocation = QFileInfo(configFileLocation).absolutePath();
         if (!messageShown) QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings imported successfully!");
     } else {
         if (!messageShown) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to import config file!");
@@ -107,13 +109,15 @@ void Configure_Settings_Form::on_btnImportConfig_clicked() {
 
 void Configure_Settings_Form::on_btnExportConfig_clicked() {
     //Open a Save File Dialog
-    QString configFileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, "Level-Headed Config Files (*.lcfg)");
+    if (this->pluginSettings->lastExternalConfigLocation.isEmpty()) this->pluginSettings->lastExternalConfigLocation = this->applicationLocation;
+    QString configFileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->pluginSettings->lastExternalConfigLocation, "Level-Headed Config Files (*.lcfg)");
     if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
 
     Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
     this->tabBaseGame->Save_Settings(&tmpSettings);
     this->tabLevelGenerator->Save_Settings(&tmpSettings);
     this->tabDifficulty->Save_Settings(&tmpSettings);
+    this->pluginSettings->lastExternalConfigLocation = QFileInfo(configFileLocation).absolutePath();
     if (Config_File_Handler(this->parent, this->applicationLocation).Save_Plugin_Settings(&tmpSettings, configFileLocation, false)) {
         QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings exported successfully!");
     } else {

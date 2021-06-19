@@ -27,6 +27,7 @@ struct Plugin_Settings {
     int tab;
     QString baseROM;
     QString outputROMLocation;
+    QString lastExternalConfigLocation;
     bool overwriteOuputROM;
     bool randomNumWorlds;
     int numWorlds;

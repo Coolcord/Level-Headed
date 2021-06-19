@@ -188,6 +188,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.numLevelsPerWorld = 4;
     this->pluginSettings.baseROM = "";
     this->pluginSettings.outputROMLocation = QString();
+    this->pluginSettings.lastExternalConfigLocation = this->applicationLocation;
     this->pluginSettings.overwriteOuputROM = true;
     this->pluginSettings.generateNewLevels = true;
     this->pluginSettings.redistributePowerups = true;

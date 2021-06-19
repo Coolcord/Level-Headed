@@ -21,6 +21,7 @@ bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QStrin
         if (!configFile.Set_Value("Last_Tab", ps->tab)) return false;
         if (!configFile.Set_Value("Output_ROM_Location", ps->outputROMLocation)) return false;
         if (!configFile.Set_Value("Overwrite_Output_ROM", ps->overwriteOuputROM)) return false;
+        if (!configFile.Set_Value("Last_External_Config_Location", ps->lastExternalConfigLocation)) return false;
     } else {
         if (!configFile.Set_Value("Intended_Generator_Plugin", QString("SMB1_Compliance_Generator"))) return false;
         if (!configFile.Set_Value("Intended_Writer_Plugin", QString("SMB1_Writer"))) return false;
@@ -185,6 +186,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
         configFile.Get_Value("Last_Tab", ps->tab);
         configFile.Get_Value("Output_ROM_Location", ps->outputROMLocation);
         configFile.Get_Value("Overwrite_Output_ROM", ps->overwriteOuputROM);
+        configFile.Get_Value("Last_External_Config_Location", ps->lastExternalConfigLocation);
     } else {
         QString version = "", generatorPlugin = "", writerPlugin = "";
         configFile.Get_Value("Version", version);
