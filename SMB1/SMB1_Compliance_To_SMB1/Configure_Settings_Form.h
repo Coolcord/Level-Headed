@@ -26,8 +26,8 @@ public:
 
 private slots:
     //About Tab
-    void on_btnImportConfig_clicked();
-    void on_btnExportConfig_clicked();
+    void on_btnLoadConfig_clicked();
+    void on_btnSaveConfig_clicked();
 
     //Base Game Tab
     void on_comboBaseROM_currentIndexChanged(const QString &arg1);

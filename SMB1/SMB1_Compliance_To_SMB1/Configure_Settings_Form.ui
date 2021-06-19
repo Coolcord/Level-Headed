@@ -120,23 +120,23 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="lblConfigs">
            <property name="text">
-            <string>Configs:</string>
+            <string>Save Your Level-Headed Settings for Later or Share Them with Other Players:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_10">
            <item>
-            <widget class="QPushButton" name="btnImportConfig">
+            <widget class="QPushButton" name="btnSaveConfig">
              <property name="text">
-              <string>Import Config</string>
+              <string>Save Config</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btnExportConfig">
+            <widget class="QPushButton" name="btnLoadConfig">
              <property name="text">
-              <string>Export Config</string>
+              <string>Load Config</string>
              </property>
             </widget>
            </item>

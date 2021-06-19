@@ -234,17 +234,17 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
         configFile.Get_Value("Intended_Text_Archive_Checksum", intendedTextArchiveChecksum);
         configFile.Get_Value("Intended_Level_Scripts_Checksum", intendedLevelScriptsChecksum);
 
-        //Show a warning if the config file was exported with a different version of Level-Headed
+        //Show a warning if the config file was saved with a different version of Level-Headed
         if (version != Version::VERSION) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                "This config file is intended for a different version of " + Common_Strings::STRING_LEVEL_HEADED + ". The settings may not work as intended! Do you wish to import it anyway?",
+                "This config file is intended for a different version of " + Common_Strings::STRING_LEVEL_HEADED + ". The settings may not work as intended! Do you wish to load it anyway?",
                 QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
                 return false;
             }
         } else if (!QFileInfo::exists(this->applicationLocation + "/" + Common_Strings::STRING_DATA + "/" + Common_Strings::STRING_GAME_NAME + "/" + baseROM)) {
-            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "This config file was exported using \"" + baseROM + "\" as a base ROM! This ROM is not installed, so the settings cannot be imported!");
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "This config file was saved using \"" + baseROM + "\" as a base ROM! This ROM is not installed, so the settings cannot be loaded!");
             messageShown = true;
             return false;
         } else if ((!intendedROMsArchiveChecksum.isEmpty() && romsArchiveChecksum != intendedROMsArchiveChecksum)
@@ -252,7 +252,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
                    || (!intendedMusicPacksArchiveChecksum.isEmpty() && musicPacksArchiveChecksum != intendedMusicPacksArchiveChecksum)
                    || (!intendedTextArchiveChecksum.isEmpty() && textArchiveChecksum != intendedTextArchiveChecksum)) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                "This config file was exported using different internal data archives! The settings may not work as intended! Do you wish to import it anyway?",
+                "This config file was saved using different internal data archives! The settings may not work as intended! Do you wish to load it anyway?",
                 QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
@@ -260,7 +260,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
             }
         } else if (!generateNewLevels && levelScriptsChecksum != intendedLevelScriptsChecksum) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                "This config file was exported using a different version of the level pack \"" + levelScripts + "\"! The settings may not work as intended! Do you wish to import it anyway?",
+                "This config file was saved using a different version of the level pack \"" + levelScripts + "\"! The settings may not work as intended! Do you wish to load it anyway?",
                 QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
