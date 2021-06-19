@@ -4,6 +4,7 @@
 #include "../../Common_Files/Version.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include <QCryptographicHash>
+#include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
 

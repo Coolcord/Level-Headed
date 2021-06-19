@@ -89,7 +89,7 @@ void Configure_Settings_Form::Save_Settings() {
 
 void Configure_Settings_Form::on_btnImportConfig_clicked() {
     //Open a Load File Dialog
-    QString configFileLocation = QFileDialog::getOpenFileName(this->parent, "Open a Config File", this->applicationLocation, "Level-Headed Config Files (*.lvlcfg)");
+    QString configFileLocation = QFileDialog::getOpenFileName(this->parent, "Open a Config File", this->applicationLocation, "Level-Headed Config Files (*.lcfg)");
     if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
 
     Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
@@ -107,7 +107,7 @@ void Configure_Settings_Form::on_btnImportConfig_clicked() {
 
 void Configure_Settings_Form::on_btnExportConfig_clicked() {
     //Open a Save File Dialog
-    QString configFileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, "Level-Headed Config Files (*.lvlcfg)");
+    QString configFileLocation = QFileDialog::getSaveFileName(this->parent, "Save Location", this->applicationLocation, "Level-Headed Config Files (*.lcfg)");
     if (configFileLocation == nullptr || configFileLocation.isEmpty()) return;
 
     Plugin_Settings tmpSettings = Plugin_Settings(*this->pluginSettings);
