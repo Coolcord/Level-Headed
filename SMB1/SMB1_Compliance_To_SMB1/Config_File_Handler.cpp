@@ -13,7 +13,7 @@ Config_File_Handler::Config_File_Handler(QWidget *parent, const QString &applica
 }
 
 bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QString &configFileLocation, bool internalConfig) {
-    Readable_Config_File configFile;
+    Readable_Config_File configFile(!internalConfig);
     if (!configFile.Open_Without_Loading(configFileLocation)) return false;
     if (!configFile.Set_Value("Level_Scripts", ps->levelScripts)) return false;
     if (internalConfig) {
@@ -172,7 +172,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
 
 bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QString &configFileLocation, bool internalConfig, bool &messageShown) {
     messageShown = false;
-    Readable_Config_File configFile;
+    Readable_Config_File configFile(!internalConfig);
     if (!configFile.Open(configFileLocation)) return false;
     ps->fireFlowerBouncesLikeAStar = false;
     QString levelScripts = "", baseROM = "";
