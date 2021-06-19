@@ -98,6 +98,7 @@ void Configure_Settings_Form::on_btnImportConfig_clicked() {
         this->tabBaseGame->Load_Settings(&tmpSettings);
         this->tabLevelGenerator->Load_Settings(&tmpSettings);
         this->tabDifficulty->Load_Settings(&tmpSettings);
+        *this->pluginSettings = tmpSettings;
         if (!messageShown) QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Settings imported successfully!");
     } else {
         if (!messageShown) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to import config file!");

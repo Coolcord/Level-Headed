@@ -14,6 +14,7 @@ Config_File_Handler::Config_File_Handler(QWidget *parent, const QString &applica
 bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QString &configFileLocation, bool internalConfig) {
     Readable_Config_File configFile;
     if (!configFile.Open_Without_Loading(configFileLocation)) return false;
+    if (!configFile.Set_Value("Level_Scripts", ps->levelScripts)) return false;
     if (internalConfig) {
         if (!configFile.Set_Value("Last_Tab", ps->tab)) return false;
         if (!configFile.Set_Value("Output_ROM_Location", ps->outputROMLocation)) return false;
@@ -27,15 +28,18 @@ bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QStrin
         QString graphicsPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
         QString musicPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
         QString textArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Text.sa";
+        QString levelScriptsLocation = this->applicationLocation+"/"+Common_Strings::STRING_LEVELS+"/"+Common_Strings::STRING_GAME_NAME+"/"+ps->levelScripts+Common_Strings::STRING_LEVELS_EXTENSION;
         QString romsArchiveChecksum = this->Get_Checksum(romsArchiveLocation);
         QString graphicsPacksArchiveChecksum = this->Get_Checksum(graphicsPacksArchiveLocation);
         QString musicPacksArchiveChecksum = this->Get_Checksum(musicPacksArchiveLocation);
         QString textArchiveChecksum = this->Get_Checksum(textArchiveLocation);
-        if (romsArchiveChecksum.isEmpty() || graphicsPacksArchiveChecksum.isEmpty() || musicPacksArchiveChecksum.isEmpty() || textArchiveChecksum.isEmpty()) return false;
+        QString levelScriptsChecksum = this->Get_Checksum(levelScriptsLocation);
+        if (romsArchiveChecksum.isEmpty() || graphicsPacksArchiveChecksum.isEmpty() || musicPacksArchiveChecksum.isEmpty() || textArchiveChecksum.isEmpty() || (!ps->generateNewLevels && levelScriptsChecksum.isEmpty())) return false;
         if (!configFile.Set_Value("Intended_ROMs_Archive_Checksum", romsArchiveChecksum)) return false;
         if (!configFile.Set_Value("Intended_Graphics_Pack_Archive_Checksum", graphicsPacksArchiveChecksum)) return false;
         if (!configFile.Set_Value("Intended_Music_Pack_Archive_Checksum", musicPacksArchiveChecksum)) return false;
         if (!configFile.Set_Value("Intended_Text_Archive_Checksum", textArchiveChecksum)) return false;
+        if (!configFile.Set_Value("Intended_Level_Scripts_Checksum", levelScriptsChecksum)) return false;
     }
     if (!configFile.Set_Value("Version", Version::VERSION)) return false;
     if (!configFile.Set_Value("Base_ROM", ps->baseROM)) return false;
@@ -54,7 +58,6 @@ bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QStrin
     if (!configFile.Set_Value("Include_Bridge_Levels_In_Random_Distribution", ps->includeBridgeLevelsInRandomDistribution)) return false;
     if (!configFile.Set_Value("Include_Island_Levels_In_Random_Distribution", ps->includeIslandLevelsInRandomDistribution)) return false;
     if (!configFile.Set_Value("SMB_Utility_Compatibility", ps->smbUtilityCompatibility)) return false;
-    if (!configFile.Set_Value("Level_Scripts", ps->levelScripts)) return false;
     if (!configFile.Set_Value("Difficulty", ps->difficultyComboIndex)) return false;
     if (!configFile.Set_Value("Difficulty_Auto_Scroll", ps->difficultyAutoScroll)) return false;
     if (!configFile.Set_Value("Difficulty_Auto_Scroll_With_Flying_Cheep_Cheeps", ps->difficultyAutoScrollWithFlyingCheepCheeps)) return false;
@@ -171,6 +174,9 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     Readable_Config_File configFile;
     if (!configFile.Open(configFileLocation)) return false;
     ps->fireFlowerBouncesLikeAStar = false;
+    QString levelScripts = "";
+    configFile.Get_Value("Level_Scripts", levelScripts);
+    configFile.Get_Value("Generate_New_Levels", ps->generateNewLevels);
     if (internalConfig) {
         configFile.Get_Value("Last_Tab", ps->tab);
         configFile.Get_Value("Output_ROM_Location", ps->outputROMLocation);
@@ -198,27 +204,35 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
         QString graphicsPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Graphics.sa";
         QString musicPacksArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Music.sa";
         QString textArchiveLocation = this->applicationLocation+"/"+Common_Strings::STRING_DATA+"/"+Common_Strings::STRING_GAME_NAME+"/Text.sa";
+        QString levelScriptsLocation = this->applicationLocation+"/"+Common_Strings::STRING_LEVELS+"/"+Common_Strings::STRING_GAME_NAME+"/"+levelScripts+Common_Strings::STRING_LEVELS_EXTENSION;
         QString romsArchiveChecksum = this->Get_Checksum(romsArchiveLocation);
         QString graphicsPacksArchiveChecksum = this->Get_Checksum(graphicsPacksArchiveLocation);
         QString musicPacksArchiveChecksum = this->Get_Checksum(musicPacksArchiveLocation);
         QString textArchiveChecksum = this->Get_Checksum(textArchiveLocation);
+        QString levelScriptsChecksum = this->Get_Checksum(levelScriptsLocation);
         if (romsArchiveChecksum.isEmpty() || graphicsPacksArchiveChecksum.isEmpty() || musicPacksArchiveChecksum.isEmpty() || textArchiveChecksum.isEmpty()) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to access internal archives!");
+            messageShown = true;
+            return false;
+        } else if (!ps->generateNewLevels && levelScriptsChecksum.isEmpty()) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Level pack \"" + levelScripts + "\" is not installed!");
+            messageShown = true;
             return false;
         }
 
         //Read the intended checksums of the internal archives
-        QString intendedROMsArchiveChecksum = "", intendedGraphicsPacksArchiveChecksum = "", intendedMusicPacksArchiveChecksum = "", intendedTextArchiveChecksum = "";
+        QString intendedROMsArchiveChecksum = "", intendedGraphicsPacksArchiveChecksum = "", intendedMusicPacksArchiveChecksum = "", intendedTextArchiveChecksum = "", intendedLevelScriptsChecksum = "";
         configFile.Get_Value("Intended_ROMs_Archive_Checksum", intendedROMsArchiveChecksum);
         configFile.Get_Value("Intended_Graphics_Pack_Archive_Checksum", intendedGraphicsPacksArchiveChecksum);
         configFile.Get_Value("Intended_Music_Pack_Archive_Checksum", intendedMusicPacksArchiveChecksum);
         configFile.Get_Value("Intended_Text_Archive_Checksum", intendedTextArchiveChecksum);
+        configFile.Get_Value("Intended_Level_Scripts_Checksum", intendedLevelScriptsChecksum);
 
         //Show a warning if the config file was exported with a different version of Level-Headed
         if (version != Version::VERSION) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                           "This config file is intended for a different version of " + Common_Strings::STRING_LEVEL_HEADED + ". The settings may not work as intended! Do you wish to import it anyway?",
-                                           QMessageBox::Yes | QMessageBox::No);
+                "This config file is intended for a different version of " + Common_Strings::STRING_LEVEL_HEADED + ". The settings may not work as intended! Do you wish to import it anyway?",
+                QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
                 return false;
@@ -228,19 +242,27 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
                    || (!intendedMusicPacksArchiveChecksum.isEmpty() && musicPacksArchiveChecksum != intendedMusicPacksArchiveChecksum)
                    || (!intendedTextArchiveChecksum.isEmpty() && textArchiveChecksum != intendedTextArchiveChecksum)) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                           "This config file was exported using different internal data archives! The settings may not work as intended! Do you wish to import it anyway?",
-                                           QMessageBox::Yes | QMessageBox::No);
+                "This config file was exported using different internal data archives! The settings may not work as intended! Do you wish to import it anyway?",
+                QMessageBox::Yes | QMessageBox::No);
+            if (answer == QMessageBox::No) {
+                messageShown = true;
+                return false;
+            }
+        } else if (!ps->generateNewLevels && levelScriptsChecksum != intendedLevelScriptsChecksum) {
+            QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
+                "This config file was exported using a different version of the level pack \"" + levelScripts + "\"! The settings may not work as intended! Do you wish to import it anyway?",
+                QMessageBox::Yes | QMessageBox::No);
             if (answer == QMessageBox::No) {
                 messageShown = true;
                 return false;
             }
         }
     }
+    ps->levelScripts = levelScripts;
     configFile.Get_Value("Base_ROM", ps->baseROM);
     configFile.Get_Value("Random_Number_Of_Worlds", ps->randomNumWorlds);
     configFile.Get_Value("Number_Of_Worlds", ps->numWorlds);
     configFile.Get_Value("Numer_Of_Levels_Per_World", ps->numLevelsPerWorld);
-    configFile.Get_Value("Generate_New_Levels", ps->generateNewLevels);
     configFile.Get_Value("Redistribute_Powerups", ps->redistributePowerups);
     configFile.Get_Value("Randomize_Warp_Zones", ps->randomizeWarpZones);
     configFile.Get_Value("Level_Script_Enemies", ps->levelScriptEnemies);
@@ -252,7 +274,6 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     configFile.Get_Value("Include_Bridge_Levels_In_Random_Distribution", ps->includeBridgeLevelsInRandomDistribution);
     configFile.Get_Value("Include_Island_Levels_In_Random_Distribution", ps->includeIslandLevelsInRandomDistribution);
     configFile.Get_Value("SMB_Utility_Compatibility", ps->smbUtilityCompatibility);
-    configFile.Get_Value("Level_Scripts", ps->levelScripts);
     configFile.Get_Value("Difficulty", ps->difficultyComboIndex);
     configFile.Get_Value("Difficulty_Auto_Scroll", ps->difficultyAutoScroll);
     configFile.Get_Value("Difficulty_Auto_Scroll_With_Flying_Cheep_Cheeps", ps->difficultyAutoScrollWithFlyingCheepCheeps);

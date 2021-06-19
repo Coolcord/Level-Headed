@@ -26,8 +26,16 @@ void Tab_Level_Generator::Load_Settings() {
 }
 
 void Tab_Level_Generator::Load_Settings(Plugin_Settings *ps) {
-    if (ps->generateNewLevels) this->ui->radioGenerateNewLevels->setChecked(true);
-    else this->ui->radioUseLevelScripts->setChecked(true);
+    if (ps->generateNewLevels) {
+        this->ui->radioGenerateNewLevels->setChecked(true);
+    } else {
+        this->ui->radioUseLevelScripts->setChecked(true);
+        if (QFileInfo::exists(this->applicationLocation + "/" + Common_Strings::STRING_LEVELS + "/" + Common_Strings::STRING_GAME_NAME + "/" + ps->levelScripts + Common_Strings::STRING_LEVELS_EXTENSION)) {
+            this->ui->comboLevelScripts->setCurrentText(ps->levelScripts);
+        } else {
+            this->ui->comboLevelScripts->setCurrentIndex(0);
+        }
+    }
     this->ui->cbRedistributePowerups->setChecked(ps->redistributePowerups);
     this->ui->cbRandomizeWarpZones->setChecked(ps->randomizeWarpZones);
     this->ui->comboLevelScriptEnemies->setCurrentIndex(ps->levelScriptEnemies);
@@ -60,28 +68,25 @@ void Tab_Level_Generator::Save_Settings() {
 void Tab_Level_Generator::Save_Settings(Plugin_Settings *ps) {
     ps->generateNewLevels = this->ui->radioGenerateNewLevels->isChecked();
     ps->randomSeed = this->ui->leRandomSeed->text();
-    if (!ps->generateNewLevels) {
-        ps->levelScripts = this->ui->comboLevelScripts->currentText();
-        ps->redistributePowerups = this->ui->cbRedistributePowerups->isChecked();
-        ps->randomizeWarpZones = this->ui->cbRandomizeWarpZones->isChecked();
-        ps->levelScriptEnemies = this->ui->comboLevelScriptEnemies->currentIndex();
-    } else {
-        if (this->ui->cbNoAutoScrollingLevels->isEnabled()) ps->noAutoScrollingLevels = this->ui->cbNoAutoScrollingLevels->isChecked();
-        ps->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();
-        ps->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
-        ps->numWorlds = this->ui->sbNumWorlds->value();
-        ps->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
-        ps->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
-        ps->undergroundChance = this->ui->comboUnderground->currentText();
-        ps->underwaterChance = this->ui->comboUnderwater->currentText();
-        ps->bridgeChance = this->ui->comboBridge->currentText();
-        ps->islandChance = this->ui->comboIsland->currentText();
-        ps->includeStandardOverworldLevelsInRandomDistribution = this->ui->cbIncludeStandardOverworldLevels->isChecked();
-        ps->includeUndergroundLevelsInRandomDistribution = this->ui->cbIncludeUndergroundLevels->isChecked();
-        ps->includeUnderwaterLevelsInRandomDistribution = this->ui->cbIncludeUnderwaterLevels->isChecked();
-        ps->includeBridgeLevelsInRandomDistribution = this->ui->cbIncludeBridgeLevels->isChecked();
-        ps->includeIslandLevelsInRandomDistribution = this->ui->cbIncludeIslandLevels->isChecked();
-    }
+    ps->levelScripts = this->ui->comboLevelScripts->currentText();
+    ps->redistributePowerups = this->ui->cbRedistributePowerups->isChecked();
+    ps->randomizeWarpZones = this->ui->cbRandomizeWarpZones->isChecked();
+    ps->levelScriptEnemies = this->ui->comboLevelScriptEnemies->currentIndex();
+    if (this->ui->cbNoAutoScrollingLevels->isEnabled()) ps->noAutoScrollingLevels = this->ui->cbNoAutoScrollingLevels->isChecked();
+    ps->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();
+    ps->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
+    ps->numWorlds = this->ui->sbNumWorlds->value();
+    ps->numLevelsPerWorld = this->ui->sbNumLevelsPerWorld->value();
+    ps->standardOverworldChance = this->ui->comboStandardOverworld->currentText();
+    ps->undergroundChance = this->ui->comboUnderground->currentText();
+    ps->underwaterChance = this->ui->comboUnderwater->currentText();
+    ps->bridgeChance = this->ui->comboBridge->currentText();
+    ps->islandChance = this->ui->comboIsland->currentText();
+    ps->includeStandardOverworldLevelsInRandomDistribution = this->ui->cbIncludeStandardOverworldLevels->isChecked();
+    ps->includeUndergroundLevelsInRandomDistribution = this->ui->cbIncludeUndergroundLevels->isChecked();
+    ps->includeUnderwaterLevelsInRandomDistribution = this->ui->cbIncludeUnderwaterLevels->isChecked();
+    ps->includeBridgeLevelsInRandomDistribution = this->ui->cbIncludeBridgeLevels->isChecked();
+    ps->includeIslandLevelsInRandomDistribution = this->ui->cbIncludeIslandLevels->isChecked();
 }
 
 void Tab_Level_Generator::Clear_All_Random_Level_Scripts() {
