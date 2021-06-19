@@ -4,6 +4,7 @@
 #include "../../Common_Files/Version.h"
 #include "../SMB1_Writer/SMB1_Writer_Strings.h"
 #include <QCryptographicHash>
+#include <QFileInfo>
 #include <QMessageBox>
 
 Config_File_Handler::Config_File_Handler(QWidget *parent, const QString &applicationLocation) {
@@ -174,9 +175,11 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     Readable_Config_File configFile;
     if (!configFile.Open(configFileLocation)) return false;
     ps->fireFlowerBouncesLikeAStar = false;
-    QString levelScripts = "";
+    QString levelScripts = "", baseROM = "";
+    bool generateNewLevels = true;
     configFile.Get_Value("Level_Scripts", levelScripts);
-    configFile.Get_Value("Generate_New_Levels", ps->generateNewLevels);
+    configFile.Get_Value("Base_ROM", baseROM);
+    configFile.Get_Value("Generate_New_Levels", generateNewLevels);
     if (internalConfig) {
         configFile.Get_Value("Last_Tab", ps->tab);
         configFile.Get_Value("Output_ROM_Location", ps->outputROMLocation);
@@ -214,7 +217,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Unable to access internal archives!");
             messageShown = true;
             return false;
-        } else if (!ps->generateNewLevels && levelScriptsChecksum.isEmpty()) {
+        } else if (!generateNewLevels && levelScriptsChecksum.isEmpty()) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "Level pack \"" + levelScripts + "\" is not installed!");
             messageShown = true;
             return false;
@@ -237,6 +240,10 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
                 messageShown = true;
                 return false;
             }
+        } else if (!QFileInfo::exists(this->applicationLocation + "/" + Common_Strings::STRING_DATA + "/" + Common_Strings::STRING_GAME_NAME + "/" + baseROM)) {
+            QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, "This config file was exported using \"" + baseROM + "\" as a base ROM! This ROM is not installed, so the settings cannot be imported!");
+            messageShown = true;
+            return false;
         } else if ((!intendedROMsArchiveChecksum.isEmpty() && romsArchiveChecksum != intendedROMsArchiveChecksum)
                    || (!intendedGraphicsPacksArchiveChecksum.isEmpty() && graphicsPacksArchiveChecksum != intendedGraphicsPacksArchiveChecksum)
                    || (!intendedMusicPacksArchiveChecksum.isEmpty() && musicPacksArchiveChecksum != intendedMusicPacksArchiveChecksum)
@@ -248,7 +255,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
                 messageShown = true;
                 return false;
             }
-        } else if (!ps->generateNewLevels && levelScriptsChecksum != intendedLevelScriptsChecksum) {
+        } else if (!generateNewLevels && levelScriptsChecksum != intendedLevelScriptsChecksum) {
             QMessageBox::StandardButton answer = QMessageBox::question(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                 "This config file was exported using a different version of the level pack \"" + levelScripts + "\"! The settings may not work as intended! Do you wish to import it anyway?",
                 QMessageBox::Yes | QMessageBox::No);
@@ -259,7 +266,8 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
         }
     }
     ps->levelScripts = levelScripts;
-    configFile.Get_Value("Base_ROM", ps->baseROM);
+    ps->baseROM = baseROM;
+    ps->generateNewLevels = generateNewLevels;
     configFile.Get_Value("Random_Number_Of_Worlds", ps->randomNumWorlds);
     configFile.Get_Value("Number_Of_Worlds", ps->numWorlds);
     configFile.Get_Value("Numer_Of_Levels_Per_World", ps->numLevelsPerWorld);

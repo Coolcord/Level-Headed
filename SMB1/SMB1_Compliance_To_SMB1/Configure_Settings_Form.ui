@@ -116,20 +116,31 @@ p, li { white-space: pre-wrap; }
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <layout class="QVBoxLayout" name="layoutConfigs">
          <item>
-          <widget class="QPushButton" name="btnImportConfig">
+          <widget class="QLabel" name="lblConfigs">
            <property name="text">
-            <string>Import Config</string>
+            <string>Configs:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btnExportConfig">
-           <property name="text">
-            <string>Export Config</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QPushButton" name="btnImportConfig">
+             <property name="text">
+              <string>Import Config</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnExportConfig">
+             <property name="text">
+              <string>Export Config</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
