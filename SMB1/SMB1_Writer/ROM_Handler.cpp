@@ -41,14 +41,14 @@ QString ROM_Handler::Install_ROM() {
     QFile file(fileLocation);
     if (!file.exists()) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              fileLocation + " could not be found!", Common_Strings::STRING_OK);
+                              fileLocation + " could not be found!", QMessageBox::Ok);
         return QString();
     }
     if (!file.open(QFile::ReadWrite)) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions to access " +
-                              file.fileName() + ". Cannot continue!", Common_Strings::STRING_OK);
+                              file.fileName() + ". Cannot continue!", QMessageBox::Ok);
         return QString();
     }
 
@@ -68,7 +68,7 @@ QString ROM_Handler::Install_ROM() {
         if (romType == ROM_Type::INVALID) {
             file.close();
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
+                                  "This does not appear to be a valid SMB1 ROM!", QMessageBox::Ok);
             return QString();
         }
     }
@@ -82,7 +82,7 @@ QString ROM_Handler::Install_ROM() {
             file.close();
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                                   " does not have proper read/write permissions to access " +
-                                  installedFile.fileName() + ". Cannot continue!", Common_Strings::STRING_OK);
+                                  installedFile.fileName() + ". Cannot continue!", QMessageBox::Ok);
             return QString();
         }
     }
@@ -91,7 +91,7 @@ QString ROM_Handler::Install_ROM() {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions to access " + installedFile.fileName() +
-                              ". Cannot continue!", Common_Strings::STRING_OK);
+                              ". Cannot continue!", QMessageBox::Ok);
         return QString();
     }
 
@@ -103,7 +103,7 @@ QString ROM_Handler::Install_ROM() {
         installedFile.close();
         installedFile.remove();
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "This does not appear to be a valid SMB1 ROM!", Common_Strings::STRING_OK);
+                              "This does not appear to be a valid SMB1 ROM!", QMessageBox::Ok);
         return QString();
     }
     if (buffer.isEmpty() || installedFile.write(buffer) == -1) {
@@ -112,7 +112,7 @@ QString ROM_Handler::Install_ROM() {
         installedFile.remove();
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
-                              " does not have proper read/write permissions. Cannot continue!", Common_Strings::STRING_OK);
+                              " does not have proper read/write permissions. Cannot continue!", QMessageBox::Ok);
         return QString();
     }
     file.close();
@@ -122,10 +122,10 @@ QString ROM_Handler::Install_ROM() {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " failed to install some base ROM patches! Either something isn't configured correctly, or "+Common_Strings::STRING_LEVEL_HEADED+
-                              " does not have proper read/write permissions!", Common_Strings::STRING_OK);
+                              " does not have proper read/write permissions!", QMessageBox::Ok);
         return QString();
     }
-    QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "ROM successfully installed!", Common_Strings::STRING_OK);
+    QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, "ROM successfully installed!", QMessageBox::Ok);
     return fileName;
 }
 
@@ -140,7 +140,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                               Common_Strings::STRING_LEVEL_HEADED +
                               " does not have proper read/write permissions to access " + this->file->fileName() +
-                              ". Cannot continue!", Common_Strings::STRING_OK);
+                              ". Cannot continue!", QMessageBox::Ok);
         return nullptr;
     }
 
@@ -155,7 +155,7 @@ QFile *ROM_Handler::Load_Local_ROM(const QString &fileName, bool &cancel) {
         loadFile.remove();
         cancel = true;
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              loadedFileName + " is not a valid SMB1 ROM!", Common_Strings::STRING_OK);
+                              loadedFileName + " is not a valid SMB1 ROM!", QMessageBox::Ok);
         return nullptr;
     }
 
@@ -349,5 +349,5 @@ void ROM_Handler::Show_Error(const QString &error) {
 
     //Show the error
     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                          error, Common_Strings::STRING_OK);
+                          error, QMessageBox::Ok);
 }

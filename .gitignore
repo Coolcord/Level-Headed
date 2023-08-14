@@ -1,8 +1,22 @@
 build-*/
+build/
 Level-Headed/Build_Scripts/Unix/Level-Headed/
 *.pro.user
 *.pro.user.*
+*.txt.user
+*.txt.user.*
 .~lock.*
 *.autosave
 .qmake.stash
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
 

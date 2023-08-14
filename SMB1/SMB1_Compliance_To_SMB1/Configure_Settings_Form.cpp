@@ -61,13 +61,13 @@ void Configure_Settings_Form::accept() {
     if (!this->tabLevelGenerator->At_Least_One_Very_Common_Selected()) {
         QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
                               "At least one level type must have a \"" + STRING_VERY_COMMON + "\" chance!",
-                              Common_Strings::STRING_OK);
+                              QMessageBox::Ok);
         return;
     }
     if (this->ui->radioUseLevelScripts->isChecked() && this->ui->comboLevelScripts->currentText() == STRING_NO_LEVEL_SCRIPTS_FOUND) {
         QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED,
                               "No level scripts could be found! Try generating new levels.",
-                              Common_Strings::STRING_OK);
+                              QMessageBox::Ok);
         return;
     }
 
@@ -125,7 +125,7 @@ void Configure_Settings_Form::on_btnSaveConfig_clicked() {
     }
 }
 
-void Configure_Settings_Form::on_comboBaseROM_currentIndexChanged(const QString &arg1) {
+void Configure_Settings_Form::on_comboBaseROM_currentTextChanged(const QString &arg1) {
     if (!this->loading) {
         bool wasPartialSupportEnabled = this->tabBaseGame->Is_Partial_Support_Mode_Enabled();
         bool enablePartialSupportMode = arg1.startsWith(ROM_Filename::STRING_PARTIAL_SUPPORT);

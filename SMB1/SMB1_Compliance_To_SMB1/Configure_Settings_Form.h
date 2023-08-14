@@ -2,7 +2,6 @@
 #define CONFIGURE_SETTINGS_FORM_H
 
 #include "../../SMB1/SMB1_Writer/SMB1_Writer_Interface.h"
-#include "Difficulty_Level_Settings.h"
 #include "Plugin_Settings.h"
 #include <QAbstractButton>
 #include <QComboBox>
@@ -30,7 +29,7 @@ private slots:
     void on_btnSaveConfig_clicked();
 
     //Base Game Tab
-    void on_comboBaseROM_currentIndexChanged(const QString &arg1);
+    void on_comboBaseROM_currentTextChanged(const QString &arg1);
     void on_btnInstallNewROM_clicked();
     void on_btnOutputROMLocation_clicked();
     void on_btnUseRandomSettings_clicked();

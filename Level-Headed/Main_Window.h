@@ -32,8 +32,8 @@ private slots:
     void Disable_All();
     void Enable_Generator();
     void Enable_Buttons();
-    void on_comboBaseGame_currentIndexChanged(const QString &arg1);
-    void on_comboLevelGenerator_currentIndexChanged(const QString &arg1);
+    void on_comboBaseGame_currentTextChanged(const QString &arg1);
+    void on_comboLevelGenerator_currentTextChanged(const QString &arg1);
     void on_btnConfigureSettings_clicked();
     void on_btnGenerateGame_clicked();
     void on_Main_Window_finished();

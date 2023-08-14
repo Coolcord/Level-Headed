@@ -251,8 +251,8 @@ void SMB1_Compliance_To_SMB1::Show_Message(const QString &message, bool error) {
     if (this->cliMode) {
         qDebug().noquote() << message;
     } else {
-        if (error) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, Common_Strings::STRING_OK);
-        else QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, Common_Strings::STRING_OK);
+        if (error) QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, QMessageBox::Ok);
+        else QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED, message, QMessageBox::Ok);
     }
 }
 

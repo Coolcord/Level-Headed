@@ -181,7 +181,7 @@ bool Plugin_Handler::Get_Previously_Loaded_Plugins(QString &writerPlugin, QStrin
 void Plugin_Handler::Show_Read_Write_Error() {
     QMessageBox::critical(this->widget, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                          " does not have proper read/write permissions. Cannot continue!",
-                          Common_Strings::STRING_OK);
+                          QMessageBox::Ok);
 }
 
 QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
@@ -202,7 +202,7 @@ QStringList Plugin_Handler::Get_Plugins_From_Folder(const QString &folder) {
         QMessageBox::critical(this->widget, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED
                               + " could not find any " + pluginType + " plugins! Place compatible plugins in the "
                               + folder + " folder.",
-                              Common_Strings::STRING_OK);
+                              QMessageBox::Ok);
         return QStringList(); //at least one plugin is necessary
     }
     if (!dir.cdUp()) {

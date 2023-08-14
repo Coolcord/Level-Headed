@@ -30,6 +30,7 @@ Main_Window::Main_Window(QWidget *parent, QApplication *application) :
     this->interpreterLoader = nullptr;
     this->interpreterPlugin = nullptr;
     this->updateThread = new Update_Checker(this, application, this->readableConfigFile, Version::VERSION_NUMBER);
+    //connect(this->ui->comboBaseGame, &QComboBox::currentTextChanged, this, &Main_Window::on_comboBaseGame_currentIndexChanged);
     connect(this->updateThread, SIGNAL(Update_Available(const QString&, const QString&)), this, SLOT(on_Update_Available(const QString&, const QString&)));
 }
 
@@ -83,7 +84,7 @@ void Main_Window::Enable_Buttons() {
     if (fileLocation.isEmpty() || !interpreter.exists()) {
         QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                              " cannot find the interpreter plugin! Make sure that it is in the " +
-                              Common_Strings::STRING_INTERPRETERS + " folder.", Common_Strings::STRING_OK);
+                              Common_Strings::STRING_INTERPRETERS + " folder.", QMessageBox::Ok);
         this->Disable_All();
     }
     if (!this->Load_Interpreter(fileLocation)) {
@@ -106,7 +107,7 @@ bool Main_Window::Populate_Generators(const QString &writerPlugin) {
         QString type = Common_Strings::STRING_GENERATORS.toLower().trimmed();
         QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                              " cannot find any compatible " + type + " plugins! Make sure that they are in the " +
-                              Common_Strings::STRING_GENERATORS + " folder.", Common_Strings::STRING_OK);
+                              Common_Strings::STRING_GENERATORS + " folder.", QMessageBox::Ok);
         return false;
     }
     this->ui->comboLevelGenerator->clear();
@@ -138,7 +139,7 @@ void Main_Window::Shutdown() {
     this->readableConfigFile = nullptr;
 }
 
-void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
+void Main_Window::on_comboBaseGame_currentTextChanged(const QString &arg1) {
     if (arg1 == nullptr || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Disable_All();
         return;
@@ -148,7 +149,7 @@ void Main_Window::on_comboBaseGame_currentIndexChanged(const QString &arg1) {
     }
 }
 
-void Main_Window::on_comboLevelGenerator_currentIndexChanged(const QString &arg1) {
+void Main_Window::on_comboLevelGenerator_currentTextChanged(const QString &arg1) {
     if (arg1 == nullptr || arg1.isEmpty() || arg1 == Common_Strings::STRING_SELECT_A_PLUGIN) {
         this->Enable_Generator();
         return;
@@ -187,7 +188,7 @@ bool Main_Window::Load_Interpreter(const QString &fileLocation) {
 void Main_Window::Show_Unable_To_Load_Plugin_Error() {
     QMessageBox::critical(this, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                          " is unable to load the interpreter plugin! The plugin may not be valid.",
-                          Common_Strings::STRING_OK);
+                          QMessageBox::Ok);
     this->Disable_All();
 }
 

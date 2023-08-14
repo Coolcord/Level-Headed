@@ -572,13 +572,13 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     if (!dir.exists(generationName)) {
         if (!dir.mkdir(generationName)) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "Level-Headed does not have read/write permissions to the Levels directory!", Common_Strings::STRING_OK);
+                                  "Level-Headed does not have read/write permissions to the Levels directory!", QMessageBox::Ok);
             return false;
         }
     } else {
         if (!dir.cd(generationName) || !dir.removeRecursively()) {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                  "Level-Headed does not have read/write permissions to the Levels directory!", Common_Strings::STRING_OK);
+                                  "Level-Headed does not have read/write permissions to the Levels directory!", QMessageBox::Ok);
             return false;
         }
     }
@@ -672,19 +672,19 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     //Write the Map Buffer to a file
     if (!mapBuffer.Write_To_File(this->levelLocation + "/" + generationName + "/" + Common_Strings::STRING_GAME_NAME + ".map")) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "The writer plugin failed to write the Map file!", Common_Strings::STRING_OK);
+                              "The writer plugin failed to write the Map file!", QMessageBox::Ok);
         return false;
     }
 
     //Pack the Levels into a Sequential Archive
     if (!this->Load_Sequential_Archive_Plugin()) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
+                              "Unable to load the sequential archive plugin!", QMessageBox::Ok);
         return false;
     }
     if (this->sequentialArchivePlugin->Pack(folderLocation, this->levelLocation+"/"+generationFileName) != 0) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "Unable to pack levels into a sequential archive!", Common_Strings::STRING_OK);
+                              "Unable to pack levels into a sequential archive!", QMessageBox::Ok);
         return false;
     }
     return true;
@@ -747,17 +747,13 @@ bool Level_Generator::Rearrange_Levels_From_Short_To_Long(QVector<Level::Level> 
     assert(numLevels > 0 && numLevels <= 20);
     switch (numLevels) { //Add easy levels to the beginning
     case 20:
-        levelOrder.append(Level::WORLD_7_LEVEL_1);
-        [[clang::fallthrough]]; //fall through
+        levelOrder.append(Level::WORLD_7_LEVEL_1); //fall through
     case 19:
-        levelOrder.append(Level::WORLD_1_LEVEL_1);
-        [[clang::fallthrough]]; //fall through
+        levelOrder.append(Level::WORLD_1_LEVEL_1); //fall through
     case 18:
-        levelOrder.append(Level::WORLD_3_LEVEL_3);
-        [[clang::fallthrough]]; //fall through
+        levelOrder.append(Level::WORLD_3_LEVEL_3); //fall through
     case 17:
-        levelOrder.append(Level::WORLD_1_LEVEL_4);
-        [[clang::fallthrough]]; //fall through
+        levelOrder.append(Level::WORLD_1_LEVEL_4); //fall through
     default:
         break;
     }
@@ -867,7 +863,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
             if (elements.size() > 2 || iter == levels.end()) {
                 errorCode = -1;
                 QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                      "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
+                                      "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", QMessageBox::Ok);
                 return false;
             }
 
@@ -878,7 +874,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (elements.size() != 2) {
                     errorCode = -1;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
+                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", QMessageBox::Ok);
                     return false;
                 }
             } else {
@@ -896,7 +892,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (!this->writerPlugin->Room_Table_Set_Next_Level(currentLevel)) {
                     errorCode = -1;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "Failed to allocate space in the ROM for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", Common_Strings::STRING_OK);
+                                          "Failed to allocate space in the ROM for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", QMessageBox::Ok);
                     return false;
                 }
 
@@ -906,7 +902,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                         if (!this->writerPlugin->Room_Table_Set_Midpoint_For_Duplicate_Level(currentLevel, currentWorldNum, currentLevelNum)) {
                             errorCode = -1;
                             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                                  "Failed to write thie midpoint for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", Common_Strings::STRING_OK);
+                                                  "Failed to write thie midpoint for " + this->Convert_Level_Enum_To_String(currentLevel) + "!", QMessageBox::Ok);
                         }
                     } else {
                         bonusLevel = true;
@@ -921,7 +917,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (scriptName.size() < 3) {
                     errorCode = -1;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", Common_Strings::STRING_OK);
+                                          "Syntax error on line " + QString::number(lineNum) + " in " + Common_Strings::STRING_GAME_NAME + ".map!", QMessageBox::Ok);
                     return false;
                 }
                 scriptName.chop(1); scriptName = scriptName.remove(0, 1);
@@ -937,7 +933,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 //Allocate a new level
                 if (!this->writerPlugin->New_Level(currentLevel, currentWorldNum, currentLevelNum)) {
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to allocate buffers for a new level!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to allocate buffers for a new level!", QMessageBox::Ok);
                     return false;
                 }
 
@@ -950,7 +946,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (parserArgs.levelScriptBytes.isEmpty()) {
                     errorCode = -1;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "Unable to open " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "Unable to open " + scriptName + "!", QMessageBox::Ok);
                     return false;
                 }
                 parserArgs.enemyBuffer = new Enemy_Buffer(10000);
@@ -958,7 +954,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (!this->generatorPlugin->Parse_Level_Script(parserArgs)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "Syntax error on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "Syntax error on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", QMessageBox::Ok);
                     return false;
                 }
 
@@ -979,7 +975,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                     if (this->pluginSettings->redistributePowerups && !this->generatorPlugin->Redistribute_Powerups(args, parserArgs)) {
                         errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                              "Powerup redistribution failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                                              "Powerup redistribution failed in " + scriptName + "!", QMessageBox::Ok);
                         return false;
                     }
 
@@ -992,7 +988,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                         if (!this->generatorPlugin->Redistribute_Enemies(args, parserArgs)) {
                             errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                                  "Enemy redistribution failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                                                  "Enemy redistribution failed in " + scriptName + "!", QMessageBox::Ok);
                             return false;
                         }
                     }
@@ -1002,7 +998,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                         if (!this->generatorPlugin->Perform_Enemy_Chaotic_Swap(parserArgs.enemyBuffer, parserArgs.levelAttribute, this->pluginSettings->difficultyAllowHammerBrosWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts, this->pluginSettings->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts)) {
                             errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                                  "Enemy chaotic swap failed in " + scriptName + "!", Common_Strings::STRING_OK);
+                                                  "Enemy chaotic swap failed in " + scriptName + "!", QMessageBox::Ok);
                             return false;
                         }
                     }
@@ -1012,25 +1008,25 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (!this->Write_Header_To_Level(parserArgs, bonusLevel)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the header for " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the header for " + scriptName + "!", QMessageBox::Ok);
                     return false;
                 }
                 if (!this->Write_Objects_To_Level(parserArgs)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the object on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the object on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", QMessageBox::Ok);
                     return false;
                 }
                 if (!this->Write_Enemies_To_Level(parserArgs)) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the enemy on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the enemy on line " + QString::number(parserArgs.lineNum) + " in " + scriptName + "!", QMessageBox::Ok);
                     return false;
                 }
                 if (!this->writerPlugin->Write_Level()) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the ROM!", QMessageBox::Ok);
                     return false;
                 }
 
@@ -1038,7 +1034,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 if (currentWorldNum == 1 && currentLevelNum == 1 && parserArgs.objectBuffer->Was_Auto_Scroll_Used() && !this->writerPlugin->Hacks_Disable_Intro_Demo()) {
                     errorCode = -1; delete parserArgs.enemyBuffer; delete parserArgs.objectBuffer;
                     QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                          "The writer plugin failed to write the ROM!", Common_Strings::STRING_OK);
+                                          "The writer plugin failed to write the ROM!", QMessageBox::Ok);
                     return false;
                 }
 
@@ -1054,7 +1050,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
 bool Level_Generator::Parse_Level_Map(const QString &fileName) {
     if (!this->Load_Sequential_Archive_Plugin()) {
         QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                              "Unable to load the sequential archive plugin!", Common_Strings::STRING_OK);
+                              "Unable to load the sequential archive plugin!", QMessageBox::Ok);
         return false;
     }
     if (!this->sequentialArchivePlugin->Open(this->levelLocation + "/" + fileName)) return false;
@@ -1112,7 +1108,7 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numWorlds, int &n
         } else {
             if (!this->writerPlugin->Hacks_Remove_Vertical_Object_Limit()) {
                 QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED,
-                                      "This ROM is not compatible with the selected level scripts! Please consider using a fully supported ROM!", Common_Strings::STRING_OK);
+                                      "This ROM is not compatible with the selected level scripts! Please consider using a fully supported ROM!", QMessageBox::Ok);
                 errorCode = 3;
                 return false;
             }

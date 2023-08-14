@@ -147,7 +147,7 @@ bool SMB1_Writer::Load_ROM_First_Time(QString &baseRomName) {
     if (!cancel && !this->file) {
         QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                  "It looks like this is your first time using the SMB1 Writer Plugin. In order to continue, please provide a clean SMB1 ROM to use as a base game.",
-                                 Common_Strings::STRING_OK);
+                                 QMessageBox::Ok);
         QString fileName = this->romHandler->Install_ROM();
         if (fileName.isEmpty()) {
             return false;

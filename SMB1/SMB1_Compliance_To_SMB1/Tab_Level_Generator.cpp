@@ -115,11 +115,11 @@ void Tab_Level_Generator::Clear_All_Random_Level_Scripts() {
         if (success) {
             QMessageBox::information(this->parent, Common_Strings::STRING_LEVEL_HEADED,
                                      "All previously generated random level packs have been removed!",
-                                     Common_Strings::STRING_OK);
+                                     QMessageBox::Ok);
         } else {
             QMessageBox::critical(this->parent, Common_Strings::STRING_LEVEL_HEADED, Common_Strings::STRING_LEVEL_HEADED +
                                   " could not delete all of the randomly generated level packs!",
-                                  Common_Strings::STRING_OK);
+                                  QMessageBox::Ok);
         }
         this->Populate_Level_Scripts_ComboBox();
         this->Save_Settings();
