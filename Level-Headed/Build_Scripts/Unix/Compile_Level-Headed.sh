@@ -9,7 +9,7 @@
 localSourceCodeLocation="/d/Documents/Source_Code"
 
 # Install MinGW dependencies
-if [ $1 != "latest" ] || [ $1 != "local" ]; then
+if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then
     if [ ${MSYSTEM} == "MINGW64" ]; then
         dependencies="git mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
         
@@ -22,7 +22,7 @@ if [ $1 != "latest" ] || [ $1 != "local" ]; then
 fi
 
 # Check if dependencies are installed
-if [ $1 != "latest" ] || [ $1 != "local" ]; then
+if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then
     command -v ninja >/dev/null 2>&1 || { echo >&2 "ninja must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 fi
 command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
