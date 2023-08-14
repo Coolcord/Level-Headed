@@ -290,7 +290,7 @@ else
 		ldd Plugins/Generators/SMB1_Compliance_Generator"$dllExt" | awk '{print $3}' >> allDLLs.txt
 		ldd Plugins/Interpreters//SMB1_Compliance_To_SMB1"$dllExt" | awk '{print $3}' >> allDLLs.txt
 		ldd Plugins/Writers/SMB1_Writer"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		grep -v "Windows" allDLLs.txt > nonWindows.txt
+		grep -v "/Windows" allDLLs.txt > nonWindows.txt
 		sort nonWindows.txt | uniq > requiredDLLs.txt
 		while IFS= read -r requiredDLL; do
 			cp "$requiredDLL" .
