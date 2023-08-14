@@ -9,9 +9,9 @@
 localSourceCodeLocation="/d/Documents/Source_Code"
 
 # Install MinGW dependencies
-if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then
+if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     if [ ${MSYSTEM} == "MINGW64" ]; then
-        dependencies="git mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
+        dependencies="git rsync mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
         
         echo Checking dependencies...
         if ! pacman -Q $dependencies > /dev/null 2>&1; then
@@ -22,7 +22,7 @@ if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then
 fi
 
 # Check if dependencies are installed
-if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then
+if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     command -v ninja >/dev/null 2>&1 || { echo >&2 "ninja must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 fi
 command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
@@ -50,8 +50,29 @@ if [ -z $1 ] || [ $1 != "local" ]; then
     git clone https://github.com/Coolcord/C_Common_Code.git
 else
     echo Using local code...
+    
+    # Copy Level-Headed carefully, just in case this script is running in this folder
     echo Copying Level-Headed source code...
-    cp -rf "$localSourceCodeLocation"/Level-Headed .
+    
+    # Prepare for Level-Headed copy
+    mkdir -p Level-Headed/Level-Headed/Build_Scripts/Unix
+    copy_excluding_folder() {
+        cp -f "$1"/* "$2" >/dev/null 2>&1
+        find "$1" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
+        sed -i "/$3/d" folders.txt
+        while IFS= read -r folder; do
+            cp -rf "$1"/"$folder" "$2"
+        done < folders.txt
+        rm folders.txt
+    }
+    
+    # Copy Level-Headed, but ignore "./Level-Headed/Level-Headed/Build_Scripts/Unix/Level-Headed" in case this script is running there
+    copy_excluding_folder "$localSourceCodeLocation/Level-Headed" "./Level-Headed" "Level-Headed"
+    copy_excluding_folder "$localSourceCodeLocation/Level-Headed/Level-Headed" "./Level-Headed/Level-Headed" "Build_Scripts"
+    copy_excluding_folder "$localSourceCodeLocation/Level-Headed/Level-Headed/Build_Scripts" "./Level-Headed/Level-Headed/Build_Scripts" "Unix"
+    copy_excluding_folder "$localSourceCodeLocation/Level-Headed/Level-Headed/Build_Scripts/Unix" "./Level-Headed/Level-Headed/Build_Scripts/Unix" "Level-Headed"
+    
+    # Copy the rest of the files
     echo Copying Level-Headed_Data source code...
     cp -rf "$localSourceCodeLocation"/Level-Headed_Data .
     echo Copying Hexagon source code...
@@ -305,3 +326,43 @@ rm -rf source/
 
 echo ""; echo "Compilation complete! Enjoy Level-Headed!"
 exit 0
+
+
+# Copy the Level-Headed folder, but ignore Level-Headed subdirectory for now
+    mkdir -p Level-Headed/Level-Headed/Build_Scripts/Unix
+    cp -f "$localSourceCodeLocation"/Level-Headed/* ./Level-Headed >/dev/null 2>&1
+    find "$localSourceCodeLocation"/Level-Headed -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
+    sed -i '/Level-Headed/d' folders.txt
+    while IFS= read -r folder; do
+        cp -rf "$localSourceCodeLocation"/Level-Headed/"$folder" ./Level-Headed
+    done < folders.txt
+    rm folders.txt
+    
+    # Copy Level-Headed/Level-Headed, but ignore Build Scripts subdirectory for now
+    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/* ./Level-Headed/Level-Headed >/dev/null 2>&1
+    find "$localSourceCodeLocation"/Level-Headed/Level-Headed -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
+    sed -i '/Build_Scripts/d' folders.txt
+    while IFS= read -r folder; do
+        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/"$folder" ./Level-Headed/Level-Headed
+    done < folders.txt
+    rm folders.txt
+    
+    # Copy Level-Headed/Level-Headed/Build_Scripts, but ignore Unix subdirectory for now
+    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/* ./Level-Headed/Level-Headed/Build_Scripts >/dev/null 2>&1
+    find "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
+    sed -i '/Unix/d' folders.txt
+    while IFS= read -r folder; do
+        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/"$folder" ./Level-Headed/Level-Headed/Build_Scripts
+    done < folders.txt
+    rm folders.txt
+    
+    # Copy Level-Headed/Level-Headed/Build_Scripts/Unix, but Level-Headed subdirectory if it exists
+    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix/* ./Level-Headed/Level-Headed/Build_Scripts/Unix >/dev/null 2>&1
+    find "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
+    sed -i '/Level-Headed/d' folders.txt
+    while IFS= read -r folder; do
+        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix/"$folder" ./Level-Headed/Level-Headed/Build_Scripts/Unix
+    done < folders.txt
+    rm folders.txt
+    
+    exit 0
