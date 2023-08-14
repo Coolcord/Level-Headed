@@ -29,11 +29,11 @@ command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level
 command -v gcc >/dev/null 2>&1 || { echo >&2 "gcc must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 command -v nproc >/dev/null 2>&1 || { echo >&2 "nproc must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 if [ ${MSYSTEM} == "MINGW64" ]; then
-	command -v qtpaths6 >/dev/null 2>&1 || { echo >&2 "qtpaths6 must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
-	command -v ldd >/dev/null 2>&1 || { echo >&2 "ldd must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
-	if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
-		echo "qwindows.dll could not be found! Aborting!"; exit 1;
-	fi
+    command -v qtpaths6 >/dev/null 2>&1 || { echo >&2 "qtpaths6 must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
+    command -v ldd >/dev/null 2>&1 || { echo >&2 "ldd must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
+    if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
+        echo "qwindows.dll could not be found! Aborting!"; exit 1;
+    fi
 fi
 
 CPUcores=$(nproc)
@@ -173,7 +173,7 @@ else
     fi
     
     # Build Level-Headed
-	echo ""; echo Compiling Level-Headed...
+    echo ""; echo Compiling Level-Headed...
     cd Level-Headed/Level-Headed/
     mkdir -p build
     cd build
@@ -182,7 +182,7 @@ else
     cd ../../../
 
     # Build the SMB1 Compliance Level Generator Plugin
-	echo ""; echo Compiling the SMB1 Compliance Level Generator Plugin...
+    echo ""; echo Compiling the SMB1 Compliance Level Generator Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_Generator/
     mkdir -p build
     cd build
@@ -191,7 +191,7 @@ else
     cd ../../../../
 
     # Build the SMB1 Compliance to SMB1 Interpreter Plugin
-	echo ""; echo Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
+    echo ""; echo Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
     mkdir -p build
     cd build
@@ -200,7 +200,7 @@ else
     cd ../../../../
 
     # Build the SMB1 Writer Plugin
-	echo ""; echo Compiling the SMB1 Writer Plugin...
+    echo ""; echo Compiling the SMB1 Writer Plugin...
     cd Level-Headed/SMB1/SMB1_Writer/
     mkdir -p build
     cd build
@@ -209,7 +209,7 @@ else
     cd ../../../../
 
     # Build the Hexagon Plugin
-	echo ""; echo Compiling the Hexagon Plugin...
+    echo ""; echo Compiling the Hexagon Plugin...
     cd Hexagon/Hexagon/
     mkdir -p build
     cd build
@@ -218,7 +218,7 @@ else
     cd ../../../
 
     # Build the Sequential Archive Plugin
-	echo ""; echo Compiling the Sequential Archive Plugin...
+    echo ""; echo Compiling the Sequential Archive Plugin...
     cd Sequential_Archive/Sequential_Archive/
     mkdir -p build
     cd build
@@ -227,9 +227,9 @@ else
     cd ../../../
 
     # Build SAM
-	echo ""; echo Compiling SAM...
+    echo ""; echo Compiling SAM...
     cd Sequential_Archive/Sequential_Archive_Manager/
-	sed -i 's/WIN32 //g' CMakeLists.txt
+    sed -i 's/WIN32 //g' CMakeLists.txt
     mkdir -p build
     cd build
     cmake .. -G Ninja
@@ -272,31 +272,31 @@ else
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls' || exit 1
     
     # Install Qt DLLs
-	if [ ${dllExt} == ".dll" ]; then
-		echo Installing Qt DLLs...
-		qtpaths6Location=$(which qtpaths6.exe)
-		qtDLLsLocation=${qtpaths6Location%/*}
-		
-		# Install Qt Plugins
-		mkdir -p Qt/platforms
-		echo [Paths] > qt.conf
-		echo Plugins=./Qt >> qt.conf
-		cp /mingw64/share/qt6/plugins/platforms/qwindows.dll Qt/platforms
-		
-		# Install root Qt DLLs
-		ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt
-		ldd Plugins/Hexagon"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		ldd Plugins/Sequential_Archive"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		ldd Plugins/Generators/SMB1_Compliance_Generator"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		ldd Plugins/Interpreters//SMB1_Compliance_To_SMB1"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		ldd Plugins/Writers/SMB1_Writer"$dllExt" | awk '{print $3}' >> allDLLs.txt
-		grep -v "/Windows" allDLLs.txt > nonWindows.txt
-		sort nonWindows.txt | uniq > requiredDLLs.txt
-		while IFS= read -r requiredDLL; do
-			cp "$requiredDLL" .
-		done < requiredDLLs.txt
-		rm allDLLs.txt nonWindows.txt requiredDLLs.txt
-	fi
+    if [ ${dllExt} == ".dll" ]; then
+        echo Installing Qt DLLs...
+        qtpaths6Location=$(which qtpaths6.exe)
+        qtDLLsLocation=${qtpaths6Location%/*}
+        
+        # Install Qt Plugins
+        mkdir -p Qt/platforms
+        echo [Paths] > qt.conf
+        echo Plugins=./Qt >> qt.conf
+        cp /mingw64/share/qt6/plugins/platforms/qwindows.dll Qt/platforms
+        
+        # Install root Qt DLLs
+        ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt
+        ldd Plugins/Hexagon"$dllExt" | awk '{print $3}' >> allDLLs.txt
+        ldd Plugins/Sequential_Archive"$dllExt" | awk '{print $3}' >> allDLLs.txt
+        ldd Plugins/Generators/SMB1_Compliance_Generator"$dllExt" | awk '{print $3}' >> allDLLs.txt
+        ldd Plugins/Interpreters//SMB1_Compliance_To_SMB1"$dllExt" | awk '{print $3}' >> allDLLs.txt
+        ldd Plugins/Writers/SMB1_Writer"$dllExt" | awk '{print $3}' >> allDLLs.txt
+        grep -v "/Windows" allDLLs.txt > nonWindows.txt
+        sort nonWindows.txt | uniq > requiredDLLs.txt
+        while IFS= read -r requiredDLL; do
+            cp "$requiredDLL" .
+        done < requiredDLLs.txt
+        rm allDLLs.txt nonWindows.txt requiredDLLs.txt
+    fi
 fi
 
 # Clean up
