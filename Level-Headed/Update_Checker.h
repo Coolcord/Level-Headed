@@ -17,10 +17,12 @@ public:
 signals:
     void Update_Available(const QString &newVersion, const QString &updatePage);
 
+private slots:
+    void Read_Latest_Version_Response(QNetworkReply *reply);
+
 private:
     bool Get_Version_Numbers_From_String(const QString &version, int &significantVersion, int &majorVersion, int &minorVersion, int &patchVersion);
     bool Is_Version_Newer_Than_Current(const QString &version, const QString &currentVersion);
-    void Read_Latest_Version_Response();
 
     QWidget *parent;
     QApplication *application;

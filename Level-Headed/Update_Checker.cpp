@@ -2,6 +2,7 @@
 #include "../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h"
 #include "Update_Dialog.h"
 #include <QNetworkReply>
+#include <QNetworkRequest>
 
 //UPDATE CHECKER SETTINGS
 const static QString GITHUB_DOWNLOAD_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
@@ -29,8 +30,9 @@ void Update_Checker::Check_For_Updates() {
     if (this->readableConfigFile->Get_Value("Last_Ignored_Update", lastIgnoredUpdate) &&
             this->Is_Version_Newer_Than_Current(lastIgnoredUpdate, this->version)) this->version = lastIgnoredUpdate;
 
-    QNetworkReply *reply = this->manager->get(QNetworkRequest(QUrl(GITHUB_UPDATE_URL)));
-    connect(reply, &QNetworkReply::finished, this, &Update_Checker::Read_Latest_Version_Response);
+    QNetworkRequest request = QNetworkRequest(QUrl(GITHUB_UPDATE_URL));
+    this->manager->get(request);
+    connect(this->manager, &QNetworkAccessManager::finished, this, &Update_Checker::Read_Latest_Version_Response);
 }
 
 bool Update_Checker::Get_Version_Numbers_From_String(const QString &version, int &significantVersion, int &majorVersion, int &minorVersion, int &patchVersion) {
@@ -43,13 +45,13 @@ bool Update_Checker::Get_Version_Numbers_From_String(const QString &version, int
     if (!valid) patchVersion = 0; //ignore anything that isn't a number
 
     //Read the other version numbers
-    numbers = numbers.at(0).split('.');
-    if (numbers.size() != 3) return false;
-    significantVersion = numbers.at(0).toInt(&valid);
+    QStringList splitNumbers = numbers.at(0).split('.');
+    if (splitNumbers.size() != 3) return false;
+    significantVersion = splitNumbers.at(0).toInt(&valid);
     if (!valid) return false;
-    majorVersion = numbers.at(1).toInt(&valid);
+    majorVersion = splitNumbers.at(1).toInt(&valid);
     if (!valid) return false;
-    minorVersion = numbers.at(2).toInt(&valid);
+    minorVersion = splitNumbers.at(2).toInt(&valid);
     if (!valid) return false;
 
     return true;
@@ -71,8 +73,7 @@ bool Update_Checker::Is_Version_Newer_Than_Current(const QString &version, const
     else return false;
 }
 
-void Update_Checker::Read_Latest_Version_Response() {
-    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+void Update_Checker::Read_Latest_Version_Response(QNetworkReply *reply) {
     if (!reply) return;
     QString locationRedirect = reply->header(QNetworkRequest::LocationHeader).toString();
     if (!locationRedirect.isEmpty()) {
@@ -81,4 +82,19 @@ void Update_Checker::Read_Latest_Version_Response() {
             emit Update_Available(newVersion, GITHUB_DOWNLOAD_PAGE);
         }
     }
+    reply->deleteLater();
+
+    //QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    /*
+    if (reply->error() == QNetworkReply::NoError) {
+        QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+        if (redirectionTarget.isValid()) {
+            // Do nothing here, we'll capture the final URL through authenticationRequired signal
+            QTextStream(stderr) << "Redirection successful!" << Qt::endl;
+        } else {
+            QTextStream(stderr) << "No redirection detected." << Qt::endl;
+        }
+    } else {
+        QTextStream(stderr) << "Initial request failed: " << reply->errorString() << Qt::endl;
+    }*/
 }
