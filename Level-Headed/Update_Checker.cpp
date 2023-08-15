@@ -7,7 +7,7 @@
 //UPDATE CHECKER SETTINGS
 const static QString GITHUB_DOWNLOAD_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
 const static QString GITHUB_UPDATE_URL =    "https://github.com/Coolcord/Level-Headed/releases/latest";
-const bool FORCE_UPDATE_CHECK = true;
+const bool FORCE_UPDATE_CHECK = false;
 
 Update_Checker::Update_Checker(QWidget *parent, QApplication *application, Readable_Config_File *readableConfigFile, const QString &version) : QObject() {
     assert(parent); assert(application); assert(readableConfigFile);
@@ -31,7 +31,7 @@ void Update_Checker::Check_For_Updates() {
             this->Is_Version_Newer_Than_Current(lastIgnoredUpdate, this->version)) this->version = lastIgnoredUpdate;
 
     QNetworkRequest request = QNetworkRequest(QUrl(GITHUB_UPDATE_URL));
-    this->manager->get(request);
+    this->manager->get(QNetworkRequest(QUrl(GITHUB_UPDATE_URL)));
     connect(this->manager, &QNetworkAccessManager::finished, this, &Update_Checker::Read_Latest_Version_Response);
 }
 
@@ -74,8 +74,8 @@ bool Update_Checker::Is_Version_Newer_Than_Current(const QString &version, const
 }
 
 void Update_Checker::Read_Latest_Version_Response(QNetworkReply *reply) {
-    if (!reply) return;
-    QString locationRedirect = reply->header(QNetworkRequest::LocationHeader).toString();
+    if (!reply || reply->error() != QNetworkReply::NoError) return;
+    QString locationRedirect = reply->url().toString();
     if (!locationRedirect.isEmpty()) {
         QString newVersion = locationRedirect.split("/releases/tag/v").last();
         if (!newVersion.isEmpty() && (FORCE_UPDATE_CHECK || this->Is_Version_Newer_Than_Current(newVersion, this->version))) {
@@ -83,18 +83,4 @@ void Update_Checker::Read_Latest_Version_Response(QNetworkReply *reply) {
         }
     }
     reply->deleteLater();
-
-    //QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-    /*
-    if (reply->error() == QNetworkReply::NoError) {
-        QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-        if (redirectionTarget.isValid()) {
-            // Do nothing here, we'll capture the final URL through authenticationRequired signal
-            QTextStream(stderr) << "Redirection successful!" << Qt::endl;
-        } else {
-            QTextStream(stderr) << "No redirection detected." << Qt::endl;
-        }
-    } else {
-        QTextStream(stderr) << "Initial request failed: " << reply->errorString() << Qt::endl;
-    }*/
 }
