@@ -2,12 +2,12 @@
 
 # Make sure a version number was provided
 if [ -z $1 ]; then
-	echo "No version argument provided! The first argument must be the version!"
-	echo ""
-	echo "$0 <version>"
-	echo ""
-	echo "E.g.: $0 v0.4.0"
-	exit 1
+    echo "No version argument provided! The first argument must be the version!"
+    echo ""
+    echo "$0 <version>"
+    echo ""
+    echo "E.g.: $0 v0.4.0"
+    exit 1
 fi
 
 # Extract the source code location
@@ -16,7 +16,7 @@ if [ ! -f ./Compile_Level-Headed.sh ]; then
 fi
 eval "$(cat ./Compile_Level-Headed.sh | grep 'localSourceCodeLocation=\"')"
 if [ ! -d "$localSourceCodeLocation" ]; then
-	echo "Source code not found at \"$localSourceCodeLocation\". Aborting!"; exit 1
+    echo "Source code not found at \"$localSourceCodeLocation\". Aborting!"; exit 1
 fi
 if [ ! -f "$localSourceCodeLocation"/Level-Headed/Common_Files/Version.h ]; then
     echo "Version.h could not be found! Aborting!"; exit 1
@@ -36,10 +36,10 @@ versionNumber="${version:1}"
 IFS=. read -r significant major minor <<< "$versionNumber"
 IFS=- read -r minor patch <<< "$minor"
 if [ -z $patch ]; then
-	patch="0"
+    patch="0"
 fi
 if [[ $version == *-dev ]]; then
-	patch="0"
+    patch="0"
 fi
 installerVersion="$significant.$major.$minor.$patch"
 
