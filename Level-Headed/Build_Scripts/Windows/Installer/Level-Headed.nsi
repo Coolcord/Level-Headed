@@ -76,12 +76,23 @@ InstallDir "$PROGRAMFILES\Coolcord\Level-Headed"
 Section -MainProgram
 ${INSTALL_TYPE}
 SetOverwrite on
-SetOutPath "$INSTDIR"
 ExecWait "TASKKILL /F /IM Level-Headed.exe"
 
 # Remove files from old versions
 RmDir /r "$INSTDIR\Levels\SMB1"
 RmDir /r "$INSTDIR\Plugins\Git"
+# --------------- BEGIN AUTO-GENERATED RMDIR SECTION --------------- #
+# ---------------- END AUTO-GENERATED RMDIR SECTION ---------------- #
+
+SetOutPath "$INSTDIR"
+SetOutPath "$INSTDIR\Data\SMB1"
+SetOutPath "$INSTDIR\Plugins"
+SetOutPath "$INSTDIR\Plugins\Generators"
+SetOutPath "$INSTDIR\Plugins\Interpreters"
+SetOutPath "$INSTDIR\Plugins\Writers"
+SetOutPath "$INSTDIR\Qt\platforms"
+# ------------- BEGIN AUTO-GENERATED SETOUTPATH SECTION ------------ #
+# -------------- END AUTO-GENERATED SETOUTPATH SECTION ------------- #
 
 File "C:\Installer\Level-Headed.exe"
 File "C:\Installer\Files\libcrypto-1_1.dll"
@@ -94,27 +105,23 @@ File "C:\Installer\Files\Qt5Core.dll"
 File "C:\Installer\Files\Qt5Gui.dll"
 File "C:\Installer\Files\Qt5Network.dll"
 File "C:\Installer\Files\Qt5Widgets.dll"
-SetOutPath "$INSTDIR\Data\SMB1"
 File "C:\Installer\Files\Data\SMB1\Graphics.sa"
 File "C:\Installer\Files\Data\SMB1\Music.sa"
 File "C:\Installer\Files\Data\SMB1\ROMs.sa"
 File "C:\Installer\Files\Data\SMB1\Text.sa"
-SetOutPath "$INSTDIR\Levels\SMB1"
 File "C:\Installer\Files\Levels\SMB1\(Tech Demo) It Plays Itself.lvls"
 File "C:\Installer\Files\Levels\SMB1\(Tech Demo) Powerup Test.lvls"
 File "C:\Installer\Files\Levels\SMB1\(Tech Demo) Vertical Limit Test.lvls"
 File "C:\Installer\Files\Levels\SMB1\Super Mario Bros. 1 (Modified Original Levels).lvls"
-SetOutPath "$INSTDIR\Plugins"
 File "C:\Installer\Files\Plugins\Hexagon.dll"
 File "C:\Installer\Files\Plugins\Sequential_Archive.dll"
-SetOutPath "$INSTDIR\Plugins\Generators"
 File "C:\Installer\Files\Plugins\Generators\SMB1_Compliance_Generator.dll"
-SetOutPath "$INSTDIR\Plugins\Interpreters"
 File "C:\Installer\Files\Plugins\Interpreters\SMB1_Compliance_To_SMB1.dll"
-SetOutPath "$INSTDIR\Plugins\Writers"
 File "C:\Installer\Files\Plugins\Writers\SMB1_Writer.dll"
-SetOutPath "$INSTDIR\Qt\platforms"
 File "C:\Installer\Files\Qt\platforms\qwindows.dll"
+# --------------- BEGIN AUTO-GENERATED FILE SECTION ---------------- #
+# ---------------- END AUTO-GENERATED FILE SECTION ----------------- #
+
 SectionEnd
 
 ######################################################################
