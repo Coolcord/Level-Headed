@@ -6,7 +6,7 @@
 //UPDATE CHECKER SETTINGS
 const static QString GITHUB_DOWNLOAD_PAGE = "https://github.com/Coolcord/Level-Headed/releases";
 const static QString GITHUB_UPDATE_URL =    "https://github.com/Coolcord/Level-Headed/releases/latest";
-const bool FORCE_UPDATE_CHECK = false;
+const bool FORCE_UPDATE_CHECK = true;
 
 Update_Checker::Update_Checker(QWidget *parent, QApplication *application, Readable_Config_File *readableConfigFile, const QString &version) : QObject() {
     assert(parent); assert(application); assert(readableConfigFile);
