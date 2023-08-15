@@ -34,6 +34,9 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
         echo "qwindows.dll could not be found! Aborting!"; exit 1;
     fi
+    if [ ! -f /mingw64/share/qt6/plugins/styles/qwindowsvistastyle.dll ]; then
+        echo "qwindowsvistastyle.dll could not be found! Aborting!"; exit 1;
+    fi
 	if [ ! -f /mingw64/share/qt6/plugins/tls/qschannelbackend.dll ]; then
         echo "qschannelbackend.dll could not be found! Aborting!"; exit 1;
     fi
@@ -302,12 +305,10 @@ else
         qtDLLsLocation=${qtpaths6Location%/*}
         
         # Install Qt Plugins
-        mkdir -p Qt/platforms
-		mkdir -p Qt/tls
+        mkdir Qt
         echo [Paths] > qt.conf
         echo Plugins=./Qt >> qt.conf
-        cp /mingw64/share/qt6/plugins/platforms/qwindows.dll Qt/platforms
-		cp /mingw64/share/qt6/plugins/tls/qschannelbackend.dll Qt/tls
+        cp -rf /mingw64/share/qt6/plugins/* ./Qt
         
         # Install root Qt DLLs
         ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt

@@ -49,8 +49,6 @@ sed -i "s/    const static QString VERSION_NUMBER = .*/    const static QString 
 # Update the Installer version
 sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Windows/Installer/Level-Headed.nsi
 
-# Update the Readme version
-
 # Compile Level-Headed
 sh ./Compile_Level-Headed.sh local || exit 1
 
