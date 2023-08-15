@@ -10,6 +10,18 @@ if [ -z $1 ]; then
     exit 1
 fi
 
+# Get dependencies for Deploy Script
+if [ ${MSYSTEM} == "MINGW64" ]; then
+    dependencies="p7zip mingw-w64-x86_64-nsis"
+    echo Checking dependencies for deploy...
+    if ! pacman -Q $dependencies > /dev/null 2>&1; then
+        echo Installing missing dependencies...
+        pacman -Sy --needed --noconfirm $dependencies
+    fi
+fi
+command -v 7z >/dev/null 2>&1 || { echo >&2 "p7zip must be installed before Level-Headed can be deployed! Aborting!"; exit 1; }
+command -v makensis >/dev/null 2>&1 || { echo >&2 "NSIS must be installed before Level-Headed can be deployed! Aborting!"; exit 1; }
+
 # Extract the source code location
 if [ ! -f ./Compile_Level-Headed.sh ]; then
     echo "Compile_Level-Headed.sh could not be found! Aborting!"; exit 1
@@ -58,6 +70,7 @@ rm -rf ./Deployed_Files
 mkdir ./Deployed_Files
 mv ./Level-Headed ./Deployed_Files/
 cd ./Deployed_Files
+mkdir ./Level-Headed/Config
 
 # Zip up Level-Headed archive for users who don't want an installer
 echo ""; echo "Creating 7zip archive..."
@@ -135,6 +148,10 @@ update_section "$startRmdirSectionMarker" "$endRmdirSectionMarker" "rmdirSection
 update_section "$startSetOutPathSectionMarker" "$endSetOutPathSectionMarker" "setOutPathSection.txt"
 update_section "$startFileSectionMarker" "$endFileSectionMarker" "fileSection.txt"
 rm rmdirSection.txt setOutPathSection.txt fileSection.txt directories.txt files.txt
+
+# TODO: Handle uninstaller sections (Delete files and RMDIR)
+# TODO: Handle installer name
+# TODO: Handle License
 
 # Compile the Level-Headed installer for users who want an installer
 # TODO: Write this...

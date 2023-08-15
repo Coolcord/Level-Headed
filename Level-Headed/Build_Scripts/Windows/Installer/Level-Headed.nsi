@@ -87,6 +87,7 @@ RmDir /r "$INSTDIR\Qt"
 
 # ------------- BEGIN AUTO-GENERATED SETOUTPATH SECTION ------------ #
 SetOutPath "$INSTDIR"
+SetOutPath "$INSTDIR\Config"
 SetOutPath "$INSTDIR\Data"
 SetOutPath "$INSTDIR\Data\SMB1"
 SetOutPath "$INSTDIR\Levels"

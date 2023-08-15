@@ -11,9 +11,9 @@ localSourceCodeLocation="/d/Documents/Source_Code"
 # Install MinGW dependencies
 if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     if [ ${MSYSTEM} == "MINGW64" ]; then
-        dependencies="git rsync p7zip mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
+        dependencies="git rsync mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
         
-        echo Checking dependencies...
+        echo Checking dependencies for compilation...
         if ! pacman -Q $dependencies > /dev/null 2>&1; then
             echo Installing missing dependencies...
             pacman -Sy --needed --noconfirm $dependencies
@@ -21,7 +21,6 @@ if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: Af
     fi
 fi
 
-# mingw-w64-x86_64-nsis
 # Check if dependencies are installed
 if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     echo ""; echo [1/11] Preparing source code...
@@ -33,7 +32,6 @@ command -v nproc >/dev/null 2>&1 || { echo >&2 "nproc must be installed before L
 if [ ${MSYSTEM} == "MINGW64" ]; then
     command -v qtpaths6 >/dev/null 2>&1 || { echo >&2 "qtpaths6 must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
     command -v ldd >/dev/null 2>&1 || { echo >&2 "ldd must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
-    command -v 7z >/dev/null 2>&1 || { echo >&2 "p7zip must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
     if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
         echo "qwindows.dll could not be found! Aborting!"; exit 1;
     fi
