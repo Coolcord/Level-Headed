@@ -11,7 +11,7 @@ localSourceCodeLocation="/d/Documents/Source_Code"
 # Install MinGW dependencies
 if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     if [ ${MSYSTEM} == "MINGW64" ]; then
-        dependencies="git rsync mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
+        dependencies="git rsync p7zip mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
         
         echo Checking dependencies...
         if ! pacman -Q $dependencies > /dev/null 2>&1; then
@@ -23,6 +23,7 @@ fi
 
 # Check if dependencies are installed
 if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
+    echo ""; echo [1/11] Preparing source code...
     command -v ninja >/dev/null 2>&1 || { echo >&2 "ninja must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 fi
 command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
@@ -31,6 +32,7 @@ command -v nproc >/dev/null 2>&1 || { echo >&2 "nproc must be installed before L
 if [ ${MSYSTEM} == "MINGW64" ]; then
     command -v qtpaths6 >/dev/null 2>&1 || { echo >&2 "qtpaths6 must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
     command -v ldd >/dev/null 2>&1 || { echo >&2 "ldd must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
+    command -v 7z >/dev/null 2>&1 || { echo >&2 "p7zip must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
     if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
         echo "qwindows.dll could not be found! Aborting!"; exit 1;
     fi
@@ -194,13 +196,17 @@ if [ -z $1 ] || ([ $1 != "latest" ] && [ $1 != "local" ]); then
     source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
     source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
     source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls'
+    
+    # Clean up
+    echo Cleaning up...
+    rm -rf source/
 else
     if [ $1 == "latest" ]; then
         echo Using latest code...
     fi
     
     # Build Level-Headed
-    echo ""; echo Compiling Level-Headed...
+    echo ""; echo [2/11] Compiling Level-Headed...
     cd Level-Headed/Level-Headed/
     mkdir -p build
     cd build
@@ -209,7 +215,7 @@ else
     cd ../../../
 
     # Build the SMB1 Compliance Level Generator Plugin
-    echo ""; echo Compiling the SMB1 Compliance Level Generator Plugin...
+    echo ""; echo [3/11] Compiling the SMB1 Compliance Level Generator Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_Generator/
     mkdir -p build
     cd build
@@ -218,7 +224,7 @@ else
     cd ../../../../
 
     # Build the SMB1 Compliance to SMB1 Interpreter Plugin
-    echo ""; echo Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
+    echo ""; echo [4/11] Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
     mkdir -p build
     cd build
@@ -227,7 +233,7 @@ else
     cd ../../../../
 
     # Build the SMB1 Writer Plugin
-    echo ""; echo Compiling the SMB1 Writer Plugin...
+    echo ""; echo [5/11] Compiling the SMB1 Writer Plugin...
     cd Level-Headed/SMB1/SMB1_Writer/
     mkdir -p build
     cd build
@@ -236,7 +242,7 @@ else
     cd ../../../../
 
     # Build the Hexagon Plugin
-    echo ""; echo Compiling the Hexagon Plugin...
+    echo ""; echo [6/11] Compiling the Hexagon Plugin...
     cd Hexagon/Hexagon/
     mkdir -p build
     cd build
@@ -245,7 +251,7 @@ else
     cd ../../../
 
     # Build the Sequential Archive Plugin
-    echo ""; echo Compiling the Sequential Archive Plugin...
+    echo ""; echo [7/11] Compiling the Sequential Archive Plugin...
     cd Sequential_Archive/Sequential_Archive/
     mkdir -p build
     cd build
@@ -254,7 +260,7 @@ else
     cd ../../../
 
     # Build SAM
-    echo ""; echo Compiling SAM...
+    echo ""; echo [8/11] Compiling SAM...
     cd Sequential_Archive/Sequential_Archive_Manager/
     sed -i 's/WIN32 //g' CMakeLists.txt
     mkdir -p build
@@ -279,16 +285,11 @@ else
         dllExt=".dll"
         exeExt=".exe"
     fi
+    
+    # Pack Assets (do this before installing plugins to prevent any DLLs from being called unintentionally)
+    echo ""; echo [9/11] Packing assets...
     mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/
-    cp source/Level-Headed/Level-Headed/build/Level-Headed"$exeExt" Level-Headed"$exeExt"
-    chmod +x Level-Headed"$exeExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/build/libSMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/build/libSMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Writer/build/libSMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
-    cp source/Hexagon/Hexagon/build/libHexagon"$dllExt" Plugins/Hexagon"$dllExt"
-    cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
     cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/Sequential_Archive"$dllExt"
-    echo Packing assets...
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa || exit 1
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa || exit 1
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa || exit 1
@@ -298,9 +299,18 @@ else
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls' || exit 1
     source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls' || exit 1
     
+    # Install Plugins
+    echo ""; echo [10/11] Installing Plugins...
+    cp source/Level-Headed/Level-Headed/build/Level-Headed"$exeExt" Level-Headed"$exeExt"
+    chmod +x Level-Headed"$exeExt"
+    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/build/libSMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
+    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/build/libSMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
+    cp source/Level-Headed/SMB1/SMB1_Writer/build/libSMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
+    cp source/Hexagon/Hexagon/build/libHexagon"$dllExt" Plugins/Hexagon"$dllExt"
+    cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
+    
     # Install Qt DLLs
     if [ ${dllExt} == ".dll" ]; then
-        echo Installing Qt DLLs...
         qtpaths6Location=$(which qtpaths6.exe)
         qtDLLsLocation=${qtpaths6Location%/*}
         
@@ -324,11 +334,13 @@ else
         done < requiredDLLs.txt
         rm allDLLs.txt nonWindows.txt requiredDLLs.txt
     fi
+    echo Done!
+    
+    # Clean up
+    echo ""; echo [11/11] Cleaning up...
+    rm -rf source/
+    echo Done!
 fi
-
-# Clean up
-echo Cleaning up...
-rm -rf source/
 
 echo ""; echo "Compilation complete! Enjoy Level-Headed!"
 exit 0
