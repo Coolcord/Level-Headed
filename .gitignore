@@ -2,6 +2,7 @@ build-*/
 build/
 Level-Headed/Build_Scripts/Unix/Level-Headed/
 Level-Headed/Build_Scripts/Unix/Level-Headed*
+Level-Headed/Build_Scripts/Unix/Deployed_Files/
 *.pro.user
 *.pro.user.*
 *.txt.user

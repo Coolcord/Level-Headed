@@ -52,14 +52,20 @@ sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$localS
 # Compile Level-Headed
 sh ./Compile_Level-Headed.sh local || exit 1
 
-# Compile the Level-Headed installer for users who want an installer
-# TODO: Write this...
+# Create the Deployed Files folder
+echo ""; echo "Deploying Files..."
+rm -rf ./Deployed_Files
+mkdir ./Deployed_Files
+mv ./Level-Headed ./Deployed_Files/
+cd ./Deployed_Files
 
 # Zip up Level-Headed archive for users who don't want an installer
-rm -rf "./Level-Headed $version"
-rm -f "./Level-Headed $version.7z"
 mv ./Level-Headed/ "./Level-Headed $version"
 7z a "./Level-Headed $version.7z" "./Level-Headed $version"
+mv "./Level-Headed $version" ./Level-Headed/
+
+# Compile the Level-Headed installer for users who want an installer
+# TODO: Write this...
 
 echo ""; echo "Deploy Complete! Enjoy Level-Headed!"
 exit 0

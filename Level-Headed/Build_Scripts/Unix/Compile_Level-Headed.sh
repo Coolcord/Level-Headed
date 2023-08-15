@@ -21,6 +21,7 @@ if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: Af
     fi
 fi
 
+# mingw-w64-x86_64-nsis
 # Check if dependencies are installed
 if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
     echo ""; echo [1/11] Preparing source code...
