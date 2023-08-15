@@ -34,6 +34,9 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
         echo "qwindows.dll could not be found! Aborting!"; exit 1;
     fi
+	if [ ! -f /mingw64/share/qt6/plugins/tls/qschannelbackend.dll ]; then
+        echo "qschannelbackend.dll could not be found! Aborting!"; exit 1;
+    fi
 fi
 
 CPUcores=$(nproc)
@@ -300,9 +303,11 @@ else
         
         # Install Qt Plugins
         mkdir -p Qt/platforms
+		mkdir -p Qt/tls
         echo [Paths] > qt.conf
         echo Plugins=./Qt >> qt.conf
         cp /mingw64/share/qt6/plugins/platforms/qwindows.dll Qt/platforms
+		cp /mingw64/share/qt6/plugins/tls/qschannelbackend.dll Qt/tls
         
         # Install root Qt DLLs
         ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt
@@ -326,43 +331,3 @@ rm -rf source/
 
 echo ""; echo "Compilation complete! Enjoy Level-Headed!"
 exit 0
-
-
-# Copy the Level-Headed folder, but ignore Level-Headed subdirectory for now
-    mkdir -p Level-Headed/Level-Headed/Build_Scripts/Unix
-    cp -f "$localSourceCodeLocation"/Level-Headed/* ./Level-Headed >/dev/null 2>&1
-    find "$localSourceCodeLocation"/Level-Headed -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
-    sed -i '/Level-Headed/d' folders.txt
-    while IFS= read -r folder; do
-        cp -rf "$localSourceCodeLocation"/Level-Headed/"$folder" ./Level-Headed
-    done < folders.txt
-    rm folders.txt
-    
-    # Copy Level-Headed/Level-Headed, but ignore Build Scripts subdirectory for now
-    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/* ./Level-Headed/Level-Headed >/dev/null 2>&1
-    find "$localSourceCodeLocation"/Level-Headed/Level-Headed -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
-    sed -i '/Build_Scripts/d' folders.txt
-    while IFS= read -r folder; do
-        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/"$folder" ./Level-Headed/Level-Headed
-    done < folders.txt
-    rm folders.txt
-    
-    # Copy Level-Headed/Level-Headed/Build_Scripts, but ignore Unix subdirectory for now
-    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/* ./Level-Headed/Level-Headed/Build_Scripts >/dev/null 2>&1
-    find "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
-    sed -i '/Unix/d' folders.txt
-    while IFS= read -r folder; do
-        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/"$folder" ./Level-Headed/Level-Headed/Build_Scripts
-    done < folders.txt
-    rm folders.txt
-    
-    # Copy Level-Headed/Level-Headed/Build_Scripts/Unix, but Level-Headed subdirectory if it exists
-    cp -f "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix/* ./Level-Headed/Level-Headed/Build_Scripts/Unix >/dev/null 2>&1
-    find "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix -mindepth 1 -maxdepth 1 -type d -exec basename {} \; > folders.txt
-    sed -i '/Level-Headed/d' folders.txt
-    while IFS= read -r folder; do
-        cp -rf "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Unix/"$folder" ./Level-Headed/Level-Headed/Build_Scripts/Unix
-    done < folders.txt
-    rm folders.txt
-    
-    exit 0

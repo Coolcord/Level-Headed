@@ -47,9 +47,7 @@ installerVersion="$significant.$major.$minor.$patch"
 sed -i "s/    const static QString VERSION_NUMBER = .*/    const static QString VERSION_NUMBER = \"$versionNumber\"\;/g" "$localSourceCodeLocation"/Level-Headed/Common_Files/Version.h
 
 # Update the Installer version
-if [[ $version != *-dev ]]; then
-	sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Windows/Installer/Level-Headed.nsi
-fi
+sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Windows/Installer/Level-Headed.nsi
 
 # Update the Readme version
 
