@@ -10,6 +10,9 @@ if [ -z $1 ]; then
     exit 1
 fi
 
+# Remove old deployed files
+rm -rf ./Deployed_Files >/dev/null 2>&1
+
 # Get dependencies for Deploy Script
 if [ ${MSYSTEM} == "MINGW64" ]; then
     dependencies="p7zip mingw-w64-x86_64-nsis"
@@ -63,7 +66,6 @@ sh ./Compile_Level-Headed.sh local || exit 1
 
 # Create the Deployed Files folder
 echo ""; echo "Deploying Files..."
-rm -rf ./Deployed_Files
 mkdir ./Deployed_Files
 mv ./Level-Headed ./Deployed_Files/
 cd ./Deployed_Files
@@ -175,6 +177,9 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     convert_to_windows_path() {
         echo "$1" | sed 's|/a/|A:/|g; s|/b/|B:/|g; s|/c/|C:/|g; s|/d/|D:/|g; s|/e/|E:/|g; s|/f/|F:/|g; s|/g/|G:/|g; s|/h/|H:/|g; s|/i/|I:/|g; s|/j/|J:/|g; s|/k/|K:/|g; s|/l/|L:/|g; s|/m/|M:/|g; s|/n/|N:/|g; s|/o/|O:/|g; s|/p/|P:/|g; s|/q/|Q:/|g; s|/r/|R:/|g; s|/s/|S:/|g; s|/t/|T:/|g; s|/u/|U:/|g; s|/v/|V:/|g; s|/w/|W:/|g; s|/x/|X:/|g; s|/y/|Y:/|g; s|/z/|Z:/|g; s|/|\\\\|g'
     }
+
+    # Update the Installer version
+    sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$installerFile"
 
     # Update the license location
     cp -f "$localSourceCodeLocation/Level-Headed/LICENSE" "./LICENSE.txt"
