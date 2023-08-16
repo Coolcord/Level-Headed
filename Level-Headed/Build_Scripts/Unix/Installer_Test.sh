@@ -40,8 +40,9 @@ while IFS= read -r directory; do
 done < directories.txt
 
 # Prepare File Section
+deployLocation="$(pwd)"
 find ./Level-Headed -type f -print > files.txt
-sed -i "s|\.\/|$localSourceCodeLocation\/|g" files.txt
+sed -i "s|\.\/|$deployLocation\/|g" files.txt
 while IFS= read -r file; do
     echo File \""$file"\" >> fileSection.txt
 done < files.txt
@@ -103,23 +104,19 @@ update_section "$startDeleteSectionMarker" "$endDeleteSectionMarker" "deleteSect
 update_section "$startUninstallSectionMarker" "$endUninstallSectionMarker" "uninstallSection.txt"
 rm rmdirSection.txt setOutPathSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt directories.txt files.txt
 
+convert_to_windows_path() {
+    echo "$1" | sed 's|/a/|A:/|g; s|/b/|B:/|g; s|/c/|C:/|g; s|/d/|D:/|g; s|/e/|E:/|g; s|/f/|F:/|g; s|/g/|G:/|g; s|/h/|H:/|g; s|/i/|I:/|g; s|/j/|J:/|g; s|/k/|K:/|g; s|/l/|L:/|g; s|/m/|M:/|g; s|/n/|N:/|g; s|/o/|O:/|g; s|/p/|P:/|g; s|/q/|Q:/|g; s|/r/|R:/|g; s|/s/|S:/|g; s|/t/|T:/|g; s|/u/|U:/|g; s|/v/|V:/|g; s|/w/|W:/|g; s|/x/|X:/|g; s|/y/|Y:/|g; s|/z/|Z:/|g; s|/|\\\\|g'
+}
+
+# Update the license location
+cp -f "$localSourceCodeLocation/Level-Headed/LICENSE" "./LICENSE.txt"
+licenseLocation=$(convert_to_windows_path "$(pwd)/LICENSE.txt")
+sed -i "s|^!define LICENSE_TXT \".*\"|!define LICENSE_TXT \"$licenseLocation\"|" "$installerFile"
+
 # Update the installer output location
-#cp -f "$localSourceCodeLocation/LICENSE" "./LICENSE.txt"
-#licenseLocation="$(pwd)/LICENSE.txt"
-#installerOutputLocation="$(pwd)/Level-Headed.$version.Setup.exe"
-#echo "$(pwd)/Level-Headed.$version.Setup.exe" > path.txt
-#convert_unix_paths_to_windows "path.txt"
-#licenseLocation=$(cat path.txt)
-
-
-#installerOutputLocation=$(cat path.txt)
-
-
-#sed -i '|^!define LICENSE_TXT/ s/.*|helloworld|' "$installerFile"
-#sed -i '|^!define INSTALLER_NAME/ s/.*|helloworld|' "$installerFile"
-# TODO: Handle installer name
-# TODO: Handle License
+installerOutputLocation=$(convert_to_windows_path "$(pwd)/Level-Headed.$version.Setup.exe")
+sed -i "s|^!define INSTALLER_NAME \".*\"|!define INSTALLER_NAME \"$installerOutputLocation\"|" "$installerFile"
 
 # Compile the Level-Headed installer for users who want an installer
-# TODO: Write this...
+makensis "$installerFile"
 echo "Done!"
