@@ -103,7 +103,20 @@ update_section "$startDeleteSectionMarker" "$endDeleteSectionMarker" "deleteSect
 update_section "$startUninstallSectionMarker" "$endUninstallSectionMarker" "uninstallSection.txt"
 rm rmdirSection.txt setOutPathSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt directories.txt files.txt
 
-# TODO: Handle uninstaller sections (Delete files and RMDIR)
+# Update the installer output location
+#cp -f "$localSourceCodeLocation/LICENSE" "./LICENSE.txt"
+#licenseLocation="$(pwd)/LICENSE.txt"
+#installerOutputLocation="$(pwd)/Level-Headed.$version.Setup.exe"
+#echo "$(pwd)/Level-Headed.$version.Setup.exe" > path.txt
+#convert_unix_paths_to_windows "path.txt"
+#licenseLocation=$(cat path.txt)
+
+
+#installerOutputLocation=$(cat path.txt)
+
+
+#sed -i '|^!define LICENSE_TXT/ s/.*|helloworld|' "$installerFile"
+#sed -i '|^!define INSTALLER_NAME/ s/.*|helloworld|' "$installerFile"
 # TODO: Handle installer name
 # TODO: Handle License
 
