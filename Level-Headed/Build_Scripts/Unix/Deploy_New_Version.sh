@@ -82,8 +82,6 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     echo ""; echo "Compiling Level-Headed Installer..."
     startRmdirSectionMarker="# --------------- BEGIN AUTO-GENERATED RMDIR SECTION --------------- #"
     endRmdirSectionMarker="# ---------------- END AUTO-GENERATED RMDIR SECTION ---------------- #"
-    startSetOutPathSectionMarker="# ------------- BEGIN AUTO-GENERATED SETOUTPATH SECTION ------------ #"
-    endSetOutPathSectionMarker="# -------------- END AUTO-GENERATED SETOUTPATH SECTION ------------- #"
     startFileSectionMarker="# --------------- BEGIN AUTO-GENERATED FILE SECTION ---------------- #"
     endFileSectionMarker="# ---------------- END AUTO-GENERATED FILE SECTION ----------------- #"
 
@@ -93,7 +91,7 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     endUninstallSectionMarker="# -------------- END AUTO-GENERATED UNINSTALL SECTION -------------- #"
 
     installerFile="$localSourceCodeLocation"/Level-Headed/Level-Headed/Build_Scripts/Windows/Installer/Level-Headed.nsi
-    rm rmdirSection.txt setOutPathSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt > /dev/null 2>&1
+    rm rmdirSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt > /dev/null 2>&1
 
     # Prepare RMDIR Section
     find ./Level-Headed -maxdepth 1 -type d -print > directories.txt
@@ -106,21 +104,17 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     sed -i '/\"$INSTDIR\"/d' directories.txt # don't delete the base directory
     sed -i '/^RmDir \/r "$INSTDIR"$/d' rmdirSection.txt
 
-    # Prepare SetOutputPath Section
-    find ./Level-Headed -type d -print > directories.txt
-    sed -i 's|/|\\|g' directories.txt
-    sed -i 's|\.\\Level-Headed|\$INSTDIR|g' directories.txt
-    while IFS= read -r directory; do
-        echo SetOutPath \""$directory"\" >> setOutPathSection.txt
-    done < directories.txt
-
     # Prepare File Section
-    deployLocation="$(pwd)"
-    find ./Level-Headed -type f -print > files.txt
-    sed -i "s|\.\/|$deployLocation\/|g" files.txt
-    while IFS= read -r file; do
-        echo File \""$file"\" >> fileSection.txt
-    done < files.txt
+    deployLocation="$(pwd)/Level-Headed"
+    find ./Level-Headed -type d -print > directories.txt
+    while IFS= read -r directory; do
+        echo SetOutPath \""$directory"\" >> fileSection.txt
+        while IFS= read -r -d $'\0' file; do
+            echo File \""$file"\" >> fileSection.txt
+        done < <(find "$directory" -maxdepth 1 -type f -print0)
+    done < directories.txt
+    sed -i 's|SetOutPath \"\./Level-Headed|\SetOutPath \"$INSTDIR|g' fileSection.txt
+    sed -i 's|File \"./Level-Headed/|File \"'"$deployLocation"'/|g' fileSection.txt
 
     # Prepare Delete Section
     find ./Level-Headed -type f -print > files.txt
@@ -173,11 +167,10 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     }
 
     update_section "$startRmdirSectionMarker" "$endRmdirSectionMarker" "rmdirSection.txt"
-    update_section "$startSetOutPathSectionMarker" "$endSetOutPathSectionMarker" "setOutPathSection.txt"
     update_section "$startFileSectionMarker" "$endFileSectionMarker" "fileSection.txt"
     update_section "$startDeleteSectionMarker" "$endDeleteSectionMarker" "deleteSection.txt"
     update_section "$startUninstallSectionMarker" "$endUninstallSectionMarker" "uninstallSection.txt"
-    rm rmdirSection.txt setOutPathSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt directories.txt files.txt
+    rm rmdirSection.txt fileSection.txt deleteSectionUnsorted.txt deleteSection.txt uninstallSectionUnsorted.txt uninstallSection.txt directories.txt files.txt
 
     convert_to_windows_path() {
         echo "$1" | sed 's|/a/|A:/|g; s|/b/|B:/|g; s|/c/|C:/|g; s|/d/|D:/|g; s|/e/|E:/|g; s|/f/|F:/|g; s|/g/|G:/|g; s|/h/|H:/|g; s|/i/|I:/|g; s|/j/|J:/|g; s|/k/|K:/|g; s|/l/|L:/|g; s|/m/|M:/|g; s|/n/|N:/|g; s|/o/|O:/|g; s|/p/|P:/|g; s|/q/|Q:/|g; s|/r/|R:/|g; s|/s/|S:/|g; s|/t/|T:/|g; s|/u/|U:/|g; s|/v/|V:/|g; s|/w/|W:/|g; s|/x/|X:/|g; s|/y/|Y:/|g; s|/z/|Z:/|g; s|/|\\\\|g'
@@ -191,9 +184,6 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     # Update the installer output location
     installerOutputLocation=$(convert_to_windows_path "$(pwd)/Level-Headed.$version.Setup.exe")
     sed -i "s|^!define INSTALLER_NAME \".*\"|!define INSTALLER_NAME \"$installerOutputLocation\"|" "$installerFile"
-
-    # Update the Installer version
-    sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$installerFile"
 
     # Compile the Level-Headed installer for users who want an installer
     makensis "$installerFile"
