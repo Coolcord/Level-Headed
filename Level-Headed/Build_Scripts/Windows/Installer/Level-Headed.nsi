@@ -213,6 +213,7 @@ Section Uninstall
 ${INSTALL_TYPE}
 ExecWait "TASKKILL /F /IM Level-Headed.exe"
 Delete "$INSTDIR\${MAIN_APP_EXE}"
+
 Delete "$INSTDIR\libcrypto-1_1.dll"
 Delete "$INSTDIR\libgcc_s_dw2-1.dll"
 Delete "$INSTDIR\libssl-1_1.dll"
@@ -239,6 +240,8 @@ Delete "$INSTDIR\Plugins\Writers\SMB1_Writer.dll"
 Delete "$INSTDIR\Qt\platforms\qwindows.dll"
 Delete "$INSTDIR\Config\Level-Headed.cfg"
 Delete "$INSTDIR\Config\SMB1_Compliance_To_SMB1.cfg"
+# -------------- BEGIN AUTO-GENERATED DELETE SECTION --------------- #
+# --------------- END AUTO-GENERATED DELETE SECTION ---------------- #
 
 RmDir /r "$INSTDIR\Config"
 RmDir /r "$INSTDIR\Data\SMB1"
@@ -251,6 +254,8 @@ RmDir /r "$INSTDIR\Plugins\Writers"
 RmDir /r "$INSTDIR\Plugins"
 RmDir /r "$INSTDIR\Qt\platforms"
 RmDir /r "$INSTDIR\Qt"
+# ------------- BEGIN AUTO-GENERATED UNINSTALL SECTION ------------- #
+# -------------- END AUTO-GENERATED UNINSTALL SECTION -------------- #
  
 Delete "$INSTDIR\uninstall.exe"
 !ifdef WEB_SITE
