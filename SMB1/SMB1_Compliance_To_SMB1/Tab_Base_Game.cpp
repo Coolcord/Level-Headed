@@ -20,7 +20,34 @@ void Tab_Base_Game::Load_Settings() {
 }
 
 void Tab_Base_Game::Load_Settings(Plugin_Settings *ps) {
-    if (!ps->baseROM.isEmpty()) this->ui->comboBaseROM->setCurrentText(ps->baseROM);
+    //Fix Mario and Luigi names
+    if (ps->marioName.isEmpty()) ps->marioName = "MARIO";
+    if (ps->marioName.length() > 5) ps->marioName = "MARIO";
+    ps->marioName = ps->marioName.toUpper();
+    for (int i = 0; i < ps->luigiName.length(); ++i) {
+        if (!ps->luigiName.at(i).isLetter()) {
+            ps->luigiName = "MARIO";
+            break;
+        }
+    }
+    if (ps->luigiName.isEmpty()) ps->luigiName = "LUIGI";
+    if (ps->luigiName.length() > 5) ps->luigiName = "LUIGI";
+    ps->luigiName = ps->luigiName.toUpper();
+    for (int i = 0; i < ps->luigiName.length(); ++i) {
+        if (!ps->luigiName.at(i).isLetter()) {
+            ps->luigiName = "LUIGI";
+            break;
+        }
+    }
+
+    //Load Settings
+    if (!ps->baseROM.isEmpty()) {
+        this->ui->comboBaseROM->setCurrentText(ps->baseROM);
+        if (this->ui->comboBaseROM->currentText().isEmpty()) {
+            this->ui->comboBaseROM->setCurrentIndex(0);
+            ps->baseROM = this->ui->comboBaseROM->currentText();
+        }
+    }
     this->ui->leOutputROMLocation->setText(ps->outputROMLocation);
     if (ps->overwriteOuputROM) this->ui->radioOverwriteOutputROM->setChecked(true);
     else this->ui->radioAppendNumberToFilename->setChecked(true);
@@ -29,17 +56,17 @@ void Tab_Base_Game::Load_Settings(Plugin_Settings *ps) {
     if (ps->music < this->ui->comboMusic->count()) this->ui->comboMusic->setCurrentIndex(ps->music);
     else this->ui->comboMusic->setCurrentIndex(2); //use original music
     this->ui->cbCombineWithOtherMusicPacks->setChecked(ps->combineMusicWithOtherPacks);
-    this->ui->comboTone->setCurrentIndex(ps->toneColor);
+    this->Load_Combo_Box_Value(this->ui->comboTone, ps->toneColor);
     this->ui->cbRandomSoundEffects->setChecked(ps->randomSounds);
     this->ui->cbRandomText->setChecked(ps->randomText);
     this->ui->cbRandomizeSomeAnimations->setChecked(ps->randomizeSomeAnimations);
     if (ps->graphics < this->ui->comboGraphics->count()) this->ui->comboGraphics->setCurrentIndex(ps->graphics);
     else this->ui->comboGraphics->setCurrentIndex(1); //use original graphics
-    this->ui->comboGraphics->setCurrentIndex(ps->graphics);
+    this->Load_Combo_Box_Value(this->ui->comboGraphics, ps->graphics);
     this->ui->cbCombineWithOtherGraphicsPacks->setChecked(ps->combineGraphicsWithOtherPacks);
-    this->ui->comboPalette->setCurrentIndex(ps->palette);
-    this->ui->comboMarioSprite->setCurrentIndex(ps->marioSprite);
-    this->ui->comboMarioSpritePalette->setCurrentIndex(ps->marioSpritePalette);
+    this->Load_Combo_Box_Value(this->ui->comboPalette, ps->palette);
+    this->Load_Combo_Box_Value(this->ui->comboMarioSprite, ps->marioSprite);
+    this->Load_Combo_Box_Value(this->ui->comboMarioSpritePalette, ps->marioSpritePalette);
     this->ui->leMarioName->setText(ps->marioName);
     this->ui->leLuigiName->setText(ps->luigiName);
 }
@@ -323,4 +350,9 @@ void Tab_Base_Game::Populate_Music_Packs() {
         packs.append(QFileInfo(packsWithExtension.at(i)).completeBaseName());
     }
     this->ui->comboMusic->addItems(packs);
+}
+
+void Tab_Base_Game::Load_Combo_Box_Value(QComboBox *comboBox, int &value) {
+    if (value < 0 || value >= comboBox->count()) value = 0;
+    comboBox->setCurrentIndex(value);
 }

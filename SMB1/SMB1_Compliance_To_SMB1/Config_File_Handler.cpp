@@ -389,10 +389,6 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     configFile.Get_Value("Mario_Name", ps->marioName);
     configFile.Get_Value("Luigi_Name", ps->luigiName);
     configFile.Discard_And_Close();
-
-    //Verify Settings
-    //TODO: Verify all other settings
-    if (ps->difficultySecondaryMushroom > 2) ps->difficultySecondaryMushroom = 0;
     return true;
 }
 

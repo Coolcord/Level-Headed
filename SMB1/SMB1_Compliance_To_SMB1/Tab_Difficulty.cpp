@@ -3,12 +3,43 @@
 #include "Difficulty_Level_Configurations.h"
 #include "ui_Configure_Settings_Form.h"
 #include "../SMB1_Writer/ROM_Filename.h"
+#include "../SMB1_Compliance_Generator/Difficulty.h"
 
 void Tab_Difficulty::Load_Settings() {
     this->Load_Settings(this->pluginSettings);
 }
 
 void Tab_Difficulty::Load_Settings(Plugin_Settings *ps) {
+    //Fix Settings First
+    this->Make_Difficulty_Value_Sane(ps->difficultyAutoScroll);
+    this->Make_Difficulty_Value_Sane(ps->difficultyAutoScrollWithFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyBulletTime);
+    this->Make_Difficulty_Value_Sane(ps->difficultyHammerTime);
+    this->Make_Difficulty_Value_Sane(ps->difficultyWalkingHammerBros);
+    this->Make_Difficulty_Value_Sane(ps->difficultyBuzzyBeetlesReplaceLoneGoombas);
+    this->Make_Difficulty_Value_Sane(ps->difficultyBridgeFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyBridgeLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyBridgeOffscreenBulletBills);
+    this->Make_Difficulty_Value_Sane(ps->difficultyCastleFireBars);
+    this->Make_Difficulty_Value_Sane(ps->difficultyCastleFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyCastleLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyCastleOffscreenBulletBills);
+    this->Make_Difficulty_Value_Sane(ps->difficultyIslandFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyIslandLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyIslandOffscreenBulletBills);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUndergroundFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUndergroundLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUndergroundOffscreenBulletBills);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUnderwaterBloopers);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUnderwaterFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUnderwaterHammerBros);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUnderwaterLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyUnderwaterSwimmingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyStandardOverworldFlyingCheepCheeps);
+    this->Make_Difficulty_Value_Sane(ps->difficultyStandardOverworldLakitus);
+    this->Make_Difficulty_Value_Sane(ps->difficultyStandardOverworldOffscreenBulletBills);
+
+    //Load Settings
     if (ps->infiniteLives) {
         this->ui->radioInfiniteLives->setChecked(true);
         this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(false);
@@ -19,22 +50,22 @@ void Tab_Difficulty::Load_Settings(Plugin_Settings *ps) {
         this->ui->radioStartingLives->setChecked(true);
         this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->setChecked(ps->alwaysRestartFromCurrentWorldAfterGameOver);
     }
-    this->ui->sbLives->setValue(ps->numLives);
+    this->Load_Spin_Box_Value(this->ui->sbLives, ps->numLives);
     if (this->ui->cbGodMode->isEnabled()) this->ui->cbGodMode->setChecked(ps->godMode);
     if (this->ui->comboPowerup->isEnabled()) this->ui->comboPowerup->setCurrentIndex(ps->powerup);
     this->ui->cbRevertToSuperMario->setChecked(ps->superMarioOnDamage);
     this->ui->cbEuropeanBlooperSwimHeight->setChecked(ps->difficultyEuropeanBlooperSwimHeight);
     this->ui->cbLakituThrowArc->setChecked(ps->lakituThrowArc);
-    this->ui->comboBasicEnemySpeed->setCurrentIndex(ps->difficultyBasicEnemySpeed);
-    this->ui->comboBowserFlameFrequency->setCurrentIndex(ps->difficultyBowserFlameFrequency);
-    this->ui->comboBulletBillFiringRate->setCurrentIndex(ps->difficultyBulletBillFiringRate);
-    this->ui->comboBulletBillSpeed->setCurrentIndex(ps->difficultyBulletBillSpeed);
-    this->ui->comboLeapingParatroopaSpeed->setCurrentIndex(ps->difficultyLeapingParatroopaSpeed);
-    this->ui->comboEnemyRevivalSpeed->setCurrentIndex(ps->difficultyEnemyRevivalSpeed);
-    this->ui->comboFireBarLength->setCurrentIndex(ps->difficultyFireBarLength);
-    this->ui->comboLongFireBarLength->setCurrentIndex(ps->difficultyLongFireBarLength);
-    this->ui->comboFlyingCheepCheepJumpHeight->setCurrentIndex(ps->difficultyFlyingCheepCheepJumpHeight);
-    this->ui->comboHammerBrosThrowRate->setCurrentIndex(ps->difficultyHammerBrosThrowRate);
+    this->Load_Combo_Box_Value(this->ui->comboBasicEnemySpeed, ps->difficultyBasicEnemySpeed);
+    this->Load_Combo_Box_Value(this->ui->comboBowserFlameFrequency, ps->difficultyBowserFlameFrequency);
+    this->Load_Combo_Box_Value(this->ui->comboBulletBillFiringRate, ps->difficultyBulletBillFiringRate);
+    this->Load_Combo_Box_Value(this->ui->comboBulletBillSpeed, ps->difficultyBulletBillSpeed);
+    this->Load_Combo_Box_Value(this->ui->comboLeapingParatroopaSpeed, ps->difficultyLeapingParatroopaSpeed);
+    this->Load_Combo_Box_Value(this->ui->comboEnemyRevivalSpeed, ps->difficultyEnemyRevivalSpeed);
+    this->Load_Combo_Box_Value(this->ui->comboFireBarLength, ps->difficultyFireBarLength);
+    this->Load_Combo_Box_Value(this->ui->comboLongFireBarLength, ps->difficultyLongFireBarLength);
+    this->Load_Combo_Box_Value(this->ui->comboFlyingCheepCheepJumpHeight, ps->difficultyFlyingCheepCheepJumpHeight);
+    this->Load_Combo_Box_Value(this->ui->comboHammerBrosThrowRate, ps->difficultyHammerBrosThrowRate);
     this->ui->cbHammerBrosNeverJump->setChecked(ps->difficultyHammerBrosNeverJump);
     this->ui->cbFireBowserThrowsALudicrousAmountOfFireballs->setChecked(ps->difficultyFireBowserThrowsALudicrousAmountOfFireballs);
     this->ui->cbSpeedyObjectsAndEnemies->setChecked(ps->difficultySpeedyObjectsAndEnemies);
@@ -45,61 +76,61 @@ void Tab_Difficulty::Load_Settings(Plugin_Settings *ps) {
     this->ui->cbAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts->setChecked(ps->difficultyAllowHammerBrosGroupsWhenRandomizingEnemiesInLevelScripts);
     this->ui->cbAllowLakitusWhenRandomizingEnemiesInLevelScripts->setChecked(ps->difficultyAllowLakitusWhenRandomizingEnemiesInLevelScripts);
     this->ui->cbAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts->setChecked(ps->difficultyAllowBulletBillAndCheepCheepSpawnersWhenRandomizingEnemiesInLevelScripts);
-    this->ui->comboDifficulty->setCurrentIndex(ps->difficultyComboIndex);
-    this->ui->sbAutoScroll->setValue(ps->difficultyAutoScroll);
-    this->ui->sbAutoScrollWithFlyingCheepCheeps->setValue(ps->difficultyAutoScrollWithFlyingCheepCheeps);
-    this->ui->sbBulletTime->setValue(ps->difficultyBulletTime);
-    this->ui->sbHammerTime->setValue(ps->difficultyHammerTime);
-    this->ui->sbWalkingHammerBros->setValue(ps->difficultyWalkingHammerBros);
-    this->ui->sbBuzzyBeetleReplaceLoneGoombas->setValue(ps->difficultyBuzzyBeetlesReplaceLoneGoombas);
-    this->ui->sbBridgeFlyingCheepCheeps->setValue(ps->difficultyBridgeFlyingCheepCheeps);
-    this->ui->sbBridgeLakitus->setValue(ps->difficultyBridgeLakitus);
-    this->ui->sbBridgeOffscreenBulletBills->setValue(ps->difficultyBridgeOffscreenBulletBills);
-    this->ui->sbCastleFireBars->setValue(ps->difficultyCastleFireBars);
-    this->ui->sbCastleFlyingCheepCheeps->setValue(ps->difficultyCastleFlyingCheepCheeps);
-    this->ui->sbCastleLakitus->setValue(ps->difficultyCastleLakitus);
-    this->ui->sbCastleOffscreenBulletBills->setValue(ps->difficultyCastleOffscreenBulletBills);
-    this->ui->sbIslandFlyingCheepCheeps->setValue(ps->difficultyIslandFlyingCheepCheeps);
-    this->ui->sbIslandLakitus->setValue(ps->difficultyIslandLakitus);
-    this->ui->sbIslandOffscreenBulletBills->setValue(ps->difficultyIslandOffscreenBulletBills);
-    this->ui->sbUndergroundFlyingCheepCheeps->setValue(ps->difficultyUndergroundFlyingCheepCheeps);
-    this->ui->sbUndergroundLakitus->setValue(ps->difficultyUndergroundLakitus);
-    this->ui->sbUndergroundOffscreenBulletBills->setValue(ps->difficultyUndergroundOffscreenBulletBills);
-    this->ui->sbUnderwaterBloopers->setValue(ps->difficultyUnderwaterBloopers);
-    this->ui->sbUnderwaterFlyingCheepCheeps->setValue(ps->difficultyUnderwaterFlyingCheepCheeps);
-    this->ui->sbUnderwaterHammerBros->setValue(ps->difficultyUnderwaterHammerBros);
-    this->ui->sbUnderwaterLakitus->setValue(ps->difficultyUnderwaterLakitus);
-    this->ui->sbUnderwaterSwimmingCheepCheeps->setValue(ps->difficultyUnderwaterSwimmingCheepCheeps);
-    this->ui->sbStandardOverworldFlyingCheepCheeps->setValue(ps->difficultyStandardOverworldFlyingCheepCheeps);
-    this->ui->sbStandardOverworldLakitus->setValue(ps->difficultyStandardOverworldLakitus);
-    this->ui->sbStandardOverworldOffscreenBulletBills->setValue(ps->difficultyStandardOverworldOffscreenBulletBills);
-    this->ui->sbMinimumEnemyDistance->setValue(ps->difficultyMinimumEnemyDistance);
-    this->ui->sbMinimumUnderwaterEnemyDistance->setValue(ps->difficultyMinimumUnderwaterEnemyDistance);
+    this->Load_Combo_Box_Value(this->ui->comboDifficulty, ps->difficultyComboIndex);
+    this->Load_Spin_Box_Value(this->ui->sbAutoScroll, ps->difficultyAutoScroll);
+    this->Load_Spin_Box_Value(this->ui->sbAutoScrollWithFlyingCheepCheeps, ps->difficultyAutoScrollWithFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbBulletTime, ps->difficultyBulletTime);
+    this->Load_Spin_Box_Value(this->ui->sbHammerTime, ps->difficultyHammerTime);
+    this->Load_Spin_Box_Value(this->ui->sbWalkingHammerBros, ps->difficultyWalkingHammerBros);
+    this->Load_Spin_Box_Value(this->ui->sbBuzzyBeetleReplaceLoneGoombas, ps->difficultyBuzzyBeetlesReplaceLoneGoombas);
+    this->Load_Spin_Box_Value(this->ui->sbBridgeFlyingCheepCheeps, ps->difficultyBridgeFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbBridgeLakitus, ps->difficultyBridgeLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbBridgeOffscreenBulletBills, ps->difficultyBridgeOffscreenBulletBills);
+    this->Load_Spin_Box_Value(this->ui->sbCastleFireBars, ps->difficultyCastleFireBars);
+    this->Load_Spin_Box_Value(this->ui->sbCastleFlyingCheepCheeps, ps->difficultyCastleFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbCastleLakitus, ps->difficultyCastleLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbCastleOffscreenBulletBills, ps->difficultyCastleOffscreenBulletBills);
+    this->Load_Spin_Box_Value(this->ui->sbIslandFlyingCheepCheeps, ps->difficultyIslandFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbIslandLakitus, ps->difficultyIslandLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbIslandOffscreenBulletBills, ps->difficultyIslandOffscreenBulletBills);
+    this->Load_Spin_Box_Value(this->ui->sbUndergroundFlyingCheepCheeps, ps->difficultyUndergroundFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbUndergroundLakitus, ps->difficultyUndergroundLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbUndergroundOffscreenBulletBills, ps->difficultyUndergroundOffscreenBulletBills);
+    this->Load_Spin_Box_Value(this->ui->sbUnderwaterBloopers, ps->difficultyUnderwaterBloopers);
+    this->Load_Spin_Box_Value(this->ui->sbUnderwaterFlyingCheepCheeps, ps->difficultyUnderwaterFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbUnderwaterHammerBros, ps->difficultyUnderwaterHammerBros);
+    this->Load_Spin_Box_Value(this->ui->sbUnderwaterLakitus, ps->difficultyUnderwaterLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbUnderwaterSwimmingCheepCheeps, ps->difficultyUnderwaterSwimmingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbStandardOverworldFlyingCheepCheeps, ps->difficultyStandardOverworldFlyingCheepCheeps);
+    this->Load_Spin_Box_Value(this->ui->sbStandardOverworldLakitus, ps->difficultyStandardOverworldLakitus);
+    this->Load_Spin_Box_Value(this->ui->sbStandardOverworldOffscreenBulletBills, ps->difficultyStandardOverworldOffscreenBulletBills);
+    this->Load_Spin_Box_Value(this->ui->sbMinimumEnemyDistance, ps->difficultyMinimumEnemyDistance);
+    this->Load_Spin_Box_Value(this->ui->sbMinimumUnderwaterEnemyDistance, ps->difficultyMinimumUnderwaterEnemyDistance);
     this->ui->cbNoEnemies->setChecked(ps->difficultyNoEnemies);
     this->ui->cbUnlimitedTime->setChecked(ps->difficultyUnlimitedTime);
-    this->ui->sbHammerTimeIntensity->setValue(ps->difficultyHammerTimeIntensity);
-    this->ui->comboReplaceCastleLoops->setCurrentIndex(ps->difficultyReplaceCastleLoops);
-    this->ui->comboMaxLevelLength->setCurrentIndex(ps->difficultyMaxLevelLength);
-    this->ui->sbAutoScrollChancePerLevel->setValue(ps->difficultyAutoScrollChancePerLevel);
-    this->ui->sbLakituSpawnChancePerLevel->setValue(ps->difficultyLakituSpawnChancePerLevel);
-    this->ui->comboLakituRespawnSpeed->setCurrentIndex(ps->difficultyLakituRespawnSpeed);
+    this->Load_Spin_Box_Value(this->ui->sbHammerTimeIntensity, ps->difficultyHammerTimeIntensity);
+    this->Load_Combo_Box_Value(this->ui->comboReplaceCastleLoops, ps->difficultyReplaceCastleLoops);
+    this->Load_Combo_Box_Value(this->ui->comboMaxLevelLength, ps->difficultyMaxLevelLength);
+    this->Load_Spin_Box_Value(this->ui->sbAutoScrollChancePerLevel, ps->difficultyAutoScrollChancePerLevel);
+    this->Load_Spin_Box_Value(this->ui->sbLakituSpawnChancePerLevel, ps->difficultyLakituSpawnChancePerLevel);
+    this->Load_Combo_Box_Value(this->ui->comboLakituRespawnSpeed, ps->difficultyLakituRespawnSpeed);
     this->ui->cbDisableAllOtherEnemiesWhenALakituSpawns->setChecked(ps->difficultyDisableAllOtherEnemiesWhenALakituSpawns);
     this->ui->cbDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn->setChecked(ps->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn);
-    this->ui->comboSpinyEggBehavior->setCurrentIndex(ps->difficultySpinyEggBehavior);
-    this->ui->comboSpawnerPriority->setCurrentIndex(ps->difficultySpawnerPriority);
-    this->ui->comboSecondaryMushroom->setCurrentIndex(ps->difficultySecondaryMushroom);
-    this->ui->comboSurfingLiftSpeed->setCurrentIndex(ps->difficultySurfingLiftSpeed);
-    this->ui->comboPiranhaPlantType->setCurrentIndex(ps->difficultyPiranhaPlantType);
-    this->ui->comboMaxNumberOfPiranhaPlants->setCurrentIndex(ps->difficultyMaxNumberOfPiranhaPlants);
-    this->ui->sbMaxQuestionBlockPowerups->setValue(ps->difficultyMaxPowerups);
-    this->ui->sbMaxBrickBlockPowerups->setValue(ps->difficultyMaxHiddenPowerups);
-    this->ui->sbMaxOneUps->setValue(ps->difficultyMaxOneUps);
-    this->ui->sbMaxTenCoinBlocks->setValue(ps->difficultyMaxTenCoinBlocks);
-    this->ui->sbMaxStarmen->setValue(ps->difficultyMaxStars);
-    this->ui->sbBrickBlockPowerupSpawnChance->setValue(ps->difficultyHiddenPowerupChance);
-    this->ui->sbOneUpSpawnChance->setValue(ps->difficultyOneUpChance);
-    this->ui->sbTenCoinBlockSpawnChance->setValue(ps->difficultyTenCoinBlockChance);
-    this->ui->sbStarmanSpawnChance->setValue(ps->difficultyStarChance);
+    this->Load_Combo_Box_Value(this->ui->comboSpinyEggBehavior, ps->difficultySpinyEggBehavior);
+    this->Load_Combo_Box_Value(this->ui->comboSpawnerPriority, ps->difficultySpawnerPriority);
+    this->Load_Combo_Box_Value(this->ui->comboSecondaryMushroom, ps->difficultySecondaryMushroom);
+    this->Load_Combo_Box_Value(this->ui->comboSurfingLiftSpeed, ps->difficultySurfingLiftSpeed);
+    this->Load_Combo_Box_Value(this->ui->comboPiranhaPlantType, ps->difficultyPiranhaPlantType);
+    this->Load_Combo_Box_Value(this->ui->comboMaxNumberOfPiranhaPlants, ps->difficultyMaxNumberOfPiranhaPlants);
+    this->Load_Spin_Box_Value(this->ui->sbMaxQuestionBlockPowerups, ps->difficultyMaxPowerups);
+    this->Load_Spin_Box_Value(this->ui->sbMaxBrickBlockPowerups, ps->difficultyMaxHiddenPowerups);
+    this->Load_Spin_Box_Value(this->ui->sbMaxOneUps, ps->difficultyMaxOneUps);
+    this->Load_Spin_Box_Value(this->ui->sbMaxTenCoinBlocks, ps->difficultyMaxTenCoinBlocks);
+    this->Load_Spin_Box_Value(this->ui->sbMaxStarmen, ps->difficultyMaxStars);
+    this->Load_Spin_Box_Value(this->ui->sbBrickBlockPowerupSpawnChance, ps->difficultyHiddenPowerupChance);
+    this->Load_Spin_Box_Value(this->ui->sbOneUpSpawnChance, ps->difficultyOneUpChance);
+    this->Load_Spin_Box_Value(this->ui->sbTenCoinBlockSpawnChance, ps->difficultyTenCoinBlockChance);
+    this->Load_Spin_Box_Value(this->ui->sbStarmanSpawnChance, ps->difficultyStarChance);
 }
 
 void Tab_Difficulty::Save_Settings() {
@@ -198,4 +229,20 @@ void Tab_Difficulty::Save_Settings(Plugin_Settings *ps) {
     } else { //get difficulty settings from the present
         assert(Difficulty_Level_Configurations().Update_Plugin_Settings_For_Difficulty_Present(ps->difficultyComboIndex, this->pluginSettings, partialSupport));
     }
+}
+
+void Tab_Difficulty::Load_Combo_Box_Value(QComboBox *comboBox, int &value) {
+    if (value < 0 || value >= comboBox->count()) value = 0;
+    comboBox->setCurrentIndex(value);
+}
+
+void Tab_Difficulty::Load_Spin_Box_Value(QSpinBox *spinBox, int &value) {
+    if (value < spinBox->minimum()) value = spinBox->minimum();
+    if (value > spinBox->maximum()) value = spinBox->maximum();
+    spinBox->setValue(value);
+}
+
+void Tab_Difficulty::Make_Difficulty_Value_Sane(int &value) {
+    if (value < Difficulty::DIFFICULTY_MIN) value = Difficulty::DIFFICULTY_MIN;
+    if (value > Difficulty::DIFFICULTY_MAX+1) value = Difficulty::DIFFICULTY_MAX+1;
 }

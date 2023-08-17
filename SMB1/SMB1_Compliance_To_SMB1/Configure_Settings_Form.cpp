@@ -74,6 +74,10 @@ void Configure_Settings_Form::accept() {
     this->Save_Settings();
 }
 
+Ui::Configure_Settings_Form *Configure_Settings_Form::Get_UI() {
+    return this->ui;
+}
+
 void Configure_Settings_Form::Load_Settings() {
     this->tabBaseGame->Load_Settings();
     this->tabLevelGenerator->Load_Settings();

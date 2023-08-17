@@ -3,6 +3,7 @@
 
 #include "Tab_Interface.h"
 #include <QComboBox>
+#include <QSpinBox>
 
 class Tab_Base_Game;
 
@@ -27,6 +28,9 @@ public:
     void Use_Default_Settings();
 
 private:
+    void Load_Spin_Box_Value(QSpinBox *spinBox, int &value);
+    void Load_Level_Commonality_Combo_Box(QComboBox *comboBox, QString &value);
+
     QString levelLocation;
     Tab_Base_Game *tabBaseGame;
 };

@@ -2,11 +2,11 @@
 
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
-!define VERSION "0.4.0.0"
+!define VERSION "0.3.10.0"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
-!define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.4.0-dev.Setup.exe"
+!define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.3.10-dev.Setup.exe"
 !define MAIN_APP_EXE "Level-Headed.exe"
 !define INSTALL_TYPE "SetShellVarContext current"
 !define REG_ROOT "HKCU"

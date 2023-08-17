@@ -50,14 +50,14 @@ void Tab_Level_Generator::Load_Settings(Plugin_Settings *ps) {
     this->ui->cbIncludeIslandLevels->setChecked(ps->includeIslandLevelsInRandomDistribution);
     this->ui->leRandomSeed->setText(ps->randomSeed);
     this->ui->cbRandomNumWorlds->setChecked(ps->randomNumWorlds);
-    this->ui->sbNumWorlds->setValue(ps->numWorlds);
-    this->ui->sbNumLevelsPerWorld->setValue(ps->numLevelsPerWorld);
+    this->Load_Spin_Box_Value(this->ui->sbNumWorlds, ps->numWorlds);
+    this->Load_Spin_Box_Value(this->ui->sbNumLevelsPerWorld, ps->numLevelsPerWorld);
     this->Enable_Random_Number_Of_Worlds(ps->randomNumWorlds);
-    this->ui->comboStandardOverworld->setCurrentText(ps->standardOverworldChance);
-    this->ui->comboUnderground->setCurrentText(ps->undergroundChance);
-    this->ui->comboUnderwater->setCurrentText(ps->underwaterChance);
-    this->ui->comboBridge->setCurrentText(ps->bridgeChance);
-    this->ui->comboIsland->setCurrentText(ps->islandChance);
+    this->Load_Level_Commonality_Combo_Box(this->ui->comboStandardOverworld, ps->standardOverworldChance);
+    this->Load_Level_Commonality_Combo_Box(this->ui->comboUnderground, ps->undergroundChance);
+    this->Load_Level_Commonality_Combo_Box(this->ui->comboUnderwater, ps->underwaterChance);
+    this->Load_Level_Commonality_Combo_Box(this->ui->comboBridge, ps->bridgeChance);
+    this->Load_Level_Commonality_Combo_Box(this->ui->comboIsland, ps->islandChance);
     this->Enable_New_Level_Options(ps->generateNewLevels);
 }
 
@@ -247,4 +247,18 @@ void Tab_Level_Generator::Use_Default_Settings() {
     this->ui->comboUnderwater->setCurrentText(STRING_UNCOMMON);
     this->ui->comboBridge->setCurrentText(STRING_COMMON);
     this->ui->comboIsland->setCurrentText(STRING_COMMON);
+}
+
+void Tab_Level_Generator::Load_Spin_Box_Value(QSpinBox *spinBox, int &value) {
+    if (value < spinBox->minimum()) value = spinBox->minimum();
+    if (value > spinBox->maximum()) value = spinBox->maximum();
+    spinBox->setValue(value);
+}
+
+void Tab_Level_Generator::Load_Level_Commonality_Combo_Box(QComboBox *comboBox, QString &value) {
+    comboBox->setCurrentText(value);
+    if (comboBox->currentText().isEmpty()) {
+        comboBox->setCurrentIndex(0);
+        value = comboBox->currentText();
+    }
 }

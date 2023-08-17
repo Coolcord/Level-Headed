@@ -60,6 +60,7 @@ set(HEADERS
     ../SMB1_Compliance_Generator/Enemy_Buffer.h
     ../SMB1_Compliance_Generator/Item_Buffer.h
     ../SMB1_Compliance_Generator/Object_Buffer.h
+    ../SMB1_Compliance_Generator/Difficulty.h
     Config_File_Handler.h
     Level_Generator.h
     Plugin_Settings.h

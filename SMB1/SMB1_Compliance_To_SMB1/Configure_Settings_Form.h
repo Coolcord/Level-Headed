@@ -22,6 +22,7 @@ public:
     Configure_Settings_Form(QWidget *parent, const QString &applicationLocation, SMB1_Writer_Interface *writerPlugin, Plugin_Settings *pluginSettings);
     ~Configure_Settings_Form();
     void accept();
+    Ui::Configure_Settings_Form *Get_UI();
 
 private slots:
     //About Tab

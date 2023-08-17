@@ -1,6 +1,7 @@
 #ifndef TAB_BASE_GAME_H
 #define TAB_BASE_GAME_H
 
+#include <QComboBox>
 #include <QSet>
 #include "Tab_Interface.h"
 
@@ -24,6 +25,7 @@ private:
     void Populate_Graphics_Packs();
     void Populate_Mario_Sprites();
     void Populate_Music_Packs();
+    void Load_Combo_Box_Value(QComboBox *comboBox, int &value);
 
     bool partialSupportMode;
 };
