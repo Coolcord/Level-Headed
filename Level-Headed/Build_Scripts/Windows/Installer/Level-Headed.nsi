@@ -9,6 +9,7 @@
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
 !define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.3.10-dev.Setup.exe"
 !define MAIN_APP_EXE "Level-Headed.exe"
+!define INSTALL_PATH "$PROGRAMFILES64\Coolcord\${APP_NAME}"
 !define INSTALL_TYPE "SetShellVarContext current"
 !define REG_ROOT "HKCU"
 !define REG_APP_PATH "Software\Microsoft\Windows\CurrentVersion\App Paths\${MAIN_APP_EXE}"
@@ -33,7 +34,7 @@ OutFile "${INSTALLER_NAME}"
 BrandingText "${APP_NAME}"
 XPStyle on
 InstallDirRegKey "${REG_ROOT}" "${REG_APP_PATH}" ""
-InstallDir "$PROGRAMFILES64\Coolcord\${APP_NAME}"
+InstallDir "${INSTALL_PATH}"
 
 ######################################################################
 
@@ -81,11 +82,12 @@ Function CheckAndUninstallOldVersion
         Goto done
     ${EndIf}
     
-    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" old_version_less
+    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" uninstall_needed
     Goto done
 
-    old_version_less:
+    uninstall_needed:
         ExecWait '"$1" /S'
+        StrCpy $INSTDIR "${INSTALL_PATH}"
     
     done:
 FunctionEnd
