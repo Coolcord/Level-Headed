@@ -32,7 +32,8 @@ OutFile "${INSTALLER_NAME}"
 BrandingText "${APP_NAME}"
 XPStyle on
 InstallDirRegKey "${REG_ROOT}" "${REG_APP_PATH}" ""
-InstallDir "$PROGRAMFILES\Coolcord\Level-Headed"
+InstallDir "$APPDATA\Coolcord\Level-Headed"
+#InstallDir "$PROGRAMFILES\Coolcord\Level-Headed"
 
 ######################################################################
 
