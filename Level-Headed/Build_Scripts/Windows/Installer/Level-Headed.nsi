@@ -3,6 +3,7 @@
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
 !define VERSION "0.3.10.0"
+!define UNINSTALL_ON_VERSION_OR_OLDER "0.3.9.0"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
@@ -32,8 +33,7 @@ OutFile "${INSTALLER_NAME}"
 BrandingText "${APP_NAME}"
 XPStyle on
 InstallDirRegKey "${REG_ROOT}" "${REG_APP_PATH}" ""
-InstallDir "$APPDATA\Coolcord\Level-Headed"
-#InstallDir "$PROGRAMFILES\Coolcord\Level-Headed"
+InstallDir "$PROGRAMFILES64\Coolcord\${APP_NAME}"
 
 ######################################################################
 
@@ -52,7 +52,7 @@ InstallDir "$APPDATA\Coolcord\Level-Headed"
 
 !ifdef REG_START_MENU
 !define MUI_STARTMENUPAGE_NODISABLE
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Coolcord\Level-Headed"
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Coolcord\${APP_NAME}"
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "${REG_ROOT}"
 !define MUI_STARTMENUPAGE_REGISTRY_KEY "${UNINSTALL_PATH}"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "${REG_START_MENU}"
@@ -74,10 +74,30 @@ InstallDir "$APPDATA\Coolcord\Level-Headed"
 
 ######################################################################
 
+Function CheckAndUninstallOldVersion
+    ReadRegStr $0 HKCU "${UNINSTALL_PATH}" "DisplayVersion"
+    ReadRegStr $1 HKCU "${UNINSTALL_PATH}" "UninstallString"
+    ${If} $0 == "" ; No previous version installed
+        Goto done
+    ${EndIf}
+    
+    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" old_version_less
+    Goto done
+
+    old_version_less:
+        ExecWait '"$1" /S'
+    
+    done:
+FunctionEnd
+
+Function .onInit
+    Call CheckAndUninstallOldVersion
+FunctionEnd
+
 Section -MainProgram
 ${INSTALL_TYPE}
 SetOverwrite on
-ExecWait "TASKKILL /F /IM Level-Headed.exe"
+ExecWait "TASKKILL /F /IM ${MAIN_APP_EXE}"
 
 # --------------- BEGIN AUTO-GENERATED RMDIR SECTION --------------- #
 RmDir /r "$INSTDIR\Data"
@@ -203,13 +223,14 @@ WriteRegStr ${REG_ROOT} "${UNINSTALL_PATH}"  "Publisher" "${COMP_NAME}"
 !ifdef WEB_SITE
 WriteRegStr ${REG_ROOT} "${UNINSTALL_PATH}"  "URLInfoAbout" "${WEB_SITE}"
 !endif
+
 SectionEnd
 
 ######################################################################
 
 Section Uninstall
 ${INSTALL_TYPE}
-ExecWait "TASKKILL /F /IM Level-Headed.exe"
+ExecWait "TASKKILL /F /IM ${MAIN_APP_EXE}"
 Delete "$INSTDIR\${MAIN_APP_EXE}"
 
 # -------------- BEGIN AUTO-GENERATED DELETE SECTION --------------- #
@@ -311,11 +332,11 @@ RmDir "$SMPROGRAMS\$SM_Folder"
 !endif
 
 !ifndef REG_START_MENU
-Delete "$SMPROGRAMS\Coolcord\Level-Headed\${APP_NAME}.lnk"
+Delete "$SMPROGRAMS\Coolcord\${APP_NAME}\${APP_NAME}.lnk"
 !ifdef WEB_SITE
-Delete "$SMPROGRAMS\Coolcord\Level-Headed\${APP_NAME} Website.lnk"
+Delete "$SMPROGRAMS\Coolcord\${APP_NAME}\${APP_NAME} Website.lnk"
 !endif
-RmDir "$SMPROGRAMS\Coolcord\Level-Headed"
+RmDir "$SMPROGRAMS\Coolcord\${APP_NAME}"
 !endif
 
 DeleteRegKey ${REG_ROOT} "${REG_APP_PATH}"
