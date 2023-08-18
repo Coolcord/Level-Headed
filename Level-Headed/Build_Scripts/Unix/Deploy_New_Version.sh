@@ -182,7 +182,7 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     sed -i "s/!define VERSION \".*/!define VERSION \"$installerVersion\"/g" "$installerFile"
 
     # Update the license location
-    cp -f "$localSourceCodeLocation/Level-Headed/LICENSE" "./LICENSE.txt"
+    cp -f "$localSourceCodeLocation/Level-Headed/Level-Headed//Build_Scripts/Windows/Installer/LICENSE.txt" "./LICENSE.txt"
     licenseLocation=$(convert_to_windows_path "$(pwd)/LICENSE.txt")
     sed -i "s|^!define LICENSE_TXT \".*\"|!define LICENSE_TXT \"$licenseLocation\"|" "$installerFile"
 
