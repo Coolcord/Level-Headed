@@ -15,6 +15,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)
 
 set(SOURCES
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.cpp
+    ../../C_Common_Code/Qt/Qt_App_Theme_Fixes/Fusion_Fixes.cpp
     ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.cpp
     ../../C_Common_Code/Qt/Random/Random.cpp
     Main_Window.cpp
@@ -28,6 +29,7 @@ set(SOURCES
 set(HEADERS
     Main_Window.h
     ../../C_Common_Code/Qt/Git_Update_Checker/Git_Update_Checker.h
+    ../../C_Common_Code/Qt/Qt_App_Theme_Fixes/Fusion_Fixes.h
     ../../C_Common_Code/Qt/Readable_Config_File/Readable_Config_File.h
     ../../C_Common_Code/Qt/Random/Random.h
     ../Common_Files/Version.h

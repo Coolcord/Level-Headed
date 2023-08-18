@@ -15,7 +15,7 @@ Update_Dialog::Update_Dialog(QWidget *parent, Readable_Config_File *readableConf
     this->ui->tvUpdateMessage->setText("<p align=\"center\">New Version: v"+newVersion+
                                        "</p>\n\n<p align=\"center\">Would you like to download it now?</p>");
     int numberOfLines = 3; //necessary for determining the QTextBrowser height
-    int height = QFontMetrics(this->ui->tvUpdateMessage->font()).height()*numberOfLines;
+    int height = QFontMetrics(this->ui->tvUpdateMessage->font()).height()*(numberOfLines+1);
     this->ui->tvUpdateMessage->setMinimumHeight(height);
     this->ui->tvUpdateMessage->setMaximumHeight(height);
     this->updatePage = updatePage;

@@ -1,4 +1,5 @@
 #include "Main_Window.h"
+#include "../../C_Common_Code/Qt/Qt_App_Theme_Fixes/Fusion_Fixes.h"
 #include "CLI_Passthrough.h"
 #include "Plugin_Handler.h"
 #include "Interpreter_Interface.h"
@@ -9,7 +10,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     #ifdef Q_OS_WIN32
-    a.setStyle("fusion"); //use fusion theme on Windows
+    Fusion_Fixes().Apply_Fusion_Fixed(a); //use fusion theme on Windows
     #endif
     Main_Window w(nullptr, &a);
 
