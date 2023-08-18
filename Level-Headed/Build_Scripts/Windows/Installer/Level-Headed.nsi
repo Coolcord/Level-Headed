@@ -1,4 +1,4 @@
-############################################################################################
+######################################################################
 
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
@@ -9,7 +9,8 @@
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
 !define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.3.10-dev.Setup.exe"
 !define MAIN_APP_EXE "Level-Headed.exe"
-!define INSTALL_PATH "$PROGRAMFILES64\Coolcord\${APP_NAME}"
+!define PARENT_INSTALL_PATH "$APPDATA\Coolcord"
+!define INSTALL_PATH "${PARENT_INSTALL_PATH}\${APP_NAME}"
 !define INSTALL_TYPE "SetShellVarContext current"
 !define REG_ROOT "HKCU"
 !define REG_APP_PATH "Software\Microsoft\Windows\CurrentVersion\App Paths\${MAIN_APP_EXE}"
@@ -100,6 +101,7 @@ Section -MainProgram
 ${INSTALL_TYPE}
 SetOverwrite on
 ExecWait "TASKKILL /F /IM ${MAIN_APP_EXE}"
+Delete "$INSTDIR\*.dll"
 
 # --------------- BEGIN AUTO-GENERATED RMDIR SECTION --------------- #
 RmDir /r "$INSTDIR\Data"
@@ -323,6 +325,7 @@ Delete "$INSTDIR\${APP_NAME} website.url"
 !endif
 
 RmDir "$INSTDIR"
+RmDir "${PARENT_INSTALL_PATH}"
 
 !ifdef REG_START_MENU
 !insertmacro MUI_STARTMENU_GETFOLDER "Application" $SM_Folder
