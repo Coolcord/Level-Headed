@@ -207,7 +207,7 @@ else
     # Build Level-Headed
     echo ""; echo [2/11] Compiling Level-Headed...
     cd Level-Headed/Level-Headed/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -216,7 +216,7 @@ else
     # Build the SMB1 Compliance Level Generator Plugin
     echo ""; echo [3/11] Compiling the SMB1 Compliance Level Generator Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_Generator/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -225,7 +225,7 @@ else
     # Build the SMB1 Compliance to SMB1 Interpreter Plugin
     echo ""; echo [4/11] Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
     cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -234,7 +234,7 @@ else
     # Build the SMB1 Writer Plugin
     echo ""; echo [5/11] Compiling the SMB1 Writer Plugin...
     cd Level-Headed/SMB1/SMB1_Writer/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -243,7 +243,7 @@ else
     # Build the Hexagon Plugin
     echo ""; echo [6/11] Compiling the Hexagon Plugin...
     cd Hexagon/Hexagon/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -252,7 +252,7 @@ else
     # Build the Sequential Archive Plugin
     echo ""; echo [7/11] Compiling the Sequential Archive Plugin...
     cd Sequential_Archive/Sequential_Archive/
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1
@@ -262,7 +262,7 @@ else
     echo ""; echo [8/11] Compiling SAM...
     cd Sequential_Archive/Sequential_Archive_Manager/
     sed -i 's/WIN32 //g' CMakeLists.txt
-    mkdir -p build
+    rm -rf build >/dev/null 2>&1; mkdir -p build
     cd build
     cmake .. -G Ninja
     ninja -j "$CPUcores" || exit 1

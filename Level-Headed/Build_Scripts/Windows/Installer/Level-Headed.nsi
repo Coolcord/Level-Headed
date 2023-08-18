@@ -7,7 +7,7 @@
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
-!define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.3.10-dev.Setup.exe"
+!define INSTALLER_NAME "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\Level-Headed.v0.3.10.Setup.exe"
 !define MAIN_APP_EXE "Level-Headed.exe"
 !define PARENT_INSTALL_PATH "$APPDATA\Coolcord"
 !define INSTALL_PATH "${PARENT_INSTALL_PATH}\${APP_NAME}"
