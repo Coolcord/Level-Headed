@@ -3,7 +3,7 @@
 !define APP_NAME "Level-Headed"
 !define COMP_NAME "Coolcord"
 !define VERSION "0.3.10.0"
-!define UNINSTALL_ON_VERSION_OR_OLDER "0.3.9.0"
+!define UNINSTALL_VERSION_OR_OLDER "0.3.9.0"
 !define COPYRIGHT ""
 !define DESCRIPTION "Random Level Generator"
 !define LICENSE_TXT "D:\Documents\Source_Code\Level-Headed\Level-Headed\Build_Scripts\Unix\Deployed_Files\LICENSE.txt"
@@ -83,7 +83,7 @@ Function CheckAndUninstallOldVersion
         Goto done
     ${EndIf}
     
-    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" perform_uninstall
+    StrCmp $0 "${UNINSTALL_VERSION_OR_OLDER}" perform_uninstall
     Goto done
 
     perform_uninstall:
