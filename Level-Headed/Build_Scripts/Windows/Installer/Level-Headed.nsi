@@ -83,11 +83,16 @@ Function CheckAndUninstallOldVersion
         Goto done
     ${EndIf}
     
-    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" uninstall_needed
+    StrCmp $0 "${UNINSTALL_ON_VERSION_OR_OLDER}" perform_uninstall
     Goto done
 
-    uninstall_needed:
+    perform_uninstall:
+        ExecWait "TASKKILL /F /IM ${MAIN_APP_EXE}"
         ExecWait '"$1" /S'
+        RmDir /r "$INSTDIR"
+        RmDir "$PROGRAMFILES32\Coolcord"
+        RmDir "$PROGRAMFILES64\Coolcord"
+        RmDir "$PROGRAMFILES\Coolcord"
         StrCpy $INSTDIR "${INSTALL_PATH}"
     
     done:
