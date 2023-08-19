@@ -9,23 +9,19 @@
 localSourceCodeLocation="/d/Documents/Source_Code"
 
 # Install MinGW dependencies
-if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
-    if [ ${MSYSTEM} == "MINGW64" ]; then
-        dependencies="git rsync mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
-        
-        echo Checking dependencies for compilation...
-        if ! pacman -Q $dependencies > /dev/null 2>&1; then
-            echo Installing missing dependencies...
-            pacman -Sy --needed --noconfirm $dependencies
-        fi
+if [ ${MSYSTEM} == "MINGW64" ]; then
+    dependencies="git rsync mingw-w64-x86_64-gcc mingw-w64-x86_64-ninja mingw-w64-x86_64-cmake mingw-w64-x86_64-qt6-base"
+    
+    echo Checking dependencies for compilation...
+    if ! pacman -Q $dependencies > /dev/null 2>&1; then
+        echo Installing missing dependencies...
+        pacman -Sy --needed --noconfirm $dependencies
     fi
 fi
 
 # Check if dependencies are installed
-if [ ! -z $1 ] && ([ "$1" == "latest" ] || [ "$1" == "local" ]); then # TODO: After the next update, this code will be applied to stable!
-    echo ""; echo [1/11] Preparing source code...
-    command -v ninja >/dev/null 2>&1 || { echo >&2 "ninja must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
-fi
+echo ""; echo [1/11] Preparing source code...
+command -v ninja >/dev/null 2>&1 || { echo >&2 "ninja must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 command -v git >/dev/null 2>&1 || { echo >&2 "git must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 command -v gcc >/dev/null 2>&1 || { echo >&2 "gcc must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
 command -v nproc >/dev/null 2>&1 || { echo >&2 "nproc must be installed before Level-Headed can be compiled! Aborting!"; exit 1; }
@@ -94,112 +90,13 @@ fi
 if [ -z $1 ] || ([ $1 != "latest" ] && [ $1 != "local" ]); then
     echo Using stable code...
 
-    cd Level-Headed/; git checkout tags/v0.3.9 &> /dev/null
-    cd ../Level-Headed_Data/; git checkout tags/v0.3.9 &> /dev/null
-    cd ../Hexagon/; git checkout ca440f2beb0344795b240775e28d638af465fdb2 &> /dev/null
-    cd ../Sequential_Archive/; git checkout c3be23f551875a01e0de1a4b7054f0ea9dc57c1e &> /dev/null
-    cd ../C_Common_Code/; git checkout 628bd141276f78e76b127692a255246edf31c8d8 &> /dev/null
+    cd Level-Headed/; git checkout tags/v0.3.10 &> /dev/null
+    cd ../Level-Headed_Data/; git checkout tags/v0.3.10 &> /dev/null
+    cd ../Hexagon/; git checkout tags/v1.1.2 &> /dev/null
+    cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
+    cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
     cd ..
     
-    # Build Level-Headed
-    cd Level-Headed/Level-Headed/
-    sed -i '/INCLUDEPATH += \./a QT += gui widgets' Level-Headed.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../
-
-    # Build the SMB1 Compliance Level Generator Plugin
-    cd Level-Headed/SMB1/SMB1_Compliance_Generator/
-    sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_Generator.pro
-    sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_Generator.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build the SMB1 Compliance to SMB1 Interpreter Plugin
-    cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
-    sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Compliance_To_SMB1.pro
-    sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Compliance_To_SMB1.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build the SMB1 Writer Plugin
-    cd Level-Headed/SMB1/SMB1_Writer/
-    sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' SMB1_Writer.pro
-    sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' SMB1_Writer.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build the Hexagon Plugin
-    cd Hexagon/Hexagon/
-    sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Hexagon.pro
-    sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Hexagon.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../
-
-    # Build the Sequential Archive Plugin
-    cd Sequential_Archive/Sequential_Archive/
-    sed -i 's/.*TEMPLATE \= app.*/TEMPLATE \= lib/' Sequential_Archive.pro
-    sed -i '/INCLUDEPATH += \./a CONFIG += plugin\nQT += gui widgets' Sequential_Archive.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../
-
-    # Build SAM
-    cd Sequential_Archive/Sequential_Archive_Manager/
-    sed -i '/INCLUDEPATH += \./a QT += gui widgets' Sequential_Archive_Manager.pro
-    qmake -config release
-    make -j "$CPUcores" || exit 1
-    cd ../../
-
-    # Create the Runtime Environment
-    cd ../
-    mkdir -p Data/SMB1/
-    mkdir -p Levels/SMB1/
-    mkdir -p Plugins/Generators/
-    mkdir -p Plugins/Interpreters/
-    mkdir -p Plugins/Writers/
-
-    # Install Plugins and Data
-    releaseDirectory=source/Level-Headed/Level-Headed/release
-    if [ -d "$releaseDirectory" ]; then # assume we're on a Unix environment running in a Windows OS
-        dllExt=".dll"
-        exeExt=".exe"
-        binDir="/release"
-        libPrefix=""
-    else # assume we're on GNU/Linux or Mac
-        releaseDirectory=source/Level-Headed/Level-Headed
-        dllExt=".so"
-        exeExt=""
-        binDir=""
-        libPrefix="lib"
-    fi
-    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/
-    cp source/Level-Headed/Level-Headed"$binDir"/Level-Headed"$exeExt" Level-Headed"$exeExt"
-    chmod +x Level-Headed"$exeExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator"$binDir"/"$libPrefix"SMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1"$binDir"/"$libPrefix"SMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Writer"$binDir"/"$libPrefix"SMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
-    cp source/Hexagon/Hexagon"$binDir"/"$libPrefix"Hexagon"$dllExt" Plugins/Hexagon"$dllExt"
-    cp source/Sequential_Archive/Sequential_Archive"$binDir"/"$libPrefix"Sequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
-    cp source/Sequential_Archive/Sequential_Archive"$binDir"/"$libPrefix"Sequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Plugins/Sequential_Archive"$dllExt"
-    echo Packing assets...
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Text Data/SMB1/Text.sa
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls'
-    source/Sequential_Archive/Sequential_Archive_Manager"$binDir"/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls'
-    
-    # Clean up
-    echo Cleaning up...
-    rm -rf source/
-else
     if [ $1 == "latest" ]; then
         echo Using latest code...
     fi

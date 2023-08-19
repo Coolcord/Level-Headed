@@ -74,7 +74,7 @@ mkdir ./Level-Headed/Config
 # Zip up Level-Headed archive for users who don't want an installer
 echo ""; echo "Creating 7zip archive..."
 mv ./Level-Headed/ "./Level-Headed $version"
-7z a "./Level-Headed $version.7z" "./Level-Headed $version"
+7z a "./Level-Headed.$version.7z" "./Level-Headed $version"
 mv "./Level-Headed $version" ./Level-Headed/
 
 # Windows Setup.exe section

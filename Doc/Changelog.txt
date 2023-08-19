@@ -1,5 +1,15 @@
 Next Update (v0.4.0)
+Nothing yet... :(
+
+Exportable Config Files (v0.3.9)
 + Added the option to always start a new game from the last played world
++ Fixed an incompatibility with spiny eggs explode into flames that could cause the game to crash
++ Sonic's name is now included in the Sonic sprite patch file once again
++ Dropped swimming mushroom going forward (it was very buggy and had many compatibility issues)
++ Binaries will now be 64-bit going forward. Previous 32-bit installs will now be automatically uninstalled when the setup is initially run.
++ Updated to Qt6 (v6.5.2 LTS)
++ Build system has been switched to cmake
++ There is now a deploy script, so future releases will be much easier to make
 
 Stability Update (v0.3.9)
 + Added very rare and mythic commonalities. Both of these are never guaranteed to be included in a new game.
