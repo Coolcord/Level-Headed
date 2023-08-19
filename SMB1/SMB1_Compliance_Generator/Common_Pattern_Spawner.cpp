@@ -28,6 +28,7 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
+        return this->Air_Pipes(x);
         switch (Random::Get_Instance().Get_Num(5)) {
         case 0:     return this->Two_Steps_And_Hole(x);
         case 1:     return this->Pipe_Series(x);
@@ -265,6 +266,7 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
 
 bool Common_Pattern_Spawner::Air_Pipes(int x) {
     assert(this->availableObjects >= 2);
+    if (x < 2) x = 2; //make sure there's at least a little free space for Mario to squeeze through
 
     bool symmetrical = static_cast<bool>(this->Get_Random_Number(0, 1));
     int distance = 0;
@@ -275,12 +277,15 @@ bool Common_Pattern_Spawner::Air_Pipes(int x) {
     if (y < this->minY) y = this->minY;
     int height = 2; //low difficulties only have short pipes
     if (this->args->difficulty > 2) height = this->Get_Random_Number(2, 8-y);
+    bool coinBlocks = !static_cast<bool>(this->Get_Random_Number(0, 4)); //1 in 5 chance
 
     //Spawn the pipes
     for (int i = numPipes; i > 0 && this->availableObjects >= 2; --i) {
         assert(height+y <= 8);
         assert(this->object->Pipe(x, y, height));
-        assert(this->object->Horizontal_Blocks(0, y+height, 2));
+        int blockY = y+height;
+        if (coinBlocks && (blockY == 3 || blockY == 7)) assert(this->object->Horizontal_Question_Blocks_With_Coins(0, y+height, 2));
+        else assert(this->object->Horizontal_Blocks(0, blockY, 2));
         this->availableObjects -= 2;
 
         if (!symmetrical) {
@@ -293,6 +298,7 @@ bool Common_Pattern_Spawner::Air_Pipes(int x) {
             x = this->Get_Random_Number(4, 7);
         }
     }
+    this->object->Increment_Last_Object_Length(1); //fix the last object length
     return true;
 }
 

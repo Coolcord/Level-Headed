@@ -78,7 +78,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     if (this->object->Get_Num_Objects_Available() == 0) return false;
     int random = Random::Get_Instance().Get_Num(PROBABILITY_TOTAL_SIMPLE);
     if (random <= PROBABILITY_HORIZONTAL_BRICKS) {
-        if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+        if (this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Number(2, 8))) {
             int length = this->object->Get_Last_Object_Length();
             if (length > 1) this->Fill_With_Question_Blocks_And_Bricks(Physics::BASIC_BLOCK_Y, length);
             this->object->Increment_Last_Object_Length(1);
@@ -87,7 +87,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
             return false;
         }
     } else if (random <= PROBABILITY_HORIZONTAL_BLOCKS) {
-        if (this->object->Horizontal_Blocks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+        if (this->object->Horizontal_Blocks(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Number(2, 8))) {
             this->object->Increment_Last_Object_Length(1);
             return true;
         } else {
@@ -125,7 +125,7 @@ bool Simple_Object_Spawner::Spawn_Simple_Object(int x) {
     } else if (random <= PROBABILITY_BRICK_WITH_10_COINS) {
         return this->object->Horizontal_Bricks(x, Physics::BASIC_BLOCK_Y, 1);
     } else if (random <= PROBABILITY_HORIZONTAL_QUESTION_BLOCKS_WITH_COINS) {
-        if (this->object->Horizontal_Question_Blocks_With_Coins(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Length())) {
+        if (this->object->Horizontal_Question_Blocks_With_Coins(x, Physics::BASIC_BLOCK_Y, this->Get_Random_Number(2, 8))) {
             this->object->Increment_Last_Object_Length(1);
             return true;
         } else {
