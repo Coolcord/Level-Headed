@@ -89,154 +89,154 @@ fi
 # Revert to stable code
 if [ -z $1 ] || ([ $1 != "latest" ] && [ $1 != "local" ]); then
     echo Using stable code...
-
-    cd Level-Headed/; git checkout tags/v0.3.10 &> /dev/null
-    cd ../Level-Headed_Data/; git checkout tags/v0.3.10 &> /dev/null
-    cd ../Hexagon/; git checkout tags/v1.1.2 &> /dev/null
-    cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
-    cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
-    cd ..
-    
-    if [ $1 == "latest" ]; then
-        echo Using latest code...
-    fi
-    
-    # Build Level-Headed
-    echo ""; echo [2/11] Compiling Level-Headed...
-    cd Level-Headed/Level-Headed/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build the SMB1 Compliance Level Generator Plugin
-    echo ""; echo [3/11] Compiling the SMB1 Compliance Level Generator Plugin...
-    cd Level-Headed/SMB1/SMB1_Compliance_Generator/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../../
-
-    # Build the SMB1 Compliance to SMB1 Interpreter Plugin
-    echo ""; echo [4/11] Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
-    cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../../
-
-    # Build the SMB1 Writer Plugin
-    echo ""; echo [5/11] Compiling the SMB1 Writer Plugin...
-    cd Level-Headed/SMB1/SMB1_Writer/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../../
-
-    # Build the Hexagon Plugin
-    echo ""; echo [6/11] Compiling the Hexagon Plugin...
-    cd Hexagon/Hexagon/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build the Sequential Archive Plugin
-    echo ""; echo [7/11] Compiling the Sequential Archive Plugin...
-    cd Sequential_Archive/Sequential_Archive/
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Build SAM
-    echo ""; echo [8/11] Compiling SAM...
-    cd Sequential_Archive/Sequential_Archive_Manager/
-    sed -i 's/WIN32 //g' CMakeLists.txt
-    rm -rf build >/dev/null 2>&1; mkdir -p build
-    cd build
-    cmake .. -G Ninja
-    ninja -j "$CPUcores" || exit 1
-    cd ../../../
-
-    # Create the Runtime Environment
-    cd ../
-    mkdir -p Data/SMB1/
-    mkdir -p Levels/SMB1/
-    mkdir -p Plugins/Generators/
-    mkdir -p Plugins/Interpreters/
-    mkdir -p Plugins/Writers/
-
-    # Install Plugins and Data
-    if [ -z ${MSYSTEM} ]; then # assume we're on GNU/Linux or Mac
-        dllExt=".so"
-        exeExt=""
-    else # assume we're on a Unix environment running in a Windows OS
-        dllExt=".dll"
-        exeExt=".exe"
-    fi
-    
-    # Pack Assets (do this before installing plugins to prevent any DLLs from being called unintentionally)
-    echo ""; echo [9/11] Packing assets...
-    mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/
-    cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/Sequential_Archive"$dllExt"
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Text Data/SMB1/Text.sa || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls' || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls' || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls' || exit 1
-    source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls' || exit 1
-    
-    # Install Plugins
-    echo ""; echo [10/11] Installing Plugins...
-    cp source/Level-Headed/Level-Headed/build/Level-Headed"$exeExt" Level-Headed"$exeExt"
-    chmod +x Level-Headed"$exeExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/build/libSMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/build/libSMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
-    cp source/Level-Headed/SMB1/SMB1_Writer/build/libSMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
-    cp source/Hexagon/Hexagon/build/libHexagon"$dllExt" Plugins/Hexagon"$dllExt"
-    cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
-    
-    # Install Qt DLLs
-    if [ ${dllExt} == ".dll" ]; then
-        qtpaths6Location=$(which qtpaths6.exe)
-        qtDLLsLocation=${qtpaths6Location%/*}
-        
-        # Install Qt Plugins
-        mkdir Qt
-        echo [Paths] > qt.conf
-        echo Plugins=./Qt >> qt.conf
-        cp -rf /mingw64/share/qt6/plugins/* ./Qt
-        
-        # Install root Qt DLLs
-        ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt
-        ldd Plugins/Hexagon"$dllExt" | awk '{print $3}' >> allDLLs.txt
-        ldd Plugins/Sequential_Archive"$dllExt" | awk '{print $3}' >> allDLLs.txt
-        ldd Plugins/Generators/SMB1_Compliance_Generator"$dllExt" | awk '{print $3}' >> allDLLs.txt
-        ldd Plugins/Interpreters//SMB1_Compliance_To_SMB1"$dllExt" | awk '{print $3}' >> allDLLs.txt
-        ldd Plugins/Writers/SMB1_Writer"$dllExt" | awk '{print $3}' >> allDLLs.txt
-        grep -v "/Windows" allDLLs.txt > nonWindows.txt
-        sort nonWindows.txt | uniq > requiredDLLs.txt
-        while IFS= read -r requiredDLL; do
-            cp "$requiredDLL" .
-        done < requiredDLLs.txt
-        rm allDLLs.txt nonWindows.txt requiredDLLs.txt
-    fi
-    echo Done!
-    
-    # Clean up
-    echo ""; echo [11/11] Cleaning up...
-    rm -rf source/
-    echo Done!
 fi
+
+cd Level-Headed/; git checkout tags/v0.3.10 &> /dev/null
+cd ../Level-Headed_Data/; git checkout tags/v0.3.10 &> /dev/null
+cd ../Hexagon/; git checkout tags/v1.1.2 &> /dev/null
+cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
+cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
+cd ..
+    
+if [ ! -z $1 ] && [ $1 == "latest" ]; then
+    echo Using latest code...
+fi
+    
+# Build Level-Headed
+echo ""; echo [2/11] Compiling Level-Headed...
+cd Level-Headed/Level-Headed/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../
+
+# Build the SMB1 Compliance Level Generator Plugin
+echo ""; echo [3/11] Compiling the SMB1 Compliance Level Generator Plugin...
+cd Level-Headed/SMB1/SMB1_Compliance_Generator/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../../
+
+# Build the SMB1 Compliance to SMB1 Interpreter Plugin
+echo ""; echo [4/11] Compiling the SMB1 Compliance to SMB1 Interpreter Plugin...
+cd Level-Headed/SMB1/SMB1_Compliance_To_SMB1/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../../
+
+# Build the SMB1 Writer Plugin
+echo ""; echo [5/11] Compiling the SMB1 Writer Plugin...
+cd Level-Headed/SMB1/SMB1_Writer/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../../
+
+# Build the Hexagon Plugin
+echo ""; echo [6/11] Compiling the Hexagon Plugin...
+cd Hexagon/Hexagon/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../
+
+# Build the Sequential Archive Plugin
+echo ""; echo [7/11] Compiling the Sequential Archive Plugin...
+cd Sequential_Archive/Sequential_Archive/
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../
+
+# Build SAM
+echo ""; echo [8/11] Compiling SAM...
+cd Sequential_Archive/Sequential_Archive_Manager/
+sed -i 's/WIN32 //g' CMakeLists.txt
+rm -rf build >/dev/null 2>&1; mkdir -p build
+cd build
+cmake .. -G Ninja
+ninja -j "$CPUcores" || exit 1
+cd ../../../
+
+# Create the Runtime Environment
+cd ../
+mkdir -p Data/SMB1/
+mkdir -p Levels/SMB1/
+mkdir -p Plugins/Generators/
+mkdir -p Plugins/Interpreters/
+mkdir -p Plugins/Writers/
+
+# Install Plugins and Data
+if [ -z ${MSYSTEM} ]; then # assume we're on GNU/Linux or Mac
+    dllExt=".so"
+    exeExt=""
+else # assume we're on a Unix environment running in a Windows OS
+    dllExt=".dll"
+    exeExt=".exe"
+fi
+
+# Pack Assets (do this before installing plugins to prevent any DLLs from being called unintentionally)
+echo ""; echo [9/11] Packing assets...
+mkdir -p source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/
+cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" source/Sequential_Archive/Sequential_Archive_Manager/build/Plugins/Sequential_Archive"$dllExt"
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Graphics Data/SMB1/Graphics.sa || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Music Data/SMB1/Music.sa || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/ROMs Data/SMB1/ROMs.sa || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack source/Level-Headed_Data/Text Data/SMB1/Text.sa || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) It Plays Itself' 'Levels/SMB1/(Tech Demo) It Plays Itself.lvls' || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Powerup Test' 'Levels/SMB1/(Tech Demo) Powerup Test.lvls' || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/(Tech Demo) Vertical Limit Test' 'Levels/SMB1/(Tech Demo) Vertical Limit Test.lvls' || exit 1
+source/Sequential_Archive/Sequential_Archive_Manager/build/Sequential_Archive_Manager"$exeExt" --pack 'source/Level-Headed_Data/Level_Scripts/Super Mario Bros. 1 (Modified Original Levels)' 'Levels/SMB1/Super Mario Bros. 1 (Modified Original Levels).lvls' || exit 1
+
+# Install Plugins
+echo ""; echo [10/11] Installing Plugins...
+cp source/Level-Headed/Level-Headed/build/Level-Headed"$exeExt" Level-Headed"$exeExt"
+chmod +x Level-Headed"$exeExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_Generator/build/libSMB1_Compliance_Generator"$dllExt" Plugins/Generators/SMB1_Compliance_Generator"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Compliance_To_SMB1/build/libSMB1_Compliance_To_SMB1"$dllExt" Plugins/Interpreters/SMB1_Compliance_To_SMB1"$dllExt"
+cp source/Level-Headed/SMB1/SMB1_Writer/build/libSMB1_Writer"$dllExt" Plugins/Writers/SMB1_Writer"$dllExt"
+cp source/Hexagon/Hexagon/build/libHexagon"$dllExt" Plugins/Hexagon"$dllExt"
+cp source/Sequential_Archive/Sequential_Archive/build/libSequential_Archive"$dllExt" Plugins/Sequential_Archive"$dllExt"
+
+# Install Qt DLLs
+if [ ${dllExt} == ".dll" ]; then
+    qtpaths6Location=$(which qtpaths6.exe)
+    qtDLLsLocation=${qtpaths6Location%/*}
+    
+    # Install Qt Plugins
+    mkdir Qt
+    echo [Paths] > qt.conf
+    echo Plugins=./Qt >> qt.conf
+    cp -rf /mingw64/share/qt6/plugins/* ./Qt
+    
+    # Install root Qt DLLs
+    ldd Level-Headed"$exeExt" | awk '{print $3}' > allDLLs.txt
+    ldd Plugins/Hexagon"$dllExt" | awk '{print $3}' >> allDLLs.txt
+    ldd Plugins/Sequential_Archive"$dllExt" | awk '{print $3}' >> allDLLs.txt
+    ldd Plugins/Generators/SMB1_Compliance_Generator"$dllExt" | awk '{print $3}' >> allDLLs.txt
+    ldd Plugins/Interpreters//SMB1_Compliance_To_SMB1"$dllExt" | awk '{print $3}' >> allDLLs.txt
+    ldd Plugins/Writers/SMB1_Writer"$dllExt" | awk '{print $3}' >> allDLLs.txt
+    grep -v "/Windows" allDLLs.txt > nonWindows.txt
+    sort nonWindows.txt | uniq > requiredDLLs.txt
+    while IFS= read -r requiredDLL; do
+        cp "$requiredDLL" .
+    done < requiredDLLs.txt
+    rm allDLLs.txt nonWindows.txt requiredDLLs.txt
+fi
+echo Done!
+
+# Clean up
+echo ""; echo [11/11] Cleaning up...
+rm -rf source/
+echo Done!
 
 echo ""; echo "Compilation complete! Enjoy Level-Headed!"
 exit 0
