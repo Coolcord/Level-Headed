@@ -6,7 +6,7 @@
 
 class Common_Pattern_Spawner : public Object_Spawner {
 public:
-    Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType);
+    Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType, SMB1_Compliance_Generator_Arguments *args);
     bool Spawn_Common_Pattern(int x);
 
 private:
@@ -17,8 +17,10 @@ private:
     bool Platform_Over_Hole(int x);
     bool Vertical_And_Horizontal_Blocks(int x);
     bool Vertical_Blocks(int x);
+    bool Air_Pipes(int x);
 
     Level_Type::Level_Type levelType;
+    SMB1_Compliance_Generator_Arguments *args;
     int availableObjects;
     int minY;
 };

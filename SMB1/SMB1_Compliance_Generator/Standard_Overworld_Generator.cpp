@@ -14,7 +14,7 @@ Standard_Overworld_Generator::~Standard_Overworld_Generator() {
 
 bool Standard_Overworld_Generator::Generate_Level() {
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->objects, Level_Type::STANDARD_OVERWORLD);
-    this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::STANDARD_OVERWORLD);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::STANDARD_OVERWORLD, this->args);
 
     //Spawn the Intro
     this->levelCrawler->Set_Level_Attribute(Level_Attribute::OVERWORLD);

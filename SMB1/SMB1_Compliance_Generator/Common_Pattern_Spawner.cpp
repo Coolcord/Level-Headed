@@ -5,9 +5,10 @@
 #include <assert.h>
 #include <QDebug>
 
-Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType) : Object_Spawner(object) {
+Common_Pattern_Spawner::Common_Pattern_Spawner(Object_Buffer *object, Level_Type::Level_Type levelType, SMB1_Compliance_Generator_Arguments *args) : Object_Spawner(object) {
     this->availableObjects = 0;
     this->levelType = levelType;
+    this->args = args;
     switch (this->levelType) {
     case Level_Type::STANDARD_OVERWORLD:
     case Level_Type::UNDERWATER:
@@ -27,12 +28,13 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
-        switch (Random::Get_Instance().Get_Num(4)) {
+        switch (Random::Get_Instance().Get_Num(5)) {
         case 0:     return this->Two_Steps_And_Hole(x);
         case 1:     return this->Pipe_Series(x);
         case 2:     return this->Platform_Over_Hole(x);
         case 3:     return this->Vertical_And_Horizontal_Blocks(x);
         case 4:     return this->Vertical_Blocks(x);
+        case 5:     return this->Air_Pipes(x);
         default:    return false;
         }
     }
@@ -232,8 +234,12 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
 
 
     //Spawn a series of Verical Blocks after
-    x = 1;
+    bool connected = static_cast<bool>(this->Get_Random_Number(0, 3));
+    bool symmetricalDistance = static_cast<bool>(this->Get_Random_Number(0, 1));
+    if (connected) x = 1;
+    else x = this->Get_Random_Number(2, 5);
     for (int i = this->Get_Random_Number(1, 6); i > 0 && this->availableObjects > 0; --i) {
+        if (!connected && !symmetricalDistance) x = this->Get_Random_Number(2, 5);
         y = this->object->Get_Current_Y();
         //Possibly change Y
         if (Random::Get_Instance().Get_Num(3) != 0) {
@@ -249,6 +255,36 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
         --this->availableObjects;
     }
 
+    return true;
+}
+
+bool Common_Pattern_Spawner::Air_Pipes(int x) {
+    assert(this->availableObjects >= 2);
+
+    bool symmetrical = static_cast<bool>(this->Get_Random_Number(0, 1));
+    int distance = this->Get_Random_Number(2, 5);
+    int numPipes = this->Get_Random_Number(1, 3);
+    int y = this->Get_Random_Number(1, 6);
+    if (y < this->minY) y = this->minY;
+    int height = 2; //low difficulties only have short pipes
+    if (this->args->difficulty > 5) height = this->Get_Random_Number(2, 8-y);
+
+    //Spawn the pipes
+    for (int i = numPipes; i > 0 && this->availableObjects >= 2; --i) {
+        assert(height+y <= 8);
+        assert(this->object->Pipe(x, y, height));
+        assert(this->object->Horizontal_Blocks(0, y+height, 2));
+
+        if (!symmetrical) {
+            x = distance+2;
+            y = this->Get_Random_Number(1, 6);
+            if (y < this->minY) y = this->minY;
+            height = 2; //low difficulties only have short pipes
+            if (this->args->difficulty > 5) height = this->Get_Random_Number(2, 8-y);
+        } else {
+            x = this->Get_Random_Number(4, 7);
+        }
+    }
     return true;
 }
 

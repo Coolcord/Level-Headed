@@ -13,7 +13,7 @@ Underground_Generator::~Underground_Generator() {
 
 bool Underground_Generator::Generate_Level() {
     this->simpleObjectSpawner = new Simple_Object_Spawner(this->objects, Level_Type::UNDERGROUND);
-    this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::UNDERGROUND);
+    this->commonPatternSpawner = new Common_Pattern_Spawner(this->objects, Level_Type::UNDERGROUND, this->args);
 
     this->levelCrawler->Set_Level_Attribute(Level_Attribute::UNDERGROUND);
     this->levelCrawler->Set_Starting_Brick(Brick::ALL);
