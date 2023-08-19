@@ -1,6 +1,7 @@
 #include "Pipe_Pointer_Buffer.h"
 #include "Enemy_Buffer.h"
 #include "Object_Buffer.h"
+#include "Required_Enemy_Spawns.h"
 #include "../Common_SMB1_Files/Enemy_Item_String.h"
 #include "../Common_SMB1_Files/Level.h"
 #include "../Common_SMB1_Files/Object_Item_String.h"
@@ -8,15 +9,20 @@
 #include <assert.h>
 #include <QString>
 
-Pipe_Pointer_Buffer::Pipe_Pointer_Buffer(Object_Buffer *objects, Enemy_Buffer *enemies) {
+Pipe_Pointer_Buffer::Pipe_Pointer_Buffer(Object_Buffer *objects, Enemy_Buffer *enemies, Required_Enemy_Spawns *requiredEnemySpawns) {
     assert(objects);
     assert(enemies);
+    assert(requiredEnemySpawns);
     this->objects = objects;
     this->enemies = enemies;
+    this->requiredEnemySpawns = requiredEnemySpawns;
 }
 
 bool Pipe_Pointer_Buffer::Pipe_Pointer(int x, Level::Level level, int world, int page) {
-    return this->enemies->Write_Enemy(x, level, world, page);
+    if (this->enemies->Get_Num_Bytes_Left() < 3) return false;
+    Extra_Enemy_Args args = this->requiredEnemySpawns->Get_Initialized_Extra_Enemy_Args();
+    args.level = level; args.world = world; args.page = page;
+    return this->requiredEnemySpawns->Add_Required_Enemy_Spawn(Enemy_Item::PIPE_POINTER, args, x);
 }
 
 bool Pipe_Pointer_Buffer::Enterable_Pipe(int x, int y, int height, Level::Level level, int world, int page) {

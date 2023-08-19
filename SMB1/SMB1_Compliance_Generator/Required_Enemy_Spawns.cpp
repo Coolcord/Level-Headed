@@ -1,18 +1,15 @@
 #include "Required_Enemy_Spawns.h"
 #include "Object_Buffer.h"
 #include "Enemy_Buffer.h"
-#include "Pipe_Pointer_Buffer.h"
 #include <QDebug>
 #include <assert.h>
 
-Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Buffer *object, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args) {
+Required_Enemy_Spawns::Required_Enemy_Spawns(Object_Buffer *object, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args) {
     assert(object);
     assert(enemies);
-    assert(pipePointer);
     assert(args);
     this->objects = object;
     this->enemies = enemies;
-    this->pipePointer = pipePointer;
     this->args = args;
     this->numRequiredBytes = 0;
     this->numEndBytes = 0;
@@ -171,7 +168,7 @@ bool Required_Enemy_Spawns::Spawn_Required_Enemy(int &lastX) {
     case Enemy_Item::LIFT_SPAWNER:          success = this->enemies->Lift_Spawner(x, y, args.up, args.small, args.onlyHardMode); break;
     case Enemy_Item::BOWSER:                success = this->enemies->Bowser(x, args.onlyHardMode); break;
     case Enemy_Item::WARP_ZONE:             success = this->enemies->Warp_Zone(x); break;
-    case Enemy_Item::PIPE_POINTER:          success = this->pipePointer->Pipe_Pointer(x, args.level, args.world, args.page); break;
+    case Enemy_Item::PIPE_POINTER:          success = this->enemies->Pipe_Pointer(x, args.level, args.world, args.page); break;
     case Enemy_Item::TOAD:                  success = this->enemies->Toad(x); break;
     case Enemy_Item::GOOMBA_GROUP:          success = this->enemies->Goomba_Group(x, y, args.num, args.onlyHardMode); break;
     case Enemy_Item::KOOPA_GROUP:           success = this->enemies->Koopa_Group(x, y, args.num, args.onlyHardMode); break;

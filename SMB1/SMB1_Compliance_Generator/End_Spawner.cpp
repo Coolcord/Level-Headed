@@ -1,17 +1,20 @@
 #include "../../../C_Common_Code/Qt/Random/Random.h"
 #include "End_Spawner.h"
 #include "Enemy_Buffer.h"
+#include "Pipe_Pointer_Buffer.h"
 #include "Required_Enemy_Spawns.h"
 #include "Physics.h"
 #include <assert.h>
 
-End_Spawner::End_Spawner(Object_Buffer *ow, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(ow) {
-    assert(ow);
+End_Spawner::End_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointers, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll) : Object_Spawner(objects) {
+    assert(objects);
     assert(enemies);
+    assert(pipePointers);
     assert(args);
     assert(requiredEnemySpawns);
-    this->object = ow;
+    this->object = objects;
     this->enemies = enemies;
+    this->pipePointers = pipePointers;
     this->args = args;
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
@@ -55,6 +58,8 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
             success = this->Shortest_Castle(x); break;
         case End_Pattern::One_Block_Bridge:
             success = this->One_Block_Bridge_End(x); break;
+        case End_Pattern::Simple_Underground:
+            success = this->Simple_Underground_End(x); break;
         }
         if (success) this->endWritten = true;
         return success;
@@ -99,8 +104,9 @@ bool End_Spawner::Determine_Standard_Overworld_End() {
 bool End_Spawner::Determine_Underground_End() {
     switch (0) {
     case 0:
-        this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 5;
+        this->endPattern = End_Pattern::Simple_Underground;
+        this->endObjectCount = 3;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
         return true;
     default:
         assert(false);
@@ -247,9 +253,7 @@ bool End_Spawner::Shortest_Castle(int x) {
 }
 
 bool End_Spawner::One_Block_Bridge_End(int x) {
-    if (this->object->Get_Num_Objects_Left() < 8) {
-        return false;
-    }
+    if (this->object->Get_Num_Objects_Left() < 8) return false;
 
     //Spawn the ending bridge
     int y = Physics::GROUND_Y;
@@ -290,6 +294,25 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
 
     x = Random::Get_Instance().Get_Num(10)+2;
     return this->Shortest_End(x, false);
+}
+
+bool End_Spawner::Simple_Underground_End(int x) {
+    if (this->object->Get_Num_Objects_Left() < 3) return false;
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+
+    //Write the End Pattern
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(x, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(x, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    else assert(false);
+    assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
+
+    //Handle the Scroll Stop
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
+    x = 0x09;
+    if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
+    if (!this->object->Scroll_Stop(x, false)) return false;
+    this->object->Set_Coordinate_Safety(true); //turn back on the safety
+    return true;
 }
 
 bool End_Spawner::Spawn_Castle() {

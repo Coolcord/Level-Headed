@@ -1,5 +1,7 @@
 Next Update (v0.4.0)
 + Added a new pattern: Air Pipes
++ The vertical block spawner has been extended to support blocks with spaces (similar to the start of 1-2)
++ The max length of blocks, brick blocks, and coin blocks has been reduced to 8
 
 Exportable Config Files (v0.3.9)
 + Added the option to always start a new game from the last played world

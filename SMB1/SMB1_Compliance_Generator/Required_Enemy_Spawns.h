@@ -9,11 +9,10 @@
 class Buffer_Data;
 class Object_Buffer;
 class Enemy_Buffer;
-class Pipe_Pointer_Buffer;
 
 class Required_Enemy_Spawns {
 public:
-    Required_Enemy_Spawns(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointer, SMB1_Compliance_Generator_Arguments *args);
+    Required_Enemy_Spawns(Object_Buffer *objects, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args);
     ~Required_Enemy_Spawns();
     bool Add_Required_Enemy_Spawn(const Buffer_Data &data);
     bool Add_Required_Enemy_Spawn(Enemy_Item::Enemy_Item enemy, int x);
@@ -52,7 +51,6 @@ private:
     QQueue<Required_Enemy_Spawn> *requiredEnemies;
     Object_Buffer *objects;
     Enemy_Buffer *enemies;
-    Pipe_Pointer_Buffer *pipePointer;
     int numRequiredBytes;
     int numEndBytes;
     int warpZoneX;

@@ -125,9 +125,9 @@ bool Level_Script_Modifier::Redistribute_Enemies(SMB1_Compliance_Generator_Argum
     //Get the required enemy spawns
     int numBytes = parserArgs.enemyBuffer->Get_Num_Bytes_Used();
     if (numBytes < 2) return true; //nothing to do
-    Pipe_Pointer_Buffer pipePointerBuffer(parserArgs.objectBuffer, parserArgs.enemyBuffer);
+    Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &args);
+    Pipe_Pointer_Buffer pipePointerBuffer(parserArgs.objectBuffer, parserArgs.enemyBuffer, &requiredEnemySpawns);
     parserArgs.enemyBuffer->Set_Num_Bytes_Left(10000); //trick the enemy buffer into thinking it has more space so that the required enemy spawns don't fail
-    Required_Enemy_Spawns requiredEnemySpawns(parserArgs.objectBuffer, parserArgs.enemyBuffer, &pipePointerBuffer, &args);
     parserArgs.enemyBuffer->Seek_To_First_Item();
     while (!parserArgs.enemyBuffer->At_End()) {
         Buffer_Data data = parserArgs.enemyBuffer->Get_Current();

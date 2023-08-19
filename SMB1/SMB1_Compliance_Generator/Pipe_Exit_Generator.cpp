@@ -6,7 +6,7 @@ bool Pipe_Exit_Generator::Generate_Level() {
     this->levelCrawler->Set_Starting_Brick(Brick::SURFACE);
 
     //Spawn the exit pipe
-    if (!this->objects->Pipe(4, 9, 2)) return false;
+    if (!this->objects->Pipe(3, 9, 2)) return false;
 
     //Write the stairs, flag, and castle
     if (!this->end->Handle_End(2, true)) return false;

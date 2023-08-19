@@ -40,7 +40,7 @@ protected:
     Header_Writer *header;
     Object_Buffer *objects;
     Enemy_Buffer *enemies;
-    Pipe_Pointer_Buffer *pipePointer;
+    Pipe_Pointer_Buffer *pipePointers;
     Required_Enemy_Spawns *requiredEnemySpawns;
     Enemy_Spawner *enemySpawner;
     End_Spawner *end;

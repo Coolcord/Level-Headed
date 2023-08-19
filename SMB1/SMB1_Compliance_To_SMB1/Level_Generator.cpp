@@ -203,7 +203,8 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Exit_Small_Cas
     this->Prepare_Difficulty_Arguments(args);
     args.levelType = Level_Type::PIPE_EXIT;
     args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
-    args.endCastle = Castle::NONE;
+    args.startCastle = Castle::NONE;
+    args.endCastle = Castle::SMALL;
     args.numObjectBytes = 1000;
     args.numEnemyBytes = 1000;
     args.maxLevelLength = 100;
@@ -698,18 +699,18 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
 
     //Handle the Pipe Exit Levels
     SMB1_Compliance_Generator_Arguments pipeExitBigCastleArgs = this->Prepare_Pipe_Exit_Big_Castle_Arguments(generationName);
-    QMap<Level::Level, int>::iterator pipeExitBigCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_SMALL_CASTLE);
+    QMap<Level::Level, int>::iterator pipeExitBigCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_BIG_CASTLE);
     assert(pipeExitBigCastleIter != this->numObjectsInLevel->end());
     pipeExitBigCastleArgs.numObjectBytes = pipeExitBigCastleIter.value();
     pipeExitBigCastleArgs.numEnemyBytes = 0;
-    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_SMALL_CASTLE, pipeExitBigCastleArgs.fileName.split("/").last())) return false;
+    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_BIG_CASTLE, pipeExitBigCastleArgs.fileName.split("/").last())) return false;
     assert(this->generatorPlugin->Generate_Level(pipeExitBigCastleArgs));
     SMB1_Compliance_Generator_Arguments pipeExitSmallCastleArgs = this->Prepare_Pipe_Exit_Small_Castle_Arguments(generationName);
-    QMap<Level::Level, int>::iterator pipeExitSmallCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_BIG_CASTLE);
+    QMap<Level::Level, int>::iterator pipeExitSmallCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_SMALL_CASTLE);
     assert(pipeExitSmallCastleIter != this->numObjectsInLevel->end());
     pipeExitSmallCastleArgs.numObjectBytes = pipeExitSmallCastleIter.value();
     pipeExitSmallCastleArgs.numEnemyBytes = 0;
-    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_BIG_CASTLE, pipeExitSmallCastleArgs.fileName.split("/").last())) return false;
+    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_SMALL_CASTLE, pipeExitSmallCastleArgs.fileName.split("/").last())) return false;
     assert(this->generatorPlugin->Generate_Level(pipeExitSmallCastleArgs));
 
 

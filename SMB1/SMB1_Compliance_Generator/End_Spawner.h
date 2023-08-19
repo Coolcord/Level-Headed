@@ -9,10 +9,11 @@
 
 class Enemy_Buffer;
 class Required_Enemy_Spawns;
+class Pipe_Pointer_Buffer;
 
 class End_Spawner : public Object_Spawner {
 public:
-    End_Spawner(Object_Buffer *object, Enemy_Buffer *enemies, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
+    End_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Pointer_Buffer *pipePointers, SMB1_Compliance_Generator_Arguments *args, Required_Enemy_Spawns *requiredEnemySpawns, bool useAutoScroll);
     bool Is_End_Written();
     bool Handle_End(int x);
     bool Handle_End(int x, bool forceWrite);
@@ -33,9 +34,11 @@ private:
     bool Shortest_With_Brick_End(int x);
     bool Shortest_Castle(int x);
     bool One_Block_Bridge_End(int x);
+    bool Simple_Underground_End(int x);
     bool Spawn_Castle();
 
     Enemy_Buffer *enemies;
+    Pipe_Pointer_Buffer *pipePointers;
     SMB1_Compliance_Generator_Arguments *args;
     Required_Enemy_Spawns *requiredEnemySpawns;
     End_Pattern::End_Pattern endPattern;

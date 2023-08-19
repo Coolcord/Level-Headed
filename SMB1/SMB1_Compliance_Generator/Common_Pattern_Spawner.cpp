@@ -28,7 +28,6 @@ bool Common_Pattern_Spawner::Spawn_Common_Pattern(int x) {
 
     //Min Requirement of 3
     if (availableObjects >= 3) {
-        return this->Air_Pipes(x);
         switch (Random::Get_Instance().Get_Num(5)) {
         case 0:     return this->Two_Steps_And_Hole(x);
         case 1:     return this->Pipe_Series(x);

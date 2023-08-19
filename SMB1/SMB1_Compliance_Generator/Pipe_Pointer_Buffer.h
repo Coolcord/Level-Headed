@@ -5,10 +5,11 @@
 
 class Enemy_Buffer;
 class Object_Buffer;
+class Required_Enemy_Spawns;
 
 class Pipe_Pointer_Buffer {
 public:
-    Pipe_Pointer_Buffer(Object_Buffer *objects, Enemy_Buffer *enemies);
+    Pipe_Pointer_Buffer(Object_Buffer *objects, Enemy_Buffer *enemies, Required_Enemy_Spawns *requiredEnemySpawns);
     ~Pipe_Pointer_Buffer() {}
     bool Pipe_Pointer(int x, Level::Level level, int world, int page);
     bool Enterable_Pipe(int x, int y, int height, Level::Level level, int world, int page);
@@ -24,6 +25,7 @@ private:
 
     Enemy_Buffer *enemies;
     Object_Buffer *objects;
+    Required_Enemy_Spawns *requiredEnemySpawns;
 };
 
 #endif // PIPE_POINTER_BUFFER_H
