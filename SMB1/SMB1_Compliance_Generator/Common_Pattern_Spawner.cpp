@@ -238,8 +238,12 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
     bool symmetricalDistance = static_cast<bool>(this->Get_Random_Number(0, 1));
     if (connected) x = 1;
     else x = this->Get_Random_Number(2, 5);
-    for (int i = this->Get_Random_Number(1, 6); i > 0 && this->availableObjects > 0; --i) {
-        if (!connected && !symmetricalDistance) x = this->Get_Random_Number(2, 5);
+    int numBlocks = this->Get_Random_Number(1, 6);
+    for (int i = numBlocks; i > 0 && this->availableObjects > 0; --i) {
+        if (!connected && !symmetricalDistance) {
+            if (numBlocks > 4) x = this->Get_Random_Number(2, 3); //reduce the distance
+            else x = this->Get_Random_Number(2, 5);
+        }
         y = this->object->Get_Current_Y();
         //Possibly change Y
         if (Random::Get_Instance().Get_Num(3) != 0) {
@@ -249,6 +253,7 @@ bool Common_Pattern_Spawner::Vertical_Blocks(int x) {
                 y += this->Get_Random_Number(1, Physics::BASIC_JUMP_HEIGHT);
             }
         }
+        if (!connected && y < 7) y = this->Get_Random_Number(7, Physics::GROUND_Y); //make sure it doesn't go too high if it's not connected, as it could get the player stuck otherwise
         if (y < this->minY) y = this->minY;
         if (y >= Physics::GROUND_Y-1) y = Physics::GROUND_Y-1;
         assert(this->object->Vertical_Blocks(x, y, this->Get_Height_From_Y(y)));
@@ -262,18 +267,21 @@ bool Common_Pattern_Spawner::Air_Pipes(int x) {
     assert(this->availableObjects >= 2);
 
     bool symmetrical = static_cast<bool>(this->Get_Random_Number(0, 1));
-    int distance = this->Get_Random_Number(2, 5);
+    int distance = 0;
+    if (this->args->difficulty > 4) distance = this->Get_Random_Number(0, 5); //allow pipes to be closer at higher difficulties
+    else distance = this->Get_Random_Number(2, 5);
     int numPipes = this->Get_Random_Number(1, 3);
     int y = this->Get_Random_Number(1, 6);
     if (y < this->minY) y = this->minY;
     int height = 2; //low difficulties only have short pipes
-    if (this->args->difficulty > 5) height = this->Get_Random_Number(2, 8-y);
+    if (this->args->difficulty > 2) height = this->Get_Random_Number(2, 8-y);
 
     //Spawn the pipes
     for (int i = numPipes; i > 0 && this->availableObjects >= 2; --i) {
         assert(height+y <= 8);
         assert(this->object->Pipe(x, y, height));
         assert(this->object->Horizontal_Blocks(0, y+height, 2));
+        this->availableObjects -= 2;
 
         if (!symmetrical) {
             x = distance+2;

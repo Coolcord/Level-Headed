@@ -1,5 +1,5 @@
 Next Update (v0.4.0)
-Nothing yet... :(
++ Added a new pattern: Air Pipes
 
 Exportable Config Files (v0.3.9)
 + Added the option to always start a new game from the last played world

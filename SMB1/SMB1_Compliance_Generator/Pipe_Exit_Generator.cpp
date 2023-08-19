@@ -12,7 +12,7 @@ bool Pipe_Exit_Generator::Generate_Level() {
     if (!this->end->Handle_End(2, true)) return false;
 
     //Write the header last
-    if (!this->header->Write_Header_To_Buffer(Level_Type::PIPE_EXIT, this->levelCrawler->Get_Level_Attribute(), this->levelCrawler->Get_Starting_Brick(), this->firstPageHandler->Get_Header_Background(),
+    if (!this->header->Write_Header_To_Buffer(Level_Type::PIPE_EXIT, this->levelCrawler->Get_Level_Attribute(), this->levelCrawler->Get_Starting_Brick(), this->args->headerBackground,
                                       this->args->headerScenery, this->args->levelCompliment, 400, 0, this->args->difficulty,
                                       this->objects->Get_Level_Length(), this->objects->Get_Num_Items(), 0, 0)) return false;
     return this->Write_Buffers_To_File();

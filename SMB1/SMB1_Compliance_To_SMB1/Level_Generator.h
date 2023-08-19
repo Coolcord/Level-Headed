@@ -20,6 +20,16 @@ public:
 
 private:
     SMB1_Compliance_Generator_Arguments Prepare_Arguments(const QString &generationName, int levelNum, int numLevels);
+
+    SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Small_Castle_Arguments(const QString &generationName);
+    SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Big_Castle_Arguments(const QString &generationName);
+    //SMB1_Compliance_Generator_Arguments Prepare_Pipe_Intro_Arguments(const QString &generationName); //TODO: Implement this!
+    //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Day_Arguments(const QString &generationName); //TODO: Implement this!
+    //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Night_Arguments(const QString &generationName); //TODO: Implement this!
+    //SMB1_Compliance_Generator_Arguments Prepare_Underground_Bonus_Arguments(const QString &generationName); //TODO: Implement this!
+    //SMB1_Compliance_Generator_Arguments Prepare_Underwater_Bonus_Arguments(const QString &generationName); //TODO: Implement this!
+
+    void Prepare_Difficulty_Arguments(SMB1_Compliance_Generator_Arguments &args);
     int Get_Level_Length(int index, int difficulty, bool autoScroll, Level_Type::Level_Type levelType);
     QString Convert_Level_Enum_To_String(Level::Level level);
     bool Delete_Old_Level_Generations();

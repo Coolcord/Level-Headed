@@ -111,53 +111,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     }
     if (this->pluginSettings->noAutoScrollingLevels) args.useAutoScroll = false;
     args.useMidpoints = true;
-    args.useVerticalObjectLimit = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
-    if (this->pluginSettings->smbUtilityCompatibility) args.useVerticalObjectLimit = false;
-    args.doesLevelExceedVerticalObjectLimit = false;
-    args.difficultyAutoScrollWithFlyingCheepCheeps = this->pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps;
-    args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
-    args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
-    args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
-    args.difficultyBridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
-    args.difficultyBridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
-    args.difficultyBridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;
-    args.difficultyCastleFireBars = this->pluginSettings->difficultyCastleFireBars;
-    args.difficultyCastleFlyingCheepCheeps = this->pluginSettings->difficultyCastleFlyingCheepCheeps;
-    args.difficultyCastleLakitus = this->pluginSettings->difficultyCastleLakitus;
-    args.difficultyCastleOffscreenBulletBills = this->pluginSettings->difficultyCastleOffscreenBulletBills;
-    args.difficultyIslandFlyingCheepCheeps = this->pluginSettings->difficultyIslandFlyingCheepCheeps;
-    args.difficultyIslandLakitus = this->pluginSettings->difficultyIslandLakitus;
-    args.difficultyIslandOffscreenBulletBills = this->pluginSettings->difficultyIslandOffscreenBulletBills;
-    args.difficultyUndergroundFlyingCheepCheeps = this->pluginSettings->difficultyUndergroundFlyingCheepCheeps;
-    args.difficultyUndergroundLakitus = this->pluginSettings->difficultyUndergroundLakitus;
-    args.difficultyUndergroundOffscreenBulletBills = this->pluginSettings->difficultyUndergroundOffscreenBulletBills;
-    args.difficultyUnderwaterBloopers = this->pluginSettings->difficultyUnderwaterBloopers;
-    args.difficultyUnderwaterFlyingCheepCheeps = this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps;
-    args.difficultyUnderwaterHammerBros = this->pluginSettings->difficultyUnderwaterHammerBros;
-    args.difficultyUnderwaterLakitus = this->pluginSettings->difficultyUnderwaterLakitus;
-    args.difficultyUnderwaterSwimmingCheepCheeps = this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps;
-    args.difficultyStandardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;
-    args.difficultyStandardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
-    args.difficultyStandardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
-    args.difficultyMinimumEnemyDistance = this->pluginSettings->difficultyMinimumEnemyDistance;
-    args.difficultyMinimumUnderwaterEnemyDistance = this->pluginSettings->difficultyMinimumUnderwaterEnemyDistance;
-    args.difficultyNoEnemies = this->pluginSettings->difficultyNoEnemies;
-    args.difficultyHammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
-    args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
-    args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
-    args.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
-    args.difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow = this->pluginSettings->difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow;
-    args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
-    args.difficultyMaxPowerups = this->pluginSettings->difficultyMaxPowerups;
-    args.difficultyMaxHiddenPowerups = this->pluginSettings->difficultyMaxHiddenPowerups;
-    args.difficultyMaxOneUps = this->pluginSettings->difficultyMaxOneUps;
-    args.difficultyMaxTenCoinBlocks = this->pluginSettings->difficultyMaxTenCoinBlocks;
-    args.difficultyMaxStars = this->pluginSettings->difficultyMaxStars;
-    args.difficultyHiddenPowerupChance = this->pluginSettings->difficultyHiddenPowerupChance;
-    args.difficultyOneUpChance = this->pluginSettings->difficultyOneUpChance;
-    args.difficultyTenCoinBlockChance = this->pluginSettings->difficultyTenCoinBlockChance;
-    args.difficultyStarChance = this->pluginSettings->difficultyStarChance;
-    args.fireFlowerBouncesLikeStar = this->pluginSettings->fireFlowerBouncesLikeAStar;
+    this->Prepare_Difficulty_Arguments(args);
 
     //Determine the level type. The last level of each world should be a castle
     if (level == this->pluginSettings->numLevelsPerWorld) args.levelType = Level_Type::CASTLE;
@@ -238,6 +192,92 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     args.numObjectBytes = 1000;
     args.numEnemyBytes = 1000;
     return args;
+}
+
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Exit_Small_Castle_Arguments(const QString &generationName) {
+    SMB1_Compliance_Generator_Arguments args;
+    args.fileName = this->levelLocation + "/" + generationName + "/Pipe_Exit_Small_Castle.lvl";
+    args.useAutoScroll = false;
+    args.useMidpoints = false;
+    args.difficulty = 1;
+    this->Prepare_Difficulty_Arguments(args);
+    args.levelType = Level_Type::PIPE_EXIT;
+    args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
+    args.endCastle = Castle::NONE;
+    args.numObjectBytes = 1000;
+    args.numEnemyBytes = 1000;
+    args.maxLevelLength = 100;
+
+    if (Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+    else args.levelCompliment = Level_Compliment::TREES;
+    args.headerScenery = Scenery::ONLY_CLOUDS;
+    if (Random::Get_Instance().Get_Num(1)==0) {
+        int random = Random::Get_Instance().Get_Num(189);
+        if (random < 70) args.headerBackground = Background::OVER_WATER;
+        else if (random < 110) args.headerBackground = Background::NIGHT;
+        else if (random < 150) args.headerBackground = Background::SNOW;
+        else if (random < 175) args.headerBackground = Background::NIGHT_AND_SNOW;
+        else if (random < 190) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        else assert(false);
+    } else args.headerBackground = Background::BLANK_BACKGROUND;
+    return args;
+}
+
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Exit_Big_Castle_Arguments(const QString &generationName) {
+    SMB1_Compliance_Generator_Arguments args = this->Prepare_Pipe_Exit_Small_Castle_Arguments(generationName);
+    args.fileName = this->levelLocation + "/" + generationName + "/Pipe_Exit_Big_Castle.lvl";
+    args.endCastle = Castle::BIG;
+    return args;
+}
+
+void Level_Generator::Prepare_Difficulty_Arguments(SMB1_Compliance_Generator_Arguments &args) {
+    args.useVerticalObjectLimit = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
+    if (this->pluginSettings->smbUtilityCompatibility) args.useVerticalObjectLimit = false;
+    args.doesLevelExceedVerticalObjectLimit = false;
+    args.difficultyAutoScrollWithFlyingCheepCheeps = this->pluginSettings->difficultyAutoScrollWithFlyingCheepCheeps;
+    args.difficultyBulletTime = this->pluginSettings->difficultyBulletTime;
+    args.difficultyHammerTime = this->pluginSettings->difficultyHammerTime;
+    args.difficultyBuzzyBeetlesReplaceLoneGoombas = this->pluginSettings->difficultyBuzzyBeetlesReplaceLoneGoombas;
+    args.difficultyBridgeFlyingCheepCheeps = this->pluginSettings->difficultyBridgeFlyingCheepCheeps;
+    args.difficultyBridgeLakitus = this->pluginSettings->difficultyBridgeLakitus;
+    args.difficultyBridgeOffscreenBulletBills = this->pluginSettings->difficultyBridgeOffscreenBulletBills;
+    args.difficultyCastleFireBars = this->pluginSettings->difficultyCastleFireBars;
+    args.difficultyCastleFlyingCheepCheeps = this->pluginSettings->difficultyCastleFlyingCheepCheeps;
+    args.difficultyCastleLakitus = this->pluginSettings->difficultyCastleLakitus;
+    args.difficultyCastleOffscreenBulletBills = this->pluginSettings->difficultyCastleOffscreenBulletBills;
+    args.difficultyIslandFlyingCheepCheeps = this->pluginSettings->difficultyIslandFlyingCheepCheeps;
+    args.difficultyIslandLakitus = this->pluginSettings->difficultyIslandLakitus;
+    args.difficultyIslandOffscreenBulletBills = this->pluginSettings->difficultyIslandOffscreenBulletBills;
+    args.difficultyUndergroundFlyingCheepCheeps = this->pluginSettings->difficultyUndergroundFlyingCheepCheeps;
+    args.difficultyUndergroundLakitus = this->pluginSettings->difficultyUndergroundLakitus;
+    args.difficultyUndergroundOffscreenBulletBills = this->pluginSettings->difficultyUndergroundOffscreenBulletBills;
+    args.difficultyUnderwaterBloopers = this->pluginSettings->difficultyUnderwaterBloopers;
+    args.difficultyUnderwaterFlyingCheepCheeps = this->pluginSettings->difficultyUnderwaterFlyingCheepCheeps;
+    args.difficultyUnderwaterHammerBros = this->pluginSettings->difficultyUnderwaterHammerBros;
+    args.difficultyUnderwaterLakitus = this->pluginSettings->difficultyUnderwaterLakitus;
+    args.difficultyUnderwaterSwimmingCheepCheeps = this->pluginSettings->difficultyUnderwaterSwimmingCheepCheeps;
+    args.difficultyStandardOverworldFlyingCheepCheeps = this->pluginSettings->difficultyStandardOverworldFlyingCheepCheeps;
+    args.difficultyStandardOverworldLakitus = this->pluginSettings->difficultyStandardOverworldLakitus;
+    args.difficultyStandardOverworldOffscreenBulletBills = this->pluginSettings->difficultyStandardOverworldOffscreenBulletBills;
+    args.difficultyMinimumEnemyDistance = this->pluginSettings->difficultyMinimumEnemyDistance;
+    args.difficultyMinimumUnderwaterEnemyDistance = this->pluginSettings->difficultyMinimumUnderwaterEnemyDistance;
+    args.difficultyNoEnemies = this->pluginSettings->difficultyNoEnemies;
+    args.difficultyHammerTimeIntensity = this->pluginSettings->difficultyHammerTimeIntensity;
+    args.difficultyLakituSpawnChancePerLevel = this->pluginSettings->difficultyLakituSpawnChancePerLevel;
+    args.difficultyDisableAllOtherEnemiesWhenALakituSpawns = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenALakituSpawns;
+    args.difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn = this->pluginSettings->difficultyDisableAllOtherEnemiesWhenFlyingCheepCheepsSpawn;
+    args.difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow = this->pluginSettings->difficultyPreventHammerTimeFromSpawningTwoHammerBrosInARow;
+    args.difficultySpawnerPriority = this->pluginSettings->difficultySpawnerPriority;
+    args.difficultyMaxPowerups = this->pluginSettings->difficultyMaxPowerups;
+    args.difficultyMaxHiddenPowerups = this->pluginSettings->difficultyMaxHiddenPowerups;
+    args.difficultyMaxOneUps = this->pluginSettings->difficultyMaxOneUps;
+    args.difficultyMaxTenCoinBlocks = this->pluginSettings->difficultyMaxTenCoinBlocks;
+    args.difficultyMaxStars = this->pluginSettings->difficultyMaxStars;
+    args.difficultyHiddenPowerupChance = this->pluginSettings->difficultyHiddenPowerupChance;
+    args.difficultyOneUpChance = this->pluginSettings->difficultyOneUpChance;
+    args.difficultyTenCoinBlockChance = this->pluginSettings->difficultyTenCoinBlockChance;
+    args.difficultyStarChance = this->pluginSettings->difficultyStarChance;
+    args.fireFlowerBouncesLikeStar = this->pluginSettings->fireFlowerBouncesLikeAStar;
 }
 
 int Level_Generator::Get_Level_Length(int length, int difficulty, bool autoScroll, Level_Type::Level_Type levelType) {
@@ -652,6 +692,27 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
         if (!this->Write_To_Map(mapBuffer, levelOrder.at(i), args.fileName.split("/").last())) return false;
     }
     if (!this->Write_To_Map(mapBuffer, Level_Type::STRING_BREAK)) return false;
+
+    //Generate the Bonus Levels
+    if (!this->Write_To_Map(mapBuffer, Header::STRING_BONUS_AREA_LIST_COMMENT)) return false;
+
+    //Handle the Pipe Exit Levels
+    SMB1_Compliance_Generator_Arguments pipeExitBigCastleArgs = this->Prepare_Pipe_Exit_Big_Castle_Arguments(generationName);
+    QMap<Level::Level, int>::iterator pipeExitBigCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_SMALL_CASTLE);
+    assert(pipeExitBigCastleIter != this->numObjectsInLevel->end());
+    pipeExitBigCastleArgs.numObjectBytes = pipeExitBigCastleIter.value();
+    pipeExitBigCastleArgs.numEnemyBytes = 0;
+    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_SMALL_CASTLE, pipeExitBigCastleArgs.fileName.split("/").last())) return false;
+    assert(this->generatorPlugin->Generate_Level(pipeExitBigCastleArgs));
+    SMB1_Compliance_Generator_Arguments pipeExitSmallCastleArgs = this->Prepare_Pipe_Exit_Small_Castle_Arguments(generationName);
+    QMap<Level::Level, int>::iterator pipeExitSmallCastleIter = this->numObjectsInLevel->find(Level::PIPE_EXIT_BIG_CASTLE);
+    assert(pipeExitSmallCastleIter != this->numObjectsInLevel->end());
+    pipeExitSmallCastleArgs.numObjectBytes = pipeExitSmallCastleIter.value();
+    pipeExitSmallCastleArgs.numEnemyBytes = 0;
+    if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_BIG_CASTLE, pipeExitSmallCastleArgs.fileName.split("/").last())) return false;
+    assert(this->generatorPlugin->Generate_Level(pipeExitSmallCastleArgs));
+
+
     if (!this->Write_To_Map(mapBuffer, Level_Type::STRING_BREAK)) return false;
 
     //Update the Vertical Object Limit Flag
