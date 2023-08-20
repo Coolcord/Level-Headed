@@ -362,7 +362,7 @@ bool End_Spawner::Standard_Auto_Scroll_End(int x) {
 
     //Handle the Scroll Stop
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
-    x = 0x09;
+    x = 0x07;
     if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
     if (!this->object->Scroll_Stop(x, false)) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety
@@ -405,22 +405,20 @@ bool End_Spawner::Bridge_Auto_Scroll_End(int x) {
     else assert(this->object->Cancel_Spawner(0));
 
     //Change the brick type back to surface
-    x = Random::Get_Instance().Get_Num(4)+distanceRemainingFromIslandEnd; //increment to the end of the island
+    x = Random::Get_Instance().Get_Num(4)+(distanceRemainingFromIslandEnd-1); //increment to the end of the island
     if (x > 0x10) x = 0x10;
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
 
-    x = Random::Get_Instance().Get_Num(10)+2;
-    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
-
     //Write the End Pattern
-    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(x, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
-    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(x, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
     else assert(false);
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
 
     //Handle the Scroll Stop
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
-    x = 0x09;
+    x = 0x07;
     if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
     if (!this->object->Scroll_Stop(x, false)) return false;
     this->object->Set_Coordinate_Safety(true); //turn back on the safety

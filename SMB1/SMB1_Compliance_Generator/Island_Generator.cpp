@@ -33,7 +33,7 @@ bool Island_Generator::Generate_Level() {
         else assert(this->Spawn_Basic_Island(x));
 
         assert(this->objects->Get_Num_Objects_Available() >= 0);
-        assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->objects->Get_Last_Object_Length())));
+        assert(this->end->Handle_End(this->Get_Safe_Jump_Distance(this->objects->Get_Last_Object_Length())-1));
     }
 
     //Handle Additional Passes
