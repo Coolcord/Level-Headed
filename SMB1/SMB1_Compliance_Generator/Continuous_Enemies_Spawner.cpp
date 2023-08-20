@@ -90,7 +90,7 @@ Enemy_Item::Enemy_Item Continuous_Enemies_Spawner::Determine_Continuous_Enemies_
     std::array<unsigned int, 3> order = {0,1,2};
     switch (this->args->difficultySpawnerPriority) {
     case 0: //Random
-        std::random_shuffle(order.begin(), order.end());
+        std::shuffle(order.begin(), order.end(), *(Random::Get_Instance().Get_Random_Generator()));
         break;
     case 1: //Lakitus > Flying Cheep-Cheeps > Bullet Bills
         order = {0,1,2};
