@@ -202,7 +202,7 @@ bool Common_Pattern_Spawner::Vertical_And_Horizontal_Blocks(int x) {
             }
             if (y > Physics::GROUND_Y) y = Physics::GROUND_Y; //don't go too low
             if (y < this->minY) y = this->minY;
-            assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, Physics::MAX_OBJECT_LENGTH-1)));
+            assert(this->object->Horizontal_Blocks(x, y, this->Get_Random_Number(2, 12)));
             vertical = false;
         } else {
             y = this->object->Get_Current_Y();

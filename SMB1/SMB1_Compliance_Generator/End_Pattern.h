@@ -7,7 +7,9 @@ namespace End_Pattern {
         Shortest_With_Brick,
         Shortest_Castle,
         One_Block_Bridge,
-        Simple_Underground
+        Standard_Underground,
+        Standard_Auto_Scroll_End,
+        Bridge_Auto_Scroll_End
     };
 }
 

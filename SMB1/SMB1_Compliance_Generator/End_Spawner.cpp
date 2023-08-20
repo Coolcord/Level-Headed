@@ -19,6 +19,8 @@ End_Spawner::End_Spawner(Object_Buffer *objects, Enemy_Buffer *enemies, Pipe_Poi
     this->requiredEnemySpawns = requiredEnemySpawns;
     this->endWritten = false;
     this->useAutoScroll = useAutoScroll;
+    this->manageAutoScroll = this->useAutoScroll && this->args->levelType == Level_Type::CASTLE; //castle levels don't autoscroll into a pipe at the end
+    this->pipeEnd = false;
     this->endObjectCount = 0;
     switch (args->endCastle) {
     case Castle::NONE:  this->castleObjectCount = 0; break;
@@ -58,8 +60,12 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
             success = this->Shortest_Castle(x); break;
         case End_Pattern::One_Block_Bridge:
             success = this->One_Block_Bridge_End(x); break;
-        case End_Pattern::Simple_Underground:
-            success = this->Simple_Underground_End(x); break;
+        case End_Pattern::Standard_Underground:
+            success = this->Standard_Underground_End(x); break;
+        case End_Pattern::Standard_Auto_Scroll_End:
+            success = this->Standard_Auto_Scroll_End(x); break;
+        case End_Pattern::Bridge_Auto_Scroll_End:
+            success = this->Bridge_Auto_Scroll_End(x); break;
         }
         if (success) this->endWritten = true;
         return success;
@@ -84,29 +90,38 @@ void End_Spawner::Determine_End() {
         assert(this->Determine_Island_End()); break;
     }
     this->endObjectCount += this->castleObjectCount;
-    if (useAutoScroll) ++this->endObjectCount;
+    if (this->useAutoScroll && this->manageAutoScroll) ++this->endObjectCount;
     this->object->Set_End_Object_Count(this->endObjectCount);
     assert(this->object->Get_Num_Bytes_Left() > this->endObjectCount);
 }
 
 bool End_Spawner::Determine_Standard_Overworld_End() {
-    switch (0) {
-    case 0:
-        this->endPattern = End_Pattern::Shortest;
+    if (this->useAutoScroll) {
+        this->endPattern = End_Pattern::Standard_Auto_Scroll_End;
         this->endObjectCount = 4;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
         return true;
-    default:
-        assert(false);
-        return false;
+    } else {
+        switch (0) {
+        case 0:
+            this->endPattern = End_Pattern::Shortest;
+            this->endObjectCount = 4;
+            return true;
+        default:
+            assert(false);
+            return false;
+        }
     }
 }
 
 bool End_Spawner::Determine_Underground_End() {
     switch (0) {
     case 0:
-        this->endPattern = End_Pattern::Simple_Underground;
-        this->endObjectCount = 3;
+        this->endPattern = End_Pattern::Standard_Underground;
+        this->endObjectCount = 4;
         assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
         return true;
     default:
         assert(false);
@@ -140,31 +155,47 @@ bool End_Spawner::Determine_Castle_End() {
 }
 
 bool End_Spawner::Determine_Bridge_End() {
-    switch (0) {
-    case 0:
-        this->endPattern = End_Pattern::One_Block_Bridge;
-        this->endObjectCount = 9;
+    if (this->useAutoScroll) {
+        this->endPattern = End_Pattern::Bridge_Auto_Scroll_End;
+        this->endObjectCount = 8;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
         return true;
-    default:
-        assert(false);
-        return false;
+    } else {
+        switch (0) {
+        case 0:
+            this->endPattern = End_Pattern::One_Block_Bridge;
+            this->endObjectCount = 9;
+            return true;
+        default:
+            assert(false);
+            return false;
+        }
     }
 }
 
 bool End_Spawner::Determine_Island_End() {
-    switch (0) {
-    case 0:
-        this->endPattern = End_Pattern::Shortest_With_Brick;
-        this->endObjectCount = 5;
+    if (this->useAutoScroll) {
+        this->endPattern = End_Pattern::Standard_Auto_Scroll_End;
+        this->endObjectCount = 4;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
         return true;
-    default:
-        assert(false);
-        return false;
+    } else {
+        switch (0) {
+        case 0:
+            this->endPattern = End_Pattern::Shortest_With_Brick;
+            this->endObjectCount = 5;
+            return true;
+        default:
+            assert(false);
+            return false;
+        }
     }
 }
 
 void End_Spawner::Handle_Auto_Scroll() {
-    if (this->useAutoScroll) {
+    if (this->useAutoScroll && this->manageAutoScroll) {
         --this->endObjectCount;
         if (!this->object->Is_Auto_Scroll_Active()) return; //don't bother deactivating if it isn't active
         int tmpX = 0;
@@ -193,7 +224,7 @@ bool End_Spawner::Shortest_End(int x, bool cancelSpawner) {
     assert(absoluteX != 0xF);
 
     //Write the End Pattern
-    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
     if (cancelSpawner) {
         if (!this->object->Cancel_Spawner(x)) return false;
         if (!this->object->End_Steps(0)) return false;
@@ -296,8 +327,89 @@ bool End_Spawner::One_Block_Bridge_End(int x) {
     return this->Shortest_End(x, false);
 }
 
-bool End_Spawner::Simple_Underground_End(int x) {
-    if (this->object->Get_Num_Objects_Left() < 3) return false;
+bool End_Spawner::Standard_Underground_End(int x) {
+    assert(this->args->levelType != Level_Type::CASTLE);
+    if (this->object->Get_Num_Objects_Left() < 4) return false;
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+
+    //Write the End Pattern
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    else assert(false);
+    assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
+
+    //Handle the Scroll Stop
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
+    x = 0x09;
+    if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
+    if (!this->object->Scroll_Stop(x, false)) return false;
+    this->object->Set_Coordinate_Safety(true); //turn back on the safety
+    return true;
+}
+
+bool End_Spawner::Standard_Auto_Scroll_End(int x) {
+    assert(this->args->levelType != Level_Type::CASTLE);
+    if (this->object->Get_Num_Objects_Left() < 4) return false;
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+
+    //Write the End Pattern
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, Scenery::NO_SCENERY));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    else assert(false);
+    assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
+
+    //Handle the Scroll Stop
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
+    x = 0x09;
+    if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
+    if (!this->object->Scroll_Stop(x, false)) return false;
+    this->object->Set_Coordinate_Safety(true); //turn back on the safety
+    return true;
+}
+
+bool End_Spawner::Bridge_Auto_Scroll_End(int x) {
+    if (this->object->Get_Num_Objects_Left() < 7) return false;
+
+    //Spawn the ending bridge
+    int y = Physics::GROUND_Y;
+    int height = 0xD - y;
+    assert(height == 3);
+    int bridgeLength = Random::Get_Instance().Get_Num(5)+5;
+    assert(this->object->Vertical_Blocks(x, y, height));
+    assert(this->object->Bridge(1, y, bridgeLength));
+    int distanceRemainingFromBridgeEnd = bridgeLength;
+
+    //Spawn an Island
+    int islandLength = Random::Get_Instance().Get_Num(11)+3;
+    if (islandLength < 5) x = this->object->Get_Last_Object_Length();
+    else x = this->object->Get_Last_Object_Length()-Random::Get_Instance().Get_Num(islandLength-5);
+    if (x < 0) x = 0; //TODO: Fix the else statement above to remove this line
+    assert(this->object->Island(x, Physics::GROUND_Y+1, islandLength));
+    distanceRemainingFromBridgeEnd -= x;
+    int distanceRemainingFromIslandEnd = islandLength;
+
+    //Spawn steps down from the bridge
+    x = distanceRemainingFromBridgeEnd; //increment to the end of the bridge
+    height = (Physics::GROUND_Y+1) - y;
+    assert(height > 0);
+    while (height > 0) {
+        assert(this->object->Vertical_Blocks(x, y, height));
+        distanceRemainingFromIslandEnd -= x;
+        x = 1;
+        ++y;
+        --height;
+    }
+    if (this->object->Get_Page_Relative_Absolute_X(0) == 0xF) assert(this->object->Cancel_Spawner(1));
+    else assert(this->object->Cancel_Spawner(0));
+
+    //Change the brick type back to surface
+    x = Random::Get_Instance().Get_Num(4)+distanceRemainingFromIslandEnd; //increment to the end of the island
+    if (x > 0x10) x = 0x10;
+    assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, this->args->headerScenery));
+
+    x = Random::Get_Instance().Get_Num(10)+2;
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
 
     //Write the End Pattern
@@ -307,7 +419,7 @@ bool End_Spawner::Simple_Underground_End(int x) {
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
 
     //Handle the Scroll Stop
-    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolue value is confirmed first
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
     x = 0x09;
     if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
     if (!this->object->Scroll_Stop(x, false)) return false;

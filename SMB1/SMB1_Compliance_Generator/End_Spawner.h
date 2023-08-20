@@ -34,7 +34,9 @@ private:
     bool Shortest_With_Brick_End(int x);
     bool Shortest_Castle(int x);
     bool One_Block_Bridge_End(int x);
-    bool Simple_Underground_End(int x);
+    bool Standard_Underground_End(int x);
+    bool Standard_Auto_Scroll_End(int x);
+    bool Bridge_Auto_Scroll_End(int x);
     bool Spawn_Castle();
 
     Enemy_Buffer *enemies;
@@ -46,6 +48,8 @@ private:
     int endObjectCount;
     bool endWritten;
     bool useAutoScroll;
+    bool manageAutoScroll;
+    bool pipeEnd;
 };
 
 #endif // END_SPAWNER_H
