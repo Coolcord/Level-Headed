@@ -23,6 +23,7 @@ struct SMB1_Compliance_Generator_Arguments {
     bool doesLevelExceedVerticalObjectLimit;
     bool useVerticalObjectLimit;
     bool fireFlowerBouncesLikeStar;
+    int currentWorld;
     int difficulty;
     int difficultyAutoScrollWithFlyingCheepCheeps;
     int difficultyBulletTime;

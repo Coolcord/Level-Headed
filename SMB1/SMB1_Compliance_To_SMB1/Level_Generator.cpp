@@ -96,6 +96,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
     int level = (levelNum%this->pluginSettings->numLevelsPerWorld)+1;
     int world = (levelNum/this->pluginSettings->numLevelsPerWorld)+1;
     SMB1_Compliance_Generator_Arguments args;
+    args.currentWorld = world;
     args.fileName = this->levelLocation + "/" + generationName + "/Level_" + QString::number(world) + "_" + QString::number(level) + ".lvl";
 
     //Determine difficulty
@@ -196,6 +197,7 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Arguments(const QSt
 
 SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Exit_Small_Castle_Arguments(const QString &generationName) {
     SMB1_Compliance_Generator_Arguments args;
+    args.currentWorld = 1;
     args.fileName = this->levelLocation + "/" + generationName + "/Pipe_Exit_Small_Castle.lvl";
     args.useAutoScroll = false;
     args.useMidpoints = false;

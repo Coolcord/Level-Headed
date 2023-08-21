@@ -88,6 +88,7 @@ SMB1_Compliance_Generator_Arguments SMB1_Compliance_Generator::Get_Empty_SMB1_Co
     args.doesLevelExceedVerticalObjectLimit = false;
     args.useVerticalObjectLimit = false;
     args.fireFlowerBouncesLikeStar = false;
+    args.currentWorld = 1;
     args.difficulty = 0;
     args.difficultyBulletTime = 0;
     args.difficultyHammerTime = 0;

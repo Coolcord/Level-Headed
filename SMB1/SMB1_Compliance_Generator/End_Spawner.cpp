@@ -338,8 +338,8 @@ bool End_Spawner::Standard_Underground_End(int x) {
 
     //Write the End Pattern
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE_4_AND_CEILING, Scenery::NO_SCENERY));
-    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
-    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_SMALL_CASTLE, this->args->currentWorld, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_BIG_CASTLE, this->args->currentWorld, 0));
     else assert(false);
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
 
@@ -363,8 +363,8 @@ bool End_Spawner::Standard_Underwater_End(int x) {
     assert(this->object->Vertical_Blocks(1, 8, 3));
     assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
     assert(this->object->Change_Brick_And_Scenery(1, Brick::ALL, Scenery::NO_SCENERY));
-    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
-    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_SMALL_CASTLE, this->args->currentWorld, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_BIG_CASTLE, this->args->currentWorld, 0));
     else assert(false);
 
     //Handle the Scroll Stop
@@ -383,8 +383,8 @@ bool End_Spawner::Standard_Auto_Scroll_End(int x) {
 
     //Write the End Pattern
     assert(this->object->Change_Brick_And_Scenery(x, Brick::SURFACE, Scenery::NO_SCENERY));
-    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
-    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, this->args->currentWorld, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, this->args->currentWorld, 0));
     else assert(false);
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
 
@@ -439,8 +439,8 @@ bool End_Spawner::Bridge_Auto_Scroll_End(int x) {
 
     //Write the End Pattern
     assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
-    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
-    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, this->args->currentWorld, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(8, Physics::GROUND_Y, Level::PIPE_EXIT_BIG_CASTLE, this->args->currentWorld, 0));
     else assert(false);
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
 
