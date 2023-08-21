@@ -34,7 +34,7 @@ Random Level Generator and Level Script Compiler for Super Mario Bros. 1 on the 
 
  **Q: When are you going to add new patterns into the level generator? What about new level types?**
  
- A: Currently, levels still only have access to about 10 patterns per level type, which is why the levels can sometimes be a bit stale. The v0.4.x series of updates will address this by focusing on creating new patterns for existing levels as well as adding completely new level types all together. v0.4 is still a ways off though, as I intend to write a graphical pattern editor to easily make new patterns for the level generator. Development of this tool will need to be completed before development of v0.4 can start.
+ A: Currently, levels still only have access to about 10 patterns per level type, which is why the levels can sometimes be a bit stale. The v0.4.x series of updates will address this by focusing on creating new patterns for existing levels as well as adding completely new level types all together.
  
  **Q: How do I add my own graphics and music patches?**
  

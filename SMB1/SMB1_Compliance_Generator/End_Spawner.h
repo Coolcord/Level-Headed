@@ -35,6 +35,7 @@ private:
     bool Shortest_Castle(int x);
     bool One_Block_Bridge_End(int x);
     bool Standard_Underground_End(int x);
+    bool Standard_Underwater_End(int x);
     bool Standard_Auto_Scroll_End(int x);
     bool Bridge_Auto_Scroll_End(int x);
     bool Spawn_Castle();

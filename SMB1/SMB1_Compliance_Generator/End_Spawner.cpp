@@ -62,6 +62,8 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
             success = this->One_Block_Bridge_End(x); break;
         case End_Pattern::Standard_Underground:
             success = this->Standard_Underground_End(x); break;
+        case End_Pattern::Standard_Underwater:
+            success = this->Standard_Underwater_End(x); break;
         case End_Pattern::Standard_Auto_Scroll_End:
             success = this->Standard_Auto_Scroll_End(x); break;
         case End_Pattern::Bridge_Auto_Scroll_End:
@@ -132,8 +134,10 @@ bool End_Spawner::Determine_Underground_End() {
 bool End_Spawner::Determine_Underwater_End() {
     switch (0) {
     case 0:
-        this->endPattern = End_Pattern::Shortest;
-        this->endObjectCount = 4;
+        this->endPattern = End_Pattern::Standard_Underwater;
+        this->endObjectCount = 7;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
         return true;
     default:
         assert(false);
@@ -338,6 +342,30 @@ bool End_Spawner::Standard_Underground_End(int x) {
     else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Tall_Reverse_L_Pipe(3, 6, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
     else assert(false);
     assert(this->object->Change_Brick_And_Scenery(3, Brick::NO_BRICKS, Scenery::NO_SCENERY));
+
+    //Handle the Scroll Stop
+    this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
+    x = 0x09;
+    if (this->object->Get_Page_Relative_Absolute_X(x) == 0xF) --x;
+    if (!this->object->Scroll_Stop(x, false)) return false;
+    this->object->Set_Coordinate_Safety(true); //turn back on the safety
+    return true;
+}
+
+bool End_Spawner::Standard_Underwater_End(int x) {
+    assert(this->args->levelType != Level_Type::CASTLE);
+    if (this->object->Get_Num_Objects_Left() < 7) return false;
+    assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+
+    //Write the End Pattern
+    assert(this->object->Vertical_Blocks(x, Physics::GROUND_Y, 1));
+    assert(this->object->Vertical_Blocks(1, 9, 2));
+    assert(this->object->Vertical_Blocks(1, 8, 3));
+    assert(this->object->Change_Brick_And_Scenery(0, Brick::SURFACE_5_AND_CEILING_4, Scenery::NO_SCENERY));
+    assert(this->object->Change_Brick_And_Scenery(1, Brick::ALL, Scenery::NO_SCENERY));
+    if (this->args->endCastle == Castle::SMALL) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_SMALL_CASTLE, 1, 0));
+    else if (this->args->endCastle == Castle::BIG) assert(this->pipePointers->Underwater_Sideways_Pipe(1, 5, Level::PIPE_EXIT_BIG_CASTLE, 1, 0));
+    else assert(false);
 
     //Handle the Scroll Stop
     this->object->Set_Coordinate_Safety(false); //turn off the safety check, since absolute value is confirmed first
