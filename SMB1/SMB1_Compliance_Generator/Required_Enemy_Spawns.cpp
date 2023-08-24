@@ -283,7 +283,7 @@ bool Required_Enemy_Spawns::Determine_Bytes_Required_For_Required_Enemy_Spawn(En
     int previousRequiredX = 0;
     if (!this->requiredEnemies->isEmpty()) previousRequiredX = this->requiredEnemies->last().x;
     int distance = absoluteX - previousRequiredX;
-    assert(distance >= 0);
+    assert(distance >= 0); //TODO: Add support for negative distances! (as long as the absolute x is greater than 0)
     disableSafety = false;
     int tmpNumRequiredBytes = this->numRequiredBytes;
     tmpNumRequiredBytes += 2;
