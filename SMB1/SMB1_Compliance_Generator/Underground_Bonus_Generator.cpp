@@ -79,7 +79,7 @@ bool Underground_Bonus_Generator::Generate_Level() {
     assert(this->objects->Vertical_Bricks(5, 1, 5));
     assert(this->objects->Horizontal_Bricks(1, 4, 2));
     assert(this->pipePointers->Tall_Reverse_L_Pipe(2, Physics::GROUND_Y, Level::PIPE_EXIT_SMALL_CASTLE, this->args->currentWorld, 0)); //TODO: Exits will need to be updated later!
-    assert(this->objects->Brick_With_10_Coins(2, 5));
+    assert(this->objects->Brick_With_10_Coins(1, 5));
     assert(this->objects->Scroll_Stop(6, false));
 
     //Write the header last
