@@ -46,6 +46,7 @@ set(SOURCES
     Castle_Generator.cpp
     Pipe_Exit_Generator.cpp
     Continuous_Enemies_Spawner.cpp
+    Underground_Bonus_Generator.cpp
 )
 
 set(HEADERS
@@ -110,6 +111,7 @@ set(HEADERS
     Pipe_Exit_Generator.h
     Difficulty.h
     Continuous_Enemies_Spawner.h
+    Underground_Bonus_Generator.h
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})

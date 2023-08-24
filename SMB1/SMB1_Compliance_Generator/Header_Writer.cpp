@@ -39,6 +39,7 @@ bool Header_Writer::Write_Header_To_Buffer(Level_Type::Level_Type type, Level_At
     case Level_Type::UNDERWATER:            this->buffer->Insert_At_End(Level_Type::STRING_UNDERWATER); break;
     case Level_Type::CASTLE:                this->buffer->Insert_At_End(Level_Type::STRING_CASTLE); break;
     case Level_Type::PIPE_EXIT:             this->buffer->Insert_At_End(Level_Type::STRING_PIPE_EXIT); break;
+    case Level_Type::UNDERGROUND_BONUS:     this->buffer->Insert_At_End(Level_Type::STRING_UNDERGROUND_BONUS); break;
     default:                                return false;
     }
     this->buffer->Insert_At_End(Header::STRING_DIFFICULTY + ": " + QString::number(difficulty));

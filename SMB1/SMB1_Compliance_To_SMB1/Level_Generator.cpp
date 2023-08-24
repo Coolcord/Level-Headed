@@ -233,6 +233,37 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Exit_Big_Castl
     return args;
 }
 
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Underground_Bonus_Arguments(const QString &generationName) {
+    SMB1_Compliance_Generator_Arguments args;
+    args.currentWorld = 1;
+    args.fileName = this->levelLocation + "/" + generationName + "/Underground_Bonus.lvl";
+    args.useAutoScroll = false;
+    args.useMidpoints = false;
+    args.difficulty = 1;
+    this->Prepare_Difficulty_Arguments(args);
+    args.levelType = Level_Type::UNDERGROUND_BONUS;
+    args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
+    args.startCastle = Castle::NONE;
+    args.endCastle = Castle::SMALL;
+    args.numObjectBytes = 1000;
+    args.numEnemyBytes = 1000;
+    args.maxLevelLength = 1000;
+
+    if (Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+    else args.levelCompliment = Level_Compliment::TREES;
+    args.headerScenery = Scenery::ONLY_CLOUDS;
+    if (Random::Get_Instance().Get_Num(1)==0) {
+        int random = Random::Get_Instance().Get_Num(189);
+        if (random < 70) args.headerBackground = Background::OVER_WATER;
+        else if (random < 110) args.headerBackground = Background::NIGHT;
+        else if (random < 150) args.headerBackground = Background::SNOW;
+        else if (random < 175) args.headerBackground = Background::NIGHT_AND_SNOW;
+        else if (random < 190) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        else assert(false);
+    } else args.headerBackground = Background::BLANK_BACKGROUND;
+    return args;
+}
+
 void Level_Generator::Prepare_Difficulty_Arguments(SMB1_Compliance_Generator_Arguments &args) {
     args.useVerticalObjectLimit = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
     if (this->pluginSettings->smbUtilityCompatibility) args.useVerticalObjectLimit = false;
@@ -477,6 +508,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
                     switch (iter->first) {
                     case Level_Type::CASTLE:                assert(false); return Level_Type::CASTLE;
                     case Level_Type::PIPE_EXIT:             assert(false); return Level_Type::PIPE_EXIT;
+                    case Level_Type::UNDERGROUND_BONUS:     assert(false); return Level_Type::UNDERGROUND_BONUS;
                     case Level_Type::STANDARD_OVERWORLD:    qInfo().noquote() << "Requested Standard Overworld Levels:" << iter->second; break;
                     case Level_Type::UNDERGROUND:           qInfo().noquote() << "Requested Underground Levels:" << iter->second; break;
                     case Level_Type::UNDERWATER:            qInfo().noquote() << "Requested Underwater Levels:" << iter->second; break;
@@ -714,6 +746,17 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     pipeExitSmallCastleArgs.numEnemyBytes = 0;
     if (!this->Write_To_Map(mapBuffer, Level::PIPE_EXIT_SMALL_CASTLE, pipeExitSmallCastleArgs.fileName.split("/").last())) return false;
     assert(this->generatorPlugin->Generate_Level(pipeExitSmallCastleArgs));
+
+    //Handle the Underground Bonus Level
+    SMB1_Compliance_Generator_Arguments undergroundBonusArgs = this->Prepare_Underground_Bonus_Arguments(generationName);
+    QMap<Level::Level, int>::iterator undergroundBonusObjectsIter = this->numObjectsInLevel->find(Level::UNDERGROUND_BONUS);
+    assert(undergroundBonusObjectsIter != this->numObjectsInLevel->end());
+    undergroundBonusArgs.numObjectBytes = undergroundBonusObjectsIter.value();
+    QMap<Level::Level, int>::iterator undergroundBonusEnemiesIter = this->numObjectsInLevel->find(Level::UNDERGROUND_BONUS);
+    assert(undergroundBonusEnemiesIter != this->numEnemiesInLevel->end());
+    undergroundBonusArgs.numEnemyBytes = undergroundBonusEnemiesIter.value();
+    if (!this->Write_To_Map(mapBuffer, Level::UNDERGROUND_BONUS, undergroundBonusArgs.fileName.split("/").last())) return false;
+    assert(this->generatorPlugin->Generate_Level(undergroundBonusArgs));
 
 
     if (!this->Write_To_Map(mapBuffer, Level_Type::STRING_BREAK)) return false;
@@ -1135,11 +1178,11 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numWorlds, int &n
 
     //Parse the Number of Worlds
     line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_NUMBER_OF_WORLDS + ":", lineNum);
-    QStringList elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_NUMBER_OF_WORLDS + ":") return false;
+    QStringList numWorldsElements = line.split(' ');
+    if (numWorldsElements.size() != 2) return false;
+    if (numWorldsElements.at(0) != Header::STRING_NUMBER_OF_WORLDS + ":") return false;
     bool valid = false;
-    numWorlds = elements.at(1).toInt(&valid);
+    numWorlds = numWorldsElements.at(1).toInt(&valid);
     if (!valid) return false; //unable to parse int
     if (!this->writerPlugin->Hacks_Set_Number_Of_Worlds(numWorlds)) {
         errorCode = 3;
@@ -1148,11 +1191,11 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numWorlds, int &n
 
     //Parse the Number of Levels Per World
     line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ":", lineNum);
-    elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ":") return false;
+    QStringList numLevelsPerWorldElements = line.split(' ');
+    if (numLevelsPerWorldElements.size() != 2) return false;
+    if (numLevelsPerWorldElements.at(0) != Header::STRING_NUMBER_OF_LEVELS_PER_WORLD + ":") return false;
     valid = false;
-    numLevelsPerWorld = elements.at(1).toInt(&valid);
+    numLevelsPerWorld = numLevelsPerWorldElements.at(1).toInt(&valid);
     if (!valid) return false; //unable to parse int
     if (!this->writerPlugin->Hacks_Set_Number_Of_Levels_Per_World(numLevelsPerWorld)) {
         errorCode = 3;
@@ -1161,11 +1204,11 @@ bool Level_Generator::Parse_Map_Header(QTextStream &file, int &numWorlds, int &n
 
     //Parse the Exceeds Vertical Object Limit Option
     line = this->Parse_Through_Comments_Until_First_Word(file, Header::STRING_EXCEEDS_VERTICAL_OBJECT_LIMIT + ":", lineNum);
-    elements = line.split(' ');
-    if (elements.size() != 2) return false;
-    if (elements.at(0) != Header::STRING_EXCEEDS_VERTICAL_OBJECT_LIMIT + ":") return false;
+    QStringList commentElements = line.split(' ');
+    if (commentElements.size() != 2) return false;
+    if (commentElements.at(0) != Header::STRING_EXCEEDS_VERTICAL_OBJECT_LIMIT + ":") return false;
     bool useVerticalObjectLimitPatch = false;
-    if (!this->Parse_Boolean(elements.at(1), useVerticalObjectLimitPatch)) return false;
+    if (!this->Parse_Boolean(commentElements.at(1), useVerticalObjectLimitPatch)) return false;
     if (useVerticalObjectLimitPatch) {
         if (this->pluginSettings->smbUtilityCompatibility) {
             qDebug() << "WARNING: Vertical Object Limit was requested to be removed, but it is disabled!";

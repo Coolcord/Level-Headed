@@ -23,10 +23,10 @@ private:
 
     SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Small_Castle_Arguments(const QString &generationName);
     SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Big_Castle_Arguments(const QString &generationName);
+    SMB1_Compliance_Generator_Arguments Prepare_Underground_Bonus_Arguments(const QString &generationName);
     //SMB1_Compliance_Generator_Arguments Prepare_Pipe_Intro_Arguments(const QString &generationName); //TODO: Implement this!
     //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Day_Arguments(const QString &generationName); //TODO: Implement this!
     //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Night_Arguments(const QString &generationName); //TODO: Implement this!
-    //SMB1_Compliance_Generator_Arguments Prepare_Underground_Bonus_Arguments(const QString &generationName); //TODO: Implement this!
     //SMB1_Compliance_Generator_Arguments Prepare_Underwater_Bonus_Arguments(const QString &generationName); //TODO: Implement this!
 
     void Prepare_Difficulty_Arguments(SMB1_Compliance_Generator_Arguments &args);

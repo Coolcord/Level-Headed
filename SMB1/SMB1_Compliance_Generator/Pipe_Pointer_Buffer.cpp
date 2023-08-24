@@ -28,33 +28,33 @@ bool Pipe_Pointer_Buffer::Pipe_Pointer(int x, Level::Level level, int world, int
 bool Pipe_Pointer_Buffer::Enterable_Pipe(int x, int y, int height, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (height < 1 || height > 16) return false;
-    if (!this->Pipe_Pointer(x, level, world, page)) return false;
-    return this->objects->Enterable_Pipe_Without_Pointer(x, y, height);
+    if (!this->objects->Enterable_Pipe_Without_Pointer(x, y, height)) return false;
+    return this->Pipe_Pointer(0, level, world, page);
 }
 
 bool Pipe_Pointer_Buffer::Reverse_L_Pipe(int x, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
-    if (!this->Pipe_Pointer(x, level, world, page)) return false;
-    return this->objects->Reverse_L_Pipe_Without_Pointer(x);
+    if (!this->objects->Reverse_L_Pipe_Without_Pointer(x)) return false;
+    return this->Pipe_Pointer(0, level, world, page);
 }
 
 bool Pipe_Pointer_Buffer::Tall_Reverse_L_Pipe(int x, int yPlacement, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (yPlacement < 0x3 || yPlacement > 0xA) return false;
-    if (!this->Pipe_Pointer(x, level, world, page)) return false;
-    return this->objects->Tall_Reverse_L_Pipe_Without_Pointer(x, yPlacement);
+    if (!this->objects->Tall_Reverse_L_Pipe_Without_Pointer(x, yPlacement)) return false;
+    return this->Pipe_Pointer(0, level, world, page);
 }
 
 bool Pipe_Pointer_Buffer::Underwater_Sideways_Pipe(int x, int y, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
-    if (!this->Pipe_Pointer(x, level, world, page)) return false;
-    return this->objects->Underwater_Sideways_Pipe_Without_Pointer(x, y);
+    if (!this->objects->Underwater_Sideways_Pipe_Without_Pointer(x, y)) return false;
+    return this->Pipe_Pointer(0, level, world, page);
 }
 
 bool Pipe_Pointer_Buffer::Brick_With_Vine(int x, int y, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
-    if (!this->Pipe_Pointer(x, level, world, page)) return false;
-    return this->objects->Brick_With_Vine_Without_Pointer(x, y);
+    if (!this->objects->Brick_With_Vine_Without_Pointer(x, y)) return false;
+    return this->Pipe_Pointer(0, level, world, page);
 }
 
 bool Pipe_Pointer_Buffer::Is_Safe_To_Write_Pipe_Pointer() {

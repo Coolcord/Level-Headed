@@ -10,7 +10,8 @@ namespace End_Pattern {
         Standard_Underground,
         Standard_Underwater,
         Standard_Auto_Scroll_End,
-        Bridge_Auto_Scroll_End
+        Bridge_Auto_Scroll_End,
+        No_End
     };
 }
 

@@ -68,6 +68,8 @@ bool End_Spawner::Handle_End(int x, bool forceWrite) {
             success = this->Standard_Auto_Scroll_End(x); break;
         case End_Pattern::Bridge_Auto_Scroll_End:
             success = this->Bridge_Auto_Scroll_End(x); break;
+        case End_Pattern::No_End:
+            success = true; break;
         }
         if (success) this->endWritten = true;
         return success;
@@ -90,6 +92,11 @@ void End_Spawner::Determine_End() {
         assert(this->Determine_Bridge_End()); break;
     case Level_Type::ISLAND:
         assert(this->Determine_Island_End()); break;
+    case Level_Type::UNDERGROUND_BONUS:
+        this->endObjectCount = 0;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));
+        this->pipeEnd = true;
+        break;
     }
     this->endObjectCount += this->castleObjectCount;
     if (this->useAutoScroll && this->manageAutoScroll) ++this->endObjectCount;
