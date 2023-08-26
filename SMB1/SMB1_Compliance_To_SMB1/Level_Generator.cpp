@@ -842,7 +842,7 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
 bool Level_Generator::Handle_Pipe_Intro_Level(const QString &generationName, const SMB1_Compliance_Generator_Arguments &args, Text_Insertion_Buffer &mapBuffer,
                                               int levelNum, bool &hasPipeIntroSmallCastleBeenWritten, bool &hasPipeIntroBigCastleBeenWritten) {
     bool needsPipeIntro = args.levelType == Level_Type::UNDERGROUND || args.levelType == Level_Type::UNDERWATER;
-    if (!needsPipeIntro) return true;
+    if (!needsPipeIntro || this->pluginSettings->noPipeIntroCutscenes) return true;
     if (this->pluginSettings->godMode) return true; //God mode is incompatible with pipe intros!
 
     int level = (levelNum%this->pluginSettings->numLevelsPerWorld)+1;

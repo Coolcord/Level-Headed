@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabAbout">
       <attribute name="title">
@@ -3227,7 +3227,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <x>0</x>
             <y>0</y>
             <width>721</width>
-            <height>1072</height>
+            <height>1101</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -3455,6 +3455,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                <widget class="QCheckBox" name="cbNoAutoScrollingLevels">
                 <property name="text">
                  <string>No Auto Scrolling Levels</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbNoPipeIntroCutscenes">
+                <property name="text">
+                 <string>No Pipe Intro Cutscenes</string>
                 </property>
                </widget>
               </item>

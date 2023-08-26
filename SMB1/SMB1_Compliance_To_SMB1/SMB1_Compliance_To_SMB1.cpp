@@ -197,6 +197,7 @@ void SMB1_Compliance_To_SMB1::Load_Plugin_Default_Settings() {
     this->pluginSettings.performChaoticSwapOnEnemies = false;
     this->pluginSettings.levelScriptEnemies = 3;
     this->pluginSettings.noAutoScrollingLevels = false;
+    this->pluginSettings.noPipeIntroCutscenes = false;
     this->pluginSettings.standardLevelDistribution = true;
     this->pluginSettings.includeStandardOverworldLevelsInRandomDistribution = true;
     this->pluginSettings.includeUndergroundLevelsInRandomDistribution = true;

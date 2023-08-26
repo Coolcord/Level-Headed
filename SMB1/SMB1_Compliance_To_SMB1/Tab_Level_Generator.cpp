@@ -40,6 +40,7 @@ void Tab_Level_Generator::Load_Settings(Plugin_Settings *ps) {
     this->ui->cbRandomizeWarpZones->setChecked(ps->randomizeWarpZones);
     this->ui->comboLevelScriptEnemies->setCurrentIndex(ps->levelScriptEnemies);
     if (this->ui->cbNoAutoScrollingLevels->isEnabled()) this->ui->cbNoAutoScrollingLevels->setChecked(ps->noAutoScrollingLevels);
+    if (this->ui->cbNoPipeIntroCutscenes->isEnabled()) this->ui->cbNoPipeIntroCutscenes->setChecked(ps->noPipeIntroCutscenes);
     if (ps->standardLevelDistribution) this->ui->radioStandardLevelDistribution->setChecked(true);
     else this->ui->radioRandomLevelDistribution->setChecked(true);
     this->Enable_Standard_Level_Distribution_Options(ps->standardLevelDistribution);
@@ -73,6 +74,7 @@ void Tab_Level_Generator::Save_Settings(Plugin_Settings *ps) {
     ps->randomizeWarpZones = this->ui->cbRandomizeWarpZones->isChecked();
     ps->levelScriptEnemies = this->ui->comboLevelScriptEnemies->currentIndex();
     if (this->ui->cbNoAutoScrollingLevels->isEnabled()) ps->noAutoScrollingLevels = this->ui->cbNoAutoScrollingLevels->isChecked();
+    if (this->ui->cbNoPipeIntroCutscenes->isEnabled()) ps->noPipeIntroCutscenes = this->ui->cbNoPipeIntroCutscenes->isChecked();
     ps->standardLevelDistribution = this->ui->radioStandardLevelDistribution->isChecked();
     ps->randomNumWorlds = this->ui->cbRandomNumWorlds->isChecked();
     ps->numWorlds = this->ui->sbNumWorlds->value();

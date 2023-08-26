@@ -202,6 +202,16 @@ void Configure_Settings_Form::on_radioStandardLevelDistribution_toggled(bool che
     this->tabLevelGenerator->Enable_Standard_Level_Distribution_Options(checked);
 }
 
+void Configure_Settings_Form::on_cbGodMode_toggled(bool checked) {
+    if (checked) {
+        this->ui->cbNoPipeIntroCutscenes->setEnabled(false);
+        this->ui->cbNoPipeIntroCutscenes->setChecked(true);
+    } else {
+        this->ui->cbNoPipeIntroCutscenes->setEnabled(true);
+        this->ui->cbNoPipeIntroCutscenes->setChecked(this->pluginSettings->noPipeIntroCutscenes);
+    }
+}
+
 void Configure_Settings_Form::on_btnUseDefaultSettingsLevelDistribution_clicked() {
     this->tabLevelGenerator->Use_Default_Settings();
 }
@@ -220,3 +230,4 @@ void Configure_Settings_Form::on_radioStartingLives_toggled(bool checked) {
         this->ui->cbAlwaysRestartFromCurrentWorldAfterGameOver->hide();
     }
 }
+

@@ -39,6 +39,7 @@ struct Plugin_Settings {
     bool performChaoticSwapOnEnemies;
     int levelScriptEnemies;
     bool noAutoScrollingLevels;
+    bool noPipeIntroCutscenes;
     bool standardLevelDistribution;
     bool includeStandardOverworldLevelsInRandomDistribution;
     bool includeUndergroundLevelsInRandomDistribution;

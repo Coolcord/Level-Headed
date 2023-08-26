@@ -54,6 +54,7 @@ bool Config_File_Handler::Save_Plugin_Settings(Plugin_Settings *ps, const QStrin
     if (!configFile.Set_Value("Randomize_Warp_Zones", ps->randomizeWarpZones)) return false;
     if (!configFile.Set_Value("Level_Script_Enemies", ps->levelScriptEnemies)) return false;
     if (!configFile.Set_Value("No_Auto_Scrolling_Levels", ps->noAutoScrollingLevels)) return false;
+    if (!configFile.Set_Value("No_Pipe_Intro_Cutscenes", ps->noPipeIntroCutscenes)) return false;
     if (!configFile.Set_Value("Standard_Level_Distribution", ps->standardLevelDistribution)) return false;
     if (!configFile.Set_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", ps->includeStandardOverworldLevelsInRandomDistribution)) return false;
     if (!configFile.Set_Value("Include_Underground_Levels_In_Random_Distribution", ps->includeUndergroundLevelsInRandomDistribution)) return false;
@@ -278,6 +279,7 @@ bool Config_File_Handler::Load_Plugin_Settings(Plugin_Settings *ps, const QStrin
     configFile.Get_Value("Randomize_Warp_Zones", ps->randomizeWarpZones);
     configFile.Get_Value("Level_Script_Enemies", ps->levelScriptEnemies);
     configFile.Get_Value("No_Auto_Scrolling_Levels", ps->noAutoScrollingLevels);
+    configFile.Get_Value("No_Pipe_Intro_Cutscenes", ps->noPipeIntroCutscenes);
     configFile.Get_Value("Standard_Level_Distribution", ps->standardLevelDistribution);
     configFile.Get_Value("Include_Standard_Overworld_Levels_In_Random_Distribution", ps->includeStandardOverworldLevelsInRandomDistribution);
     configFile.Get_Value("Include_Underground_Levels_In_Random_Distribution", ps->includeUndergroundLevelsInRandomDistribution);

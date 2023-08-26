@@ -50,6 +50,7 @@ private slots:
     void on_comboDifficulty_currentIndexChanged(int index);
     void on_radioStartingLives_toggled(bool checked);
     void on_radioStandardLevelDistribution_toggled(bool checked);
+    void on_cbGodMode_toggled(bool checked);
 
 private:
     void Load_Settings();
