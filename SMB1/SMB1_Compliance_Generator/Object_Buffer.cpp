@@ -849,7 +849,7 @@ bool Object_Buffer::End_Steps(int x) {
     return true;
 }
 
-bool Object_Buffer::Reverse_L_Pipe_Without_Pointer(int x) {
+bool Object_Buffer::Reverse_L_Pipe_To_Next_Level(int x) {
     return this->Write_Object(Object_Item::REVERSE_L_PIPE, true, x, Physics::REVERSE_L_PIPE_LENGTH);
 }
 

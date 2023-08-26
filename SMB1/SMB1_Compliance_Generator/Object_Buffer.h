@@ -96,7 +96,7 @@ public:
     bool Balance_Lift_Horizontal_Rope(int x, int length);
     bool Steps(int x, int width);
     bool End_Steps(int x);
-    bool Reverse_L_Pipe_Without_Pointer(int x);
+    bool Reverse_L_Pipe_To_Next_Level(int x);
     bool Pipe_Wall(int x);
     bool Nothing();
 

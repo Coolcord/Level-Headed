@@ -507,6 +507,7 @@ Level_Type::Level_Type Level_Generator::Determine_Level_Type(int levelNum, int n
                 for (QVector<QPair<Level_Type::Level_Type, int>>::iterator iter = unallocatedLevels.begin(); iter != unallocatedLevels.end(); ++iter) {
                     switch (iter->first) {
                     case Level_Type::CASTLE:                assert(false); return Level_Type::CASTLE;
+                    case Level_Type::PIPE_INTRO:            assert(false); return Level_Type::PIPE_INTRO;
                     case Level_Type::PIPE_EXIT:             assert(false); return Level_Type::PIPE_EXIT;
                     case Level_Type::UNDERGROUND_BONUS:     assert(false); return Level_Type::UNDERGROUND_BONUS;
                     case Level_Type::STANDARD_OVERWORLD:    qInfo().noquote() << "Requested Standard Overworld Levels:" << iter->second; break;

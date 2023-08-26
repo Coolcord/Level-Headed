@@ -293,7 +293,7 @@ bool Level_Script_Parser::Parse_Object(const QString &line) {
         return this->args->objectBuffer->Page_Change(num1);
     case Object_Item::REVERSE_L_PIPE:
         if (elements.size() != 2 || !isNum1Valid) return false;
-        return this->args->objectBuffer->Reverse_L_Pipe_Without_Pointer(num1);
+        return this->args->objectBuffer->Reverse_L_Pipe_To_Next_Level(num1);
     case Object_Item::FLAGPOLE:
         if (elements.size() != 2 || !isNum1Valid) return false;
         return this->args->objectBuffer->Flagpole(num1);

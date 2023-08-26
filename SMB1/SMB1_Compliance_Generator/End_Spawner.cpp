@@ -92,6 +92,11 @@ void End_Spawner::Determine_End() {
         assert(this->Determine_Bridge_End()); break;
     case Level_Type::ISLAND:
         assert(this->Determine_Island_End()); break;
+    case Level_Type::PIPE_INTRO:
+        this->endObjectCount = 0;
+        assert(this->requiredEnemySpawns->Set_Num_End_Bytes(0));
+        this->pipeEnd = true;
+        break;
     case Level_Type::UNDERGROUND_BONUS:
         this->endObjectCount = 0;
         assert(this->requiredEnemySpawns->Set_Num_End_Bytes(5));

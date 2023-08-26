@@ -10,6 +10,7 @@ namespace Level_Type {
         BRIDGE,
         ISLAND,
         PIPE_EXIT,
+        PIPE_INTRO,
         UNDERGROUND_BONUS
     };
 }

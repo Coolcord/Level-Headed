@@ -38,6 +38,7 @@ private:
     bool Generate_Bridge_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Island_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Pipe_Exit_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
+    bool Generate_Pipe_Intro_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     bool Generate_Underground_Bonus_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args);
     QString applicationLocation;
     QWidget *parent;

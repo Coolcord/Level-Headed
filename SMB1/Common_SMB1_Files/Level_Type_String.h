@@ -13,6 +13,7 @@ namespace Level_Type {
     const static QString STRING_CASTLE = "Castle";
     const static QString STRING_BRIDGE = "Bridge";
     const static QString STRING_PIPE_EXIT = "Pipe_Exit";
+    const static QString STRING_PIPE_INTRO = "Pipe_Intro";
     const static QString STRING_UNDERGROUND_BONUS = "Underground_Bonus";
 }
 

@@ -13,7 +13,6 @@ public:
     ~Pipe_Pointer_Buffer() {}
     bool Pipe_Pointer(int x, Level::Level level, int world, int page);
     bool Enterable_Pipe(int x, int y, int height, Level::Level level, int world, int page);
-    bool Reverse_L_Pipe(int x, Level::Level level, int world, int page);
     bool Tall_Reverse_L_Pipe(int x, int yPlacement, Level::Level level, int world, int page);
     bool Underwater_Sideways_Pipe(int x, int y, Level::Level level, int world, int page);
     bool Brick_With_Vine(int x, int y, Level::Level level, int world, int page);

@@ -39,6 +39,7 @@ bool Header_Writer::Write_Header_To_Buffer(Level_Type::Level_Type type, Level_At
     case Level_Type::UNDERWATER:            this->buffer->Insert_At_End(Level_Type::STRING_UNDERWATER); break;
     case Level_Type::CASTLE:                this->buffer->Insert_At_End(Level_Type::STRING_CASTLE); break;
     case Level_Type::PIPE_EXIT:             this->buffer->Insert_At_End(Level_Type::STRING_PIPE_EXIT); break;
+    case Level_Type::PIPE_INTRO:            this->buffer->Insert_At_End(Level_Type::STRING_PIPE_INTRO); break;
     case Level_Type::UNDERGROUND_BONUS:     this->buffer->Insert_At_End(Level_Type::STRING_UNDERGROUND_BONUS); break;
     default:                                return false;
     }
@@ -60,11 +61,15 @@ bool Header_Writer::Write_Header_To_Buffer(Level_Type::Level_Type type, Level_At
 
     //Handle the Starting Position
     this->buffer->Add_To_Line_Buffer(Header::STRING_STARTING_POSITION + ": ");
-    switch (attribute) { //use the same starting position as the attribute of the level
-    case Level_Attribute::UNDERWATER:   this->buffer->Insert_At_End(Level_Attribute::STRING_UNDERWATER); break;
-    case Level_Attribute::OVERWORLD:    this->buffer->Insert_At_End(Level_Attribute::STRING_OVERWORLD); break;
-    case Level_Attribute::UNDERGROUND:  this->buffer->Insert_At_End(Level_Attribute::STRING_UNDERGROUND); break;
-    case Level_Attribute::CASTLE:       this->buffer->Insert_At_End(Level_Attribute::STRING_CASTLE); break;
+    if (type == Level_Type::PIPE_INTRO) {
+        this->buffer->Insert_At_End(Level_Attribute::STRING_OVERWORLD_WALKING);
+    } else {
+        switch (attribute) { //use the same starting position as the attribute of the level
+        case Level_Attribute::UNDERWATER:   this->buffer->Insert_At_End(Level_Attribute::STRING_UNDERWATER); break;
+        case Level_Attribute::OVERWORLD:    this->buffer->Insert_At_End(Level_Attribute::STRING_OVERWORLD); break;
+        case Level_Attribute::UNDERGROUND:  this->buffer->Insert_At_End(Level_Attribute::STRING_UNDERGROUND); break;
+        case Level_Attribute::CASTLE:       this->buffer->Insert_At_End(Level_Attribute::STRING_CASTLE); break;
+        }
     }
 
     //Handle the Brick

@@ -8,6 +8,7 @@
 #include "Level_Script_Parser.h"
 #include "Level_Script_Modifier.h"
 #include "Pipe_Exit_Generator.h"
+#include "Pipe_Intro_Generator.h"
 #include "Underground_Bonus_Generator.h"
 #include "../../../C_Common_Code/Qt/Random/Random.h"
 #include <assert.h>
@@ -51,6 +52,7 @@ bool SMB1_Compliance_Generator::Generate_Level(SMB1_Compliance_Generator_Argumen
     case Level_Type::BRIDGE:                success = this->Generate_Bridge_Level(&file, &args); break;
     case Level_Type::ISLAND:                success = this->Generate_Island_Level(&file, &args); break;
     case Level_Type::PIPE_EXIT:             success = this->Generate_Pipe_Exit_Level(&file, &args); break;
+    case Level_Type::PIPE_INTRO:            success = this->Generate_Pipe_Intro_Level(&file, &args); break;
     case Level_Type::UNDERGROUND_BONUS:     success = this->Generate_Underground_Bonus_Level(&file, &args); break;
     }
 
@@ -189,6 +191,11 @@ bool SMB1_Compliance_Generator::Generate_Island_Level(QFile *file, SMB1_Complian
 bool SMB1_Compliance_Generator::Generate_Pipe_Exit_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
     Pipe_Exit_Generator pipeExitGenerator(file, args);
     return pipeExitGenerator.Generate_Level();
+}
+
+bool SMB1_Compliance_Generator::Generate_Pipe_Intro_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {
+    Pipe_Intro_Generator pipeIntroGenerator(file, args);
+    return pipeIntroGenerator.Generate_Level();
 }
 
 bool SMB1_Compliance_Generator::Generate_Underground_Bonus_Level(QFile *file, SMB1_Compliance_Generator_Arguments *args) {

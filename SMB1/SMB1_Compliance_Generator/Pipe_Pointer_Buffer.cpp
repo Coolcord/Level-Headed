@@ -32,12 +32,6 @@ bool Pipe_Pointer_Buffer::Enterable_Pipe(int x, int y, int height, Level::Level 
     return this->Pipe_Pointer(0, level, world, page);
 }
 
-bool Pipe_Pointer_Buffer::Reverse_L_Pipe(int x, Level::Level level, int world, int page) {
-    if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
-    if (!this->objects->Reverse_L_Pipe_Without_Pointer(x)) return false;
-    return this->Pipe_Pointer(0, level, world, page);
-}
-
 bool Pipe_Pointer_Buffer::Tall_Reverse_L_Pipe(int x, int yPlacement, Level::Level level, int world, int page) {
     if (!this->Is_Safe_To_Write_Pipe_Pointer()) return false;
     if (yPlacement < 0x3 || yPlacement > 0xA) return false;
