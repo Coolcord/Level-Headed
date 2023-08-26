@@ -31,7 +31,7 @@ Difficulty"
 *,Cloud_Bonus_1,9,30,21,4,2.5,-1.5,N/A,N/A
 *,Cloud_Bonus_2,20,30,10,4,2.5,-1.5,N/A,N/A
 *,Pipe_Intro (Small Castle),3,3,0,0,0,0,N/A,N/A
-*,Warp_Zone (Pipe Intro Big Castle),30,10,-20,0,0,0,N/A,N/A
+*,Warp_Zone (Pipe Intro Big Castle),23,4,-19,0,0,0,N/A,N/A
 *,Underwater_Bonus,23,30,7,8,8,0,0.347826086956522,0.266666666666667
 *,World_1_Level_3 (Pipe Exit Big Castle),41,10,-31,14,0,-14,N/A,N/A
 *,World_3_Level_2 (Pipe Exit Small Castle),24,11,-13,18,0,-18,N/A,N/A
@@ -51,7 +51,7 @@ Difficulty"
 13,World_3_Level_2,World_7_Level_1,6,1,Cloud_Bonus_2,World_4_Level_3,1,,
 7,World_3_Level_2,World_3_Level_3,7,2.5,World_7_Level_1,World_4_Level_3,2,,
 20,Warp_Zone,World_3_Level_3,1,0.5,World_7_Level_1,World_3_Level_1,0.5,,
-19,Warp_Zone,Cloud_Bonus_2,10,2.5,World_1_Level_1,World_3_Level_1,2.5,,
+19,Warp_Zone,Cloud_Bonus_2,9,2.5,World_1_Level_1,World_3_Level_1,2.5,,
 9,Warp_Zone,World_1_Level_4,9,3,World_3_Level_3,World_5_Level_2,3,,
 30,World_5_Level_1,World_1_Level_4,2,3,World_1_Level_4,World_5_Level_2,2,,
 28,World_5_Level_1,World_6_Level_3,15,1,World_1_Level_4,World_2_Level_4,1,,

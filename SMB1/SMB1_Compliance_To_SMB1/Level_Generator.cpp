@@ -264,6 +264,44 @@ SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Underground_Bonus_A
     return args;
 }
 
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Intro_Small_Castle_Arguments(const QString &generationName) {
+    SMB1_Compliance_Generator_Arguments args;
+    args.currentWorld = 1;
+    args.fileName = this->levelLocation + "/" + generationName + "/Pipe_Intro_Small_Castle.lvl";
+    args.useAutoScroll = false;
+    args.useMidpoints = false;
+    args.difficulty = 1;
+    this->Prepare_Difficulty_Arguments(args);
+    args.levelType = Level_Type::PIPE_INTRO;
+    args.levelCompliment = Level_Compliment::BULLET_BILL_TURRETS;
+    args.startCastle = Castle::SMALL;
+    args.endCastle = Castle::NONE;
+    args.numObjectBytes = 1000;
+    args.numEnemyBytes = 1000;
+    args.maxLevelLength = 1000;
+
+    if (Random::Get_Instance().Get_Num(4)==0) args.levelCompliment = Level_Compliment::MUSHROOMS;
+    else args.levelCompliment = Level_Compliment::TREES;
+    args.headerScenery = Scenery::ONLY_CLOUDS;
+    if (Random::Get_Instance().Get_Num(1)==0) {
+        int random = Random::Get_Instance().Get_Num(189);
+        if (random < 70) args.headerBackground = Background::OVER_WATER;
+        else if (random < 110) args.headerBackground = Background::NIGHT;
+        else if (random < 150) args.headerBackground = Background::SNOW;
+        else if (random < 175) args.headerBackground = Background::NIGHT_AND_SNOW;
+        else if (random < 190) args.headerBackground = Background::NIGHT_AND_FREEZE;
+        else assert(false);
+    } else args.headerBackground = Background::BLANK_BACKGROUND;
+    return args;
+}
+
+SMB1_Compliance_Generator_Arguments Level_Generator::Prepare_Pipe_Intro_Big_Castle_Arguments(const QString &generationName) {
+    SMB1_Compliance_Generator_Arguments args = this->Prepare_Pipe_Intro_Small_Castle_Arguments(generationName);
+    args.fileName = this->levelLocation + "/" + generationName + "/Pipe_Intro_Big_Castle.lvl";
+    args.startCastle = Castle::BIG;
+    return args;
+}
+
 void Level_Generator::Prepare_Difficulty_Arguments(SMB1_Compliance_Generator_Arguments &args) {
     args.useVerticalObjectLimit = this->pluginSettings->baseROM.startsWith(ROM_Filename::STRING_FULL_SUPPORT);
     if (this->pluginSettings->smbUtilityCompatibility) args.useVerticalObjectLimit = false;
@@ -706,10 +744,13 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
 
     //Generate the Levels
     bool isVerticalObjectLimitPatchNecessary = false;
+    bool hasPipeIntroSmallCastleBeenWritten = false;
+    bool hasPipeIntroBigCastleBeenWritten = false;
     if (!this->Write_To_Map(mapBuffer, Header::STRING_LEVEL_MAP_COMMENT)) return false;
     for (int i = 0; i < numLevels; ++i) {
         //Prepare Arguments
         SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(generationName, i, numLevels);
+        assert(this->Handle_Pipe_Intro_Level(generationName, args, mapBuffer, i, hasPipeIntroSmallCastleBeenWritten, hasPipeIntroBigCastleBeenWritten));
 
         //Get the number of objects and enemies that are available for the level
         QMap<Level::Level, int>::iterator iter = this->numObjectsInLevel->find(levelOrder.at(i));
@@ -798,6 +839,54 @@ bool Level_Generator::Generate_New_Levels(QString &generationFileName) {
     return true;
 }
 
+bool Level_Generator::Handle_Pipe_Intro_Level(const QString &generationName, const SMB1_Compliance_Generator_Arguments &args, Text_Insertion_Buffer &mapBuffer,
+                                              int levelNum, bool &hasPipeIntroSmallCastleBeenWritten, bool &hasPipeIntroBigCastleBeenWritten) {
+    bool needsPipeIntro = args.levelType == Level_Type::UNDERGROUND || args.levelType == Level_Type::UNDERWATER;
+    if (!needsPipeIntro) return true;
+    if (this->pluginSettings->godMode) return true; //God mode is incompatible with pipe intros!
+
+    int level = (levelNum%this->pluginSettings->numLevelsPerWorld)+1;
+    int world = (levelNum/this->pluginSettings->numLevelsPerWorld)+1;
+    if (level == 1 && world == 1) return true; //no pipe intro on the first level
+    Level::Level levelSlot = Level::PIPE_INTRO_SMALL_CASTLE;
+    if (level == 1) levelSlot = Level::PIPE_INTRO_BIG_CASTLE;
+
+    //Get the number of objects and enemies that are available for the level
+    SMB1_Compliance_Generator_Arguments pipeIntroArgs;
+    if (levelSlot == Level::PIPE_INTRO_SMALL_CASTLE) pipeIntroArgs = this->Prepare_Pipe_Intro_Small_Castle_Arguments(generationName);
+    else if (levelSlot == Level::PIPE_INTRO_BIG_CASTLE) pipeIntroArgs = this->Prepare_Pipe_Intro_Big_Castle_Arguments(generationName);
+    else assert(false);
+    QMap<Level::Level, int>::iterator iter = this->numObjectsInLevel->find(levelSlot);
+    assert(iter != this->numObjectsInLevel->end());
+    pipeIntroArgs.numObjectBytes = iter.value(); //use the value from memory instead of the ROM, as the ROM has not been rearranged yet!
+    pipeIntroArgs.numEnemyBytes = 0;
+
+    if (!this->generatorPlugin->Generate_Level(pipeIntroArgs)) {
+        qDebug() << "Looks like the generator blew up";
+        return false;
+    }
+
+    //Write the level to the map
+    if (levelSlot == Level::PIPE_INTRO_SMALL_CASTLE) {
+        if (hasPipeIntroSmallCastleBeenWritten) {
+            if (!this->Write_To_Map(mapBuffer, levelSlot)) return false; //only write the level slot
+        } else {
+            if (!this->Write_To_Map(mapBuffer, levelSlot, pipeIntroArgs.fileName.split("/").last())) return false;
+            hasPipeIntroSmallCastleBeenWritten = true;
+        }
+    } else if (levelSlot == Level::PIPE_INTRO_BIG_CASTLE) {
+        if (hasPipeIntroBigCastleBeenWritten) {
+            if (!this->Write_To_Map(mapBuffer, levelSlot)) return false; //only write the level slot
+        } else {
+            if (!this->Write_To_Map(mapBuffer, levelSlot, pipeIntroArgs.fileName.split("/").last())) return false;
+            hasPipeIntroBigCastleBeenWritten = true;
+        }
+    } else {
+        assert(false);
+    }
+    return true;
+}
+
 bool Level_Generator::Handle_Map_File() {
     assert(this->sequentialArchivePlugin->Is_Open());
     QTextStream mapFile(this->sequentialArchivePlugin->Read_File("/" + Common_Strings::STRING_GAME_NAME + ".map"), QIODevice::ReadOnly);
@@ -817,7 +906,10 @@ bool Level_Generator::Handle_Map_File() {
     if (mapFile.atEnd()) return false;
 
     //Parse the Levels
-    if (!this->Parse_Levels(mapFile, levels, numWorlds, numLevelsPerWorld, lineNum, errorCode)) return false;
+    int numLevelsInMap = 0;
+    assert(this->Count_Num_Levels_In_Map(mapFile, numLevelsInMap));
+    assert(numWorlds*numLevelsPerWorld <= numLevelsInMap);
+    if (!this->Parse_Levels(mapFile, levels, numLevelsPerWorld, numLevelsInMap, lineNum, errorCode)) return false;
     if (!mapFile.atEnd()) return false;
     return true;
 }
@@ -946,7 +1038,7 @@ bool Level_Generator::Parse_Boolean(const QString &string, bool &value) {
     return false;
 }
 
-bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numWorlds, int numLevelsPerWorld, int &lineNum, int &errorCode) {
+bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numLevelsPerWorld, int numLevelsInMap, int &lineNum, int &errorCode) {
     //Read the Level Lines
     int currentLevelNum = 0;
     int currentWorldNum = 1;
@@ -1046,7 +1138,7 @@ bool Level_Generator::Parse_Levels(QTextStream &file, const QMap<QString, Level:
                 }
 
                 //Parse the level script
-                SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(scriptName, levelNum, numWorlds*numLevelsPerWorld);
+                SMB1_Compliance_Generator_Arguments args = this->Prepare_Arguments(scriptName, levelNum, numLevelsInMap);
                 args.difficultyBulletTime = 11; //never use bullet time when parsing!
                 SMB1_Compliance_Parser_Arguments parserArgs = this->generatorPlugin->Get_Empty_SMB1_Compliance_Parser_Arguments();
                 QTextStream levelStream(this->sequentialArchivePlugin->Read_File("/" + scriptName), QIODevice::ReadOnly);
@@ -1308,6 +1400,20 @@ bool Level_Generator::Parse_To_Next_Seperator(QTextStream &file, int &lineNum) {
     return true;
 }
 
+bool Level_Generator::Count_Num_Levels_In_Map(QTextStream &file, int &numLevels) {
+    qint64 startingPostion = file.pos();
+    numLevels = 0;
+    do {
+        QString line = file.readLine().trimmed();
+        if (line.isEmpty()) continue;
+        if (line.at(0) == '#') continue;
+        if (line.startsWith("===")) break;
+        ++numLevels;
+    } while (!file.atEnd());
+    file.seek(startingPostion);
+    return true;
+}
+
 void Level_Generator::Populate_Level_Map(QMap<QString, Level::Level> &levels) {
     levels.clear();
     levels.insert(Level::STRING_WORLD_1_LEVEL_1, Level::WORLD_1_LEVEL_1);
@@ -1506,7 +1612,7 @@ bool Level_Generator::Write_Move_Objects_Map(Text_Insertion_Buffer &mapBuffer) {
     if (!this->Write_Move_Items_To_Map(mapBuffer, 12, Level::WORLD_3_LEVEL_2, Level::WORLD_7_LEVEL_1, true)) return false;
     if (!this->Write_Move_Items_To_Map(mapBuffer, 14, Level::WORLD_3_LEVEL_2, Level::WORLD_3_LEVEL_3, true)) return false;
     if (!this->Write_Move_Items_To_Map(mapBuffer, 2, Level::WARP_ZONE, Level::WORLD_3_LEVEL_3, true)) return false;
-    if (!this->Write_Move_Items_To_Map(mapBuffer, 20, Level::WARP_ZONE, Level::CLOUD_BONUS_2, true)) return false;
+    if (!this->Write_Move_Items_To_Map(mapBuffer, 18, Level::WARP_ZONE, Level::CLOUD_BONUS_2, true)) return false;
     if (!this->Write_Move_Items_To_Map(mapBuffer, 18, Level::WARP_ZONE, Level::WORLD_1_LEVEL_4, true)) return false;
     if (!this->Write_Move_Items_To_Map(mapBuffer, 4, Level::WORLD_5_LEVEL_1, Level::WORLD_1_LEVEL_4, true)) return false;
     if (!this->Write_Move_Items_To_Map(mapBuffer, 30, Level::WORLD_5_LEVEL_1, Level::WORLD_6_LEVEL_3, true)) return false;

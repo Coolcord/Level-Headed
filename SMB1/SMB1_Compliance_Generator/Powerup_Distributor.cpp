@@ -259,6 +259,7 @@ QVector<QMap<QString, Block_Data>::iterator> Powerup_Distributor::Get_Possible_B
 }
 
 bool Powerup_Distributor::Reserve_Powerup_Objects() {
+    if (this->args->levelType == Level_Type::PIPE_INTRO) return true; //nothing to do
     this->Roll_For_Powerups(this->numPowerups, this->minPowerups, this->maxPowerups);
     if (!this->objects->Reserve_Objects(this->numPowerups)) return false;
     this->Roll_For_Hidden_Items(this->numHiddenPowerups, this->minHiddenPowerups, this->maxHiddenPowerups, this->hiddenPowerupChance, false);

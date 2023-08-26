@@ -24,7 +24,8 @@ private:
     SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Small_Castle_Arguments(const QString &generationName);
     SMB1_Compliance_Generator_Arguments Prepare_Pipe_Exit_Big_Castle_Arguments(const QString &generationName);
     SMB1_Compliance_Generator_Arguments Prepare_Underground_Bonus_Arguments(const QString &generationName);
-    //SMB1_Compliance_Generator_Arguments Prepare_Pipe_Intro_Arguments(const QString &generationName); //TODO: Implement this!
+    SMB1_Compliance_Generator_Arguments Prepare_Pipe_Intro_Small_Castle_Arguments(const QString &generationName);
+    SMB1_Compliance_Generator_Arguments Prepare_Pipe_Intro_Big_Castle_Arguments(const QString &generationName);
     //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Day_Arguments(const QString &generationName); //TODO: Implement this!
     //SMB1_Compliance_Generator_Arguments Prepare_Cloud_Bonus_Night_Arguments(const QString &generationName); //TODO: Implement this!
     //SMB1_Compliance_Generator_Arguments Prepare_Underwater_Bonus_Arguments(const QString &generationName); //TODO: Implement this!
@@ -36,6 +37,7 @@ private:
     Level_Type::Level_Type Determine_Level_Type(int levelNum, int numLevels, int numWorlds, int numLevelsPerWorld);
     bool Determine_If_Auto_Scroller(int levelNum, int difficulty);
     bool Generate_New_Levels(QString &generationFileName);
+    bool Handle_Pipe_Intro_Level(const QString &generationName, const SMB1_Compliance_Generator_Arguments &args, Text_Insertion_Buffer &mapBuffer, int levelNum, bool &wrotePipeIntroSmallCastle, bool &wrotePipeIntroLargeCastle);
     bool Handle_Map_File();
     bool Load_Sequential_Archive_Plugin();
     void Read_Level_Chance(const QString &chance, Level_Type::Level_Type levelType);
@@ -43,12 +45,13 @@ private:
     bool Move_Enemies_In_Map(int numBytes, Level::Level sourceLevel, Level::Level destinationLevel);
     bool Move_Objects_In_Map(int numBytes, Level::Level sourceLevel, Level::Level destinationLevel);
     bool Parse_Boolean(const QString &string, bool &value);
-    bool Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numWorlds, int numLevelsPerWorld, int &lineNum, int &errorCode);
+    bool Parse_Levels(QTextStream &file, const QMap<QString, Level::Level> &levels, int numLevelsPerWorld, int numLevelsInMap, int &lineNum, int &errorCode);
     bool Parse_Level_Map(const QString &fileName);
     bool Parse_Map_Header(QTextStream &file, int &numWorlds, int &numLevelsPerWorld, int &lineNum, int &errorCode);
     bool Parse_Move_Table(QTextStream &file, const QMap<QString, Level::Level> &levels, int &lineNum, int &errorCode, bool objects);
     QString Parse_Through_Comments_Until_First_Word(QTextStream &file, const QString &word, int &lineNum);
     bool Parse_To_Next_Seperator(QTextStream &file, int &lineNum);
+    bool Count_Num_Levels_In_Map(QTextStream &file, int &numLevels);
     void Populate_Level_Map(QMap<QString, Level::Level> &levels);
     void Populate_Num_Objects_And_Enemies_In_Levels();
     void Prevent_First_Level_From_Being_Underwater(int numLevelsPerWorld, int numLevelTypes);
