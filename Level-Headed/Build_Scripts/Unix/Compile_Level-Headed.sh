@@ -31,8 +31,8 @@ if [ ${MSYSTEM} == "MINGW64" ]; then
     if [ ! -f /mingw64/share/qt6/plugins/platforms/qwindows.dll ]; then
         echo "qwindows.dll could not be found! Aborting!"; exit 1;
     fi
-    if [ ! -f /mingw64/share/qt6/plugins/styles/qwindowsvistastyle.dll ]; then
-        echo "qwindowsvistastyle.dll could not be found! Aborting!"; exit 1;
+	if [ ! -f /mingw64/share/qt6/plugins/styles/q*style.dll ]; then
+        echo "q*style.dll could not be found! Aborting!"; exit 1;
     fi
 	if [ ! -f /mingw64/share/qt6/plugins/tls/qschannelbackend.dll ]; then
         echo "qschannelbackend.dll could not be found! Aborting!"; exit 1;
