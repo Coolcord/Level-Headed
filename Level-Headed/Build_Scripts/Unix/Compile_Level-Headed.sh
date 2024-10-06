@@ -89,14 +89,13 @@ fi
 # Revert to stable code
 if [ -z $1 ] || ([ $1 != "latest" ] && [ $1 != "local" ]); then
     echo Using stable code...
+	cd Level-Headed/; git checkout tags/v0.3.10 &> /dev/null
+	cd ../Level-Headed_Data/; git checkout tags/v0.3.10 &> /dev/null
+	cd ../Hexagon/; git checkout tags/v1.1.2 &> /dev/null
+	cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
+	cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
+	cd ..
 fi
-
-cd Level-Headed/; git checkout tags/v0.3.10 &> /dev/null
-cd ../Level-Headed_Data/; git checkout tags/v0.3.10 &> /dev/null
-cd ../Hexagon/; git checkout tags/v1.1.2 &> /dev/null
-cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
-cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
-cd ..
     
 if [ ! -z $1 ] && [ $1 == "latest" ]; then
     echo Using latest code...
