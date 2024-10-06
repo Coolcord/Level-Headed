@@ -95,9 +95,7 @@ if [ -z $1 ] || ([ $1 != "latest" ] && [ $1 != "local" ]); then
 	cd ../Sequential_Archive/; git checkout tags/v1.1.2 &> /dev/null
 	cd ../C_Common_Code/; git checkout 53d15d76cb1171537becc144960721fc472505a8 &> /dev/null
 	cd ..
-fi
-    
-if [ ! -z $1 ] && [ $1 == "latest" ]; then
+elif [ ! -z $1 ] && [ $1 == "latest" ]; then
     echo Using latest code...
 fi
     
